@@ -2,6 +2,8 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
+using System.Linq;
 
 namespace com.github.lhervier.ksp 
 {
@@ -25,7 +27,12 @@ namespace com.github.lhervier.ksp
         // <summary>
         //  The action sets
         // </summary>
-        private IKspActionSet[] actionSets;
+        private List<IKspActionSet> actionSets;
+
+        // <summary>
+        //  The default action set
+        // </summary>
+        private IKspActionSet defaultActionSet;
 
         // <summary>
         //  Message indicating when on Steam Controller action set changes
@@ -35,7 +42,7 @@ namespace com.github.lhervier.ksp
         // <summary>
         //  Previous action set (so we don't display the message when the value has not changed)
         // </summary>
-        private KSPActionSets prevActionSet;
+        private string prevActionSet;
 
         // <summary>
         //  Connection Daemon to the steam controller
@@ -64,12 +71,24 @@ namespace com.github.lhervier.ksp
         //  Start of the plugin
         // </summary>
         protected void Start() 
-        {
+        {   
+            LOGGER.Log("Starting");
+
             // Get all the action sets
-            this.actionSets = gameObject.GetComponents<IKspActionSet>();
-            LOGGER.Log("Action sets loaded : " + this.actionSets.Length);
+            LOGGER.Log("Loading action sets");
+            this.LoadActionSets();
+            LOGGER.Log("Action sets loaded : " + this.actionSets.Count);
+            foreach(IKspActionSet actionSet in this.actionSets) 
+            {
+                LOGGER.Log("- " + actionSet.ControlName());
+            }
+            LOGGER.Log("Default action set : " + this.defaultActionSet.ControlName());
             
-            // Attach to delayed action daemon
+            // Create the controller daemon
+            this.connectionDaemon = gameObject.AddComponent<SteamControllerDaemon>();
+            LOGGER.Log("Controller Daemon attached");
+
+            // Create the delayed action daemon
             this.delayedActionDaemon = gameObject.AddComponent<DelayedActionDaemon>();
             LOGGER.Log("Delayed Actions Daemon attached");
             
@@ -82,24 +101,42 @@ namespace com.github.lhervier.ksp
             LOGGER.Log("Status message ready");
 
             // Attach to connection Daemon
-            this.StartCoroutine(            
-                this.WaitForControllerDaemon(
-                    () => {
-                        this.connectionDaemon = SteamControllerDaemon.Instance;
-                        
-                        this.connectionDaemon.OnControllerConnected.Add(this.OnControllerConnected);
-                        this.connectionDaemon.OnControllerDisconnected.Add(this.OnControllerDisconnected);
-                        LOGGER.Log("Controller Events attached");
+            this.connectionDaemon.OnControllerConnected.Add(this.OnControllerConnected);
+            this.connectionDaemon.OnControllerDisconnected.Add(this.OnControllerDisconnected);
+            LOGGER.Log("Controller Events attached");
 
-                        // When a controller is already connected
-                        if( this.connectionDaemon.ControllerConnected ) 
-                        {
-                            this.OnControllerConnected();
-                        }
-                    }
-                )
-            );
+            // When a controller is already connected
+            if( this.connectionDaemon.ControllerConnected ) 
+            {
+                this.OnControllerConnected();
+            }
             LOGGER.Log("Started");
+        }
+
+        private void LoadActionSets()
+        {
+            // Get all types that implement IKspActionSet
+            var actionSetTypes = Assembly.GetExecutingAssembly()
+                .GetTypes()
+                .Where(t => t.IsClass && !t.IsAbstract && typeof(IKspActionSet).IsAssignableFrom(t));
+
+            // Create a list to store the action sets
+            this.actionSets = new List<IKspActionSet>();
+
+            // Add each action set component to the GameObject
+            foreach (var type in actionSetTypes)
+            {
+                IKspActionSet component = gameObject.AddComponent(type) as IKspActionSet;
+                this.actionSets.Add(component);
+                if( component.Default() ) 
+                {
+                    this.defaultActionSet = component;
+                }
+            }
+            if( this.defaultActionSet == null ) 
+            {
+                throw new Exception("No default action set found");
+            }
         }
 
         // <summary>
@@ -110,22 +147,8 @@ namespace com.github.lhervier.ksp
             this.connectionDaemon.OnControllerDisconnected.Remove(OnControllerDisconnected);
             this.connectionDaemon.OnControllerConnected.Remove(OnControllerConnected);
             Destroy(this.delayedActionDaemon);
+            Destroy(this.connectionDaemon);
             LOGGER.Log("Destroyed");
-        }
-
-        // <summary>
-        //  Wait for the controller daemon to be available
-        // </summary>
-        // <param name="next">Action to execute once the daemon is ready</param>
-        private IEnumerator WaitForControllerDaemon(Action next) 
-        {
-            LOGGER.Log("Waiting for Controller Daemon");
-            while( SteamControllerDaemon.Instance == null )
-            {
-                yield return null;
-            }
-            LOGGER.Log("Controller Daemon found");
-            next();
         }
 
         // ====================================================================================
@@ -153,77 +176,51 @@ namespace com.github.lhervier.ksp
         // <summary>
         //  Change action set NOW
         // </summary>
-        public void SetActionSet(KSPActionSets actionSet) 
+        public void SetActionSet() 
         {
             this.CancelActionSetChange();
-            this._SetActionSet(actionSet);
+            this._SetActionSet(this.ComputeActionSet());
         }
-        private void _SetActionSet(KSPActionSets actionSet) 
+        
+        // <summary>
+        //  Change action set NOW
+        // </summary>
+        // <param name="actionSetName">The name of the action set to set</param>
+        public void SetActionSet(string actionSetName) 
+        {
+            this.CancelActionSetChange();
+            this._SetActionSet(actionSetName);
+        }
+        private void _SetActionSet(string actionSetName) 
         {
             if( !this.connectionDaemon.ControllerConnected ) {
                 return;
             }
-            if( actionSet == this.prevActionSet ) 
+            if( actionSetName == this.prevActionSet ) 
             {
                 return;
             }
 
-            this.connectionDaemon.setActionSet(actionSet);
+            this.connectionDaemon.setActionSet(actionSetName);
             
-            this.screenMessage.message = "Controller: " + actionSet.GetLabel() + ".";
+            this.screenMessage.message = "Controller: " + actionSetName + ".";
             ScreenMessages.PostScreenMessage(this.screenMessage);
-            this.prevActionSet = actionSet;
+            this.prevActionSet = actionSetName;
         }
 
         // <summary>
         //  Compute the action set to use, depending on the KSP context
         // </summary>
-        private KSPActionSets ComputeActionSet() 
+        private string ComputeActionSet() 
         {
-            if( HighLogic.LoadedSceneIsFlight ) 
+            foreach(IKspActionSet actionSet in this.actionSets) 
             {
-                
-                if( MapView.MapIsEnabled ) 
+                if( actionSet.Active() ) 
                 {
-                    return KSPActionSets.Map;
+                    return actionSet.ControlName();
                 }
-                
-                if( FlightGlobals.ActiveVessel != null && FlightGlobals.ActiveVessel.isEVA )    // FlightGlobals.ActiveVessel is null when loading a saved game
-                {
-                    return KSPActionSets.EVA;
-                }
-                
-                FlightUIMode mode = FlightUIModeController.Instance.Mode;
-                switch( mode ) 
-                {
-                
-                case FlightUIMode.STAGING:
-                case FlightUIMode.MANEUVER_EDIT:     // May not happen has editing maneuvre is only available in map view
-                case FlightUIMode.MANEUVER_INFO:
-                    return KSPActionSets.Flight;
-                
-                case FlightUIMode.DOCKING:
-                    return KSPActionSets.Docking;
-                
-                case FlightUIMode.MAPMODE:          // Seems to called alone (without another event juste next) only when in tracking station
-                    return KSPActionSets.Map;
-                }
-            
             }
-            else if( HighLogic.LoadedScene == GameScenes.TRACKSTATION ) 
-            {
-                return KSPActionSets.Map;
-            } 
-            else if( HighLogic.LoadedSceneIsEditor) 
-            {
-                return KSPActionSets.Editor;
-            }
-            else if( HighLogic.LoadedScene == GameScenes.MISSIONBUILDER ) 
-            {
-                return KSPActionSets.Editor;
-            }
-            
-            return KSPActionSets.Menu;
+            return this.defaultActionSet.ControlName();
         }
         
         // ==============================================================================
@@ -284,7 +281,7 @@ namespace com.github.lhervier.ksp
         // </summary>
         protected void OnGamePause() 
         {
-            this.SetActionSet(KSPActionSets.Menu);
+            this.SetActionSet("MenuControls");
         }
         
         // <summary>
@@ -293,7 +290,7 @@ namespace com.github.lhervier.ksp
         // </summary>
         protected void OnGameUnpause() 
         {
-            this.SetActionSet(this.ComputeActionSet());
+            this.SetActionSet();
         }
         
         // <summary>
@@ -309,7 +306,7 @@ namespace com.github.lhervier.ksp
         // </summary>
         protected void OnMapEntered() 
         {
-            this.SetActionSet(KSPActionSets.Map);
+            this.SetActionSet("MapControls");       // FIXME
         }
 
         // <summary>

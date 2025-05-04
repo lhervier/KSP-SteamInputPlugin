@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Steamworks;
 
@@ -11,18 +12,12 @@ namespace com.github.lhervier.ksp
     //  Daemon in charge of listening to steam controllers connection/disconnection
     //  It also allow to change the current action set of the controller
     // </summary>
-    [KSPAddon(KSPAddon.Startup.PSystemSpawn, true)]
     public class SteamControllerDaemon : MonoBehaviour 
     {
         
         // ==========================================================================================
         //                          Static properties
         // ==========================================================================================
-
-        // <summary>
-        //  Instance of the daemon
-        // </summary>
-        public static SteamControllerDaemon Instance { get; private set; }
 
         // <summary>
         //  Logger object
@@ -48,6 +43,8 @@ namespace com.github.lhervier.ksp
 
         // ==============================================
 
+        private string[] actionSets;
+
         // <summary>
         //  Handle to the first connected controller. No sense if ControllerConnected = false
         // </summary>
@@ -56,7 +53,7 @@ namespace com.github.lhervier.ksp
         // <summary>
         //  The action sets handles defined in the steam controller configuration template
         // </summary>
-        private IDictionary<KSPActionSets, ControllerActionSetHandle_t> actionsSetsHandles = new Dictionary<KSPActionSets, ControllerActionSetHandle_t>();
+        private IDictionary<string, ControllerActionSetHandle_t> actionsSetsHandles = new Dictionary<string, ControllerActionSetHandle_t>();
 
         // <summary>
         //  Handles to the connected steam controllers.
@@ -86,8 +83,6 @@ namespace com.github.lhervier.ksp
             this.OnControllerDisconnected = new EventVoid("controller.OnDisconnected");
             this.ControllerConnected = false;
             
-            Instance = this;
-            
             LOGGER.Log("Awaked");
         }
 
@@ -96,7 +91,6 @@ namespace com.github.lhervier.ksp
         // </summary>
         public void OnDestroy() 
         {
-            Instance = null;
             this.StopCoroutine(this.checkForControllerCoroutine);
             LOGGER.Log("Destroyed");
         }
@@ -106,14 +100,27 @@ namespace com.github.lhervier.ksp
         // </summary>
         public void Start() 
         {
+            LOGGER.Log("Starting");
+
+            LOGGER.Log("Checking that Steam is initialized");
             if( !SteamManager.Initialized ) 
             {
                 LOGGER.Log("Steam not detected. Unable to start the daemon.");
                 return;
             }
 
+            // Load the action sets
+            LOGGER.Log("Loading action sets");
+            this.actionSets = gameObject
+                .GetComponents<IKspActionSet>()
+                .Select(actionSet => actionSet.ControlName())
+                .ToArray();
+            LOGGER.Log("Action sets loaded : " + this.actionSets.Length);
+            
+            // Initialize the Steam Controller
             SteamController.Init();
             
+            // Start the main loop
             this.checkForControllerCoroutine = this.CheckForController();
             this.StartCoroutine(this.checkForControllerCoroutine);
             LOGGER.Log("Started");
@@ -187,7 +194,7 @@ namespace com.github.lhervier.ksp
                     LOGGER.Log("Steam Controller connected");
                     this.controllerHandle = this._controllerHandles[0];
                     this.ControllerConnected = true;
-                    this.LoadActionSets();
+                    this.LoadActionSetsHandles();
                     this.StartCoroutine(this.SayHello());
                     this.OnControllerConnected.Fire();
                 }
@@ -201,12 +208,11 @@ namespace com.github.lhervier.ksp
         //  Load action sets handles. The API don' ask for a handle on a controller.
         //  It seems to load the action sets of the first controller.
         // </summary>
-        private void LoadActionSets() 
+        private void LoadActionSetsHandles() 
         {
             LOGGER.Log("Loading Action Set Handles");
-            foreach(KSPActionSets actionSet in Enum.GetValues(typeof(KSPActionSets))) 
+            foreach(string actionSetName in this.actionSets) 
             {
-                string actionSetName = actionSet.GetId();
                 LOGGER.Log("- Getting action set handle for " + actionSetName);
                 // Action Sets list should depend on the used controller. But that's not what the API is waiting for...
                 ControllerActionSetHandle_t actionSetHandle = SteamController.GetActionSetHandle(actionSetName);
@@ -214,7 +220,7 @@ namespace com.github.lhervier.ksp
                 {
                     LOGGER.Log("ERROR : Action set handle for " + actionSetName + " not found. I will use the default action set instead");
                 }
-                this.actionsSetsHandles[actionSet] = actionSetHandle;
+                this.actionsSetsHandles[actionSetName] = actionSetHandle;
             }
         }
 
@@ -246,11 +252,11 @@ namespace com.github.lhervier.ksp
 
         // =========================================================================================
 
-        // <param name="actionSet">The action set to set</param>
+        // <param name="actionSetName">The name of the action set to set</param>
         // <summary>
         //  Change the current action set
         // </summary>
-        public void setActionSet(KSPActionSets actionSet) 
+        public void setActionSet(string actionSetName) 
         {
             if( !this.ControllerConnected ) 
             {
@@ -259,7 +265,7 @@ namespace com.github.lhervier.ksp
 
             SteamController.ActivateActionSet(
                 this.controllerHandle, 
-                this.actionsSetsHandles[actionSet]
+                this.actionsSetsHandles[actionSetName]
             );
         }
     }
