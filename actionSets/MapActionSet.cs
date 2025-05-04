@@ -20,5 +20,9 @@ namespace com.github.lhervier.ksp
             FlightUIMode mode = FlightUIModeController.Instance.Mode;
             return mode == FlightUIMode.MAPMODE;
         }
+
+        public bool Default() {
+            return false;
+        }
     }
 }

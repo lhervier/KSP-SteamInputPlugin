@@ -20,5 +20,9 @@ namespace com.github.lhervier.ksp
             if( HighLogic.LoadedScene == GameScenes.MISSIONBUILDER ) return false;
             return true;
         }
+
+        public bool Default() {
+            return true;
+        }
     }
 }

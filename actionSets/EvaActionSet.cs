@@ -18,5 +18,9 @@ namespace com.github.lhervier.ksp
             if( FlightGlobals.ActiveVessel == null ) return false;
             return FlightGlobals.ActiveVessel.isEVA;                
         }
+
+        public bool Default() {
+            return false;
+        }
     }
 }

@@ -15,5 +15,9 @@ namespace com.github.lhervier.ksp
         public bool Active() {
             return HighLogic.LoadedScene == GameScenes.TRACKSTATION;
         }
+
+        public bool Default() {
+            return false;
+        }
     }
 }
