@@ -12,13 +12,36 @@ namespace com.github.lhervier.ksp
             return controlName;
         }
 
-        public bool Active() {
-            // Menu mode is the default mode when no other mods can be detected
-            if( HighLogic.LoadedSceneIsFlight ) return false;
-            if( HighLogic.LoadedScene == GameScenes.TRACKSTATION ) return false;
-            if( HighLogic.LoadedSceneIsEditor) return false;
-            if( HighLogic.LoadedScene == GameScenes.MISSIONBUILDER ) return false;
-            return true;
+        public RefreshType Active() {
+            // System screens and menus
+            if( HighLogic.LoadedScene == GameScenes.CREDITS ) return RefreshType.Immediate;
+            if( HighLogic.LoadedScene == GameScenes.LOADING ) return RefreshType.Immediate;
+            if( HighLogic.LoadedScene == GameScenes.LOADINGBUFFER ) return RefreshType.Immediate;
+            if( HighLogic.LoadedScene == GameScenes.MAINMENU ) return RefreshType.Immediate;
+            if( HighLogic.LoadedScene == GameScenes.SETTINGS ) return RefreshType.Immediate;
+            if( HighLogic.LoadedScene == GameScenes.PSYSTEM ) return RefreshType.Immediate;
+            
+            // Space center
+            if( HighLogic.LoadedScene == GameScenes.SPACECENTER && !SteamControllerPlugin.GamePaused ) {
+                return RefreshType.Immediate;
+            }
+            
+            // Administrative building
+            // R&D Facility
+            // Astraunauts complex
+            // Mission control
+            // Exit Menu
+            if( HighLogic.LoadedScene == GameScenes.SPACECENTER && !SteamControllerPlugin.GamePaused) {
+                return RefreshType.Immediate;
+            }
+
+            // In flight, game paused
+            if( HighLogic.LoadedSceneIsFlight && SteamControllerPlugin.GamePaused ) 
+            {
+                return RefreshType.Immediate;
+            }
+
+            return RefreshType.Nope;
         }
 
         public bool Default() {

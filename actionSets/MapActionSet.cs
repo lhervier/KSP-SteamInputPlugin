@@ -12,13 +12,17 @@ namespace com.github.lhervier.ksp
             return controlName;
         }
 
-        public bool Active() {
-            if( !HighLogic.LoadedSceneIsFlight ) return false;
-            if( MapView.MapIsEnabled ) return true;
-            if( FlightGlobals.ActiveVessel != null && FlightGlobals.ActiveVessel.isEVA ) return false;
+        public RefreshType Active() {
+            if( !HighLogic.LoadedSceneIsFlight ) return RefreshType.Nope;
+            if( SteamControllerPlugin.GamePaused ) return RefreshType.Nope;
+            if( FlightGlobals.ActiveVessel != null && FlightGlobals.ActiveVessel.isEVA ) return RefreshType.Nope;
 
+            if( MapView.MapIsEnabled ) return RefreshType.Delayed;
+            
+            if( FlightUIModeController.Instance == null ) return RefreshType.Nope;
             FlightUIMode mode = FlightUIModeController.Instance.Mode;
-            return mode == FlightUIMode.MAPMODE;
+            if( mode == FlightUIMode.MAPMODE ) return RefreshType.Delayed;
+            return RefreshType.Nope;
         }
 
         public bool Default() {

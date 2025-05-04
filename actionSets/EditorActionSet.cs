@@ -12,8 +12,10 @@ namespace com.github.lhervier.ksp
             return controlName;
         }
 
-        public bool Active() {
-            return HighLogic.LoadedSceneIsEditor;
+        public RefreshType Active() {
+            if( !HighLogic.LoadedSceneIsEditor ) return RefreshType.Nope;
+            
+            return RefreshType.Delayed;
         }
 
         public bool Default() {

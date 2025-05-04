@@ -12,8 +12,9 @@ namespace com.github.lhervier.ksp
             return controlName;
         }
 
-        public bool Active() {
-            return HighLogic.LoadedScene == GameScenes.MISSIONBUILDER;
+        public RefreshType Active() {
+            if( HighLogic.LoadedScene != GameScenes.MISSIONBUILDER ) return RefreshType.Nope;
+            return RefreshType.Delayed;
         }
 
         public bool Default() {

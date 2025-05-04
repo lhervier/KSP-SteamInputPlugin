@@ -5,6 +5,7 @@ using System.Collections;
 namespace com.github.lhervier.ksp 
 {
     public interface IKspActionSet {
+
         // <summary>    
         //  The name of the control set
         // </summary>
@@ -13,7 +14,7 @@ namespace com.github.lhervier.ksp
         // <summary>
         //  Whether the control set is active
         // </summary>
-        bool Active();
+        RefreshType Active();
 
         // <summary>
         //  Whether the control set is the default

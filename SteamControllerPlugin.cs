@@ -22,6 +22,11 @@ namespace com.github.lhervier.ksp
         // </summary>
         private static readonly int DELAY = 10;
         
+        // <summary>
+        //  Pour savoir si le jeu est en pause...
+        // </summary>
+        public static bool GamePaused = false;
+
         // ==================================================================================
 
         // <summary>
@@ -153,16 +158,56 @@ namespace com.github.lhervier.ksp
 
         // ====================================================================================
 
+        private string actionSetToSet;
+
         // <summary>
         //  Trigger an action set change
         // </summary>
         public void TriggerActionSetChange() 
         {
-            this.delayedActionDaemon.TriggerDelayedAction(this._TriggerActionSetChange, DELAY);
+            LOGGER.Log("TriggerActionSetChange");
+            LOGGER.Log("- HighLogic :");
+            LOGGER.Log("  - LoadedScene : " + HighLogic.LoadedScene.ToString());
+            LOGGER.Log("  - LoadedSceneHasPlanetarium : " + HighLogic.LoadedSceneHasPlanetarium);
+            LOGGER.Log("  - LoadedSceneIsEditor : " + HighLogic.LoadedSceneIsEditor);
+            LOGGER.Log("  - LoadedSceneIsFlight : " + HighLogic.LoadedSceneIsFlight);
+            LOGGER.Log("  - LoadedSceneIsGame : " + HighLogic.LoadedSceneIsGame);
+            LOGGER.Log("  - LoadedSceneIsMissionBuilder : " + HighLogic.LoadedSceneIsMissionBuilder);
+            
+            LOGGER.Log("- GamePaused : " + GamePaused);
+            LOGGER.Log("- MapView : " + MapView.MapIsEnabled);
+
+            LOGGER.Log("- FlightUIMode present : " + (FlightUIModeController.Instance != null));
+            if( FlightUIModeController.Instance != null ) {
+                LOGGER.Log("  FlightUIMode : " + FlightUIModeController.Instance.Mode.ToString());
+            }
+
+            LOGGER.Log("- Active Vessel present : " + (FlightGlobals.ActiveVessel != null));
+            if( FlightGlobals.ActiveVessel != null ) {
+                LOGGER.Log("  Active Vessel : " + FlightGlobals.ActiveVessel.name);
+                LOGGER.Log("  Active Vessel is EVA : " + FlightGlobals.ActiveVessel.isEVA);
+            }
+
+            LOGGER.Log("  EditorFacility : " + EditorDriver.editorFacility.ToString());
+            
+            this.CancelActionSetChange();
+            
+            IKspActionSet actionSet = this.ComputeActionSet();
+            if( actionSet.Active() == RefreshType.Immediate ) {
+                this._SetActionSet(actionSet.ControlName());
+            } else {
+                this.actionSetToSet = actionSet.ControlName();
+                this.delayedActionDaemon.TriggerDelayedAction(this._TriggerActionSetChange, DELAY);
+            }
         }
         private void _TriggerActionSetChange() 
         {
-            this._SetActionSet(this.ComputeActionSet());
+            if( this.actionSetToSet != null ) {
+                this._SetActionSet(this.actionSetToSet);
+                this.actionSetToSet = null;
+            } else {
+                LOGGER.Log("ERROR : No action set to set");
+            }
         }
 
         // <summary>
@@ -171,33 +216,19 @@ namespace com.github.lhervier.ksp
         private void CancelActionSetChange() 
         {
             this.delayedActionDaemon.CancelDelayedAction(this._TriggerActionSetChange);
+            this.actionSetToSet = null;
         }
 
-        // <summary>
-        //  Change action set NOW
-        // </summary>
-        public void SetActionSet() 
-        {
-            this.CancelActionSetChange();
-            this._SetActionSet(this.ComputeActionSet());
-        }
-        
-        // <summary>
-        //  Change action set NOW
-        // </summary>
-        // <param name="actionSetName">The name of the action set to set</param>
-        public void SetActionSet(string actionSetName) 
-        {
-            this.CancelActionSetChange();
-            this._SetActionSet(actionSetName);
-        }
         private void _SetActionSet(string actionSetName) 
         {
+            LOGGER.Log("Setting action set : " + actionSetName);
             if( !this.connectionDaemon.ControllerConnected ) {
+                LOGGER.Log("  Controller not connected");
                 return;
             }
             if( actionSetName == this.prevActionSet ) 
             {
+                LOGGER.Log("  Action set already set");
                 return;
             }
 
@@ -211,16 +242,23 @@ namespace com.github.lhervier.ksp
         // <summary>
         //  Compute the action set to use, depending on the KSP context
         // </summary>
-        private string ComputeActionSet() 
+        private IKspActionSet ComputeActionSet() 
         {
+            LOGGER.Log("Computing action set");
             foreach(IKspActionSet actionSet in this.actionSets) 
             {
-                if( actionSet.Active() ) 
+                LOGGER.Log("- " + actionSet.ControlName());
+                RefreshType refreshType = actionSet.Active();
+                if( refreshType == RefreshType.Nope ) 
                 {
-                    return actionSet.ControlName();
+                    LOGGER.Log("  Nope...");
+                    continue;
                 }
+                LOGGER.Log("  Found : " + refreshType.ToString());
+                return actionSet;
             }
-            return this.defaultActionSet.ControlName();
+            LOGGER.Log("No action set found");
+            return this.defaultActionSet;
         }
         
         // ==============================================================================
@@ -238,6 +276,7 @@ namespace com.github.lhervier.ksp
             GameEvents.onGameUnpause.Add(OnGameUnpause);
             GameEvents.OnFlightUIModeChanged.Add(OnFlightUIModeChanged);
             GameEvents.OnMapEntered.Add(OnMapEntered);
+            GameEvents.OnMapExited.Add(OnMapExited);
             GameEvents.onVesselChange.Add(OnVesselChange);
             LOGGER.Log("KSP hooks created");
 
@@ -259,6 +298,7 @@ namespace com.github.lhervier.ksp
             GameEvents.onGameUnpause.Remove(OnGameUnpause);
             GameEvents.OnFlightUIModeChanged.Remove(OnFlightUIModeChanged);
             GameEvents.OnMapEntered.Remove(OnMapEntered);
+            GameEvents.OnMapExited.Remove(OnMapExited);
             GameEvents.onVesselChange.Remove(OnVesselChange);
             LOGGER.Log("KSP hooks removed");
         }
@@ -272,6 +312,7 @@ namespace com.github.lhervier.ksp
         // </summary>
         protected void OnLevelWasLoadedGUIReady(GameScenes scn) 
         {
+            LOGGER.Log("OnLevelWasLoadedGUIReady : " + scn.ToString());
             this.TriggerActionSetChange();
         }
 
@@ -281,7 +322,9 @@ namespace com.github.lhervier.ksp
         // </summary>
         protected void OnGamePause() 
         {
-            this.SetActionSet("MenuControls");
+            LOGGER.Log("OnGamePause");
+            GamePaused = true;
+            this.TriggerActionSetChange();
         }
         
         // <summary>
@@ -290,7 +333,9 @@ namespace com.github.lhervier.ksp
         // </summary>
         protected void OnGameUnpause() 
         {
-            this.SetActionSet();
+            LOGGER.Log("OnGameUnpause");
+            GamePaused = false;
+            this.TriggerActionSetChange();
         }
         
         // <summary>
@@ -298,6 +343,7 @@ namespace com.github.lhervier.ksp
         // </summary>
         protected void OnFlightUIModeChanged(FlightUIMode mode) 
         {
+            LOGGER.Log("OnFlightUIModeChanged : " + mode.ToString());
             this.TriggerActionSetChange();
         }
 
@@ -306,7 +352,17 @@ namespace com.github.lhervier.ksp
         // </summary>
         protected void OnMapEntered() 
         {
-            this.SetActionSet("MapControls");       // FIXME
+            LOGGER.Log("OnMapEntered");
+            this.TriggerActionSetChange();
+        }
+
+        // <summary>
+        //  Map mode exited (mainly in tracking station)
+        // </summary>
+        protected void OnMapExited() 
+        {
+            LOGGER.Log("OnMapExited");
+            this.TriggerActionSetChange();
         }
 
         // <summary>
@@ -314,6 +370,7 @@ namespace com.github.lhervier.ksp
         // </summary>
         protected void OnVesselChange(Vessel ves) 
         {
+            LOGGER.Log("OnVesselChange");
             this.TriggerActionSetChange();
         }
     }
