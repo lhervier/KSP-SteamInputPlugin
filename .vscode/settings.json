@@ -1,5 +1,4 @@
 {
     "dotnetAcquisitionExtension.installTimeoutValue": 12000,
-    "terminal.integrated.mouseWheelScrollSensitivity": 0.1,
     "dotnet.preferCSharpExtension": true
 }
