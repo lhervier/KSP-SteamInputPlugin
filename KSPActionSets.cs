@@ -2,10 +2,16 @@ namespace com.github.lhervier.ksp {
 
     public enum KSPActionSets {
         Menu,
-        Flight,
-        Docking,
+        MissionBuilder,
+        TrackingStation,
         Editor,
         EVA,
+        // ConstructionEVA,
+        // FreeIVA,
+        Flight,
+        Docking,
+        // FlightMap,
+        // DockingMap
         Map
     }
 

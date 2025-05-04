@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace com.github.lhervier.ksp 
 {
@@ -17,9 +18,14 @@ namespace com.github.lhervier.ksp
         // <summary>
         //  Delay before applying an action set (in frames)
         // </summary>
-        private static int DELAY = 10;
+        private static readonly int DELAY = 10;
         
         // ==================================================================================
+
+        // <summary>
+        //  The action sets
+        // </summary>
+        private IKspActionSet[] actionSets;
 
         // <summary>
         //  Message indicating when on Steam Controller action set changes
@@ -59,6 +65,10 @@ namespace com.github.lhervier.ksp
         // </summary>
         protected void Start() 
         {
+            // Get all the action sets
+            this.actionSets = gameObject.GetComponents<IKspActionSet>();
+            LOGGER.Log("Action sets loaded : " + this.actionSets.Length);
+            
             // Attach to delayed action daemon
             this.delayedActionDaemon = gameObject.AddComponent<DelayedActionDaemon>();
             LOGGER.Log("Delayed Actions Daemon attached");
