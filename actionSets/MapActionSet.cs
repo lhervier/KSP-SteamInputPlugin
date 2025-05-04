@@ -4,12 +4,12 @@ using System.Collections;
 
 namespace com.github.lhervier.ksp 
 {
-    public class MapActionSet : MonoBehaviour, IKSPMode {
-        private static readonly string modeName = "MapControls";
-        private static SteamControllerLogger LOGGER = new SteamControllerLogger(modeName);
+    public class MapActionSet : MonoBehaviour, IKspActionSet {
+        private static readonly string controlName = "MapControls";
+        private static SteamControllerLogger LOGGER = new SteamControllerLogger(controlName);
 
-        public string Name() {
-            return modeName;
+        public string ControlName() {
+            return controlName;
         }
 
         public bool Active() {

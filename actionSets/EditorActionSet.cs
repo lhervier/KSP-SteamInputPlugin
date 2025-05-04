@@ -5,11 +5,11 @@ using System.Collections;
 namespace com.github.lhervier.ksp 
 {
     public class EditorActionSet : MonoBehaviour, IKspActionSet {
-        private static readonly string modeName = "EditorControls";
-        private static SteamControllerLogger LOGGER = new SteamControllerLogger(modeName);
+        private static readonly string controlName = "EditorControls";
+        private static SteamControllerLogger LOGGER = new SteamControllerLogger(controlName);
 
         public string ControlName() {
-            return modeName;
+            return controlName;
         }
 
         public bool Active() {
