@@ -12,7 +12,7 @@ namespace com.github.lhervier.ksp
         // <summary>
         //  Logger
         // </summary>
-        private static SteamControllerLogger LOGGER = new SteamControllerLogger();
+        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger();
         
         // <summary>
         //  Delay before applying an action set (in frames)
