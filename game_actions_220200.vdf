@@ -1,0 +1,69 @@
+"In Game Actions"
+{
+	"actions"
+	{
+		"MenuControls"
+		{
+			"title"		"Menu Controls"
+			"legacy_set"		"0"
+		}
+		"TrackingStationControls"
+		{
+			"title"		"Tracking Station Controls"
+			"legacy_set"		"0"
+		}
+		"MissionBuilderControls"
+		{
+			"title"		"Mission Builder Controls"
+			"legacy_set"		"0"
+		}
+		"EditorControls"
+		{
+			"title"		"Editor Controls"
+			"legacy_set"		"0"
+		}
+		"Map"
+		{
+			"title"		"Map Controls"
+			"legacy_set"		"0"
+		}
+		"FlightControls"
+		{
+			"title"		"Flight Controls"
+			"legacy_set"		"0"
+		}
+		"MapFlightControls"
+		{
+			"title"		"Map Flight Controls"
+			"legacy_set"		"0"
+		}
+		"DockingControls"
+		{
+			"title"		"Docking Controls"
+			"legacy_set"		"0"
+		}
+		"MapDockingControls"
+		{
+			"title"		"Map Docking Controls"
+			"legacy_set"		"0"
+		}
+		"EvaControls"
+		{
+			"title"		"EVA Controls"
+			"legacy_set"		"0"
+		}
+		"EvaConstructionModeControls"
+		{
+			"title"		"EVA Construction Mode Controls"
+			"legacy_set"		"0"
+		}
+		"FreeIVAControls"
+		{
+			"title"		"FreeIVA Controls"
+			"legacy_set"		"0"
+		}
+	}
+	"localization"
+	{
+	}
+}
