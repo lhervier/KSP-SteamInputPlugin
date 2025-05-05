@@ -14,7 +14,8 @@ namespace com.github.lhervier.ksp
 
         public RefreshType Active() {
             if( !HighLogic.LoadedSceneIsEditor ) return RefreshType.Nope;
-            if( SteamControllerPlugin.sceneName != "VABmodern" ) return RefreshType.Nope;
+            if( SteamControllerPlugin.sceneName == null ) return RefreshType.Nope;
+            if( !SteamControllerPlugin.sceneName.StartsWith("VAB") ) return RefreshType.Nope;
 
             return RefreshType.Delayed;
         }
