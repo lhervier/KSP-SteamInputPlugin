@@ -4,62 +4,57 @@
 	{
 		"MenuControls"
 		{
-			"title"		"Menu Controls"
+			"title"		"Menu"
 			"legacy_set"		"0"
 		}
 		"TrackingStationControls"
 		{
-			"title"		"Tracking Station Controls"
-			"legacy_set"		"0"
-		}
-		"MissionBuilderControls"
-		{
-			"title"		"Mission Builder Controls"
+			"title"		"Tracking Station"
 			"legacy_set"		"0"
 		}
 		"EditorControls"
 		{
-			"title"		"Editor Controls"
-			"legacy_set"		"0"
-		}
-		"MapControls"
-		{
-			"title"		"Map Controls"
+			"title"		"Editor"
 			"legacy_set"		"0"
 		}
 		"FlightControls"
 		{
-			"title"		"Flight Controls"
+			"title"		"Flight"
 			"legacy_set"		"0"
 		}
 		"MapFlightControls"
 		{
-			"title"		"Map Flight Controls"
+			"title"		"Map Flight"
 			"legacy_set"		"0"
 		}
 		"DockingControls"
 		{
-			"title"		"Docking Controls"
+			"title"		"Docking"
 			"legacy_set"		"0"
 		}
 		"MapDockingControls"
 		{
-			"title"		"Map Docking Controls"
+			"title"		"Map Docking"
 			"legacy_set"		"0"
 		}
 		"EvaControls"
 		{
-			"title"		"EVA Controls"
+			"title"		"EVA"
 			"legacy_set"		"0"
 		}
 		"EvaConstructionModeControls"
 		{
-			"title"		"EVA Construction Mode Controls"
+			"title"		"EVA Construction Mode"
 			"legacy_set"		"0"
 		}
 		"FreeIVAControls"
 		{
-			"title"		"FreeIVA Controls"
+			"title"		"FreeIVA"
+			"legacy_set"		"0"
+		}
+		"MissionBuilderControls"
+		{
+			"title"		"Mission Builder"
 			"legacy_set"		"0"
 		}
 	}
