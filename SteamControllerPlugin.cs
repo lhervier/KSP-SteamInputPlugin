@@ -230,6 +230,11 @@ namespace com.github.lhervier.ksp
             LOGGER.Log("- SpaceCenterBuilding : " + SpaceCenterBuilding.ToString());
             LOGGER.Log("- EVAConstructionMode : " + EVAConstructionMode);
 
+            LOGGER.Log("- CameraManager present : " + (CameraManager.Instance != null));
+            if( CameraManager.Instance != null ) {
+                LOGGER.Log("  CameraMode : " + CameraManager.Instance.currentCameraMode.ToString());
+            }
+
             LOGGER.Log("Cancelling existing action set change (if any)");
             this.CancelActionSetChange();
             

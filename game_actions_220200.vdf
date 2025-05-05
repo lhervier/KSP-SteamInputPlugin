@@ -47,9 +47,9 @@
 			"title"		"EVA Construction Mode"
 			"legacy_set"		"0"
 		}
-		"FreeIVAControls"
+		"IVAControls"
 		{
-			"title"		"FreeIVA"
+			"title"		"IVA"
 			"legacy_set"		"0"
 		}
 		"MissionBuilderControls"

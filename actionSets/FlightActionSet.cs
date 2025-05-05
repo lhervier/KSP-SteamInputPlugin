@@ -16,7 +16,8 @@ namespace com.github.lhervier.ksp
             if( !HighLogic.LoadedSceneIsFlight ) return RefreshType.Nope;
             if( SteamControllerPlugin.GamePaused ) return RefreshType.Nope;
             if( FlightGlobals.ActiveVessel != null && FlightGlobals.ActiveVessel.isEVA ) return RefreshType.Nope;
-            
+            if( CameraManager.Instance != null && CameraManager.Instance.currentCameraMode == CameraManager.CameraMode.IVA ) return RefreshType.Nope;
+
             if( MapView.MapIsEnabled ) return RefreshType.Nope;
             
             if( FlightUIModeController.Instance == null ) return RefreshType.Nope;
