@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using SteamController;
 
 namespace com.github.lhervier.ksp 
 {
@@ -112,6 +113,17 @@ namespace com.github.lhervier.ksp
         {   
             LOGGER.Log("Starting");
 
+            // Desactive le plugin SteamController par défaut
+            KSPSteamController kspSteamController = FindObjectOfType<KSPSteamController>();
+            if( kspSteamController != null ) {
+                LOGGER.Log("Desactivating Squad Steam Controller plugin");
+                kspSteamController.StopAllCoroutines();
+                kspSteamController.enabled = false;
+                kspSteamController.gameObject.SetActive(false);
+            } else {
+                LOGGER.Log("No Squad Steam Controller plugin found");
+            }
+
             // Get all the action sets
             LOGGER.Log("Loading action sets");
             this.LoadActionSets();
@@ -203,6 +215,7 @@ namespace com.github.lhervier.ksp
             LOGGER.Log("TriggerActionSetChange");
             LOGGER.Log("--------------------------------");
             LOGGER.Log("- Current Scene : " + SceneManager.GetActiveScene().name);
+            LOGGER.Log("- Last detected Scene : " + sceneName);
             LOGGER.Log("- HighLogic :");
             LOGGER.Log("  - LoadedScene : " + HighLogic.LoadedScene.ToString());
             LOGGER.Log("  - LoadedSceneHasPlanetarium : " + HighLogic.LoadedSceneHasPlanetarium);

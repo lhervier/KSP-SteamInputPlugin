@@ -27,6 +27,9 @@
     <Reference Include="Assembly-CSharp-firstpass">
       <HintPath>$(KSPDIR)\KSP_x64_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
+    <Reference Include="SteamController">
+      <HintPath>$(KSPDIR)\GameData\Squad\Plugins\KSPSteamCtrlr.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />

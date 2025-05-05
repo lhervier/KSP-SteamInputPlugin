@@ -119,7 +119,7 @@ namespace com.github.lhervier.ksp
             LOGGER.Log("Action sets loaded : " + this.actionSets.Length);
             
             // Initialize the Steam Controller
-            SteamController.Init();
+            Steamworks.SteamController.Init();
             
             // Start the main loop
             this.checkForControllerCoroutine = this.CheckForController();
@@ -139,10 +139,10 @@ namespace com.github.lhervier.ksp
             WaitForSeconds waitFor1Second = new WaitForSeconds(1);
             while( true ) 
             {
-                SteamController.RunFrame();
+                Steamworks.SteamController.RunFrame();
 
                 // Detect connection/disconnection
-                int nbControllers = SteamController.GetConnectedControllers(this._controllerHandles);
+                int nbControllers = Steamworks.SteamController.GetConnectedControllers(this._controllerHandles);
                 bool newController = false;
                 bool disconnectedController = false;
                 if( nbControllers == 0 ) 
@@ -216,7 +216,7 @@ namespace com.github.lhervier.ksp
             {
                 LOGGER.Log("- Getting action set handle for " + actionSetName);
                 // Action Sets list should depend on the used controller. But that's not what the API is waiting for...
-                ControllerActionSetHandle_t actionSetHandle = SteamController.GetActionSetHandle(actionSetName);
+                ControllerActionSetHandle_t actionSetHandle = Steamworks.SteamController.GetActionSetHandle(actionSetName);
                 if( actionSetHandle.m_ControllerActionSetHandle == 0L ) 
                 {
                     LOGGER.Log("ERROR : Action set handle for " + actionSetName + " not found. I will use the default action set instead");
@@ -243,9 +243,9 @@ namespace com.github.lhervier.ksp
                 LOGGER.Log("Hello new Controller !!");
                 for( int i = 0; i < 4; i++ ) 
                 {
-                    SteamController.TriggerHapticPulse(this.controllerHandle, Steamworks.ESteamControllerPad.k_ESteamControllerPad_Right, ushort.MaxValue);
+                    Steamworks.SteamController.TriggerHapticPulse(this.controllerHandle, Steamworks.ESteamControllerPad.k_ESteamControllerPad_Right, ushort.MaxValue);
                     yield return new WaitForSeconds(0.1f);
-                    SteamController.TriggerHapticPulse(this.controllerHandle, Steamworks.ESteamControllerPad.k_ESteamControllerPad_Left, ushort.MaxValue);
+                    Steamworks.SteamController.TriggerHapticPulse(this.controllerHandle, Steamworks.ESteamControllerPad.k_ESteamControllerPad_Left, ushort.MaxValue);
                     yield return new WaitForSeconds(0.1f);
                 }
             }
@@ -264,7 +264,7 @@ namespace com.github.lhervier.ksp
                 return;
             }
 
-            SteamController.ActivateActionSet(
+            Steamworks.SteamController.ActivateActionSet(
                 this.controllerHandle, 
                 this.actionsSetsHandles[actionSetName]
             );

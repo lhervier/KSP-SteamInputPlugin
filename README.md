@@ -14,7 +14,6 @@ This plugin also add numerous other action groups :
 
 To use this plugin :
 
-- Delete the Squad Plugin : /GameData/Squad/Plugins/KSPSteamCtrlr.dll
 - Add the following plugin in /GameData/SteamController/SteamControllerPlugin.dll
 - Create a folder controller_config in your Steam directory (c:\Program Files (x86)\Steam for example). Attention : A folder named "controller_base" already exist !
 - Copy the file 'game_actions_220200.vdf" in this folder
