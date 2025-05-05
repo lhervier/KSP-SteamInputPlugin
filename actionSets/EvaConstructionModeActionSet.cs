@@ -4,8 +4,8 @@ using System.Collections;
 
 namespace com.github.lhervier.ksp 
 {
-    public class EvaActionSet : MonoBehaviour, IKspActionSet {
-        private static readonly string controlName = "EvaControls";
+    public class EvaConstructionModeActionSet : MonoBehaviour, IKspActionSet {
+        private static readonly string controlName = "EvaConstructionModeControls";
         private static SteamControllerLogger LOGGER = new SteamControllerLogger(controlName);
 
         public string ControlName() {
@@ -18,7 +18,7 @@ namespace com.github.lhervier.ksp
             if( SteamControllerPlugin.GamePaused ) return RefreshType.Nope;
             if( FlightGlobals.ActiveVessel == null ) return RefreshType.Nope;
             if( !FlightGlobals.ActiveVessel.isEVA ) return RefreshType.Nope;
-            if( SteamControllerPlugin.EVAConstructionMode ) return RefreshType.Nope;
+            if( !SteamControllerPlugin.EVAConstructionMode ) return RefreshType.Nope;
             return RefreshType.Delayed;
         }
 

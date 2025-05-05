@@ -114,6 +114,7 @@ namespace com.github.lhervier.ksp
             this.actionSets = gameObject
                 .GetComponents<IKspActionSet>()
                 .Select(actionSet => actionSet.ControlName())
+                .Distinct()
                 .ToArray();
             LOGGER.Log("Action sets loaded : " + this.actionSets.Length);
             

@@ -4,8 +4,8 @@ using System.Collections;
 
 namespace com.github.lhervier.ksp 
 {
-    public class EditorActionSet : MonoBehaviour, IKspActionSet {
-        private static readonly string controlName = "EditorControls";
+    public class MissionControlActionSet : MonoBehaviour, IKspActionSet {
+        private static readonly string controlName = "MenuControls";
         private static SteamControllerLogger LOGGER = new SteamControllerLogger(controlName);
 
         public string ControlName() {
@@ -13,8 +13,8 @@ namespace com.github.lhervier.ksp
         }
 
         public RefreshType Active() {
-            if( !HighLogic.LoadedSceneIsEditor ) return RefreshType.Nope;
-            
+            if( HighLogic.LoadedScene != GameScenes.SPACECENTER) return RefreshType.Nope;
+            if( SteamControllerPlugin.SpaceCenterBuilding != SpacePortFacility.MissionControl ) return RefreshType.Nope;
             return RefreshType.Delayed;
         }
 

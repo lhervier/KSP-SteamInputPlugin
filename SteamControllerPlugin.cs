@@ -4,9 +4,22 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 namespace com.github.lhervier.ksp 
 {
+    public enum SpacePortFacility {
+        None,
+        Administration,
+        AstronautComplex,
+        MissionControl,
+        RnDComplex
+    }
+
+    public class ActionGroup {
+        public string Name { get; set; }
+        public RefreshType RefreshType { get; set; }
+    }
     
     [KSPAddon(KSPAddon.Startup.PSystemSpawn, true)]
     public class SteamControllerPlugin : MonoBehaviour 
@@ -26,6 +39,26 @@ namespace com.github.lhervier.ksp
         //  Pour savoir si le jeu est en pause...
         // </summary>
         public static bool GamePaused = false;
+
+        // <summary>
+        //  Pour savoir si on est dans un building du space center
+        // </summary>
+        public static SpacePortFacility SpaceCenterBuilding = SpacePortFacility.None;
+
+        // <summary>
+        //  Pour savoir si on est en mode Construction en EVA
+        // </summary>
+        public static bool EVAConstructionMode = false;
+
+        // <summary>
+        //  Le nom de la scène actuellement chargée
+        // </summary>
+        public static string sceneName;
+
+        // <summary>
+        //  Pour savoir si on est en mode Editor
+        // </summary>
+        public static bool EditorMode = false;
 
         // ==================================================================================
 
@@ -169,6 +202,7 @@ namespace com.github.lhervier.ksp
             LOGGER.Log("--------------------------------");
             LOGGER.Log("TriggerActionSetChange");
             LOGGER.Log("--------------------------------");
+            LOGGER.Log("- Current Scene : " + SceneManager.GetActiveScene().name);
             LOGGER.Log("- HighLogic :");
             LOGGER.Log("  - LoadedScene : " + HighLogic.LoadedScene.ToString());
             LOGGER.Log("  - LoadedSceneHasPlanetarium : " + HighLogic.LoadedSceneHasPlanetarium);
@@ -193,18 +227,23 @@ namespace com.github.lhervier.ksp
 
             LOGGER.Log("- EditorFacility : " + EditorDriver.editorFacility.ToString());
             
+            LOGGER.Log("- SpaceCenterBuilding : " + SpaceCenterBuilding.ToString());
+            LOGGER.Log("- EVAConstructionMode : " + EVAConstructionMode);
+
+            LOGGER.Log("Cancelling existing action set change (if any)");
             this.CancelActionSetChange();
             
-            IKspActionSet actionSet = this.ComputeActionSet();
-            if( actionSet.Active() == RefreshType.Immediate ) {
-                this._SetActionSet(actionSet.ControlName());
+            ActionGroup actionGroup = this.ComputeActionSet();
+            if( actionGroup.RefreshType == RefreshType.Immediate ) {
+                this._SetActionSet(actionGroup.Name);
             } else {
-                this.actionSetToSet = actionSet.ControlName();
+                this.actionSetToSet = actionGroup.Name;
                 this.delayedActionDaemon.TriggerDelayedAction(this._TriggerActionSetChange, DELAY);
             }
         }
         private void _TriggerActionSetChange() 
         {
+            LOGGER.Log("Triggering delayed action set change");
             if( this.actionSetToSet != null ) {
                 this._SetActionSet(this.actionSetToSet);
                 this.actionSetToSet = null;
@@ -245,23 +284,23 @@ namespace com.github.lhervier.ksp
         // <summary>
         //  Compute the action set to use, depending on the KSP context
         // </summary>
-        private IKspActionSet ComputeActionSet() 
+        private ActionGroup ComputeActionSet() 
         {
             LOGGER.Log("Computing action set");
             foreach(IKspActionSet actionSet in this.actionSets) 
             {
-                LOGGER.Log("- " + actionSet.ControlName());
+                LOGGER.Log("- " + actionSet.GetType().Name);
                 RefreshType refreshType = actionSet.Active();
                 if( refreshType == RefreshType.Nope ) 
                 {
                     LOGGER.Log("  Nope...");
                     continue;
                 }
-                LOGGER.Log("  Found : " + refreshType.ToString());
-                return actionSet;
+                LOGGER.Log("  Found : " + refreshType.ToString() + "/" + actionSet.ControlName());
+                return new ActionGroup { Name = actionSet.ControlName(), RefreshType = refreshType };
             }
             LOGGER.Log("No action set found. Using default");
-            return this.defaultActionSet;
+            return new ActionGroup { Name = this.defaultActionSet.ControlName(), RefreshType = RefreshType.Delayed };
         }
         
         // ==============================================================================
@@ -281,6 +320,20 @@ namespace com.github.lhervier.ksp
             GameEvents.OnMapEntered.Add(OnMapEntered);
             GameEvents.OnMapExited.Add(OnMapExited);
             GameEvents.onVesselChange.Add(OnVesselChange);
+
+            GameEvents.onGUIAdministrationFacilitySpawn.Add(OnGUIAdministrationFacilitySpawn);
+            GameEvents.onGUIAdministrationFacilityDespawn.Add(OnGUIAdministrationFacilityDespawn);
+            GameEvents.onGUIAstronautComplexSpawn.Add(OnGUIAstronautComplexSpawn);
+            GameEvents.onGUIAstronautComplexDespawn.Add(OnGUIAstronautComplexDespawn);
+            GameEvents.onGUIMissionControlSpawn.Add(OnGUIMissionControlSpawn);
+            GameEvents.onGUIMissionControlDespawn.Add(OnGUIMissionControlDespawn);
+            GameEvents.onGUIRnDComplexSpawn.Add(OnGUIRnDComplexSpawn);
+            GameEvents.onGUIRnDComplexDespawn.Add(OnGUIRnDComplexDespawn);
+            
+            GameEvents.OnEVAConstructionMode.Add(OnEVAConstructionModeChanged);
+
+            SceneManager.sceneLoaded += OnSceneLoaded;
+
             LOGGER.Log("KSP hooks created");
 
             // Trigger an action set change to load the right action set
@@ -303,6 +356,20 @@ namespace com.github.lhervier.ksp
             GameEvents.OnMapEntered.Remove(OnMapEntered);
             GameEvents.OnMapExited.Remove(OnMapExited);
             GameEvents.onVesselChange.Remove(OnVesselChange);
+
+            GameEvents.onGUIAdministrationFacilitySpawn.Remove(OnGUIAdministrationFacilitySpawn);
+            GameEvents.onGUIAdministrationFacilityDespawn.Remove(OnGUIAdministrationFacilityDespawn);
+            GameEvents.onGUIAstronautComplexSpawn.Remove(OnGUIAstronautComplexSpawn);
+            GameEvents.onGUIAstronautComplexDespawn.Remove(OnGUIAstronautComplexDespawn);
+            GameEvents.onGUIMissionControlSpawn.Remove(OnGUIMissionControlSpawn);
+            GameEvents.onGUIMissionControlDespawn.Remove(OnGUIMissionControlDespawn);
+            GameEvents.onGUIRnDComplexSpawn.Remove(OnGUIRnDComplexSpawn);
+            GameEvents.onGUIRnDComplexDespawn.Remove(OnGUIRnDComplexDespawn);
+            
+            GameEvents.OnEVAConstructionMode.Remove(OnEVAConstructionModeChanged);
+
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+
             LOGGER.Log("KSP hooks removed");
         }
 
@@ -310,12 +377,23 @@ namespace com.github.lhervier.ksp
         //                                      KSP Events
         // ========================================================================================
 
+        protected void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            LOGGER.Log(" ");
+            LOGGER.Log("=> OnSceneLoaded : " + scene.name);
+            LOGGER.Log(" ");
+            sceneName = scene.name;
+            this.TriggerActionSetChange();
+        }
+
         // <summary>
         //  A new scene has been loaded
         // </summary>
         protected void OnLevelWasLoadedGUIReady(GameScenes scn) 
         {
-            LOGGER.Log("OnLevelWasLoadedGUIReady : " + scn.ToString());
+            LOGGER.Log(" ");
+            LOGGER.Log("=> OnLevelWasLoadedGUIReady : " + scn.ToString());
+            LOGGER.Log(" ");
             this.TriggerActionSetChange();
         }
 
@@ -325,7 +403,9 @@ namespace com.github.lhervier.ksp
         // </summary>
         protected void OnGamePause() 
         {
-            LOGGER.Log("OnGamePause");
+            LOGGER.Log(" ");
+            LOGGER.Log("=> OnGamePause");
+            LOGGER.Log(" ");
             GamePaused = true;
             this.TriggerActionSetChange();
         }
@@ -336,7 +416,9 @@ namespace com.github.lhervier.ksp
         // </summary>
         protected void OnGameUnpause() 
         {
-            LOGGER.Log("OnGameUnpause");
+            LOGGER.Log(" ");
+            LOGGER.Log("=> OnGameUnpause");
+            LOGGER.Log(" ");
             GamePaused = false;
             this.TriggerActionSetChange();
         }
@@ -346,7 +428,9 @@ namespace com.github.lhervier.ksp
         // </summary>
         protected void OnFlightUIModeChanged(FlightUIMode mode) 
         {
-            LOGGER.Log("OnFlightUIModeChanged : " + mode.ToString());
+            LOGGER.Log(" ");
+            LOGGER.Log("=> OnFlightUIModeChanged : " + mode.ToString());
+            LOGGER.Log(" ");
             this.TriggerActionSetChange();
         }
 
@@ -355,7 +439,9 @@ namespace com.github.lhervier.ksp
         // </summary>
         protected void OnMapEntered() 
         {
-            LOGGER.Log("OnMapEntered");
+            LOGGER.Log(" ");
+            LOGGER.Log("=> OnMapEntered");
+            LOGGER.Log(" ");
             this.TriggerActionSetChange();
         }
 
@@ -364,7 +450,9 @@ namespace com.github.lhervier.ksp
         // </summary>
         protected void OnMapExited() 
         {
-            LOGGER.Log("OnMapExited");
+            LOGGER.Log(" ");
+            LOGGER.Log("=> OnMapExited");
+            LOGGER.Log(" ");
             this.TriggerActionSetChange();
         }
 
@@ -373,7 +461,90 @@ namespace com.github.lhervier.ksp
         // </summary>
         protected void OnVesselChange(Vessel ves) 
         {
-            LOGGER.Log("OnVesselChange");
+            LOGGER.Log(" ");
+            LOGGER.Log("=> OnVesselChange");
+            LOGGER.Log(" ");
+            this.TriggerActionSetChange();
+        }
+
+        protected void OnGUIAdministrationFacilitySpawn()
+        {
+            LOGGER.Log(" ");
+            LOGGER.Log("=> onGUIAdministrationFacilitySpawn");
+            LOGGER.Log(" ");
+            SpaceCenterBuilding = SpacePortFacility.Administration;
+            this.TriggerActionSetChange();
+        }
+
+        protected void OnGUIAdministrationFacilityDespawn()
+        {
+            LOGGER.Log(" ");
+            LOGGER.Log("=> onGUIAdministrationFacilityDespawn");
+            LOGGER.Log(" ");
+            SpaceCenterBuilding = SpacePortFacility.None;
+            this.TriggerActionSetChange();
+        }
+
+        protected void OnGUIAstronautComplexSpawn()
+        {
+            LOGGER.Log(" ");
+            LOGGER.Log("=> OnGUIAstronautComplexSpawn");
+            LOGGER.Log(" ");
+            SpaceCenterBuilding = SpacePortFacility.AstronautComplex;
+            this.TriggerActionSetChange();
+        }
+
+        protected void OnGUIAstronautComplexDespawn()
+        {
+            LOGGER.Log(" ");
+            LOGGER.Log("=> OnGUIAstronautComplexDespawn");
+            LOGGER.Log(" ");
+            SpaceCenterBuilding = SpacePortFacility.None;
+            this.TriggerActionSetChange();
+        }
+
+        protected void OnGUIMissionControlSpawn()
+        {
+            LOGGER.Log(" ");
+            LOGGER.Log("=> OnGUIMissionControlSpawn");
+            LOGGER.Log(" ");
+            SpaceCenterBuilding = SpacePortFacility.MissionControl;
+            this.TriggerActionSetChange();
+        }
+
+        protected void OnGUIMissionControlDespawn()
+        {
+            LOGGER.Log(" ");
+            LOGGER.Log("=> OnGUIMissionControlDespawn");
+            LOGGER.Log(" ");
+            SpaceCenterBuilding = SpacePortFacility.None;
+            this.TriggerActionSetChange();
+        }
+
+        protected void OnGUIRnDComplexSpawn()
+        {
+            LOGGER.Log(" ");
+            LOGGER.Log("=> OnGUIRnDComplexSpawn");
+            LOGGER.Log(" ");    
+            SpaceCenterBuilding = SpacePortFacility.RnDComplex;
+            this.TriggerActionSetChange();
+        }
+
+        protected void OnGUIRnDComplexDespawn()
+        {
+            LOGGER.Log(" ");
+            LOGGER.Log("=> OnGUIRnDComplexDespawn");
+            LOGGER.Log(" ");
+            SpaceCenterBuilding = SpacePortFacility.None;
+            this.TriggerActionSetChange();
+        }
+        
+        protected void OnEVAConstructionModeChanged(bool mode)
+        {
+            LOGGER.Log(" ");
+            LOGGER.Log("=> OnEVAConstructionModeChanged : " + mode);
+            LOGGER.Log(" ");
+            EVAConstructionMode = mode;
             this.TriggerActionSetChange();
         }
     }
