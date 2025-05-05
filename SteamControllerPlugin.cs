@@ -165,7 +165,10 @@ namespace com.github.lhervier.ksp
         // </summary>
         public void TriggerActionSetChange() 
         {
+            LOGGER.Log("   ");
+            LOGGER.Log("--------------------------------");
             LOGGER.Log("TriggerActionSetChange");
+            LOGGER.Log("--------------------------------");
             LOGGER.Log("- HighLogic :");
             LOGGER.Log("  - LoadedScene : " + HighLogic.LoadedScene.ToString());
             LOGGER.Log("  - LoadedSceneHasPlanetarium : " + HighLogic.LoadedSceneHasPlanetarium);
@@ -188,7 +191,7 @@ namespace com.github.lhervier.ksp
                 LOGGER.Log("  Active Vessel is EVA : " + FlightGlobals.ActiveVessel.isEVA);
             }
 
-            LOGGER.Log("  EditorFacility : " + EditorDriver.editorFacility.ToString());
+            LOGGER.Log("- EditorFacility : " + EditorDriver.editorFacility.ToString());
             
             this.CancelActionSetChange();
             
@@ -257,7 +260,7 @@ namespace com.github.lhervier.ksp
                 LOGGER.Log("  Found : " + refreshType.ToString());
                 return actionSet;
             }
-            LOGGER.Log("No action set found");
+            LOGGER.Log("No action set found. Using default");
             return this.defaultActionSet;
         }
         
