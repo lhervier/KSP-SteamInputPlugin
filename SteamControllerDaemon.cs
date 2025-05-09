@@ -264,7 +264,6 @@ namespace com.github.lhervier.ksp
                 return;
             }
             
-            LOGGER.Log("Setting action set : " + actionSetName);
             Steamworks.SteamController.ActivateActionSet(
                 this.controllerHandle, 
                 this.actionsSetsHandles[actionSetName]

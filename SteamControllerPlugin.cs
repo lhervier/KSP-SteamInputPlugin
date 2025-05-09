@@ -90,16 +90,8 @@ namespace com.github.lhervier.ksp
         {   
             LOGGER.Log("Starting");
 
-            // Desactive le plugin SteamController par défaut
-            KSPSteamController kspSteamController = FindObjectOfType<KSPSteamController>();
-            if( kspSteamController != null ) {
-                LOGGER.Log("Desactivating Squad Steam Controller plugin");
-                kspSteamController.StopAllCoroutines();
-                kspSteamController.enabled = false;
-                kspSteamController.gameObject.SetActive(false);
-            } else {
-                LOGGER.Log("No Squad Steam Controller plugin found");
-            }
+            // Start the coroutine to handle the KSPSteamController
+            StartCoroutine(HandleKSPSteamController());
 
             // Create the controller daemon
             this.connectionDaemon = gameObject.AddComponent<SteamControllerDaemon>();
@@ -185,6 +177,32 @@ namespace com.github.lhervier.ksp
             }
         }
 
+        private IEnumerator HandleKSPSteamController()
+        {
+            // Wait for the next frame to ensure KSPSteamController has started
+            yield return new WaitForEndOfFrame();
+            
+            // Wait for steam initialization
+            yield return new WaitUntil(() => {
+                var controller = FindObjectOfType<KSPSteamController>();
+                return controller != null && controller.gameObject.activeInHierarchy;
+            });
+            
+            // Desactive le plugin SteamController par défaut
+            var kspSteamController = FindObjectOfType<KSPSteamController>();
+            if( kspSteamController != null ) {
+                LOGGER.Log("Desactivating Squad Steam Controller plugin");
+                // Stop any running coroutines first
+                kspSteamController.StopAllCoroutines();
+                // Then disable the component
+                kspSteamController.enabled = false;
+                // Finally deactivate the game object
+                kspSteamController.gameObject.SetActive(false);
+            } else {
+                LOGGER.Log("No Squad Steam Controller plugin found");
+            }
+        }
+
         // ====================================================================================
 
         // <summary>
@@ -213,10 +231,13 @@ namespace com.github.lhervier.ksp
 
         public void LogDaemons()
         {
-            LOGGER_CONTEXT.Log("   ");
-            LOGGER_CONTEXT.Log("Active daemons contexts:");
-            foreach( ControllerContextDaemon daemon in this.activecontexts ) {
-                LOGGER_CONTEXT.Log("- " + daemon.GetType().Name + " : " + daemon.InContext());
+            if( this.activecontexts.Count == 0 ) {
+                LOGGER_CONTEXT.Log("No active daemons contexts");
+            } else {
+                LOGGER_CONTEXT.Log("Active daemons contexts: " + this.activecontexts.Count);
+                foreach( ControllerContextDaemon daemon in this.activecontexts ) {
+                    LOGGER_CONTEXT.Log("- " + daemon.GetType().Name);
+                }
             }
         }
 
@@ -260,18 +281,15 @@ namespace com.github.lhervier.ksp
         // </summary>
         private void UpdateActionGroup() 
         {
-            LOGGER.Log("Updating action group");
             if( !this.connectionDaemon.ControllerConnected) {
-                LOGGER.Log("Controller not connected");
+                LOGGER.Log("UpdateActionGroup: Controller not connected");
                 return;
             }
 
             if( this.activecontexts.Count == 0 ) {
-                LOGGER.Log("No active context, triggering the default action group : " + DEFAULT_ACTION_GROUP.ToString());
                 this.TriggerActionGroupChange(DEFAULT_ACTION_GROUP);
             } else if( this.activecontexts.Count > 1 ) {
                 ActionGroup last = this.activecontexts[this.activecontexts.Count - 1].CorrespondingActionGroup();
-                LOGGER.Log("More than one active context. Triggering the last one : " + last.ToString());
                 this.TriggerActionGroupChange(last);
             } else {
                 ActionGroup unique = this.activecontexts[0].CorrespondingActionGroup();
@@ -287,18 +305,16 @@ namespace com.github.lhervier.ksp
         // </summary>
         public void TriggerActionGroupChange(ActionGroup actionGroup) 
         {
-            LOGGER.Log("Triggering action group change to " + actionGroup.ToString());
             if( !this.connectionDaemon.ControllerConnected ) {
-                LOGGER.Log("Controller not connected");
+                LOGGER.Log("TriggerActionGroupChange: Controller not connected");
                 return;
             }
             
             if( !this.connectionDaemon.ControllerConnected ) {
-                LOGGER.Log("Controller not connected");
+                LOGGER.Log("TriggerActionGroupChange: Controller not connected");
                 return;
             }
 
-            LOGGER.Log("Cancelling existing action group change (if any)");
             this.CancelActionGroupChange();
             
             this.actionGroupToSet = actionGroup;
@@ -311,9 +327,8 @@ namespace com.github.lhervier.ksp
         // </summary>
         public void ChangeActionGroupNow(ActionGroup actionGroup) 
         {
-            LOGGER.Log("Changing action group NOW to " + actionGroup.ToString());
             if( !this.connectionDaemon.ControllerConnected ) {
-                LOGGER.Log("Controller not connected");
+                LOGGER.Log("ChangeActionGroupNow: Controller not connected");
                 return;
             }
             
@@ -325,7 +340,6 @@ namespace com.github.lhervier.ksp
 
         private void _TriggerActionGroupChange() 
         {
-            LOGGER.Log("Triggering delayed action group change");
             if( this.actionGroupToSet == ActionGroup.None ) {
                 LOGGER.Log("ERROR : No action group to set");
                 return;
@@ -345,7 +359,6 @@ namespace com.github.lhervier.ksp
 
         private void _SetActionGroup(ActionGroup actionGroup) 
         {
-            LOGGER.Log("Setting action group : " + actionGroup.ToString());
             if( actionGroup == ActionGroup.None ) {
                 LOGGER.Log("ERROR : Action group is None");
                 return;
@@ -363,6 +376,7 @@ namespace com.github.lhervier.ksp
                 }
             }
             
+            LOGGER.Log("Setting action group : " + actionGroup.ToString());
             this.connectionDaemon.setActionSet(actionGroup.ToString());
             
             this.screenMessage.message = "Controller: " + actionGroup.ToString() + ".";
@@ -393,5 +407,6 @@ namespace com.github.lhervier.ksp
             this.CancelActionGroupChange();
             this.actionGroupToSet = ActionGroup.None;
         }
+
     }
 }
