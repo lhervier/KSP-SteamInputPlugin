@@ -44,7 +44,7 @@ namespace com.github.lhervier.ksp
             GameEvents.OnMapEntered.Add(OnMapEntered);
             GameEvents.OnMapExited.Add(OnMapExited);
             
-            this.OnMapEntered();
+            this.OnMapExited();
         }
 
         protected void OnSceneUnloaded(Scene scene)
@@ -84,6 +84,7 @@ namespace com.github.lhervier.ksp
             GameEvents.onGamePause.Remove(OnGamePause);
             GameEvents.onGameUnpause.Remove(OnGameUnpause);
             GameEvents.onVesselChange.Remove(OnVesselChange);
+            GameEvents.OnEVAConstructionMode.Remove(OnEVAConstructionMode);
             this.SendEvent(false);
         }
 
@@ -93,6 +94,7 @@ namespace com.github.lhervier.ksp
             GameEvents.onGamePause.Add(OnGamePause);
             GameEvents.onGameUnpause.Add(OnGameUnpause);
             GameEvents.onVesselChange.Add(OnVesselChange);
+            GameEvents.OnEVAConstructionMode.Add(OnEVAConstructionMode);
             this.SendEvent(
                 InEVA()
             );
@@ -104,6 +106,18 @@ namespace com.github.lhervier.ksp
             this.SendEvent(
                 InEVA(vessel)
             );
+        }
+
+        private void OnEVAConstructionMode(bool mode)
+        {
+            LOGGER.Log("=> OnEVAConstructionMode : " + mode);
+            if( mode ) {
+                this.SendEvent(false);
+            } else {
+                this.SendEvent(
+                    InEVA()
+                );
+            }
         }
     }
 }

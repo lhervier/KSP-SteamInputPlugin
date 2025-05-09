@@ -160,12 +160,6 @@ namespace com.github.lhervier.ksp
             // Get all the action sets
             LOGGER.Log("Loading action sets");
             this.LoadActionSets();
-            LOGGER.Log("Action sets loaded : " + this.actionSets.Count);
-            foreach(IKspActionSet actionSet in this.actionSets) 
-            {
-                LOGGER.Log("- " + actionSet.ControlName());
-            }
-            LOGGER.Log("Default action set : " + this.defaultActionSet.ControlName());
             
             // Get all the daemons
             this.LoadDaemons();
@@ -174,6 +168,7 @@ namespace com.github.lhervier.ksp
                 daemon.OnEnterContext().Add(this.OnEnterContext);
                 daemon.OnExitContext().Add(this.OnExitContext);
             }
+            LOGGER_DAEMONS.Log("");
             LOGGER_DAEMONS.Log("Daemons attached :");
             this.LogDaemons();
             
@@ -226,18 +221,24 @@ namespace com.github.lhervier.ksp
 
         public void OnEnterContext(ControllerContextDaemon daemon, RefreshType refreshType)
         {
+            LOGGER_DAEMONS.Log("");
             LOGGER_DAEMONS.Log("OnEnterContext : " + daemon.GetType().Name + " / " + refreshType.ToString());
+            this.LogKSPContext();
             this.LogDaemons();
         }
 
         public void OnExitContext(ControllerContextDaemon daemon)
         {
+            LOGGER_DAEMONS.Log("");
             LOGGER_DAEMONS.Log("OnExitContext : " + daemon.GetType().Name);
+            this.LogKSPContext();
             this.LogDaemons();
         }
 
         public void LogDaemons()
         {
+            LOGGER_DAEMONS.Log("   ");
+            LOGGER_DAEMONS.Log("Daemons contexts:");
             int nbActive = 0;
             string activeDaemon = null;
             foreach(ControllerContextDaemon daemon in this.daemons) 
@@ -252,6 +253,44 @@ namespace com.github.lhervier.ksp
                 LOGGER_DAEMONS.Log("!!!! Active daemons : " + nbActive + " (should be 1) !!!!");
             } else {
                 LOGGER_DAEMONS.Log("Active daemon = " + activeDaemon);
+            }
+        }
+
+        public void LogKSPContext() {
+            LOGGER_DAEMONS.Log("   ");
+            LOGGER_DAEMONS.Log("KSP Context : ");
+            LOGGER_DAEMONS.Log("- Current Scene : " + SceneManager.GetActiveScene().name);
+            LOGGER_DAEMONS.Log("- Last detected Scene : " + sceneName);
+            LOGGER_DAEMONS.Log("- HighLogic :");
+            LOGGER_DAEMONS.Log("  - LoadedScene : " + HighLogic.LoadedScene.ToString());
+            LOGGER_DAEMONS.Log("  - LoadedSceneHasPlanetarium : " + HighLogic.LoadedSceneHasPlanetarium);
+            LOGGER_DAEMONS.Log("  - LoadedSceneIsEditor : " + HighLogic.LoadedSceneIsEditor);
+            LOGGER_DAEMONS.Log("  - LoadedSceneIsFlight : " + HighLogic.LoadedSceneIsFlight);
+            LOGGER_DAEMONS.Log("  - LoadedSceneIsGame : " + HighLogic.LoadedSceneIsGame);
+            LOGGER_DAEMONS.Log("  - LoadedSceneIsMissionBuilder : " + HighLogic.LoadedSceneIsMissionBuilder);
+            
+            LOGGER_DAEMONS.Log("- GamePaused : " + GamePaused);
+            LOGGER_DAEMONS.Log("- MapView : " + MapView.MapIsEnabled);
+
+            LOGGER_DAEMONS.Log("- FlightUIMode present : " + (FlightUIModeController.Instance != null));
+            if( FlightUIModeController.Instance != null ) {
+                LOGGER_DAEMONS.Log("  FlightUIMode : " + FlightUIModeController.Instance.Mode.ToString());
+            }
+
+            LOGGER_DAEMONS.Log("- Active Vessel present : " + (FlightGlobals.ActiveVessel != null));
+            if( FlightGlobals.ActiveVessel != null ) {
+                LOGGER_DAEMONS.Log("  Active Vessel : " + FlightGlobals.ActiveVessel.name);
+                LOGGER_DAEMONS.Log("  Active Vessel is EVA : " + FlightGlobals.ActiveVessel.isEVA);
+            }
+
+            LOGGER_DAEMONS.Log("- EditorFacility : " + EditorDriver.editorFacility.ToString());
+            
+            LOGGER_DAEMONS.Log("- SpaceCenterBuilding : " + SpaceCenterBuilding.ToString());
+            LOGGER_DAEMONS.Log("- EVAConstructionMode : " + EVAConstructionMode);
+
+            LOGGER_DAEMONS.Log("- CameraManager present : " + (CameraManager.Instance != null));
+            if( CameraManager.Instance != null ) {
+                LOGGER_DAEMONS.Log("  CameraMode : " + CameraManager.Instance.currentCameraMode.ToString());
             }
         }
 
@@ -289,44 +328,7 @@ namespace com.github.lhervier.ksp
         // </summary>
         public void TriggerActionSetChange() 
         {
-            LOGGER.Log("   ");
-            LOGGER.Log("--------------------------------");
-            LOGGER.Log("TriggerActionSetChange");
-            LOGGER.Log("--------------------------------");
-            LOGGER.Log("- Current Scene : " + SceneManager.GetActiveScene().name);
-            LOGGER.Log("- Last detected Scene : " + sceneName);
-            LOGGER.Log("- HighLogic :");
-            LOGGER.Log("  - LoadedScene : " + HighLogic.LoadedScene.ToString());
-            LOGGER.Log("  - LoadedSceneHasPlanetarium : " + HighLogic.LoadedSceneHasPlanetarium);
-            LOGGER.Log("  - LoadedSceneIsEditor : " + HighLogic.LoadedSceneIsEditor);
-            LOGGER.Log("  - LoadedSceneIsFlight : " + HighLogic.LoadedSceneIsFlight);
-            LOGGER.Log("  - LoadedSceneIsGame : " + HighLogic.LoadedSceneIsGame);
-            LOGGER.Log("  - LoadedSceneIsMissionBuilder : " + HighLogic.LoadedSceneIsMissionBuilder);
-            
-            LOGGER.Log("- GamePaused : " + GamePaused);
-            LOGGER.Log("- MapView : " + MapView.MapIsEnabled);
-
-            LOGGER.Log("- FlightUIMode present : " + (FlightUIModeController.Instance != null));
-            if( FlightUIModeController.Instance != null ) {
-                LOGGER.Log("  FlightUIMode : " + FlightUIModeController.Instance.Mode.ToString());
-            }
-
-            LOGGER.Log("- Active Vessel present : " + (FlightGlobals.ActiveVessel != null));
-            if( FlightGlobals.ActiveVessel != null ) {
-                LOGGER.Log("  Active Vessel : " + FlightGlobals.ActiveVessel.name);
-                LOGGER.Log("  Active Vessel is EVA : " + FlightGlobals.ActiveVessel.isEVA);
-            }
-
-            LOGGER.Log("- EditorFacility : " + EditorDriver.editorFacility.ToString());
-            
-            LOGGER.Log("- SpaceCenterBuilding : " + SpaceCenterBuilding.ToString());
-            LOGGER.Log("- EVAConstructionMode : " + EVAConstructionMode);
-
-            LOGGER.Log("- CameraManager present : " + (CameraManager.Instance != null));
-            if( CameraManager.Instance != null ) {
-                LOGGER.Log("  CameraMode : " + CameraManager.Instance.currentCameraMode.ToString());
-            }
-
+            LOGGER.Log("Triggering action set change");
             LOGGER.Log("Cancelling existing action set change (if any)");
             this.CancelActionSetChange();
             

@@ -3,7 +3,7 @@
 CTX=$1
 
 if [[ -z "$CTX" ]]; then
-    CTX="ControllerContextDaemon"
+    CTX="Contexts"
 fi
 
 # Affiche d'abord le contenu existant du fichier, puis continue avec les nouvelles lignes
