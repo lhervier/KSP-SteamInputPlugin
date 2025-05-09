@@ -17,7 +17,7 @@ namespace com.github.lhervier.ksp
         
         public override ActionGroup CorrespondingActionGroup()
         {
-            return ActionGroup.IVAControls;
+            return ActionGroup.IvaControls;
         }
 
         public void Start()
@@ -38,7 +38,7 @@ namespace com.github.lhervier.ksp
 
         protected void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            LOGGER.Log("OnSceneLoaded : " + scene.name);
+            // LOGGER.Log("OnSceneLoaded : " + scene.name);
             if( scene.name.ToUpper() != "PFLIGHT4") return;
             
             this.inFreeIva = false;
@@ -52,7 +52,7 @@ namespace com.github.lhervier.ksp
 
         protected void OnSceneUnloaded(Scene scene)
         {
-            LOGGER.Log("OnSceneUnloaded : " + scene.name);
+            // LOGGER.Log("OnSceneUnloaded : " + scene.name);
             if( scene.name.ToUpper() != "PFLIGHT4" ) {
                 return;
             }
@@ -71,7 +71,7 @@ namespace com.github.lhervier.ksp
 
         private void OnMapEntered()
         {
-            LOGGER.Log("=> OnMapEntered");
+            // LOGGER.Log("=> OnMapEntered");
             GameEvents.onGamePause.Remove(OnGamePause);
             GameEvents.onGameUnpause.Remove(OnGameUnpause);
             GameEvents.OnFlightUIModeChanged.Remove(OnFlightUIModeChanged);
@@ -85,7 +85,7 @@ namespace com.github.lhervier.ksp
 
         private void OnMapExited()
         {
-            LOGGER.Log("=> OnMapExited");
+            // LOGGER.Log("=> OnMapExited");
             GameEvents.onGamePause.Add(OnGamePause);
             GameEvents.onGameUnpause.Add(OnGameUnpause);
             GameEvents.OnFlightUIModeChanged.Add(OnFlightUIModeChanged);
@@ -101,27 +101,27 @@ namespace com.github.lhervier.ksp
 
         private void OnGamePause()
         {
-            LOGGER.Log("=> OnGamePause");
+            // LOGGER.Log("=> OnGamePause");
             this.ivaBeforePause = this.InContext();
             this.SendEvent(false);
         }
 
         private void OnGameUnpause()
         {
-            LOGGER.Log("=> OnGameUnpause");
+            // LOGGER.Log("=> OnGameUnpause");
             this.SendEvent(this.ivaBeforePause);
         }
 
-        private void OnEnterFreeIvaContext(ControllerContextDaemon sender, RefreshType refreshType)
+        private void OnEnterFreeIvaContext(ControllerContextDaemon sender)
         {
-            LOGGER.Log("=> OnEnterFreeIvaContext");
+            // LOGGER.Log("=> OnEnterFreeIvaContext");
             this.inFreeIva = true;
             this.SendEvent(false);
         }
 
         private void OnExitFreeIvaContext(ControllerContextDaemon sender)
         {
-            LOGGER.Log("=> OnExitFreeIvaContext");
+            // LOGGER.Log("=> OnExitFreeIvaContext");
             this.inFreeIva = false;
             this.SendEvent(
                 this.InIVA()
@@ -130,7 +130,7 @@ namespace com.github.lhervier.ksp
 
         private void OnFlightUIModeChanged(FlightUIMode mode)
         {
-            LOGGER.Log("=> OnFlightUIModeChanged : " + mode.ToString());
+            // LOGGER.Log("=> OnFlightUIModeChanged : " + mode.ToString());
             if( this.inFreeIva ) return;
             this.SendEvent(
                 this.InIVA()
@@ -139,7 +139,7 @@ namespace com.github.lhervier.ksp
 
         private void OnVesselChange(Vessel vessel)
         {
-            LOGGER.Log("=> OnVesselChange : " + vessel.name);
+            // LOGGER.Log("=> OnVesselChange : " + vessel.name);
             if( this.inFreeIva ) return;
             this.SendEvent(
                 this.InIVA()

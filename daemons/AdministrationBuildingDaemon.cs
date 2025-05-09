@@ -36,7 +36,7 @@ namespace com.github.lhervier.ksp
 
         protected void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            LOGGER.Log("=> OnSceneLoaded : " + scene.name);
+            // LOGGER.Log("=> OnSceneLoaded : " + scene.name);
             if( scene.name.ToUpper() != "SPACECENTER" ) return;
             GameEvents.onGUIAdministrationFacilitySpawn.Add(OnGUIAdministrationFacilitySpawn);
             GameEvents.onGUIAdministrationFacilityDespawn.Add(OnGUIAdministrationFacilityDespawn);
@@ -44,7 +44,7 @@ namespace com.github.lhervier.ksp
 
         protected void OnSceneUnloaded(Scene scene)
         {
-            LOGGER.Log("=> OnSceneUnloaded : " + scene.name);
+            // LOGGER.Log("=> OnSceneUnloaded : " + scene.name);
             if( scene.name.ToUpper() != "SPACECENTER" ) return;
             GameEvents.onGUIAdministrationFacilitySpawn.Remove(OnGUIAdministrationFacilitySpawn);
             GameEvents.onGUIAdministrationFacilityDespawn.Remove(OnGUIAdministrationFacilityDespawn);
@@ -54,14 +54,14 @@ namespace com.github.lhervier.ksp
 
         protected void OnGUIAdministrationFacilitySpawn()
         {
-            LOGGER.Log("=> OnGUIAdministrationFacilitySpawn");
-            this.SendEvent(true, RefreshType.Immediate);
+            // LOGGER.Log("=> OnGUIAdministrationFacilitySpawn");
+            this.SendEvent(true);
         }
         
         protected void OnGUIAdministrationFacilityDespawn()
         {
-            LOGGER.Log("=> OnGUIAdministrationFacilityDespawn");
-            this.SendEvent(false, RefreshType.Immediate);
+            // LOGGER.Log("=> OnGUIAdministrationFacilityDespawn");
+            this.SendEvent(false);
         }
     }
 }

@@ -36,7 +36,7 @@ namespace com.github.lhervier.ksp
 
         protected void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            LOGGER.Log("OnSceneLoaded : " + scene.name);
+            // LOGGER.Log("OnSceneLoaded : " + scene.name);
             if( scene.name.ToUpper() != "SPACECENTER" ) return;
 
             GameEvents.onGUIRnDComplexSpawn.Add(OnGUIRnDComplexSpawn);
@@ -45,7 +45,7 @@ namespace com.github.lhervier.ksp
 
         protected void OnSceneUnloaded(Scene scene)
         {
-            LOGGER.Log("OnSceneUnloaded : " + scene.name);
+            // LOGGER.Log("OnSceneUnloaded : " + scene.name);
             if( scene.name.ToUpper() != "SPACECENTER" ) return;
 
             GameEvents.onGUIRnDComplexSpawn.Remove(OnGUIRnDComplexSpawn);
@@ -54,13 +54,13 @@ namespace com.github.lhervier.ksp
 
         protected void OnGUIRnDComplexSpawn()
         {
-            LOGGER.Log("=> OnGUIRnDComplexSpawn");
+            // LOGGER.Log("=> OnGUIRnDComplexSpawn");
             this.SendEvent(true);
         }
         
         protected void OnGUIRnDComplexDespawn()
         {
-            LOGGER.Log("=> OnGUIRnDComplexDespawn");
+            // LOGGER.Log("=> OnGUIRnDComplexDespawn");
             this.SendEvent(false);
         }
     }

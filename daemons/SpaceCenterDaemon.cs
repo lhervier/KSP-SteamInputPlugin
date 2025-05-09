@@ -36,7 +36,7 @@ namespace com.github.lhervier.ksp
 
         protected void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            LOGGER.Log("OnSceneLoaded : " + scene.name);
+            // LOGGER.Log("OnSceneLoaded : " + scene.name);
             if( scene.name.ToUpper() != "SPACECENTER" ) return;
 
             this.SendEvent(true);
@@ -47,7 +47,7 @@ namespace com.github.lhervier.ksp
 
         protected void OnSceneUnloaded(Scene scene)
         {
-            LOGGER.Log("OnSceneUnloaded : " + scene.name);
+            // LOGGER.Log("OnSceneUnloaded : " + scene.name);
             if( scene.name.ToUpper() != "SPACECENTER" ) return;
 
             GameEvents.onGamePause.Remove(OnGamePause);
@@ -60,13 +60,13 @@ namespace com.github.lhervier.ksp
 
         protected void OnGamePause()
         {
-            LOGGER.Log("=> OnGamePause");
+            // LOGGER.Log("=> OnGamePause");
             this.SendEvent(false);
         }
 
         protected void OnGameUnpause()
         {
-            LOGGER.Log("=> OnGameUnpause");
+            // LOGGER.Log("=> OnGameUnpause");
             this.SendEvent(true);
         }
     }

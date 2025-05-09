@@ -52,12 +52,12 @@
 			"title"		"EVA Construction Mode"
 			"legacy_set"		"0"
 		}
-		"IVAControls"
+		"IvaControls"
 		{
 			"title"		"IVA"
 			"legacy_set"		"0"
 		}
-		"FreeIVAControls"
+		"FreeIvaControls"
 		{
 			"title"		"Free IVA"
 			"legacy_set"		"0"

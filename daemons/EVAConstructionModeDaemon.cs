@@ -36,7 +36,7 @@ namespace com.github.lhervier.ksp
 
         protected void OnEVAConstructionModeChanged(bool mode)
         {
-            LOGGER.Log("=> OnEVAConstructionModeChanged : " + mode);
+            // LOGGER.Log("=> OnEVAConstructionModeChanged : " + mode);
             SendEvent(mode);
         }
     }

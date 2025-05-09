@@ -36,7 +36,7 @@ namespace com.github.lhervier.ksp
 
         protected void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            LOGGER.Log("OnSceneLoaded : " + scene.name);
+            // LOGGER.Log("OnSceneLoaded : " + scene.name);
             if( scene.name.ToUpper() != "PFLIGHT4" ) return;
 
             GameEvents.onGamePause.Add(OnGamePause);
@@ -45,7 +45,7 @@ namespace com.github.lhervier.ksp
 
         protected void OnSceneUnloaded(Scene scene)
         {
-            LOGGER.Log("OnSceneUnloaded : " + scene.name);
+            // LOGGER.Log("OnSceneUnloaded : " + scene.name);
             if( scene.name.ToUpper() != "PFLIGHT4" ) return;
 
             GameEvents.onGamePause.Remove(OnGamePause);
@@ -54,13 +54,13 @@ namespace com.github.lhervier.ksp
         
         private void OnGamePause()
         {
-            LOGGER.Log("=> Game paused");
+            // LOGGER.Log("=> Game paused");
             this.SendEvent(true);
         }
         
         private void OnGameUnpause()
         {
-            LOGGER.Log("=> Game unpaused");
+            // LOGGER.Log("=> Game unpaused");
             this.SendEvent(false);
         }
     }

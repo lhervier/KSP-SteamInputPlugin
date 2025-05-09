@@ -21,8 +21,8 @@ namespace com.github.lhervier.ksp
         EvaControls,
         MapEvaControls,
         EvaConstructionModeControls,
-        IVAControls,
-        FreeIVAControls,
+        IvaControls,
+        FreeIvaControls,
         MissionBuilderControls
     }
 }

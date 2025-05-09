@@ -36,7 +36,7 @@ namespace com.github.lhervier.ksp
 
         protected void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            LOGGER.Log("OnSceneLoaded : " + scene.name);
+            // LOGGER.Log("OnSceneLoaded : " + scene.name);
             if( scene.name.ToUpper() != "SPACECENTER" ) return;
 
             GameEvents.onGUIMissionControlSpawn.Add(OnGUIMissionControlSpawn);
@@ -45,7 +45,7 @@ namespace com.github.lhervier.ksp
 
         protected void OnSceneUnloaded(Scene scene)
         {
-            LOGGER.Log("OnSceneUnloaded : " + scene.name);
+            // LOGGER.Log("OnSceneUnloaded : " + scene.name);
             if( scene.name.ToUpper() != "SPACECENTER" ) return;
             
             GameEvents.onGUIMissionControlSpawn.Remove(OnGUIMissionControlSpawn);
@@ -54,13 +54,13 @@ namespace com.github.lhervier.ksp
 
         protected void OnGUIMissionControlSpawn()
         {
-            LOGGER.Log("=> OnGUIMissionControlSpawn");
+            // LOGGER.Log("=> OnGUIMissionControlSpawn");
             this.SendEvent(true);
         }
 
         protected void OnGUIMissionControlDespawn()
         {
-            LOGGER.Log("=> OnGUIMissionControlDespawn");
+            // LOGGER.Log("=> OnGUIMissionControlDespawn");
             this.SendEvent(false);
         }       
     }

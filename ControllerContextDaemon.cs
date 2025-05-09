@@ -13,8 +13,8 @@ namespace com.github.lhervier.ksp
 
         private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("ControllerContextDaemon");
 
-        private readonly EventData<ControllerContextDaemon, RefreshType> _onEnterContext = new EventData<ControllerContextDaemon, RefreshType>("OnEnterAdministrationBuilding");
-        public EventData<ControllerContextDaemon, RefreshType> OnEnterContext() {
+        private readonly EventData<ControllerContextDaemon> _onEnterContext = new EventData<ControllerContextDaemon>("OnEnterAdministrationBuilding");
+        public EventData<ControllerContextDaemon> OnEnterContext() {
             return _onEnterContext;
         }
 
@@ -30,18 +30,14 @@ namespace com.github.lhervier.ksp
 
         public abstract ActionGroup CorrespondingActionGroup();
 
-        protected void SendEvent(bool inContext, RefreshType refreshType) {
+        protected void SendEvent(bool inContext) {
             if( inContext == this._inContext ) return;
             this._inContext = inContext;
             if( inContext ) {
-                this._onEnterContext.Fire(this, refreshType);
+                this._onEnterContext.Fire(this);
             } else {
                 this._onExitContext.Fire(this);
             }
-        }
-
-        protected void SendEvent(bool inContext) {
-            this.SendEvent(inContext, RefreshType.Immediate);
         }
 
         protected bool InFlightMode(FlightUIMode flightUiMode) {

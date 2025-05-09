@@ -190,14 +190,12 @@ namespace com.github.lhervier.ksp
         // <summary>
         //  When a context is activated
         // </summary>
-        public void OnEnterContext(ControllerContextDaemon daemon, RefreshType refreshType)
+        public void OnEnterContext(ControllerContextDaemon daemon)
         {
-            LOGGER_CONTEXT.Log("");
-            LOGGER_CONTEXT.Log("OnEnterContext : " + daemon.GetType().Name + " / " + refreshType.ToString());
-            this.LogKSPContext();
-            this.LogDaemons();
-
+            LOGGER_CONTEXT.Log("OnEnterContext : " + daemon.GetType().Name);
             this.activecontexts.Add(daemon);
+            // this.LogKSPContext();
+            this.LogDaemons();
             this.UpdateActionGroup();
         }
 
@@ -206,21 +204,18 @@ namespace com.github.lhervier.ksp
         // </summary>
         public void OnExitContext(ControllerContextDaemon daemon)
         {
-            LOGGER_CONTEXT.Log("");
             LOGGER_CONTEXT.Log("OnExitContext : " + daemon.GetType().Name);
-            this.LogKSPContext();
-            this.LogDaemons();
-
             this.activecontexts.Remove(daemon);
+            // this.LogKSPContext();
+            this.LogDaemons();
             this.UpdateActionGroup();
         }
 
         public void LogDaemons()
         {
             LOGGER_CONTEXT.Log("   ");
-            LOGGER_CONTEXT.Log("Daemons contexts:");
-            foreach(ControllerContextDaemon daemon in this.contextDaemons) 
-            {
+            LOGGER_CONTEXT.Log("Active daemons contexts:");
+            foreach( ControllerContextDaemon daemon in this.activecontexts ) {
                 LOGGER_CONTEXT.Log("- " + daemon.GetType().Name + " : " + daemon.InContext());
             }
         }
@@ -280,7 +275,6 @@ namespace com.github.lhervier.ksp
                 this.TriggerActionGroupChange(last);
             } else {
                 ActionGroup unique = this.activecontexts[0].CorrespondingActionGroup();
-                LOGGER.Log("Changing the action group to : " + unique.ToString());
                 this.ChangeActionGroupNow(unique);
             }
         }
@@ -323,7 +317,6 @@ namespace com.github.lhervier.ksp
                 return;
             }
             
-            LOGGER.Log("Cancelling existing action group change (if any)");
             this.CancelActionGroupChange();
             
             this.actionGroupToSet = actionGroup;
