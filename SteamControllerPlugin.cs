@@ -30,6 +30,7 @@ namespace com.github.lhervier.ksp
         //  Logger
         // </summary>
         private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger();
+        private static readonly SteamControllerLogger LOGGER_DAEMONS = new SteamControllerLogger("Contexts");
         
         // <summary>
         //  Delay before applying an action set (in frames)
@@ -72,6 +73,11 @@ namespace com.github.lhervier.ksp
         //  The default action set
         // </summary>
         private IKspActionSet defaultActionSet;
+
+        // <summary>
+        //  The daemons
+        // </summary>
+        private List<ControllerContextDaemon> daemons;
 
         // <summary>
         //  Message indicating when on Steam Controller action set changes
@@ -124,16 +130,6 @@ namespace com.github.lhervier.ksp
                 LOGGER.Log("No Squad Steam Controller plugin found");
             }
 
-            // Get all the action sets
-            LOGGER.Log("Loading action sets");
-            this.LoadActionSets();
-            LOGGER.Log("Action sets loaded : " + this.actionSets.Count);
-            foreach(IKspActionSet actionSet in this.actionSets) 
-            {
-                LOGGER.Log("- " + actionSet.ControlName());
-            }
-            LOGGER.Log("Default action set : " + this.defaultActionSet.ControlName());
-            
             // Create the controller daemon
             this.connectionDaemon = gameObject.AddComponent<SteamControllerDaemon>();
             LOGGER.Log("Controller Daemon attached");
@@ -160,6 +156,27 @@ namespace com.github.lhervier.ksp
             {
                 this.OnControllerConnected();
             }
+
+            // Get all the action sets
+            LOGGER.Log("Loading action sets");
+            this.LoadActionSets();
+            LOGGER.Log("Action sets loaded : " + this.actionSets.Count);
+            foreach(IKspActionSet actionSet in this.actionSets) 
+            {
+                LOGGER.Log("- " + actionSet.ControlName());
+            }
+            LOGGER.Log("Default action set : " + this.defaultActionSet.ControlName());
+            
+            // Get all the daemons
+            this.LoadDaemons();
+            foreach(ControllerContextDaemon daemon in this.daemons) 
+            {
+                daemon.OnEnterContext().Add(this.OnEnterContext);
+                daemon.OnExitContext().Add(this.OnExitContext);
+            }
+            LOGGER_DAEMONS.Log("Daemons attached :");
+            this.LogDaemons();
+            
             LOGGER.Log("Started");
         }
 
@@ -189,6 +206,55 @@ namespace com.github.lhervier.ksp
             }
         }
 
+        private void LoadDaemons()
+        {
+            // Get all types that implement IKspActionSet
+            var daemonTypes = Assembly.GetExecutingAssembly()
+                .GetTypes()
+                .Where(t => t.IsClass && !t.IsAbstract && typeof(ControllerContextDaemon).IsAssignableFrom(t));
+
+            // Create a list to store the action sets
+            this.daemons = new List<ControllerContextDaemon>();
+
+            // Add each action set component to the GameObject
+            foreach (var type in daemonTypes)
+            {
+                ControllerContextDaemon component = gameObject.AddComponent(type) as ControllerContextDaemon;
+                this.daemons.Add(component);
+            }
+        }
+
+        public void OnEnterContext(ControllerContextDaemon daemon, RefreshType refreshType)
+        {
+            LOGGER_DAEMONS.Log("OnEnterContext : " + daemon.GetType().Name + " / " + refreshType.ToString());
+            this.LogDaemons();
+        }
+
+        public void OnExitContext(ControllerContextDaemon daemon)
+        {
+            LOGGER_DAEMONS.Log("OnExitContext : " + daemon.GetType().Name);
+            this.LogDaemons();
+        }
+
+        public void LogDaemons()
+        {
+            int nbActive = 0;
+            string activeDaemon = null;
+            foreach(ControllerContextDaemon daemon in this.daemons) 
+            {
+                LOGGER_DAEMONS.Log("- " + daemon.GetType().Name + " : " + daemon.InContext());
+                if( daemon.InContext() ) {
+                    nbActive++;
+                    activeDaemon = daemon.GetType().Name;
+                }
+            }
+            if( nbActive != 1 ) {
+                LOGGER_DAEMONS.Log("!!!! Active daemons : " + nbActive + " (should be 1) !!!!");
+            } else {
+                LOGGER_DAEMONS.Log("Active daemon = " + activeDaemon);
+            }
+        }
+
         // <summary>
         //  Plugin destroyed
         // </summary>
@@ -198,6 +264,19 @@ namespace com.github.lhervier.ksp
             this.connectionDaemon.OnControllerConnected.Remove(OnControllerConnected);
             Destroy(this.delayedActionDaemon);
             Destroy(this.connectionDaemon);
+            
+            foreach(ControllerContextDaemon daemon in this.daemons) 
+            {
+                Destroy((MonoBehaviour) daemon);
+            }
+            this.daemons.Clear();
+
+            foreach(IKspActionSet actionSet in this.actionSets) 
+            {
+                Destroy((MonoBehaviour) actionSet);
+            }
+            this.actionSets.Clear();
+
             LOGGER.Log("Destroyed");
         }
 

@@ -30,6 +30,9 @@
     <Reference Include="SteamController">
       <HintPath>$(KSPDIR)\GameData\Squad\Plugins\KSPSteamCtrlr.dll</HintPath>
     </Reference>
+    <Reference Include="FreeIVA">
+      <HintPath>$(KSPDIR)\GameData\FreeIva\Plugins\FreeIva.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -51,6 +54,7 @@
   <ItemGroup>
     <Compile Include="*.cs" />
     <Compile Include="actionSets/*.cs" />
+    <Compile Include="daemons/*.cs" />
   </ItemGroup>
   
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
