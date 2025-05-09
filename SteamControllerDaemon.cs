@@ -109,12 +109,12 @@ namespace com.github.lhervier.ksp
                 return;
             }
 
-            // Load the action sets
+            // Load the action sets from the enumeration
             LOGGER.Log("Loading action sets");
-            this.actionSets = gameObject
-                .GetComponents<IKspActionSet>()
-                .Select(actionSet => actionSet.ControlName())
-                .Distinct()
+            this.actionSets = Enum.GetValues(typeof(ActionGroup))
+                .Cast<ActionGroup>()
+                .Where(actionGroup => actionGroup != ActionGroup.None)
+                .Select(actionGroup => actionGroup.ToString())
                 .ToArray();
             LOGGER.Log("Action sets loaded : " + this.actionSets.Length);
             
@@ -263,7 +263,8 @@ namespace com.github.lhervier.ksp
             {
                 return;
             }
-
+            
+            LOGGER.Log("Setting action set : " + actionSetName);
             Steamworks.SteamController.ActivateActionSet(
                 this.controllerHandle, 
                 this.actionsSetsHandles[actionSetName]

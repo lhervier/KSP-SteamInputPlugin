@@ -14,6 +14,11 @@ namespace com.github.lhervier.ksp
         private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("IVADaemon");
         private bool ivaBeforePause = false;
         private bool inFreeIva = false;
+        
+        public override ActionGroup CorrespondingActionGroup()
+        {
+            return ActionGroup.IVAControls;
+        }
 
         public void Start()
         {

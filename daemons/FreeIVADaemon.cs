@@ -26,6 +26,11 @@ namespace com.github.lhervier.ksp
         private bool ivaBeforePause = false;
         private bool inIva = false;
         
+        public override ActionGroup CorrespondingActionGroup()
+        {
+            return ActionGroup.FreeIVAControls;
+        }
+
         public void Awake()
         {
             _instance = this;

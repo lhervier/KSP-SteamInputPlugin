@@ -13,6 +13,11 @@ namespace com.github.lhervier.ksp
     {
         private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("TrackingStationDaemon");
 
+        public override ActionGroup CorrespondingActionGroup()
+        {
+            return ActionGroup.TrackingStationControls;
+        }
+
         public void Start()
         {
             LOGGER.Log("Start");

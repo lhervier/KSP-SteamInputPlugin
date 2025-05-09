@@ -28,6 +28,8 @@ namespace com.github.lhervier.ksp
             return _inContext;
         }
 
+        public abstract ActionGroup CorrespondingActionGroup();
+
         protected void SendEvent(bool inContext, RefreshType refreshType) {
             if( inContext == this._inContext ) return;
             this._inContext = inContext;

@@ -12,6 +12,12 @@ namespace com.github.lhervier.ksp
     public class MainMenuDaemon : ControllerContextDaemon
     {
         private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("MainMenuDaemon");
+        
+        public override ActionGroup CorrespondingActionGroup()
+        {
+            return ActionGroup.MenuControls;
+        }
+
         public void Start()
         {
             LOGGER.Log("Start");

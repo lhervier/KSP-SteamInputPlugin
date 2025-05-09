@@ -14,6 +14,11 @@ namespace com.github.lhervier.ksp
         private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("DockingDaemon");
         private bool dockingBeforePause = false;
 
+        public override ActionGroup CorrespondingActionGroup()
+        {
+            return ActionGroup.DockingControls;
+        }
+
         public void Start()
         {
             LOGGER.Log("Start");

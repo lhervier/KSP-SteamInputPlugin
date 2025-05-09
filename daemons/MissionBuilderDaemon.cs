@@ -12,6 +12,12 @@ namespace com.github.lhervier.ksp
     public class MissionBuilderDaemon : ControllerContextDaemon
     {
         private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("MissionBuilderDaemon");
+        
+        public override ActionGroup CorrespondingActionGroup()
+        {
+            return ActionGroup.MissionBuilderControls;
+        }
+
         public void Start()
         {
             LOGGER.Log("Start");

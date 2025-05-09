@@ -12,6 +12,12 @@ namespace com.github.lhervier.ksp
     public class EVAConstructionModeDaemon : ControllerContextDaemon
     {
         private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("EVAConstructionModeDaemon");
+
+        public override ActionGroup CorrespondingActionGroup()
+        {
+            return ActionGroup.EvaConstructionModeControls;
+        }
+
         public void Start()
         {
             LOGGER.Log("Start");

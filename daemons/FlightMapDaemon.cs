@@ -14,6 +14,11 @@ namespace com.github.lhervier.ksp
         private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("FlightMapDaemon");
         private bool flightBeforePause = false;
 
+        public override ActionGroup CorrespondingActionGroup()
+        {
+            return ActionGroup.MapFlightControls;
+        }
+
         public void Start()
         {
             LOGGER.Log("Start");

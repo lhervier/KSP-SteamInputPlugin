@@ -12,6 +12,12 @@ namespace com.github.lhervier.ksp
     public class SPHDaemon : ControllerContextDaemon
     {
         private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("SPHDaemon");
+        
+        public override ActionGroup CorrespondingActionGroup()
+        {
+            return ActionGroup.EditorControls;
+        }
+        
         public void Start()
         {
             LOGGER.Log("Start");

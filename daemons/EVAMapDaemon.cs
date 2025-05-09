@@ -14,6 +14,11 @@ namespace com.github.lhervier.ksp
         private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("EVAMapDaemon");
         private bool evaBeforePause = false;
 
+        public override ActionGroup CorrespondingActionGroup()
+        {
+            return ActionGroup.MapEvaControls;
+        }
+
         public void Start()
         {
             LOGGER.Log("Start");

@@ -16,6 +16,11 @@ namespace com.github.lhervier.ksp
 
         private DelayedActionDaemon delayedActionDaemon;
 
+        public override ActionGroup CorrespondingActionGroup()
+        {
+            return ActionGroup.MenuControls;
+        }
+
         public void Start()
         {
             LOGGER.Log("Start");

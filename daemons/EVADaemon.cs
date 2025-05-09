@@ -15,6 +15,11 @@ namespace com.github.lhervier.ksp
         
         private bool evaBeforePause = false;
 
+        public override ActionGroup CorrespondingActionGroup()
+        {
+            return ActionGroup.EvaControls;
+        }
+
         public void Start()
         {
             LOGGER.Log("Start");

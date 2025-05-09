@@ -42,6 +42,11 @@
 			"title"		"EVA"
 			"legacy_set"		"0"
 		}
+		"MapEvaControls"
+		{
+			"title"		"Map EVA"
+			"legacy_set"		"0"
+		}
 		"EvaConstructionModeControls"
 		{
 			"title"		"EVA Construction Mode"
@@ -50,6 +55,11 @@
 		"IVAControls"
 		{
 			"title"		"IVA"
+			"legacy_set"		"0"
+		}
+		"FreeIVAControls"
+		{
+			"title"		"Free IVA"
 			"legacy_set"		"0"
 		}
 		"MissionBuilderControls"
