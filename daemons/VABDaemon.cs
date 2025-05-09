@@ -12,11 +12,6 @@ namespace com.github.lhervier.ksp
     public class VABDaemon : ControllerContextDaemon
     {
         private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("VABDaemon");
-        protected override string ActionGroupName()
-        {
-            return "EditorControls";
-        }
-        
         public void Start()
         {
             LOGGER.Log("Start");

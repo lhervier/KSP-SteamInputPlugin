@@ -12,11 +12,6 @@ namespace com.github.lhervier.ksp
     public class DockingMapDaemon : ControllerContextDaemon
     {
         private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("DockingMapDaemon");
-        protected override string ActionGroupName()
-        {
-            return "DockingMapControls";
-        }
-
         private bool dockingBeforePause = false;
 
         public void Start()

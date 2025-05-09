@@ -13,8 +13,6 @@ namespace com.github.lhervier.ksp
 
         private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("ControllerContextDaemon");
 
-        protected abstract string ActionGroupName();
-
         private readonly EventData<ControllerContextDaemon, RefreshType> _onEnterContext = new EventData<ControllerContextDaemon, RefreshType>("OnEnterAdministrationBuilding");
         public EventData<ControllerContextDaemon, RefreshType> OnEnterContext() {
             return _onEnterContext;
@@ -48,7 +46,7 @@ namespace com.github.lhervier.ksp
             if( this.InEVA() || this.InIVA() ) {
                 return false;
             }
-            return flightUiMode == FlightUIMode.STAGING || flightUiMode == FlightUIMode.MANEUVER_INFO;
+            return flightUiMode == FlightUIMode.STAGING || flightUiMode == FlightUIMode.MANEUVER_INFO || flightUiMode == FlightUIMode.MANEUVER_EDIT;
         }
 
         protected bool InFlightMode() {

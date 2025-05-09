@@ -13,11 +13,6 @@ namespace com.github.lhervier.ksp
     {
         private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("AdministrationBuildingDaemon");
         
-        protected override string ActionGroupName()
-        {
-            return "MenuControls";
-        }
-
         public void Start()
         {
             LOGGER.Log("Start");

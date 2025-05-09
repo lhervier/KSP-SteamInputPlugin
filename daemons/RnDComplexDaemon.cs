@@ -12,11 +12,6 @@ namespace com.github.lhervier.ksp
     public class RnDComplexDaemon : ControllerContextDaemon
     {
         private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("RnDComplexDaemon");
-        protected override string ActionGroupName()
-        {
-            return "MenuControls";
-        }
-        
         public void Start()
         {
             LOGGER.Log("Start");

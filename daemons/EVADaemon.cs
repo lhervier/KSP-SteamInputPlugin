@@ -13,11 +13,6 @@ namespace com.github.lhervier.ksp
     {
         private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("EVADaemon");
         
-        protected override string ActionGroupName()
-        {
-            return "EVAControls";
-        }
-        
         private bool evaBeforePause = false;
 
         public void Start()

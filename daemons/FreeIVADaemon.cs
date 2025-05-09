@@ -12,16 +12,25 @@ namespace com.github.lhervier.ksp
     public class FreeIVADaemon : ControllerContextDaemon
     {
         private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("FreeIVADaemon");
-        protected override string ActionGroupName()
-        {
-            return "FreeIVAControls";
+        private static FreeIVADaemon _instance;
+        public static FreeIVADaemon Instance {
+            get {
+                return _instance;
+            }
         }
-        
+
         private Type kerbalIvaAddonType;
         PropertyInfo instanceProperty;
-        PropertyInfo buckledProperty;
+        FieldInfo buckledProperty;
         private bool initialized = false;
+        private bool ivaBeforePause = false;
+        private bool inIva = false;
         
+        public void Awake()
+        {
+            _instance = this;
+        }
+
         protected void Start() 
         {   
             LOGGER.Log("Starting");
@@ -37,13 +46,17 @@ namespace com.github.lhervier.ksp
                 return;
             }
             
-            buckledProperty = kerbalIvaAddonType.GetProperty("buckled");
+            buckledProperty = kerbalIvaAddonType.GetField("buckled", BindingFlags.Public | BindingFlags.Instance);
             if (buckledProperty == null) {
-                LOGGER.Log("=> buckled property not found. FreeIVA mod has probably evolved...");
+                LOGGER.Log("=> buckled field not found. FreeIVA mod has probably evolved...");
                 return;
             }
 
+            LOGGER.Log("=> FreeIVA mod found");
             initialized = true;
+
+            SceneManager.sceneLoaded += OnSceneLoaded;
+            SceneManager.sceneUnloaded += OnSceneUnloaded;
         }
 
         protected void OnDestroy() 
@@ -52,6 +65,74 @@ namespace com.github.lhervier.ksp
             if( !initialized ) {
                 return;
             }
+
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+            SceneManager.sceneUnloaded -= OnSceneUnloaded;
+            this.initialized = false;
+            _instance = null;
+        }
+
+        bool InFreeIva() {
+            if( !this.inIva ) {
+                return false;
+            }
+
+            object instance = instanceProperty.GetValue(null);
+            if( instance == null ) {
+                return false;
+            }
+            return !(bool) buckledProperty.GetValue(instance);
+        }
+
+        protected void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            LOGGER.Log("OnSceneLoaded : " + scene.name);
+            if( scene.name.ToUpper() != "PFLIGHT4") return;
+
+            GameEvents.onGamePause.Add(OnGamePause);
+            GameEvents.onGameUnpause.Add(OnGameUnpause);
+
+            GameEvents.OnFlightUIModeChanged.Add(OnFlightUIModeChanged);
+            GameEvents.onVesselChange.Add(OnVesselChange);
+        }
+
+        protected void OnSceneUnloaded(Scene scene)
+        {
+            LOGGER.Log("OnSceneUnloaded : " + scene.name);
+            if( scene.name.ToUpper() != "PFLIGHT4") return;
+            
+            GameEvents.onGamePause.Remove(OnGamePause);
+            GameEvents.onGameUnpause.Remove(OnGameUnpause);
+            GameEvents.OnFlightUIModeChanged.Remove(OnFlightUIModeChanged);
+            GameEvents.onVesselChange.Remove(OnVesselChange);
+            this.inIva = false;
+            
+            this.SendEvent(false);
+        }
+
+        private void OnGamePause()
+        {
+            LOGGER.Log("=> OnGamePause");
+            this.ivaBeforePause = this.InContext();
+            this.SendEvent(false);
+        }
+
+        private void OnGameUnpause()
+        {
+            LOGGER.Log("=> OnGameUnpause");
+            this.SendEvent(this.ivaBeforePause);
+        }
+
+        private void OnFlightUIModeChanged(FlightUIMode mode)
+        {
+            LOGGER.Log("=> OnFlightUIModeChanged : " + mode);
+            this.inIva = InIVA();
+        }
+
+        private void OnVesselChange(Vessel vessel)
+        {
+            LOGGER.Log("=> OnVesselChange : " + vessel.name);
+            this.inIva = InIVA();
         }
 
         protected void FixedUpdate()
@@ -59,15 +140,7 @@ namespace com.github.lhervier.ksp
             if( !initialized ) {
                 return;
             }
-            
-            object instance = instanceProperty.GetValue(null);
-            if( instance == null ) {
-                return;
-            }
-
-            this.SendEvent(
-                (bool) buckledProperty.GetValue(instance)
-            );
+            this.SendEvent(InFreeIva());
         }
     }
 }

@@ -12,11 +12,6 @@ namespace com.github.lhervier.ksp
     public class PauseInSpaceCenterDaemon : ControllerContextDaemon
     {
         private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("PauseInSpaceCenterDaemon");
-        protected override string ActionGroupName()
-        {
-            return "MenuControls";
-        }
-        
         private static readonly int DELAY = 10;
 
         private DelayedActionDaemon delayedActionDaemon;

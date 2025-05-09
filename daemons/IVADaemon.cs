@@ -12,12 +12,8 @@ namespace com.github.lhervier.ksp
     public class IVADaemon : ControllerContextDaemon
     {
         private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("IVADaemon");
-        protected override string ActionGroupName()
-        {
-            return "IVAControls";
-        }
-        
         private bool ivaBeforePause = false;
+        private bool inFreeIva = false;
 
         public void Start()
         {
@@ -40,6 +36,7 @@ namespace com.github.lhervier.ksp
             LOGGER.Log("OnSceneLoaded : " + scene.name);
             if( scene.name.ToUpper() != "PFLIGHT4") return;
             
+            this.inFreeIva = false;
             this.SendEvent(false);
 
             GameEvents.OnMapEntered.Add(OnMapEntered);
@@ -61,6 +58,7 @@ namespace com.github.lhervier.ksp
             GameEvents.OnMapExited.Remove(OnMapExited);
             GameEvents.onVesselChange.Remove(OnVesselChange);
 
+            this.inFreeIva = false;
             this.SendEvent(false);
         }
 
@@ -73,6 +71,9 @@ namespace com.github.lhervier.ksp
             GameEvents.onGameUnpause.Remove(OnGameUnpause);
             GameEvents.OnFlightUIModeChanged.Remove(OnFlightUIModeChanged);
             GameEvents.onVesselChange.Remove(OnVesselChange);
+
+            FreeIVADaemon.Instance.OnEnterContext().Remove(OnEnterFreeIvaContext);
+            FreeIVADaemon.Instance.OnExitContext().Remove(OnExitFreeIvaContext);
             
             this.SendEvent(false);
         }
@@ -84,6 +85,9 @@ namespace com.github.lhervier.ksp
             GameEvents.onGameUnpause.Add(OnGameUnpause);
             GameEvents.OnFlightUIModeChanged.Add(OnFlightUIModeChanged);
             GameEvents.onVesselChange.Add(OnVesselChange);
+
+            FreeIVADaemon.Instance.OnEnterContext().Add(OnEnterFreeIvaContext);
+            FreeIVADaemon.Instance.OnExitContext().Add(OnExitFreeIvaContext);
 
             this.SendEvent(
                 this.InIVA()
@@ -103,9 +107,26 @@ namespace com.github.lhervier.ksp
             this.SendEvent(this.ivaBeforePause);
         }
 
+        private void OnEnterFreeIvaContext(ControllerContextDaemon sender, RefreshType refreshType)
+        {
+            LOGGER.Log("=> OnEnterFreeIvaContext");
+            this.inFreeIva = true;
+            this.SendEvent(false);
+        }
+
+        private void OnExitFreeIvaContext(ControllerContextDaemon sender)
+        {
+            LOGGER.Log("=> OnExitFreeIvaContext");
+            this.inFreeIva = false;
+            this.SendEvent(
+                this.InIVA()
+            );
+        }
+
         private void OnFlightUIModeChanged(FlightUIMode mode)
         {
             LOGGER.Log("=> OnFlightUIModeChanged : " + mode.ToString());
+            if( this.inFreeIva ) return;
             this.SendEvent(
                 this.InIVA()
             );
@@ -114,6 +135,7 @@ namespace com.github.lhervier.ksp
         private void OnVesselChange(Vessel vessel)
         {
             LOGGER.Log("=> OnVesselChange : " + vessel.name);
+            if( this.inFreeIva ) return;
             this.SendEvent(
                 this.InIVA()
             );
