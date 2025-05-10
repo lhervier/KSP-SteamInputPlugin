@@ -9,10 +9,10 @@ using SteamController;
 
 namespace com.github.lhervier.ksp 
 {
-    public class MissionControlDaemon : ControllerContextDaemon
+    public class MainMenuDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("MissionControlDaemon");
-
+        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("MainMenuDaemon");
+        
         public override ActionGroup CorrespondingActionGroup()
         {
             return ActionGroup.MenuControls;
@@ -29,39 +29,36 @@ namespace com.github.lhervier.ksp
         public void OnDestroy()
         {
             LOGGER.Log("OnDestroy");
-            
+
             SceneManager.sceneLoaded -= OnSceneLoaded;
             SceneManager.sceneUnloaded -= OnSceneUnloaded;
+        }
+
+        private bool IsInMainMenu(Scene scene)
+        {
+            string sceneName = scene.name.ToUpper();
+            return sceneName == "KSPMAINMENU" || sceneName == "KSPSETTINGS" || sceneName == "KSPCREDITS";
         }
 
         protected void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             // LOGGER.Log("OnSceneLoaded : " + scene.name);
-            if( scene.name.ToUpper() != "SPACECENTER" ) return;
+            if( !IsInMainMenu(scene) ) {
+                return;
+            }
 
-            GameEvents.onGUIMissionControlSpawn.Add(OnGUIMissionControlSpawn);
-            GameEvents.onGUIMissionControlDespawn.Add(OnGUIMissionControlDespawn);
+            this.FireContextEnterOrLeave(true);
         }
 
         protected void OnSceneUnloaded(Scene scene)
         {
             // LOGGER.Log("OnSceneUnloaded : " + scene.name);
-            if( scene.name.ToUpper() != "SPACECENTER" ) return;
-            
-            GameEvents.onGUIMissionControlSpawn.Remove(OnGUIMissionControlSpawn);
-            GameEvents.onGUIMissionControlDespawn.Remove(OnGUIMissionControlDespawn);
-        }
+            if( !IsInMainMenu(scene) ) {
+                return;
+            }
 
-        protected void OnGUIMissionControlSpawn()
-        {
-            // LOGGER.Log("=> OnGUIMissionControlSpawn");
-            this.SendEvent(true);
+            this.FireContextEnterOrLeave(false);
         }
-
-        protected void OnGUIMissionControlDespawn()
-        {
-            // LOGGER.Log("=> OnGUIMissionControlDespawn");
-            this.SendEvent(false);
-        }       
+        
     }
 }

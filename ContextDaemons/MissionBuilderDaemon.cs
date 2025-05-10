@@ -9,13 +9,13 @@ using SteamController;
 
 namespace com.github.lhervier.ksp 
 {
-    public class TrackingStationDaemon : ControllerContextDaemon
+    public class MissionBuilderDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("TrackingStationDaemon");
-
+        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("MissionBuilderDaemon");
+        
         public override ActionGroup CorrespondingActionGroup()
         {
-            return ActionGroup.TrackingStationControls;
+            return ActionGroup.MissionBuilderControls;
         }
 
         public void Start()
@@ -25,7 +25,7 @@ namespace com.github.lhervier.ksp
             SceneManager.sceneLoaded += OnSceneLoaded;
             SceneManager.sceneUnloaded += OnSceneUnloaded;
         }
-
+        
         public void OnDestroy()
         {
             LOGGER.Log("OnDestroy");
@@ -37,21 +37,21 @@ namespace com.github.lhervier.ksp
         protected void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             // LOGGER.Log("OnSceneLoaded : " + scene.name);
-            if( scene.name.ToUpper() != "TRACKINGSTATION" ) {
+            if( scene.name.ToUpper() != "KSPMISSIONEDITOR" ) {
                 return;
             }
 
-            this.SendEvent(true);
+            this.FireContextEnterOrLeave(true);
         }
 
         protected void OnSceneUnloaded(Scene scene)
         {
             // LOGGER.Log("OnSceneUnloaded : " + scene.name);
-            if( scene.name.ToUpper() != "TRACKINGSTATION" ) {
+            if( scene.name.ToUpper() != "KSPMISSIONEDITOR" ) {
                 return;
             }
 
-            this.SendEvent(false);
+            this.FireContextEnterOrLeave(false);
         }
     }
 }

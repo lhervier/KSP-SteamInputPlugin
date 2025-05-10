@@ -9,7 +9,7 @@ using SteamController;
 
 namespace com.github.lhervier.ksp 
 {
-    public class EVAConstructionModeDaemon : ControllerContextDaemon
+    public class EVAConstructionModeDaemon : BaseContextDaemon
     {
         private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("EVAConstructionModeDaemon");
 
@@ -23,7 +23,7 @@ namespace com.github.lhervier.ksp
             LOGGER.Log("Start");
             GameEvents.OnEVAConstructionMode.Add(OnEVAConstructionModeChanged);
 
-            this.SendEvent(false);
+            this.FireContextEnterOrLeave(false);
         }
 
         public void OnDestroy()
@@ -37,7 +37,7 @@ namespace com.github.lhervier.ksp
         protected void OnEVAConstructionModeChanged(bool mode)
         {
             // LOGGER.Log("=> OnEVAConstructionModeChanged : " + mode);
-            SendEvent(mode);
+            FireContextEnterOrLeave(mode);
         }
     }
 }

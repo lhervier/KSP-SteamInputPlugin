@@ -9,14 +9,14 @@ using SteamController;
 
 namespace com.github.lhervier.ksp 
 {
-    public class FlightDaemon : ControllerContextDaemon
+    public class FlightMapDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("FlightDaemon");
-        private bool inContextBeforePause = false;
+        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("FlightMapDaemon");
+        private bool flightBeforePause = false;
 
         public override ActionGroup CorrespondingActionGroup()
         {
-            return ActionGroup.FlightControls;
+            return ActionGroup.MapFlightControls;
         }
 
         public void Start()
@@ -35,14 +35,18 @@ namespace com.github.lhervier.ksp
             SceneManager.sceneUnloaded -= OnSceneUnloaded;
         }
 
+        // ============================================================
+
         protected void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             // LOGGER.Log("OnSceneLoaded : " + scene.name);
             if( scene.name.ToUpper() != "PFLIGHT4") return;
             
+            this.FireContextEnterOrLeave(false);
+
             GameEvents.OnMapEntered.Add(OnMapEntered);
             GameEvents.OnMapExited.Add(OnMapExited);
-
+            
             this.OnMapExited();
         }
 
@@ -52,8 +56,6 @@ namespace com.github.lhervier.ksp
             if( scene.name.ToUpper() != "PFLIGHT4" ) {
                 return;
             }
-            
-            this.SendEvent(false);
 
             GameEvents.OnMapEntered.Remove(OnMapEntered);
             GameEvents.OnMapExited.Remove(OnMapExited);
@@ -62,6 +64,8 @@ namespace com.github.lhervier.ksp
             GameEvents.onGameUnpause.Remove(OnGameUnpause);
             GameEvents.OnFlightUIModeChanged.Remove(OnFlightUIModeChanged);
             GameEvents.onVesselChange.Remove(OnVesselChange);
+
+            this.FireContextEnterOrLeave(false);
         }
 
         // ============================================================
@@ -70,45 +74,45 @@ namespace com.github.lhervier.ksp
         {
             // LOGGER.Log("=> OnMapEntered");
             
-            GameEvents.onGamePause.Remove(OnGamePause);
-            GameEvents.onGameUnpause.Remove(OnGameUnpause);
-            GameEvents.OnFlightUIModeChanged.Remove(OnFlightUIModeChanged);
-            GameEvents.onVesselChange.Remove(OnVesselChange);
-            
-            this.SendEvent(false);
+            GameEvents.onGamePause.Add(OnGamePause);
+            GameEvents.onGameUnpause.Add(OnGameUnpause);
+            GameEvents.OnFlightUIModeChanged.Add(OnFlightUIModeChanged);
+            GameEvents.onVesselChange.Add(OnVesselChange);
+
+            this.FireContextEnterOrLeave(
+                InFlightMode()
+            );
         }
 
         private void OnMapExited()
         {
             // LOGGER.Log("=> OnMapExited");
             
-            GameEvents.onGamePause.Add(OnGamePause);
-            GameEvents.onGameUnpause.Add(OnGameUnpause);
-            GameEvents.OnFlightUIModeChanged.Add(OnFlightUIModeChanged);
-            GameEvents.onVesselChange.Add(OnVesselChange);
+            GameEvents.onGamePause.Remove(OnGamePause);
+            GameEvents.onGameUnpause.Remove(OnGameUnpause);
+            GameEvents.OnFlightUIModeChanged.Remove(OnFlightUIModeChanged);
+            GameEvents.onVesselChange.Remove(OnVesselChange);
 
-            this.SendEvent(
-                InFlightMode()
-            );
+            this.FireContextEnterOrLeave(false);
         }
-
+        
         private void OnGamePause()
         {
             // LOGGER.Log("=> OnGamePause");
-            this.inContextBeforePause = this.InContext();
-            this.SendEvent(false);
+            this.flightBeforePause = this.InContext();
+            this.FireContextEnterOrLeave(false);
         }
 
         private void OnGameUnpause()
         {
             // LOGGER.Log("=> OnGameUnpause");
-            this.SendEvent(this.inContextBeforePause);
+            this.FireContextEnterOrLeave(this.flightBeforePause);
         }
 
         private void OnFlightUIModeChanged(FlightUIMode mode)
         {
             // LOGGER.Log("=> OnFlightUIModeChanged : " + mode.ToString());
-            this.SendEvent(
+            this.FireContextEnterOrLeave(
                 InFlightMode(mode)
             );
         }
@@ -116,8 +120,8 @@ namespace com.github.lhervier.ksp
         private void OnVesselChange(Vessel vessel)
         {
             // LOGGER.Log("=> OnVesselChange : " + vessel.name);
-            this.SendEvent(
-                InFlightMode()
+            this.FireContextEnterOrLeave(
+                InFlightMode(FlightUIModeController.Instance.Mode)
             );
         }
     }

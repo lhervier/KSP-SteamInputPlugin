@@ -9,7 +9,7 @@ using SteamController;
 
 namespace com.github.lhervier.ksp 
 {
-    public class FreeIVADaemon : ControllerContextDaemon
+    public class FreeIVADaemon : BaseContextDaemon
     {
         private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("FreeIVADaemon");
         private static FreeIVADaemon _instance;
@@ -112,20 +112,20 @@ namespace com.github.lhervier.ksp
             GameEvents.onVesselChange.Remove(OnVesselChange);
             this.inIva = false;
             
-            this.SendEvent(false);
+            this.FireContextEnterOrLeave(false);
         }
 
         private void OnGamePause()
         {
             // LOGGER.Log("=> OnGamePause");
             this.ivaBeforePause = this.InContext();
-            this.SendEvent(false);
+            this.FireContextEnterOrLeave(false);
         }
 
         private void OnGameUnpause()
         {
             // LOGGER.Log("=> OnGameUnpause");
-            this.SendEvent(this.ivaBeforePause);
+            this.FireContextEnterOrLeave(this.ivaBeforePause);
         }
 
         private void OnFlightUIModeChanged(FlightUIMode mode)
@@ -145,7 +145,7 @@ namespace com.github.lhervier.ksp
             if( !initialized ) {
                 return;
             }
-            this.SendEvent(InFreeIva());
+            this.FireContextEnterOrLeave(InFreeIva());
         }
     }
 }

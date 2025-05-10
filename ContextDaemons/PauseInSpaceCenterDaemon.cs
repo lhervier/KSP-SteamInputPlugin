@@ -9,7 +9,7 @@ using SteamController;
 
 namespace com.github.lhervier.ksp 
 {
-    public class PauseInSpaceCenterDaemon : ControllerContextDaemon
+    public class PauseInSpaceCenterDaemon : BaseContextDaemon
     {
         private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("PauseInSpaceCenterDaemon");
         private static readonly int DELAY = 10;
@@ -71,7 +71,7 @@ namespace com.github.lhervier.ksp
 
         private void Pause() {
             // LOGGER.Log("   Pause: true");
-            this.SendEvent(true);
+            this.FireContextEnterOrLeave(true);
         }
 
         // ================================================================================================================
@@ -88,7 +88,7 @@ namespace com.github.lhervier.ksp
         private void OnGameUnpause()
         {
             // LOGGER.Log("=> Game unpaused");
-            this.SendEvent(false);
+            this.FireContextEnterOrLeave(false);
         }
 
         protected void OnGUIAdministrationFacilitySpawn() {

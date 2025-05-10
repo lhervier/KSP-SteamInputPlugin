@@ -34,7 +34,7 @@ namespace com.github.lhervier.ksp
         // <summary>
         //  The daemons
         // </summary>
-        private readonly List<ControllerContextDaemon> contextDaemons = new List<ControllerContextDaemon>();
+        private readonly List<BaseContextDaemon> contextDaemons = new List<BaseContextDaemon>();
 
         // <summary>
         //  The active contexts. Idealy, there should be only one active context.
@@ -43,7 +43,7 @@ namespace com.github.lhervier.ksp
         //  So we can have zero or 2 active contexts at the same time.
         //  More than 2 active contexts should never happen.
         // </summary>
-        private readonly List<ControllerContextDaemon> activecontexts = new List<ControllerContextDaemon>();
+        private readonly List<BaseContextDaemon> activecontexts = new List<BaseContextDaemon>();
 
         // <summary>
         //  Message indicating when on Steam Controller action set changes
@@ -125,7 +125,7 @@ namespace com.github.lhervier.ksp
             // Get all the daemons and attach them to the plugin
             this.LoadContextDaemons();
             this.activecontexts.Clear();
-            foreach(ControllerContextDaemon daemon in this.contextDaemons) 
+            foreach(BaseContextDaemon daemon in this.contextDaemons) 
             {
                 daemon.OnEnterContext().Add(this.OnEnterContext);
                 daemon.OnExitContext().Add(this.OnExitContext);
@@ -146,7 +146,7 @@ namespace com.github.lhervier.ksp
             Destroy(this.delayedActionDaemon);
             Destroy(this.connectionDaemon);
             
-            foreach(ControllerContextDaemon daemon in this.contextDaemons) 
+            foreach(BaseContextDaemon daemon in this.contextDaemons) 
             {
                 daemon.OnEnterContext().Remove(this.OnEnterContext);
                 daemon.OnExitContext().Remove(this.OnExitContext);
@@ -167,12 +167,12 @@ namespace com.github.lhervier.ksp
             // Get all types that implement ControllerContextDaemon
             var daemonTypes = Assembly.GetExecutingAssembly()
                 .GetTypes()
-                .Where(t => t.IsClass && !t.IsAbstract && typeof(ControllerContextDaemon).IsAssignableFrom(t));
+                .Where(t => t.IsClass && !t.IsAbstract && typeof(BaseContextDaemon).IsAssignableFrom(t));
 
             // Add each daemon component to the GameObject
             foreach (var type in daemonTypes)
             {
-                ControllerContextDaemon component = gameObject.AddComponent(type) as ControllerContextDaemon;
+                BaseContextDaemon component = gameObject.AddComponent(type) as BaseContextDaemon;
                 this.contextDaemons.Add(component);
             }
         }
@@ -208,7 +208,7 @@ namespace com.github.lhervier.ksp
         // <summary>
         //  When a context is activated
         // </summary>
-        public void OnEnterContext(ControllerContextDaemon daemon)
+        public void OnEnterContext(BaseContextDaemon daemon)
         {
             LOGGER_CONTEXT.Log("OnEnterContext : " + daemon.GetType().Name);
             this.activecontexts.Add(daemon);
@@ -220,7 +220,7 @@ namespace com.github.lhervier.ksp
         // <summary>
         //  When a context is deactivated
         // </summary>
-        public void OnExitContext(ControllerContextDaemon daemon)
+        public void OnExitContext(BaseContextDaemon daemon)
         {
             LOGGER_CONTEXT.Log("OnExitContext : " + daemon.GetType().Name);
             this.activecontexts.Remove(daemon);
@@ -235,7 +235,7 @@ namespace com.github.lhervier.ksp
                 LOGGER_CONTEXT.Log("No active daemons contexts");
             } else {
                 LOGGER_CONTEXT.Log("Active daemons contexts: " + this.activecontexts.Count);
-                foreach( ControllerContextDaemon daemon in this.activecontexts ) {
+                foreach( BaseContextDaemon daemon in this.activecontexts ) {
                     LOGGER_CONTEXT.Log("- " + daemon.GetType().Name);
                 }
             }

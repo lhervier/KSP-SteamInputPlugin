@@ -9,7 +9,7 @@ using SteamController;
 
 namespace com.github.lhervier.ksp 
 {
-    public class IVADaemon : ControllerContextDaemon
+    public class IVADaemon : BaseContextDaemon
     {
         private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("IVADaemon");
         private bool ivaBeforePause = false;
@@ -42,7 +42,7 @@ namespace com.github.lhervier.ksp
             if( scene.name.ToUpper() != "PFLIGHT4") return;
             
             this.inFreeIva = false;
-            this.SendEvent(false);
+            this.FireContextEnterOrLeave(false);
 
             GameEvents.OnMapEntered.Add(OnMapEntered);
             GameEvents.OnMapExited.Add(OnMapExited);
@@ -64,7 +64,7 @@ namespace com.github.lhervier.ksp
             GameEvents.onVesselChange.Remove(OnVesselChange);
 
             this.inFreeIva = false;
-            this.SendEvent(false);
+            this.FireContextEnterOrLeave(false);
         }
 
         // ============================================================
@@ -80,7 +80,7 @@ namespace com.github.lhervier.ksp
             FreeIVADaemon.Instance.OnEnterContext().Remove(OnEnterFreeIvaContext);
             FreeIVADaemon.Instance.OnExitContext().Remove(OnExitFreeIvaContext);
             
-            this.SendEvent(false);
+            this.FireContextEnterOrLeave(false);
         }
 
         private void OnMapExited()
@@ -94,7 +94,7 @@ namespace com.github.lhervier.ksp
             FreeIVADaemon.Instance.OnEnterContext().Add(OnEnterFreeIvaContext);
             FreeIVADaemon.Instance.OnExitContext().Add(OnExitFreeIvaContext);
 
-            this.SendEvent(
+            this.FireContextEnterOrLeave(
                 this.InIVA()
             );
         }
@@ -103,27 +103,27 @@ namespace com.github.lhervier.ksp
         {
             // LOGGER.Log("=> OnGamePause");
             this.ivaBeforePause = this.InContext();
-            this.SendEvent(false);
+            this.FireContextEnterOrLeave(false);
         }
 
         private void OnGameUnpause()
         {
             // LOGGER.Log("=> OnGameUnpause");
-            this.SendEvent(this.ivaBeforePause);
+            this.FireContextEnterOrLeave(this.ivaBeforePause);
         }
 
-        private void OnEnterFreeIvaContext(ControllerContextDaemon sender)
+        private void OnEnterFreeIvaContext(BaseContextDaemon sender)
         {
             // LOGGER.Log("=> OnEnterFreeIvaContext");
             this.inFreeIva = true;
-            this.SendEvent(false);
+            this.FireContextEnterOrLeave(false);
         }
 
-        private void OnExitFreeIvaContext(ControllerContextDaemon sender)
+        private void OnExitFreeIvaContext(BaseContextDaemon sender)
         {
             // LOGGER.Log("=> OnExitFreeIvaContext");
             this.inFreeIva = false;
-            this.SendEvent(
+            this.FireContextEnterOrLeave(
                 this.InIVA()
             );
         }
@@ -132,7 +132,7 @@ namespace com.github.lhervier.ksp
         {
             // LOGGER.Log("=> OnFlightUIModeChanged : " + mode.ToString());
             if( this.inFreeIva ) return;
-            this.SendEvent(
+            this.FireContextEnterOrLeave(
                 this.InIVA()
             );
         }
@@ -141,7 +141,7 @@ namespace com.github.lhervier.ksp
         {
             // LOGGER.Log("=> OnVesselChange : " + vessel.name);
             if( this.inFreeIva ) return;
-            this.SendEvent(
+            this.FireContextEnterOrLeave(
                 this.InIVA()
             );
         }

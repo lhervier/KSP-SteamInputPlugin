@@ -9,7 +9,7 @@ using SteamController;
 
 namespace com.github.lhervier.ksp 
 {
-    public class AdministrationBuildingDaemon : ControllerContextDaemon
+    public class AdministrationBuildingDaemon : BaseContextDaemon
     {
         private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("AdministrationBuildingDaemon");
         
@@ -55,13 +55,13 @@ namespace com.github.lhervier.ksp
         protected void OnGUIAdministrationFacilitySpawn()
         {
             // LOGGER.Log("=> OnGUIAdministrationFacilitySpawn");
-            this.SendEvent(true);
+            this.FireContextEnterOrLeave(true);
         }
         
         protected void OnGUIAdministrationFacilityDespawn()
         {
             // LOGGER.Log("=> OnGUIAdministrationFacilityDespawn");
-            this.SendEvent(false);
+            this.FireContextEnterOrLeave(false);
         }
     }
 }

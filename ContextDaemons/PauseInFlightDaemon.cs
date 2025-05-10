@@ -9,15 +9,15 @@ using SteamController;
 
 namespace com.github.lhervier.ksp 
 {
-    public class AstronautComplexDaemon : ControllerContextDaemon
+    public class PauseInFlightDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("AstronautComplexDaemon");
+        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("PauseInFlightDaemon");
 
         public override ActionGroup CorrespondingActionGroup()
         {
             return ActionGroup.MenuControls;
         }
-        
+
         public void Start()
         {
             LOGGER.Log("Start");
@@ -29,7 +29,7 @@ namespace com.github.lhervier.ksp
         public void OnDestroy()
         {
             LOGGER.Log("OnDestroy");
-            
+
             SceneManager.sceneLoaded -= OnSceneLoaded;
             SceneManager.sceneUnloaded -= OnSceneUnloaded;
         }
@@ -37,33 +37,31 @@ namespace com.github.lhervier.ksp
         protected void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             // LOGGER.Log("OnSceneLoaded : " + scene.name);
-            if( scene.name.ToUpper() != "SPACECENTER" ) return;
+            if( scene.name.ToUpper() != "PFLIGHT4" ) return;
 
-            GameEvents.onGUIAstronautComplexSpawn.Add(OnGUIAstronautComplexSpawn);
-            GameEvents.onGUIAstronautComplexDespawn.Add(OnGUIAstronautComplexDespawn);
+            GameEvents.onGamePause.Add(OnGamePause);
+            GameEvents.onGameUnpause.Add(OnGameUnpause);
         }
 
         protected void OnSceneUnloaded(Scene scene)
         {
             // LOGGER.Log("OnSceneUnloaded : " + scene.name);
-            if( scene.name.ToUpper() != "SPACECENTER" ) return;
+            if( scene.name.ToUpper() != "PFLIGHT4" ) return;
 
-            GameEvents.onGUIAstronautComplexSpawn.Remove(OnGUIAstronautComplexSpawn);
-            GameEvents.onGUIAstronautComplexDespawn.Remove(OnGUIAstronautComplexDespawn);
+            GameEvents.onGamePause.Remove(OnGamePause);
+            GameEvents.onGameUnpause.Remove(OnGameUnpause);
         }
-
-        // ==========================================================================
-
-        protected void OnGUIAstronautComplexSpawn()
+        
+        private void OnGamePause()
         {
-            // LOGGER.Log("=> OnGUIAstronautComplexSpawn");    
-            this.SendEvent(true);
+            // LOGGER.Log("=> Game paused");
+            this.FireContextEnterOrLeave(true);
         }
-
-        protected void OnGUIAstronautComplexDespawn()
+        
+        private void OnGameUnpause()
         {
-            // LOGGER.Log("=> OnGUIAstronautComplexDespawn");
-            this.SendEvent(false);
+            // LOGGER.Log("=> Game unpaused");
+            this.FireContextEnterOrLeave(false);
         }
     }
 }

@@ -9,13 +9,13 @@ using SteamController;
 
 namespace com.github.lhervier.ksp 
 {
-    public class MissionBuilderDaemon : ControllerContextDaemon
+    public class VABDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("MissionBuilderDaemon");
+        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("VABDaemon");
         
         public override ActionGroup CorrespondingActionGroup()
         {
-            return ActionGroup.MissionBuilderControls;
+            return ActionGroup.EditorControls;
         }
 
         public void Start()
@@ -37,21 +37,19 @@ namespace com.github.lhervier.ksp
         protected void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             // LOGGER.Log("OnSceneLoaded : " + scene.name);
-            if( scene.name.ToUpper() != "KSPMISSIONEDITOR" ) {
+            if( !scene.name.ToUpper().StartsWith("VAB") ) {
                 return;
             }
-
-            this.SendEvent(true);
+            this.FireContextEnterOrLeave(true);
         }
 
         protected void OnSceneUnloaded(Scene scene)
         {
             // LOGGER.Log("OnSceneUnloaded : " + scene.name);
-            if( scene.name.ToUpper() != "KSPMISSIONEDITOR" ) {
+            if( !scene.name.ToUpper().StartsWith("VAB") ) {
                 return;
             }
-
-            this.SendEvent(false);
+            this.FireContextEnterOrLeave(false);
         }
     }
 }

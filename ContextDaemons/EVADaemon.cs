@@ -9,7 +9,7 @@ using SteamController;
 
 namespace com.github.lhervier.ksp 
 {
-    public class EVADaemon : ControllerContextDaemon
+    public class EVADaemon : BaseContextDaemon
     {
         private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("EVADaemon");
         
@@ -53,7 +53,7 @@ namespace com.github.lhervier.ksp
             if( scene.name.ToUpper() != "PFLIGHT4" ) {
                 return;
             }
-            this.SendEvent(false);
+            this.FireContextEnterOrLeave(false);
 
             GameEvents.OnMapEntered.Remove(OnMapEntered);
             GameEvents.OnMapExited.Remove(OnMapExited);
@@ -69,13 +69,13 @@ namespace com.github.lhervier.ksp
         {
             // LOGGER.Log("=> OnGamePause");
             this.evaBeforePause = this.InContext();
-            this.SendEvent(false);
+            this.FireContextEnterOrLeave(false);
         }
 
         private void OnGameUnpause()
         {
             // LOGGER.Log("=> OnGameUnpause");
-            this.SendEvent(this.evaBeforePause);
+            this.FireContextEnterOrLeave(this.evaBeforePause);
         }
 
         private void OnMapEntered()
@@ -85,7 +85,7 @@ namespace com.github.lhervier.ksp
             GameEvents.onGameUnpause.Remove(OnGameUnpause);
             GameEvents.onVesselChange.Remove(OnVesselChange);
             GameEvents.OnEVAConstructionMode.Remove(OnEVAConstructionMode);
-            this.SendEvent(false);
+            this.FireContextEnterOrLeave(false);
         }
 
         private void OnMapExited()
@@ -95,7 +95,7 @@ namespace com.github.lhervier.ksp
             GameEvents.onGameUnpause.Add(OnGameUnpause);
             GameEvents.onVesselChange.Add(OnVesselChange);
             GameEvents.OnEVAConstructionMode.Add(OnEVAConstructionMode);
-            this.SendEvent(
+            this.FireContextEnterOrLeave(
                 InEVA()
             );
         }
@@ -103,7 +103,7 @@ namespace com.github.lhervier.ksp
         private void OnVesselChange(Vessel vessel)
         {
             // LOGGER.Log("=> OnVesselChange : " + vessel.name);
-            this.SendEvent(
+            this.FireContextEnterOrLeave(
                 InEVA(vessel)
             );
         }
@@ -112,9 +112,9 @@ namespace com.github.lhervier.ksp
         {
             // LOGGER.Log("=> OnEVAConstructionMode : " + mode);
             if( mode ) {
-                this.SendEvent(false);
+                this.FireContextEnterOrLeave(false);
             } else {
-                this.SendEvent(
+                this.FireContextEnterOrLeave(
                     InEVA()
                 );
             }
