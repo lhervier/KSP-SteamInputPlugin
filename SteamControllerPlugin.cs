@@ -95,6 +95,14 @@ namespace com.github.lhervier.ksp
             // Create the controller daemon
             this.connectionDaemon = gameObject.AddComponent<SteamControllerDaemon>();
             LOGGER.Log("Controller Daemon attached");
+            this.connectionDaemon.OnControllerConnected.Add(this.OnControllerConnected);
+            this.connectionDaemon.OnControllerDisconnected.Add(this.OnControllerDisconnected);
+            LOGGER.Log("Controller Events attached");
+            if( this.connectionDaemon.ControllerConnected ) 
+            {
+                LOGGER.Log("Controller already connected at startup");
+                this.OnControllerConnected();
+            }
 
             // Create the delayed action daemon
             this.delayedActionDaemon = gameObject.AddComponent<DelayedActionDaemon>();
@@ -109,17 +117,6 @@ namespace com.github.lhervier.ksp
                 ScreenMessageStyle.UPPER_RIGHT
             );
             LOGGER.Log("Status message ready");
-
-            // Attach to connection Daemon
-            this.connectionDaemon.OnControllerConnected.Add(this.OnControllerConnected);
-            this.connectionDaemon.OnControllerDisconnected.Add(this.OnControllerDisconnected);
-            LOGGER.Log("Controller Events attached");
-
-            // When a controller is already connected
-            if( this.connectionDaemon.ControllerConnected ) 
-            {
-                this.OnControllerConnected();
-            }
 
             // Get all the daemons and attach them to the plugin
             this.LoadContextDaemons();
