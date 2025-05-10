@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
 using UnityEngine.SceneManagement;
-using SteamController;
 
 namespace com.github.lhervier.ksp 
 {
@@ -184,22 +183,42 @@ namespace com.github.lhervier.ksp
             
             // Wait for steam initialization
             yield return new WaitUntil(() => {
-                var controller = FindObjectOfType<KSPSteamController>();
-                return controller != null && controller.gameObject.activeInHierarchy;
+                try {
+                    Assembly kspSteamCtrlr = Assembly.Load("KSPSteamCtrlr");
+                    if (kspSteamCtrlr == null) return false;
+                    
+                    Type controllerType = kspSteamCtrlr.GetType("KSPSteamController");
+                    if (controllerType == null) return false;
+                    
+                    var controller = FindObjectOfType(controllerType) as MonoBehaviour;
+                    return controller != null && controller.gameObject.activeInHierarchy;
+                }
+                catch {
+                    return false;
+                }
             });
             
             // Desactive le plugin SteamController par défaut
-            var kspSteamController = FindObjectOfType<KSPSteamController>();
-            if( kspSteamController != null ) {
-                LOGGER.Log("Desactivating Squad Steam Controller plugin");
-                // Stop any running coroutines first
-                kspSteamController.StopAllCoroutines();
-                // Then disable the component
-                kspSteamController.enabled = false;
-                // Finally deactivate the game object
-                kspSteamController.gameObject.SetActive(false);
-            } else {
-                LOGGER.Log("No Squad Steam Controller plugin found");
+            try {
+                Assembly kspSteamCtrlr = Assembly.Load("KSPSteamCtrlr");
+                if (kspSteamCtrlr != null) {
+                    Type controllerType = kspSteamCtrlr.GetType("KSPSteamController");
+                    if (controllerType != null) {
+                        var kspSteamController = FindObjectOfType(controllerType) as MonoBehaviour;
+                        if (kspSteamController != null) {
+                            LOGGER.Log("Desactivating Squad Steam Controller plugin");
+                            // Stop any running coroutines first
+                            kspSteamController.StopAllCoroutines();
+                            // Then disable the component
+                            kspSteamController.enabled = false;
+                            // Finally deactivate the game object
+                            kspSteamController.gameObject.SetActive(false);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex) {
+                LOGGER.Log("Error disabling Squad Steam Controller: " + ex.Message);
             }
         }
 
