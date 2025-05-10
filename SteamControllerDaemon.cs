@@ -7,11 +7,10 @@ using Steamworks;
 
 namespace com.github.lhervier.ksp 
 {
-
-    // <summary>
-    //  Daemon in charge of listening to steam controllers connection/disconnection
-    //  It also allow to change the current action set of the controller
-    // </summary>
+    /// <summary>
+    /// Daemon in charge of listening to controller connection/disconnection
+    /// It also allow to change the current action set of the controller
+    /// </summary>
     public class SteamControllerDaemon : MonoBehaviour 
     {
         
@@ -19,26 +18,26 @@ namespace com.github.lhervier.ksp
         //                          Static properties
         // ==========================================================================================
 
-        // <summary>
-        //  Logger object
-        // </summary>
+        /// <summary>
+        /// Logger object
+        /// </summary>
         private static SteamControllerLogger LOGGER = new SteamControllerLogger("ConnectionDaemon");
 
         // ===============================================
 
-        // <summary>
-        //  Called when a new controller is connected
-        // </summary>
+        /// <summary>
+        /// Called when a new controller is connected
+        /// </summary>
         public EventVoid OnControllerConnected { get; private set; }
 
-        // <summary>
-        //  Called when a controller is disconnected
-        // </summary>
+        /// <summary>
+        /// Called when a controller is disconnected
+        /// </summary>
         public EventVoid OnControllerDisconnected {get; private set; }
 
-        // <summary>
-        //  Is a controller connected ?
-        // </summary>
+        /// <summary>
+        /// Is a controller connected ?
+        /// </summary>
         public bool ControllerConnected { get; private set; }
 
         // ==============================================
@@ -63,18 +62,18 @@ namespace com.github.lhervier.ksp
 
         // =======================================================================
 
-        // <summary>
-        //  Coroutine to check for a controller
-        // </summary>
+        /// <summary>
+        /// Coroutine to check for a controller
+        /// </summary>
         private IEnumerator checkForControllerCoroutine;
 
         // =======================================================================
         //              Unity Lifecycle
         // =======================================================================
 
-        // <summary>
-        //  Component awaked
-        // </summary>
+        /// <summary>
+        /// Component awaked
+        /// </summary>
         public void Awake() 
         {
             DontDestroyOnLoad(this);
@@ -86,18 +85,18 @@ namespace com.github.lhervier.ksp
             LOGGER.Log("Awaked");
         }
 
-        // <summary>
-        //  Component destroyed
-        // </summary>
+        /// <summary>
+        /// Component destroyed
+        /// </summary>
         public void OnDestroy() 
         {
             this.StopCoroutine(this.checkForControllerCoroutine);
             LOGGER.Log("Destroyed");
         }
 
-        // <summary>
-        //  Startup of the component
-        // </summary>
+        /// <summary>
+        /// Startup of the component
+        /// </summary>
         public void Start() 
         {
             LOGGER.Log("Starting");
@@ -131,9 +130,9 @@ namespace com.github.lhervier.ksp
         //              Detection of connection/disconnection of controllers
         // ==============================================================================
         
-        // <summary>
-        //  Main loop to detect controller connection/disconnection
-        // </summary>
+        /// <summary>
+        /// Main loop to detect controller connection/disconnection
+        /// </summary>
         private IEnumerator CheckForController() 
         {
             WaitForSeconds waitFor1Second = new WaitForSeconds(1);
@@ -205,10 +204,9 @@ namespace com.github.lhervier.ksp
             }
         }
         
-        // <summary>
-        //  Load action sets handles. The API don' ask for a handle on a controller.
-        //  It seems to load the action sets of the first controller.
-        // </summary>
+        /// <summary>
+        /// Load action sets handles.
+        /// </summary>
         private void LoadActionSetsHandles() 
         {
             LOGGER.Log("Loading Action Set Handles");
@@ -225,9 +223,9 @@ namespace com.github.lhervier.ksp
             }
         }
 
-        // <summary>
-        //  Unloads the action sets
-        // </summary>
+        /// <summary>
+        /// Unloads the action sets
+        /// </summary>
         private void UnloadActionSets() 
         {
             this.actionsSetsHandles.Clear();
