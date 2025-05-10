@@ -249,6 +249,8 @@ namespace com.github.lhervier.ksp
         {
             if( this.activecontexts.Count == 0 ) {
                 LOGGER_CONTEXT.Log("No active daemons contexts");
+            } else if( this.activecontexts.Count == 1 ) {
+                LOGGER_CONTEXT.Log("Active daemon context: " + this.activecontexts[0].GetType().Name);
             } else {
                 LOGGER_CONTEXT.Log("Active daemons contexts: " + this.activecontexts.Count);
                 foreach( BaseContextDaemon daemon in this.activecontexts ) {
