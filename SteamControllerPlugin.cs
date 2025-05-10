@@ -376,7 +376,7 @@ namespace com.github.lhervier.ksp
             }
             
             LOGGER.Log("Setting action group : " + actionGroup.ToString());
-            this.connectionDaemon.setActionSet(actionGroup.ToString());
+            this.connectionDaemon.ChangeActionSet(actionGroup.ToString());
             
             this.screenMessage.message = "Controller: " + actionGroup.ToString() + ".";
             ScreenMessages.PostScreenMessage(this.screenMessage);

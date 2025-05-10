@@ -255,7 +255,7 @@ namespace com.github.lhervier.ksp
         // <summary>
         //  Change the current action set
         // </summary>
-        public void setActionSet(string actionSetName) 
+        public void ChangeActionSet(string actionSetName) 
         {
             if( !this.ControllerConnected ) 
             {
