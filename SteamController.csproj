@@ -54,7 +54,11 @@
 
   <PropertyGroup>
     <PostBuildEvent>
+      echo "Removing existing SteamController folder in GameData"
+      if exist "$(KSPDIR)\GameData\SteamController" rmdir /s /q "$(KSPDIR)\GameData\SteamController"
+      echo "Creating SteamController folder in GameData"
       mkdir "$(KSPDIR)\GameData\SteamController"
+      echo "Copying SteamController.dll"
       copy /y "$(TargetPath)" "$(KSPDIR)\GameData\SteamController"
     </PostBuildEvent>
   </PropertyGroup>
