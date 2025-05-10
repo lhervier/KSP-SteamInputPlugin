@@ -42,10 +42,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include=".gitignore" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Include="*.cs" />
     <Compile Include="ContextDaemons/*.cs" />
   </ItemGroup>
@@ -54,11 +50,11 @@
 
   <PropertyGroup>
     <PostBuildEvent>
-      echo "Removing existing SteamController folder in GameData"
+      echo Removing existing SteamController folder in GameData
       if exist "$(KSPDIR)\GameData\SteamController" rmdir /s /q "$(KSPDIR)\GameData\SteamController"
-      echo "Creating SteamController folder in GameData"
+      echo Creating SteamController folder in GameData
       mkdir "$(KSPDIR)\GameData\SteamController"
-      echo "Copying SteamController.dll"
+      echo Copying SteamController.dll
       copy /y "$(TargetPath)" "$(KSPDIR)\GameData\SteamController"
     </PostBuildEvent>
   </PropertyGroup>
