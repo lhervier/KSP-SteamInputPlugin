@@ -57,7 +57,7 @@ namespace com.github.lhervier.ksp
         // <summary>
         //  Connection Daemon to the steam controller
         // </summary>
-        private SteamControllerDaemon connectionDaemon;
+        private SteamControllerDaemon steamControllerDaemon;
         
         // <summary>
         //  Delayed Action daemon
@@ -99,12 +99,12 @@ namespace com.github.lhervier.ksp
             yield return StartCoroutine(HandleKSPSteamController());
 
             // Create the controller daemon
-            this.connectionDaemon = gameObject.AddComponent<SteamControllerDaemon>();
+            this.steamControllerDaemon = gameObject.AddComponent<SteamControllerDaemon>();
             LOGGER.Log("Controller Daemon attached");
-            this.connectionDaemon.OnControllerConnected.Add(this.OnControllerConnected);
-            this.connectionDaemon.OnControllerDisconnected.Add(this.OnControllerDisconnected);
+            this.steamControllerDaemon.OnControllerConnected.Add(this.OnControllerConnected);
+            this.steamControllerDaemon.OnControllerDisconnected.Add(this.OnControllerDisconnected);
             LOGGER.Log("Controller Events attached");
-            if( this.connectionDaemon.ControllerConnected ) 
+            if( this.steamControllerDaemon.ControllerConnected ) 
             {
                 LOGGER.Log("Controller already connected at startup");
                 this.OnControllerConnected();
@@ -143,10 +143,10 @@ namespace com.github.lhervier.ksp
         // </summary>
         public void OnDestroy() 
         {
-            this.connectionDaemon.OnControllerDisconnected.Remove(OnControllerDisconnected);
-            this.connectionDaemon.OnControllerConnected.Remove(OnControllerConnected);
+            this.steamControllerDaemon.OnControllerDisconnected.Remove(OnControllerDisconnected);
+            this.steamControllerDaemon.OnControllerConnected.Remove(OnControllerConnected);
             Destroy(this.delayedActionDaemon);
-            Destroy(this.connectionDaemon);
+            Destroy(this.steamControllerDaemon);
             
             foreach(BaseContextDaemon daemon in this.contextDaemons) 
             {
@@ -319,7 +319,7 @@ namespace com.github.lhervier.ksp
         // </summary>
         private void UpdateActionGroup() 
         {
-            if( !this.connectionDaemon.ControllerConnected) {
+            if( !this.steamControllerDaemon.ControllerConnected) {
                 LOGGER.Log("UpdateActionGroup: Controller not connected");
                 return;
             }
@@ -343,12 +343,12 @@ namespace com.github.lhervier.ksp
         // </summary>
         public void TriggerActionGroupChange(ActionGroup actionGroup) 
         {
-            if( !this.connectionDaemon.ControllerConnected ) {
+            if( !this.steamControllerDaemon.ControllerConnected ) {
                 LOGGER.Log("TriggerActionGroupChange: Controller not connected");
                 return;
             }
             
-            if( !this.connectionDaemon.ControllerConnected ) {
+            if( !this.steamControllerDaemon.ControllerConnected ) {
                 LOGGER.Log("TriggerActionGroupChange: Controller not connected");
                 return;
             }
@@ -365,7 +365,7 @@ namespace com.github.lhervier.ksp
         // </summary>
         public void ChangeActionGroupNow(ActionGroup actionGroup) 
         {
-            if( !this.connectionDaemon.ControllerConnected ) {
+            if( !this.steamControllerDaemon.ControllerConnected ) {
                 LOGGER.Log("ChangeActionGroupNow: Controller not connected");
                 return;
             }
@@ -402,7 +402,7 @@ namespace com.github.lhervier.ksp
                 return;
             }
             
-            if( !this.connectionDaemon.ControllerConnected ) {
+            if( !this.steamControllerDaemon.ControllerConnected ) {
                 LOGGER.Log("ERROR : Controller not connected");
                 return;
             }
@@ -415,7 +415,7 @@ namespace com.github.lhervier.ksp
             }
             
             LOGGER.Log("Setting action group : " + actionGroup.ToString());
-            this.connectionDaemon.ChangeActionSet(actionGroup.ToString());
+            this.steamControllerDaemon.ChangeActionSet(actionGroup.ToString());
             
             this.screenMessage.message = "Controller: " + actionGroup.ToString() + ".";
             ScreenMessages.PostScreenMessage(this.screenMessage);
