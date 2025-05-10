@@ -21,7 +21,7 @@ namespace com.github.lhervier.ksp
         /// <summary>
         /// Logger object
         /// </summary>
-        private static SteamControllerLogger LOGGER = new SteamControllerLogger("ConnectionDaemon");
+        private static SteamControllerLogger LOGGER = new SteamControllerLogger("SteamControllerDaemon");
 
         // ===============================================
 
