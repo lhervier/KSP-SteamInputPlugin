@@ -9,11 +9,14 @@ using SteamController;
 
 namespace com.github.lhervier.ksp 
 {
-    public class FreeIVADaemon : BaseContextDaemon
+    // <summary>
+    //  This class is a context daemon that detects when the game is in FreeIVA mode
+    // </summary>
+    public class FreeIVACtxDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("FreeIVADaemon");
-        private static FreeIVADaemon _instance;
-        public static FreeIVADaemon Instance {
+        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("FreeIVACtxDaemon");
+        private static FreeIVACtxDaemon _instance;
+        public static FreeIVACtxDaemon Instance {
             get {
                 return _instance;
             }

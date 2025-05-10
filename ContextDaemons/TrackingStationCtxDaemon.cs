@@ -9,13 +9,16 @@ using SteamController;
 
 namespace com.github.lhervier.ksp 
 {
-    public class RnDComplexDaemon : BaseContextDaemon
+    // <summary>
+    //  This class is a context daemon that detects when the game is in the tracking station
+    // </summary>
+    public class TrackingStationCtxDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("RnDComplexDaemon");
-        
+        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("TrackingStationCtxDaemon");
+
         public override ActionGroup CorrespondingActionGroup()
         {
-            return ActionGroup.MenuControls;
+            return ActionGroup.TrackingStationControls;
         }
 
         public void Start()
@@ -29,7 +32,7 @@ namespace com.github.lhervier.ksp
         public void OnDestroy()
         {
             LOGGER.Log("OnDestroy");
-            
+
             SceneManager.sceneLoaded -= OnSceneLoaded;
             SceneManager.sceneUnloaded -= OnSceneUnloaded;
         }
@@ -37,30 +40,20 @@ namespace com.github.lhervier.ksp
         protected void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             // LOGGER.Log("OnSceneLoaded : " + scene.name);
-            if( scene.name.ToUpper() != "SPACECENTER" ) return;
+            if( scene.name.ToUpper() != "TRACKINGSTATION" ) {
+                return;
+            }
 
-            GameEvents.onGUIRnDComplexSpawn.Add(OnGUIRnDComplexSpawn);
-            GameEvents.onGUIRnDComplexDespawn.Add(OnGUIRnDComplexDespawn);
+            this.FireContextEnterOrLeave(true);
         }
 
         protected void OnSceneUnloaded(Scene scene)
         {
             // LOGGER.Log("OnSceneUnloaded : " + scene.name);
-            if( scene.name.ToUpper() != "SPACECENTER" ) return;
+            if( scene.name.ToUpper() != "TRACKINGSTATION" ) {
+                return;
+            }
 
-            GameEvents.onGUIRnDComplexSpawn.Remove(OnGUIRnDComplexSpawn);
-            GameEvents.onGUIRnDComplexDespawn.Remove(OnGUIRnDComplexDespawn);
-        }
-
-        protected void OnGUIRnDComplexSpawn()
-        {
-            // LOGGER.Log("=> OnGUIRnDComplexSpawn");
-            this.FireContextEnterOrLeave(true);
-        }
-        
-        protected void OnGUIRnDComplexDespawn()
-        {
-            // LOGGER.Log("=> OnGUIRnDComplexDespawn");
             this.FireContextEnterOrLeave(false);
         }
     }

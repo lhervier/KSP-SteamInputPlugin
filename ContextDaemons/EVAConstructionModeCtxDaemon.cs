@@ -9,9 +9,12 @@ using SteamController;
 
 namespace com.github.lhervier.ksp 
 {
-    public class EVAConstructionModeDaemon : BaseContextDaemon
+    // <summary>
+    //  This class is a context daemon that detects when the game is in EVA construction mode
+    // </summary>
+    public class EVAConstructionModeCtxDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("EVAConstructionModeDaemon");
+        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("EVAConstructionModeCtxDaemon");
 
         public override ActionGroup CorrespondingActionGroup()
         {

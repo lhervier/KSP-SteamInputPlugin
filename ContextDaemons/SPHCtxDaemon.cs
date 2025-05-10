@@ -9,15 +9,18 @@ using SteamController;
 
 namespace com.github.lhervier.ksp 
 {
-    public class MissionBuilderDaemon : BaseContextDaemon
+    // <summary>
+    //  This class is a context daemon that detects when the game is in the SPH
+    // </summary>
+    public class SPHCtxDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("MissionBuilderDaemon");
+        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("SPHCtxDaemon");
         
         public override ActionGroup CorrespondingActionGroup()
         {
-            return ActionGroup.MissionBuilderControls;
+            return ActionGroup.EditorControls;
         }
-
+        
         public void Start()
         {
             LOGGER.Log("Start");
@@ -25,7 +28,7 @@ namespace com.github.lhervier.ksp
             SceneManager.sceneLoaded += OnSceneLoaded;
             SceneManager.sceneUnloaded += OnSceneUnloaded;
         }
-        
+
         public void OnDestroy()
         {
             LOGGER.Log("OnDestroy");
@@ -36,21 +39,19 @@ namespace com.github.lhervier.ksp
 
         protected void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            // LOGGER.Log("OnSceneLoaded : " + scene.name);
-            if( scene.name.ToUpper() != "KSPMISSIONEDITOR" ) {
+            // LOGGER.Log("OnSceneLoaded : " + scene.name + " " + mode);
+            if( !scene.name.ToUpper().StartsWith("SPH") ) {
                 return;
             }
-
             this.FireContextEnterOrLeave(true);
         }
 
         protected void OnSceneUnloaded(Scene scene)
         {
             // LOGGER.Log("OnSceneUnloaded : " + scene.name);
-            if( scene.name.ToUpper() != "KSPMISSIONEDITOR" ) {
+            if( !scene.name.ToUpper().StartsWith("SPH") ) {
                 return;
             }
-
             this.FireContextEnterOrLeave(false);
         }
     }

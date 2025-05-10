@@ -9,15 +9,18 @@ using SteamController;
 
 namespace com.github.lhervier.ksp 
 {
-    public class SPHDaemon : BaseContextDaemon
+    // <summary>
+    //  This class is a context daemon that detects when the game is in the main menu
+    // </summary>
+    public class MainMenuCtxDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("SPHDaemon");
+        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("MainMenuCtxDaemon");
         
         public override ActionGroup CorrespondingActionGroup()
         {
-            return ActionGroup.EditorControls;
+            return ActionGroup.MenuControls;
         }
-        
+
         public void Start()
         {
             LOGGER.Log("Start");
@@ -34,22 +37,31 @@ namespace com.github.lhervier.ksp
             SceneManager.sceneUnloaded -= OnSceneUnloaded;
         }
 
+        private bool IsInMainMenu(Scene scene)
+        {
+            string sceneName = scene.name.ToUpper();
+            return sceneName == "KSPMAINMENU" || sceneName == "KSPSETTINGS" || sceneName == "KSPCREDITS";
+        }
+
         protected void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            // LOGGER.Log("OnSceneLoaded : " + scene.name + " " + mode);
-            if( !scene.name.ToUpper().StartsWith("SPH") ) {
+            // LOGGER.Log("OnSceneLoaded : " + scene.name);
+            if( !IsInMainMenu(scene) ) {
                 return;
             }
+
             this.FireContextEnterOrLeave(true);
         }
 
         protected void OnSceneUnloaded(Scene scene)
         {
             // LOGGER.Log("OnSceneUnloaded : " + scene.name);
-            if( !scene.name.ToUpper().StartsWith("SPH") ) {
+            if( !IsInMainMenu(scene) ) {
                 return;
             }
+
             this.FireContextEnterOrLeave(false);
         }
+        
     }
 }

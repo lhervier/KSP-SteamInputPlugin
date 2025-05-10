@@ -9,9 +9,12 @@ using SteamController;
 
 namespace com.github.lhervier.ksp 
 {
-    public class AstronautComplexDaemon : BaseContextDaemon
+    // <summary>
+    //  This class is a context daemon that detects when the game is in the astronaut complex
+    // </summary>
+    public class AstronautComplexCtxDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("AstronautComplexDaemon");
+        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("AstronautComplexCtxDaemon");
 
         public override ActionGroup CorrespondingActionGroup()
         {

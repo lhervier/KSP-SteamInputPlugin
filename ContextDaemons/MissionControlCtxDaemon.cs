@@ -9,9 +9,12 @@ using SteamController;
 
 namespace com.github.lhervier.ksp 
 {
-    public class PauseInFlightDaemon : BaseContextDaemon
+    // <summary>
+    //  This class is a context daemon that detects when the game is in the mission control
+    // </summary>
+    public class MissionControlCtxDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("PauseInFlightDaemon");
+        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("MissionControlCtxDaemon");
 
         public override ActionGroup CorrespondingActionGroup()
         {
@@ -29,7 +32,7 @@ namespace com.github.lhervier.ksp
         public void OnDestroy()
         {
             LOGGER.Log("OnDestroy");
-
+            
             SceneManager.sceneLoaded -= OnSceneLoaded;
             SceneManager.sceneUnloaded -= OnSceneUnloaded;
         }
@@ -37,31 +40,31 @@ namespace com.github.lhervier.ksp
         protected void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             // LOGGER.Log("OnSceneLoaded : " + scene.name);
-            if( scene.name.ToUpper() != "PFLIGHT4" ) return;
+            if( scene.name.ToUpper() != "SPACECENTER" ) return;
 
-            GameEvents.onGamePause.Add(OnGamePause);
-            GameEvents.onGameUnpause.Add(OnGameUnpause);
+            GameEvents.onGUIMissionControlSpawn.Add(OnGUIMissionControlSpawn);
+            GameEvents.onGUIMissionControlDespawn.Add(OnGUIMissionControlDespawn);
         }
 
         protected void OnSceneUnloaded(Scene scene)
         {
             // LOGGER.Log("OnSceneUnloaded : " + scene.name);
-            if( scene.name.ToUpper() != "PFLIGHT4" ) return;
-
-            GameEvents.onGamePause.Remove(OnGamePause);
-            GameEvents.onGameUnpause.Remove(OnGameUnpause);
+            if( scene.name.ToUpper() != "SPACECENTER" ) return;
+            
+            GameEvents.onGUIMissionControlSpawn.Remove(OnGUIMissionControlSpawn);
+            GameEvents.onGUIMissionControlDespawn.Remove(OnGUIMissionControlDespawn);
         }
-        
-        private void OnGamePause()
+
+        protected void OnGUIMissionControlSpawn()
         {
-            // LOGGER.Log("=> Game paused");
+            // LOGGER.Log("=> OnGUIMissionControlSpawn");
             this.FireContextEnterOrLeave(true);
         }
-        
-        private void OnGameUnpause()
+
+        protected void OnGUIMissionControlDespawn()
         {
-            // LOGGER.Log("=> Game unpaused");
+            // LOGGER.Log("=> OnGUIMissionControlDespawn");
             this.FireContextEnterOrLeave(false);
-        }
+        }       
     }
 }

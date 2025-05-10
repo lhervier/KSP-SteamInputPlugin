@@ -9,13 +9,16 @@ using SteamController;
 
 namespace com.github.lhervier.ksp 
 {
-    public class SpaceCenterDaemon : BaseContextDaemon
+    // <summary>
+    //  This class is a context daemon that detects when the game is in the mission editor
+    // </summary>
+    public class MissionBuilderCtxDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("SpaceCenterDaemon");
-
+        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("MissionBuilderCtxDaemon");
+        
         public override ActionGroup CorrespondingActionGroup()
         {
-            return ActionGroup.MenuControls;
+            return ActionGroup.MissionBuilderControls;
         }
 
         public void Start()
@@ -25,7 +28,7 @@ namespace com.github.lhervier.ksp
             SceneManager.sceneLoaded += OnSceneLoaded;
             SceneManager.sceneUnloaded += OnSceneUnloaded;
         }
-
+        
         public void OnDestroy()
         {
             LOGGER.Log("OnDestroy");
@@ -37,37 +40,21 @@ namespace com.github.lhervier.ksp
         protected void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             // LOGGER.Log("OnSceneLoaded : " + scene.name);
-            if( scene.name.ToUpper() != "SPACECENTER" ) return;
+            if( scene.name.ToUpper() != "KSPMISSIONEDITOR" ) {
+                return;
+            }
 
             this.FireContextEnterOrLeave(true);
-
-            GameEvents.onGamePause.Add(OnGamePause);
-            GameEvents.onGameUnpause.Add(OnGameUnpause);
         }
 
         protected void OnSceneUnloaded(Scene scene)
         {
             // LOGGER.Log("OnSceneUnloaded : " + scene.name);
-            if( scene.name.ToUpper() != "SPACECENTER" ) return;
-
-            GameEvents.onGamePause.Remove(OnGamePause);
-            GameEvents.onGameUnpause.Remove(OnGameUnpause);
+            if( scene.name.ToUpper() != "KSPMISSIONEDITOR" ) {
+                return;
+            }
 
             this.FireContextEnterOrLeave(false);
-        }
-
-        // ============================================================
-
-        protected void OnGamePause()
-        {
-            // LOGGER.Log("=> OnGamePause");
-            this.FireContextEnterOrLeave(false);
-        }
-
-        protected void OnGameUnpause()
-        {
-            // LOGGER.Log("=> OnGameUnpause");
-            this.FireContextEnterOrLeave(true);
         }
     }
 }

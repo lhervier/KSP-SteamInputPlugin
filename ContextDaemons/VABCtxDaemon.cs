@@ -9,13 +9,16 @@ using SteamController;
 
 namespace com.github.lhervier.ksp 
 {
-    public class MissionControlDaemon : BaseContextDaemon
+    // <summary>
+    //  This class is a context daemon that detects when the game is in the VAB
+    // </summary>
+    public class VABCtxDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("MissionControlDaemon");
-
+        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("VABCtxDaemon");
+        
         public override ActionGroup CorrespondingActionGroup()
         {
-            return ActionGroup.MenuControls;
+            return ActionGroup.EditorControls;
         }
 
         public void Start()
@@ -25,11 +28,11 @@ namespace com.github.lhervier.ksp
             SceneManager.sceneLoaded += OnSceneLoaded;
             SceneManager.sceneUnloaded += OnSceneUnloaded;
         }
-
+        
         public void OnDestroy()
         {
             LOGGER.Log("OnDestroy");
-            
+
             SceneManager.sceneLoaded -= OnSceneLoaded;
             SceneManager.sceneUnloaded -= OnSceneUnloaded;
         }
@@ -37,31 +40,19 @@ namespace com.github.lhervier.ksp
         protected void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             // LOGGER.Log("OnSceneLoaded : " + scene.name);
-            if( scene.name.ToUpper() != "SPACECENTER" ) return;
-
-            GameEvents.onGUIMissionControlSpawn.Add(OnGUIMissionControlSpawn);
-            GameEvents.onGUIMissionControlDespawn.Add(OnGUIMissionControlDespawn);
+            if( !scene.name.ToUpper().StartsWith("VAB") ) {
+                return;
+            }
+            this.FireContextEnterOrLeave(true);
         }
 
         protected void OnSceneUnloaded(Scene scene)
         {
             // LOGGER.Log("OnSceneUnloaded : " + scene.name);
-            if( scene.name.ToUpper() != "SPACECENTER" ) return;
-            
-            GameEvents.onGUIMissionControlSpawn.Remove(OnGUIMissionControlSpawn);
-            GameEvents.onGUIMissionControlDespawn.Remove(OnGUIMissionControlDespawn);
-        }
-
-        protected void OnGUIMissionControlSpawn()
-        {
-            // LOGGER.Log("=> OnGUIMissionControlSpawn");
-            this.FireContextEnterOrLeave(true);
-        }
-
-        protected void OnGUIMissionControlDespawn()
-        {
-            // LOGGER.Log("=> OnGUIMissionControlDespawn");
+            if( !scene.name.ToUpper().StartsWith("VAB") ) {
+                return;
+            }
             this.FireContextEnterOrLeave(false);
-        }       
+        }
     }
 }

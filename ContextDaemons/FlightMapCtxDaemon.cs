@@ -9,9 +9,13 @@ using SteamController;
 
 namespace com.github.lhervier.ksp 
 {
-    public class FlightMapDaemon : BaseContextDaemon
+    // <summary>
+    //  This class is a context daemon that detects when the game is in flight mode
+    //  with the map displayed
+    // </summary>
+    public class FlightMapCtxDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("FlightMapDaemon");
+        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("FlightMapCtxDaemon");
         private bool flightBeforePause = false;
 
         public override ActionGroup CorrespondingActionGroup()

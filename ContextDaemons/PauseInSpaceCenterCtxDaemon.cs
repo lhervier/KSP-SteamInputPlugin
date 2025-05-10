@@ -9,9 +9,12 @@ using SteamController;
 
 namespace com.github.lhervier.ksp 
 {
-    public class PauseInSpaceCenterDaemon : BaseContextDaemon
+    // <summary>
+    //  This class is a context daemon that detects when the game is paused in the space center
+    // </summary>
+    public class PauseInSpaceCenterCtxDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("PauseInSpaceCenterDaemon");
+        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("PauseInSpaceCenterCtxDaemon");
         private static readonly int DELAY = 10;
 
         private DelayedActionDaemon delayedActionDaemon;

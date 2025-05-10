@@ -9,17 +9,20 @@ using SteamController;
 
 namespace com.github.lhervier.ksp 
 {
-    public class EVADaemon : BaseContextDaemon
+    // <summary>
+    //  This class is a context daemon that detects when the game 
+    //  is in the docking mode, with the map displayed
+    // </summary>
+    public class DockingMapCtxDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("EVADaemon");
-        
-        private bool evaBeforePause = false;
+        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("DockingMapCtxDaemon");
+        private bool dockingBeforePause = false;
 
         public override ActionGroup CorrespondingActionGroup()
         {
-            return ActionGroup.EvaControls;
+            return ActionGroup.MapDockingControls;
         }
-
+        
         public void Start()
         {
             LOGGER.Log("Start");
@@ -38,65 +41,77 @@ namespace com.github.lhervier.ksp
 
         protected void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            // LOGGER.Log("OnSceneLoaded : " + scene.name);
+            // LOGGER.Log("OnSceneLoaded");
             if( scene.name.ToUpper() != "PFLIGHT4") return;
             
             GameEvents.OnMapEntered.Add(OnMapEntered);
             GameEvents.OnMapExited.Add(OnMapExited);
-            
-            this.OnMapExited();
         }
 
         protected void OnSceneUnloaded(Scene scene)
         {
-            // LOGGER.Log("OnSceneUnloaded : " + scene.name);
+            // LOGGER.Log("OnSceneUnloaded");
             if( scene.name.ToUpper() != "PFLIGHT4" ) {
                 return;
             }
-            this.FireContextEnterOrLeave(false);
+
+            GameEvents.onGamePause.Remove(OnGamePause);
+            GameEvents.onGameUnpause.Remove(OnGameUnpause);
+            GameEvents.OnFlightUIModeChanged.Remove(OnFlightUIModeChanged);
+            GameEvents.onVesselChange.Remove(OnVesselChange);
 
             GameEvents.OnMapEntered.Remove(OnMapEntered);
             GameEvents.OnMapExited.Remove(OnMapExited);
             
-            GameEvents.onGamePause.Remove(OnGamePause);
-            GameEvents.onGameUnpause.Remove(OnGameUnpause);
-            GameEvents.onVesselChange.Remove(OnVesselChange);
-        }
-        
-        // ============================================================
-
-        private void OnGamePause()
-        {
-            // LOGGER.Log("=> OnGamePause");
-            this.evaBeforePause = this.InContext();
             this.FireContextEnterOrLeave(false);
         }
 
-        private void OnGameUnpause()
-        {
-            // LOGGER.Log("=> OnGameUnpause");
-            this.FireContextEnterOrLeave(this.evaBeforePause);
-        }
+        // ============================================================
 
         private void OnMapEntered()
         {
             // LOGGER.Log("=> OnMapEntered");
-            GameEvents.onGamePause.Remove(OnGamePause);
-            GameEvents.onGameUnpause.Remove(OnGameUnpause);
-            GameEvents.onVesselChange.Remove(OnVesselChange);
-            GameEvents.OnEVAConstructionMode.Remove(OnEVAConstructionMode);
-            this.FireContextEnterOrLeave(false);
+            
+            GameEvents.onGamePause.Add(OnGamePause);
+            GameEvents.onGameUnpause.Add(OnGameUnpause);
+            GameEvents.OnFlightUIModeChanged.Add(OnFlightUIModeChanged);
+            GameEvents.onVesselChange.Add(OnVesselChange);
+
+            this.FireContextEnterOrLeave(
+                InDockingMode()
+            );
         }
 
         private void OnMapExited()
         {
             // LOGGER.Log("=> OnMapExited");
-            GameEvents.onGamePause.Add(OnGamePause);
-            GameEvents.onGameUnpause.Add(OnGameUnpause);
-            GameEvents.onVesselChange.Add(OnVesselChange);
-            GameEvents.OnEVAConstructionMode.Add(OnEVAConstructionMode);
+            
+            GameEvents.onGamePause.Remove(OnGamePause);
+            GameEvents.onGameUnpause.Remove(OnGameUnpause);
+            GameEvents.OnFlightUIModeChanged.Remove(OnFlightUIModeChanged);
+            GameEvents.onVesselChange.Remove(OnVesselChange);
+
+            FireContextEnterOrLeave(false);
+        }
+
+        private void OnGamePause()
+        {
+            // LOGGER.Log("=> OnGamePause");
+            this.dockingBeforePause = this.InContext();
+            FireContextEnterOrLeave(false);
+        }
+
+        private void OnGameUnpause()
+        {
+            // LOGGER.Log("=> OnGameUnpause");
+            FireContextEnterOrLeave(this.dockingBeforePause);
+        }
+
+        private void OnFlightUIModeChanged(FlightUIMode mode)
+        {
+            // LOGGER.Log("=> OnFlightUIModeChanged : " + mode.ToString());
             this.FireContextEnterOrLeave(
-                InEVA()
+                InDockingMode(mode)
             );
         }
 
@@ -104,20 +119,8 @@ namespace com.github.lhervier.ksp
         {
             // LOGGER.Log("=> OnVesselChange : " + vessel.name);
             this.FireContextEnterOrLeave(
-                InEVA(vessel)
+                InDockingMode()
             );
-        }
-
-        private void OnEVAConstructionMode(bool mode)
-        {
-            // LOGGER.Log("=> OnEVAConstructionMode : " + mode);
-            if( mode ) {
-                this.FireContextEnterOrLeave(false);
-            } else {
-                this.FireContextEnterOrLeave(
-                    InEVA()
-                );
-            }
         }
     }
 }

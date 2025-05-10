@@ -9,13 +9,16 @@ using SteamController;
 
 namespace com.github.lhervier.ksp 
 {
-    public class VABDaemon : BaseContextDaemon
+    // <summary>
+    //  This class is a context daemon that detects when the game is in the RnD complex
+    // </summary>
+    public class RnDComplexCtxDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("VABDaemon");
+        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("RnDComplexCtxDaemon");
         
         public override ActionGroup CorrespondingActionGroup()
         {
-            return ActionGroup.EditorControls;
+            return ActionGroup.MenuControls;
         }
 
         public void Start()
@@ -25,11 +28,11 @@ namespace com.github.lhervier.ksp
             SceneManager.sceneLoaded += OnSceneLoaded;
             SceneManager.sceneUnloaded += OnSceneUnloaded;
         }
-        
+
         public void OnDestroy()
         {
             LOGGER.Log("OnDestroy");
-
+            
             SceneManager.sceneLoaded -= OnSceneLoaded;
             SceneManager.sceneUnloaded -= OnSceneUnloaded;
         }
@@ -37,18 +40,30 @@ namespace com.github.lhervier.ksp
         protected void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             // LOGGER.Log("OnSceneLoaded : " + scene.name);
-            if( !scene.name.ToUpper().StartsWith("VAB") ) {
-                return;
-            }
-            this.FireContextEnterOrLeave(true);
+            if( scene.name.ToUpper() != "SPACECENTER" ) return;
+
+            GameEvents.onGUIRnDComplexSpawn.Add(OnGUIRnDComplexSpawn);
+            GameEvents.onGUIRnDComplexDespawn.Add(OnGUIRnDComplexDespawn);
         }
 
         protected void OnSceneUnloaded(Scene scene)
         {
             // LOGGER.Log("OnSceneUnloaded : " + scene.name);
-            if( !scene.name.ToUpper().StartsWith("VAB") ) {
-                return;
-            }
+            if( scene.name.ToUpper() != "SPACECENTER" ) return;
+
+            GameEvents.onGUIRnDComplexSpawn.Remove(OnGUIRnDComplexSpawn);
+            GameEvents.onGUIRnDComplexDespawn.Remove(OnGUIRnDComplexDespawn);
+        }
+
+        protected void OnGUIRnDComplexSpawn()
+        {
+            // LOGGER.Log("=> OnGUIRnDComplexSpawn");
+            this.FireContextEnterOrLeave(true);
+        }
+        
+        protected void OnGUIRnDComplexDespawn()
+        {
+            // LOGGER.Log("=> OnGUIRnDComplexDespawn");
             this.FireContextEnterOrLeave(false);
         }
     }

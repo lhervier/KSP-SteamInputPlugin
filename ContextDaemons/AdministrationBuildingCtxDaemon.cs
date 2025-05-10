@@ -9,9 +9,12 @@ using SteamController;
 
 namespace com.github.lhervier.ksp 
 {
-    public class AdministrationBuildingDaemon : BaseContextDaemon
+    // <summary>
+    //  This class is a context daemon that detects when the game is in the administration building
+    // </summary>
+    public class AdministrationBuildingCtxDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("AdministrationBuildingDaemon");
+        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("AdministrationBuildingCtxDaemon");
         
         public override ActionGroup CorrespondingActionGroup()
         {

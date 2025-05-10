@@ -9,15 +9,17 @@ using SteamController;
 
 namespace com.github.lhervier.ksp 
 {
-    public class IVADaemon : BaseContextDaemon
+    // <summary>
+    //  This class is a context daemon that detects when the game is in docking mode
+    // </summary>
+    public class DockingCtxDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("IVADaemon");
-        private bool ivaBeforePause = false;
-        private bool inFreeIva = false;
-        
+        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("DockingCtxDaemon");
+        private bool dockingBeforePause = false;
+
         public override ActionGroup CorrespondingActionGroup()
         {
-            return ActionGroup.IvaControls;
+            return ActionGroup.DockingControls;
         }
 
         public void Start()
@@ -41,12 +43,9 @@ namespace com.github.lhervier.ksp
             // LOGGER.Log("OnSceneLoaded : " + scene.name);
             if( scene.name.ToUpper() != "PFLIGHT4") return;
             
-            this.inFreeIva = false;
-            this.FireContextEnterOrLeave(false);
-
             GameEvents.OnMapEntered.Add(OnMapEntered);
             GameEvents.OnMapExited.Add(OnMapExited);
-            
+
             this.OnMapExited();
         }
 
@@ -56,15 +55,16 @@ namespace com.github.lhervier.ksp
             if( scene.name.ToUpper() != "PFLIGHT4" ) {
                 return;
             }
+            
+            this.FireContextEnterOrLeave(false);
+
+            GameEvents.OnMapEntered.Remove(OnMapEntered);
+            GameEvents.OnMapExited.Remove(OnMapExited);
+            
             GameEvents.onGamePause.Remove(OnGamePause);
             GameEvents.onGameUnpause.Remove(OnGameUnpause);
             GameEvents.OnFlightUIModeChanged.Remove(OnFlightUIModeChanged);
-            GameEvents.OnMapEntered.Remove(OnMapEntered);
-            GameEvents.OnMapExited.Remove(OnMapExited);
             GameEvents.onVesselChange.Remove(OnVesselChange);
-
-            this.inFreeIva = false;
-            this.FireContextEnterOrLeave(false);
         }
 
         // ============================================================
@@ -72,13 +72,11 @@ namespace com.github.lhervier.ksp
         private void OnMapEntered()
         {
             // LOGGER.Log("=> OnMapEntered");
+            
             GameEvents.onGamePause.Remove(OnGamePause);
             GameEvents.onGameUnpause.Remove(OnGameUnpause);
             GameEvents.OnFlightUIModeChanged.Remove(OnFlightUIModeChanged);
             GameEvents.onVesselChange.Remove(OnVesselChange);
-
-            FreeIVADaemon.Instance.OnEnterContext().Remove(OnEnterFreeIvaContext);
-            FreeIVADaemon.Instance.OnExitContext().Remove(OnExitFreeIvaContext);
             
             this.FireContextEnterOrLeave(false);
         }
@@ -86,63 +84,45 @@ namespace com.github.lhervier.ksp
         private void OnMapExited()
         {
             // LOGGER.Log("=> OnMapExited");
+            
             GameEvents.onGamePause.Add(OnGamePause);
             GameEvents.onGameUnpause.Add(OnGameUnpause);
             GameEvents.OnFlightUIModeChanged.Add(OnFlightUIModeChanged);
             GameEvents.onVesselChange.Add(OnVesselChange);
 
-            FreeIVADaemon.Instance.OnEnterContext().Add(OnEnterFreeIvaContext);
-            FreeIVADaemon.Instance.OnExitContext().Add(OnExitFreeIvaContext);
-
             this.FireContextEnterOrLeave(
-                this.InIVA()
+                InDockingMode()
             );
         }
 
         private void OnGamePause()
         {
             // LOGGER.Log("=> OnGamePause");
-            this.ivaBeforePause = this.InContext();
-            this.FireContextEnterOrLeave(false);
+
+            this.dockingBeforePause = InContext();
+            FireContextEnterOrLeave(false);
         }
 
         private void OnGameUnpause()
         {
             // LOGGER.Log("=> OnGameUnpause");
-            this.FireContextEnterOrLeave(this.ivaBeforePause);
-        }
 
-        private void OnEnterFreeIvaContext(BaseContextDaemon sender)
-        {
-            // LOGGER.Log("=> OnEnterFreeIvaContext");
-            this.inFreeIva = true;
-            this.FireContextEnterOrLeave(false);
-        }
-
-        private void OnExitFreeIvaContext(BaseContextDaemon sender)
-        {
-            // LOGGER.Log("=> OnExitFreeIvaContext");
-            this.inFreeIva = false;
-            this.FireContextEnterOrLeave(
-                this.InIVA()
-            );
+            FireContextEnterOrLeave(this.dockingBeforePause);
         }
 
         private void OnFlightUIModeChanged(FlightUIMode mode)
         {
             // LOGGER.Log("=> OnFlightUIModeChanged : " + mode.ToString());
-            if( this.inFreeIva ) return;
             this.FireContextEnterOrLeave(
-                this.InIVA()
+                InDockingMode(mode)
             );
         }
 
         private void OnVesselChange(Vessel vessel)
         {
-            // LOGGER.Log("=> OnVesselChange : " + vessel.name);
-            if( this.inFreeIva ) return;
+            // LOGGER.Log("=> OnVesselChange : " + vessel.name + " isEVA : " + vessel.isEVA);
             this.FireContextEnterOrLeave(
-                this.InIVA()
+                InDockingMode(FlightUIModeController.Instance.Mode)
             );
         }
     }
