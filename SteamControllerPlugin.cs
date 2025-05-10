@@ -413,6 +413,8 @@ namespace com.github.lhervier.ksp
         private void OnControllerConnected() 
         {
             LOGGER.Log("New Controller connected");
+            this.prevActionGroup = ActionGroup.None;
+            this.actionGroupToSet = ActionGroup.None;
             this.UpdateActionGroup();
         }
 
@@ -424,6 +426,7 @@ namespace com.github.lhervier.ksp
             LOGGER.Log("Controller disconnected");
             this.CancelActionGroupChange();
             this.actionGroupToSet = ActionGroup.None;
+            this.prevActionGroup = ActionGroup.None;
         }
 
     }
