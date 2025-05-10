@@ -142,8 +142,8 @@ namespace com.github.lhervier.ksp
 
                 // Detect connection/disconnection
                 int nbControllers = Steamworks.SteamController.GetConnectedControllers(this._controllerHandles);
-                bool newController = false;
-                bool disconnectedController = false;
+                bool newController;
+                bool disconnectedController;
                 if( nbControllers == 0 ) 
                 {
                     if( this.ControllerConnected ) 
