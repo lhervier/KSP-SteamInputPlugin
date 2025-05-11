@@ -1,0 +1,37 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+		{
+            "type": "node",
+            "request": "launch",
+            "name": "Steam Controller",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "localRoot": "${workspaceFolder}/SteamInputConfig",
+            "program": "${workspaceFolder}/SteamInputConfig/merge.js",
+            "args": [
+                "controller_steamcontroller_gordon",
+				"english"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
+        },
+		{
+            "type": "node",
+            "request": "launch",
+            "name": "PS4 Controller",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "localRoot": "${workspaceFolder}/SteamInputConfig",
+            "program": "${workspaceFolder}/SteamInputConfig/merge.js",
+            "args": [
+                "controller_ps4",
+				"english"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
+        }
+    ]
+} 

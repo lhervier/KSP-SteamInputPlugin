@@ -1,0 +1,9 @@
+{
+	"mode"				"joystick_mouse"
+	"name"				""
+	"description"		""
+	"inputs"
+	{
+		# Les inputs viennents de chaque fichier vdf
+	}
+}

@@ -1,0 +1,15 @@
+{
+	"activators"
+	{
+		"Full_Press"
+		{
+			"bindings"
+			{
+				"binding"		"mouse_wheel SCROLL_DOWN, , "
+			}
+		}
+	}
+	"disabled_activators"
+	{
+	}
+}
