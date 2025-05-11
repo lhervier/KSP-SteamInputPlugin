@@ -55,15 +55,68 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 
   <PropertyGroup>
-    <PostBuildEvent>
+    <PostBuildEvent><![CDATA[
+      echo.
+      echo ===========================================
+      echo Building and Deploying Plugin
+      echo ===========================================
+      
       echo Removing existing SteamInput folder in GameData
       if exist "$(KSPDIR)\GameData\SteamInput" rmdir /s /q "$(KSPDIR)\GameData\SteamInput"
       echo Creating SteamInput folder in GameData
       mkdir "$(KSPDIR)\GameData\SteamInput"
-      echo Copying SteamInput.dll
+      
+      echo.
+      echo Copying Plugin Files...
+      echo - Copying SteamInput.dll
       copy /y "$(TargetPath)" "$(KSPDIR)\GameData\SteamInput"
-      echo Copying Textures
+      echo - Copying Textures
       xcopy /y /i "$(ProjectDir)Textures" "$(KSPDIR)\GameData\SteamInput\Textures"
-    </PostBuildEvent>
+      
+      echo.
+      echo ===========================================
+      echo Creating Release Package
+      echo ===========================================
+      
+      echo Creating Release directory
+      if not exist "$(ProjectDir)Release" mkdir "$(ProjectDir)Release"
+      
+      echo Creating zip archive
+      powershell -Command "Compress-Archive -Path '$(KSPDIR)\GameData\SteamInput\*' -DestinationPath '$(ProjectDir)Release\SteamInput.zip' -Force"
+      
+      echo.
+      echo ===========================================
+      echo Building VDF files for controllers
+      echo ===========================================
+      cd /d "$(ProjectDir)SteamInputConfig"
+      
+      echo.
+      echo Building Steam Controller VDF...
+      node merge.js "controller_steamcontroller_gordon" "english" > steam_controller.log 2>&1
+      if errorlevel 1 (
+        echo ERROR: Failed to build Steam Controller VDF
+        type steam_controller.log
+        exit /b 1
+      )
+      
+      echo.
+      echo Building PS4 Controller VDF...
+      node merge.js "controller_ps4" "english" > ps4_controller.log 2>&1
+      if errorlevel 1 (
+        echo ERROR: Failed to build PS4 Controller VDF
+        type ps4_controller.log
+        exit /b 1
+      )
+      
+      cd /d "$(ProjectDir)"
+      
+      echo.
+      echo ===========================================
+      echo Copying VDF files to Release folder
+      echo ===========================================
+      copy /y "$(ProjectDir)SteamInputConfig\game_actions_220200.vdf" "$(ProjectDir)Release\"
+      copy /y "$(ProjectDir)SteamInputConfig\controller_config.vdf" "$(ProjectDir)Release\"
+      copy /y "$(ProjectDir)SteamInputConfig\controller_ui.vdf" "$(ProjectDir)Release\"
+    ]]></PostBuildEvent>
   </PropertyGroup>
 </Project>
