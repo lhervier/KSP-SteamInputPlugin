@@ -48,8 +48,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="*.cs" />
-    <Compile Include="ContextDaemons/*.cs" />
+    <Compile Include="SteamInputPlugin\*.cs" />
+    <Compile Include="SteamInputPlugin\ContextDaemons\*.cs" />
   </ItemGroup>
   
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -72,17 +72,6 @@
       copy /y "$(TargetPath)" "$(KSPDIR)\GameData\SteamInput"
       echo - Copying Textures
       xcopy /y /i "$(ProjectDir)Textures" "$(KSPDIR)\GameData\SteamInput\Textures"
-      
-      echo.
-      echo ===========================================
-      echo Creating Release Package
-      echo ===========================================
-      
-      echo Creating Release directory
-      if not exist "$(ProjectDir)Release" mkdir "$(ProjectDir)Release"
-      
-      echo Creating zip archive
-      powershell -Command "Compress-Archive -Path '$(KSPDIR)\GameData\SteamInput\*' -DestinationPath '$(ProjectDir)Release\SteamInput.zip' -Force"
       
       echo.
       echo ===========================================
@@ -109,6 +98,17 @@
       )
       
       cd /d "$(ProjectDir)"
+      
+      echo.
+      echo ===========================================
+      echo Creating Release Package
+      echo ===========================================
+      
+      echo Creating Release directory
+      if not exist "$(ProjectDir)Release" mkdir "$(ProjectDir)Release"
+      
+      echo Creating zip archive
+      powershell -Command "Compress-Archive -Path '$(KSPDIR)\GameData\SteamInput\*' -DestinationPath '$(ProjectDir)Release\SteamInput.zip' -Force"
       
       echo.
       echo ===========================================
