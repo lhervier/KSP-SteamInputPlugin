@@ -22,7 +22,7 @@ namespace com.github.lhervier.ksp
 
         public void Start()
         {
-            LOGGER.Log("Start");
+            LOGGER.LogInfo("Start");
             GameEvents.OnEVAConstructionMode.Add(OnEVAConstructionModeChanged);
 
             this.FireContextEnterOrLeave(false);
@@ -30,7 +30,7 @@ namespace com.github.lhervier.ksp
 
         public void OnDestroy()
         {
-            LOGGER.Log("OnDestroy");
+            LOGGER.LogInfo("OnDestroy");
             GameEvents.OnEVAConstructionMode.Remove(OnEVAConstructionModeChanged);
         }
 
@@ -38,7 +38,7 @@ namespace com.github.lhervier.ksp
 
         protected void OnEVAConstructionModeChanged(bool mode)
         {
-            // LOGGER.Log("=> OnEVAConstructionModeChanged : " + mode);
+            LOGGER.LogDebug("=> OnEVAConstructionModeChanged : " + mode);
             FireContextEnterOrLeave(mode);
         }
     }

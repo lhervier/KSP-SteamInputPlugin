@@ -41,7 +41,7 @@ namespace com.github.lhervier.ksp
         // </summary>
         public void Awake() 
         {
-            LOGGER.Log("Awaked");
+            LOGGER.LogInfo("Awaked");
             DontDestroyOnLoad(this);
         }
 
@@ -50,7 +50,7 @@ namespace com.github.lhervier.ksp
         // </summary>
         public void OnDestroy() 
         {
-            LOGGER.Log("Destroyed");
+            LOGGER.LogInfo("Destroyed");
         }
 
         // <summary>
@@ -58,7 +58,7 @@ namespace com.github.lhervier.ksp
         // </summary>
         public void Start() 
         {
-            LOGGER.Log("Started");
+            LOGGER.LogInfo("Started");
         }
 
         // ===============================================================

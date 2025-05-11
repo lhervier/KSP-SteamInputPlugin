@@ -22,7 +22,7 @@ namespace com.github.lhervier.ksp
 
         public void Start()
         {
-            LOGGER.Log("Start");
+            LOGGER.LogInfo("Start");
 
             SceneManager.sceneLoaded += OnSceneLoaded;
             SceneManager.sceneUnloaded += OnSceneUnloaded;
@@ -30,7 +30,7 @@ namespace com.github.lhervier.ksp
 
         public void OnDestroy()
         {
-            LOGGER.Log("OnDestroy");
+            LOGGER.LogInfo("OnDestroy");
 
             SceneManager.sceneLoaded -= OnSceneLoaded;
             SceneManager.sceneUnloaded -= OnSceneUnloaded;
@@ -38,7 +38,7 @@ namespace com.github.lhervier.ksp
 
         protected void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            // LOGGER.Log("OnSceneLoaded : " + scene.name);
+            LOGGER.LogDebug("OnSceneLoaded : " + scene.name);
             if( scene.name.ToUpper() != "SPACECENTER" ) return;
 
             this.FireContextEnterOrLeave(true);
@@ -49,7 +49,7 @@ namespace com.github.lhervier.ksp
 
         protected void OnSceneUnloaded(Scene scene)
         {
-            // LOGGER.Log("OnSceneUnloaded : " + scene.name);
+            LOGGER.LogDebug("OnSceneUnloaded : " + scene.name);
             if( scene.name.ToUpper() != "SPACECENTER" ) return;
 
             GameEvents.onGamePause.Remove(OnGamePause);
@@ -62,13 +62,13 @@ namespace com.github.lhervier.ksp
 
         protected void OnGamePause()
         {
-            // LOGGER.Log("=> OnGamePause");
+            LOGGER.LogDebug("=> OnGamePause");
             this.FireContextEnterOrLeave(false);
         }
 
         protected void OnGameUnpause()
         {
-            // LOGGER.Log("=> OnGameUnpause");
+            LOGGER.LogDebug("=> OnGameUnpause");
             this.FireContextEnterOrLeave(true);
         }
     }

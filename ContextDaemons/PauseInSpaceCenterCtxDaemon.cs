@@ -25,7 +25,7 @@ namespace com.github.lhervier.ksp
 
         public void Start()
         {
-            LOGGER.Log("Start");
+            LOGGER.LogInfo("Start");
 
             this.delayedActionDaemon = gameObject.AddComponent<DelayedActionDaemon>();
 
@@ -35,7 +35,7 @@ namespace com.github.lhervier.ksp
 
         public void OnDestroy()
         {
-            LOGGER.Log("OnDestroy");
+            LOGGER.LogInfo("OnDestroy");
 
             SceneManager.sceneLoaded -= OnSceneLoaded;
             SceneManager.sceneUnloaded -= OnSceneUnloaded;
@@ -45,7 +45,7 @@ namespace com.github.lhervier.ksp
 
         protected void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            // LOGGER.Log("OnSceneLoaded : " + scene.name);
+            LOGGER.LogDebug("OnSceneLoaded : " + scene.name);
             if( scene.name.ToUpper() != "SPACECENTER" ) return;
 
             GameEvents.onGUIAdministrationFacilitySpawn.Add(OnGUIAdministrationFacilitySpawn);
@@ -59,7 +59,7 @@ namespace com.github.lhervier.ksp
 
         protected void OnSceneUnloaded(Scene scene)
         {
-            // LOGGER.Log("OnSceneUnloaded : " + scene.name);
+            LOGGER.LogDebug("OnSceneUnloaded : " + scene.name);
             if( scene.name.ToUpper() != "SPACECENTER" ) return;
 
             GameEvents.onGUIAdministrationFacilitySpawn.Remove(OnGUIAdministrationFacilitySpawn);
@@ -72,7 +72,7 @@ namespace com.github.lhervier.ksp
         }
 
         private void Pause() {
-            // LOGGER.Log("   Pause: true");
+            LOGGER.LogDebug("   Pause: true");
             this.FireContextEnterOrLeave(true);
         }
 
@@ -80,7 +80,7 @@ namespace com.github.lhervier.ksp
         
         protected void OnGamePause()
         {
-            // LOGGER.Log("=> Game pause asked");
+            LOGGER.LogDebug("=> Game pause asked");
             this.delayedActionDaemon.TriggerDelayedAction(
                 Pause, 
                 DELAY
@@ -89,27 +89,27 @@ namespace com.github.lhervier.ksp
         
         private void OnGameUnpause()
         {
-            // LOGGER.Log("=> Game unpaused");
+            LOGGER.LogDebug("=> Game unpaused");
             this.FireContextEnterOrLeave(false);
         }
 
         protected void OnGUIAdministrationFacilitySpawn() {
-            // LOGGER.Log("=> OnGUIAdministrationFacilitySpawn: Cancelling pause");
+            LOGGER.LogDebug("=> OnGUIAdministrationFacilitySpawn: Cancelling pause");
             this.delayedActionDaemon.CancelDelayedAction(Pause);
         }
 
         protected void OnGUIAstronautComplexSpawn() {
-            // LOGGER.Log("=> OnGUIAstronautComplexSpawn: Cancelling pause");
+            LOGGER.LogDebug("=> OnGUIAstronautComplexSpawn: Cancelling pause");
             this.delayedActionDaemon.CancelDelayedAction(Pause);
         }
 
         protected void OnGUIMissionControlSpawn() {
-            // LOGGER.Log("=> OnGUIMissionControlSpawn: Cancelling pause");
+            LOGGER.LogDebug("=> OnGUIMissionControlSpawn: Cancelling pause");
             this.delayedActionDaemon.CancelDelayedAction(Pause);
         }
 
         protected void OnGUIRnDComplexSpawn() {
-            // LOGGER.Log("=> OnGUIRnDComplexSpawn: Cancelling pause");
+            LOGGER.LogDebug("=> OnGUIRnDComplexSpawn: Cancelling pause");
             this.delayedActionDaemon.CancelDelayedAction(Pause);
         }
     }

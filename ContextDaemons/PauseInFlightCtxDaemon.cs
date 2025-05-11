@@ -22,7 +22,7 @@ namespace com.github.lhervier.ksp
 
         public void Start()
         {
-            LOGGER.Log("Start");
+            LOGGER.LogInfo("Start");
 
             SceneManager.sceneLoaded += OnSceneLoaded;
             SceneManager.sceneUnloaded += OnSceneUnloaded;
@@ -30,7 +30,7 @@ namespace com.github.lhervier.ksp
 
         public void OnDestroy()
         {
-            LOGGER.Log("OnDestroy");
+            LOGGER.LogInfo("OnDestroy");
 
             SceneManager.sceneLoaded -= OnSceneLoaded;
             SceneManager.sceneUnloaded -= OnSceneUnloaded;
@@ -38,7 +38,7 @@ namespace com.github.lhervier.ksp
 
         protected void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            // LOGGER.Log("OnSceneLoaded : " + scene.name);
+            LOGGER.LogDebug("OnSceneLoaded : " + scene.name);
             if( scene.name.ToUpper() != "PFLIGHT4" ) return;
 
             GameEvents.onGamePause.Add(OnGamePause);
@@ -47,7 +47,7 @@ namespace com.github.lhervier.ksp
 
         protected void OnSceneUnloaded(Scene scene)
         {
-            // LOGGER.Log("OnSceneUnloaded : " + scene.name);
+            LOGGER.LogDebug("OnSceneUnloaded : " + scene.name);
             if( scene.name.ToUpper() != "PFLIGHT4" ) return;
 
             GameEvents.onGamePause.Remove(OnGamePause);
@@ -56,13 +56,13 @@ namespace com.github.lhervier.ksp
         
         private void OnGamePause()
         {
-            // LOGGER.Log("=> Game paused");
+            LOGGER.LogDebug("=> Game paused");
             this.FireContextEnterOrLeave(true);
         }
         
         private void OnGameUnpause()
         {
-            // LOGGER.Log("=> Game unpaused");
+            LOGGER.LogDebug("=> Game unpaused");
             this.FireContextEnterOrLeave(false);
         }
     }

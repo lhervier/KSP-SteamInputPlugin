@@ -10,8 +10,6 @@ namespace com.github.lhervier.ksp
 {
     public abstract class BaseContextDaemon : MonoBehaviour {
 
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("BaseContextDaemon");
-
         /// <summary>
         /// Event triggered when the daemon detects that the game is in a context
         /// </summary>

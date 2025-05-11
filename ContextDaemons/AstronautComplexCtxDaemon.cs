@@ -22,7 +22,7 @@ namespace com.github.lhervier.ksp
         
         public void Start()
         {
-            LOGGER.Log("Start");
+            LOGGER.LogInfo("Start");
 
             SceneManager.sceneLoaded += OnSceneLoaded;
             SceneManager.sceneUnloaded += OnSceneUnloaded;
@@ -30,7 +30,7 @@ namespace com.github.lhervier.ksp
 
         public void OnDestroy()
         {
-            LOGGER.Log("OnDestroy");
+            LOGGER.LogInfo("OnDestroy");
             
             SceneManager.sceneLoaded -= OnSceneLoaded;
             SceneManager.sceneUnloaded -= OnSceneUnloaded;
@@ -38,7 +38,7 @@ namespace com.github.lhervier.ksp
 
         protected void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            // LOGGER.Log("OnSceneLoaded : " + scene.name);
+            LOGGER.LogDebug("OnSceneLoaded : " + scene.name);
             if( scene.name.ToUpper() != "SPACECENTER" ) return;
 
             GameEvents.onGUIAstronautComplexSpawn.Add(OnGUIAstronautComplexSpawn);
@@ -47,7 +47,7 @@ namespace com.github.lhervier.ksp
 
         protected void OnSceneUnloaded(Scene scene)
         {
-            // LOGGER.Log("OnSceneUnloaded : " + scene.name);
+            LOGGER.LogDebug("OnSceneUnloaded : " + scene.name);
             if( scene.name.ToUpper() != "SPACECENTER" ) return;
 
             GameEvents.onGUIAstronautComplexSpawn.Remove(OnGUIAstronautComplexSpawn);
@@ -58,13 +58,13 @@ namespace com.github.lhervier.ksp
 
         protected void OnGUIAstronautComplexSpawn()
         {
-            // LOGGER.Log("=> OnGUIAstronautComplexSpawn");    
+            LOGGER.LogDebug("=> OnGUIAstronautComplexSpawn");    
             this.FireContextEnterOrLeave(true);
         }
 
         protected void OnGUIAstronautComplexDespawn()
         {
-            // LOGGER.Log("=> OnGUIAstronautComplexDespawn");
+            LOGGER.LogDebug("=> OnGUIAstronautComplexDespawn");
             this.FireContextEnterOrLeave(false);
         }
     }

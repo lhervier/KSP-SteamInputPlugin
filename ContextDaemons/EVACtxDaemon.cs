@@ -24,7 +24,7 @@ namespace com.github.lhervier.ksp
 
         public void Start()
         {
-            LOGGER.Log("Start");
+            LOGGER.LogInfo("Start");
 
             SceneManager.sceneLoaded += OnSceneLoaded;
             SceneManager.sceneUnloaded += OnSceneUnloaded;
@@ -32,7 +32,7 @@ namespace com.github.lhervier.ksp
 
         public void OnDestroy()
         {
-            LOGGER.Log("OnDestroy");
+            LOGGER.LogInfo("OnDestroy");
 
             SceneManager.sceneLoaded -= OnSceneLoaded;
             SceneManager.sceneUnloaded -= OnSceneUnloaded;
@@ -40,7 +40,7 @@ namespace com.github.lhervier.ksp
 
         protected void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            // LOGGER.Log("OnSceneLoaded : " + scene.name);
+            LOGGER.LogDebug("OnSceneLoaded : " + scene.name);
             if( scene.name.ToUpper() != "PFLIGHT4") return;
             
             GameEvents.OnMapEntered.Add(OnMapEntered);
@@ -51,7 +51,7 @@ namespace com.github.lhervier.ksp
 
         protected void OnSceneUnloaded(Scene scene)
         {
-            // LOGGER.Log("OnSceneUnloaded : " + scene.name);
+            LOGGER.LogDebug("OnSceneUnloaded : " + scene.name);
             if( scene.name.ToUpper() != "PFLIGHT4" ) {
                 return;
             }
@@ -69,20 +69,20 @@ namespace com.github.lhervier.ksp
 
         private void OnGamePause()
         {
-            // LOGGER.Log("=> OnGamePause");
+            LOGGER.LogDebug("=> OnGamePause");
             this.evaBeforePause = this.InContext();
             this.FireContextEnterOrLeave(false);
         }
 
         private void OnGameUnpause()
         {
-            // LOGGER.Log("=> OnGameUnpause");
+            LOGGER.LogDebug("=> OnGameUnpause");
             this.FireContextEnterOrLeave(this.evaBeforePause);
         }
 
         private void OnMapEntered()
         {
-            // LOGGER.Log("=> OnMapEntered");
+            LOGGER.LogDebug("=> OnMapEntered");
             GameEvents.onGamePause.Remove(OnGamePause);
             GameEvents.onGameUnpause.Remove(OnGameUnpause);
             GameEvents.onVesselChange.Remove(OnVesselChange);
@@ -92,7 +92,7 @@ namespace com.github.lhervier.ksp
 
         private void OnMapExited()
         {
-            // LOGGER.Log("=> OnMapExited");
+            LOGGER.LogDebug("=> OnMapExited");
             GameEvents.onGamePause.Add(OnGamePause);
             GameEvents.onGameUnpause.Add(OnGameUnpause);
             GameEvents.onVesselChange.Add(OnVesselChange);
@@ -104,7 +104,7 @@ namespace com.github.lhervier.ksp
 
         private void OnVesselChange(Vessel vessel)
         {
-            // LOGGER.Log("=> OnVesselChange : " + vessel.name);
+            LOGGER.LogDebug("=> OnVesselChange : " + vessel.name);
             this.FireContextEnterOrLeave(
                 InEVA(vessel)
             );
@@ -112,7 +112,7 @@ namespace com.github.lhervier.ksp
 
         private void OnEVAConstructionMode(bool mode)
         {
-            // LOGGER.Log("=> OnEVAConstructionMode : " + mode);
+            LOGGER.LogDebug("=> OnEVAConstructionMode : " + mode);
             if( mode ) {
                 this.FireContextEnterOrLeave(false);
             } else {

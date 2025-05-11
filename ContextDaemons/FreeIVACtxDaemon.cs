@@ -40,26 +40,26 @@ namespace com.github.lhervier.ksp
 
         protected void Start() 
         {   
-            LOGGER.Log("Starting");
+            LOGGER.LogInfo("Starting");
             kerbalIvaAddonType = Type.GetType("FreeIva.KerbalIvaAddon, FreeIva");
             if (kerbalIvaAddonType == null) {
-                LOGGER.Log("=> FreeIva mod not found");
+                LOGGER.LogInfo("=> FreeIva mod not found");
                 return;
             }
             
             instanceProperty = kerbalIvaAddonType.GetProperty("Instance");
             if (instanceProperty == null) {
-                LOGGER.Log("=> Instance property not found. FreeIVA mod has probably evolved...");
+                LOGGER.LogError("=> Instance property not found. FreeIVA mod has probably evolved...");
                 return;
             }
             
             buckledProperty = kerbalIvaAddonType.GetField("buckled", BindingFlags.Public | BindingFlags.Instance);
             if (buckledProperty == null) {
-                LOGGER.Log("=> buckled field not found. FreeIVA mod has probably evolved...");
+                LOGGER.LogError("=> buckled field not found. FreeIVA mod has probably evolved...");
                 return;
             }
 
-            LOGGER.Log("=> FreeIVA mod found");
+            LOGGER.LogInfo("=> FreeIVA mod found");
             initialized = true;
 
             SceneManager.sceneLoaded += OnSceneLoaded;
@@ -68,7 +68,7 @@ namespace com.github.lhervier.ksp
 
         protected void OnDestroy() 
         {
-            LOGGER.Log("OnDestroy");
+            LOGGER.LogInfo("OnDestroy");
             if( !initialized ) {
                 return;
             }
@@ -93,7 +93,7 @@ namespace com.github.lhervier.ksp
 
         protected void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            // LOGGER.Log("OnSceneLoaded : " + scene.name);
+            LOGGER.LogDebug("OnSceneLoaded : " + scene.name);
             if( scene.name.ToUpper() != "PFLIGHT4") return;
 
             GameEvents.onGamePause.Add(OnGamePause);
@@ -105,7 +105,7 @@ namespace com.github.lhervier.ksp
 
         protected void OnSceneUnloaded(Scene scene)
         {
-            // LOGGER.Log("OnSceneUnloaded : " + scene.name);
+            LOGGER.LogDebug("OnSceneUnloaded : " + scene.name);
             if( scene.name.ToUpper() != "PFLIGHT4") return;
             
             GameEvents.onGamePause.Remove(OnGamePause);
@@ -119,26 +119,26 @@ namespace com.github.lhervier.ksp
 
         private void OnGamePause()
         {
-            // LOGGER.Log("=> OnGamePause");
+            LOGGER.LogDebug("=> OnGamePause");
             this.ivaBeforePause = this.InContext();
             this.FireContextEnterOrLeave(false);
         }
 
         private void OnGameUnpause()
         {
-            // LOGGER.Log("=> OnGameUnpause");
+            LOGGER.LogDebug("=> OnGameUnpause");
             this.FireContextEnterOrLeave(this.ivaBeforePause);
         }
 
         private void OnFlightUIModeChanged(FlightUIMode mode)
         {
-            // LOGGER.Log("=> OnFlightUIModeChanged : " + mode);
+            LOGGER.LogDebug("=> OnFlightUIModeChanged : " + mode);
             this.inIva = InIVA();
         }
 
         private void OnVesselChange(Vessel vessel)
         {
-            // LOGGER.Log("=> OnVesselChange : " + vessel.name);
+            LOGGER.LogDebug("=> OnVesselChange : " + vessel.name);
             this.inIva = InIVA();
         }
 

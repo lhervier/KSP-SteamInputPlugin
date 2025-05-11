@@ -69,6 +69,11 @@ namespace com.github.lhervier.ksp
         // </summary>
         private ActionGroup actionGroupToSet;
 
+        // <summary>
+        //  The GUI
+        // </summary>
+        private LoggingUI loggingUI;
+
         // ===============================================================================
         //                      Unity initialization
         // ===============================================================================
@@ -78,7 +83,7 @@ namespace com.github.lhervier.ksp
         // </summary>
         protected void Awake() 
         {
-            LOGGER.Log("Awaked");
+            LOGGER.LogDebug("Awaked");
             DontDestroyOnLoad(this);
         }
 
@@ -87,7 +92,7 @@ namespace com.github.lhervier.ksp
         // </summary>
         protected void Start() 
         {   
-            LOGGER.Log("Starting");
+            LOGGER.LogDebug("Starting");
 
             // Start the coroutine to handle the KSPSteamController
             StartCoroutine(InitializePlugin());
@@ -96,46 +101,59 @@ namespace com.github.lhervier.ksp
         private IEnumerator InitializePlugin()
         {
             // Wait for the KSPSteamController to be handled
+            LOGGER.LogInfo("Waiting for KSPSteamController");
             yield return StartCoroutine(HandleKSPSteamController());
 
             // Create the controller daemon
+            LOGGER.LogInfo("Creating Controller Daemon");
             this.steamControllerDaemon = gameObject.AddComponent<SteamControllerDaemon>();
-            LOGGER.Log("Controller Daemon attached");
+            LOGGER.LogInfo("Controller Daemon attached");
             this.steamControllerDaemon.OnControllerConnected.Add(this.OnControllerConnected);
             this.steamControllerDaemon.OnControllerDisconnected.Add(this.OnControllerDisconnected);
-            LOGGER.Log("Controller Events attached");
+            LOGGER.LogInfo("Controller Events attached");
             if( this.steamControllerDaemon.ControllerConnected ) 
             {
-                LOGGER.Log("Controller already connected at startup");
+                LOGGER.LogInfo("Controller already connected at startup");
                 this.OnControllerConnected();
             }
 
             // Create the delayed action daemon
+            LOGGER.LogInfo("Creating Delayed Actions Daemon");
             this.delayedActionDaemon = gameObject.AddComponent<DelayedActionDaemon>();
-            LOGGER.Log("Delayed Actions Daemon attached");
+            LOGGER.LogInfo("Delayed Actions Daemon attached");
             this.actionGroupToSet = ActionGroup.None;
             this.prevActionGroup = ActionGroup.None;
             
             // Prepare screen message
+            LOGGER.LogInfo("Creating Status Message");
             this.screenMessage = new ScreenMessage(
                 string.Empty, 
                 5f, 
                 ScreenMessageStyle.UPPER_RIGHT
             );
-            LOGGER.Log("Status message ready");
+            LOGGER.LogInfo("Status message ready");
 
             // Get all the daemons and attach them to the plugin
+            LOGGER.LogInfo("Loading Context Daemons");
             this.LoadContextDaemons();
             this.activecontexts.Clear();
+            LOGGER.LogInfo("Context Daemons loaded");
+
+            LOGGER_CONTEXT.LogInfo("Attaching Daemons");
             foreach(BaseContextDaemon daemon in this.contextDaemons) 
             {
                 daemon.OnEnterContext().Add(this.OnEnterContext);
                 daemon.OnExitContext().Add(this.OnExitContext);
             }
-            LOGGER_CONTEXT.Log("Daemons attached : " + this.contextDaemons.Count);
+            LOGGER_CONTEXT.LogInfo("Daemons attached : " + this.contextDaemons.Count);
             this.LogDaemons();
-            
-            LOGGER.Log("Started");
+
+            // Start the GUI
+            LOGGER.LogInfo("Starting Logging UI");
+            this.loggingUI = gameObject.AddComponent<LoggingUI>();
+            LOGGER.LogInfo("Logging UI started");
+
+            LOGGER.LogInfo("Started");
         }
 
         // <summary>
@@ -143,6 +161,8 @@ namespace com.github.lhervier.ksp
         // </summary>
         public void OnDestroy() 
         {
+            Destroy(this.loggingUI);
+
             this.steamControllerDaemon.OnControllerDisconnected.Remove(OnControllerDisconnected);
             this.steamControllerDaemon.OnControllerConnected.Remove(OnControllerConnected);
             Destroy(this.delayedActionDaemon);
@@ -156,7 +176,7 @@ namespace com.github.lhervier.ksp
             }
             this.contextDaemons.Clear();
             this.activecontexts.Clear();
-            LOGGER.Log("Destroyed");
+            LOGGER.LogInfo("Destroyed");
         }
 
         // <summary>
@@ -184,7 +204,7 @@ namespace com.github.lhervier.ksp
             // Wait for the next frame to ensure KSPSteamController has started
             yield return new WaitForEndOfFrame();
             
-            LOGGER.Log("Waiting for KSPSteamCtrlr");
+            LOGGER.LogInfo("Waiting for KSPSteamCtrlr");
             Assembly kspSteamCtrlr = null;
             Type controllerType = null;
             MonoBehaviour controller = null;
@@ -192,24 +212,24 @@ namespace com.github.lhervier.ksp
             try {
                 kspSteamCtrlr = Assembly.Load("KSPSteamCtrlr");
                 if (kspSteamCtrlr == null) {
-                    LOGGER.Log("KSPSteamCtrlr assembly not found");
+                    LOGGER.LogInfo("KSPSteamCtrlr assembly not found");
                     yield break;
                 }
                 
                 controllerType = kspSteamCtrlr.GetType("SteamController.KSPSteamController");
                 if (controllerType == null) {
-                    LOGGER.Log("KSPSteamController Type not found");
+                    LOGGER.LogInfo("KSPSteamController Type not found");
                     yield break;
                 }
                 
                 controller = FindObjectOfType(controllerType) as MonoBehaviour;
                 if (controller == null) {
-                    LOGGER.Log("KSPSteamController component not found");
+                    LOGGER.LogInfo("KSPSteamController component not found");
                     yield break;
                 }
             }
             catch (Exception ex) {
-                LOGGER.Log("Error loading KSPSteamCtrlr: " + ex.Message);
+                LOGGER.LogInfo("Error loading KSPSteamCtrlr: " + ex.Message);
                 yield break;
             }
 
@@ -219,7 +239,7 @@ namespace com.github.lhervier.ksp
             }
             
             // Désactiver le plugin SteamController par défaut
-            LOGGER.Log("Desactivating Squad Steam Controller plugin");
+            LOGGER.LogInfo("Desactivating Squad Steam Controller plugin");
             try {
                 // Stop any running coroutines first
                 controller.StopAllCoroutines();
@@ -229,10 +249,10 @@ namespace com.github.lhervier.ksp
                 controller.gameObject.SetActive(false);
                 // And Destroy the component
                 Destroy(controller);
-                LOGGER.Log("KSPSteamController deactivated");
+                LOGGER.LogInfo("KSPSteamController deactivated");
             }
             catch (Exception ex) {
-                LOGGER.Log("Error disabling Squad Steam Controller: " + ex.Message);
+                LOGGER.LogInfo("Error disabling Squad Steam Controller: " + ex.Message);
             }
 
             // Wait for the next frame to ensure the controller is deactivated
@@ -246,7 +266,7 @@ namespace com.github.lhervier.ksp
         // </summary>
         public void OnEnterContext(BaseContextDaemon daemon)
         {
-            LOGGER_CONTEXT.Log("OnEnterContext : " + daemon.GetType().Name);
+            LOGGER_CONTEXT.LogDebug("OnEnterContext : " + daemon.GetType().Name);
             this.activecontexts.Add(daemon);
             // this.LogKSPContext();
             this.LogDaemons();
@@ -258,7 +278,7 @@ namespace com.github.lhervier.ksp
         // </summary>
         public void OnExitContext(BaseContextDaemon daemon)
         {
-            LOGGER_CONTEXT.Log("OnExitContext : " + daemon.GetType().Name);
+            LOGGER_CONTEXT.LogDebug("OnExitContext : " + daemon.GetType().Name);
             this.activecontexts.Remove(daemon);
             // this.LogKSPContext();
             this.LogDaemons();
@@ -268,47 +288,47 @@ namespace com.github.lhervier.ksp
         public void LogDaemons()
         {
             if( this.activecontexts.Count == 0 ) {
-                LOGGER_CONTEXT.Log("No active daemons contexts");
+                LOGGER_CONTEXT.LogDebug("No active daemons contexts");
             } else if( this.activecontexts.Count == 1 ) {
-                LOGGER_CONTEXT.Log("Active daemon context: " + this.activecontexts[0].GetType().Name);
+                LOGGER_CONTEXT.LogDebug("Active daemon context: " + this.activecontexts[0].GetType().Name);
             } else {
-                LOGGER_CONTEXT.Log("Active daemons contexts: " + this.activecontexts.Count);
+                LOGGER_CONTEXT.LogDebug("Active daemons contexts: " + this.activecontexts.Count);
                 foreach( BaseContextDaemon daemon in this.activecontexts ) {
-                    LOGGER_CONTEXT.Log("- " + daemon.GetType().Name);
+                    LOGGER_CONTEXT.LogDebug("- " + daemon.GetType().Name);
                 }
             }
         }
 
         public void LogKSPContext() {
-            LOGGER_CONTEXT.Log("   ");
-            LOGGER_CONTEXT.Log("KSP Context : ");
-            LOGGER_CONTEXT.Log("- Current Scene : " + SceneManager.GetActiveScene().name);
-            LOGGER_CONTEXT.Log("- HighLogic :");
-            LOGGER_CONTEXT.Log("  - LoadedScene : " + HighLogic.LoadedScene.ToString());
-            LOGGER_CONTEXT.Log("  - LoadedSceneHasPlanetarium : " + HighLogic.LoadedSceneHasPlanetarium);
-            LOGGER_CONTEXT.Log("  - LoadedSceneIsEditor : " + HighLogic.LoadedSceneIsEditor);
-            LOGGER_CONTEXT.Log("  - LoadedSceneIsFlight : " + HighLogic.LoadedSceneIsFlight);
-            LOGGER_CONTEXT.Log("  - LoadedSceneIsGame : " + HighLogic.LoadedSceneIsGame);
-            LOGGER_CONTEXT.Log("  - LoadedSceneIsMissionBuilder : " + HighLogic.LoadedSceneIsMissionBuilder);
+            LOGGER_CONTEXT.LogDebug("   ");
+            LOGGER_CONTEXT.LogDebug("KSP Context : ");
+            LOGGER_CONTEXT.LogDebug("- Current Scene : " + SceneManager.GetActiveScene().name);
+            LOGGER_CONTEXT.LogDebug("- HighLogic :");
+            LOGGER_CONTEXT.LogDebug("  - LoadedScene : " + HighLogic.LoadedScene.ToString());
+            LOGGER_CONTEXT.LogDebug("  - LoadedSceneHasPlanetarium : " + HighLogic.LoadedSceneHasPlanetarium);
+            LOGGER_CONTEXT.LogDebug("  - LoadedSceneIsEditor : " + HighLogic.LoadedSceneIsEditor);
+            LOGGER_CONTEXT.LogDebug("  - LoadedSceneIsFlight : " + HighLogic.LoadedSceneIsFlight);
+            LOGGER_CONTEXT.LogDebug("  - LoadedSceneIsGame : " + HighLogic.LoadedSceneIsGame);
+            LOGGER_CONTEXT.LogDebug("  - LoadedSceneIsMissionBuilder : " + HighLogic.LoadedSceneIsMissionBuilder);
             
-            LOGGER_CONTEXT.Log("- MapView : " + MapView.MapIsEnabled);
+            LOGGER_CONTEXT.LogDebug("- MapView : " + MapView.MapIsEnabled);
 
-            LOGGER_CONTEXT.Log("- FlightUIMode present : " + (FlightUIModeController.Instance != null));
+            LOGGER_CONTEXT.LogDebug("- FlightUIMode present : " + (FlightUIModeController.Instance != null));
             if( FlightUIModeController.Instance != null ) {
-                LOGGER_CONTEXT.Log("  FlightUIMode : " + FlightUIModeController.Instance.Mode.ToString());
+                LOGGER_CONTEXT.LogDebug("  FlightUIMode : " + FlightUIModeController.Instance.Mode.ToString());
             }
 
-            LOGGER_CONTEXT.Log("- Active Vessel present : " + (FlightGlobals.ActiveVessel != null));
+            LOGGER_CONTEXT.LogDebug("- Active Vessel present : " + (FlightGlobals.ActiveVessel != null));
             if( FlightGlobals.ActiveVessel != null ) {
-                LOGGER_CONTEXT.Log("  Active Vessel : " + FlightGlobals.ActiveVessel.name);
-                LOGGER_CONTEXT.Log("  Active Vessel is EVA : " + FlightGlobals.ActiveVessel.isEVA);
+                LOGGER_CONTEXT.LogDebug("  Active Vessel : " + FlightGlobals.ActiveVessel.name);
+                LOGGER_CONTEXT.LogDebug("  Active Vessel is EVA : " + FlightGlobals.ActiveVessel.isEVA);
             }
 
-            LOGGER_CONTEXT.Log("- EditorFacility : " + EditorDriver.editorFacility.ToString());
+            LOGGER_CONTEXT.LogDebug("- EditorFacility : " + EditorDriver.editorFacility.ToString());
             
-            LOGGER_CONTEXT.Log("- CameraManager present : " + (CameraManager.Instance != null));
+            LOGGER_CONTEXT.LogDebug("- CameraManager present : " + (CameraManager.Instance != null));
             if( CameraManager.Instance != null ) {
-                LOGGER_CONTEXT.Log("  CameraMode : " + CameraManager.Instance.currentCameraMode.ToString());
+                LOGGER_CONTEXT.LogDebug("  CameraMode : " + CameraManager.Instance.currentCameraMode.ToString());
             }
         }
 
@@ -320,7 +340,7 @@ namespace com.github.lhervier.ksp
         private void UpdateActionGroup() 
         {
             if( !this.steamControllerDaemon.ControllerConnected) {
-                LOGGER.Log("UpdateActionGroup: Controller not connected");
+                LOGGER.LogInfo("UpdateActionGroup: Controller not connected");
                 return;
             }
 
@@ -344,15 +364,10 @@ namespace com.github.lhervier.ksp
         public void TriggerActionGroupChange(ActionGroup actionGroup) 
         {
             if( !this.steamControllerDaemon.ControllerConnected ) {
-                LOGGER.Log("TriggerActionGroupChange: Controller not connected");
+                LOGGER.LogInfo("TriggerActionGroupChange: Controller not connected");
                 return;
             }
             
-            if( !this.steamControllerDaemon.ControllerConnected ) {
-                LOGGER.Log("TriggerActionGroupChange: Controller not connected");
-                return;
-            }
-
             this.CancelActionGroupChange();
             
             this.actionGroupToSet = actionGroup;
@@ -366,7 +381,7 @@ namespace com.github.lhervier.ksp
         public void ChangeActionGroupNow(ActionGroup actionGroup) 
         {
             if( !this.steamControllerDaemon.ControllerConnected ) {
-                LOGGER.Log("ChangeActionGroupNow: Controller not connected");
+                LOGGER.LogInfo("ChangeActionGroupNow: Controller not connected");
                 return;
             }
             
@@ -379,7 +394,7 @@ namespace com.github.lhervier.ksp
         private void _TriggerActionGroupChange() 
         {
             if( this.actionGroupToSet == ActionGroup.None ) {
-                LOGGER.Log("ERROR : No action group to set");
+                LOGGER.LogError("No action group to set");
                 return;
             }
             this._SetActionGroup(this.actionGroupToSet);
@@ -398,12 +413,12 @@ namespace com.github.lhervier.ksp
         private void _SetActionGroup(ActionGroup actionGroup) 
         {
             if( actionGroup == ActionGroup.None ) {
-                LOGGER.Log("ERROR : Action group is None");
+                LOGGER.LogError("Action group is None");
                 return;
             }
             
             if( !this.steamControllerDaemon.ControllerConnected ) {
-                LOGGER.Log("ERROR : Controller not connected");
+                LOGGER.LogError("Controller not connected");
                 return;
             }
 
@@ -414,7 +429,7 @@ namespace com.github.lhervier.ksp
                 }
             }
             
-            LOGGER.Log("Setting action group : " + actionGroup.ToString());
+            LOGGER.LogDebug("Setting action group : " + actionGroup.ToString());
             this.steamControllerDaemon.ChangeActionSet(actionGroup.ToString());
             
             this.screenMessage.message = "Controller: " + actionGroup.ToString() + ".";
@@ -432,7 +447,7 @@ namespace com.github.lhervier.ksp
         // </summary>
         private void OnControllerConnected() 
         {
-            LOGGER.Log("New Controller connected");
+            LOGGER.LogInfo("New Controller connected");
             this.prevActionGroup = ActionGroup.None;
             this.actionGroupToSet = ActionGroup.None;
             this.UpdateActionGroup();
@@ -443,7 +458,7 @@ namespace com.github.lhervier.ksp
         // </summary>
         private void OnControllerDisconnected() 
         {
-            LOGGER.Log("Controller disconnected");
+            LOGGER.LogInfo("Controller disconnected");
             this.CancelActionGroupChange();
             this.actionGroupToSet = ActionGroup.None;
             this.prevActionGroup = ActionGroup.None;

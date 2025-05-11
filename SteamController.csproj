@@ -39,6 +39,12 @@
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>$(KSPDIR)\KSP_x64_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.AnimationModule">
+      <HintPath>$(KSPDIR)\KSP_x64_Data\Managed\UnityEngine.AnimationModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>$(KSPDIR)\KSP_x64_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>
@@ -56,6 +62,8 @@
       mkdir "$(KSPDIR)\GameData\SteamController"
       echo Copying SteamController.dll
       copy /y "$(TargetPath)" "$(KSPDIR)\GameData\SteamController"
+      echo Copying Textures
+      xcopy /y /i "$(ProjectDir)Textures" "$(KSPDIR)\GameData\SteamController\Textures"
     </PostBuildEvent>
   </PropertyGroup>
 </Project>

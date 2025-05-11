@@ -82,7 +82,7 @@ namespace com.github.lhervier.ksp
             this.OnControllerDisconnected = new EventVoid("controller.OnDisconnected");
             this.ControllerConnected = false;
             
-            LOGGER.Log("Awaked");
+            LOGGER.LogInfo("Awaked");
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace com.github.lhervier.ksp
         public void OnDestroy() 
         {
             this.StopCoroutine(this.checkForControllerCoroutine);
-            LOGGER.Log("Destroyed");
+            LOGGER.LogInfo("Destroyed");
         }
 
         /// <summary>
@@ -99,23 +99,23 @@ namespace com.github.lhervier.ksp
         /// </summary>
         public void Start() 
         {
-            LOGGER.Log("Starting");
+            LOGGER.LogInfo("Starting");
 
-            LOGGER.Log("Checking that Steam is initialized");
+            LOGGER.LogInfo("Checking that Steam is initialized");
             if( !SteamManager.Initialized ) 
             {
-                LOGGER.Log("Steam not detected. Unable to start the daemon.");
+                LOGGER.LogInfo("Steam not detected. Unable to start the daemon.");
                 return;
             }
 
             // Load the action sets from the enumeration
-            LOGGER.Log("Loading action sets");
+            LOGGER.LogInfo("Loading action sets");
             this.actionSets = Enum.GetValues(typeof(ActionGroup))
                 .Cast<ActionGroup>()
                 .Where(actionGroup => actionGroup != ActionGroup.None)
                 .Select(actionGroup => actionGroup.ToString())
                 .ToArray();
-            LOGGER.Log("Action sets loaded : " + this.actionSets.Length);
+            LOGGER.LogInfo("Action sets loaded : " + this.actionSets.Length);
             
             // Initialize the Steam Controller
             Steamworks.SteamController.Init();
@@ -123,7 +123,7 @@ namespace com.github.lhervier.ksp
             // Start the main loop
             this.checkForControllerCoroutine = this.CheckForController();
             this.StartCoroutine(this.checkForControllerCoroutine);
-            LOGGER.Log("Started");
+            LOGGER.LogInfo("Started");
         }
 
         // ==============================================================================
@@ -182,7 +182,7 @@ namespace com.github.lhervier.ksp
                 // Disconnect the current controller
                 if( disconnectedController ) 
                 {
-                    LOGGER.Log("Steam Controller disconnected");
+                    LOGGER.LogInfo("Steam Controller disconnected");
                     this.ControllerConnected = false;
                     this.UnloadActionSets();
                     this.OnControllerDisconnected.Fire();
@@ -191,7 +191,7 @@ namespace com.github.lhervier.ksp
                 // Connects a new controller
                 if( newController ) 
                 {
-                    LOGGER.Log("Steam Controller connected");
+                    LOGGER.LogInfo("Steam Controller connected");
                     this.controllerHandle = this._controllerHandles[0];
                     this.ControllerConnected = true;
                     this.LoadActionSetsHandles();
@@ -209,15 +209,15 @@ namespace com.github.lhervier.ksp
         /// </summary>
         private void LoadActionSetsHandles() 
         {
-            LOGGER.Log("Loading Action Set Handles");
+            LOGGER.LogInfo("Loading Action Set Handles");
             foreach(string actionSetName in this.actionSets) 
             {
-                LOGGER.Log("- Getting action set handle for " + actionSetName);
+                LOGGER.LogInfo("- Getting action set handle for " + actionSetName);
                 // Action Sets list should depend on the used controller. But that's not what the API is waiting for...
                 ControllerActionSetHandle_t actionSetHandle = Steamworks.SteamController.GetActionSetHandle(actionSetName);
                 if( actionSetHandle.m_ControllerActionSetHandle == 0L ) 
                 {
-                    LOGGER.Log("ERROR : Action set handle for " + actionSetName + " not found. I will use the default action set instead");
+                    LOGGER.LogError("Action set handle for " + actionSetName + " not found. I will use the default action set instead");
                 }
                 this.actionsSetsHandles[actionSetName] = actionSetHandle;
             }
@@ -236,16 +236,19 @@ namespace com.github.lhervier.ksp
         // </summary>
         private IEnumerator SayHello() 
         {
-            if( this.ControllerConnected ) 
+            if( !this.ControllerConnected ) 
             {
-                LOGGER.Log("Hello new Controller !!");
-                for( int i = 0; i < 4; i++ ) 
-                {
-                    Steamworks.SteamController.TriggerHapticPulse(this.controllerHandle, Steamworks.ESteamControllerPad.k_ESteamControllerPad_Right, ushort.MaxValue);
-                    yield return new WaitForSeconds(0.1f);
-                    Steamworks.SteamController.TriggerHapticPulse(this.controllerHandle, Steamworks.ESteamControllerPad.k_ESteamControllerPad_Left, ushort.MaxValue);
-                    yield return new WaitForSeconds(0.1f);
-                }
+                LOGGER.LogError("SayHello: Controller not connected");
+                yield break;
+            }
+
+            LOGGER.LogInfo("Hello new Controller !!");
+            for( int i = 0; i < 4; i++ ) 
+            {
+                Steamworks.SteamController.TriggerHapticPulse(this.controllerHandle, Steamworks.ESteamControllerPad.k_ESteamControllerPad_Right, ushort.MaxValue);
+                yield return new WaitForSeconds(0.1f);
+                Steamworks.SteamController.TriggerHapticPulse(this.controllerHandle, Steamworks.ESteamControllerPad.k_ESteamControllerPad_Left, ushort.MaxValue);
+                yield return new WaitForSeconds(0.1f);
             }
         }
 
@@ -259,9 +262,11 @@ namespace com.github.lhervier.ksp
         {
             if( !this.ControllerConnected ) 
             {
+                LOGGER.LogError("ChangeActionSet: Controller not connected");
                 return;
             }
             
+            LOGGER.LogDebug("ChangeActionSet: " + actionSetName);
             Steamworks.SteamController.ActivateActionSet(
                 this.controllerHandle, 
                 this.actionsSetsHandles[actionSetName]
