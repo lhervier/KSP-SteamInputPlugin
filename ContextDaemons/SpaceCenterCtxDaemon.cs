@@ -13,7 +13,7 @@ namespace com.github.lhervier.ksp
     // </summary>
     public class SpaceCenterCtxDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("SpaceCenterCtxDaemon");
+        private static readonly SteamInputLogger LOGGER = new SteamInputLogger("SpaceCenterCtxDaemon");
 
         public override ActionGroup CorrespondingActionGroup()
         {
@@ -62,13 +62,13 @@ namespace com.github.lhervier.ksp
 
         protected void OnGamePause()
         {
-            LOGGER.LogDebug("=> OnGamePause");
+            LOGGER.LogTrace("=> OnGamePause");
             this.FireContextEnterOrLeave(false);
         }
 
         protected void OnGameUnpause()
         {
-            LOGGER.LogDebug("=> OnGameUnpause");
+            LOGGER.LogTrace("=> OnGameUnpause");
             this.FireContextEnterOrLeave(true);
         }
     }

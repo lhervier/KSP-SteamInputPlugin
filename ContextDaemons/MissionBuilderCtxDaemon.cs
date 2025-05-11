@@ -13,7 +13,7 @@ namespace com.github.lhervier.ksp
     // </summary>
     public class MissionBuilderCtxDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("MissionBuilderCtxDaemon");
+        private static readonly SteamInputLogger LOGGER = new SteamInputLogger("MissionBuilderCtxDaemon");
         
         public override ActionGroup CorrespondingActionGroup()
         {

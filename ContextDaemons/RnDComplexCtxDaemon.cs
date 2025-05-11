@@ -13,7 +13,7 @@ namespace com.github.lhervier.ksp
     // </summary>
     public class RnDComplexCtxDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("RnDComplexCtxDaemon");
+        private static readonly SteamInputLogger LOGGER = new SteamInputLogger("RnDComplexCtxDaemon");
         
         public override ActionGroup CorrespondingActionGroup()
         {
@@ -56,13 +56,13 @@ namespace com.github.lhervier.ksp
 
         protected void OnGUIRnDComplexSpawn()
         {
-            LOGGER.LogDebug("=> OnGUIRnDComplexSpawn");
+            LOGGER.LogTrace("=> OnGUIRnDComplexSpawn");
             this.FireContextEnterOrLeave(true);
         }
         
         protected void OnGUIRnDComplexDespawn()
         {
-            LOGGER.LogDebug("=> OnGUIRnDComplexDespawn");
+            LOGGER.LogTrace("=> OnGUIRnDComplexDespawn");
             this.FireContextEnterOrLeave(false);
         }
     }

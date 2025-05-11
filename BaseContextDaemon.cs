@@ -13,7 +13,7 @@ namespace com.github.lhervier.ksp
         /// <summary>
         /// Event triggered when the daemon detects that the game is in a context
         /// </summary>
-        private readonly EventData<BaseContextDaemon> _onEnterContext = new EventData<BaseContextDaemon>("OnEnterContext");
+        private readonly EventData<BaseContextDaemon> _onEnterContext = new EventData<BaseContextDaemon>("BaseContextDaemon.OnEnterContext");
         public EventData<BaseContextDaemon> OnEnterContext() {
             return _onEnterContext;
         }
@@ -21,7 +21,7 @@ namespace com.github.lhervier.ksp
         /// <summary>
         /// Event triggered when the daemon detects that the game exited a context
         /// </summary>
-        private readonly EventData<BaseContextDaemon> _onExitContext = new EventData<BaseContextDaemon>("OnExitContext");
+        private readonly EventData<BaseContextDaemon> _onExitContext = new EventData<BaseContextDaemon>("BaseContextDaemon.OnExitContext");
         public EventData<BaseContextDaemon> OnExitContext() {
             return _onExitContext;
         }

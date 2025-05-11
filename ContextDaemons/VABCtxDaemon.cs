@@ -13,7 +13,7 @@ namespace com.github.lhervier.ksp
     // </summary>
     public class VABCtxDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("VABCtxDaemon");
+        private static readonly SteamInputLogger LOGGER = new SteamInputLogger("VABCtxDaemon");
         
         public override ActionGroup CorrespondingActionGroup()
         {

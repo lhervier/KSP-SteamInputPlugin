@@ -11,7 +11,7 @@ namespace com.github.lhervier.ksp
     /// Daemon in charge of listening to controller connection/disconnection
     /// It also allow to change the current action set of the controller
     /// </summary>
-    public class SteamControllerDaemon : MonoBehaviour 
+    public class SteamInputDaemon : MonoBehaviour 
     {
         
         // ==========================================================================================
@@ -21,7 +21,7 @@ namespace com.github.lhervier.ksp
         /// <summary>
         /// Logger object
         /// </summary>
-        private static SteamControllerLogger LOGGER = new SteamControllerLogger("SteamControllerDaemon");
+        private static readonly SteamInputLogger LOGGER = new SteamInputLogger("SteamInputDaemon");
 
         // ===============================================
 
@@ -52,7 +52,7 @@ namespace com.github.lhervier.ksp
         // <summary>
         //  The action sets handles defined in the steam controller configuration template
         // </summary>
-        private IDictionary<string, ControllerActionSetHandle_t> actionsSetsHandles = new Dictionary<string, ControllerActionSetHandle_t>();
+        private readonly IDictionary<string, ControllerActionSetHandle_t> actionsSetsHandles = new Dictionary<string, ControllerActionSetHandle_t>();
 
         // <summary>
         //  Handles to the connected steam controllers.
@@ -78,8 +78,8 @@ namespace com.github.lhervier.ksp
         {
             DontDestroyOnLoad(this);
             
-            this.OnControllerConnected = new EventVoid("controller.OnConnected");
-            this.OnControllerDisconnected = new EventVoid("controller.OnDisconnected");
+            this.OnControllerConnected = new EventVoid("SteamInputDaemon.OnControllerConnected");
+            this.OnControllerDisconnected = new EventVoid("SteamInputDaemon.OnControllerDisconnected");
             this.ControllerConnected = false;
             
             LOGGER.LogInfo("Awaked");
@@ -182,7 +182,7 @@ namespace com.github.lhervier.ksp
                 // Disconnect the current controller
                 if( disconnectedController ) 
                 {
-                    LOGGER.LogInfo("Steam Controller disconnected");
+                    LOGGER.LogInfo("Controller disconnected");
                     this.ControllerConnected = false;
                     this.UnloadActionSets();
                     this.OnControllerDisconnected.Fire();
@@ -191,7 +191,7 @@ namespace com.github.lhervier.ksp
                 // Connects a new controller
                 if( newController ) 
                 {
-                    LOGGER.LogInfo("Steam Controller connected");
+                    LOGGER.LogInfo("Controller connected");
                     this.controllerHandle = this._controllerHandles[0];
                     this.ControllerConnected = true;
                     this.LoadActionSetsHandles();

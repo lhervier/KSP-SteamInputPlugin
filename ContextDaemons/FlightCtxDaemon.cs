@@ -13,7 +13,7 @@ namespace com.github.lhervier.ksp
     // </summary>
     public class FlightCtxDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("FlightCtxDaemon");
+        private static readonly SteamInputLogger LOGGER = new SteamInputLogger("FlightCtxDaemon");
         private bool inContextBeforePause = false;
 
         public override ActionGroup CorrespondingActionGroup()
@@ -70,7 +70,7 @@ namespace com.github.lhervier.ksp
 
         private void OnMapEntered()
         {
-            LOGGER.LogDebug("=> OnMapEntered");
+            LOGGER.LogTrace("=> OnMapEntered");
             
             GameEvents.onGamePause.Remove(OnGamePause);
             GameEvents.onGameUnpause.Remove(OnGameUnpause);
@@ -82,7 +82,7 @@ namespace com.github.lhervier.ksp
 
         private void OnMapExited()
         {
-            LOGGER.LogDebug("=> OnMapExited");
+            LOGGER.LogTrace("=> OnMapExited");
             
             GameEvents.onGamePause.Add(OnGamePause);
             GameEvents.onGameUnpause.Add(OnGameUnpause);
@@ -96,20 +96,20 @@ namespace com.github.lhervier.ksp
 
         private void OnGamePause()
         {
-            LOGGER.LogDebug("=> OnGamePause");
+            LOGGER.LogTrace("=> OnGamePause");
             this.inContextBeforePause = this.InContext();
             this.FireContextEnterOrLeave(false);
         }
 
         private void OnGameUnpause()
         {
-            LOGGER.LogDebug("=> OnGameUnpause");
+            LOGGER.LogTrace("=> OnGameUnpause");
             this.FireContextEnterOrLeave(this.inContextBeforePause);
         }
 
         private void OnFlightUIModeChanged(FlightUIMode mode)
         {
-            LOGGER.LogDebug("=> OnFlightUIModeChanged : " + mode.ToString());
+            LOGGER.LogTrace("=> OnFlightUIModeChanged : " + mode.ToString());
             this.FireContextEnterOrLeave(
                 InFlightMode(mode)
             );
@@ -117,7 +117,7 @@ namespace com.github.lhervier.ksp
 
         private void OnVesselChange(Vessel vessel)
         {
-            LOGGER.LogDebug("=> OnVesselChange : " + vessel.name);
+            LOGGER.LogTrace("=> OnVesselChange : " + vessel.name);
             this.FireContextEnterOrLeave(
                 InFlightMode()
             );

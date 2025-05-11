@@ -13,7 +13,7 @@ namespace com.github.lhervier.ksp
     // </summary>
     public class PauseInFlightCtxDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("PauseInFlightCtxDaemon");
+        private static readonly SteamInputLogger LOGGER = new SteamInputLogger("PauseInFlightCtxDaemon");
 
         public override ActionGroup CorrespondingActionGroup()
         {
@@ -56,13 +56,13 @@ namespace com.github.lhervier.ksp
         
         private void OnGamePause()
         {
-            LOGGER.LogDebug("=> Game paused");
+            LOGGER.LogTrace("=> Game paused");
             this.FireContextEnterOrLeave(true);
         }
         
         private void OnGameUnpause()
         {
-            LOGGER.LogDebug("=> Game unpaused");
+            LOGGER.LogTrace("=> Game unpaused");
             this.FireContextEnterOrLeave(false);
         }
     }

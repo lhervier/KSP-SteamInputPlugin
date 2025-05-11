@@ -9,14 +9,14 @@ using UnityEngine.SceneManagement;
 namespace com.github.lhervier.ksp 
 {
     [KSPAddon(KSPAddon.Startup.PSystemSpawn, true)]
-    public class SteamControllerPlugin : MonoBehaviour 
+    public class SteamInputPlugin : MonoBehaviour 
     {
         
         // <summary>
         //  Logger
         // </summary>
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger();
-        private static readonly SteamControllerLogger LOGGER_CONTEXT = new SteamControllerLogger("Contexts");
+        private static readonly SteamInputLogger LOGGER = new SteamInputLogger();
+        private static readonly SteamInputLogger LOGGER_CONTEXT = new SteamInputLogger("Contexts");
         
         // <summary>
         //  Delay before applying an action set (in frames)
@@ -57,7 +57,7 @@ namespace com.github.lhervier.ksp
         // <summary>
         //  Connection Daemon to the steam controller
         // </summary>
-        private SteamControllerDaemon steamControllerDaemon;
+        private SteamInputDaemon steamControllerDaemon;
         
         // <summary>
         //  Delayed Action daemon
@@ -83,8 +83,9 @@ namespace com.github.lhervier.ksp
         // </summary>
         protected void Awake() 
         {
-            LOGGER.LogDebug("Awaked");
+            LOGGER.LogInfo("Awake");
             DontDestroyOnLoad(this);
+            LOGGER.LogDebug("Awaked");
         }
 
         // <summary>
@@ -92,22 +93,23 @@ namespace com.github.lhervier.ksp
         // </summary>
         protected void Start() 
         {   
-            LOGGER.LogDebug("Starting");
+            LOGGER.LogInfo("Start");
 
             // Start the coroutine to handle the KSPSteamController
             StartCoroutine(InitializePlugin());
+            LOGGER.LogDebug("Started");
         }
 
         private IEnumerator InitializePlugin()
         {
             // Wait for the KSPSteamController to be handled
-            LOGGER.LogInfo("Waiting for KSPSteamController");
+            LOGGER.LogInfo("Waiting for Squad KSPSteamController plugin");
             yield return StartCoroutine(HandleKSPSteamController());
 
             // Create the controller daemon
-            LOGGER.LogInfo("Creating Controller Daemon");
-            this.steamControllerDaemon = gameObject.AddComponent<SteamControllerDaemon>();
-            LOGGER.LogInfo("Controller Daemon attached");
+            LOGGER.LogInfo("Creating SteamInput Daemon");
+            this.steamControllerDaemon = gameObject.AddComponent<SteamInputDaemon>();
+            LOGGER.LogInfo("SteamInput Daemon attached");
             this.steamControllerDaemon.OnControllerConnected.Add(this.OnControllerConnected);
             this.steamControllerDaemon.OnControllerDisconnected.Add(this.OnControllerDisconnected);
             LOGGER.LogInfo("Controller Events attached");
@@ -139,13 +141,14 @@ namespace com.github.lhervier.ksp
             this.activecontexts.Clear();
             LOGGER.LogInfo("Context Daemons loaded");
 
-            LOGGER_CONTEXT.LogInfo("Attaching Daemons");
+            LOGGER_CONTEXT.LogInfo("Attaching Context Daemons :");
             foreach(BaseContextDaemon daemon in this.contextDaemons) 
             {
                 daemon.OnEnterContext().Add(this.OnEnterContext);
                 daemon.OnExitContext().Add(this.OnExitContext);
+                LOGGER_CONTEXT.LogInfo("- " + daemon.GetType().Name);
             }
-            LOGGER_CONTEXT.LogInfo("Daemons attached : " + this.contextDaemons.Count);
+            LOGGER_CONTEXT.LogInfo("Context Daemons attached : " + this.contextDaemons.Count);
             this.LogDaemons();
 
             // Start the GUI
@@ -204,7 +207,7 @@ namespace com.github.lhervier.ksp
             // Wait for the next frame to ensure KSPSteamController has started
             yield return new WaitForEndOfFrame();
             
-            LOGGER.LogInfo("Waiting for KSPSteamCtrlr");
+            LOGGER.LogInfo("Waiting for Squad KSPSteamCtrlr Plugin");
             Assembly kspSteamCtrlr = null;
             Type controllerType = null;
             MonoBehaviour controller = null;
@@ -239,7 +242,7 @@ namespace com.github.lhervier.ksp
             }
             
             // Désactiver le plugin SteamController par défaut
-            LOGGER.LogInfo("Desactivating Squad Steam Controller plugin");
+            LOGGER.LogInfo("Desactivating Squad KSPSteamCtrlr Plugin");
             try {
                 // Stop any running coroutines first
                 controller.StopAllCoroutines();
@@ -249,10 +252,10 @@ namespace com.github.lhervier.ksp
                 controller.gameObject.SetActive(false);
                 // And Destroy the component
                 Destroy(controller);
-                LOGGER.LogInfo("KSPSteamController deactivated");
+                LOGGER.LogInfo("Squad KSPSteamCtrlr Plugin deactivated");
             }
             catch (Exception ex) {
-                LOGGER.LogInfo("Error disabling Squad Steam Controller: " + ex.Message);
+                LOGGER.LogInfo("Error disabling Squad KSPSteamCtrlr: " + ex.Message);
             }
 
             // Wait for the next frame to ensure the controller is deactivated
@@ -268,7 +271,7 @@ namespace com.github.lhervier.ksp
         {
             LOGGER_CONTEXT.LogDebug("OnEnterContext : " + daemon.GetType().Name);
             this.activecontexts.Add(daemon);
-            // this.LogKSPContext();
+            this.LogKSPContext();
             this.LogDaemons();
             this.UpdateActionGroup();
         }
@@ -280,7 +283,7 @@ namespace com.github.lhervier.ksp
         {
             LOGGER_CONTEXT.LogDebug("OnExitContext : " + daemon.GetType().Name);
             this.activecontexts.Remove(daemon);
-            // this.LogKSPContext();
+            this.LogKSPContext();
             this.LogDaemons();
             this.UpdateActionGroup();
         }

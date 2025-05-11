@@ -13,7 +13,7 @@ namespace com.github.lhervier.ksp
     // </summary>
     public class TrackingStationCtxDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("TrackingStationCtxDaemon");
+        private static readonly SteamInputLogger LOGGER = new SteamInputLogger("TrackingStationCtxDaemon");
 
         public override ActionGroup CorrespondingActionGroup()
         {

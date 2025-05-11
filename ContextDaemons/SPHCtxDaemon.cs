@@ -13,7 +13,7 @@ namespace com.github.lhervier.ksp
     // </summary>
     public class SPHCtxDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("SPHCtxDaemon");
+        private static readonly SteamInputLogger LOGGER = new SteamInputLogger("SPHCtxDaemon");
         
         public override ActionGroup CorrespondingActionGroup()
         {

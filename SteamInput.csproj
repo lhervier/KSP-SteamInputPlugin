@@ -5,7 +5,7 @@
     <ProjectGuid>{B4F901C1-D874-44F7-A116-1BB2BB5ED365}</ProjectGuid>
     <OutputType>Library</OutputType>
     <NoStandardLibraries>false</NoStandardLibraries>
-    <AssemblyName>SteamControllerPlugin</AssemblyName>
+    <AssemblyName>SteamInputPlugin</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -56,14 +56,14 @@
 
   <PropertyGroup>
     <PostBuildEvent>
-      echo Removing existing SteamController folder in GameData
-      if exist "$(KSPDIR)\GameData\SteamController" rmdir /s /q "$(KSPDIR)\GameData\SteamController"
-      echo Creating SteamController folder in GameData
-      mkdir "$(KSPDIR)\GameData\SteamController"
-      echo Copying SteamController.dll
-      copy /y "$(TargetPath)" "$(KSPDIR)\GameData\SteamController"
+      echo Removing existing SteamInput folder in GameData
+      if exist "$(KSPDIR)\GameData\SteamInput" rmdir /s /q "$(KSPDIR)\GameData\SteamInput"
+      echo Creating SteamInput folder in GameData
+      mkdir "$(KSPDIR)\GameData\SteamInput"
+      echo Copying SteamInput.dll
+      copy /y "$(TargetPath)" "$(KSPDIR)\GameData\SteamInput"
       echo Copying Textures
-      xcopy /y /i "$(ProjectDir)Textures" "$(KSPDIR)\GameData\SteamController\Textures"
+      xcopy /y /i "$(ProjectDir)Textures" "$(KSPDIR)\GameData\SteamInput\Textures"
     </PostBuildEvent>
   </PropertyGroup>
 </Project>

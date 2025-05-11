@@ -13,7 +13,7 @@ namespace com.github.lhervier.ksp
     // </summary>
     public class MainMenuCtxDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("MainMenuCtxDaemon");
+        private static readonly SteamInputLogger LOGGER = new SteamInputLogger("MainMenuCtxDaemon");
         
         public override ActionGroup CorrespondingActionGroup()
         {

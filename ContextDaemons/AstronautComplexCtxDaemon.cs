@@ -13,7 +13,7 @@ namespace com.github.lhervier.ksp
     // </summary>
     public class AstronautComplexCtxDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("AstronautComplexCtxDaemon");
+        private static readonly SteamInputLogger LOGGER = new SteamInputLogger("AstronautComplexCtxDaemon");
 
         public override ActionGroup CorrespondingActionGroup()
         {
@@ -58,13 +58,13 @@ namespace com.github.lhervier.ksp
 
         protected void OnGUIAstronautComplexSpawn()
         {
-            LOGGER.LogDebug("=> OnGUIAstronautComplexSpawn");    
+            LOGGER.LogTrace("=> OnGUIAstronautComplexSpawn");    
             this.FireContextEnterOrLeave(true);
         }
 
         protected void OnGUIAstronautComplexDespawn()
         {
-            LOGGER.LogDebug("=> OnGUIAstronautComplexDespawn");
+            LOGGER.LogTrace("=> OnGUIAstronautComplexDespawn");
             this.FireContextEnterOrLeave(false);
         }
     }

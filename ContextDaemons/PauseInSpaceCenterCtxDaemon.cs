@@ -13,7 +13,7 @@ namespace com.github.lhervier.ksp
     // </summary>
     public class PauseInSpaceCenterCtxDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("PauseInSpaceCenterCtxDaemon");
+        private static readonly SteamInputLogger LOGGER = new SteamInputLogger("PauseInSpaceCenterCtxDaemon");
         private static readonly int DELAY = 10;
 
         private DelayedActionDaemon delayedActionDaemon;
@@ -80,7 +80,7 @@ namespace com.github.lhervier.ksp
         
         protected void OnGamePause()
         {
-            LOGGER.LogDebug("=> Game pause asked");
+            LOGGER.LogTrace("=> Game pause asked");
             this.delayedActionDaemon.TriggerDelayedAction(
                 Pause, 
                 DELAY
@@ -89,27 +89,27 @@ namespace com.github.lhervier.ksp
         
         private void OnGameUnpause()
         {
-            LOGGER.LogDebug("=> Game unpaused");
+            LOGGER.LogTrace("=> Game unpaused");
             this.FireContextEnterOrLeave(false);
         }
 
         protected void OnGUIAdministrationFacilitySpawn() {
-            LOGGER.LogDebug("=> OnGUIAdministrationFacilitySpawn: Cancelling pause");
+            LOGGER.LogTrace("=> OnGUIAdministrationFacilitySpawn: Cancelling pause");
             this.delayedActionDaemon.CancelDelayedAction(Pause);
         }
 
         protected void OnGUIAstronautComplexSpawn() {
-            LOGGER.LogDebug("=> OnGUIAstronautComplexSpawn: Cancelling pause");
+            LOGGER.LogTrace("=> OnGUIAstronautComplexSpawn: Cancelling pause");
             this.delayedActionDaemon.CancelDelayedAction(Pause);
         }
 
         protected void OnGUIMissionControlSpawn() {
-            LOGGER.LogDebug("=> OnGUIMissionControlSpawn: Cancelling pause");
+            LOGGER.LogTrace("=> OnGUIMissionControlSpawn: Cancelling pause");
             this.delayedActionDaemon.CancelDelayedAction(Pause);
         }
 
         protected void OnGUIRnDComplexSpawn() {
-            LOGGER.LogDebug("=> OnGUIRnDComplexSpawn: Cancelling pause");
+            LOGGER.LogTrace("=> OnGUIRnDComplexSpawn: Cancelling pause");
             this.delayedActionDaemon.CancelDelayedAction(Pause);
         }
     }

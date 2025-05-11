@@ -13,7 +13,7 @@ namespace com.github.lhervier.ksp
     // </summary>
     public class MissionControlCtxDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("MissionControlCtxDaemon");
+        private static readonly SteamInputLogger LOGGER = new SteamInputLogger("MissionControlCtxDaemon");
 
         public override ActionGroup CorrespondingActionGroup()
         {
@@ -56,13 +56,13 @@ namespace com.github.lhervier.ksp
 
         protected void OnGUIMissionControlSpawn()
         {
-            LOGGER.LogDebug("=> OnGUIMissionControlSpawn");
+            LOGGER.LogTrace("=> OnGUIMissionControlSpawn");
             this.FireContextEnterOrLeave(true);
         }
 
         protected void OnGUIMissionControlDespawn()
         {
-            LOGGER.LogDebug("=> OnGUIMissionControlDespawn");
+            LOGGER.LogTrace("=> OnGUIMissionControlDespawn");
             this.FireContextEnterOrLeave(false);
         }       
     }

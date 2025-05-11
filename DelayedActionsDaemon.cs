@@ -16,7 +16,7 @@ namespace com.github.lhervier.ksp
         // <summary>
         //  Logger
         // </summary>
-        private static SteamControllerLogger LOGGER = new SteamControllerLogger("DelayedActionDaemon");
+        private static SteamInputLogger LOGGER = new SteamInputLogger("DelayedActionDaemon");
 
         // ===============================================
 

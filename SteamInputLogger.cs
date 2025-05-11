@@ -8,12 +8,13 @@ namespace com.github.lhervier.ksp
         Error = 1,
         Warning = 2,
         Info = 3,
-        Debug = 4
+        Debug = 4,
+        Trace = 5
     }
 
-    public class SteamControllerLogger 
+    public class SteamInputLogger 
     {
-        private static readonly string PREFIX = "[SteamCtrlr]";
+        private static readonly string PREFIX = "[SteamInput]";
         private readonly string additionalPrefix = "";
         private static LogLevel globalLogLevel = LogLevel.Info;
         public static void SetGlobalLogLevel(LogLevel level)
@@ -26,11 +27,11 @@ namespace com.github.lhervier.ksp
             return globalLogLevel;
         }
 
-        public SteamControllerLogger() 
+        public SteamInputLogger() 
         {
         }
         
-        public SteamControllerLogger(string additionalPrefix) : this()
+        public SteamInputLogger(string additionalPrefix) : this()
         {
             this.additionalPrefix = "[" + additionalPrefix + "]";
         }
@@ -54,6 +55,9 @@ namespace com.github.lhervier.ksp
                     case LogLevel.Debug:
                         levelPrefix = "[DBG ]";
                         break;
+                    case LogLevel.Trace:
+                        levelPrefix = "[TRC ]";
+                        break;
                     default:
                         levelPrefix = "";
                         break;
@@ -75,5 +79,6 @@ namespace com.github.lhervier.ksp
         public void LogWarning(string message) => Log(message, LogLevel.Warning);
         public void LogInfo(string message) => Log(message, LogLevel.Info);
         public void LogDebug(string message) => Log(message, LogLevel.Debug);
+        public void LogTrace(string message) => Log(message, LogLevel.Trace);
     }
 }

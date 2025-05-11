@@ -13,7 +13,7 @@ namespace com.github.lhervier.ksp
     // </summary>
     public class AdministrationBuildingCtxDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("AdministrationBuildingCtxDaemon");
+        private static readonly SteamInputLogger LOGGER = new SteamInputLogger("AdministrationBuildingCtxDaemon");
         
         public override ActionGroup CorrespondingActionGroup()
         {
@@ -56,13 +56,13 @@ namespace com.github.lhervier.ksp
 
         protected void OnGUIAdministrationFacilitySpawn()
         {
-            LOGGER.LogDebug("=> OnGUIAdministrationFacilitySpawn");
+            LOGGER.LogTrace("=> OnGUIAdministrationFacilitySpawn");
             this.FireContextEnterOrLeave(true);
         }
         
         protected void OnGUIAdministrationFacilityDespawn()
         {
-            LOGGER.LogDebug("=> OnGUIAdministrationFacilityDespawn");
+            LOGGER.LogTrace("=> OnGUIAdministrationFacilityDespawn");
             this.FireContextEnterOrLeave(false);
         }
     }

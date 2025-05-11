@@ -13,7 +13,7 @@ namespace com.github.lhervier.ksp
     // </summary>
     public class EVACtxDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("EVACtxDaemon");
+        private static readonly SteamInputLogger LOGGER = new SteamInputLogger("EVACtxDaemon");
         
         private bool evaBeforePause = false;
 
@@ -69,20 +69,20 @@ namespace com.github.lhervier.ksp
 
         private void OnGamePause()
         {
-            LOGGER.LogDebug("=> OnGamePause");
+            LOGGER.LogTrace("=> OnGamePause");
             this.evaBeforePause = this.InContext();
             this.FireContextEnterOrLeave(false);
         }
 
         private void OnGameUnpause()
         {
-            LOGGER.LogDebug("=> OnGameUnpause");
+            LOGGER.LogTrace("=> OnGameUnpause");
             this.FireContextEnterOrLeave(this.evaBeforePause);
         }
 
         private void OnMapEntered()
         {
-            LOGGER.LogDebug("=> OnMapEntered");
+            LOGGER.LogTrace("=> OnMapEntered");
             GameEvents.onGamePause.Remove(OnGamePause);
             GameEvents.onGameUnpause.Remove(OnGameUnpause);
             GameEvents.onVesselChange.Remove(OnVesselChange);
@@ -92,7 +92,7 @@ namespace com.github.lhervier.ksp
 
         private void OnMapExited()
         {
-            LOGGER.LogDebug("=> OnMapExited");
+            LOGGER.LogTrace("=> OnMapExited");
             GameEvents.onGamePause.Add(OnGamePause);
             GameEvents.onGameUnpause.Add(OnGameUnpause);
             GameEvents.onVesselChange.Add(OnVesselChange);
@@ -104,7 +104,7 @@ namespace com.github.lhervier.ksp
 
         private void OnVesselChange(Vessel vessel)
         {
-            LOGGER.LogDebug("=> OnVesselChange : " + vessel.name);
+            LOGGER.LogTrace("=> OnVesselChange : " + vessel.name);
             this.FireContextEnterOrLeave(
                 InEVA(vessel)
             );
@@ -112,7 +112,7 @@ namespace com.github.lhervier.ksp
 
         private void OnEVAConstructionMode(bool mode)
         {
-            LOGGER.LogDebug("=> OnEVAConstructionMode : " + mode);
+            LOGGER.LogTrace("=> OnEVAConstructionMode : " + mode);
             if( mode ) {
                 this.FireContextEnterOrLeave(false);
             } else {

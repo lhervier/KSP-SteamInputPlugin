@@ -13,7 +13,7 @@ namespace com.github.lhervier.ksp
     // </summary>
     public class EVAConstructionModeCtxDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("EVAConstructionModeCtxDaemon");
+        private static readonly SteamInputLogger LOGGER = new SteamInputLogger("EVAConstructionModeCtxDaemon");
 
         public override ActionGroup CorrespondingActionGroup()
         {
@@ -38,7 +38,7 @@ namespace com.github.lhervier.ksp
 
         protected void OnEVAConstructionModeChanged(bool mode)
         {
-            LOGGER.LogDebug("=> OnEVAConstructionModeChanged : " + mode);
+            LOGGER.LogTrace("=> OnEVAConstructionModeChanged : " + mode);
             FireContextEnterOrLeave(mode);
         }
     }

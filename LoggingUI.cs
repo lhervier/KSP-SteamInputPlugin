@@ -1,13 +1,14 @@
 using UnityEngine;
 using KSP.UI.Screens;
 using JetBrains.Annotations;
+using System;
 
 namespace com.github.lhervier.ksp 
 {
     public class LoggingUI : MonoBehaviour
     {
         private const int WINDOW_ID = 0x4C4F4747; // "LOGG" en hexadécimal
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("LoggingUI");
+        private static readonly SteamInputLogger LOGGER = new SteamInputLogger("LoggingUI");
         private ApplicationLauncherButton button;
         private bool showWindow = false;
         private Rect windowRect = new Rect(20, 20, 200, 150);
@@ -23,7 +24,7 @@ namespace com.github.lhervier.ksp
         public void Start() 
         {
             LOGGER.LogInfo("Start");
-            currentLogLevel = SteamControllerLogger.GetGlobalLogLevel();
+            currentLogLevel = SteamInputLogger.GetGlobalLogLevel();
             GameEvents.onGUIApplicationLauncherReady.Add(OnGUIAppLauncherReady);
         }
 
@@ -59,7 +60,7 @@ namespace com.github.lhervier.ksp
                 null,
                 null,
                 ApplicationLauncher.AppScenes.ALWAYS,
-                GameDatabase.Instance.GetTexture("SteamController/Textures/logging_icon", false)
+                GameDatabase.Instance.GetTexture("SteamInput/Textures/logging_icon", false)
             );
             isInitialized = true;
         }
@@ -95,27 +96,14 @@ namespace com.github.lhervier.ksp
             GUILayout.BeginVertical();
 
             GUILayout.Label("Log Level:");
-            if (GUILayout.Button("None"))
+            foreach (LogLevel level in Enum.GetValues(typeof(LogLevel)))
             {
-                SetLogLevel(LogLevel.None);
+                if (GUILayout.Button(level.ToString()))
+                {
+                    SetLogLevel(level);
+                }
             }
-            if (GUILayout.Button("Error"))
-            {
-                SetLogLevel(LogLevel.Error);
-            }
-            if (GUILayout.Button("Warning"))
-            {
-                SetLogLevel(LogLevel.Warning);
-            }
-            if (GUILayout.Button("Info"))
-            {
-                SetLogLevel(LogLevel.Info);
-            }
-            if (GUILayout.Button("Debug"))
-            {
-                SetLogLevel(LogLevel.Debug);
-            }
-
+            
             GUILayout.Space(10);
             GUILayout.Label("Current: " + currentLogLevel.ToString());
 
@@ -127,7 +115,7 @@ namespace com.github.lhervier.ksp
         {
             LOGGER.LogDebug($"Setting log level to {level}");
             currentLogLevel = level;
-            SteamControllerLogger.SetGlobalLogLevel(level);
+            SteamInputLogger.SetGlobalLogLevel(level);
             LOGGER.LogInfo($"Log level set to {level}");
         }
     }

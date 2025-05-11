@@ -13,7 +13,7 @@ namespace com.github.lhervier.ksp
     // </summary>
     public class DockingCtxDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("DockingCtxDaemon");
+        private static readonly SteamInputLogger LOGGER = new SteamInputLogger("DockingCtxDaemon");
         private bool dockingBeforePause = false;
 
         public override ActionGroup CorrespondingActionGroup()
@@ -70,7 +70,7 @@ namespace com.github.lhervier.ksp
 
         private void OnMapEntered()
         {
-            LOGGER.LogDebug("=> OnMapEntered");
+            LOGGER.LogTrace("=> OnMapEntered");
             
             GameEvents.onGamePause.Remove(OnGamePause);
             GameEvents.onGameUnpause.Remove(OnGameUnpause);
@@ -82,7 +82,7 @@ namespace com.github.lhervier.ksp
 
         private void OnMapExited()
         {
-            LOGGER.LogDebug("=> OnMapExited");
+            LOGGER.LogTrace("=> OnMapExited");
             
             GameEvents.onGamePause.Add(OnGamePause);
             GameEvents.onGameUnpause.Add(OnGameUnpause);
@@ -96,7 +96,7 @@ namespace com.github.lhervier.ksp
 
         private void OnGamePause()
         {
-            LOGGER.LogDebug("=> OnGamePause");
+            LOGGER.LogTrace("=> OnGamePause");
 
             this.dockingBeforePause = InContext();
             FireContextEnterOrLeave(false);
@@ -104,14 +104,14 @@ namespace com.github.lhervier.ksp
 
         private void OnGameUnpause()
         {
-            LOGGER.LogDebug("=> OnGameUnpause");
+            LOGGER.LogTrace("=> OnGameUnpause");
 
             FireContextEnterOrLeave(this.dockingBeforePause);
         }
 
         private void OnFlightUIModeChanged(FlightUIMode mode)
         {
-            LOGGER.LogDebug("=> OnFlightUIModeChanged : " + mode.ToString());
+            LOGGER.LogTrace("=> OnFlightUIModeChanged : " + mode.ToString());
             this.FireContextEnterOrLeave(
                 InDockingMode(mode)
             );
@@ -119,7 +119,7 @@ namespace com.github.lhervier.ksp
 
         private void OnVesselChange(Vessel vessel)
         {
-            LOGGER.LogDebug("=> OnVesselChange : " + vessel.name + " isEVA : " + vessel.isEVA);
+            LOGGER.LogTrace("=> OnVesselChange : " + vessel.name + " isEVA : " + vessel.isEVA);
             this.FireContextEnterOrLeave(
                 InDockingMode(FlightUIModeController.Instance.Mode)
             );

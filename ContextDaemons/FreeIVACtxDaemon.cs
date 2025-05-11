@@ -13,7 +13,7 @@ namespace com.github.lhervier.ksp
     // </summary>
     public class FreeIVACtxDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("FreeIVACtxDaemon");
+        private static readonly SteamInputLogger LOGGER = new SteamInputLogger("FreeIVACtxDaemon");
         private static FreeIVACtxDaemon _instance;
         public static FreeIVACtxDaemon Instance {
             get {
@@ -119,26 +119,26 @@ namespace com.github.lhervier.ksp
 
         private void OnGamePause()
         {
-            LOGGER.LogDebug("=> OnGamePause");
+            LOGGER.LogTrace("=> OnGamePause");
             this.ivaBeforePause = this.InContext();
             this.FireContextEnterOrLeave(false);
         }
 
         private void OnGameUnpause()
         {
-            LOGGER.LogDebug("=> OnGameUnpause");
+            LOGGER.LogTrace("=> OnGameUnpause");
             this.FireContextEnterOrLeave(this.ivaBeforePause);
         }
 
         private void OnFlightUIModeChanged(FlightUIMode mode)
         {
-            LOGGER.LogDebug("=> OnFlightUIModeChanged : " + mode);
+            LOGGER.LogTrace("=> OnFlightUIModeChanged : " + mode);
             this.inIva = InIVA();
         }
 
         private void OnVesselChange(Vessel vessel)
         {
-            LOGGER.LogDebug("=> OnVesselChange : " + vessel.name);
+            LOGGER.LogTrace("=> OnVesselChange : " + vessel.name);
             this.inIva = InIVA();
         }
 

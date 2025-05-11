@@ -13,7 +13,7 @@ namespace com.github.lhervier.ksp
     // </summary>
     public class IVACtxDaemon : BaseContextDaemon
     {
-        private static readonly SteamControllerLogger LOGGER = new SteamControllerLogger("IVACtxDaemon");
+        private static readonly SteamInputLogger LOGGER = new SteamInputLogger("IVACtxDaemon");
         private bool ivaBeforePause = false;
         private bool inFreeIva = false;
         
@@ -73,7 +73,7 @@ namespace com.github.lhervier.ksp
 
         private void OnMapEntered()
         {
-            LOGGER.LogDebug("=> OnMapEntered");
+            LOGGER.LogTrace("=> OnMapEntered");
             GameEvents.onGamePause.Remove(OnGamePause);
             GameEvents.onGameUnpause.Remove(OnGameUnpause);
             GameEvents.OnFlightUIModeChanged.Remove(OnFlightUIModeChanged);
@@ -87,7 +87,7 @@ namespace com.github.lhervier.ksp
 
         private void OnMapExited()
         {
-            LOGGER.LogDebug("=> OnMapExited");
+            LOGGER.LogTrace("=> OnMapExited");
             GameEvents.onGamePause.Add(OnGamePause);
             GameEvents.onGameUnpause.Add(OnGameUnpause);
             GameEvents.OnFlightUIModeChanged.Add(OnFlightUIModeChanged);
@@ -103,27 +103,27 @@ namespace com.github.lhervier.ksp
 
         private void OnGamePause()
         {
-            LOGGER.LogDebug("=> OnGamePause");
+            LOGGER.LogTrace("=> OnGamePause");
             this.ivaBeforePause = this.InContext();
             this.FireContextEnterOrLeave(false);
         }
 
         private void OnGameUnpause()
         {
-            LOGGER.LogDebug("=> OnGameUnpause");
+            LOGGER.LogTrace("=> OnGameUnpause");
             this.FireContextEnterOrLeave(this.ivaBeforePause);
         }
 
         private void OnEnterFreeIvaContext(BaseContextDaemon sender)
         {
-            LOGGER.LogDebug("=> OnEnterFreeIvaContext");
+            LOGGER.LogTrace("=> OnEnterFreeIvaContext");
             this.inFreeIva = true;
             this.FireContextEnterOrLeave(false);
         }
 
         private void OnExitFreeIvaContext(BaseContextDaemon sender)
         {
-            LOGGER.LogDebug("=> OnExitFreeIvaContext");
+            LOGGER.LogTrace("=> OnExitFreeIvaContext");
             this.inFreeIva = false;
             this.FireContextEnterOrLeave(
                 this.InIVA()
@@ -132,7 +132,7 @@ namespace com.github.lhervier.ksp
 
         private void OnFlightUIModeChanged(FlightUIMode mode)
         {
-            LOGGER.LogDebug("=> OnFlightUIModeChanged : " + mode.ToString());
+            LOGGER.LogTrace("=> OnFlightUIModeChanged : " + mode.ToString());
             if( this.inFreeIva ) return;
             this.FireContextEnterOrLeave(
                 this.InIVA()
@@ -141,7 +141,7 @@ namespace com.github.lhervier.ksp
 
         private void OnVesselChange(Vessel vessel)
         {
-            LOGGER.LogDebug("=> OnVesselChange : " + vessel.name);
+            LOGGER.LogTrace("=> OnVesselChange : " + vessel.name);
             if( this.inFreeIva ) return;
             this.FireContextEnterOrLeave(
                 this.InIVA()
