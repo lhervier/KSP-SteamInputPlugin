@@ -141,43 +141,54 @@ namespace com.github.lhervier.ksp
                 Steamworks.SteamController.RunFrame();
 
                 // Detect connection/disconnection
+                LOGGER.LogTrace("Detecting controllers connection/disconnection :");
                 int nbControllers = Steamworks.SteamController.GetConnectedControllers(this._controllerHandles);
+                LOGGER.LogTrace("- nbControllers connected: " + nbControllers);
                 bool newController;
                 bool disconnectedController;
                 if( nbControllers == 0 ) 
                 {
+                    LOGGER.LogTrace("- No controller connected");
                     if( this.ControllerConnected ) 
                     {
+                        LOGGER.LogDebug("  A controller was previously connected");
                         newController = false;
                         disconnectedController = true;
                     }
                     else
                     {
+                        LOGGER.LogTrace("  No controller previously connected");
                         newController = false;
                         disconnectedController = false;
                     }
                 }
                 else
                 {
+                    LOGGER.LogTrace("- A controller is connected");
                     if( this.ControllerConnected ) 
                     {
                         if( this.controllerHandle == this._controllerHandles[0] ) 
                         {
+                            LOGGER.LogTrace("  The same controller is connected");
                             newController = false;
                             disconnectedController = false;
                         }
                         else
                         {
+                            LOGGER.LogDebug("  A different controller is connected");
                             newController = true;
                             disconnectedController = true;
                         }
                     }
                     else
                     {
+                        LOGGER.LogTrace("  No controller previously connected");
                         newController = true;
                         disconnectedController = false;
                     }
                 }
+                LOGGER.LogTrace("- newController: " + newController);
+                LOGGER.LogTrace("- disconnectedController: " + disconnectedController); 
 
                 // Disconnect the current controller
                 if( disconnectedController ) 
