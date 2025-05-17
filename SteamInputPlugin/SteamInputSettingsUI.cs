@@ -204,7 +204,13 @@ namespace com.github.lhervier.ksp
             {
                 GUIStyle style = new GUIStyle(GUI.skin.label);
                 style.normal.textColor = Color.yellow;
-                GUILayout.Label("- " + context, style);
+                string contextName;
+                if( context.EndsWith("CtxDaemon") ) {
+                    contextName = context.Substring(0, context.Length - "CtxDaemon".Length);
+                } else {
+                    contextName = context;
+                }
+                GUILayout.Label("- " + contextName, style);
             }
         }
 
