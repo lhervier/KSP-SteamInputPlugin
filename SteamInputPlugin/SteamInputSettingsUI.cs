@@ -202,7 +202,9 @@ namespace com.github.lhervier.ksp
             GUILayout.Label("Activated context(s): ");
             foreach (string context in SteamInputPlugin.Instance.ActivatedContexts)
             {
-                GUILayout.Label("- " + context);
+                GUIStyle style = new GUIStyle(GUI.skin.label);
+                style.normal.textColor = Color.yellow;
+                GUILayout.Label("- " + context, style);
             }
         }
 
