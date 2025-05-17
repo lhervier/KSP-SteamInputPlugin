@@ -24,6 +24,7 @@ namespace com.github.lhervier.ksp
         {
             LOGGER.LogInfo("Start");
             GameEvents.OnEVAConstructionMode.Add(OnEVAConstructionModeChanged);
+            SceneManager.sceneUnloaded += OnSceneUnloaded;
 
             this.FireContextEnterOrLeave(false);
         }
@@ -32,9 +33,18 @@ namespace com.github.lhervier.ksp
         {
             LOGGER.LogInfo("OnDestroy");
             GameEvents.OnEVAConstructionMode.Remove(OnEVAConstructionModeChanged);
+            SceneManager.sceneUnloaded -= OnSceneUnloaded;
         }
 
         // ============================================================
+
+        protected void OnSceneUnloaded(Scene scene)
+        {
+            LOGGER.LogDebug("OnSceneUnloaded : " + scene.name);
+            if( scene.name.ToUpper() != "PFLIGHT4" ) return;
+
+            this.FireContextEnterOrLeave(false);
+        }
 
         protected void OnEVAConstructionModeChanged(bool mode)
         {

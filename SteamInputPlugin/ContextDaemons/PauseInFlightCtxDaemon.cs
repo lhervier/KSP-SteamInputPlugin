@@ -52,6 +52,8 @@ namespace com.github.lhervier.ksp
 
             GameEvents.onGamePause.Remove(OnGamePause);
             GameEvents.onGameUnpause.Remove(OnGameUnpause);
+
+            this.FireContextEnterOrLeave(false);
         }
         
         private void OnGamePause()

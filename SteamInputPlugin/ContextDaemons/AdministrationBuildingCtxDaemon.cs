@@ -50,6 +50,8 @@ namespace com.github.lhervier.ksp
             if( scene.name.ToUpper() != "SPACECENTER" ) return;
             GameEvents.onGUIAdministrationFacilitySpawn.Remove(OnGUIAdministrationFacilitySpawn);
             GameEvents.onGUIAdministrationFacilityDespawn.Remove(OnGUIAdministrationFacilityDespawn);
+
+            this.FireContextEnterOrLeave(false);
         }
 
         // ================================================================================================================

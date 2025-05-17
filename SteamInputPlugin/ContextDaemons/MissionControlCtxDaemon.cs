@@ -52,6 +52,7 @@ namespace com.github.lhervier.ksp
             
             GameEvents.onGUIMissionControlSpawn.Remove(OnGUIMissionControlSpawn);
             GameEvents.onGUIMissionControlDespawn.Remove(OnGUIMissionControlDespawn);
+            this.FireContextEnterOrLeave(false);
         }
 
         protected void OnGUIMissionControlSpawn()

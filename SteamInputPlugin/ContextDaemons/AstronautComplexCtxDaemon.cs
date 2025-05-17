@@ -52,6 +52,8 @@ namespace com.github.lhervier.ksp
 
             GameEvents.onGUIAstronautComplexSpawn.Remove(OnGUIAstronautComplexSpawn);
             GameEvents.onGUIAstronautComplexDespawn.Remove(OnGUIAstronautComplexDespawn);
+
+            this.FireContextEnterOrLeave(false);
         }
 
         // ==========================================================================

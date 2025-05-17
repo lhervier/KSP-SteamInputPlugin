@@ -52,6 +52,7 @@ namespace com.github.lhervier.ksp
 
             GameEvents.onGUIRnDComplexSpawn.Remove(OnGUIRnDComplexSpawn);
             GameEvents.onGUIRnDComplexDespawn.Remove(OnGUIRnDComplexDespawn);
+            this.FireContextEnterOrLeave(false);
         }
 
         protected void OnGUIRnDComplexSpawn()
