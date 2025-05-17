@@ -166,6 +166,8 @@ namespace com.github.lhervier.ksp
         {
             GUILayout.BeginVertical();
 
+            GUILayout.Label("Current action set: " + SteamInputDaemon.Instance.CurrentActionSet);
+
             GUILayout.Label("Log Level:");
             foreach (LogLevel level in Enum.GetValues(typeof(LogLevel)))
             {

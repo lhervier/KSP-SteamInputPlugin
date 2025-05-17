@@ -23,7 +23,14 @@ namespace com.github.lhervier.ksp
         /// </summary>
         private static readonly SteamInputLogger LOGGER = new SteamInputLogger("SteamInputDaemon");
 
-        // ===============================================
+        private static SteamInputDaemon _instance;
+        public static SteamInputDaemon Instance {
+            get {
+                return _instance;
+            }
+        }
+
+        // ==========================================================================================
 
         /// <summary>
         /// Called when a new controller is connected
@@ -39,6 +46,11 @@ namespace com.github.lhervier.ksp
         /// Is a controller connected ?
         /// </summary>
         public bool ControllerConnected { get; private set; }
+
+        /// <summary>
+        /// The current action set
+        /// </summary>
+        public string CurrentActionSet { get; private set; }
 
         // ==============================================
 
@@ -81,17 +93,10 @@ namespace com.github.lhervier.ksp
             this.OnControllerConnected = new EventVoid("SteamInputDaemon.OnControllerConnected");
             this.OnControllerDisconnected = new EventVoid("SteamInputDaemon.OnControllerDisconnected");
             this.ControllerConnected = false;
+            this.CurrentActionSet = null;
+            _instance = this;
             
             LOGGER.LogInfo("Awaked");
-        }
-
-        /// <summary>
-        /// Component destroyed
-        /// </summary>
-        public void OnDestroy() 
-        {
-            this.StopCoroutine(this.checkForControllerCoroutine);
-            LOGGER.LogInfo("Destroyed");
         }
 
         /// <summary>
@@ -124,6 +129,16 @@ namespace com.github.lhervier.ksp
             this.checkForControllerCoroutine = this.CheckForController();
             this.StartCoroutine(this.checkForControllerCoroutine);
             LOGGER.LogInfo("Started");
+        }
+
+        /// <summary>
+        /// Component destroyed
+        /// </summary>
+        public void OnDestroy() 
+        {
+            this.StopCoroutine(this.checkForControllerCoroutine);
+            this.CurrentActionSet = null;
+            LOGGER.LogInfo("Destroyed");
         }
 
         // ==============================================================================
@@ -282,6 +297,7 @@ namespace com.github.lhervier.ksp
                 this.controllerHandle, 
                 this.actionsSetsHandles[actionSetName]
             );
+            this.CurrentActionSet = actionSetName;
         }
     }
 }
