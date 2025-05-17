@@ -26,6 +26,8 @@ The plugin adds several new action groups to enhance your gameplay experience:
 
 It will also add a button in the action bar to help you troubleshoot problems by changing the logging level. Default is "Info". Set it to "Debug" or event "Trace" to have more details in the KSP.log file. 
 
+When in flight mode, this icon is not displayed by default. Go to the difficulty settings to find a dedicated section with an option to display the icon.
+
 Don't forget to tell KSP to flush its logs immediatly in the debug console (using the ALT+F12 shortcut), and check the "Flush logs" option in the Debug/Console section.
 
 ## System Requirements
