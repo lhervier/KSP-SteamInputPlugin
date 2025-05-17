@@ -42,9 +42,6 @@ namespace com.github.lhervier.ksp
             if( scene.name.ToUpper() != "SPACECENTER" ) return;
 
             this.FireContextEnterOrLeave(true);
-
-            GameEvents.onGamePause.Add(OnGamePause);
-            GameEvents.onGameUnpause.Add(OnGameUnpause);
         }
 
         protected void OnSceneUnloaded(Scene scene)
@@ -52,24 +49,8 @@ namespace com.github.lhervier.ksp
             LOGGER.LogDebug("OnSceneUnloaded : " + scene.name);
             if( scene.name.ToUpper() != "SPACECENTER" ) return;
 
-            GameEvents.onGamePause.Remove(OnGamePause);
-            GameEvents.onGameUnpause.Remove(OnGameUnpause);
-
             this.FireContextEnterOrLeave(false);
         }
 
-        // ============================================================
-
-        protected void OnGamePause()
-        {
-            LOGGER.LogTrace("=> OnGamePause");
-            this.FireContextEnterOrLeave(false);
-        }
-
-        protected void OnGameUnpause()
-        {
-            LOGGER.LogTrace("=> OnGameUnpause");
-            this.FireContextEnterOrLeave(true);
-        }
     }
 }

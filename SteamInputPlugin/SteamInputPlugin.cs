@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 namespace com.github.lhervier.ksp 
 {
@@ -17,7 +18,13 @@ namespace com.github.lhervier.ksp
         // </summary>
         private static readonly SteamInputLogger LOGGER = new SteamInputLogger();
         private static readonly SteamInputLogger LOGGER_CONTEXT = new SteamInputLogger("Contexts");
-        
+        private static SteamInputPlugin _instance;
+        public static SteamInputPlugin Instance {
+            get {
+                return _instance;
+            }
+        }
+
         // <summary>
         //  Delay before applying an action set (in frames)
         // </summary>
@@ -43,6 +50,11 @@ namespace com.github.lhervier.ksp
         //  More than 2 active contexts should never happen.
         // </summary>
         private readonly List<BaseContextDaemon> activecontexts = new List<BaseContextDaemon>();
+        public List<String> ActivatedContexts {
+            get {
+                return this.activecontexts.Select(c => c.GetType().Name).ToList();
+            }
+        }
 
         // <summary>
         //  Message indicating when on Steam Controller action set changes
@@ -97,6 +109,7 @@ namespace com.github.lhervier.ksp
 
             // Start the coroutine to handle the KSPSteamController
             StartCoroutine(InitializePlugin());
+            _instance = this;
             LOGGER.LogDebug("Started");
         }
 
@@ -179,6 +192,7 @@ namespace com.github.lhervier.ksp
             }
             this.contextDaemons.Clear();
             this.activecontexts.Clear();
+            _instance = null;
             LOGGER.LogInfo("Destroyed");
         }
 
@@ -349,12 +363,9 @@ namespace com.github.lhervier.ksp
 
             if( this.activecontexts.Count == 0 ) {
                 this.TriggerActionGroupChange(DEFAULT_ACTION_GROUP);
-            } else if( this.activecontexts.Count > 1 ) {
+            } else {
                 ActionGroup last = this.activecontexts[this.activecontexts.Count - 1].CorrespondingActionGroup();
                 this.TriggerActionGroupChange(last);
-            } else {
-                ActionGroup unique = this.activecontexts[0].CorrespondingActionGroup();
-                this.ChangeActionGroupNow(unique);
             }
         }
         

@@ -14,8 +14,6 @@ namespace com.github.lhervier.ksp
     public class FlightCtxDaemon : BaseContextDaemon
     {
         private static readonly SteamInputLogger LOGGER = new SteamInputLogger("FlightCtxDaemon");
-        private bool inContextBeforePause = false;
-
         public override ActionGroup CorrespondingActionGroup()
         {
             return ActionGroup.FlightControls;
@@ -60,8 +58,6 @@ namespace com.github.lhervier.ksp
             GameEvents.OnMapEntered.Remove(OnMapEntered);
             GameEvents.OnMapExited.Remove(OnMapExited);
             
-            GameEvents.onGamePause.Remove(OnGamePause);
-            GameEvents.onGameUnpause.Remove(OnGameUnpause);
             GameEvents.OnFlightUIModeChanged.Remove(OnFlightUIModeChanged);
             GameEvents.onVesselChange.Remove(OnVesselChange);
         }
@@ -72,8 +68,6 @@ namespace com.github.lhervier.ksp
         {
             LOGGER.LogTrace("=> OnMapEntered");
             
-            GameEvents.onGamePause.Remove(OnGamePause);
-            GameEvents.onGameUnpause.Remove(OnGameUnpause);
             GameEvents.OnFlightUIModeChanged.Remove(OnFlightUIModeChanged);
             GameEvents.onVesselChange.Remove(OnVesselChange);
             
@@ -84,27 +78,12 @@ namespace com.github.lhervier.ksp
         {
             LOGGER.LogTrace("=> OnMapExited");
             
-            GameEvents.onGamePause.Add(OnGamePause);
-            GameEvents.onGameUnpause.Add(OnGameUnpause);
             GameEvents.OnFlightUIModeChanged.Add(OnFlightUIModeChanged);
             GameEvents.onVesselChange.Add(OnVesselChange);
 
             this.FireContextEnterOrLeave(
                 InFlightMode()
             );
-        }
-
-        private void OnGamePause()
-        {
-            LOGGER.LogTrace("=> OnGamePause");
-            this.inContextBeforePause = this.InContext();
-            this.FireContextEnterOrLeave(false);
-        }
-
-        private void OnGameUnpause()
-        {
-            LOGGER.LogTrace("=> OnGameUnpause");
-            this.FireContextEnterOrLeave(this.inContextBeforePause);
         }
 
         private void OnFlightUIModeChanged(FlightUIMode mode)

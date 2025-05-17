@@ -25,7 +25,6 @@ namespace com.github.lhervier.ksp
         PropertyInfo instanceProperty;
         FieldInfo buckledProperty;
         private bool initialized = false;
-        private bool ivaBeforePause = false;
         private bool inIva = false;
         
         public override ActionGroup CorrespondingActionGroup()
@@ -96,9 +95,6 @@ namespace com.github.lhervier.ksp
             LOGGER.LogDebug("OnSceneLoaded : " + scene.name);
             if( scene.name.ToUpper() != "PFLIGHT4") return;
 
-            GameEvents.onGamePause.Add(OnGamePause);
-            GameEvents.onGameUnpause.Add(OnGameUnpause);
-
             GameEvents.OnFlightUIModeChanged.Add(OnFlightUIModeChanged);
             GameEvents.onVesselChange.Add(OnVesselChange);
         }
@@ -108,26 +104,11 @@ namespace com.github.lhervier.ksp
             LOGGER.LogDebug("OnSceneUnloaded : " + scene.name);
             if( scene.name.ToUpper() != "PFLIGHT4") return;
             
-            GameEvents.onGamePause.Remove(OnGamePause);
-            GameEvents.onGameUnpause.Remove(OnGameUnpause);
             GameEvents.OnFlightUIModeChanged.Remove(OnFlightUIModeChanged);
             GameEvents.onVesselChange.Remove(OnVesselChange);
             this.inIva = false;
             
             this.FireContextEnterOrLeave(false);
-        }
-
-        private void OnGamePause()
-        {
-            LOGGER.LogTrace("=> OnGamePause");
-            this.ivaBeforePause = this.InContext();
-            this.FireContextEnterOrLeave(false);
-        }
-
-        private void OnGameUnpause()
-        {
-            LOGGER.LogTrace("=> OnGameUnpause");
-            this.FireContextEnterOrLeave(this.ivaBeforePause);
         }
 
         private void OnFlightUIModeChanged(FlightUIMode mode)

@@ -2,6 +2,7 @@ using UnityEngine;
 using KSP.UI.Screens;
 using JetBrains.Annotations;
 using System;
+using UnityEditor;
 
 namespace com.github.lhervier.ksp 
 {
@@ -11,9 +12,10 @@ namespace com.github.lhervier.ksp
         private static readonly SteamInputLogger LOGGER = new SteamInputLogger("LoggingUI");
         private ApplicationLauncherButton button;
         private bool showWindow = false;
-        private Rect windowRect = new Rect(20, 20, 200, 150);
+        private Rect windowRect = new Rect(20, 20, 250, 150);
         private LogLevel currentLogLevel;
         private bool lastShowLoggingIcon;
+        private bool showLogLevelMenu = false;
 
         // ===============================================================
 
@@ -166,25 +168,44 @@ namespace com.github.lhervier.ksp
         {
             GUILayout.BeginVertical();
 
-            GUILayout.Label("Current action set: " + SteamInputDaemon.Instance.CurrentActionSet);
+            GUILayout.BeginHorizontal();
+            GUILayout.Label("Current action set: ");
+            GUIStyle currentActionGroupStyle = new GUIStyle(GUI.skin.label);
+            currentActionGroupStyle.normal.textColor = Color.yellow;
+            GUILayout.Label(SteamInputDaemon.Instance.CurrentActionSet, currentActionGroupStyle);
+            GUILayout.EndHorizontal();
 
-            GUILayout.Label("Log Level:");
-            foreach (LogLevel level in Enum.GetValues(typeof(LogLevel)))
+            GUILayout.Label("Activated context(s): ");
+            foreach (string context in SteamInputPlugin.Instance.ActivatedContexts)
             {
-                GUIStyle buttonStyle = new GUIStyle(GUI.skin.button);
-                if( level == currentLogLevel ) 
-                {
-                    buttonStyle.normal.textColor = Color.yellow;
-                }
-                if (GUILayout.Button(level.ToString(), buttonStyle))
-                {
-                    SetLogLevel(level);
-                }
+                GUILayout.Label("- " + context);
             }
             
-            GUILayout.Space(10);
-            GUILayout.Label("Current: " + currentLogLevel.ToString());
-
+            GUILayout.Label("Log Level:");
+            GUILayout.BeginHorizontal();
+            GUIStyle buttonStyle = new GUIStyle(GUI.skin.button);
+            buttonStyle.normal.textColor = Color.yellow;
+            buttonStyle.fixedWidth = 100;
+            if (GUILayout.Button(currentLogLevel.ToString(), buttonStyle))
+            {
+                showLogLevelMenu = !showLogLevelMenu;
+            }
+            GUILayout.EndHorizontal();
+            
+            if (showLogLevelMenu)
+            {
+                GUILayout.BeginVertical(GUI.skin.box);
+                foreach (LogLevel level in Enum.GetValues(typeof(LogLevel)))
+                {
+                    if (GUILayout.Button("=> " + level.ToString(), GUILayout.Width(100)))
+                    {
+                        SetLogLevel(level);
+                        showLogLevelMenu = false;
+                    }
+                }
+                GUILayout.EndVertical();
+            }
+            
             GUILayout.EndVertical();
             GUI.DragWindow();
         }

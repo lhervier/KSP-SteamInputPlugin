@@ -14,7 +14,6 @@ namespace com.github.lhervier.ksp
     public class IVACtxDaemon : BaseContextDaemon
     {
         private static readonly SteamInputLogger LOGGER = new SteamInputLogger("IVACtxDaemon");
-        private bool ivaBeforePause = false;
         private bool inFreeIva = false;
         
         public override ActionGroup CorrespondingActionGroup()
@@ -58,8 +57,6 @@ namespace com.github.lhervier.ksp
             if( scene.name.ToUpper() != "PFLIGHT4" ) {
                 return;
             }
-            GameEvents.onGamePause.Remove(OnGamePause);
-            GameEvents.onGameUnpause.Remove(OnGameUnpause);
             GameEvents.OnFlightUIModeChanged.Remove(OnFlightUIModeChanged);
             GameEvents.OnMapEntered.Remove(OnMapEntered);
             GameEvents.OnMapExited.Remove(OnMapExited);
@@ -74,8 +71,6 @@ namespace com.github.lhervier.ksp
         private void OnMapEntered()
         {
             LOGGER.LogTrace("=> OnMapEntered");
-            GameEvents.onGamePause.Remove(OnGamePause);
-            GameEvents.onGameUnpause.Remove(OnGameUnpause);
             GameEvents.OnFlightUIModeChanged.Remove(OnFlightUIModeChanged);
             GameEvents.onVesselChange.Remove(OnVesselChange);
 
@@ -88,8 +83,6 @@ namespace com.github.lhervier.ksp
         private void OnMapExited()
         {
             LOGGER.LogTrace("=> OnMapExited");
-            GameEvents.onGamePause.Add(OnGamePause);
-            GameEvents.onGameUnpause.Add(OnGameUnpause);
             GameEvents.OnFlightUIModeChanged.Add(OnFlightUIModeChanged);
             GameEvents.onVesselChange.Add(OnVesselChange);
 
@@ -99,19 +92,6 @@ namespace com.github.lhervier.ksp
             this.FireContextEnterOrLeave(
                 this.InIVA()
             );
-        }
-
-        private void OnGamePause()
-        {
-            LOGGER.LogTrace("=> OnGamePause");
-            this.ivaBeforePause = this.InContext();
-            this.FireContextEnterOrLeave(false);
-        }
-
-        private void OnGameUnpause()
-        {
-            LOGGER.LogTrace("=> OnGameUnpause");
-            this.FireContextEnterOrLeave(this.ivaBeforePause);
         }
 
         private void OnEnterFreeIvaContext(BaseContextDaemon sender)

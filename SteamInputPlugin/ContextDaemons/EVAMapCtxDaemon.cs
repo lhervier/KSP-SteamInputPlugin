@@ -15,8 +15,7 @@ namespace com.github.lhervier.ksp
     public class EVAMapCtxDaemon : BaseContextDaemon
     {
         private static readonly SteamInputLogger LOGGER = new SteamInputLogger("EVAMapCtxDaemon");
-        private bool evaBeforePause = false;
-
+        
         public override ActionGroup CorrespondingActionGroup()
         {
             return ActionGroup.MapEvaControls;
@@ -58,8 +57,6 @@ namespace com.github.lhervier.ksp
             GameEvents.OnMapEntered.Remove(OnMapEntered);
             GameEvents.OnMapExited.Remove(OnMapExited);
             
-            GameEvents.onGamePause.Remove(OnGamePause);
-            GameEvents.onGameUnpause.Remove(OnGameUnpause);
             GameEvents.onVesselChange.Remove(OnVesselChange);
             GameEvents.OnEVAConstructionMode.Remove(OnEVAConstructionMode);
 
@@ -72,8 +69,6 @@ namespace com.github.lhervier.ksp
         {
             LOGGER.LogTrace("=> OnMapEntered");
             
-            GameEvents.onGamePause.Add(OnGamePause);
-            GameEvents.onGameUnpause.Add(OnGameUnpause);
             GameEvents.onVesselChange.Add(OnVesselChange);
             GameEvents.OnEVAConstructionMode.Add(OnEVAConstructionMode);
 
@@ -85,24 +80,9 @@ namespace com.github.lhervier.ksp
         private void OnMapExited()
         {
             LOGGER.LogTrace("=> OnMapExited");
-            GameEvents.onGamePause.Remove(OnGamePause);
-            GameEvents.onGameUnpause.Remove(OnGameUnpause);
             GameEvents.onVesselChange.Remove(OnVesselChange);
             GameEvents.OnEVAConstructionMode.Remove(OnEVAConstructionMode);
             this.FireContextEnterOrLeave(false);
-        }
-
-        private void OnGamePause()
-        {
-            LOGGER.LogTrace("=> OnGamePause");
-            this.evaBeforePause = this.InContext();
-            this.FireContextEnterOrLeave(false);
-        }
-
-        private void OnGameUnpause()
-        {
-            LOGGER.LogTrace("=> OnGameUnpause");
-            this.FireContextEnterOrLeave(this.evaBeforePause);
         }
 
         private void OnVesselChange(Vessel vessel)

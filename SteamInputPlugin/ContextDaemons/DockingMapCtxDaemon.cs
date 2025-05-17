@@ -15,8 +15,7 @@ namespace com.github.lhervier.ksp
     public class DockingMapCtxDaemon : BaseContextDaemon
     {
         private static readonly SteamInputLogger LOGGER = new SteamInputLogger("DockingMapCtxDaemon");
-        private bool dockingBeforePause = false;
-
+        
         public override ActionGroup CorrespondingActionGroup()
         {
             return ActionGroup.MapDockingControls;
@@ -54,8 +53,6 @@ namespace com.github.lhervier.ksp
                 return;
             }
 
-            GameEvents.onGamePause.Remove(OnGamePause);
-            GameEvents.onGameUnpause.Remove(OnGameUnpause);
             GameEvents.OnFlightUIModeChanged.Remove(OnFlightUIModeChanged);
             GameEvents.onVesselChange.Remove(OnVesselChange);
 
@@ -71,8 +68,6 @@ namespace com.github.lhervier.ksp
         {
             LOGGER.LogTrace("=> OnMapEntered");
             
-            GameEvents.onGamePause.Add(OnGamePause);
-            GameEvents.onGameUnpause.Add(OnGameUnpause);
             GameEvents.OnFlightUIModeChanged.Add(OnFlightUIModeChanged);
             GameEvents.onVesselChange.Add(OnVesselChange);
 
@@ -85,25 +80,10 @@ namespace com.github.lhervier.ksp
         {
             LOGGER.LogTrace("=> OnMapExited");
             
-            GameEvents.onGamePause.Remove(OnGamePause);
-            GameEvents.onGameUnpause.Remove(OnGameUnpause);
             GameEvents.OnFlightUIModeChanged.Remove(OnFlightUIModeChanged);
             GameEvents.onVesselChange.Remove(OnVesselChange);
 
             FireContextEnterOrLeave(false);
-        }
-
-        private void OnGamePause()
-        {
-            LOGGER.LogTrace("=> OnGamePause");
-            this.dockingBeforePause = this.InContext();
-            FireContextEnterOrLeave(false);
-        }
-
-        private void OnGameUnpause()
-        {
-            LOGGER.LogTrace("=> OnGameUnpause");
-            FireContextEnterOrLeave(this.dockingBeforePause);
         }
 
         private void OnFlightUIModeChanged(FlightUIMode mode)
