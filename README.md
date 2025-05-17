@@ -37,7 +37,7 @@ The plugin adds several new action groups to enhance your gameplay experience:
 
 ## Installation
 
-### 1. Configure Steam Controller Actions
+### 1. Configure Steam Input Actions
 
 1. Create a folder named `controller_config` in your Steam directory (e.g., `C:\Program Files (x86)\Steam\controller_config`)
    - Note: A folder named `controller_base` should already exist
@@ -67,15 +67,17 @@ After installation, the plugin will automatically detect and activate the approp
 
 You will find an icon in the KSP Tool bar. Clicking on it will allow you to change the logging level (in the KSP.log file)
 
+If connecting a Steam Controller while the game is running, you will have to press the Steam button for the controller to be detected.
+
 ### Troubleshooting
 
 If you encounter issues:
 
 1. Verify that Steam is running and KSP is launched through Steam
-2. Check that your controller is properly connected and recognized by Steam
-3. Ensure the VDF configuration files are in the correct location
-4. Verify that the plugin is properly installed in the GameData folder
-5. Check the KSP.log file for any error messages related to the plugin. Plugins logs are prefixed with the "[SteamInput]" string.
+2. Ensure the VDF configuration files are in the correct location
+3. Verify that the plugin is properly installed in the GameData folder
+4. Check that your controller is properly connected and recognized by Steam. If you connect a Steam Controller while the game is running, dont forget to press the Steam button for it to be detected.
+5. Check the KSP.log file for any error messages related to the plugin. Plugins logs are prefixed with the "[SteamInput]" string. You can change the logging level ingame.
 
 ## Support
 
