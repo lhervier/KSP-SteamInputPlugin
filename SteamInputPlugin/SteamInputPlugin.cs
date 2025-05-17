@@ -84,7 +84,7 @@ namespace com.github.lhervier.ksp
         // <summary>
         //  The GUI
         // </summary>
-        private LoggingUI loggingUI;
+        private SteamInputSettingsUI loggingUI;
 
         // ===============================================================================
         //                      Unity initialization
@@ -118,6 +118,9 @@ namespace com.github.lhervier.ksp
             // Wait for the KSPSteamController to be handled
             LOGGER.LogInfo("Waiting for Squad KSPSteamController plugin");
             yield return StartCoroutine(HandleKSPSteamController());
+
+            // Load the global settings
+            SteamInputGlobalSettings.Load();
 
             // Create the controller daemon
             LOGGER.LogInfo("Creating SteamInput Daemon");
@@ -166,7 +169,7 @@ namespace com.github.lhervier.ksp
 
             // Start the GUI
             LOGGER.LogInfo("Starting Logging UI");
-            this.loggingUI = gameObject.AddComponent<LoggingUI>();
+            this.loggingUI = gameObject.AddComponent<SteamInputSettingsUI>();
             LOGGER.LogInfo("Logging UI started");
 
             LOGGER.LogInfo("Started");
@@ -183,6 +186,7 @@ namespace com.github.lhervier.ksp
             this.steamControllerDaemon.OnControllerConnected.Remove(OnControllerConnected);
             Destroy(this.delayedActionDaemon);
             Destroy(this.steamControllerDaemon);
+            Destroy(this.loggingUI);
             
             foreach(BaseContextDaemon daemon in this.contextDaemons) 
             {

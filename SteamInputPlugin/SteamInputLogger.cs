@@ -16,17 +16,6 @@ namespace com.github.lhervier.ksp
     {
         private static readonly string PREFIX = "[SteamInput]";
         private readonly string additionalPrefix = "";
-        private static LogLevel globalLogLevel = LogLevel.Info;
-        public static void SetGlobalLogLevel(LogLevel level)
-        {
-            globalLogLevel = level;
-        }
-
-        public static LogLevel GetGlobalLogLevel()
-        {
-            return globalLogLevel;
-        }
-
         public SteamInputLogger() 
         {
         }
@@ -38,7 +27,7 @@ namespace com.github.lhervier.ksp
 
         public void Log(string message, LogLevel level) 
         {
-            if (level <= globalLogLevel)
+            if (level <= SteamInputGlobalSettings.LogLevel)
             {
                 string levelPrefix;
                 switch (level)

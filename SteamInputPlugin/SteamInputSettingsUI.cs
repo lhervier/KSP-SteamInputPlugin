@@ -3,17 +3,17 @@ using KSP.UI.Screens;
 using JetBrains.Annotations;
 using System;
 using UnityEditor;
+using System.Collections.Generic;
 
 namespace com.github.lhervier.ksp 
 {
-    public class LoggingUI : MonoBehaviour
+    public class SteamInputSettingsUI : MonoBehaviour
     {
-        private const int WINDOW_ID = 0x4C4F4747; // "LOGG" en hexadécimal
-        private static readonly SteamInputLogger LOGGER = new SteamInputLogger("LoggingUI");
+        private const int WINDOW_ID = 0x53495355; // "SISUI" ("SteamInputSettingsUI" in hex)
+        private static readonly SteamInputLogger LOGGER = new SteamInputLogger("SteamInputSettingsUI");
         private ApplicationLauncherButton button;
         private bool showWindow = false;
         private Rect windowRect = new Rect(20, 20, 250, 150);
-        private LogLevel currentLogLevel;
         private bool lastShowLoggingIcon;
         private bool showLogLevelMenu = false;
 
@@ -28,7 +28,6 @@ namespace com.github.lhervier.ksp
         public void Start() 
         {
             LOGGER.LogInfo("Start");
-            currentLogLevel = SteamInputLogger.GetGlobalLogLevel();
             GameEvents.onGUIApplicationLauncherReady.Add(OnGUIAppLauncherReady);
             lastShowLoggingIcon = false;
             LOGGER.LogInfo("Start: Started");
@@ -64,9 +63,9 @@ namespace com.github.lhervier.ksp
             
             // Get custom parameters for the current game
             // => Display button depending on the value of showLoggingIcon in the parameters
-            SteamInputSettings settings;
+            SteamInputGameSettings settings;
             try {
-                settings = HighLogic.CurrentGame.Parameters.CustomParams<SteamInputSettings>();
+                settings = HighLogic.CurrentGame.Parameters.CustomParams<SteamInputGameSettings>();
             } catch {
                 LOGGER.LogError("Error getting custom parameters => Displaying button");
                 return true;
@@ -135,8 +134,7 @@ namespace com.github.lhervier.ksp
         private void SetLogLevel(LogLevel level)
         {
             LOGGER.LogDebug($"Setting log level to {level}");
-            currentLogLevel = level;
-            SteamInputLogger.SetGlobalLogLevel(level);
+            SteamInputGlobalSettings.LogLevel = level;
             LOGGER.LogInfo($"Log level set to {level}");
         }
 
@@ -160,7 +158,7 @@ namespace com.github.lhervier.ksp
                 WINDOW_ID, 
                 windowRect, 
                 DrawWindow, 
-                "SteamInput Logging Settings"
+                "SteamInput Settings"
             );
         }
 
@@ -168,25 +166,54 @@ namespace com.github.lhervier.ksp
         {
             GUILayout.BeginVertical();
 
-            GUILayout.BeginHorizontal();
+            DrawCurrentActionSet();
+
+            GUILayout.Space(10);
+            DrawControllerConnected();
+            
+            GUILayout.Space(10);
+            DrawActivatedContexts();
+            
+            GUILayout.Space(10);
+            DrawLogLevel();
+
+            GUILayout.EndVertical();
+            GUI.DragWindow();
+        }
+
+        private void DrawCurrentActionSet()
+        {
             GUILayout.Label("Current action set: ");
             GUIStyle currentActionGroupStyle = new GUIStyle(GUI.skin.label);
             currentActionGroupStyle.normal.textColor = Color.yellow;
             GUILayout.Label(SteamInputDaemon.Instance.CurrentActionSet, currentActionGroupStyle);
-            GUILayout.EndHorizontal();
+        }
 
+        private void DrawControllerConnected() 
+        {
+            GUILayout.Label("Controller connected: ");
+            GUIStyle controllerConnectedStyle = new GUIStyle(GUI.skin.label);
+            controllerConnectedStyle.normal.textColor = Color.yellow;
+            GUILayout.Label(SteamInputDaemon.Instance.ControllerConnected ? "Yes" : "No", controllerConnectedStyle);
+        }
+
+        private void DrawActivatedContexts()
+        {
             GUILayout.Label("Activated context(s): ");
             foreach (string context in SteamInputPlugin.Instance.ActivatedContexts)
             {
                 GUILayout.Label("- " + context);
             }
-            
+        }
+
+        private void DrawLogLevel()
+        {
             GUILayout.Label("Log Level:");
             GUILayout.BeginHorizontal();
             GUIStyle buttonStyle = new GUIStyle(GUI.skin.button);
             buttonStyle.normal.textColor = Color.yellow;
             buttonStyle.fixedWidth = 100;
-            if (GUILayout.Button(currentLogLevel.ToString(), buttonStyle))
+            if (GUILayout.Button(SteamInputGlobalSettings.LogLevel.ToString(), buttonStyle))
             {
                 showLogLevelMenu = !showLogLevelMenu;
             }
@@ -205,11 +232,8 @@ namespace com.github.lhervier.ksp
                 }
                 GUILayout.EndVertical();
             }
-            
-            GUILayout.EndVertical();
-            GUI.DragWindow();
         }
-
+        
         void Update()
         {
             bool currentShowLoggingIcon = ShouldDisplayLoggingIcon();
