@@ -69,9 +69,9 @@ Extract the plugin files into the `GameData/SteamInput` folder of your KSP insta
 
 After installation, the plugin will automatically detect and activate the appropriate action sets based on your current game context. No additional configuration is required.
 
-You will find an icon in the KSP Tool bar. Clicking on it will allow you to change the logging level (in the KSP.log file)
+You will find an icon in the KSP Tool bar. Clicking on it will allow you to change the logging level (in the KSP.log file). By default, this icon is hidden when in game. You can show it in the game difficulty settings, in the "Steam Input" section.
 
-If connecting a Steam Controller while the game is running, you will have to press the Steam button for the controller to be detected.
+Also note that if you connect a Steam Controller while the game is running, you will have to press the Steam button for the controller to be detected.
 
 ### Troubleshooting
 
