@@ -171,7 +171,12 @@ namespace com.github.lhervier.ksp
             GUILayout.Label("Log Level:");
             foreach (LogLevel level in Enum.GetValues(typeof(LogLevel)))
             {
-                if (GUILayout.Button(level.ToString()))
+                GUIStyle buttonStyle = new GUIStyle(GUI.skin.button);
+                if( level == currentLogLevel ) 
+                {
+                    buttonStyle.normal.textColor = Color.yellow;
+                }
+                if (GUILayout.Button(level.ToString(), buttonStyle))
                 {
                     SetLogLevel(level);
                 }
