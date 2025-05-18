@@ -133,9 +133,7 @@ namespace com.github.lhervier.ksp
 
         private void SetLogLevel(LogLevel level)
         {
-            LOGGER.LogDebug($"Setting log level to {level}");
-            SteamInputGlobalSettings.LogLevel = level;
-            LOGGER.LogInfo($"Log level set to {level}");
+            SteamInputGlobalSettings.SetLogLevel(level);
         }
 
         // ===============================================================
@@ -221,7 +219,7 @@ namespace com.github.lhervier.ksp
             GUIStyle buttonStyle = new GUIStyle(GUI.skin.button);
             buttonStyle.normal.textColor = Color.yellow;
             buttonStyle.fixedWidth = 100;
-            if (GUILayout.Button(SteamInputGlobalSettings.LogLevel.ToString(), buttonStyle))
+            if (GUILayout.Button(SteamInputGlobalSettings.GetLogLevel().ToString(), buttonStyle))
             {
                 showLogLevelMenu = !showLogLevelMenu;
             }
@@ -234,7 +232,7 @@ namespace com.github.lhervier.ksp
                 {
                     if (GUILayout.Button("=> " + level.ToString(), GUILayout.Width(100)))
                     {
-                        SetLogLevel(level);
+                        SteamInputGlobalSettings.SetLogLevel(level);
                         showLogLevelMenu = false;
                     }
                 }

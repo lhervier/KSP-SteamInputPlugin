@@ -32,14 +32,16 @@ namespace com.github.lhervier.ksp
         /// Log level
         /// </summary>
         private static LogLevel _logLevel = LogLevel.Info;
-        public static LogLevel LogLevel
+        public static LogLevel GetLogLevel()
         {
-            get { return _logLevel; }
-            set
-            {
-                _logLevel = value;
-                Save();
-            }
+            return _logLevel;
+        }
+
+        public static void SetLogLevel(LogLevel level)
+        {
+            LOGGER.LogDebug($"Setting log level to {level}");
+            _logLevel = level;
+            Save();
         }
 
         public static void Load()
