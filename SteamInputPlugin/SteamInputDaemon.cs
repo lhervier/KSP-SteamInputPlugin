@@ -35,17 +35,27 @@ namespace com.github.lhervier.ksp
         /// <summary>
         /// Called when a new controller is connected
         /// </summary>
-        public EventVoid OnControllerConnected { get; private set; }
+        public readonly EventVoid OnControllerConnected = new EventVoid("SteamInputDaemon.OnControllerConnected");
 
         /// <summary>
         /// Called when a controller is disconnected
         /// </summary>
-        public EventVoid OnControllerDisconnected {get; private set; }
+        public readonly EventVoid OnControllerDisconnected = new EventVoid("SteamInputDaemon.OnControllerDisconnected");
+
+        /// <summary>
+        /// Called when an error occurs and a new controller cannot be connected
+        /// </summary>
+        public readonly EventData<string> OnControllerConnectedWithError = new EventData<string>("SteamInputDaemon.OnControllerConnectedWithError");
 
         /// <summary>
         /// Is a controller connected ?
         /// </summary>
         public bool ControllerConnected { get; private set; }
+
+        /// <summary>
+        /// Is a controller connected with an error ?
+        /// </summary>
+        public bool ControllerConnectedWithErrors { get; private set; }
 
         /// <summary>
         /// The current action set
@@ -89,13 +99,7 @@ namespace com.github.lhervier.ksp
         public void Awake() 
         {
             DontDestroyOnLoad(this);
-            
-            this.OnControllerConnected = new EventVoid("SteamInputDaemon.OnControllerConnected");
-            this.OnControllerDisconnected = new EventVoid("SteamInputDaemon.OnControllerDisconnected");
-            this.ControllerConnected = false;
-            this.CurrentActionSet = null;
             _instance = this;
-            
             LOGGER.LogInfo("Awaked");
         }
 
@@ -105,6 +109,10 @@ namespace com.github.lhervier.ksp
         public void Start() 
         {
             LOGGER.LogInfo("Starting");
+
+            this.ControllerConnected = false;
+            this.ControllerConnectedWithErrors = false;
+            this.CurrentActionSet = null;
 
             LOGGER.LogInfo("Checking that Steam is initialized");
             if( !SteamManager.Initialized ) 
@@ -123,11 +131,16 @@ namespace com.github.lhervier.ksp
             LOGGER.LogInfo("Action sets loaded : " + this.actionSets.Length);
             
             // Initialize the Steam Controller
-            Steamworks.SteamController.Init();
+            if( !Steamworks.SteamController.Init() )
+            {
+                LOGGER.LogError("Steam is not initialized. Unable to start the daemon.");
+                return;
+            }
             
             // Start the main loop
             this.checkForControllerCoroutine = this.CheckForController();
             this.StartCoroutine(this.checkForControllerCoroutine);
+            
             LOGGER.LogInfo("Started");
         }
 
@@ -138,6 +151,9 @@ namespace com.github.lhervier.ksp
         {
             this.StopCoroutine(this.checkForControllerCoroutine);
             this.CurrentActionSet = null;
+            this.ControllerConnected = false;
+            this.ControllerConnectedWithErrors = false;
+            _instance = null;
             LOGGER.LogInfo("Destroyed");
         }
 
@@ -209,8 +225,10 @@ namespace com.github.lhervier.ksp
                 if( disconnectedController ) 
                 {
                     LOGGER.LogInfo("Controller disconnected");
-                    this.ControllerConnected = false;
                     this.UnloadActionSets();
+                    this.ControllerConnected = false;
+                    this.ControllerConnectedWithErrors = false;
+                    this.CurrentActionSet = null;
                     this.OnControllerDisconnected.Fire();
                 }
 
@@ -220,7 +238,14 @@ namespace com.github.lhervier.ksp
                     LOGGER.LogInfo("Controller connected");
                     this.controllerHandle = this._controllerHandles[0];
                     this.ControllerConnected = true;
-                    this.LoadActionSetsHandles();
+                    this.ControllerConnectedWithErrors = !this.LoadActionSetsHandles();
+                    if( this.ControllerConnectedWithErrors ) 
+                    {
+                        this.ControllerConnected = false;
+                        this.CurrentActionSet = null;
+                        this.OnControllerConnectedWithError.Fire("Unable to load action sets handles.");
+                        yield break;
+                    }
                     this.StartCoroutine(this.SayHello());
                     this.OnControllerConnected.Fire();
                 }
@@ -233,7 +258,8 @@ namespace com.github.lhervier.ksp
         /// <summary>
         /// Load action sets handles.
         /// </summary>
-        private void LoadActionSetsHandles() 
+        /// <returns>True if the action sets handles were loaded, false otherwise</returns>
+        private bool LoadActionSetsHandles() 
         {
             LOGGER.LogInfo("Loading Action Set Handles");
             foreach(string actionSetName in this.actionSets) 
@@ -243,10 +269,11 @@ namespace com.github.lhervier.ksp
                 ControllerActionSetHandle_t actionSetHandle = Steamworks.SteamController.GetActionSetHandle(actionSetName);
                 if( actionSetHandle.m_ControllerActionSetHandle == 0L ) 
                 {
-                    LOGGER.LogError("Action set handle for " + actionSetName + " not found. I will use the default action set instead");
+                    return false;
                 }
                 this.actionsSetsHandles[actionSetName] = actionSetHandle;
             }
+            return true;
         }
 
         /// <summary>

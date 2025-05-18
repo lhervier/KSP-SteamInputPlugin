@@ -125,16 +125,10 @@ namespace com.github.lhervier.ksp
             // Create the controller daemon
             LOGGER.LogInfo("Creating SteamInput Daemon");
             this.steamControllerDaemon = gameObject.AddComponent<SteamInputDaemon>();
-            LOGGER.LogInfo("SteamInput Daemon attached");
             this.steamControllerDaemon.OnControllerConnected.Add(this.OnControllerConnected);
             this.steamControllerDaemon.OnControllerDisconnected.Add(this.OnControllerDisconnected);
-            LOGGER.LogInfo("Controller Events attached");
-            if( this.steamControllerDaemon.ControllerConnected ) 
-            {
-                LOGGER.LogInfo("Controller already connected at startup");
-                this.OnControllerConnected();
-            }
-
+            this.steamControllerDaemon.OnControllerConnectedWithError.Add(this.OnControllerConnectedWithError);
+            
             // Create the delayed action daemon
             LOGGER.LogInfo("Creating Delayed Actions Daemon");
             this.delayedActionDaemon = gameObject.AddComponent<DelayedActionDaemon>();
@@ -151,12 +145,13 @@ namespace com.github.lhervier.ksp
             );
             LOGGER.LogInfo("Status message ready");
 
-            // Get all the daemons and attach them to the plugin
+            // Get all the daemons
             LOGGER.LogInfo("Loading Context Daemons");
             this.LoadContextDaemons();
             this.activecontexts.Clear();
             LOGGER.LogInfo("Context Daemons loaded");
 
+            // Attach to the context daemons events
             LOGGER_CONTEXT.LogInfo("Attaching Context Daemons :");
             foreach(BaseContextDaemon daemon in this.contextDaemons) 
             {
@@ -184,6 +179,7 @@ namespace com.github.lhervier.ksp
 
             this.steamControllerDaemon.OnControllerDisconnected.Remove(OnControllerDisconnected);
             this.steamControllerDaemon.OnControllerConnected.Remove(OnControllerConnected);
+            this.steamControllerDaemon.OnControllerConnectedWithError.Remove(OnControllerConnectedWithError);
             Destroy(this.delayedActionDaemon);
             Destroy(this.steamControllerDaemon);
             Destroy(this.loggingUI);
@@ -480,6 +476,34 @@ namespace com.github.lhervier.ksp
             this.CancelActionGroupChange();
             this.actionGroupToSet = ActionGroup.None;
             this.prevActionGroup = ActionGroup.None;
+        }
+
+        /// <summary>
+        /// Called when a controller is connected with an error
+        /// </summary>
+        /// <param name="error">The error message</param>
+        private void OnControllerConnectedWithError(string error)
+        {
+            LOGGER.LogError("Controller connected with error: " + error);
+            this.CancelActionGroupChange();
+            this.prevActionGroup = ActionGroup.None;
+            this.actionGroupToSet = ActionGroup.None;
+            
+            // Display a dialog box to the user
+            PopupDialog.SpawnPopupDialog(
+                new Vector2(0.5f, 0.5f), 
+                new Vector2(0.5f, 0.5f),
+                "SteamInputMod_ControllerError",
+                "SteamInput Mod",
+                "SteamInput is not working properly.\n\n" +
+                "    Error is : " + error + "\n\n" +
+                "Please check that you have copied the file:\n\n" +
+                "    game_actions_220200.vdf\n\n" +
+                "in the '%SteamDir%/controller_config' directory.",
+                "OK",
+                true,
+                HighLogic.UISkin
+            );
         }
 
     }
