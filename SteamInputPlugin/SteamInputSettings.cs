@@ -25,6 +25,7 @@ namespace com.github.lhervier.ksp
     public class SteamInputGlobalSettings
     {
         private static readonly SteamInputLogger LOGGER = new SteamInputLogger("GlobalSettings");
+        private static readonly string CONFIG_KEY = "SteamInput.LogLevel";
         private static PluginConfiguration config;
         
         /// <summary>
@@ -52,7 +53,13 @@ namespace com.github.lhervier.ksp
             
             // Load the log level
             // ==================
-            _logLevel = config.GetValue("LogLevel", LogLevel.Info);
+            _logLevel = (LogLevel) Enum.Parse(
+                typeof(LogLevel), 
+                config.GetValue(
+                    CONFIG_KEY, 
+                    LogLevel.Info.ToString()
+                )
+            );
             LOGGER.LogDebug($"Loaded log level: {_logLevel}");
         }
 
@@ -65,7 +72,7 @@ namespace com.github.lhervier.ksp
             }
             
             // The log level
-            config.SetValue("LogLevel", _logLevel);
+            config.SetValue(CONFIG_KEY, _logLevel.ToString());
 
             // Save the config
             config.save();
