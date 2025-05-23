@@ -1,0 +1,22 @@
+{
+	"activators"
+	{
+		"Full_Press"
+		{
+			"bindings"
+			{
+				"binding"		"key_press TAB, #Common_prevBody, , "
+			}
+		}
+		"Full_Press"
+		{
+			"bindings"
+			{
+				"binding"		"key_press LEFT_SHIFT, #Common_prevBody, , "
+			}
+		}
+	}
+	"disabled_activators"
+	{
+	}
+}

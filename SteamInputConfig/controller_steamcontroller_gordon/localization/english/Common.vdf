@@ -1,6 +1,4 @@
 {
-	"Common_showKeyboard"	"Show Keyboard"
-	
 	"Common_right"			"Right"
 	"Common_left"			"Left"
 	"Common_up"				"Up"
@@ -14,8 +12,27 @@
 	
 	"Common_menu"			"Menu"
 	"Common_console"		"Console"
+	"Common_modKey"			"Mod Key"
+	"Common_showKeyboard"	"Show Keyboard"
 	
+	"Common_timeWarpIncr"	"TimeWarp Increase"
+	"Common_timeWarpDecr"	"TimeWarp Decrease"
 	
+	"Common_cameraRight"	"Camera Right"
+	"Common_cameraLeft"		"Camera Left"
+	"Common_cameraUp"		"Camera Up"
+	"Common_cameraDown"		"Camera Down"
+
+	"Common_zoomIn"			"Zoom In"
+	"Common_zoomOut"		"Zoom Out"
+	
+	"Common_nextBody"		"Next Body"
+	"Common_prevBody"		"Previous Body"
+
+
+
+
+
 	"b_menuUp"			"Navigate/View Up"
 	"b_menuDown"		"Navigate/View Down"
 	"b_menuLeft"		"Navigate/View Left"

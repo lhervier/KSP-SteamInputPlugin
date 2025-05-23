@@ -5,13 +5,13 @@
 		{
 			"bindings"
 			{
-				"binding"		"mouse_wheel SCROLL_UP, , "
+				"binding"		"mouse_wheel SCROLL_UP, #Common_zoomOut, , "
 			}
 			"settings"
 			{
 				"hold_repeats"		"1"
 				"repeat_rate"		"10"
-				"haptic_intensity"		"0"
+				"haptic_intensity"	"0"
 			}
 		}
 	}
