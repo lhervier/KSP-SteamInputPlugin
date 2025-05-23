@@ -1,4 +1,13 @@
 {
+	"Docking_translateRotate"		"Translate/Rotate"
+	"Docking_translateRight"		"Translate Right"
+	"Docking_translateLeft"			"Translate Left"
+	"Docking_translateForward"		"Translate Forward"
+	"Docking_translateBackward"		"Translate Backward"
+	"Docking_translateUp"			"Translate Up"
+	"Docking_translateDown"			"Translate Down"
+	
+
 	"b_dckCtrl"			"Translate Down"
 	"b_dckShift"		"Translate Up"
 	"b_dckW"			"Translate Forward"

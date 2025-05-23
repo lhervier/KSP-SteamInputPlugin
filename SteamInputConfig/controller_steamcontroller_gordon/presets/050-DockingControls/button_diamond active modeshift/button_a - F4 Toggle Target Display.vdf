@@ -5,7 +5,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press F4, Toggle Target Display, , "
+				"binding"		"key_press F4, #Common_targetDisplay, , "
 			}
 		}
 	}

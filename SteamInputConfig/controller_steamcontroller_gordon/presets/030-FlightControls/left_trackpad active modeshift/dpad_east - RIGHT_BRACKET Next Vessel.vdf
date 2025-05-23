@@ -5,7 +5,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press RIGHT_BRACKET, #Common_nextVessel, , "
+				"binding"		"key_press RIGHT_BRACKET, #Flight_nextVessel, , "
 			}
 		}
 	}

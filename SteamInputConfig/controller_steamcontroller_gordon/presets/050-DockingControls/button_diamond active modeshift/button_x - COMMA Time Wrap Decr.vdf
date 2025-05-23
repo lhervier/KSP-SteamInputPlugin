@@ -5,7 +5,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press COMMA, #b_timeWarpDecr, , "
+				"binding"		"key_press COMMA, #Common_timeWarpDecr, , "
 			}
 		}
 	}

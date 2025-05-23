@@ -5,7 +5,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press 1, Action Group 1, , "
+				"binding"		"key_press 1, #Flight_actionGroup1, , "
 			}
 			"settings"
 			{

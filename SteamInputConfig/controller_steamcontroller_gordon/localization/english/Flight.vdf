@@ -5,12 +5,16 @@
 	"Flight_SAS"				"SAS Toggle"
 	"Flight_targetDisplay"		"Toggle Target Display"
 	"Flight_precisionControls"	"Precision Controls"
+
 	"Flight_yawRight"			"Yaw Right"
 	"Flight_yawLeft"			"Yaw Left"
 	"Flight_pitchUp"			"Pitch Up"
 	"Flight_pitchDown"			"Pitch Down"
 	"Flight_rollLeft"			"Roll Left"
 	"Flight_rollRight"			"Roll Right"
+
+	"Flight_prevVessel"			"Previous Vessel"
+	"Flight_nextVessel"			"Next Vessel"
 
 	"Flight_actionGroup1"		"Action Group 1"
 	"Flight_actionGroup2"		"Action Group 2"
@@ -32,7 +36,7 @@
 	"Flight_throttleUp"			"Incr. Throttle"
 
 	"Flight_showMap"			"Show Map"
-	"Flight_hideMap"			"Hide Map"
+	"Flight_leaveMap"			"Leave Map"
 
 	"Flight_translationMode"	"Translation Mode"
 
