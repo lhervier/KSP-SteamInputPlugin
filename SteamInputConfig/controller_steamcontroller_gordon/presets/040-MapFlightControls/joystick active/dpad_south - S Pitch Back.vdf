@@ -5,7 +5,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press S, #b_fltS, , "
+				"binding"		"key_press S, #Flight_pitchDown, , "
 			}
 		}
 	}

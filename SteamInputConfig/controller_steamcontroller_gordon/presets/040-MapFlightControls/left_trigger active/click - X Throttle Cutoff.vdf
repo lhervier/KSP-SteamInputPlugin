@@ -5,7 +5,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press X, #b_fltX, , "
+				"binding"		"key_press X, #Flight_throttleCutoff, , "
 			}
 			"settings"
 			{

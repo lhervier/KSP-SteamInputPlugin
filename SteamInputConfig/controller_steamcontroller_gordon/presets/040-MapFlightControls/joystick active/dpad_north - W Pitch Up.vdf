@@ -5,7 +5,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press RIGHT_BRACKET, #b_vesselNext, , "
+				"binding"		"key_press W, #Flight_pitchUp, , "
 			}
 		}
 	}
