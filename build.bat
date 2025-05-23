@@ -43,6 +43,15 @@ type steam_controller.log
 exit /b 1
 )
 
+echo.
+echo Building PS4 VDF...
+node merge.js "controller_ps4" "english" > ps4.log 2>&1
+if errorlevel 1 (
+echo ERROR: Failed to build PS4 VDF
+type ps4.log
+exit /b 1
+)
+
 cd /d "%PROJECTDIR%"
 
 echo.
@@ -62,6 +71,7 @@ powershell -Command "Compress-Archive -Path '%KSPDIR%\GameData\SteamInput\*' -De
 echo Copying VDF files to Release folder
 copy /y "%PROJECTDIR%SteamInputConfig\game_actions_220200.vdf" "%PROJECTDIR%Release\"
 copy /y "%PROJECTDIR%SteamInputConfig\controller_steamcontroller_gordon.vdf" "%PROJECTDIR%Release\"
+copy /y "%PROJECTDIR%SteamInputConfig\controller_ps4.vdf" "%PROJECTDIR%Release\"
 
 echo Copying README.md to Release folder
 copy /y "%PROJECTDIR%README.md" "%PROJECTDIR%Release\"
