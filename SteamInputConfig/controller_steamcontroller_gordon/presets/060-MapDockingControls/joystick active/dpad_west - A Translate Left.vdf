@@ -5,7 +5,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press A, #b_dckA, , "
+				"binding"		"key_press A, #Docking_translateLeft, , "
 			}
 		}
 	}

@@ -5,7 +5,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press TAB, , "
+				"binding"		"key_press TAB, #Map_nextBody, "
 			}
 		}
 	}

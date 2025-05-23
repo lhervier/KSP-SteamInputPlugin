@@ -5,7 +5,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press LEFT_CONTROL, #b_dckCtrl, , "
+				"binding"		"key_press LEFT_CONTROL, #Docking_translateBackward, , "
 			}
 			"settings"
 			{
