@@ -1,4 +1,42 @@
 {
+	"Flight_staging"			"Staging"
+	"Flight_brakes"				"Brakes"
+	"Flight_RCS"				"RCS Toggle"
+	"Flight_SAS"				"SAS Toggle"
+	"Flight_targetDisplay"		"Toggle Target Display"
+	"Flight_precisionControls"	"Precision Controls"
+	"Flight_yawRight"			"Yaw Right"
+	"Flight_yawLeft"			"Yaw Left"
+	"Flight_pitchUp"			"Pitch Up"
+	"Flight_pitchDown"			"Pitch Down"
+	"Flight_rollLeft"			"Roll Left"
+	"Flight_rollRight"			"Roll Right"
+
+	"Flight_actionGroup1"		"Action Group 1"
+	"Flight_actionGroup2"		"Action Group 2"
+	"Flight_actionGroup3"		"Action Group 3"
+	"Flight_actionGroup4"		"Action Group 4"
+	"Flight_actionGroup5"		"Action Group 5"
+	"Flight_actionGroup6"		"Action Group 6"
+	"Flight_actionGroup7"		"Action Group 7"
+	"Flight_actionGroup8"		"Action Group 8"
+	"Flight_actionGroup9"		"Action Group 9"
+	"Flight_actionGroup10"		"Action Group 10"
+
+	"Flight_cameraView"			"Camera View"
+	"Flight_cameraMode"			"Camera Mode"
+
+	"Flight_throttleCutoff"		"Throttle Cutoff"
+	"Flight_fullThrottle"		"Full Throttle"
+	"Flight_throttleDown"		"Decr. Throttle"
+	"Flight_throttleUp"			"Incr. Throttle"
+
+	"Flight_showMap"			"Show Map"
+	"Flight_hideMap"			"Hide Map"
+
+	"Flight_translationMode"	"Translation Mode"
+
+	
 	"b_fltQ"			"Roll Left"
 	"b_fltE"			"Roll Right"
 	"b_fltW"			"Pitch/EVA Forward"

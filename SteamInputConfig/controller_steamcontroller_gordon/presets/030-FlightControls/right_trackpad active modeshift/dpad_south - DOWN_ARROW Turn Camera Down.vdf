@@ -5,7 +5,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press DOWN_ARROW, Turn Camera Down, , "
+				"binding"		"key_press DOWN_ARROW, #Common_cameraDown, , "
 			}
 		}
 	}
