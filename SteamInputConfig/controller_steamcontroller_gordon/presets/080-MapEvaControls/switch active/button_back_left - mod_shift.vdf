@@ -5,7 +5,21 @@
 		{
 			"bindings"
 			{
-				"binding"		"mode_shift joystick %ID%"
+				"binding"		"mode_shift button_diamond %ID%"
+			}
+		}
+		"Full_Press"
+		{
+			"bindings"
+			{
+				"binding"		"mode_shift left_trackpad %ID%"
+			}
+		}
+		"Full_Press"
+		{
+			"bindings"
+			{
+				"binding"		"mode_shift right_trackpad %ID%"
 			}
 		}
 	}

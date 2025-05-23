@@ -8,11 +8,11 @@
 				"binding"		"key_press SEMICOLON, #b_map, , "
 			}
 		}
-		"Long_Press"
+		"Full_Press"
 		{
 			"bindings"
 			{
-				"binding"		"key_press DELETE, #b_fltDel, , "
+				"binding"		"key_press DELETE, , "
 			}
 		}
 	}

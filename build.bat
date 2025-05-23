@@ -21,6 +21,11 @@ if exist "%KSPDIR%\GameData\SteamInput" rmdir /s /q "%KSPDIR%\GameData\SteamInpu
 echo Creating SteamInput folder in GameData
 mkdir "%KSPDIR%\GameData\SteamInput"
 
+echo Removing Release folder
+if exist "%PROJECTDIR%Release" rmdir /s /q "%PROJECTDIR%Release"
+echo Creating Release folder
+mkdir "%PROJECTDIR%Release"
+
 echo.
 echo Copying Plugin Files...
 echo - Copying SteamInput.dll
@@ -58,12 +63,6 @@ echo.
 echo ===========================================
 echo Creating Release Package
 echo ===========================================
-
-echo Removing existing Release folder
-if exist "%PROJECTDIR%Release" rmdir /s /q "%PROJECTDIR%Release"
-
-echo Creating Release directory
-mkdir "%PROJECTDIR%Release"
 
 echo Creating zip archive
 powershell -Command "Compress-Archive -Path '%KSPDIR%\GameData\SteamInput\*' -DestinationPath '%PROJECTDIR%Release\SteamInput.zip' -Force"

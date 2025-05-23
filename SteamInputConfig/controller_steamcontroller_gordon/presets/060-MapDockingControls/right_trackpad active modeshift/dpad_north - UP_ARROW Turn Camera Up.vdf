@@ -1,0 +1,15 @@
+{
+	"activators"
+	{
+		"Full_Press"
+		{
+			"bindings"
+			{
+				"binding"		"key_press UP_ARROW, Turn Camera Up, , "
+			}
+		}
+	}
+	"disabled_activators"
+	{
+	}
+}

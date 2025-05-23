@@ -7,9 +7,12 @@
 			{
 				"binding"		"mode_shift button_diamond %ID%"
 			}
-			"settings"
+		}
+		"Full_Press"
+		{
+			"bindings"
 			{
-				"interruptable"		"0"
+				"binding"		"mode_shift left_trackpad %ID%"
 			}
 		}
 	}

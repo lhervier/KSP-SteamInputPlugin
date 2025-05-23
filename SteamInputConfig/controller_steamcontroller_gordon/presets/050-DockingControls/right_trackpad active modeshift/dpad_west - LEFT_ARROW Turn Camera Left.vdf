@@ -1,0 +1,15 @@
+{
+	"activators"
+	{
+		"Full_Press"
+		{
+			"bindings"
+			{
+				"binding"		"key_press LEFT_ARROW, Turn Camera Left, , "
+			}
+		}
+	}
+	"disabled_activators"
+	{
+	}
+}

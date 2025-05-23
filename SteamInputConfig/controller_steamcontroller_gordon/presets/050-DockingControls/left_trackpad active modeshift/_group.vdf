@@ -1,5 +1,5 @@
 {
-	"mode"				"touch_menu"
+	"mode"				"dpad"
 	"name"				""
 	"description"		""
 	"inputs"
@@ -7,11 +7,6 @@
 	}
 	"settings"
 	{
-		"mouse_smoothing"				"0"
-		"gyro_button"					"1"
-		"touch_menu_button_count"		"16"
-		"touch_menu_opacity"			"83"
-		"touch_menu_position_x"			"7"
-		"touch_menu_position_y"			"14"
+		"requires_click"		"0"
 	}
 }

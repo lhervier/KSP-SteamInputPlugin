@@ -1,9 +1,8 @@
 {
-	"mode"				"switches"
-	"name"				""
+	"mode"		"switches"
+	"name"		""
 	"description"		""
 	"inputs"
 	{
-		# Les inputs viennents de chaque fichier vdf
 	}
 }

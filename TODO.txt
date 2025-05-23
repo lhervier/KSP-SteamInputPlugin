@@ -1,0 +1,1 @@
+Avoir un mode IVAFlight et IVADocking pour pouvoir piloter un vaisseau de l'intérieur
