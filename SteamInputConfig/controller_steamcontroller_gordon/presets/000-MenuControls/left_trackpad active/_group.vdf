@@ -1,10 +1,9 @@
 {
-	"mode"				"four_buttons"
-	"name"				""
+	"mode"		"dpad"
+	"name"		""
 	"description"		""
 	"inputs"
 	{
-		# Les inputs viennents de chaque fichier vdf
 	}
 	"settings"
 	{

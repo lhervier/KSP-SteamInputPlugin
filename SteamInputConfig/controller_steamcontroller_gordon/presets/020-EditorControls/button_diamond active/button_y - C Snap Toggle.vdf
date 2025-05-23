@@ -5,7 +5,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press C, #b_edC, , "
+				"binding"		"key_press C, #Editor_snapToggle, , "
 			}
 		}
 	}

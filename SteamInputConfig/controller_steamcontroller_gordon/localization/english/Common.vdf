@@ -9,6 +9,7 @@
 	
 	"Common_rightClick"		"Right Click"
 	"Common_leftClick"		"Left Click"
+	"Common_middleClick"	"Middle Click"
 	
 	"Common_menu"			"Menu"
 	"Common_console"		"Console"

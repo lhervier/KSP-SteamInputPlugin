@@ -5,7 +5,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"mouse_button MIDDLE, , , "
+				"binding"		"mouse_button MIDDLE, #Common_middleClick, , "
 			}
 		}
 	}

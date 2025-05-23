@@ -5,14 +5,14 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press LEFT_CONTROL, #b_edCtrlZ, , "
+				"binding"		"key_press LEFT_CONTROL, #Editor_undo, , "
 			}
 		}
 		"Full_Press"
 		{
 			"bindings"
 			{
-				"binding"		"key_press W, #b_edCtrlZ, , "
+				"binding"		"key_press W, #Editor_undo, , "
 			}
 		}
 	}
