@@ -5,7 +5,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press C, Back to Flight Mode, , "
+				"binding"		"key_press C, #IVA_backToFlight, , "
 			}
 		}
 	}

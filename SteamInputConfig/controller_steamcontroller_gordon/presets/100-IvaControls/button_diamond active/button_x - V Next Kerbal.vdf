@@ -5,7 +5,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press V, Next Kerbal, , "
+				"binding"		"key_press V, #IVA_nextKerbal, , "
 			}
 		}
 	}

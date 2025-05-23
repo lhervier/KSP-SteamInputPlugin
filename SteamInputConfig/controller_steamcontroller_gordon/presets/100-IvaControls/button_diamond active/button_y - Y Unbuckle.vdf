@@ -5,7 +5,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press Y, Unbuckle, , "
+				"binding"		"key_press Y, #IVA_unbuckle, , "
 			}
 		}
 	}
