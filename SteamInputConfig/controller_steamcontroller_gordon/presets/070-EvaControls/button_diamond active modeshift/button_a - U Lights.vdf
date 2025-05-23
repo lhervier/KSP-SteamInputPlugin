@@ -5,7 +5,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press U, #EVA_Lights, , "
+				"binding"		"key_press U, #EVA_lights, , "
 			}
 		}
 	}

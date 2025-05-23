@@ -5,7 +5,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press U, #b_fltU, , "
+				"binding"		"key_press U, #EVA_lights, , "
 			}
 		}
 	}
