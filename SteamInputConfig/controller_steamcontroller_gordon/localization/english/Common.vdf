@@ -1,4 +1,21 @@
 {
+	"Common_showKeyboard"	"Show Keyboard"
+	
+	"Common_right"			"Right"
+	"Common_left"			"Left"
+	"Common_up"				"Up"
+	"Common_down"			"Down"
+	
+	"Common_scrollDown"		"Scroll Down"
+	"Common_scrollUp"		"Scroll Up"
+	
+	"Common_rightClick"		"Right Click"
+	"Common_leftClick"		"Left Click"
+	
+	"Common_menu"			"Menu"
+	"Common_console"		"Console"
+	
+	
 	"b_menuUp"			"Navigate/View Up"
 	"b_menuDown"		"Navigate/View Down"
 	"b_menuLeft"		"Navigate/View Left"

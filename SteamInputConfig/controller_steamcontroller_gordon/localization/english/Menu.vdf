@@ -1,7 +1,9 @@
 {
-	"Menu_console"		"Console"
 	"Menu_accept"		"Accept"
 	"Menu_cancel"		"Cancel"
+	
+	
+	"Menu_console"		"Console"
 	"Menu_right"		"Right"
 	"Menu_Left"			"Left"
 	"Menu_up"			"Up"
