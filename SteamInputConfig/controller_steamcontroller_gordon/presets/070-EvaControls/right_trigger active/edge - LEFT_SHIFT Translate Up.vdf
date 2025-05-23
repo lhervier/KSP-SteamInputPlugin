@@ -5,7 +5,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press LEFT_SHIFT, #b_fltShift, , "
+				"binding"		"key_press LEFT_SHIFT, #Docking_translationUp, , "
 			}
 			"settings"
 			{

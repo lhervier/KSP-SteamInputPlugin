@@ -5,7 +5,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press SPACE, #b_fltSpace, , "
+				"binding"		"key_press SPACE, #EVA_jump, , "
 			}
 		}
 	}
