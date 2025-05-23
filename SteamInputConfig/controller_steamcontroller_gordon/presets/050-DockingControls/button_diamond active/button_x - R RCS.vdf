@@ -5,7 +5,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press R, #Common_RCS, , "
+				"binding"		"key_press R, #Flight_RCS, , "
 			}
 		}
 	}

@@ -5,7 +5,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"controller_action SHOW_KEYBOARD, #Common_keyboard, , "
+				"binding"		"controller_action SHOW_KEYBOARD, #Common_showKeyboard, , "
 			}
 		}
 	}

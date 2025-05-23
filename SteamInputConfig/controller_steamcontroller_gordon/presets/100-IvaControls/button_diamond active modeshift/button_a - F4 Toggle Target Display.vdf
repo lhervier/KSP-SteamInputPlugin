@@ -5,7 +5,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press F4, #Flight_toggleTarget, , "
+				"binding"		"key_press F4, #Flight_targetDisplay, , "
 			}
 		}
 	}

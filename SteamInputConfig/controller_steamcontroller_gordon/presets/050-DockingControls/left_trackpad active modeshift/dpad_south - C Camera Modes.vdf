@@ -5,7 +5,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press C, #Flight_cameraModes, , "
+				"binding"		"key_press C, #Flight_cameraMode, , "
 			}
 		}
 	}

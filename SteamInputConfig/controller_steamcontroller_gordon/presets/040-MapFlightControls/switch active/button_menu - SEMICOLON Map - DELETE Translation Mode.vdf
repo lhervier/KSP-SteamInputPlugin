@@ -5,7 +5,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press SEMICOLON, #Map_leaveMap, , "
+				"binding"		"key_press SEMICOLON, #Flight_leaveMap, , "
 			}
 		}
 		"Long_Press"
