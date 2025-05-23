@@ -5,7 +5,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press LEFT_SHIFT, Go Up, , "
+				"binding"		"key_press LEFT_SHIFT, #IVA_up, , "
 			}
 			"settings"
 			{

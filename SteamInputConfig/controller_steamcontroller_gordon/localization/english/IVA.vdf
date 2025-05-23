@@ -2,4 +2,9 @@
 	"IVA_backToFlight"				"Back to Flight"
     "IVA_nextKerbal"				"Next Kerbal"
     "IVA_unbuckle"					"Unbuckle"
+    "IVA_backToSeat"				"Back to Seat"
+    "IVA_crouch"					"Crouch"
+    "IVA_goToEVA"					"Go to EVA"
+    "IVA_down"						"Go Down"
+    "IVA_up"						"Go Up"
 }

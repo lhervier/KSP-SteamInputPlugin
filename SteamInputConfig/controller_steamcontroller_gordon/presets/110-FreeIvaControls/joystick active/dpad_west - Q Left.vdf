@@ -5,7 +5,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press Q, #b_fltA, , "
+				"binding"		"key_press Q, #EVA_left, , "
 			}
 		}
 	}
