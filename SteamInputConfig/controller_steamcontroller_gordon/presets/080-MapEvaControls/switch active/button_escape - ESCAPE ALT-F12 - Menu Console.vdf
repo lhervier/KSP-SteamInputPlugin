@@ -5,7 +5,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press ESCAPE, #b_esc, , "
+				"binding"		"key_press ESCAPE, #Common_menu, , "
 			}
 		}
 		"Long_Press"

@@ -5,7 +5,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press PERIOD, #b_timeWarpIncr, , "
+				"binding"		"key_press PERIOD, #Common_timeWarpIncr, , "
 			}
 		}
 	}
