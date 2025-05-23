@@ -5,7 +5,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press SPACE, #b_edSpace, , "
+				"binding"		"key_press DELETE, , , "
 			}
 		}
 	}

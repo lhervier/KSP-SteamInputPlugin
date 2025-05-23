@@ -5,14 +5,14 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press LEFT_CONTROL, #b_edCtrlY, , "
+				"binding"		"key_press LEFT_CONTROL, , , "
 			}
 		}
 		"Full_Press"
 		{
 			"bindings"
 			{
-				"binding"		"key_press Y, #b_edCtrlY, , "
+				"binding"		"key_press Y, , , "
 			}
 		}
 	}
