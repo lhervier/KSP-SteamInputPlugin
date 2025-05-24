@@ -7,10 +7,6 @@
 			{
 				"binding"		"key_press 1, #Flight_actionGroup1, , "
 			}
-			"settings"
-			{
-				"haptic_intensity"		"3"
-			}
 		}
 	}
 	"disabled_activators"
