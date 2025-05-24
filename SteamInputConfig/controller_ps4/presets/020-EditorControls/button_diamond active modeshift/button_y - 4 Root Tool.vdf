@@ -7,10 +7,6 @@
 			{
 				"binding"		"key_press 4, #Editor_rootTool, , "
 			}
-			"settings"
-			{
-				"haptic_intensity"		"3"
-			}
 		}
 	}
 	"disabled_activators"
