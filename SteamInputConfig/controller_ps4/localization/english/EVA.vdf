@@ -1,0 +1,10 @@
+{
+	"EVA_jump"			"Jump"
+    "EVA_grab"			"Grab"
+    "EVA_lights"		"Toggle Lights"
+    "EVA_embark"		"Embark"
+    "EVA_right"			"Right"
+    "EVA_left"			"Left"
+    "EVA_forward"		"Forward"
+    "EVA_backward"		"Backward"
+}
