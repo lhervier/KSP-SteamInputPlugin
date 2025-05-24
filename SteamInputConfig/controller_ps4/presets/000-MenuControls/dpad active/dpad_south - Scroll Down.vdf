@@ -5,7 +5,13 @@
 		{
 			"bindings"
 			{
-				"binding"		"mouse_wheel SCROLL_DOWN, #Menu_scrollDown, "
+				"binding"		"mouse_wheel SCROLL_DOWN, #Common_scrollDown, "
+			}
+			"settings"
+			{
+				"hold_repeats"		"1"
+				"repeat_rate"		"10"
+				"haptic_intensity"		"0"
 			}
 		}
 	}

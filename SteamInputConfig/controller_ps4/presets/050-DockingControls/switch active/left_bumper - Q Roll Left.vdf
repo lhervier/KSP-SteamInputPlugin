@@ -5,7 +5,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press Q, #b_fltQ, , "
+				"binding"		"key_press Q, #Flight_rollLeft, , "
 			}
 		}
 	}

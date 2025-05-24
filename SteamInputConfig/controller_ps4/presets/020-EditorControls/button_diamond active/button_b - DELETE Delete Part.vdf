@@ -5,7 +5,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press DELETE, #b_edDel, , "
+				"binding"		"key_press DELETE, #Editor_deletePart, , "
 			}
 		}
 	}

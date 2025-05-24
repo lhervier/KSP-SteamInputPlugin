@@ -1,0 +1,15 @@
+{
+	"activators"
+	{
+		"Full_Press"
+		{
+			"bindings"
+			{
+				"binding"		"key_press RIGHT_ARROW, #Common_cameraRight, , "
+			}
+		}
+	}
+	"disabled_activators"
+	{
+	}
+}

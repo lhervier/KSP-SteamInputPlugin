@@ -1,0 +1,15 @@
+{
+	"activators"
+	{
+		"Full_Press"
+		{
+			"bindings"
+			{
+				"binding"		"key_press F4, #Flight_targetDisplay, , "
+			}
+		}
+	}
+	"disabled_activators"
+	{
+	}
+}

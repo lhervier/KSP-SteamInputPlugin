@@ -5,7 +5,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press DOWN_ARROW, #Menu_down, , "
+				"binding"		"key_press DOWN_ARROW, #Common_down, , "
 			}
 		}
 	}

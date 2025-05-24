@@ -5,14 +5,14 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press SEMICOLON, #b_map, , "
+				"binding"		"key_press SEMICOLON, #Flight_leaveMap, , "
 			}
 		}
 		"Long_Press"
 		{
 			"bindings"
 			{
-				"binding"		"key_press DELETE, , "
+				"binding"		"key_press DELETE, #Flight_translationMode, , "
 			}
 		}
 	}

@@ -5,7 +5,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press W, #b_edW, , "
+				"binding"		"key_press W, #Editor_pitchPartDown, , "
 			}
 		}
 	}

@@ -5,7 +5,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"mouse_button RIGHT, #b_rmb, , "
+				"binding"		"mouse_button RIGHT, #Common_rightClick, , "
 			}
 			"settings"
 			{

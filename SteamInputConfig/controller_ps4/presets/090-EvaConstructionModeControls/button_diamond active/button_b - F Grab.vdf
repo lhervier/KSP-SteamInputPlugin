@@ -5,7 +5,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press F, #b_fltF, , "
+				"binding"		"key_press F, #EVA_grab, , "
 			}
 		}
 	}

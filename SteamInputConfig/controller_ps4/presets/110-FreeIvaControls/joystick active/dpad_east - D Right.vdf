@@ -5,7 +5,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press D, #b_fltD, , "
+				"binding"		"key_press D, #EVA_right, , "
 			}
 		}
 	}
