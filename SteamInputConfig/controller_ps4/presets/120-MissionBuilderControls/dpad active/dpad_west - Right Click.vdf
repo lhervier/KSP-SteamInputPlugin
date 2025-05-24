@@ -7,10 +7,6 @@
 			{
 				"binding"		"mouse_button RIGHT, #Common_rightClick, "
 			}
-			"settings"
-			{
-				"haptic_intensity"		"0"
-			}
 		}
 	}
 	"disabled_activators"
