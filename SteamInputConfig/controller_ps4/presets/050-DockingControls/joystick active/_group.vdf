@@ -5,10 +5,4 @@
 	"inputs"
 	{
 	}
-	"settings"
-	{
-		"requires_click"					"0"
-		"analog_emulation_period"			"54"
-		"analog_emulation_duty_cycle_pct"	"7"
-	}
 }
