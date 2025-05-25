@@ -7,10 +7,6 @@
 			{
 				"binding"		"key_press LEFT_CONTROL, #Docking_translateBackward, , "
 			}
-			"settings"
-			{
-				"haptic_intensity"		"2"
-			}
 		}
 	}
 	"disabled_activators"
