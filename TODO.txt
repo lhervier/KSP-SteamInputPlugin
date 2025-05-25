@@ -1,2 +1,3 @@
+- Trouver comment afficher le clavier sur PS4 (trackpad ??)
 - Avoir un mode IVAFlight et IVADocking pour pouvoir piloter un vaisseau de l'intérieur
 - Faire les bindings pour le mission builder
