@@ -4,9 +4,13 @@
 	"description"		""
 	"inputs"
 	{
+		# Les inputs viennents de chaque fichier vdf
 	}
 	"settings"
 	{
-		"edge_binding_radius"		"20649"
+		"edge_binding_radius"		"2464"
+		"adaptive_threshold"		"0"
+		"curve_exponent"			"5"
+		"custom_curve_exponent"		"124"
 	}
 }
