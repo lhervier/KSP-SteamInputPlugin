@@ -11,6 +11,9 @@ namespace com.github.lhervier.ksp
     {
         private const int WINDOW_ID = 0x53495355; // "SISUI" ("SteamInputSettingsUI" in hex)
         private static readonly SteamInputLogger LOGGER = new SteamInputLogger("SteamInputSettingsUI");
+        private static readonly Color KSPYellow = new Color(0.95f, 0.82f, 0.23f);
+        private static readonly Color KSPGreen = new Color(0.5f, 1f, 0.5f);
+
         private ApplicationLauncherButton button;
         private bool showWindow = false;
         private Rect windowRect = new Rect(20, 20, 250, 150);
@@ -131,11 +134,6 @@ namespace com.github.lhervier.ksp
             );
         }
 
-        private void SetLogLevel(LogLevel level)
-        {
-            SteamInputGlobalSettings.SetLogLevel(level);
-        }
-
         // ===============================================================
 
         private void OnGUIAppLauncherReady()
@@ -151,28 +149,46 @@ namespace com.github.lhervier.ksp
         void OnGUI()
         {
             if (!showWindow) return;
-            
+
+            // Utilise le skin KSP si disponible
+            var oldSkin = GUI.skin;
+            if (HighLogic.Skin != null)
+                GUI.skin = HighLogic.Skin;
+
             windowRect = GUILayout.Window(
                 WINDOW_ID, 
                 windowRect, 
                 DrawWindow, 
-                "SteamInput Settings"
+                "SteamInput Settings",
+                GUI.skin.window
             );
+
+            GUI.skin = oldSkin;
         }
 
         private void DrawWindow(int windowID)
         {
-            GUILayout.BeginVertical();
+            GUILayout.BeginVertical(GUI.skin.box);
 
+            // Titre stylisé avec icône (si tu veux ajouter une icône, décommente la ligne suivante)
+            // GUILayout.Label(GameDatabase.Instance.GetTexture("SteamInput/Textures/logging_icon", false), GUILayout.Width(32), GUILayout.Height(32));
+            GUIStyle titleStyle = new GUIStyle(GUI.skin.label);
+            titleStyle.fontSize = 16;
+            // titleStyle.fontStyle = FontStyle.Bold; // Retiré pour éviter l'erreur de compilation
+            // titleStyle.alignment = TextAnchor.MiddleCenter; // Retiré pour éviter l'erreur de compilation
+            titleStyle.normal.textColor = Color.white;
+            GUILayout.Label("SteamInput - Infos", titleStyle);
+
+            GUILayout.Space(8);
             DrawCurrentActionSet();
 
-            GUILayout.Space(10);
+            GUILayout.Space(8);
             DrawControllerConnected();
             
-            GUILayout.Space(10);
+            GUILayout.Space(8);
             DrawActivatedContexts();
             
-            GUILayout.Space(10);
+            GUILayout.Space(8);
             DrawLogLevel();
 
             GUILayout.EndVertical();
@@ -181,27 +197,30 @@ namespace com.github.lhervier.ksp
 
         private void DrawCurrentActionSet()
         {
-            GUILayout.Label("Current action set: ");
+            GUILayout.Label("Current action set:");
             GUIStyle currentActionGroupStyle = new GUIStyle(GUI.skin.label);
-            currentActionGroupStyle.normal.textColor = Color.yellow;
+            currentActionGroupStyle.normal.textColor = KSPYellow;
+            // currentActionGroupStyle.fontStyle = FontStyle.Bold;
             GUILayout.Label(SteamInputDaemon.Instance.CurrentActionSet, currentActionGroupStyle);
         }
 
         private void DrawControllerConnected() 
         {
-            GUILayout.Label("Controller connected: ");
+            GUILayout.Label("Controller connected:");
             GUIStyle controllerConnectedStyle = new GUIStyle(GUI.skin.label);
-            controllerConnectedStyle.normal.textColor = Color.yellow;
+            controllerConnectedStyle.normal.textColor = SteamInputDaemon.Instance.ControllerConnected ? KSPGreen : KSPYellow;
+            // controllerConnectedStyle.fontStyle = FontStyle.Bold;
             GUILayout.Label(SteamInputDaemon.Instance.ControllerConnected ? "Yes" : "No", controllerConnectedStyle);
         }
 
         private void DrawActivatedContexts()
         {
-            GUILayout.Label("Activated context(s): ");
+            GUILayout.Label("Activated context(s):");
             foreach (string context in SteamInputPlugin.Instance.ActivatedContexts)
             {
                 GUIStyle style = new GUIStyle(GUI.skin.label);
-                style.normal.textColor = Color.yellow;
+                style.normal.textColor = KSPYellow;
+                // style.fontStyle = FontStyle.Bold;
                 string contextName;
                 if( context.EndsWith("CtxDaemon") ) {
                     contextName = context.Substring(0, context.Length - "CtxDaemon".Length);
@@ -217,7 +236,8 @@ namespace com.github.lhervier.ksp
             GUILayout.Label("Log Level:");
             GUILayout.BeginHorizontal();
             GUIStyle buttonStyle = new GUIStyle(GUI.skin.button);
-            buttonStyle.normal.textColor = Color.yellow;
+            buttonStyle.normal.textColor = KSPYellow;
+            // buttonStyle.fontStyle = FontStyle.Bold;
             buttonStyle.fixedWidth = 100;
             if (GUILayout.Button(SteamInputGlobalSettings.GetLogLevel().ToString(), buttonStyle))
             {
