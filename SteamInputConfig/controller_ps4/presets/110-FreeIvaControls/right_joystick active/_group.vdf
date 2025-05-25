@@ -1,17 +1,13 @@
 {
-	"mode"				"absolute_mouse"
+	"mode"				"joystick_mouse"
 	"name"				""
 	"description"		""
 	"inputs"
 	{
+		# Les inputs viennents de chaque fichier vdf
 	}
 	"settings"
 	{
-		"sensitivity"				"148"
-		"doubletap_beep"			"1"
-		"rotation_2"				"7"
-		"friction"					"1"
-		"acceleration"				"1"
-		"doubetap_max_duration"		"500"
+		"output_joystick"		"2"
 	}
 }
