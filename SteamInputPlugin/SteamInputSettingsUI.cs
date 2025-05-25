@@ -19,6 +19,7 @@ namespace com.github.lhervier.ksp
         private Rect windowRect = new Rect(20, 20, 250, 150);
         private bool lastShowLoggingIcon;
         private bool showLogLevelMenu = false;
+        private bool pinned = false;
 
         // ===============================================================
 
@@ -170,12 +171,18 @@ namespace com.github.lhervier.ksp
         {
             GUILayout.BeginVertical(GUI.skin.box);
 
-            // Titre stylisé avec icône (si tu veux ajouter une icône, décommente la ligne suivante)
-            // GUILayout.Label(GameDatabase.Instance.GetTexture("SteamInput/Textures/logging_icon", false), GUILayout.Width(32), GUILayout.Height(32));
+            // Ajout du bouton de fermeture en haut à droite
+            GUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+            if (GUILayout.Button("X", GUILayout.Width(20), GUILayout.Height(20)))
+            {
+                showWindow = false;
+                pinned = false;
+            }
+            GUILayout.EndHorizontal();
+
             GUIStyle titleStyle = new GUIStyle(GUI.skin.label);
             titleStyle.fontSize = 16;
-            // titleStyle.fontStyle = FontStyle.Bold; // Retiré pour éviter l'erreur de compilation
-            // titleStyle.alignment = TextAnchor.MiddleCenter; // Retiré pour éviter l'erreur de compilation
             titleStyle.normal.textColor = Color.white;
             GUILayout.Label("SteamInput - Infos", titleStyle);
 
