@@ -12,7 +12,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"mode_shift left_trackpad %ID%"
+				"binding"		"mode_shift dpad %ID%"
 			}
 		}
 	}

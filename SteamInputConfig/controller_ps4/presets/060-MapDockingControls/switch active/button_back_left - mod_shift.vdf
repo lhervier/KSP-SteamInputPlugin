@@ -12,14 +12,14 @@
 		{
 			"bindings"
 			{
-				"binding"		"mode_shift right_trackpad %ID%"
+				"binding"		"mode_shift joystick %ID%"
 			}
 		}
 		"Full_Press"
 		{
 			"bindings"
 			{
-				"binding"		"mode_shift joystick %ID%"
+				"binding"		"mode_shift right_joystick %ID%"
 			}
 		}
 	}

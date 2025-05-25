@@ -5,14 +5,14 @@
 		{
 			"bindings"
 			{
-				"binding"		"mode_shift left_trackpad %ID%"
+				"binding"		"mode_shift button_diamond %ID%"
 			}
 		}
 		"Full_Press"
 		{
 			"bindings"
 			{
-				"binding"		"mode_shift right_trackpad %ID%"
+				"binding"		"mode_shift dpad %ID%"
 			}
 		}
 		"Full_Press"
@@ -26,7 +26,7 @@
 		{
 			"bindings"
 			{
-				"binding"		"mode_shift button_diamond %ID%"
+				"binding"		"mode_shift right_joystick %ID%"
 			}
 		}
 	}
