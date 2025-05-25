@@ -15,13 +15,6 @@
 				"binding"		"mode_shift joystick %ID%"
 			}
 		}
-		"Full_Press"
-		{
-			"bindings"
-			{
-				"binding"		"mode_shift right_joystick %ID%"
-			}
-		}
 	}
 	"disabled_activators"
 	{
