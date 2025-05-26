@@ -19,7 +19,6 @@ namespace com.github.lhervier.ksp
         private Rect windowRect = new Rect(20, 20, 250, 150);
         private bool lastShowLoggingIcon;
         private bool showLogLevelMenu = false;
-        private bool pinned = false;
 
         // ===============================================================
 
@@ -177,7 +176,6 @@ namespace com.github.lhervier.ksp
             if (GUILayout.Button("X", GUILayout.Width(20), GUILayout.Height(20)))
             {
                 showWindow = false;
-                pinned = false;
             }
             GUILayout.EndHorizontal();
 
