@@ -1,37 +1,53 @@
 @echo off
 setlocal
 
-set KSPDIR=%~1
-set PROJECTDIR=%~2
-set TARGETPATH=%~3
-set OUTPUTPATH=%~4
+set PROJECTDIR=%~1
+set TARGETPATH=%~2
 
-if "%KSPDIR%"=="" (
-    echo ERROR: KSPDIR parameter is missing
+if "%PROJECTDIR%"=="" (
+    echo ERROR: PROJECTDIR parameter is missing
+    exit /b 1
+)
+echo PROJECTDIR: %PROJECTDIR%
+if "%TARGETPATH%"=="" (
+    echo ERROR: TARGETPATH parameter is missing
     exit /b 1
 )
 
 echo.
 echo ===========================================
-echo Building and Deploying Plugin
+echo  Preparing Release folder
 echo ===========================================
-
-echo Removing existing SteamInput folder in GameData
-if exist "%KSPDIR%\GameData\SteamInput" rmdir /s /q "%KSPDIR%\GameData\SteamInput"
-echo Creating SteamInput folder in GameData
-mkdir "%KSPDIR%\GameData\SteamInput"
 
 echo Removing Release folder
 if exist "%PROJECTDIR%Release" rmdir /s /q "%PROJECTDIR%Release"
-echo Creating Release folder
+
+echo Re-creating Release folder
 mkdir "%PROJECTDIR%Release"
 
+echo Copying README.md to Release folder
+copy /y "%PROJECTDIR%README.md" "%PROJECTDIR%Release\"
+
 echo.
+echo ===========================================
+echo Building Plugin Zip file
+echo ===========================================
+
+echo Creating zip structure
+mkdir "%PROJECTDIR%Release\SteamInput"
+mkdir "%PROJECTDIR%Release\SteamInput\Textures"
+
 echo Copying Plugin Files...
 echo - Copying SteamInput.dll
-copy /y "%TARGETPATH%" "%KSPDIR%\GameData\SteamInput"
+copy /y "%TARGETPATH%" "%PROJECTDIR%Release\SteamInput"
 echo - Copying Textures
-xcopy /y /i "%PROJECTDIR%SteamInputPlugin\Textures" "%KSPDIR%\GameData\SteamInput\Textures"
+xcopy /y /i "%PROJECTDIR%SteamInputPlugin\Textures" "%PROJECTDIR%Release\SteamInput\Textures"
+
+echo Creating zip archive
+powershell -Command "Compress-Archive -Path '%PROJECTDIR%Release\SteamInput\*' -DestinationPath '%PROJECTDIR%Release\SteamInput.zip' -Force"
+
+echo Removing zip folder
+rmdir /s /q "%PROJECTDIR%Release\SteamInput"
 
 echo.
 echo ===========================================
@@ -59,21 +75,10 @@ exit /b 1
 
 cd /d "%PROJECTDIR%"
 
-echo.
-echo ===========================================
-echo Creating Release Package
-echo ===========================================
-
-echo Creating zip archive
-powershell -Command "Compress-Archive -Path '%KSPDIR%\GameData\SteamInput\*' -DestinationPath '%PROJECTDIR%Release\SteamInput.zip' -Force"
-
 echo Copying VDF files to Release folder
-copy /y "%PROJECTDIR%SteamInputConfig\game_actions_220200.vdf" "%PROJECTDIR%Release\"
+copy /y "%PROJECTDIR%SteamInputConfig\game_actions_%APPID%.vdf" "%PROJECTDIR%Release\"
 copy /y "%PROJECTDIR%SteamInputConfig\controller_steamcontroller_gordon.vdf" "%PROJECTDIR%Release\"
 copy /y "%PROJECTDIR%SteamInputConfig\controller_ps4.vdf" "%PROJECTDIR%Release\"
-
-echo Copying README.md to Release folder
-copy /y "%PROJECTDIR%README.md" "%PROJECTDIR%Release\"
 
 echo.
 echo Build completed successfully
