@@ -5,13 +5,6 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press LEFT_SHIFT, , , "
-			}
-		}
-		"Full_Press"
-		{
-			"bindings"
-			{
 				"binding"		"mode_shift right_joystick %ID%"
 			}
 		}
