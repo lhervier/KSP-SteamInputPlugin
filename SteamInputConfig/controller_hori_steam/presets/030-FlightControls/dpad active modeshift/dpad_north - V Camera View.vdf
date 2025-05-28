@@ -1,0 +1,15 @@
+{
+	"activators"
+	{
+		"Full_Press"
+		{
+			"bindings"
+			{
+				"binding"		"key_press V, #Flight_cameraView, , "
+			}
+		}
+	}
+	"disabled_activators"
+	{
+	}
+}

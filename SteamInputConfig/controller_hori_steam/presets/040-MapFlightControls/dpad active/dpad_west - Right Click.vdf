@@ -1,0 +1,15 @@
+{
+	"activators"
+	{
+		"Full_Press"
+		{
+			"bindings"
+			{
+				"binding"		"mouse_button RIGHT, #Common_rightClick, "
+			}
+		}
+	}
+	"disabled_activators"
+	{
+	}
+}

@@ -1,0 +1,15 @@
+{
+	"activators"
+	{
+		"Full_Press"
+		{
+			"bindings"
+			{
+				"binding"		"key_press W, #EVA_forward, , "
+			}
+		}
+	}
+	"disabled_activators"
+	{
+	}
+}

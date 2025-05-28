@@ -1,0 +1,15 @@
+{
+	"activators"
+	{
+		"Full_Press"
+		{
+			"bindings"
+			{
+				"binding"		"key_press T, #Flight_SAS, , "
+			}
+		}
+	}
+	"disabled_activators"
+	{
+	}
+}

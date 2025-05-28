@@ -1,0 +1,15 @@
+{
+	"activators"
+	{
+		"Full_Press"
+		{
+			"bindings"
+			{
+				"binding"		"key_press X, #IVA_crouch, , "
+			}
+		}
+	}
+	"disabled_activators"
+	{
+	}
+}

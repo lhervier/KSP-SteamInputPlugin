@@ -1,0 +1,22 @@
+{
+	"activators"
+	{
+		"Full_Press"
+		{
+			"bindings"
+			{
+				"binding"		"key_press T, #Flight_SAS, , "
+			}
+		}
+		"Long_Press"
+		{
+			"bindings"
+			{
+				"binding"		"key_press DELETE, #Flight_translationMode, , "
+			}
+		}
+	}
+	"disabled_activators"
+	{
+	}
+}

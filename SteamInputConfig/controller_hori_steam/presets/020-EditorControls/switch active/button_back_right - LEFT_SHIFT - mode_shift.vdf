@@ -1,0 +1,29 @@
+{
+	"activators"
+	{
+		"Full_Press"
+		{
+			"bindings"
+			{
+				"binding"		"key_press LEFT_SHIFT, #Editor_cameraSlew, , "
+			}
+		}
+		"Full_Press"
+		{
+			"bindings"
+			{
+				"binding"		"mode_shift button_diamond %ID%"
+			}
+		}
+		"Full_Press"
+		{
+			"bindings"
+			{
+				"binding"		"mode_shift joystick %ID%"
+			}
+		}
+	}
+	"disabled_activators"
+	{
+	}
+}

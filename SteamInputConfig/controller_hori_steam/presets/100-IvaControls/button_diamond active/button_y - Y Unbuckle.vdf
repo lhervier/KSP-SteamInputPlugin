@@ -1,0 +1,15 @@
+{
+	"activators"
+	{
+		"Full_Press"
+		{
+			"bindings"
+			{
+				"binding"		"key_press Y, #IVA_unbuckle, , "
+			}
+		}
+	}
+	"disabled_activators"
+	{
+	}
+}

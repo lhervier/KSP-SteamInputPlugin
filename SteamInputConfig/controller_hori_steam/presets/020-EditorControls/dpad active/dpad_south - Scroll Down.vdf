@@ -1,0 +1,20 @@
+{
+	"activators"
+	{
+		"Full_Press"
+		{
+			"bindings"
+			{
+				"binding"		"mouse_wheel SCROLL_DOWN, #Common_scrollDown, "
+			}
+			"settings"
+			{
+				"hold_repeats"		"1"
+				"repeat_rate"		"10"
+			}
+		}
+	}
+	"disabled_activators"
+	{
+	}
+}

@@ -1,0 +1,15 @@
+{
+	"activators"
+	{
+		"Full_Press"
+		{
+			"bindings"
+			{
+				"binding"		"key_press W, #Editor_pitchPartDown, , "
+			}
+		}
+	}
+	"disabled_activators"
+	{
+	}
+}

@@ -47,3 +47,5 @@ echo - Steam Controller
 copy /y "Release\controller_steamcontroller_gordon.vdf" "%CONTROLLER_CONFIG_DIR%\controller_steamcontroller_gordon.vdf"
 echo - PS4
 copy /y "Release\controller_ps4.vdf" "%CONTROLLER_CONFIG_DIR%\controller_ps4.vdf"
+echo - Hori Steam
+copy /y "Release\controller_hori_steam.vdf" "%CONTROLLER_CONFIG_DIR%\controller_hori_steam.vdf"

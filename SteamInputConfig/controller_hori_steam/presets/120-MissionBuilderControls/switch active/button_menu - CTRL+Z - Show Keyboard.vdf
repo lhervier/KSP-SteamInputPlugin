@@ -1,0 +1,29 @@
+{
+	"activators"
+	{
+		"Full_Press"
+		{
+			"bindings"
+			{
+				"binding"		"key_press LEFT_CONTROL, , , "
+			}
+		}
+		"Full_Press"
+		{
+			"bindings"
+			{
+				"binding"		"key_press W, , , "
+			}
+		}
+		"Long_Press"
+		{
+			"bindings"
+			{
+				"binding"		"controller_action SHOW_KEYBOARD, #Common_showKeyboard, "
+			}
+		}
+	}
+	"disabled_activators"
+	{
+	}
+}

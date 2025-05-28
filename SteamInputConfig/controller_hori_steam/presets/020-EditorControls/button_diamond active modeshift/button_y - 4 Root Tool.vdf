@@ -1,0 +1,15 @@
+{
+	"activators"
+	{
+		"Full_Press"
+		{
+			"bindings"
+			{
+				"binding"		"key_press 4, #Editor_rootTool, , "
+			}
+		}
+	}
+	"disabled_activators"
+	{
+	}
+}

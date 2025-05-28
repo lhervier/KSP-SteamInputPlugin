@@ -1,0 +1,22 @@
+{
+	"activators"
+	{
+		"Full_Press"
+		{
+			"bindings"
+			{
+				"binding"		"key_press LEFT_CONTROL, #Editor_redo, , "
+			}
+		}
+		"Full_Press"
+		{
+			"bindings"
+			{
+				"binding"		"key_press Y, #Editor_redo, , "
+			}
+		}
+	}
+	"disabled_activators"
+	{
+	}
+}

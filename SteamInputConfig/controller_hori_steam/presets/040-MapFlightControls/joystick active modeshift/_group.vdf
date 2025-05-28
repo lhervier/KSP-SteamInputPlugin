@@ -1,0 +1,16 @@
+{
+	"mode"				"hotbar"
+	"name"				"Action Groups"
+	"description"		"Action Groups"
+	"inputs"
+	{
+	}
+	"settings"
+	{
+		"touch_menu_button_count"	"16"
+		"touch_menu_opacity"		"69"
+		"touch_menu_position_x"		"4"
+		"touch_menu_position_y"		"19"
+		"virtualmenu_center_bound"	"1"
+	}
+}

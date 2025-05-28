@@ -1,0 +1,15 @@
+{
+	"activators"
+	{
+		"Full_Press"
+		{
+			"bindings"
+			{
+				"binding"		"key_press 1, #Flight_actionGroup1, , "
+			}
+		}
+	}
+	"disabled_activators"
+	{
+	}
+}
