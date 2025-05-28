@@ -1,4 +1,7 @@
-- Trouver comment afficher le clavier sur PS4 (trackpad ??)
-- EVA Construction Mode : Changer le mode d'attachement (radial ou mirroir), comme en Editor. C'est parce qu'on n'a plus de click sur le joystick
+Config :
+- Gérer les localisation correctement
 - Avoir un mode IVAFlight et IVADocking pour pouvoir piloter un vaisseau de l'intérieur
 - Faire les bindings pour le mission builder
+
+Plugin:
+- Réussir à utiliser la dernière version des APIs SteamInput, et pas être bloqué à celles fournies par KSP (vieille version de SteamWorks.NET)
