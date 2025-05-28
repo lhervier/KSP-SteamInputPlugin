@@ -5,14 +5,14 @@
 		{
 			"bindings"
 			{
-				"binding"		"key_press SEMICOLON, #Flight_leaveMap, , "
+				"binding"		"key_press SEMICOLON, #Flight_showMap, , "
 			}
 		}
 		"Long_Press"
 		{
 			"bindings"
 			{
-				"binding"		"key_press DELETE, #Flight_translationMode, , "
+				"binding"		"controller_action SHOW_KEYBOARD, #Common_showKeyboard, "
 			}
 		}
 	}

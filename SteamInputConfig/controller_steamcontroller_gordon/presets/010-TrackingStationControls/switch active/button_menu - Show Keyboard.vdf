@@ -1,0 +1,15 @@
+{
+	"activators"
+	{
+		"Long_Press"
+		{
+			"bindings"
+			{
+				"binding"		"controller_action SHOW_KEYBOARD, #Common_showKeyboard, "
+			}
+		}
+	}
+	"disabled_activators"
+	{
+	}
+}

@@ -5,6 +5,13 @@
 		{
 			"bindings"
 			{
+				"binding"		"key_press SEMICOLON, #Flight_showMap, , "
+			}
+		}
+		"Long_Press"
+		{
+			"bindings"
+			{
 				"binding"		"controller_action SHOW_KEYBOARD, #Common_showKeyboard, "
 			}
 		}

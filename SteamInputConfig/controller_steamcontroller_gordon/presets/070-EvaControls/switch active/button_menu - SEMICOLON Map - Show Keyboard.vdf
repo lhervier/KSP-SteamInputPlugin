@@ -8,11 +8,11 @@
 				"binding"		"key_press SEMICOLON, #Flight_showMap, , "
 			}
 		}
-		"Full_Press"
+		"Long_Press"
 		{
 			"bindings"
 			{
-				"binding"		"key_press DELETE, #Flight_translationMode, , "
+				"binding"		"controller_action SHOW_KEYBOARD, #Common_showKeyboard, "
 			}
 		}
 	}
