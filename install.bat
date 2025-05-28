@@ -40,10 +40,10 @@ if not exist "%CONTROLLER_ACTION_DIR%"\ mkdir "%CONTROLLER_ACTION_DIR%"\
 if not exist "%CONTROLLER_CONFIG_DIR%"\ mkdir "%CONTROLLER_CONFIG_DIR%"\
 
 echo Copying action file
-copy /y "SteamInputConfig\game_actions_%APPID%.vdf" "%CONTROLLER_ACTION_DIR%\game_actions_%APPID%.vdf"
+copy /y "Release\game_actions_%APPID%.vdf" "%CONTROLLER_ACTION_DIR%\game_actions_%APPID%.vdf"
 
 echo Copying Controllers VDF
 echo - Steam Controller
-copy /y "SteamInputConfig\controller_steamcontroller_gordon.vdf" "%CONTROLLER_CONFIG_DIR%\controller_steamcontroller_gordon.vdf"
+copy /y "Release\controller_steamcontroller_gordon.vdf" "%CONTROLLER_CONFIG_DIR%\controller_steamcontroller_gordon.vdf"
 echo - PS4
-copy /y "SteamInputConfig\controller_ps4.vdf" "%CONTROLLER_CONFIG_DIR%\controller_ps4.vdf"
+copy /y "Release\controller_ps4.vdf" "%CONTROLLER_CONFIG_DIR%\controller_ps4.vdf"
