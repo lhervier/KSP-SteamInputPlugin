@@ -8,6 +8,13 @@
 				"binding"		"key_press R, #Flight_RCS, , "
 			}
 		}
+		"Long_Press"
+		{
+			"bindings"
+			{
+				"binding"		"key_press DELETE, #Flight_translationMode, , "
+			}
+		}
 	}
 	"disabled_activators"
 	{
