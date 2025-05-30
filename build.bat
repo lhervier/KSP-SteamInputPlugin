@@ -56,29 +56,11 @@ echo ===========================================
 cd /d "%PROJECTDIR%SteamInputConfig"
 
 echo.
-echo Building Steam Controller VDF...
-node merge.js "controller_steamcontroller_gordon" "english" > steam_controller.log 2>&1
+echo Building Controllers VDF...
+node merge.js 2>&1
 if errorlevel 1 (
-echo ERROR: Failed to build Steam Controller VDF
-type steam_controller.log
-exit /b 1
-)
-
-echo.
-echo Building PS4 VDF...
-node merge.js "controller_ps4" "english" > ps4.log 2>&1
-if errorlevel 1 (
-echo ERROR: Failed to build PS4 VDF
-type ps4.log
-exit /b 1
-)
-
-echo.
-echo Building Hori Steam VDF...
-node merge.js "controller_hori_steam" "english" > hori_steam.log 2>&1
-if errorlevel 1 (
-echo ERROR: Failed to build Hori Steam VDF
-type hori_steam.log
+echo ERROR: Failed to build Controllers VDF
+type controllers.log
 exit /b 1
 )
 
@@ -86,7 +68,7 @@ cd /d "%PROJECTDIR%"
 
 echo.
 echo Copying VDF files to Release folder
-copy /y "%PROJECTDIR%SteamInputConfig\game_actions_%APPID%.vdf" "%PROJECTDIR%Release\"
+copy /y "%PROJECTDIR%SteamInputConfig\game_actions_220200.vdf" "%PROJECTDIR%Release\"
 copy /y "%PROJECTDIR%SteamInputConfig\controller_steamcontroller_gordon.vdf" "%PROJECTDIR%Release\"
 copy /y "%PROJECTDIR%SteamInputConfig\controller_ps4.vdf" "%PROJECTDIR%Release\"
 copy /y "%PROJECTDIR%SteamInputConfig\controller_hori_steam.vdf" "%PROJECTDIR%Release\"

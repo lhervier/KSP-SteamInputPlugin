@@ -4,13 +4,12 @@ const VDF = require('vdf-parser');
 
 let groupIdCounter = 0;
 let presetIdCounter = 0;
-let labels = {};
 
 /**
- * Formate et sauvegarde un objet VDF dans un fichier
- * @param {Object} obj - L'objet à sauvegarder
- * @param {string} filePath - Chemin du fichier de sortie
- * @throws {Error} Si le fichier ne peut pas être écrit
+ * Format and save a VDF object to a file
+ * @param {Object} obj - The object to save
+ * @param {string} filePath - The path of the output file
+ * @throws {Error} If the file cannot be written
  */
 function saveVdfFile(obj, filePath) {
     const tab = '\t';
@@ -18,11 +17,11 @@ function saveVdfFile(obj, filePath) {
     
     function writeProperty(key, value, indent) {
         if (Array.isArray(value)) {
-            // Cas des tableaux : on écrit chaque élément avec la même clé
+            // Case of arrays: write each element with the same key
             value.forEach(item => {
                 result += `${tab.repeat(indent)}"${key}"\n${tab.repeat(indent)}{\n`;
                 
-                // Cas spécial pour les groupes et les presets : on écrit l'id en premier
+                // Special case for groups and presets: write the id first
                 if ( (key === 'group' || key === 'preset') && item.id !== undefined) {
                     result += `${tab.repeat(indent + 1)}"id"\t\t"${item.id}"\n`;
                     const { id, ...rest } = item;
@@ -43,17 +42,17 @@ function saveVdfFile(obj, filePath) {
     }
     
     function formatVdf(obj, indent = 0) {
-        // Écrire les propriétés dans l'ordre spécifié
+        // Write the properties in the specified order
         const orderedProps = ['actions', 'action_layers', 'localization', 'group', 'preset', 'settings'];
         
-        // Écrire d'abord les propriétés non ordonnées
+        // Write first the unordered properties
         for (const [key, value] of Object.entries(obj)) {
             if (!orderedProps.includes(key)) {
                 writeProperty(key, value, indent);
             }
         }
         
-        // Écrire ensuite les propriétés ordonnées
+        // Write then the ordered properties
         orderedProps.forEach(prop => {
             if (obj[prop] !== undefined) {
                 writeProperty(prop, obj[prop], indent);
@@ -66,11 +65,11 @@ function saveVdfFile(obj, filePath) {
 }
 
 /**
- * Charge, nettoie et parse un fichier VDF
- * @param {string} baseDir - Dossier de base
- * @param {string} relativePath - Chemin relatif du fichier depuis le dossier de base
- * @returns {Object} Objet parsé
- * @throws {Error} Si le fichier ne peut pas être chargé ou parsé
+ * Load, clean and parse a VDF file
+ * @param {string} baseDir - Base directory
+ * @param {string} relativePath - Relative path of the file from the base directory
+ * @returns {Object} Parsed object
+ * @throws {Error} If the file cannot be loaded or parsed
  */
 function loadVdfFile(baseDir, relativePath) {
     const filePath = path.join(baseDir, relativePath);
@@ -79,39 +78,20 @@ function loadVdfFile(baseDir, relativePath) {
         .filter(line => !line.trim().startsWith('#'))
         .join('\n');
 
-    // Si c'est un fichier de localisation, on déduit la langue du chemin
-    if (relativePath.includes('localization')) {
-        const language = path.basename(path.dirname(relativePath));
-        if (!content.trim().startsWith('"' + language + '"')) {
-            content = `"${language}"\n${content}`;
-        }
-    }
-    // Si c'est un fichier _action.vdf, on déduit le nom du preset du dossier parent
-    else if (relativePath.endsWith('_action.vdf')) {
+    // If it's an _action.vdf file, deduce the preset name from the parent directory
+    if (relativePath.endsWith('_action.vdf')) {
         const presetName = path.basename(path.dirname(relativePath)).split('-')[1];
-        if (!content.trim().startsWith('"' + presetName + '"')) {
-            content = `"${presetName}"\n${content}`;
-        }
+        content = `"${presetName}"\n${content}`;
     }
-    // Si c'est un fichier _preset.vdf, on ajoute l'en-tête "preset"
-    else if (relativePath.endsWith('_preset.vdf')) {
-        if (!content.trim().startsWith('"preset"')) {
-            content = '"preset"\n' + content;
-        }
-    }
-    // Si c'est un fichier _group.vdf, on ajoute l'en-tête "group"
+    // If it's a _group.vdf file, add the "group" header
     else if (relativePath.endsWith('_group.vdf')) {
-        if (!content.trim().startsWith('"group"')) {
-            content = '"group"\n' + content;
-        }
+        content = '"group"\n' + content;
     }
-    // Si c'est un fichier d'input, on déduit le nom de l'input du nom du fichier
-    else if (relativePath.endsWith('.vdf')) {
+    // If it's a file without header, deduce it from the file name
+    else if (content.trim().startsWith('{') ) {
         const fileName = path.basename(relativePath);
         const inputName = fileName.includes(' - ') ? fileName.split(' - ')[0] : fileName.replace('.vdf', '');
-        if (!content.trim().startsWith('"' + inputName + '"')) {
-            content = `"${inputName}"\n${content}`;
-        }
+        content = `"${inputName}"\n${content}`;
     }
 
     try {
@@ -122,113 +102,73 @@ function loadVdfFile(baseDir, relativePath) {
 }
 
 /**
- * Traite tous les fichiers VDF d'une langue
- * @param {string} baseDir - Dossier de base
- * @param {string} langPath - Chemin relatif du dossier de la langue
- * @returns {Object} Données fusionnées pour la langue
- * @throws {Error} Si les fichiers ne peuvent pas être traités
+ * Process a language directory
+ * @param {string} languageDir - Directory containing the localization VDF files
+ * @returns {Object} Localization data present in the directory
+ * @throws {Error} If the directory cannot be processed
  */
-function processLanguageFiles(baseDir, langPath) {
-    const fullLangPath = path.join(baseDir, langPath);
-    const vdfFiles = fs.readdirSync(fullLangPath)
-        .filter(file => file.endsWith('.vdf'));
-    
-    const languageData = {};
-    const language = path.basename(langPath);
-    
-    vdfFiles.forEach(vdfFile => {
-        const relativePath = path.join(langPath, vdfFile);
-        const parsedContent = loadVdfFile(baseDir, relativePath);
-        
-        if (parsedContent && parsedContent[language]) {
-            Object.assign(languageData, parsedContent[language]);
-        }
-    });
-    
-    return languageData;
-}
-
-/**
- * Traite le dossier de localisation
- * @param {string} baseDir - Dossier de base
- * @param {string} localizationPath - Chemin relatif du dossier de localisation
- * @param {string} language - La langue à utiliser
- * @returns {Object} Données de localisation pour toutes les langues
- * @throws {Error} Si le dossier ne peut pas être traité
- */
-function processLocalization(baseDir, localizationPath, language) {
+function processLanguageDirectory(languageDir) {
     const localizationData = {};
-    const fullLocalizationPath = path.join(baseDir, localizationPath);
-    
-    if (!fs.existsSync(fullLocalizationPath)) {
-        return localizationData;
-    }
-    
-	const langPath = path.join(localizationPath, language);
-	labels = processLanguageFiles(baseDir, langPath);
+    fs.readdirSync(languageDir)
+        .filter(file => file.endsWith('.vdf'))
+        .forEach(languageFile => {
+            const parsedContent = loadVdfFile(languageDir, languageFile);
+            Object.assign(localizationData, parsedContent[languageFile.replace('.vdf', '')]);
+        });
+    return localizationData;
 }
 
 /**
- * Charge le template de base
- * @param {string} baseDir - Dossier de base
- * @returns {Object} Données du template
- * @throws {Error} Si le template ne peut pas être chargé
+ * Load the base template
+ * @param {string} baseDir - Base directory
+ * @returns {Object} Template data
+ * @throws {Error} If the template cannot be loaded
  */
 function loadTemplate(baseDir) {
     return loadVdfFile(baseDir, 'controller_mappings.vdf');
 }
 
 /**
- * Traite tous les fichiers d'actions
- * @param {string} baseDir - Dossier de base
- * @returns {Object} Données des actions fusionnées
- * @throws {Error} Si les actions ne peuvent pas être traitées
+ * Process all action files of a controller
+ * @param {string} controllerDir - Controller directory
+ * @returns {Object} Merged action data
+ * @throws {Error} If the actions cannot be processed
  */
-function processActions(baseDir) {
-    const presetsDir = path.join(baseDir, 'presets');
+function processActions(controllerDir) {
     const actionsData = {};
-    
-    // Lire tous les dossiers de presets
-    const presetDirs = fs.readdirSync(presetsDir)
-        .filter(file => fs.statSync(path.join(presetsDir, file)).isDirectory())
-        .sort(); // Trie naturellement les dossiers par numéro
-
-    presetDirs.forEach(presetDir => {
-        const relativePath = path.join('presets', presetDir, '_action.vdf');
-        const actionData = loadVdfFile(baseDir, relativePath);
-
-		// Remplace les référence à #<une cle de traduciton> par la valeur
-		const root = Object.values(actionData)[0];
-		root.title = root.title.replace(/#(\w+)/g, (match, p1) => {
-			return labels[p1] || match;
-		});
-		Object.assign(actionsData, actionData);
-    });
-
+    fs.readdirSync(controllerDir)
+        .filter(file => fs.statSync(path.join(controllerDir, file)).isDirectory())
+        .sort() // Trie naturellement les dossiers par numéro
+        .forEach(presetDir => {
+            const presetName = path.basename(presetDir).split('-')[1];
+            const relativePath = path.join(presetDir, '_action.vdf');
+            const actionData = loadVdfFile(controllerDir, relativePath);
+            Object.assign(actionsData, actionData);
+        });
     return actionsData;
 }
 
 /**
- * Traite tous les inputs d'un groupe
- * @param {string} baseDir - Dossier de base
- * @param {string} groupDir - Dossier du groupe
- * @returns {Object} Objet contenant les inputs comme sous-propriétés
- * @throws {Error} Si les inputs ne peuvent pas être traités
+ * Process all inputs of a group
+ * @param {string} baseDir - Base directory
+ * @param {string} groupDir - Group directory
+ * @returns {Object} Object containing the inputs as sub-properties
+ * @throws {Error} If the inputs cannot be processed
  */
 function processInputs(baseDir, groupDir) {
     const inputs = {};
     
-    // Lire tous les fichiers VDF du dossier
+    // Read all VDF files in the directory
     const inputFiles = fs.readdirSync(groupDir)
         .filter(file => file.endsWith('.vdf') && file !== '_group.vdf')
         .sort();
 
     inputFiles.forEach(inputFile => {
-        // Charger et parser le fichier
+        // Load and parse the file
         const inputPath = path.join(groupDir, inputFile);
         const inputData = loadVdfFile(baseDir, path.relative(baseDir, inputPath));
         
-        // Récupérer le premier (et unique) input de l'objet
+        // Get the first (and unique) input of the object
         const inputName = Object.keys(inputData)[0];
         inputs[inputName] = inputData[inputName];
     });
@@ -237,17 +177,17 @@ function processInputs(baseDir, groupDir) {
 }
 
 /**
- * Traite tous les groupes d'un preset
- * @param {string} baseDir - Dossier de base
- * @param {string} presetDir - Dossier du preset
- * @returns {Object} Objet contenant les groupes et leurs bindings
- * @throws {Error} Si les groupes ne peuvent pas être traités
+ * Process all groups of a preset
+ * @param {string} baseDir - Base directory
+ * @param {string} presetDir - Preset directory
+ * @returns {Object} Object containing the groups and their bindings
+ * @throws {Error} If the groups cannot be processed
  */
 function processGroups(baseDir, presetDir) {
     const groups = [];
     const groupBindings = {};
 
-    // Lire tous les sous-dossiers de groupes
+    // Read all subdirectories of groups
     const groupDirs = fs.readdirSync(presetDir)
         .filter(file => fs.statSync(path.join(presetDir, file)).isDirectory())
         .sort();
@@ -255,23 +195,23 @@ function processGroups(baseDir, presetDir) {
     groupDirs.forEach(groupType => {
         const groupPath = path.join(presetDir, groupType, '_group.vdf');
         if (!fs.existsSync(groupPath)) {
-            throw new Error(`Fichier de groupe non trouvé : ${groupPath}`);
+            throw new Error(`_group file not found: ${groupPath}`);
         }
         
         const groupData = loadVdfFile(baseDir, path.relative(baseDir, groupPath));
         
-        // Ajouter l'ID au groupe
+        // Add the ID to the group
         const groupId = groupIdCounter.toString();
         groupData.group.id = groupId;
         
-        // Traiter les inputs du groupe
+        // Process the inputs of the group
         const inputs = processInputs(baseDir, path.join(presetDir, groupType));
         groupData.group.inputs = inputs;
         
-        // Ajouter le groupe à la liste
+        // Add the group to the list
         groups.push(groupData.group);
         
-        // Ajouter le binding dans le preset
+        // Add the binding in the preset
         groupBindings[groupId] = groupType;
         
         groupIdCounter++;
@@ -284,38 +224,40 @@ function processGroups(baseDir, presetDir) {
 }
 
 /**
- * Traite tous les presets
- * @param {string} baseDir - Dossier de base
- * @returns {Object[]} Liste des presets avec leurs groupes
- * @throws {Error} Si les presets ne peuvent pas être traités
+ * Process all presets
+ * @param {string} controllerDir - Controller directory
+ * @returns {Object[]} List of presets with their groups
+ * @throws {Error} If the presets cannot be processed
  */
-function processPresets(baseDir) {
-    const presetsDir = path.join(baseDir, 'presets');
+function processPresets(controllerDir) {
     const presets = [];
     const allGroups = [];
     
-    // Lire tous les dossiers de presets
-    const presetDirs = fs.readdirSync(presetsDir)
-        .filter(file => fs.statSync(path.join(presetsDir, file)).isDirectory())
-        .sort(); // Trie naturellement les dossiers par numéro
-
-    presetDirs.forEach(presetDir => {
-        const presetPath = path.join(presetsDir, presetDir);
-        const presetData = loadVdfFile(baseDir, path.join('presets', presetDir, '_preset.vdf'));
-        presetData.preset.id = presetIdCounter.toString();
-
-        // Traiter les groupes du preset
-        const { groups, groupBindings } = processGroups(baseDir, presetPath);
-        
-        // Ajouter les groupes à la liste globale
-        allGroups.push(...groups);
-        
-        // Ajouter les bindings au preset
-        presetData.preset.group_source_bindings = groupBindings;
-        
-        presets.push(presetData.preset);
-		presetIdCounter++;
-    });
+    // Read all preset directories
+    fs.readdirSync(controllerDir)
+        .filter(file => fs.statSync(path.join(controllerDir, file)).isDirectory())
+        .sort() // Sort the directories naturally by number
+        .forEach(presetDir => {
+            const presetName = path.basename(presetDir).split('-')[1];
+            const presetData = {
+                name: presetName,
+                id: presetIdCounter.toString()
+            };
+            
+            // Process the groups of the preset
+            const presetPath = path.join(controllerDir, presetDir);
+            const { groups, groupBindings } = processGroups(controllerDir, presetPath);
+            
+            // Add the groups to the global list
+            allGroups.push(...groups);
+            
+            // Add the bindings to the preset
+            const groupSourceBindings = {};
+            presetData.group_source_bindings = groupBindings;
+            
+            presets.push(presetData);
+            presetIdCounter++;
+        });
 
     return {
         presets,
@@ -324,14 +266,15 @@ function processPresets(baseDir) {
 }
 
 /**
- * Remplace les références %ID% dans les bindings par les IDs de groupes correspondants
- * @param {Object[]} group - Liste des groupes
- * @param {Object[]} preset - Liste des presets
- * @throws {Error} Si un groupe référencé n'est pas trouvé dans le preset
+ * Process all bindings
+ * Replace the %ID% references in the bindings by the corresponding group IDs
+ * @param {Object[]} group - List of groups
+ * @param {Object[]} preset - List of presets
+ * @throws {Error} If a referenced group is not found in the preset
  */
 function processBindings(group, preset) {
-    // Créer un index des presets par ID de groupe
-	// et un index des IDs de groupe par type pour chaque preset
+    // Create an index of presets by group ID
+	// and an index of group IDs by type for each preset
     const presetByGroupId = {};
     const groupIdByTypeByPreset = {};
     preset.forEach(p => {
@@ -349,52 +292,47 @@ function processBindings(group, preset) {
         });
     });
 
-    // Pour chaque groupe
+    // For each group
     group.forEach(g  => {
-        // Pour chaque input du groupe
+        // For each input of the group
         if (!g.inputs) return;
 		
 		Object.values(g.inputs).forEach(input => {
 			if (!input.activators) return;
 
-			// Pour chaque activateur de l'input (un même activateur peut apparaître plusieurs fois)
+			// For each activator of the input (the same activator can appear several times)
 			Object.values(input.activators).forEach(activator => {
 				const activators = Array.isArray(activator) ? activator : [activator];
 				activators.forEach(a => {
 					if (!a.bindings) return;
 
-					// Pour chaque binding (on peut avoir plusieurs bindings pour un même activateur)
+					// For each binding (several bindings can be defined for the same activator)
 					Object.entries(a.bindings).forEach(([key, binding]) => {
 						const bindings = Array.isArray(binding) ? binding : [binding];
 						bindings.forEach((value, index) => {
 							
-							// Remplace les référence à #<une cle de traduciton> par la valeur
-							newValue = value.replace(/#(\w+)/g, (match, p1) => {
-								return labels[p1] || match;
-							});
-
-							if (newValue.startsWith('mode_shift ') && newValue.includes('%ID%')) {
+							if (value.startsWith('mode_shift ') && value.includes('%ID%')) {
 							
-								// On cherche le preset qui contient ce groupe
+								// We search the preset that contains this group
 								const groupPreset = presetByGroupId[g.id];
-								if (!groupPreset) return; // Ignorer les groupes qui ne sont dans aucun preset
+								if (!groupPreset) return; // Ignore groups that are not in any preset
 
-								// On déduit le type de groupe vidé pour le changement de mode
-								const groupType = newValue.split(' ')[1];
+								// We deduce the group type for the mode change
+								const groupType = value.split(' ')[1];
 								
-								// On cherche l'ID du groupe de type groupType dans ce preset
+								// We search the ID of the group of type groupType in this preset
 								const targetGroupId = groupIdByTypeByPreset[groupPreset.name][groupType];
 								if (!targetGroupId) {
-									throw new Error(`Groupe de type ${groupType} non trouvé dans le preset ${groupPreset.name}`);
+									throw new Error(`Group of type ${groupType} not found in preset ${groupPreset.name}`);
 								}
-								newValue = newValue.replace(/%ID%/, targetGroupId);
+								value = value.replace(/%ID%/, targetGroupId);
 							}
 							
-							// Remplacer %ID% par l'ID du groupe cible
+							// Replace %ID% by the target group ID
 							if (Array.isArray(binding)) {
-								binding[index] = newValue;
+								binding[index] = value;
 							} else {
-								a.bindings.binding = newValue;
+								a.bindings.binding = value;
 							}
 						});
 					});
@@ -405,53 +343,68 @@ function processBindings(group, preset) {
 }
 
 /**
- * Traite un dossier complet
- * @param {string} directoryPath - Chemin du dossier à traiter
- * @param {string} language - La langue à utiliser
- * @throws {Error} Si le dossier ne peut pas être traité
+ * Process a controller directory
+ * @param {string} controllerDir - Path of the directory containing the controller definition
+ * @param {Object} localizationData - Localization data
+ * @returns {Object} Controller data
+ * @throws {Error} If the directory cannot be processed
  */
-function processDirectory(directoryPath, language) {
+function processControllerDirectory(controllerDir, localizationData) {
     try {
-        // Charger le template
-        const templateData = loadTemplate(directoryPath);
+        // Load the template
+        const templateData = loadTemplate(controllerDir);
         
-        // Charger les clés de localisation
-        processLocalization(directoryPath, 'localization', language);
+        // Add the localization keys
+        templateData.controller_mappings.localization = localizationData;
         
-        // Traiter les actions
-        templateData.controller_mappings.actions = processActions(directoryPath);
+        // Process the actions
+        templateData.controller_mappings.actions = processActions(controllerDir);
         
-        // Traiter les presets et les groupes
-        const { presets, groups } = processPresets(directoryPath);
+        // Process the presets and the groups
+        const { presets, groups } = processPresets(controllerDir);
         templateData.controller_mappings.preset = presets;
         templateData.controller_mappings.group = groups;
         
-        // Traiter les bindings
+        // Process the bindings
         processBindings(
-			templateData.controller_mappings.group, 
-			templateData.controller_mappings.preset
+			groups, 
+			presets
 		);
 
 		templateData.controller_mappings.Timestamp = "" + Date.now();
         
-        // Écrire le fichier résultant
-        const dirName = path.basename(directoryPath);
-        const outputPath = path.join(path.dirname(directoryPath), `${dirName}.vdf`);
-        saveVdfFile(templateData, outputPath);
-        
-        console.log(`Fichier créé avec succès : ${outputPath}`);
+        return templateData;
     } catch (error) {
-        console.error(`Erreur lors du traitement du dossier ${directoryPath}: ${error.message}`);
+        console.error(`Erreur lors du traitement du dossier ${controllerDir}: ${error.message}`);
         process.exit(1);
     }
 }
 
-// Point d'entrée du script
-if (process.argv.length < 4) {
-    console.error('Veuillez spécifier un dossier et une langue en paramètre');
-    process.exit(1);
-}
+// ==========================================================================
+// Entry point of the script
+// ==========================================================================
 
-const targetDirectory = process.argv[2];
-const language = process.argv[3];
-processDirectory(targetDirectory, language);
+// Load the localizations
+const localizationData = {};
+fs.readdirSync("localization")
+    .filter(file => fs.statSync(path.join("localization", file)).isDirectory())
+    .forEach(language => {
+        const languageDir = path.join("localization", language);
+        localizationData[language] = processLanguageDirectory(languageDir);
+    });
+console.log("Localizations loaded");
+
+// Generate the controllers files
+fs.readdirSync("controllers")
+    .filter(file => fs.statSync(path.join("controllers", file)).isDirectory())
+    .forEach(controllerName => {
+        const controllerVdf = processControllerDirectory(
+            path.join("controllers", controllerName), 
+            localizationData
+        );
+        
+        const outputPath = path.join(`controller_${controllerName}.vdf`);
+        saveVdfFile(controllerVdf, outputPath);
+        
+        console.log(`File created successfully: ${outputPath}`);
+    });
