@@ -268,16 +268,16 @@ function processPresets(controllerDir) {
 /**
  * Process all bindings
  * Replace the %ID% references in the bindings by the corresponding group IDs
- * @param {Object[]} group - List of groups
- * @param {Object[]} preset - List of presets
+ * @param {Object[]} groups - List of groups
+ * @param {Object[]} presets - List of presets
  * @throws {Error} If a referenced group is not found in the preset
  */
-function processBindings(group, preset) {
+function processBindings(groups, presets) {
     // Create an index of presets by group ID
 	// and an index of group IDs by type for each preset
     const presetByGroupId = {};
     const groupIdByTypeByPreset = {};
-    preset.forEach(p => {
+    presets.forEach(p => {
         groupIdByTypeByPreset[p.name] = {};
         Object.entries(p.group_source_bindings).forEach(([groupId, bindingValue]) => {
             presetByGroupId[groupId] = p;
@@ -293,7 +293,7 @@ function processBindings(group, preset) {
     });
 
     // For each group
-    group.forEach(g  => {
+    groups.forEach(g  => {
         // For each input of the group
         if (!g.inputs) return;
 		
@@ -380,9 +380,67 @@ function processControllerDirectory(controllerDir, localizationData) {
     }
 }
 
+function localizeVdf(vdf, languageData) {
+    const root = Object.entries(vdf)[0];
+    root.localization = {};
+        
+    // Localize the actions titles
+    if( root.actions ) {
+        Object.entries(root.actions)
+            .forEach(([mappingKey, mappingValue]) => {
+                if( !mappingValue.title.startsWith('#') ) return;
+                const key = mappingValue.title.slice(1);
+                const translation = languageData[key];
+                if( translation ) {
+                    mappingValue.title = translation;
+                } else {
+                    console.log(`WARN : Key ${key} not found`);
+                }
+            });
+    }
+    
+    // Localize the bindings
+    if( root.group ) {
+        root.group
+            .forEach(group => {
+                if( !group.inputs ) return;
+                Object.entries(group.inputs)
+                    .forEach(([inputKey, inputValue]) => {
+                        if( !inputValue.activators ) return;
+                        Object.entries(inputValue.activators)
+                            .forEach(([activatorKey, activatorValue]) => {
+                                if( !activatorValue.bindings ) return;
+                                if( !activatorValue.bindings.binding) return;
+                                if( activatorValue.bindings.binding.indexOf('#') === -1 ) return;
+
+                                const binding = activatorValue.bindings.binding;
+                                let key = binding.split('#')[1];
+                                if( key.indexOf(',') !== -1 ) {
+                                    key = key.split(',')[0];
+                                }
+                                const translation = languageData[key];
+                                if( translation ) {
+                                    activatorValue.bindings.binding = binding.replace(`#${key}`, translation);
+                                } else {
+                                    console.log(`WARN : Key ${key} not found`);
+                                }
+                            });
+                    });
+            });
+    }
+    return vdf;
+}
+
 // ==========================================================================
 // Entry point of the script
 // ==========================================================================
+
+// Remove all existing vdf files
+fs.readdirSync(".")
+    .filter(file => file.endsWith(".vdf"))
+    .forEach(file => {
+        fs.unlinkSync(file);
+    });
 
 // Load the localizations
 const localizationData = {};
@@ -407,4 +465,45 @@ fs.readdirSync("controllers")
         saveVdfFile(controllerVdf, outputPath);
         
         console.log(`File created successfully: ${outputPath}`);
+    });
+
+// Generate the game_actions file
+fs.readdirSync("game_actions")
+    .filter(file => file.endsWith(".vdf"))
+    .filter(file => file.startsWith("game_actions_"))
+    .forEach(gameActionsFile => {
+        const gameActionsVdf = loadVdfFile("game_actions", gameActionsFile);
+        gameActionsVdf.localization = localizationData;
+        saveVdfFile(gameActionsVdf, gameActionsFile);
+        console.log(`File created successfully: ${gameActionsFile}`);
+    });
+
+// Generate the individually localized controller files
+fs.readdirSync(".")
+    .filter(file => file.endsWith(".vdf"))
+    .filter(file => file.startsWith("controller_"))
+    .forEach(controllerFile => {
+        Object.entries(localizationData)
+            .forEach(([languageName, languageData]) => {
+                const controllerVdf = loadVdfFile(".", controllerFile);
+                const localizedControllerVdf = localizeVdf(controllerVdf, languageData);
+                const outputPath = path.join(`${controllerFile.replace('.vdf', '')}_${languageName}.vdf`);
+                saveVdfFile(localizedControllerVdf, outputPath);
+                console.log(`File created successfully: ${outputPath}`);
+            });
+    });
+
+// Generate the individual game_actions files
+fs.readdirSync(".")
+    .filter(file => file.endsWith(".vdf"))
+    .filter(file => file.startsWith("game_actions_"))
+    .forEach(gameActionsFile => {
+        Object.entries(localizationData)
+            .forEach(([languageName, languageData]) => {
+                const gameActionsVdf = loadVdfFile(".", gameActionsFile);
+                const localizedGameActionsVdf = localizeVdf(gameActionsVdf, languageData);
+                const outputPath = path.join(`${gameActionsFile.replace('.vdf', '')}_${languageName}.vdf`);
+                saveVdfFile(localizedGameActionsVdf, outputPath);
+                console.log(`File created successfully: ${outputPath}`);
+            });
     });
