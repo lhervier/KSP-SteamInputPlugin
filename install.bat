@@ -31,63 +31,14 @@ echo - USERID: %USERID%
 
 echo.
 echo ===========================================
-echo Removing existing plugin folder
+echo Installing config
 echo ===========================================
-
-echo Removing Release folder
-if exist "%KSPDIR%\GameData\SteamInput" rmdir /s /q "%KSPDIR%\GameData\SteamInput"
+./install-config.bat
 
 echo.
 echo ===========================================
-echo Unzipping Plugin
+echo Installing plugin
 echo ===========================================
-
-echo Unzipping zip archive
-powershell -NoProfile -ExecutionPolicy Bypass -Command "Expand-Archive -Path 'Release\SteamInput.zip' -DestinationPath '%KSPDIR%\GameData\SteamInput' -Force"
-if errorlevel 1 (
-    echo ERROR: Failed to unzip the plugin
-    exit /b 1
-)
-
-echo.
-echo ===========================================
-echo Installing VDF files
-echo ===========================================
-
-set "CONTROLLER_ACTION_DIR=%STEAMDIR%\controller_config"
-set "CONTROLLER_CONFIG_DIR=%STEAMDIR%\steamapps\common\Steam Controller Configs\%USERID%\config\%APPID%"
-
-echo Checking that folders exists
-if not exist "%CONTROLLER_ACTION_DIR%" mkdir "%CONTROLLER_ACTION_DIR%"
-if not exist "%CONTROLLER_CONFIG_DIR%" mkdir "%CONTROLLER_CONFIG_DIR%"
-
-echo Copying action file
-copy /y "Release\game_actions_%APPID%_%KSPLANG%.vdf" "%CONTROLLER_ACTION_DIR%\game_actions_%APPID%.vdf"
-if errorlevel 1 (
-    echo ERROR: Failed to copy action file
-    exit /b 1
-)
-
-echo Copying Controllers VDF
-echo - Steam Controller
-copy /y "Release\controller_steamcontroller_gordon_%KSPLANG%.vdf" "%CONTROLLER_CONFIG_DIR%\controller_steamcontroller_gordon.vdf"
-if errorlevel 1 (
-    echo ERROR: Failed to copy Steam Controller config
-    exit /b 1
-)
-
-echo - PS4
-copy /y "Release\controller_ps4_%KSPLANG%.vdf" "%CONTROLLER_CONFIG_DIR%\controller_ps4.vdf"
-if errorlevel 1 (
-    echo ERROR: Failed to copy PS4 config
-    exit /b 1
-)
-
-echo - Hori Steam
-copy /y "Release\controller_hori_steam_%KSPLANG%.vdf" "%CONTROLLER_CONFIG_DIR%\controller_hori_steam.vdf"
-if errorlevel 1 (
-    echo ERROR: Failed to copy Hori Steam config
-    exit /b 1
-)
+./install-plugin.bat
 
 echo Installation completed successfully
