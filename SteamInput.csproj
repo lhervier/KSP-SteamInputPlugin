@@ -53,10 +53,4 @@
   </ItemGroup>
   
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-
-  <PropertyGroup>
-    <PostBuildEvent>
-      "$(ProjectDir)build.bat" "$(ProjectDir)" "$(TargetPath)" "$(OutputPath)"
-    </PostBuildEvent>
-  </PropertyGroup>
 </Project>

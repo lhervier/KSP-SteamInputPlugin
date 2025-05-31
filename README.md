@@ -2,7 +2,7 @@
 
 ## Overview
 
-This plugin enhances the native Steam Controller support in Kerbal Space Program by providing additional action sets and fixing the Maneuver Mode detection issue introduced in KSP 1.6. For more details about the original bug, see [KSP Issue #22165](https://bugs.kerbalspaceprogram.com/issues/22165).
+This plugin enhances the native Steam Input support (through the support af the Steam Controller) in Kerbal Space Program by providing additional action sets and fixing the Maneuver Mode detection issue introduced in KSP 1.6. For more details about the original bug, see [KSP Issue #22165](https://bugs.kerbalspaceprogram.com/issues/22165).
 
 ## Features
 
@@ -28,15 +28,16 @@ It will also add a button in the action bar to help you troubleshoot problems by
 
 When in flight mode, this icon is not displayed by default. Go to the difficulty settings to find a dedicated section with an option to display the icon.
 
-Don't forget to tell KSP to flush its logs immediatly in the debug console (using the ALT+F12 shortcut), and check the "Flush logs" option in the Debug/Console section.
+If you want to see the logs in realtime, don't forget to tell KSP to flush its logs immediatly in the debug console (using the ALT+F12 shortcut), and check the "Flush logs" option in the Debug/Console section.
 
 ## System Requirements
 
 - Windows 10 or later
 - Steam client installed and running
-- Kerbal Space Program 1.12 (latest version)
+- Kerbal Space Program 1.12 (Steam version)
 - A Steam Input compatible controller, with back buttons:
   - Steam Controller
+  - Horipad Steam Controller
   - Xbox One/Series controller with back buttons mapped to joystick click
   - PlayStation 4/5 controller with back buttons mapped to joystick click (Raiju Tournament Edition for example)
   - Other controllers with Steam Input support
@@ -46,17 +47,18 @@ Don't forget to tell KSP to flush its logs immediatly in the debug console (usin
 ### 1. Configure Steam Input Actions
 
 1. Create a folder named `controller_config` in your Steam directory (e.g., `C:\Program Files (x86)\Steam\controller_config`)
-   - Note: A folder named `controller_base` should already exist
-2. Copy the file `game_actions_220200.vdf` into this folder
+   - Note: A folder named `controller_base` should already exist. Don't touch to this folder !
+2. Copy the file `game_actions_220200_[your language].vdf` into this folder
 
 ### 2. Deploy Steam VDF Configuration
 
 You have two options:
 - Launch the game and create your own bindings through the Steam interface
 - Use one of the pre-configured VDF files included with this mod:
-  - `controller_steamcontroller_gordon.vdf`: For Steam Controller users
-  - `controller_ps4.vdf`: For PS4/PS5 like controllers (see requirements)
-  - `controller_xbox.vdf`: For Xbox One/Series controllers (see requirements)
+  - `controller_steamcontroller_gordon_[your language].vdf`: For Steam Controller users
+  - `controller_hori_steam_[your language].vdf`: For the Horipad Steam Controller
+  - `controller_ps4_[your language].vdf`: For PS4/PS5 like controllers (see requirements)
+  - `controller_xbox_[your language].vdf`: For Xbox One/Series controllers (see requirements)
 
 Custom vdf configurations must be placed in the folder:
 ```
@@ -73,8 +75,6 @@ After installation, the plugin will automatically detect and activate the approp
 
 You will find an icon in the KSP Tool bar. Clicking on it will allow you to change the logging level (in the KSP.log file). By default, this icon is hidden when in game. You can show it in the game difficulty settings, in the "Steam Input" section.
 
-Also note that if you connect a Steam Controller while the game is running, you will have to press the Steam button for the controller to be detected.
-
 ### Troubleshooting
 
 If you encounter issues:
@@ -82,12 +82,29 @@ If you encounter issues:
 1. Verify that Steam is running and KSP is launched through Steam
 2. Ensure the VDF configuration files are in the correct location
 3. Verify that the plugin is properly installed in the GameData folder
-4. Check that your controller is properly connected and recognized by Steam. If you connect a Steam Controller while the game is running, dont forget to press the Steam button for it to be detected.
+4. Check that your controller is properly connected and recognized by Steam. 
 5. Check the KSP.log file for any error messages related to the plugin. Plugins logs are prefixed with the "[SteamInput]" string. You can change the logging level ingame.
+
+## Known issue
+
+I provide a VDF file for each language, even if vdf files can be localized. You will also find a version with the localization keys inside. But, they will not work. Steam will always use the english version of the keys... Help is welcomed...
 
 ## Support
 
 For issues, feature requests, or contributions, please visit the [GitHub repository](https://github.com/lhervier/SteamInputConfig).
+
+## Building from source
+
+TBD :
+
+- Windows PC
+- VSCode
+- netcore
+- dotnet Framework 4.7
+- node
+
+build.bat : Build all the release in the "Release" folder
+install.bat : Deploy all the files
 
 ## License
 

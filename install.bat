@@ -1,15 +1,33 @@
 @echo off
 setlocal
 
-set "STEAMDIR=C:\Program Files (x86)\Steam"
-set USERID="27319809"
-set APPID="220200"
+set APPID=220200
+
+if "%KSPLANG%"=="" (
+    echo WARN: KSPLANG environment variable is missing. Default is french.
+    set "KSPLANG=french"
+)
 
 if "%KSPDIR%"=="" (
-    echo ERROR: KSPDIR environment variable is missing
-    exit /b 1
+    echo WARN: KSPDIR environment variable is missing. Using default.
+    set "KSPDIR=C:\Program Files (x86)\Steam\steamapps\common\Kerbal Space Program"
 )
-echo KSPDIR: %KSPDIR%
+
+if "%STEAMDIR%"=="" (
+    echo WARN: STEAMDIR environment variable is missing. Using default.
+    set "STEAMDIR=C:\Program Files (x86)\Steam"
+)
+
+if "%USERID%"=="" (
+    echo WARN: USERID environment variable is missing. Using mine :P.
+    set "USERID=27319809"
+)
+
+echo Script parameters :
+echo - KSPLANG: %KSPLANG%
+echo - KSPDIR: %KSPDIR%
+echo - STEAMDIR: %STEAMDIR%
+echo - USERID: %USERID%
 
 echo.
 echo ===========================================
@@ -25,7 +43,11 @@ echo Unzipping Plugin
 echo ===========================================
 
 echo Unzipping zip archive
-powershell -Command "Expand-Archive -Path 'Release\SteamInput.zip' -DestinationPath '%KSPDIR%\GameData\SteamInput' -Force"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "Expand-Archive -Path 'Release\SteamInput.zip' -DestinationPath '%KSPDIR%\GameData\SteamInput' -Force"
+if errorlevel 1 (
+    echo ERROR: Failed to unzip the plugin
+    exit /b 1
+)
 
 echo.
 echo ===========================================
@@ -35,17 +57,37 @@ echo ===========================================
 set "CONTROLLER_ACTION_DIR=%STEAMDIR%\controller_config"
 set "CONTROLLER_CONFIG_DIR=%STEAMDIR%\steamapps\common\Steam Controller Configs\%USERID%\config\%APPID%"
 
-echo checking that folders exists
-if not exist "%CONTROLLER_ACTION_DIR%"\ mkdir "%CONTROLLER_ACTION_DIR%"\
-if not exist "%CONTROLLER_CONFIG_DIR%"\ mkdir "%CONTROLLER_CONFIG_DIR%"\
+echo Checking that folders exists
+if not exist "%CONTROLLER_ACTION_DIR%" mkdir "%CONTROLLER_ACTION_DIR%"
+if not exist "%CONTROLLER_CONFIG_DIR%" mkdir "%CONTROLLER_CONFIG_DIR%"
 
 echo Copying action file
-copy /y "Release\game_actions_%APPID%.vdf" "%CONTROLLER_ACTION_DIR%\game_actions_%APPID%.vdf"
+copy /y "Release\game_actions_%APPID%_%KSPLANG%.vdf" "%CONTROLLER_ACTION_DIR%\game_actions_%APPID%.vdf"
+if errorlevel 1 (
+    echo ERROR: Failed to copy action file
+    exit /b 1
+)
 
 echo Copying Controllers VDF
 echo - Steam Controller
-copy /y "Release\controller_steamcontroller_gordon.vdf" "%CONTROLLER_CONFIG_DIR%\controller_steamcontroller_gordon.vdf"
+copy /y "Release\controller_steamcontroller_gordon_%KSPLANG%.vdf" "%CONTROLLER_CONFIG_DIR%\controller_steamcontroller_gordon.vdf"
+if errorlevel 1 (
+    echo ERROR: Failed to copy Steam Controller config
+    exit /b 1
+)
+
 echo - PS4
-copy /y "Release\controller_ps4.vdf" "%CONTROLLER_CONFIG_DIR%\controller_ps4.vdf"
+copy /y "Release\controller_ps4_%KSPLANG%.vdf" "%CONTROLLER_CONFIG_DIR%\controller_ps4.vdf"
+if errorlevel 1 (
+    echo ERROR: Failed to copy PS4 config
+    exit /b 1
+)
+
 echo - Hori Steam
-copy /y "Release\controller_hori_steam.vdf" "%CONTROLLER_CONFIG_DIR%\controller_hori_steam.vdf"
+copy /y "Release\controller_hori_steam_%KSPLANG%.vdf" "%CONTROLLER_CONFIG_DIR%\controller_hori_steam.vdf"
+if errorlevel 1 (
+    echo ERROR: Failed to copy Hori Steam config
+    exit /b 1
+)
+
+echo Installation completed successfully

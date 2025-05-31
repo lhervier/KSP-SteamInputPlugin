@@ -1,18 +1,5 @@
 @echo off
-setlocal
-
-set PROJECTDIR=%~1
-set TARGETPATH=%~2
-
-if "%PROJECTDIR%"=="" (
-    echo ERROR: PROJECTDIR parameter is missing
-    exit /b 1
-)
-echo PROJECTDIR: %PROJECTDIR%
-if "%TARGETPATH%"=="" (
-    echo ERROR: TARGETPATH parameter is missing
-    exit /b 1
-)
+setlocal enabledelayedexpansion
 
 echo.
 echo ===========================================
@@ -20,13 +7,35 @@ echo  Preparing Release folder
 echo ===========================================
 
 echo Removing Release folder
-if exist "%PROJECTDIR%Release" rmdir /s /q "%PROJECTDIR%Release"
+if exist "Release" rmdir /s /q "Release"
+if errorlevel 1 (
+    echo ERROR: Failed to remove Release folder
+    exit /b 1
+)
 
 echo Re-creating Release folder
-mkdir "%PROJECTDIR%Release"
+mkdir "Release"
+if errorlevel 1 (
+    echo ERROR: Failed to create Release folder
+    exit /b 1
+)
 
 echo Copying README.md to Release folder
-copy /y "%PROJECTDIR%README.md" "%PROJECTDIR%Release\"
+copy /y "README.md" "Release\"
+if errorlevel 1 (
+    echo ERROR: Failed to copy README.md
+    exit /b 1
+)
+
+echo .
+echo ===========================================
+echo Building dotnet project
+echo ===========================================
+dotnet build
+if errorlevel 1 (
+    echo ERROR: Failed to build dotnet project
+    exit /b 1
+)
 
 echo.
 echo ===========================================
@@ -34,43 +43,77 @@ echo Building Plugin Zip file
 echo ===========================================
 
 echo Creating zip structure
-mkdir "%PROJECTDIR%Release\SteamInput"
-mkdir "%PROJECTDIR%Release\SteamInput\Textures"
+mkdir "Release\SteamInput"
+if errorlevel 1 (
+    echo ERROR: Failed to create SteamInput folder
+    exit /b 1
+)
+mkdir "Release\SteamInput\Textures"
+if errorlevel 1 (
+    echo ERROR: Failed to create Textures folder
+    exit /b 1
+)
 
 echo Copying Plugin Files...
 echo - Copying SteamInput.dll
-copy /y "%TARGETPATH%" "%PROJECTDIR%Release\SteamInput"
+copy /y "Output\obj\SteamInputPlugin.dll" "Release\SteamInput"
+if errorlevel 1 (
+    echo ERROR: Failed to copy SteamInputPlugin.dll
+    exit /b 1
+)
 echo - Copying Textures
-xcopy /y /i "%PROJECTDIR%SteamInputPlugin\Textures" "%PROJECTDIR%Release\SteamInput\Textures"
+xcopy /y /i "SteamInputPlugin\Textures" "Release\SteamInput\Textures"
+if errorlevel 1 (
+    echo ERROR: Failed to copy Textures
+    exit /b 1
+)
 
 echo Creating zip archive
-powershell -Command "Compress-Archive -Path '%PROJECTDIR%Release\SteamInput\*' -DestinationPath '%PROJECTDIR%Release\SteamInput.zip' -Force"
+powershell -Command "Compress-Archive -Path 'Release\SteamInput\*' -DestinationPath 'Release\SteamInput.zip' -Force"
+if errorlevel 1 (
+    echo ERROR: Failed to create zip archive
+    exit /b 1
+)
 
 echo Removing zip folder
-rmdir /s /q "%PROJECTDIR%Release\SteamInput"
+rmdir /s /q "Release\SteamInput"
+if errorlevel 1 (
+    echo ERROR: Failed to remove temporary SteamInput folder
+    exit /b 1
+)
 
 echo.
 echo ===========================================
 echo Building VDF files for controllers
+echo and game_actions
 echo ===========================================
-cd /d "%PROJECTDIR%SteamInputConfig"
-
-echo.
-echo Building Controllers VDF...
-node merge.js 2>&1
+cd SteamInputConfig
 if errorlevel 1 (
-echo ERROR: Failed to build Controllers VDF
-type controllers.log
-exit /b 1
+    echo ERROR: Failed to change directory to SteamInputConfig
+    exit /b 1
 )
 
-cd /d "%PROJECTDIR%"
+echo.
+echo Building VDF...
+node merge.js 2>&1
+if errorlevel 1 (
+    echo ERROR: Failed to build VDF
+    type controllers.log
+    exit /b 1
+)
+
+cd ..
+if errorlevel 1 (
+    echo ERROR: Failed to return to original directory
+    exit /b 1
+)
 
 echo.
 echo Copying VDF files to Release folder
-copy /y "%PROJECTDIR%SteamInputConfig\game_actions_220200.vdf" "%PROJECTDIR%Release\"
-copy /y "%PROJECTDIR%SteamInputConfig\controller_steamcontroller_gordon.vdf" "%PROJECTDIR%Release\"
-copy /y "%PROJECTDIR%SteamInputConfig\controller_ps4.vdf" "%PROJECTDIR%Release\"
-copy /y "%PROJECTDIR%SteamInputConfig\controller_hori_steam.vdf" "%PROJECTDIR%Release\"
+copy /y "SteamInputConfig\*.vdf" "Release\"
+if errorlevel 1 (
+    echo ERROR: Failed to copy VDF files
+    exit /b 1
+)
 echo.
 echo Build completed successfully
