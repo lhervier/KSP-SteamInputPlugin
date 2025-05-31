@@ -31,13 +31,21 @@ echo .
 echo ===========================================
 echo Building plugin
 echo ===========================================
-./build-plugin.bat
+cmd /c "build-plugin.bat"
+if errorlevel 1 (
+    echo ERROR: Failed to build plugin
+    exit /b 1
+)
 
 echo.
 echo ===========================================
 echo Building config
 echo ===========================================
-./build-config.bat
+cmd /c "build-config.bat"
+if errorlevel 1 (
+    echo ERROR: Failed to build config
+    exit /b 1
+)
 
 echo.
 echo Build completed successfully

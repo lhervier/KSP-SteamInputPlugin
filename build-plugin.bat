@@ -6,7 +6,10 @@ echo -------------------------------------------
 echo Checking Release folder
 echo -------------------------------------------
 if not exist "Release" (
-    echo ERROR: Release folder does not exist
+    mkdir "Release"
+)
+if errorlevel 1 (
+    echo ERROR: Failed to create Release folder
     exit /b 1
 )
 

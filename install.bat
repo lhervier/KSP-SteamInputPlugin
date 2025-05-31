@@ -31,14 +31,23 @@ echo - USERID: %USERID%
 
 echo.
 echo ===========================================
-echo Installing config
+echo Installing plugin
 echo ===========================================
-./install-config.bat
+cmd /c "install-plugin.bat"
+if errorlevel 1 (
+    echo ERROR: Failed to install plugin
+    exit /b 1
+)
 
 echo.
 echo ===========================================
-echo Installing plugin
+echo Installing config
 echo ===========================================
-./install-plugin.bat
+cmd /c "install-config.bat"
+if errorlevel 1 (
+    echo ERROR: Failed to install config
+    exit /b 1
+)
 
+echo.
 echo Installation completed successfully
