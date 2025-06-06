@@ -153,8 +153,84 @@ namespace com.github.lhervier.ksp
         {
             LOGGER.LogInfo("Testing Steam");
 
-            
-            
+            var pszInternalCheckInterfaceVersions = new System.Text.StringBuilder();
+			pszInternalCheckInterfaceVersions.Append(SteamConstants.STEAMUTILS_INTERFACE_VERSION).Append("\0");
+			pszInternalCheckInterfaceVersions.Append(SteamConstants.STEAMNETWORKINGUTILS_INTERFACE_VERSION).Append("\0");
+			pszInternalCheckInterfaceVersions.Append(SteamConstants.STEAMAPPS_INTERFACE_VERSION).Append("\0");
+			pszInternalCheckInterfaceVersions.Append(SteamConstants.STEAMFRIENDS_INTERFACE_VERSION).Append("\0");
+			pszInternalCheckInterfaceVersions.Append(SteamConstants.STEAMGAMESEARCH_INTERFACE_VERSION).Append("\0");
+			pszInternalCheckInterfaceVersions.Append(SteamConstants.STEAMHTMLSURFACE_INTERFACE_VERSION).Append("\0");
+			pszInternalCheckInterfaceVersions.Append(SteamConstants.STEAMHTTP_INTERFACE_VERSION).Append("\0");
+			pszInternalCheckInterfaceVersions.Append(SteamConstants.STEAMINPUT_INTERFACE_VERSION).Append("\0");
+			pszInternalCheckInterfaceVersions.Append(SteamConstants.STEAMINVENTORY_INTERFACE_VERSION).Append("\0");
+			pszInternalCheckInterfaceVersions.Append(SteamConstants.STEAMMATCHMAKINGSERVERS_INTERFACE_VERSION).Append("\0");
+			pszInternalCheckInterfaceVersions.Append(SteamConstants.STEAMMATCHMAKING_INTERFACE_VERSION).Append("\0");
+			pszInternalCheckInterfaceVersions.Append(SteamConstants.STEAMMUSICREMOTE_INTERFACE_VERSION).Append("\0");
+			pszInternalCheckInterfaceVersions.Append(SteamConstants.STEAMMUSIC_INTERFACE_VERSION).Append("\0");
+			pszInternalCheckInterfaceVersions.Append(SteamConstants.STEAMNETWORKINGMESSAGES_INTERFACE_VERSION).Append("\0");
+			pszInternalCheckInterfaceVersions.Append(SteamConstants.STEAMNETWORKINGSOCKETS_INTERFACE_VERSION).Append("\0");
+			pszInternalCheckInterfaceVersions.Append(SteamConstants.STEAMNETWORKING_INTERFACE_VERSION).Append("\0");
+			pszInternalCheckInterfaceVersions.Append(SteamConstants.STEAMPARENTALSETTINGS_INTERFACE_VERSION).Append("\0");
+			pszInternalCheckInterfaceVersions.Append(SteamConstants.STEAMPARTIES_INTERFACE_VERSION).Append("\0");
+			pszInternalCheckInterfaceVersions.Append(SteamConstants.STEAMREMOTEPLAY_INTERFACE_VERSION).Append("\0");
+			pszInternalCheckInterfaceVersions.Append(SteamConstants.STEAMREMOTESTORAGE_INTERFACE_VERSION).Append("\0");
+			pszInternalCheckInterfaceVersions.Append(SteamConstants.STEAMSCREENSHOTS_INTERFACE_VERSION).Append("\0");
+			pszInternalCheckInterfaceVersions.Append(SteamConstants.STEAMUGC_INTERFACE_VERSION).Append("\0");
+			pszInternalCheckInterfaceVersions.Append(SteamConstants.STEAMUSERSTATS_INTERFACE_VERSION).Append("\0");
+			pszInternalCheckInterfaceVersions.Append(SteamConstants.STEAMUSER_INTERFACE_VERSION).Append("\0");
+			pszInternalCheckInterfaceVersions.Append(SteamConstants.STEAMVIDEO_INTERFACE_VERSION).Append("\0");
+            using (var pszInternalCheckInterfaceVersions2 = new InteropHelp.UTF8StringHandle(pszInternalCheckInterfaceVersions.ToString())) {
+                IntPtr SteamErrorMsgPtr = Marshal.AllocHGlobal(SteamConstants.k_cchMaxSteamErrMsg);
+				ESteamAPIInitResult initResult = SteamNativeMethods.SteamInternal_SteamAPI_Init(pszInternalCheckInterfaceVersions2, SteamErrorMsgPtr);
+				string steamErrMsg = InteropHelp.PtrToStringUTF8(SteamErrorMsgPtr);
+				Marshal.FreeHGlobal(SteamErrorMsgPtr);
+
+                LOGGER.LogInfo("Steam API init result: " + initResult.ToString());
+                LOGGER.LogInfo("Steam error message: " + steamErrMsg);
+
+                if( initResult != ESteamAPIInitResult.k_ESteamAPIInitResult_OK ) {
+                    LOGGER.LogError("Steam API initialization failed: " + initResult.ToString());
+                    return;
+                }
+
+                LOGGER.LogInfo("Steam API initialized successfully");
+
+                int hSteamUser = SteamNativeMethods.SteamAPI_GetHSteamUser();
+                LOGGER.LogInfo("Steam user handle: " + hSteamUser.ToString());
+
+                int hSteamPipe = SteamNativeMethods.SteamAPI_GetHSteamPipe();
+                LOGGER.LogInfo("Steam pipe handle: " + hSteamPipe.ToString());
+
+                if (hSteamPipe == 0) { 
+                    LOGGER.LogError("Steam pipe handle is 0");
+                    return;
+                }
+
+                IntPtr pSteamClient;
+                using (var pchVersionString = new InteropHelp.UTF8StringHandle(Constants.STEAMCLIENT_INTERFACE_VERSION)) {
+				    pSteamClient = SteamNativeMethods.SteamInternal_CreateInterface(pchVersionString);
+                }
+                if (pSteamClient == IntPtr.Zero) {
+                    LOGGER.LogError("Steam client interface is 0");
+                    return;
+                }
+                LOGGER.LogInfo("Steam client interface: " + pSteamClient.ToString());
+
+                IntPtr pSteamInput;
+                using (var pchVersion2 = new InteropHelp.UTF8StringHandle(SteamConstants.STEAMINPUT_INTERFACE_VERSION)) {
+                    pSteamInput = SteamNativeMethods.SteamAPI_ISteamClient_GetISteamInput(
+                        pSteamClient, 
+                        hSteamUser, 
+                        hSteamPipe, 
+                        pchVersion2
+                    );
+                }
+                if (pSteamInput == IntPtr.Zero) {
+                    LOGGER.LogError("Steam input interface is 0");
+                    return;
+                }
+                LOGGER.LogInfo("Steam input interface: " + pSteamInput.ToString());
+            }
         }
 
         private IEnumerator InitializePlugin()
@@ -229,6 +305,10 @@ namespace com.github.lhervier.ksp
         // </summary>
         public void OnDestroy() 
         {
+            LOGGER.LogInfo("Shutting down Steam API");
+            SteamNativeMethods.SteamAPI_Shutdown();
+            LOGGER.LogInfo("Steam API shut down");
+
             /*
             Destroy(this.loggingUI);
 
