@@ -41,6 +41,11 @@ if errorlevel 1 (
     echo ERROR: Failed to create Textures folder
     exit /b 1
 )
+mkdir "Release\SteamInput\lib"
+if errorlevel 1 (
+    echo ERROR: Failed to create lib folder
+    exit /b 1
+)
 
 echo Copying Plugin Files...
 echo - Copying SteamInput.dll
@@ -53,6 +58,12 @@ echo - Copying Textures
 xcopy /y /i "SteamInputPlugin\Textures" "Release\SteamInput\Textures"
 if errorlevel 1 (
     echo ERROR: Failed to copy Textures
+    exit /b 1
+)
+echo - Copying steam_api64.dll
+xcopy /y /i "SteamInputPlugin\lib\steam_api64.dll" "Release\SteamInput\lib"
+if errorlevel 1 (
+    echo ERROR: Failed to copy steam_api64.dll
     exit /b 1
 )
 

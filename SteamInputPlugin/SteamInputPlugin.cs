@@ -6,6 +6,8 @@ using System.Reflection;
 using System.Linq;
 using UnityEngine.SceneManagement;
 using System.IO;
+using Steamworks;
+using System.Runtime.InteropServices;
 
 namespace com.github.lhervier.ksp 
 {
@@ -113,11 +115,62 @@ namespace com.github.lhervier.ksp
             LOGGER.LogDebug("Started");
         }
 
+        private IEnumerator ShutdownSteamManager()
+        {
+            // Wait for the next frame to ensure SteamManager has started
+            yield return new WaitForEndOfFrame();
+            
+            // Get the SteamManager
+            MonoBehaviour steamManager = FindObjectOfType<SteamManager>();
+            
+            // Wait for the SteamManager to be active
+            while (!steamManager.gameObject.activeInHierarchy) {
+                yield return null;
+            }
+            
+            // Disable the SteamManager
+            LOGGER.LogInfo("Disabling SteamManager");
+            try {
+                // Stop any running coroutines first
+                steamManager.StopAllCoroutines();
+                // Then disable the component
+                steamManager.enabled = false;
+                // Finally deactivate the game object
+                steamManager.gameObject.SetActive(false);
+                // And Destroy the component
+                Destroy(steamManager);
+                LOGGER.LogInfo("SteamManager deactivated");
+            }
+            catch (Exception ex) {
+                LOGGER.LogInfo("Error disabling SteamManager: " + ex.Message);
+            }
+
+            // Wait for the next frame to ensure the controller is deactivated
+            yield return new WaitForEndOfFrame();
+        }
+
+        private void TestSteam()
+        {
+            LOGGER.LogInfo("Testing Steam");
+
+            
+            
+        }
+
         private IEnumerator InitializePlugin()
         {
-            // Wait for the KSPSteamController to be handled
-            LOGGER.LogInfo("Waiting for Squad KSPSteamController plugin");
-            yield return StartCoroutine(HandleKSPSteamController());
+            // Shut down the Squad KSPSteamController plugin
+            LOGGER.LogInfo("Shutting down the Squad KSPSteamController plugin");
+            yield return StartCoroutine(ShutdownKSPSteamControllerPlugin());
+
+            // Shut down the SteamManager
+            LOGGER.LogInfo("Shutting down the SteamManager");
+            yield return StartCoroutine(ShutdownSteamManager());
+
+            // Try to initialize the steam SDK
+            TestSteam();
+
+            /*
 
             // Load the global settings
             SteamInputGlobalSettings.Load();
@@ -166,6 +219,7 @@ namespace com.github.lhervier.ksp
             LOGGER.LogInfo("Starting Logging UI");
             this.loggingUI = gameObject.AddComponent<SteamInputSettingsUI>();
             LOGGER.LogInfo("Logging UI started");
+            */
 
             LOGGER.LogInfo("Started");
         }
@@ -175,6 +229,7 @@ namespace com.github.lhervier.ksp
         // </summary>
         public void OnDestroy() 
         {
+            /*
             Destroy(this.loggingUI);
 
             this.steamControllerDaemon.OnControllerDisconnected.Remove(OnControllerDisconnected);
@@ -194,6 +249,7 @@ namespace com.github.lhervier.ksp
             this.activecontexts.Clear();
             _instance = null;
             LOGGER.LogInfo("Destroyed");
+            */
         }
 
         // <summary>
@@ -216,7 +272,7 @@ namespace com.github.lhervier.ksp
             }
         }
 
-        private IEnumerator HandleKSPSteamController()
+        private IEnumerator ShutdownKSPSteamControllerPlugin()
         {
             // Wait for the next frame to ensure KSPSteamController has started
             yield return new WaitForEndOfFrame();
