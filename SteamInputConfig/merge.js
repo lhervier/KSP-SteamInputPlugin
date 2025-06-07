@@ -381,9 +381,12 @@ function processControllerDirectory(controllerDir, localizationData) {
 }
 
 function localizeVdf(vdf, languageData) {
-    const root = Object.entries(vdf)[0];
+    // The VDF object has only one property, but its name is not always the same
+    // depending on that we are localizing a controller or an game_actions file
+    // So, just find the value of the first property
+    const root = Object.values(vdf)[0];
     root.localization = {};
-        
+    
     // Localize the actions titles
     if( root.actions ) {
         Object.entries(root.actions)
