@@ -166,7 +166,7 @@ namespace com.github.lhervier.ksp
             LOGGER.LogInfo("Starting Logging UI");
             this.loggingUI = gameObject.AddComponent<SteamInputSettingsUI>();
             LOGGER.LogInfo("Logging UI started");
-
+            
             LOGGER.LogInfo("Started");
         }
 
@@ -464,6 +464,14 @@ namespace com.github.lhervier.ksp
             LOGGER.LogInfo("New Controller connected");
             this.prevActionGroup = ActionGroup.None;
             this.actionGroupToSet = ActionGroup.None;
+
+            // When the steam version of KSP starts, it will not see any connected Joystick
+            // It's only when steam will be initialized that KSP will see the steam emulated controllers
+            // But it's too late, because the game settings are already loaded.
+            // So we need to reload the game settings when a new controller is connected.
+            LOGGER.LogInfo("Reloading Game Settings so KSP will see the steam emulated controllers");
+            GameSettings.LoadGameSettingsOnly();
+            
             this.UpdateActionGroup();
         }
 
