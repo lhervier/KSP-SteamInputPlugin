@@ -151,7 +151,6 @@ function processActions(controllerDir) {
         .filter(file => fs.statSync(path.join(controllerDir, file)).isDirectory())
         .sort() // Trie naturellement les dossiers par numéro
         .forEach(presetDir => {
-            const presetName = path.basename(presetDir).split('-')[1];
             const relativePath = path.join(presetDir, '_action.vdf');
             const actionData = loadVdfFile(controllerDir, relativePath);
             Object.assign(actionsData, actionData);
