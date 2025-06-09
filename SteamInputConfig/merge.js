@@ -125,7 +125,18 @@ function processLanguageDirectory(languageDir) {
  * @throws {Error} If the template cannot be loaded
  */
 function loadTemplate(baseDir) {
-    return loadVdfFile(baseDir, 'controller_mappings.vdf');
+    const vdf = loadVdfFile(baseDir, 'controller_mappings.vdf');
+    vdf.controller_mappings.version = "3";
+    vdf.controller_mappings.revision = "1";
+    vdf.controller_mappings.progenitor = "";
+    vdf.controller_mappings.export_type = "personal_local";
+    vdf.controller_mappings.major_revision = "0";
+    vdf.controller_mappings.minor_revision = "0";
+    vdf.controller_mappings.actions = {};
+    vdf.controller_mappings.action_layers = {};
+    vdf.controller_mappings.localization = {};
+    vdf.controller_mappings.settings = {};
+    return vdf;
 }
 
 /**
