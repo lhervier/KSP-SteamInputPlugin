@@ -1,0 +1,7 @@
+"ref"
+{
+    "bindings"
+    {
+        "binding"		"key_press DOWN_ARROW, #Common_down, , "
+    }
+}

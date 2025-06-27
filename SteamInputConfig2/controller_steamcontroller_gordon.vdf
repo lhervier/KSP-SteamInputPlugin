@@ -87,29 +87,29 @@
 	{
 		"english"
 		{
-			"#ref"				"localization/english/Common.vdf"
-			"#ref"				"localization/english/Docking.vdf"
-			"#ref"				"localization/english/Editor.vdf"
-			"#ref"				"localization/english/EVA.vdf"
-			"#ref"				"localization/english/Flight.vdf"
-			"#ref"				"localization/english/IVA.vdf"
-			"#ref"				"localization/english/Map.vdf"
-			"#ref"				"localization/english/Menu.vdf"
-			"#ref"				"localization/english/Set.vdf"
-			"#ref"				"localization/english/Tracking.vdf"
+			"#ref"				"/localization/english/Common.vdf"
+			"#ref"				"/localization/english/Docking.vdf"
+			"#ref"				"/localization/english/Editor.vdf"
+			"#ref"				"/localization/english/EVA.vdf"
+			"#ref"				"/localization/english/Flight.vdf"
+			"#ref"				"/localization/english/IVA.vdf"
+			"#ref"				"/localization/english/Map.vdf"
+			"#ref"				"/localization/english/Menu.vdf"
+			"#ref"				"/localization/english/Set.vdf"
+			"#ref"				"/localization/english/Tracking.vdf"
 		}
 		"french"
 		{
-			"#ref"				"localization/french/Common.vdf"
-			"#ref"				"localization/french/Docking.vdf"
-			"#ref"				"localization/french/Editor.vdf"
-			"#ref"				"localization/french/EVA.vdf"
-			"#ref"				"localization/french/Flight.vdf"
-			"#ref"				"localization/french/IVA.vdf"
-			"#ref"				"localization/french/Map.vdf"
-			"#ref"				"localization/french/Menu.vdf"
-			"#ref"				"localization/french/Set.vdf"
-			"#ref"				"localization/french/Tracking.vdf"
+			"#ref"				"/localization/french/Common.vdf"
+			"#ref"				"/localization/french/Docking.vdf"
+			"#ref"				"/localization/french/Editor.vdf"
+			"#ref"				"/localization/french/EVA.vdf"
+			"#ref"				"/localization/french/Flight.vdf"
+			"#ref"				"/localization/french/IVA.vdf"
+			"#ref"				"/localization/french/Map.vdf"
+			"#ref"				"/localization/french/Menu.vdf"
+			"#ref"				"/localization/french/Set.vdf"
+			"#ref"				"/localization/french/Tracking.vdf"
 		}
 	}
 	"group"
@@ -126,10 +126,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press RETURN, #Menu_accept, "
-						}
+						"#ref"				"/bindings/Menu/Accept.vdf"
 					}
 				}
 			}
@@ -139,10 +136,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press ESCAPE, #Menu_cancel, "
-						}
+						"#ref"				"/bindings/Menu/Cancel.vdf"
 					}
 				}
 			}
@@ -162,10 +156,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press RIGHT_ARROW, #Common_right, , "
-						}
+						"#ref"				"/bindings/Common/Arrows/Right.vdf"
 					}
 				}
 			}
@@ -175,10 +166,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press UP_ARROW, #Common_up, , "
-						}
+						"#ref"				"/bindings/Common/Arrows/Up.vdf"
 					}
 				}
 			}
@@ -188,10 +176,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press DOWN_ARROW, #Common_down, , "
-						}
+						"#ref"				"/bindings/Common/Arrows/Down.vdf"
 					}
 				}
 			}
@@ -201,10 +186,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_ARROW, #Common_left, , "
-						}
+						"#ref"				"/bindings/Common/Arrows/Left.vdf"
 					}
 				}
 			}
@@ -224,10 +206,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_button LEFT, #Common_leftClick, "
-						}
+						"#ref"				"/bindings/Common/Mouse/LeftClick.vdf"
 						"settings"
 						{
 							"haptic_intensity"		"0"
