@@ -327,17 +327,11 @@
 					}
 					"Long_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_ALT, #Common_console, , "
-						}
+						"#ref"				"/bindings/Common/DebugConsole1.vdf"
 					}
 					"Long_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press F12, #Common_console, "
-						}
+						"#ref"				"/bindings/Common/DebugConsole2.vdf"
 					}
 				}
 			}
@@ -347,10 +341,7 @@
 				{
 					"Long_Press"
 					{
-						"bindings"
-						{
-							"binding"		"controller_action SHOW_KEYBOARD, #Common_showKeyboard, "
-						}
+						"#ref"				"/bindings/Common/ShowKeyboard.vdf"
 					}
 				}
 			}
@@ -370,10 +361,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press COMMA, #Common_timeWarpIncr, , "
-						}
+						"#ref"				"/bindings/Common/TimeWarp/Increase.vdf"
 					}
 				}
 			}
@@ -383,10 +371,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press PERIOD, #Common_timeWarpDecr, , "
-						}
+						"#ref"				"/bindings/Common/TimeWarp/Decrease.vdf"
 					}
 				}
 			}
@@ -406,10 +391,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press RIGHT_ARROW, #Common_cameraRight, , "
-						}
+						"#ref"				"/bindings/Common/Camera/Right.vdf"
 					}
 				}
 			}
@@ -419,10 +401,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press UP_ARROW, #Common_cameraUp, , "
-						}
+						"#ref"				"/bindings/Common/Camera/Up.vdf"
 					}
 				}
 			}
@@ -432,10 +411,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press DOWN_ARROW, #Common_cameraDown, , "
-						}
+						"#ref"				"/bindings/Common/Camera/Down.vdf"
 					}
 				}
 			}
@@ -445,10 +421,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_ARROW, #Common_cameraLeft, , "
-						}
+						"#ref"				"/bindings/Common/Camera/Left.vdf"
 					}
 				}
 			}
@@ -468,14 +441,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_button LEFT, #Common_leftClick, "
-						}
-						"settings"
-						{
-							"haptic_intensity"		"0"
-						}
+						"#ref"				"/bindings/Common/Mouse/LeftClick.vdf"
 					}
 				}
 			}
@@ -485,15 +451,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_wheel SCROLL_UP, #Common_zoomIn, "
-						}
-						"settings"
-						{
-							"hold_repeats"		"1"
-							"repeat_rate"		"10"
-						}
+						"#ref"				"/bindings/Common/Camera/ZoomIn.vdf"
 					}
 				}
 			}
@@ -503,15 +461,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_wheel SCROLL_DOWN, #Common_zoomOut, "
-						}
-						"settings"
-						{
-							"hold_repeats"		"1"
-							"repeat_rate"		"10"
-						}
+						"#ref"				"/bindings/Common/Camera/ZoomOut.vdf"
 					}
 				}
 			}
@@ -521,14 +471,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_button RIGHT, #Common_rightClick, "
-						}
-						"settings"
-						{
-							"haptic_intensity"		"0"
-						}
+						"#ref"				"/bindings/Common/Mouse/RightClick.vdf"
 					}
 				}
 			}
@@ -553,14 +496,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_button RIGHT, #Common_rightClick, , "
-						}
-						"settings"
-						{
-							"haptic_intensity"		"2"
-						}
+						"#ref"				"/bindings/Common/Mouse/RightClick.vdf"
 					}
 				}
 			}
@@ -599,14 +535,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_button LEFT, #Common_leftClick, , "
-						}
-						"settings"
-						{
-							"haptic_intensity"		"2"
-						}
+						"#ref"				"/bindings/Common/Mouse/LeftClick.vdf"
 					}
 				}
 			}
