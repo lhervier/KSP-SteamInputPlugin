@@ -1035,10 +1035,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press SPACE, #Flight_staging, , "
-						}
+						"#ref"				"/bindings/Flight/Staging.vdf"
 					}
 				}
 			}
@@ -1048,10 +1045,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press B, #Flight_brakes, , "
-						}
+						"#ref"				"/bindings/Flight/Brakes.vdf"
 					}
 				}
 			}
@@ -1061,17 +1055,11 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press R, #Flight_RCS, , "
-						}
+						"#ref"				"/bindings/Flight/RCS.vdf"
 					}
 					"Long_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press DELETE, #Flight_translationMode, , "
-						}
+						"#ref"				"/bindings/Flight/TranslationMode.vdf"
 					}
 				}
 			}
@@ -1081,10 +1069,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press T, #Flight_SAS, , "
-						}
+						"#ref"				"/bindings/Flight/SAS.vdf"
 					}
 				}
 			}
@@ -1104,10 +1089,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press F4, #Flight_targetDisplay, , "
-						}
+						"#ref"				"/bindings/Flight/TargetDisplay.vdf"
 					}
 				}
 			}
@@ -1117,10 +1099,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press CAPSLOCK, #Flight_precisionControls, , "
-						}
+						"#ref"				"/bindings/Flight/PrecisionControls.vdf"
 					}
 				}
 			}
@@ -1130,10 +1109,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press COMMA, #Common_timeWarpIncr, , "
-						}
+						"#ref"				"/bindings/Common/TimeWarp/Increase.vdf"
 					}
 				}
 			}
@@ -1143,10 +1119,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press PERIOD, #Common_timeWarpDecr, , "
-						}
+						"#ref"				"/bindings/Common/TimeWarp/Decrease.vdf"
 					}
 				}
 			}
