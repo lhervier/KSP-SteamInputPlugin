@@ -66,10 +66,11 @@ function saveVdfFile(obj, filePath) {
  * @param {Object} obj - The object to process
  * @param {string} rootDir - Root directory for resolving absolute paths (starting with /)
  * @param {string} currentDir - Current directory for resolving relative paths
+ * @param {string} controllerName - Name of the controller for specialized files (e.g., "controller_steamcontroller_gordon")
  * @returns {Object} The processed object with #ref properties resolved
  * @throws {Error} If a referenced file cannot be loaded or doesn't have a "ref" root property
  */
-function processRefs(obj, rootDir, currentDir) {
+function processRefs(obj, rootDir, currentDir, controllerName) {
     if (obj === null) {
         return obj;
     }
@@ -94,6 +95,42 @@ function processRefs(obj, rootDir, currentDir) {
             } else {
                 throw new Error(`#ref property must be a string or array of strings, got ${typeof value}`);
             }
+            
+            // Add specialized file references if controller name is provided
+            const specializedPaths = [];
+            for (const refPathStr of refPaths) {
+                // Determine the base path
+                let basePath;
+                if (refPathStr.startsWith('/')) {
+                    // Absolute path (relative to root)
+                    basePath = path.join(rootDir, refPathStr.substring(1));
+                } else {
+                    // Relative path (relative to current file)
+                    basePath = path.join(currentDir, refPathStr);
+                }
+                
+                // Generate specialized path
+                const dir = path.dirname(basePath);
+                const ext = path.extname(basePath);
+                const name = path.basename(basePath, ext);
+                const specializedPath = path.join(dir, `${name}.${controllerName}${ext}`);
+                
+                // Check if specialized file exists
+                if (fs.existsSync(specializedPath)) {
+                    // Convert back to relative path for the specialized file
+                    let specializedRefPath;
+                    if (refPathStr.startsWith('/')) {
+                        // Keep absolute path format
+                        specializedRefPath = '/' + path.relative(rootDir, specializedPath).replace(/\\/g, '/');
+                    } else {
+                        // Convert to relative path from current directory
+                        specializedRefPath = path.relative(currentDir, specializedPath).replace(/\\/g, '/');
+                    }
+                    specializedPaths.push(specializedRefPath);
+                }
+            }
+            // Add specialized paths to the list (they will be processed after base files)
+            refPaths.push(...specializedPaths);
             
             // Process each referenced file
             for (const refPathStr of refPaths) {
@@ -132,7 +169,7 @@ function processRefs(obj, rootDir, currentDir) {
                 }
                 
                 // Recursively process the referenced object
-                const processedRef = processRefs(refObj.ref, rootDir, path.dirname(refPath));
+                const processedRef = processRefs(refObj.ref, rootDir, path.dirname(refPath), controllerName);
                 
                 // Merge the properties from the referenced object into the result
                 Object.assign(result, processedRef);
@@ -140,10 +177,10 @@ function processRefs(obj, rootDir, currentDir) {
             
         } else if (Array.isArray(value)) {
             // Handle arrays
-            result[key] = value.map(item => processRefs(item, rootDir, currentDir));
+            result[key] = value.map(item => processRefs(item, rootDir, currentDir, controllerName));
         } else if (typeof value === 'object' && value !== null) {
             // Handle objects recursively
-            result[key] = processRefs(value, rootDir, currentDir);
+            result[key] = processRefs(value, rootDir, currentDir, controllerName);
         } else {
             // Handle primitive values
             result[key] = value;
@@ -174,8 +211,11 @@ function loadVdfFile(baseDir, relativePath) {
         throw new Error(`Erreur lors du parsing de ${filePath}: ${error.message}`);
     }
     
+    // Extract controller name from the filename
+    const controllerName = path.basename(filePath, path.extname(filePath));
+    
     // Process #ref properties
-    const processedObj = processRefs(parsedObj, baseDir, path.dirname(filePath));
+    const processedObj = processRefs(parsedObj, baseDir, path.dirname(filePath), controllerName);
     
     return processedObj;
 }

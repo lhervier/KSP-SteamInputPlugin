@@ -207,10 +207,6 @@
 					"Full_Press"
 					{
 						"#ref"				"/bindings/Common/Mouse/LeftClick.vdf"
-						"settings"
-						{
-							"haptic_intensity"		"0"
-						}
 					}
 				}
 			}
