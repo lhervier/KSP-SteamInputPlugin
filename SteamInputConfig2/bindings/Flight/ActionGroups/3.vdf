@@ -1,0 +1,7 @@
+"ref"
+{
+    "bindings"
+    {
+        "binding"		"key_press 3, #Flight_actionGroup3, , "
+    }
+}
