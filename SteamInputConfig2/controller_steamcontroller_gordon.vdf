@@ -216,16 +216,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_wheel SCROLL_UP, #Common_scrollUp, "
-						}
-						"settings"
-						{
-							"hold_repeats"		"1"
-							"repeat_rate"		"10"
-							"haptic_intensity"		"0"
-						}
+						"#ref"				"/bindings/Common/Mouse/ScrollUp.vdf"
 					}
 				}
 			}
@@ -235,16 +226,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_wheel SCROLL_DOWN, #Common_scrollDown, "
-						}
-						"settings"
-						{
-							"hold_repeats"		"1"
-							"repeat_rate"		"10"
-							"haptic_intensity"		"0"
-						}
+						"#ref"				"/bindings/Common/Mouse/ScrollDown.vdf"
 					}
 				}
 			}
@@ -254,14 +236,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_button RIGHT, #Common_rightClick, "
-						}
-						"settings"
-						{
-							"haptic_intensity"		"0"
-						}
+						"#ref"				"/bindings/Common/Mouse/RightClick.vdf"
 					}
 				}
 			}
@@ -286,14 +261,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_button RIGHT, #Common_rightClick, "
-						}
-						"settings"
-						{
-							"haptic_intensity"		"2"
-						}
+						"#ref"				"/bindings/Common/Mouse/RightClick.vdf"
 					}
 				}
 			}
@@ -335,14 +303,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_button LEFT, #Common_leftClick, "
-						}
-						"settings"
-						{
-							"haptic_intensity"		"2"
-						}
+						"#ref"				"/bindings/Common/Mouse/LeftClick.vdf"
 					}
 				}
 			}
@@ -362,10 +323,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press ESCAPE, #Common_menu, , "
-						}
+						"#ref"				"/bindings/Common/Menu.vdf"
 					}
 					"Long_Press"
 					{

@@ -1,0 +1,7 @@
+"ref"
+{
+    "bindings"
+    {
+        "binding"		"mouse_button RIGHT, #Common_rightClick, "
+    }
+}
