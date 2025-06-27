@@ -1,0 +1,7 @@
+"ref"
+{
+    "bindings"
+    {
+        "binding"		"key_press TAB, #Common_nextBody, , "
+    }
+}

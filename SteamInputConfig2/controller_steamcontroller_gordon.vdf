@@ -555,10 +555,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_ALT, #Common_modKey, , "
-						}
+						"#ref"				"/bindings/Common/ModKey.vdf"
 					}
 				}
 			}
@@ -568,24 +565,15 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press ESCAPE, #Common_menu, , "
-						}
+						"#ref"				"/bindings/Common/Menu.vdf"
 					}
 					"Long_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_ALT, #Common_console, , "
-						}
+						"#ref"				"/bindings/Common/DebugConsole1.vdf"
 					}
 					"Long_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press F12, #Common_console, , "
-						}
+						"#ref"				"/bindings/Common/DebugConsole2.vdf"
 					}
 				}
 			}
@@ -595,10 +583,7 @@
 				{
 					"Long_Press"
 					{
-						"bindings"
-						{
-							"binding"		"controller_action SHOW_KEYBOARD, #Common_showKeyboard, "
-						}
+						"#ref"				"/bindings/Common/ShowKeyboard.vdf"
 					}
 				}
 			}
@@ -608,17 +593,11 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press TAB, #Common_prevBody, , "
-						}
+						"#ref"				"/bindings/Common/Bodies/Previous1.vdf"
 					}
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_SHIFT, #Common_prevBody, , "
-						}
+						"#ref"				"/bindings/Common/Bodies/Previous2.vdf"
 					}
 				}
 			}
@@ -628,10 +607,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press TAB, #Common_nextBody, , "
-						}
+						"#ref"				"/bindings/Common/Bodies/Next.vdf"
 					}
 				}
 			}
