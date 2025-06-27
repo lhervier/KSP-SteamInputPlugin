@@ -627,10 +627,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press SPACE, #Editor_resetPartRotation, , "
-						}
+						"#ref"				"/bindings/Editor/ResetPartRotation.vdf"
 					}
 				}
 			}
@@ -640,10 +637,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press DELETE, #Editor_deletePart, , "
-						}
+						"#ref"				"/bindings/Editor/DeletePart.vdf"
 					}
 				}
 			}
@@ -653,10 +647,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press X, #Editor_symmetryCycle, , "
-						}
+						"#ref"				"/bindings/Editor/SymmetryCycle.vdf"
 					}
 				}
 			}
@@ -666,10 +657,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press C, #Editor_snapToggle, , "
-						}
+						"#ref"				"/bindings/Editor/SnapToggle.vdf"
 					}
 				}
 			}
@@ -689,10 +677,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press 1, #Editor_placeTool, , "
-						}
+						"#ref"				"/bindings/Editor/Tools/Place.vdf"
 					}
 				}
 			}
@@ -702,10 +687,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press 2, #Editor_offsetTool, , "
-						}
+						"#ref"				"/bindings/Editor/Tools/Offset.vdf"
 					}
 				}
 			}
@@ -715,10 +697,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press 3, #Editor_rotateTool, , "
-						}
+						"#ref"				"/bindings/Editor/Tools/Rotate.vdf"
 					}
 				}
 			}
@@ -728,10 +707,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press 4, #Editor_rootTool, , "
-						}
+						"#ref"				"/bindings/Editor/Tools/Root.vdf"
 					}
 				}
 			}
@@ -751,10 +727,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press D, #Editor_yawPartRight, , "
-						}
+						"#ref"				"/bindings/Editor/MovePart/YawRight.vdf"
 					}
 				}
 			}
@@ -764,10 +737,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press W, #Editor_pitchPartDown, , "
-						}
+						"#ref"				"/bindings/Editor/MovePart/PitchDown.vdf"
 					}
 				}
 			}
@@ -777,10 +747,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press S, #Editor_pitchPartUp, , "
-						}
+						"#ref"				"/bindings/Editor/MovePart/PitchUp.vdf"
 					}
 				}
 			}
@@ -790,10 +757,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press A, #Editor_yawPartLeft, , "
-						}
+						"#ref"				"/bindings/Editor/MovePart/YawLeft.vdf"
 					}
 				}
 			}
@@ -813,14 +777,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press F, #Editor_coordFrameToggle, , "
-						}
-						"settings"
-						{
-							"haptic_intensity"		"3"
-						}
+						"#ref"				"/bindings/Editor/CoordFrameToggle.vdf"
 					}
 				}
 			}
@@ -830,14 +787,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press R, #Editor_symmetryModeToggle, , "
-						}
-						"settings"
-						{
-							"haptic_intensity"		"3"
-						}
+						"#ref"				"/bindings/Editor/SymmetryModeToggle.vdf"
 					}
 				}
 			}
@@ -857,14 +807,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_button LEFT, #Common_leftClick, "
-						}
-						"settings"
-						{
-							"haptic_intensity"		"0"
-						}
+						"#ref"				"/bindings/Common/Mouse/LeftClick.vdf"
 					}
 				}
 			}
@@ -874,15 +817,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_wheel SCROLL_UP, #Common_scrollUp, "
-						}
-						"settings"
-						{
-							"hold_repeats"		"1"
-							"repeat_rate"		"10"
-						}
+						"#ref"				"/bindings/Common/Mouse/ScrollUp.vdf"
 					}
 				}
 			}
@@ -892,15 +827,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_wheel SCROLL_DOWN, #Common_scrollDown, "
-						}
-						"settings"
-						{
-							"hold_repeats"		"1"
-							"repeat_rate"		"10"
-						}
+						"#ref"				"/bindings/Common/Mouse/ScrollDown.vdf"
 					}
 				}
 			}
@@ -910,14 +837,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_button RIGHT, #Common_rightClick, "
-						}
-						"settings"
-						{
-							"haptic_intensity"		"0"
-						}
+						"#ref"				"/bindings/Common/Mouse/RightClick.vdf"
 					}
 				}
 			}
@@ -942,14 +862,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_SHIFT, #Editor_cameraSlew, , "
-						}
-						"settings"
-						{
-							"haptic_intensity"		"2"
-						}
+						"#ref"				"/bindings/Editor/CameraSlew.vdf"
 					}
 				}
 			}
@@ -959,14 +872,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_button RIGHT, #Common_rightClick, , "
-						}
-						"settings"
-						{
-							"haptic_intensity"		"2"
-						}
+						"#ref"				"/bindings/Common/Mouse/RightClick.vdf"
 					}
 				}
 			}
@@ -1009,14 +915,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_button LEFT, #Common_leftClick, "
-						}
-						"settings"
-						{
-							"haptic_intensity"		"2"
-						}
+						"#ref"				"/bindings/Common/Mouse/LeftClick.vdf"
 					}
 				}
 			}
@@ -1040,10 +939,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_ALT, #Common_modKey, , "
-						}
+						"#ref"				"/bindings/Common/ModKey.vdf"
 					}
 				}
 			}
@@ -1053,10 +949,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_SHIFT, #Editor_cameraSlew, , "
-						}
+						"#ref"				"/bindings/Editor/CameraSlew.vdf"
 					}
 					"Full_Press"
 					{
@@ -1080,17 +973,11 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_CONTROL, #Editor_redo, , "
-						}
+						"#ref"				"/bindings/Editor/Redo1.vdf"
 					}
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press Y, #Editor_redo, , "
-						}
+						"#ref"				"/bindings/Editor/Redo2.vdf"
 					}
 				}
 			}
@@ -1100,24 +987,15 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_CONTROL, #Editor_undo, , "
-						}
+						"#ref"				"/bindings/Editor/Undo1.vdf"
 					}
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press W, #Editor_undo, , "
-						}
+						"#ref"				"/bindings/Editor/Undo2.vdf"
 					}
 					"Long_Press"
 					{
-						"bindings"
-						{
-							"binding"		"controller_action SHOW_KEYBOARD, #Common_showKeyboard, "
-						}
+						"#ref"				"/bindings/Common/ShowKeyboard.vdf"
 					}
 				}
 			}
@@ -1127,10 +1005,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press Q, #Editor_rollPartLeft, , "
-						}
+						"#ref"				"/bindings/Editor/MovePart/RollLeft.vdf"
 					}
 				}
 			}
@@ -1140,10 +1015,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press E, #Editor_rollPartRight, , "
-						}
+						"#ref"				"/bindings/Editor/MovePart/RollRight.vdf"
 					}
 				}
 			}
