@@ -202,6 +202,7 @@ function loadVdfFile(baseDir, relativePath) {
     let content = fs.readFileSync(filePath, 'utf8')
         .split('\n')
         .filter(line => !line.trim().startsWith('#'))
+        .filter(line => line.length > 0)
         .join('\n');
     
     let parsedObj;
