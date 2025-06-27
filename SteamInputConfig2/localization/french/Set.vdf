@@ -1,0 +1,16 @@
+"ref"
+{
+    "Set_Menu"					"Menu"
+    "Set_TrackingStation"		"Station de contrôle"
+    "Set_Editor"				"Éditeur"
+    "Set_Flight"				"Vol"
+    "Set_MapFlight"				"Carte (Vol)"
+    "Set_Docking"				"Amarrage"
+    "Set_MapDocking"			"Carte (Amarrage)"
+    "Set_EVA"					"Activité extravéhiculaire"
+    "Set_MapEVA"				"Carte (Activité extravéhiculaire)"
+    "Set_EVAConstructionMode"	"Construction en EVA"
+    "Set_IVA"					"Activité intravéhiculaire"
+    "Set_FreeIVA"				"Free IVA"
+    "Set_MissionBuilder"		"Créateur de missions"
+}

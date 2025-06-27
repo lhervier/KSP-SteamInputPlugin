@@ -1,0 +1,33 @@
+"ref"
+{
+	"Common_right"			"Droite"
+	"Common_left"			"Gauche"
+	"Common_up"				"Haut"
+	"Common_down"			"Bas"
+	
+	"Common_scrollDown"		"Défiler vers le bas"
+	"Common_scrollUp"		"Défiler vers le haut"
+	
+	"Common_rightClick"		"Clic droit"
+	"Common_leftClick"		"Clic gauche"
+	"Common_middleClick"	"Clic molette"
+	
+	"Common_menu"			"Menu"
+	"Common_console"		"Console de débogage"
+	"Common_modKey"			"Touche Mod"
+	"Common_showKeyboard"	"Afficher le clavier"
+	
+	"Common_timeWarpIncr"	"Accélération du temps"
+	"Common_timeWarpDecr"	"Décélération du temps"
+	
+	"Common_cameraRight"	"Caméra vers la droite"
+	"Common_cameraLeft"		"Caméra vers la gauche"
+	"Common_cameraUp"		"Caméra vers le haut"
+	"Common_cameraDown"		"Caméra vers le bas"
+
+	"Common_zoomIn"			"Zoom avant"
+	"Common_zoomOut"		"Zoom arrière"
+	
+	"Common_nextBody"		"Corps Céleste suivant"
+	"Common_prevBody"		"Corps Céleste précédent"
+}

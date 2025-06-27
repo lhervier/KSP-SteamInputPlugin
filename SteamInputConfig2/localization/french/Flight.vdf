@@ -1,0 +1,43 @@
+"ref"
+{
+	"Flight_staging"			"Larguer"
+	"Flight_brakes"				"Freins"
+	"Flight_RCS"				"Activer/Désactiver RCS"
+	"Flight_SAS"				"Activer/Désactiver SAS"
+	"Flight_targetDisplay"		"Afficher/Masquer la cible"
+	"Flight_precisionControls"	"Activer/Désactiver les contrôles précis"
+
+	"Flight_yawRight"			"Roulis à droite"
+	"Flight_yawLeft"			"Roulis à gauche"
+	"Flight_pitchUp"			"Tangage vers le haut"
+	"Flight_pitchDown"			"Tangage vers le bas"
+	"Flight_rollLeft"			"Lacet vers la gauche"
+	"Flight_rollRight"			"Lacet vers la droite"
+
+	"Flight_prevVessel"			"Vaisseau précédent"
+	"Flight_nextVessel"			"Vaisseau suivant"
+
+	"Flight_actionGroup1"		"Groupe d'actions 1"
+	"Flight_actionGroup2"		"Groupe d'actions 2"
+	"Flight_actionGroup3"		"Groupe d'actions 3"
+	"Flight_actionGroup4"		"Groupe d'actions 4"
+	"Flight_actionGroup5"		"Groupe d'actions 5"
+	"Flight_actionGroup6"		"Groupe d'actions 6"
+	"Flight_actionGroup7"		"Groupe d'actions 7"
+	"Flight_actionGroup8"		"Groupe d'actions 8"
+	"Flight_actionGroup9"		"Groupe d'actions 9"
+	"Flight_actionGroup10"		"Groupe d'actions 10"
+
+	"Flight_cameraView"			"Vue de la caméra"
+	"Flight_cameraMode"			"Mode de la caméra"
+
+	"Flight_throttleCutoff"		"Couper de la poussée"
+	"Flight_fullThrottle"		"Poussée maximale"
+	"Flight_throttleDown"		"Décr. poussée"
+	"Flight_throttleUp"			"Incr. poussée"
+
+	"Flight_showMap"			"Afficher la carte"
+	"Flight_leaveMap"			"Quitter la carte"
+
+	"Flight_translationMode"	"Activer/Désactiver la translation"
+}
