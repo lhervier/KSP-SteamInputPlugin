@@ -1,0 +1,13 @@
+"ref"
+{
+    "button_menu"
+    {
+        "activators"
+        {
+            "Long_Press"
+            {
+                "#ref"				"/bindings/Common/ShowKeyboard.vdf"
+            }
+        }
+    }
+}

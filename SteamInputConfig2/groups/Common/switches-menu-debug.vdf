@@ -1,0 +1,21 @@
+"ref"
+{
+    "button_escape"
+    {
+        "activators"
+        {
+            "Full_Press"
+            {
+                "#ref"				"/bindings/Common/Menu.vdf"
+            }
+            "Long_Press"
+            {
+                "#ref"				"/bindings/Common/DebugConsole1.vdf"
+            }
+            "Long_Press"
+            {
+                "#ref"				"/bindings/Common/DebugConsole2.vdf"
+            }
+        }
+    }
+}

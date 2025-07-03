@@ -1,0 +1,15 @@
+"ref"
+{
+    "group"
+	{
+		"id"		"239"
+		"mode"		"switches"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"#ref"				"/groups/Common/switches-menu-debug.vdf"
+			"#ref"				"/groups/Common/switches-keyboard.vdf"
+		}
+	}
+}

@@ -1,0 +1,14 @@
+"ref"
+{
+    "group"
+	{
+		"id"		"237"
+		"mode"		"absolute_mouse"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+		}
+		"#ref"				"/groups/Common/right_joystick-mouse-settings.vdf"
+	}
+}

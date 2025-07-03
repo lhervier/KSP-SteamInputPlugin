@@ -3,4 +3,8 @@
     "#ref"				"Menu/buttons.vdf"
     "#ref"				"Menu/left_joystick.vdf"
     "#ref"				"Menu/dpad.vdf"
+    "#ref"				"Menu/left_trigger.vdf"
+    "#ref"				"Menu/right_joystick.vdf"
+    "#ref"				"Menu/right_trigger.vdf"
+    "#ref"				"Menu/switches.vdf"
 }

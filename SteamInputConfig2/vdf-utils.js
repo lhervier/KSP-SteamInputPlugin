@@ -199,7 +199,6 @@ function processRefs(obj, rootDir, currentDir, controllerName) {
                         throw new Error(`Impossible de fusionner les valeurs pour la clé ${key} : ${typeof value} et ${typeof result[key]}`);
                     }
                 }
-                console.log("X")
             }
             
         } else if (Array.isArray(value)) {

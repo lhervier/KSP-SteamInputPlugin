@@ -30,6 +30,6 @@
 				}
 			}
 		}
-		"#ref"				"/groups/Common/dpad-settings.vdf"
+		"#ref"				"/groups/Common/dpad-mouse-settings.vdf"
 	}
 }
