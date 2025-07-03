@@ -1,0 +1,16 @@
+"ref"
+{
+    "french"
+    {
+        "#ref"				"french/Common.vdf"
+        "#ref"				"french/Docking.vdf"
+        "#ref"				"french/Editor.vdf"
+        "#ref"				"french/EVA.vdf"
+        "#ref"				"french/Flight.vdf"
+        "#ref"				"french/IVA.vdf"
+        "#ref"				"french/Map.vdf"
+        "#ref"				"french/Menu.vdf"
+        "#ref"				"french/Set.vdf"
+        "#ref"				"french/Tracking.vdf"
+    }
+}

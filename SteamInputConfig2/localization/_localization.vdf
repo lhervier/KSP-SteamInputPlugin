@@ -1,0 +1,8 @@
+"ref"
+{
+    "localization"
+    {
+        "#ref"				"english.vdf"
+		"#ref"				"french.vdf"
+    }
+}

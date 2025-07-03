@@ -1,0 +1,16 @@
+"ref"
+{
+    "english"
+    {
+        "#ref"				"english/Common.vdf"
+        "#ref"				"english/Docking.vdf"
+        "#ref"				"english/Editor.vdf"
+        "#ref"				"english/EVA.vdf"
+        "#ref"				"english/Flight.vdf"
+        "#ref"				"english/IVA.vdf"
+        "#ref"				"english/Map.vdf"
+        "#ref"				"english/Menu.vdf"
+        "#ref"				"english/Set.vdf"
+        "#ref"				"english/Tracking.vdf"
+    }
+}

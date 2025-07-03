@@ -83,35 +83,9 @@
 	"action_layers"
 	{
 	}
-	"localization"
-	{
-		"english"
-		{
-			"#ref"				"/localization/english/Common.vdf"
-			"#ref"				"/localization/english/Docking.vdf"
-			"#ref"				"/localization/english/Editor.vdf"
-			"#ref"				"/localization/english/EVA.vdf"
-			"#ref"				"/localization/english/Flight.vdf"
-			"#ref"				"/localization/english/IVA.vdf"
-			"#ref"				"/localization/english/Map.vdf"
-			"#ref"				"/localization/english/Menu.vdf"
-			"#ref"				"/localization/english/Set.vdf"
-			"#ref"				"/localization/english/Tracking.vdf"
-		}
-		"french"
-		{
-			"#ref"				"/localization/french/Common.vdf"
-			"#ref"				"/localization/french/Docking.vdf"
-			"#ref"				"/localization/french/Editor.vdf"
-			"#ref"				"/localization/french/EVA.vdf"
-			"#ref"				"/localization/french/Flight.vdf"
-			"#ref"				"/localization/french/IVA.vdf"
-			"#ref"				"/localization/french/Map.vdf"
-			"#ref"				"/localization/french/Menu.vdf"
-			"#ref"				"/localization/french/Set.vdf"
-			"#ref"				"/localization/french/Tracking.vdf"
-		}
-	}
+	
+	"#ref"				"/localization/_localization.vdf"
+
 	"group"
 	{
 		"id"		"233"
@@ -5140,19 +5114,8 @@
 		}
 	}
 	
-	"#ref"				"/presets/MenuControls.vdf"
-	"#ref"				"/presets/TrackingStationControls.vdf"
-	"#ref"				"/presets/EditorControls.vdf"
-	"#ref"				"/presets/FlightControls.vdf"
-	"#ref"				"/presets/MapFlightControls.vdf"
-	"#ref"				"/presets/DockingControls.vdf"
-	"#ref"				"/presets/MapDockingControls.vdf"
-	"#ref"				"/presets/EvaControls.vdf"
-	"#ref"				"/presets/MapEvaControls.vdf"
-	"#ref"				"/presets/EvaConstructionModeControls.vdf"
-	"#ref"				"/presets/IvaControls.vdf"
-	"#ref"				"/presets/FreeIvaControls.vdf"
-	"#ref"				"/presets/MissionBuilderControls.vdf"
+	"#ref"				"/presets/_presets.vdf"
+	
 	"settings"
 	{
 	}
