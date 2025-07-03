@@ -1,0 +1,25 @@
+"ref"
+{
+    "version"			"3"
+	"revision"			"1"
+	"description"		"#SettingsController_AutosaveDescription"
+	"creator"			"76561197987585540"
+	"progenitor"		""
+	"export_type"		"personal_local"
+	"controller_caps"	"2179061"
+	"major_revision"	"0"
+	"minor_revision"	"0"
+    "Timestamp"			"1751014947346"
+
+	"action_layers"
+	{
+	}
+
+	"settings"
+	{
+	}
+
+	"#ref"				"actions/_actions.vdf"
+	"#ref"				"localization/_localization.vdf"
+	"#ref"				"/presets/_presets.vdf"
+}
