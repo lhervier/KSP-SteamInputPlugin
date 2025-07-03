@@ -1,0 +1,20 @@
+"ref"
+{
+    "preset"
+	{
+		"id"		"30"
+		"name"		"MapFlightControls"
+		"group_source_bindings"
+		{
+			"266"		"button_diamond active"
+			"267"		"button_diamond active modeshift"
+			"268"		"joystick active"
+			"269"		"joystick active modeshift"
+			"270"		"left_trackpad active"
+			"271"		"left_trigger active"
+			"272"		"right_trackpad active"
+			"273"		"right_trigger active"
+			"274"		"switch active"
+		}
+	}
+}

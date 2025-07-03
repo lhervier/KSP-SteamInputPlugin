@@ -76,7 +76,7 @@ function processRefs(obj, rootDir, currentDir, controllerName) {
     }
 
     const result = {};
-    
+
     for (const [key, value] of Object.entries(obj)) {
         if (key === '#ref') {
             // Handle #ref property - can be a string or array of strings
@@ -172,7 +172,19 @@ function processRefs(obj, rootDir, currentDir, controllerName) {
                 const processedRef = processRefs(refObj.ref, rootDir, path.dirname(refPath), controllerName);
                 
                 // Merge the properties from the referenced object into the result
-                Object.assign(result, processedRef);
+                // If a property already exist in the source objet, merge the value with it :
+                // - Il it'as already an array, append the value
+                // - If it's not an array, transform the existing value to an array with a single value, add the new value to the array
+                
+                for (const [key, value] of Object.entries(processedRef)) {
+                    if( !result[key] ) {
+                        result[key] = value;
+                    } else if( Array.isArray(result[key]) ) {
+                        result[key].push(value);
+                    } else if( typeof result[key] === 'object' ) {
+                        result[key] = [result[key], value];
+                    }
+                }
             }
             
         } else if (Array.isArray(value)) {

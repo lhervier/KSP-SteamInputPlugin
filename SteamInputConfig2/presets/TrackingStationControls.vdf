@@ -1,0 +1,18 @@
+"ref"
+{
+    "preset"
+	{
+		"id"		"27"
+		"name"		"TrackingStationControls"
+		"group_source_bindings"
+		{
+			"240"		"button_diamond active"
+			"241"		"joystick active"
+			"242"		"left_trackpad active"
+			"243"		"left_trigger active"
+			"244"		"right_trackpad active"
+			"245"		"right_trigger active"
+			"246"		"switch active"
+		}
+	}
+}

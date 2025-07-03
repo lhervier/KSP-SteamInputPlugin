@@ -1,0 +1,19 @@
+"ref"
+{
+    "preset"
+	{
+		"id"		"34"
+		"name"		"MapEvaControls"
+		"group_source_bindings"
+		{
+			"303"		"button_diamond active"
+			"304"		"button_diamond active modeshift"
+			"305"		"joystick active"
+			"306"		"left_trackpad active"
+			"307"		"left_trigger active"
+			"308"		"right_trackpad active"
+			"309"		"right_trigger active"
+			"310"		"switch active"
+		}
+	}
+}

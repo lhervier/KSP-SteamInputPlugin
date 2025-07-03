@@ -1,0 +1,20 @@
+"ref"
+{
+    "preset"
+	{
+		"id"		"37"
+		"name"		"FreeIvaControls"
+		"group_source_bindings"
+		{
+			"326"		"button_diamond active"
+			"327"		"button_diamond active modeshift"
+			"328"		"joystick active"
+			"329"		"left_trackpad active"
+			"330"		"left_trackpad active modeshift"
+			"331"		"left_trigger active"
+			"332"		"right_trackpad active"
+			"333"		"right_trigger active"
+			"334"		"switch active"
+		}
+	}
+}

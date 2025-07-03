@@ -1,0 +1,21 @@
+"ref"
+{
+    "preset"
+	{
+		"id"		"29"
+		"name"		"FlightControls"
+		"group_source_bindings"
+		{
+			"256"		"button_diamond active"
+			"257"		"button_diamond active modeshift"
+			"258"		"joystick active"
+			"259"		"joystick active modeshift"
+			"260"		"left_trackpad active"
+			"261"		"left_trackpad active modeshift"
+			"262"		"left_trigger active"
+			"263"		"right_trackpad active"
+			"264"		"right_trigger active"
+			"265"		"switch active"
+		}
+	}
+}

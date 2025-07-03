@@ -1,0 +1,20 @@
+"ref"
+{
+    "preset"
+	{
+		"id"		"35"
+		"name"		"EvaConstructionModeControls"
+		"group_source_bindings"
+		{
+			"311"		"button_diamond active"
+			"312"		"button_diamond active modeshift"
+			"313"		"joystick active"
+			"314"		"left_trackpad active"
+			"315"		"left_trackpad active modeshift"
+			"316"		"left_trigger active"
+			"317"		"right_trackpad active"
+			"318"		"right_trigger active"
+			"319"		"switch active"
+		}
+	}
+}

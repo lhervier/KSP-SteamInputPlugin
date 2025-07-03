@@ -1,0 +1,18 @@
+"ref"
+{
+    "preset"
+	{
+		"id"		"38"
+		"name"		"MissionBuilderControls"
+		"group_source_bindings"
+		{
+			"335"		"button_diamond active"
+			"336"		"joystick active"
+			"337"		"left_trackpad active"
+			"338"		"left_trigger active"
+			"339"		"right_trackpad active"
+			"340"		"right_trigger active"
+			"341"		"switch active"
+		}
+	}
+}

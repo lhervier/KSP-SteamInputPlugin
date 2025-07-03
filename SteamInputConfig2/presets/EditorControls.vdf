@@ -1,0 +1,20 @@
+"ref"
+{
+    "preset"
+	{
+		"id"		"28"
+		"name"		"EditorControls"
+		"group_source_bindings"
+		{
+			"247"		"button_diamond active"
+			"248"		"button_diamond active modeshift"
+			"249"		"joystick active"
+			"250"		"joystick active modeshift"
+			"251"		"left_trackpad active"
+			"252"		"left_trigger active"
+			"253"		"right_trackpad active"
+			"254"		"right_trigger active"
+			"255"		"switch active"
+		}
+	}
+}

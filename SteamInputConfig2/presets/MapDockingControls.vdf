@@ -1,0 +1,20 @@
+"ref"
+{
+    "preset"
+	{
+		"id"		"32"
+		"name"		"MapDockingControls"
+		"group_source_bindings"
+		{
+			"285"		"button_diamond active"
+			"286"		"button_diamond active modeshift"
+			"287"		"joystick active"
+			"288"		"joystick active modeshift"
+			"289"		"left_trackpad active"
+			"290"		"left_trigger active"
+			"291"		"right_trackpad active"
+			"292"		"right_trigger active"
+			"293"		"switch active"
+		}
+	}
+}

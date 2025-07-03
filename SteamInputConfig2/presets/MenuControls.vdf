@@ -1,0 +1,18 @@
+"ref"
+{
+    "preset"
+	{
+		"id"		"26"
+		"name"		"MenuControls"
+		"group_source_bindings"
+		{
+			"233"		"button_diamond active"
+			"234"		"joystick active"
+			"235"		"left_trackpad active"
+			"236"		"left_trigger active"
+			"237"		"right_trackpad active"
+			"238"		"right_trigger active"
+			"239"		"switch"
+		}
+	}
+}
