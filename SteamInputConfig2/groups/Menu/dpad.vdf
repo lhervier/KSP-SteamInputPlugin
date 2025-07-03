@@ -8,7 +8,7 @@
 		"description"		""
 		"inputs"
 		{
-            "#ref"				"/groups/Common/dpad-click.vdf"
+            "#ref"				"/groups/Common/dpad/click.vdf"
 			"dpad_north"
 			{
 				"activators"
@@ -30,6 +30,6 @@
 				}
 			}
 		}
-		"#ref"				"/groups/Common/dpad-mouse-settings.vdf"
+		"#ref"				"/groups/Common/dpad/mouse-settings.vdf"
 	}
 }

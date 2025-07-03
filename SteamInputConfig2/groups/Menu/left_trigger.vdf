@@ -8,7 +8,7 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"				"/groups/Common/left_trigger-right-click.vdf"
+			"#ref"				"/groups/Common/left_trigger/right-click.vdf"
 		}
 	}
 }

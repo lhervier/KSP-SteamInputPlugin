@@ -9,6 +9,6 @@
 		"inputs"
 		{
 		}
-		"#ref"				"/groups/Common/right_joystick-mouse-settings.vdf"
+		"#ref"				"/groups/Common/right_joystick/mouse-settings.vdf"
 	}
 }
