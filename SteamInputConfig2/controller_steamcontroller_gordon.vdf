@@ -5,86 +5,14 @@
 	
 	"#ref"				"_controller_mappings.vdf"
 	
-	"group"
-	{
-		"id"		"233"
-		"mode"		"four_buttons"
-		"name"		""
-		"description"		""
-		"inputs"
-		{
-			"button_a"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Menu/Accept.vdf"
-					}
-				}
-			}
-			"button_b"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Menu/Cancel.vdf"
-					}
-				}
-			}
-		}
-	}
-	"group"
-	{
-		"id"		"234"
-		"mode"		"dpad"
-		"name"		""
-		"description"		""
-		"inputs"
-		{
-			"dpad_east"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Common/Arrows/Right.vdf"
-					}
-				}
-			}
-			"dpad_north"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Common/Arrows/Up.vdf"
-					}
-				}
-			}
-			"dpad_south"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Common/Arrows/Down.vdf"
-					}
-				}
-			}
-			"dpad_west"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Common/Arrows/Left.vdf"
-					}
-				}
-			}
-		}
-	}
+	"#ref"				"groups/_groups.vdf"
+	
+
+
+
+
+
+	
 	"group"
 	{
 		"id"		"235"

@@ -1,0 +1,33 @@
+"ref"
+{
+    "group"
+	{
+		"id"		"233"
+		"mode"		"four_buttons"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"button_a"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"#ref"				"/bindings/Menu/Accept.vdf"
+					}
+				}
+			}
+			"button_b"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"#ref"				"/bindings/Menu/Cancel.vdf"
+					}
+				}
+			}
+		}
+	}
+}

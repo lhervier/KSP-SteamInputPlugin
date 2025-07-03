@@ -1,0 +1,35 @@
+"ref"
+{
+    "group"
+	{
+		"id"		"235"
+		"mode"		"dpad"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+            "#ref"				"/groups/Common/dpad-click.vdf"
+			"dpad_north"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"#ref"				"/bindings/Common/Mouse/ScrollUp.vdf"
+					}
+				}
+			}
+			"dpad_south"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"#ref"				"/bindings/Common/Mouse/ScrollDown.vdf"
+					}
+				}
+			}
+		}
+		"#ref"				"/groups/Common/dpad-settings.vdf"
+	}
+}

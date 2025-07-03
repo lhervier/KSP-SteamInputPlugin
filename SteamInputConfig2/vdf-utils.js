@@ -180,21 +180,51 @@ function processRefs(obj, rootDir, currentDir, controllerName) {
                     if( !result[key] ) {
                         result[key] = value;
                     } else if( Array.isArray(result[key]) ) {
-                        result[key].push(value);
+                        if( typeof value === 'object' ) {
+                            result[key].push(value);
+                        } else if( Array.isArray(value) ) {
+                            result[key].push(...value);
+                        } else {
+                            throw new Error(`Impossible de fusionner les valeurs pour la clé ${key} : ${typeof value} et ${typeof result[key]}`);
+                        }
                     } else if( typeof result[key] === 'object' ) {
-                        result[key] = [result[key], value];
+                        if( typeof value === 'object' ) {
+                            result[key] = [result[key], value];
+                        } else if( Array.isArray(value) ) {
+                            result[key] = [result[key], ...value];
+                        } else {
+                            throw new Error(`Impossible de fusionner les valeurs pour la clé ${key} : ${typeof value} et ${typeof result[key]}`);
+                        }
+                    } else {
+                        throw new Error(`Impossible de fusionner les valeurs pour la clé ${key} : ${typeof value} et ${typeof result[key]}`);
                     }
                 }
+                console.log("X")
             }
             
         } else if (Array.isArray(value)) {
-            // Handle arrays
-            result[key] = value.map(item => processRefs(item, rootDir, currentDir, controllerName));
+            var processedValues = value.map(item => processRefs(item, rootDir, currentDir, controllerName));
+            if( !result[key] ) {
+                result[key] = processedValues;
+            } else if( Array.isArray(result[key]) ) {
+                result[key].push(...processedValues);
+            } else if( typeof result[key] === 'object' ) {
+                result[key] = [result[key]].push(...processedValues);
+            } else {
+                throw new Error(`Impossible de fusionner les valeurs pour la clé ${key} : ${typeof value} et ${typeof result[key]}`);
+            }
         } else if (typeof value === 'object' && value !== null) {
-            // Handle objects recursively
-            result[key] = processRefs(value, rootDir, currentDir, controllerName);
+            var processedValue = processRefs(value, rootDir, currentDir, controllerName);
+            if( !result[key] ) {
+                result[key] = processedValue;
+            } else if( typeof result[key] === 'object' ) {
+                result[key] = [result[key], processedValue];
+            } else if( Array.isArray(result[key]) ) {
+                result[key].push(processedValue);
+            } else {
+                throw new Error(`Impossible de fusionner les valeurs pour la clé ${key} : ${typeof value} et ${typeof result[key]}`);
+            }
         } else {
-            // Handle primitive values
             result[key] = value;
         }
     }

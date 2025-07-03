@@ -1,0 +1,14 @@
+"ref"
+{
+    "group"
+	{
+		"id"		"234"
+		"mode"		"dpad"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"#ref"				"/groups/Common/dpad-arrows.vdf"
+		}
+	}
+}
