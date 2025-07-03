@@ -8,12 +8,12 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"				"/groups/Common/dpad/click.vdf"
-			"#ref"				"/groups/Common/dpad/zoom.vdf"
+			"#ref"				"/inputs/dpad/click.vdf"
+			"#ref"				"/inputs/dpad/zoom.vdf"
 		}
 		"settings"
 		{
-			"#ref"				"/groups/Common/dpad/click-settings.vdf"
+			"#ref"				"/inputs/dpad/click-settings.vdf"
 		}
 	}
 }

@@ -8,7 +8,7 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"				"/groups/Common/left_joystick/camera.vdf"
+			"#ref"				"/inputs/left_joystick/camera.vdf"
 		}
 	}
 }

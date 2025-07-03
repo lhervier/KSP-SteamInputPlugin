@@ -11,7 +11,7 @@
 		}
 		"settings"
 		{
-			"#ref"				"/groups/Common/right_joystick/mouse-settings.vdf"
+			"#ref"				"/inputs/right_joystick/mouse-settings.vdf"
 		}
 	}
 }

@@ -8,7 +8,7 @@
 		"description"		""
 		"inputs"
 		{
-            "#ref"				"/groups/Common/dpad/click.vdf"
+            "#ref"				"/inputs/dpad/click.vdf"
 			"dpad_north"
 			{
 				"activators"
@@ -32,7 +32,7 @@
 		}
 		"settings"
 		{
-			"#ref"				"/groups/Common/dpad/click-settings.vdf"
+			"#ref"				"/inputs/dpad/click-settings.vdf"
 		}
 	}
 }
