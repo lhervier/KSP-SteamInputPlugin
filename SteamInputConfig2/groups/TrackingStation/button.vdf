@@ -1,0 +1,14 @@
+"ref"
+{
+    "group"
+	{
+		"id"		"240"
+		"mode"		"four_buttons"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"#ref"				"/groups/Common/button/time-wrap.vdf"
+		}
+	}
+}

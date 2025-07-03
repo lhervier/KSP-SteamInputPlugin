@@ -1,0 +1,14 @@
+"ref"
+{
+    "group"
+	{
+		"id"		"241"
+		"mode"		"dpad"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"#ref"				"/groups/Common/left_joystick/camera.vdf"
+		}
+	}
+}

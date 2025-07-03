@@ -1,0 +1,19 @@
+"ref"
+{
+    "group"
+	{
+		"id"		"242"
+		"mode"		"dpad"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"#ref"				"/groups/Common/dpad/click.vdf"
+			"#ref"				"/groups/Common/dpad/zoom.vdf"
+		}
+		"settings"
+		{
+			"#ref"				"/groups/Common/dpad/click-settings.vdf"
+		}
+	}
+}

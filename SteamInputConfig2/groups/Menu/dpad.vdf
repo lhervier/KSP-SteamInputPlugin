@@ -30,6 +30,9 @@
 				}
 			}
 		}
-		"#ref"				"/groups/Common/dpad/mouse-settings.vdf"
+		"settings"
+		{
+			"#ref"				"/groups/Common/dpad/click-settings.vdf"
+		}
 	}
 }
