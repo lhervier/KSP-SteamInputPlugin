@@ -2113,10 +2113,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press SPACE, #Docking_translateRotate, , "
-						}
+						"#ref"				"/bindings/Flight/TransalteRotate.vdf"
 					}
 				}
 			}
@@ -2126,10 +2123,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press B, #Flight_brakes, , "
-						}
+						"#ref"				"/bindings/Flight/Brakes.vdf"
 					}
 				}
 			}
@@ -2139,10 +2133,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press R, #Flight_RCS, , "
-						}
+						"#ref"				"/bindings/Flight/RCS.vdf"
 					}
 				}
 			}
@@ -2152,17 +2143,11 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press T, #Flight_SAS, , "
-						}
+						"#ref"				"/bindings/Flight/SAS.vdf"
 					}
 					"Long_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press DELETE, #Flight_translationMode, , "
-						}
+						"#ref"				"/bindings/Flight/TranslationMode.vdf"
 					}
 				}
 			}
@@ -2182,10 +2167,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press F4, #Flight_targetDisplay, , "
-						}
+						"#ref"				"/bindings/Flight/TargetDisplay.vdf"
 					}
 				}
 			}
@@ -2195,10 +2177,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press CAPSLOCK, #Flight_precisionControls, , "
-						}
+						"#ref"				"/bindings/Flight/PrecisionControls.vdf"
 					}
 				}
 			}
@@ -2208,10 +2187,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press COMMA, #Common_timeWarpDecr, , "
-						}
+						"#ref"				"/bindings/Common/TimeWarp/Decrease.vdf"
 					}
 				}
 			}
@@ -2221,10 +2197,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press PERIOD, #Common_timeWarpIncr, , "
-						}
+						"#ref"				"/bindings/Common/TimeWarp/Increase.vdf"
 					}
 				}
 			}
@@ -2244,10 +2217,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press D, #Docking_translateRight, , "
-						}
+						"#ref"				"/bindings/Flight/Translate/Right.vdf"
 					}
 				}
 			}
@@ -2257,10 +2227,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press W, #Docking_translateDown, , "
-						}
+						"#ref"				"/bindings/Flight/Translate/Down.vdf"
 					}
 				}
 			}
@@ -2270,10 +2237,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press S, #Docking_translateUp, , "
-						}
+						"#ref"				"/bindings/Flight/Translate/Up.vdf"
 					}
 				}
 			}
@@ -2283,10 +2247,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press A, #Docking_translateLeft, , "
-						}
+						"#ref"				"/bindings/Flight/Translate/Left.vdf"
 					}
 				}
 			}
@@ -2306,10 +2267,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press 1, #Flight_actionGroup1, , "
-						}
+						"#ref"				"/bindings/Flight/ActionGroups/1.vdf"
 					}
 				}
 			}
@@ -2319,10 +2277,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press 0, #Flight_actionGroup10, , "
-						}
+						"#ref"				"/bindings/Flight/ActionGroups/10.vdf"
 					}
 				}
 			}
@@ -2332,10 +2287,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press 2, #Flight_actionGroup2, , "
-						}
+						"#ref"				"/bindings/Flight/ActionGroups/2.vdf"
 					}
 				}
 			}
@@ -2345,10 +2297,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press 3, #Flight_actionGroup3, , "
-						}
+						"#ref"				"/bindings/Flight/ActionGroups/3.vdf"
 					}
 				}
 			}
@@ -2358,10 +2307,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press 4, #Flight_actionGroup4, , "
-						}
+						"#ref"				"/bindings/Flight/ActionGroups/4.vdf"
 					}
 				}
 			}
@@ -2371,10 +2317,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press 5, #Flight_actionGroup5, , "
-						}
+						"#ref"				"/bindings/Flight/ActionGroups/5.vdf"
 					}
 				}
 			}
@@ -2384,10 +2327,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press 6, #Flight_actionGroup6, , "
-						}
+						"#ref"				"/bindings/Flight/ActionGroups/6.vdf"
 					}
 				}
 			}
@@ -2397,10 +2337,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press 7, #Flight_actionGroup7, , "
-						}
+						"#ref"				"/bindings/Flight/ActionGroups/7.vdf"
 					}
 				}
 			}
@@ -2410,10 +2347,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press 8, #Flight_actionGroup8, , "
-						}
+						"#ref"				"/bindings/Flight/ActionGroups/8.vdf"
 					}
 				}
 			}
@@ -2423,10 +2357,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press 9, #Flight_actionGroup9, , "
-						}
+						"#ref"				"/bindings/Flight/ActionGroups/9.vdf"
 					}
 				}
 			}
@@ -2456,10 +2387,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_button LEFT, #Common_leftClick, "
-						}
+						"#ref"				"/bindings/Common/Mouse/LeftClick.vdf"
 						"settings"
 						{
 							"haptic_intensity"		"0"
@@ -2473,15 +2401,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_wheel SCROLL_UP, #Common_zoomIn, "
-						}
-						"settings"
-						{
-							"hold_repeats"		"1"
-							"repeat_rate"		"10"
-						}
+						"#ref"				"/bindings/Common/Camera/ZoomIn.vdf"
 					}
 				}
 			}
@@ -2491,15 +2411,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_wheel SCROLL_DOWN, #Common_zoomOut, "
-						}
-						"settings"
-						{
-							"hold_repeats"		"1"
-							"repeat_rate"		"10"
-						}
+						"#ref"				"/bindings/Common/Camera/ZoomOut.vdf"
 					}
 				}
 			}
@@ -2509,14 +2421,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_button RIGHT, #Common_rightClick, "
-						}
-						"settings"
-						{
-							"haptic_intensity"		"0"
-						}
+						"#ref"				"/bindings/Common/Mouse/RightClick.vdf"
 					}
 				}
 			}
@@ -2541,10 +2446,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press RIGHT_BRACKET, #Flight_nextVessel, , "
-						}
+						"#ref"				"/bindings/Flight/Vessels/Next.vdf"
 					}
 				}
 			}
@@ -2554,10 +2456,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press V, #Flight_cameraView, , "
-						}
+						"#ref"				"/bindings/Flight/CameraView.vdf"
 					}
 				}
 			}
@@ -2567,10 +2466,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press C, #Flight_cameraMode, , "
-						}
+						"#ref"				"/bindings/Flight/CameraMode.vdf"
 					}
 				}
 			}
@@ -2580,10 +2476,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_BRACKET, #Flight_prevVessel, , "
-						}
+						"#ref"				"/bindings/Flight/Vessels/Previous.vdf"
 					}
 				}
 			}
@@ -2608,14 +2501,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_CONTROL, #Docking_translateBackward, , "
-						}
-						"settings"
-						{
-							"haptic_intensity"		"2"
-						}
+						"#ref"				"/bindings/Flight/Translate/Backward.vdf"
 					}
 				}
 			}
@@ -2658,14 +2544,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_SHIFT, #Docking_translateForward, , "
-						}
-						"settings"
-						{
-							"haptic_intensity"		"2"
-						}
+						"#ref"				"/bindings/Flight/Translate/Forward.vdf"
 					}
 				}
 			}
@@ -2689,10 +2568,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_ALT, #Common_modKey, , "
-						}
+						"#ref"				"/bindings/Common/ModKey.vdf"
 					}
 				}
 			}
@@ -2729,24 +2605,15 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press ESCAPE, #Common_menu, , "
-						}
+						"#ref"				"/bindings/Common/Menu.vdf"
 					}
 					"Long_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_ALT, #Common_console, "
-						}
+						"#ref"				"/bindings/Common/DebugConsole1.vdf"
 					}
 					"Long_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press F12, #Common_console, , "
-						}
+						"#ref"				"/bindings/Common/DebugConsole2.vdf"
 					}
 				}
 			}
@@ -2756,17 +2623,11 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press SEMICOLON, #Flight_showMap, , "
-						}
+						"#ref"				"/bindings/Flight/ShowMap.vdf"
 					}
 					"Long_Press"
 					{
-						"bindings"
-						{
-							"binding"		"controller_action SHOW_KEYBOARD, #Common_showKeyboard, "
-						}
+						"#ref"				"/bindings/Common/ShowKeyboard.vdf"
 					}
 				}
 			}
@@ -2776,10 +2637,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press Q, #Flight_rollLeft, , "
-						}
+						"#ref"				"/bindings/Flight/Move/RollLeft.vdf"
 					}
 				}
 			}
@@ -2789,10 +2647,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press E, #Flight_rollRight, , "
-						}
+						"#ref"				"/bindings/Flight/Move/RollRight.vdf"
 					}
 				}
 			}
@@ -2812,10 +2667,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press SPACE, #Flight_staging, , "
-						}
+						"#ref"				"/bindings/Flight/Staging.vdf"
 					}
 				}
 			}
@@ -2825,10 +2677,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press B, #Flight_brakes, , "
-						}
+						"#ref"				"/bindings/Flight/Brakes.vdf"
 					}
 				}
 			}
@@ -2838,10 +2687,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press R, #Flight_RCS, , "
-						}
+						"#ref"				"/bindings/Flight/RCS.vdf"
 					}
 				}
 			}
@@ -2851,17 +2697,11 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press T, #Flight_SAS, , "
-						}
+						"#ref"				"/bindings/Flight/SAS.vdf"
 					}
 					"Long_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press DELETE, #Flight_translationMode, , "
-						}
+						"#ref"				"/bindings/Flight/TranslationMode.vdf"
 					}
 				}
 			}
@@ -2881,10 +2721,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press TAB, #Map_nextBody, "
-						}
+						"#ref"				"/bindings/Common/Bodies/Next.vdf"
 					}
 				}
 			}
@@ -2894,10 +2731,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press CAPSLOCK, #Flight_precisionControls, , "
-						}
+						"#ref"				"/bindings/Flight/PrecisionControls.vdf"
 					}
 				}
 			}
@@ -2907,10 +2741,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press COMMA, #Common_timeWarpDecr, , "
-						}
+						"#ref"				"/bindings/Common/TimeWarp/Decrease.vdf"
 					}
 				}
 			}
@@ -2920,10 +2751,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press PERIOD, #Common_timeWarpIncr, , "
-						}
+						"#ref"				"/bindings/Common/TimeWarp/Increase.vdf"
 					}
 				}
 			}
@@ -2943,10 +2771,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press D, #Docking_translateRight, , "
-						}
+						"#ref"				"/bindings/Flight/Translate/Right.vdf"
 					}
 				}
 			}
@@ -2956,10 +2781,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press W, #Docking_translateDown, , "
-						}
+						"#ref"				"/bindings/Flight/Translate/Down.vdf"
 					}
 				}
 			}
@@ -2969,10 +2791,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press S, #Docking_translateUp, , "
-						}
+						"#ref"				"/bindings/Flight/Translate/Up.vdf"
 					}
 				}
 			}
@@ -2982,10 +2801,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press A, #Docking_translateLeft, , "
-						}
+						"#ref"				"/bindings/Flight/Translate/Left.vdf"
 					}
 				}
 			}
@@ -3005,10 +2821,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press 1, #Flight_actionGroup1, , "
-						}
+						"#ref"				"/bindings/Flight/ActionGroups/1.vdf"
 					}
 				}
 			}
@@ -3018,10 +2831,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press 0, #Flight_actionGroup10, , "
-						}
+						"#ref"				"/bindings/Flight/ActionGroups/10.vdf"
 					}
 				}
 			}
@@ -3031,10 +2841,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press 2, #Flight_actionGroup2, , "
-						}
+						"#ref"				"/bindings/Flight/ActionGroups/2.vdf"
 					}
 				}
 			}
@@ -3044,10 +2851,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press 3, #Flight_actionGroup3, , "
-						}
+						"#ref"				"/bindings/Flight/ActionGroups/3.vdf"
 					}
 				}
 			}
@@ -3057,10 +2861,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press 4, #Flight_actionGroup4, , "
-						}
+						"#ref"				"/bindings/Flight/ActionGroups/4.vdf"
 					}
 				}
 			}
@@ -3070,10 +2871,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press 5, #Flight_actionGroup5, , "
-						}
+						"#ref"				"/bindings/Flight/ActionGroups/5.vdf"
 					}
 				}
 			}
@@ -3083,10 +2881,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press 6, #Flight_actionGroup6, , "
-						}
+						"#ref"				"/bindings/Flight/ActionGroups/6.vdf"
 					}
 				}
 			}
@@ -3096,10 +2891,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press 7, #Flight_actionGroup7, , "
-						}
+						"#ref"				"/bindings/Flight/ActionGroups/7.vdf"
 					}
 				}
 			}
@@ -3109,10 +2901,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press 8, #Flight_actionGroup8, , "
-						}
+						"#ref"				"/bindings/Flight/ActionGroups/8.vdf"
 					}
 				}
 			}
@@ -3122,10 +2911,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press 9, #Flight_actionGroup9, , "
-						}
+						"#ref"				"/bindings/Flight/ActionGroups/9.vdf"
 					}
 				}
 			}
@@ -3155,14 +2941,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_button LEFT, #Common_leftClick, "
-						}
-						"settings"
-						{
-							"haptic_intensity"		"0"
-						}
+						"#ref"				"/bindings/Common/Mouse/LeftClick.vdf"
 					}
 				}
 			}
@@ -3172,15 +2951,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_wheel SCROLL_UP, #Common_zoomIn, "
-						}
-						"settings"
-						{
-							"hold_repeats"		"1"
-							"repeat_rate"		"10"
-						}
+						"#ref"				"/bindings/Common/Camera/ZoomIn.vdf"
 					}
 				}
 			}
@@ -3190,15 +2961,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_wheel SCROLL_DOWN, #Common_zoomOut, "
-						}
-						"settings"
-						{
-							"hold_repeats"		"1"
-							"repeat_rate"		"10"
-						}
+						"#ref"				"/bindings/Common/Camera/ZoomOut.vdf"
 					}
 				}
 			}
@@ -3208,14 +2971,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_button RIGHT, #Common_rightClick, "
-						}
-						"settings"
-						{
-							"haptic_intensity"		"0"
-						}
+						"#ref"				"/bindings/Common/Mouse/RightClick.vdf"
 					}
 				}
 			}
@@ -3240,14 +2996,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_CONTROL, #Docking_translateBackward, , "
-						}
-						"settings"
-						{
-							"haptic_intensity"		"2"
-						}
+						"#ref"				"/bindings/Flight/Translate/Backward.vdf"
 					}
 				}
 			}
@@ -3290,14 +3039,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_SHIFT, #Docking_translateForward, , "
-						}
-						"settings"
-						{
-							"haptic_intensity"		"2"
-						}
+						"#ref"				"/bindings/Flight/Translate/Forward.vdf"
 					}
 				}
 			}
@@ -3321,10 +3063,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_ALT, #Common_modKey, , "
-						}
+						"#ref"				"/bindings/Common/ModKey.vdf"
 					}
 				}
 			}
@@ -3354,24 +3093,15 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press ESCAPE, #Common_menu, , "
-						}
+						"#ref"				"/bindings/Common/Menu.vdf"
 					}
 					"Long_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_ALT, #Common_console, "
-						}
+						"#ref"				"/bindings/Common/DebugConsole1.vdf"
 					}
 					"Long_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press F12, #Common_console, , "
-						}
+						"#ref"				"/bindings/Common/DebugConsole2.vdf"
 					}
 				}
 			}
@@ -3381,17 +3111,11 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press SEMICOLON, #Flight_showMap, , "
-						}
+						"#ref"				"/bindings/Flight/ShowMap.vdf"
 					}
 					"Long_Press"
 					{
-						"bindings"
-						{
-							"binding"		"controller_action SHOW_KEYBOARD, #Common_showKeyboard, "
-						}
+						"#ref"				"/bindings/Common/ShowKeyboard.vdf"
 					}
 				}
 			}
@@ -3401,10 +3125,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press Q, #Flight_rollLeft, , "
-						}
+						"#ref"				"/bindings/Flight/Move/RollLeft.vdf"
 					}
 				}
 			}
@@ -3414,10 +3135,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press E, #Flight_rollRight, , "
-						}
+						"#ref"				"/bindings/Flight/Move/RollRight.vdf"
 					}
 				}
 			}
@@ -3437,10 +3155,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press SPACE, #EVA_jump, , "
-						}
+						"#ref"				"/bindings/EVA/Jump.vdf"
 					}
 				}
 			}
@@ -3450,10 +3165,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press F, #EVA_grab, , "
-						}
+						"#ref"				"/bindings/EVA/Grab.vdf"
 					}
 				}
 			}
@@ -3463,10 +3175,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press R, #Flight_RCS, , "
-						}
+						"#ref"				"/bindings/Flight/RCS.vdf"
 					}
 				}
 			}
@@ -3476,10 +3185,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press T, #Flight_SAS, , "
-						}
+						"#ref"				"/bindings/Flight/SAS.vdf"
 					}
 				}
 			}
@@ -3499,10 +3205,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press U, #EVA_lights, , "
-						}
+						"#ref"				"/bindings/EVA/Lights.vdf"
 					}
 				}
 			}
@@ -3512,10 +3215,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press B, #EVA_embark, , "
-						}
+						"#ref"				"/bindings/EVA/Embark.vdf"
 					}
 				}
 			}
@@ -3525,10 +3225,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press COMMA, #Common_timeWarpDecr, , "
-						}
+						"#ref"				"/bindings/Common/TimeWarp/Decrease.vdf"
 					}
 				}
 			}
@@ -3538,10 +3235,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press PERIOD, #Common_timeWarpIncr, , "
-						}
+						"#ref"				"/bindings/Common/TimeWarp/Increase.vdf"
 					}
 				}
 			}
@@ -3561,10 +3255,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press D, #EVA_right, , "
-						}
+						"#ref"				"/bindings/EVA/Move/Right.vdf"
 					}
 				}
 			}
@@ -3574,10 +3265,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press W, #EVA_forward, , "
-						}
+						"#ref"				"/bindings/EVA/Move/Forward.vdf"
 					}
 				}
 			}
@@ -3587,10 +3275,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press S, #EVA_backward, , "
-						}
+						"#ref"				"/bindings/EVA/Move/Backward.vdf"
 					}
 				}
 			}
@@ -3600,10 +3285,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press A, #EVA_left, , "
-						}
+						"#ref"				"/bindings/EVA/Move/Left.vdf"
 					}
 				}
 			}
@@ -3623,14 +3305,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_button LEFT, #Common_leftClick, "
-						}
-						"settings"
-						{
-							"haptic_intensity"		"0"
-						}
+						"#ref"				"/bindings/Common/Mouse/LeftClick.vdf"
 					}
 				}
 			}
@@ -3640,15 +3315,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_wheel SCROLL_UP, #Common_zoomIn, "
-						}
-						"settings"
-						{
-							"hold_repeats"		"1"
-							"repeat_rate"		"10"
-						}
+						"#ref"				"/bindings/Common/Camera/ZoomIn.vdf"
 					}
 				}
 			}
@@ -3658,15 +3325,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_wheel SCROLL_DOWN, #Common_zoomOut, "
-						}
-						"settings"
-						{
-							"hold_repeats"		"1"
-							"repeat_rate"		"10"
-						}
+						"#ref"				"/bindings/Common/Camera/ZoomOut.vdf"
 					}
 				}
 			}
@@ -3676,14 +3335,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_button RIGHT, #Common_rightClick, "
-						}
-						"settings"
-						{
-							"haptic_intensity"		"0"
-						}
+						"#ref"				"/bindings/Common/Mouse/RightClick.vdf"
 					}
 				}
 			}
@@ -3708,10 +3360,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press RIGHT_BRACKET, #Flight_nextVessel, , "
-						}
+						"#ref"				"/bindings/Flight/Vessels/Next.vdf"
 					}
 				}
 			}
@@ -3721,10 +3370,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_BRACKET, #Flight_prevVessel, , "
-						}
+						"#ref"				"/bindings/Flight/Vessels/Previous.vdf"
 					}
 				}
 			}
@@ -3749,14 +3395,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_CONTROL, #Docking_translateDown, , "
-						}
-						"settings"
-						{
-							"haptic_intensity"		"2"
-						}
+						"#ref"				"/bindings/Flight/Translate/Down.vdf"
 					}
 				}
 			}
@@ -3790,14 +3429,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_SHIFT, #Docking_translateUp, , "
-						}
-						"settings"
-						{
-							"haptic_intensity"		"2"
-						}
+						"#ref"				"/bindings/Flight/Translate/Up.vdf"
 					}
 				}
 			}
@@ -3821,10 +3453,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_ALT, #Common_modKey, , "
-						}
+						"#ref"				"/bindings/Common/ModKey.vdf"
 					}
 				}
 			}
@@ -3854,24 +3483,15 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press ESCAPE, #Common_menu, , "
-						}
+						"#ref"				"/bindings/Common/Menu.vdf"
 					}
 					"Long_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_ALT, #Common_console, , "
-						}
+						"#ref"				"/bindings/Common/DebugConsole1.vdf"
 					}
 					"Long_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press F12, #Common_console, , "
-						}
+						"#ref"				"/bindings/Common/DebugConsole2.vdf"
 					}
 				}
 			}
@@ -3881,17 +3501,11 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press SEMICOLON, #Flight_showMap, , "
-						}
+						"#ref"				"/bindings/Flight/ShowMap.vdf"
 					}
 					"Long_Press"
 					{
-						"bindings"
-						{
-							"binding"		"controller_action SHOW_KEYBOARD, #Common_showKeyboard, "
-						}
+						"#ref"				"/bindings/Common/ShowKeyboard.vdf"
 					}
 				}
 			}
@@ -3901,10 +3515,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press Q, #Flight_rollLeft, , "
-						}
+						"#ref"				"/bindings/Flight/Move/RollLeft.vdf"
 					}
 				}
 			}
@@ -3914,10 +3525,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press E, #Flight_rollRight, , "
-						}
+						"#ref"				"/bindings/Flight/Move/RollRight.vdf"
 					}
 				}
 			}
@@ -3937,10 +3545,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press R, #Flight_RCS, , "
-						}
+						"#ref"				"/bindings/Flight/RCS.vdf"
 					}
 				}
 			}
@@ -3950,10 +3555,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press T, #Flight_SAS, , "
-						}
+						"#ref"				"/bindings/Flight/SAS.vdf"
 					}
 				}
 			}
@@ -3973,10 +3575,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press COMMA, #Common_timeWarpDecr, , "
-						}
+						"#ref"				"/bindings/Common/TimeWarp/Decrease.vdf"
 					}
 				}
 			}
@@ -3986,10 +3585,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press PERIOD, #Common_timeWarpIncr, , "
-						}
+						"#ref"				"/bindings/Common/TimeWarp/Increase.vdf"
 					}
 				}
 			}
@@ -4009,10 +3605,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press D, #EVA_right, , "
-						}
+						"#ref"				"/bindings/EVA/Move/Right.vdf"
 					}
 				}
 			}
@@ -4022,10 +3615,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press W, #EVA_forward, , "
-						}
+						"#ref"				"/bindings/EVA/Move/Forward.vdf"
 					}
 				}
 			}
@@ -4035,10 +3625,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press S, #EVA_backward, , "
-						}
+						"#ref"				"/bindings/EVA/Move/Backward.vdf"
 					}
 				}
 			}
@@ -4048,10 +3635,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press A, #EVA_left, , "
-						}
+						"#ref"				"/bindings/EVA/Move/Left.vdf"
 					}
 				}
 			}
@@ -4071,14 +3655,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_button LEFT, #Common_leftClick, "
-						}
-						"settings"
-						{
-							"haptic_intensity"		"0"
-						}
+						"#ref"				"/bindings/Common/Mouse/LeftClick.vdf"
 					}
 				}
 			}
@@ -4088,15 +3665,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_wheel SCROLL_UP, #Common_zoomIn, "
-						}
-						"settings"
-						{
-							"hold_repeats"		"1"
-							"repeat_rate"		"10"
-						}
+						"#ref"				"/bindings/Common/Camera/ZoomIn.vdf"
 					}
 				}
 			}
@@ -4106,15 +3675,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_wheel SCROLL_DOWN, #Common_zoomOut, "
-						}
-						"settings"
-						{
-							"hold_repeats"		"1"
-							"repeat_rate"		"10"
-						}
+						"#ref"				"/bindings/Common/Camera/ZoomOut.vdf"
 					}
 				}
 			}
@@ -4124,14 +3685,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_button RIGHT, #Common_rightClick, "
-						}
-						"settings"
-						{
-							"haptic_intensity"		"0"
-						}
+						"#ref"				"/bindings/Common/Mouse/RightClick.vdf"
 					}
 				}
 			}
@@ -4156,14 +3710,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_CONTROL, #Docking_translateDown, , "
-						}
-						"settings"
-						{
-							"haptic_intensity"		"2"
-						}
+						"#ref"				"/bindings/Flight/Translate/Down.vdf"
 					}
 				}
 			}
@@ -4206,14 +3753,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_SHIFT, #Docking_translateUp, , "
-						}
-						"settings"
-						{
-							"haptic_intensity"		"2"
-						}
+						"#ref"				"/bindings/Flight/Translate/Up.vdf"
 					}
 				}
 			}
@@ -4237,10 +3777,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_ALT, #Common_modKey, , "
-						}
+						"#ref"				"/bindings/Common/ModKey.vdf"
 					}
 				}
 			}
@@ -4263,24 +3800,15 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press ESCAPE, #Common_menu, , "
-						}
+						"#ref"				"/bindings/Common/Menu.vdf"
 					}
 					"Long_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_ALT, Console, "
-						}
+						"#ref"				"/bindings/Common/DebugConsole1.vdf"
 					}
 					"Long_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press F12, , "
-						}
+						"#ref"				"/bindings/Common/DebugConsole2.vdf"
 					}
 				}
 			}
@@ -4290,17 +3818,11 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press SEMICOLON, #Flight_showMap, , "
-						}
+						"#ref"				"/bindings/Flight/ShowMap.vdf"
 					}
 					"Long_Press"
 					{
-						"bindings"
-						{
-							"binding"		"controller_action SHOW_KEYBOARD, #Common_showKeyboard, "
-						}
+						"#ref"				"/bindings/Common/ShowKeyboard.vdf"
 					}
 				}
 			}
@@ -4310,10 +3832,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press Q, #Flight_rollLeft, , "
-						}
+						"#ref"				"/bindings/Flight/Move/RollLeft.vdf"
 					}
 				}
 			}
@@ -4323,10 +3842,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press E, #Flight_rollRight, , "
-						}
+						"#ref"				"/bindings/Flight/Move/RollRight.vdf"
 					}
 				}
 			}
@@ -4346,10 +3862,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press SPACE, #EVA_jump, , "
-						}
+						"#ref"				"/bindings/EVA/Jump.vdf"
 					}
 				}
 			}
@@ -4359,10 +3872,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press F, #EVA_grab, , "
-						}
+						"#ref"				"/bindings/EVA/Grab.vdf"
 					}
 				}
 			}
@@ -4372,10 +3882,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press R, #Flight_RCS, , "
-						}
+						"#ref"				"/bindings/Flight/RCS.vdf"
 					}
 				}
 			}
@@ -4385,10 +3892,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press T, #Flight_SAS, , "
-						}
+						"#ref"				"/bindings/Flight/SAS.vdf"
 					}
 				}
 			}
@@ -4408,10 +3912,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press U, #EVA_lights, , "
-						}
+						"#ref"				"/bindings/EVA/Lights.vdf"
 					}
 				}
 			}
@@ -4421,10 +3922,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press B, #EVA_embark, , "
-						}
+						"#ref"				"/bindings/EVA/Embark.vdf"
 					}
 				}
 			}
@@ -4434,10 +3932,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press COMMA, #Common_timeWarpDecr, , "
-						}
+						"#ref"				"/bindings/Common/TimeWarp/Decrease.vdf"
 					}
 				}
 			}
@@ -4447,10 +3942,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press PERIOD, #Common_timeWarpIncr, , "
-						}
+						"#ref"				"/bindings/Common/TimeWarp/Increase.vdf"
 					}
 				}
 			}
@@ -4470,10 +3962,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press D, #EVA_right, , "
-						}
+						"#ref"				"/bindings/EVA/Move/Right.vdf"
 					}
 				}
 			}
@@ -4483,10 +3972,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press W, #EVA_forward, , "
-						}
+						"#ref"				"/bindings/EVA/Move/Forward.vdf"
 					}
 				}
 			}
@@ -4496,10 +3982,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press S, #EVA_backward, , "
-						}
+						"#ref"				"/bindings/EVA/Move/Backward.vdf"
 					}
 				}
 			}
@@ -4509,10 +3992,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press A, #EVA_left, , "
-						}
+						"#ref"				"/bindings/EVA/Move/Left.vdf"
 					}
 				}
 			}
@@ -4532,14 +4012,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_button LEFT, #Common_leftClick, "
-						}
-						"settings"
-						{
-							"haptic_intensity"		"0"
-						}
+						"#ref"				"/bindings/Common/Mouse/LeftClick.vdf"
 					}
 				}
 			}
@@ -4549,15 +4022,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_wheel SCROLL_UP, #Common_zoomIn, "
-						}
-						"settings"
-						{
-							"hold_repeats"		"1"
-							"repeat_rate"		"10"
-						}
+						"#ref"				"/bindings/Common/Camera/ZoomIn.vdf"
 					}
 				}
 			}
@@ -4567,15 +4032,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_wheel SCROLL_DOWN, #Common_zoomOut, "
-						}
-						"settings"
-						{
-							"hold_repeats"		"1"
-							"repeat_rate"		"10"
-						}
+						"#ref"				"/bindings/Common/Camera/ZoomOut.vdf"
 					}
 				}
 			}
@@ -4585,14 +4042,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mouse_button RIGHT, #Common_rightClick, "
-						}
-						"settings"
-						{
-							"haptic_intensity"		"0"
-						}
+						"#ref"				"/bindings/Common/Mouse/RightClick.vdf"
 					}
 				}
 			}
@@ -4617,10 +4067,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press RIGHT_BRACKET, #Flight_nextVessel, , "
-						}
+						"#ref"				"/bindings/Flight/Vessels/Next.vdf"
 					}
 				}
 			}
@@ -4630,10 +4077,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_BRACKET, #Flight_prevVessel, , "
-						}
+						"#ref"				"/bindings/Flight/Vessels/Previous.vdf"
 					}
 				}
 			}
@@ -4658,14 +4102,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_CONTROL, #Docking_translateDown, , "
-						}
-						"settings"
-						{
-							"haptic_intensity"		"2"
-						}
+						"#ref"				"/bindings/Flight/Translate/Down.vdf"
 					}
 				}
 			}
@@ -4699,14 +4136,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_SHIFT, #Docking_translateUp, , "
-						}
-						"settings"
-						{
-							"haptic_intensity"		"2"
-						}
+						"#ref"				"/bindings/Flight/Translate/Up.vdf"
 					}
 				}
 			}
@@ -4726,10 +4156,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_ALT, #Common_modKey, , "
-						}
+						"#ref"				"/bindings/Common/ModKey.vdf"
 					}
 				}
 			}
@@ -4759,24 +4186,15 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press ESCAPE, #Common_menu, , "
-						}
+						"#ref"				"/bindings/Common/Menu.vdf"
 					}
 					"Long_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_ALT, #Common_console, , "
-						}
+						"#ref"				"/bindings/Common/DebugConsole1.vdf"
 					}
 					"Long_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press F12, #Common_console, , "
-						}
+						"#ref"				"/bindings/Common/DebugConsole2.vdf"
 					}
 				}
 			}
@@ -4786,10 +4204,7 @@
 				{
 					"Long_Press"
 					{
-						"bindings"
-						{
-							"binding"		"controller_action SHOW_KEYBOARD, #Common_showKeyboard, "
-						}
+						"#ref"				"/bindings/Common/ShowKeyboard.vdf"
 					}
 				}
 			}
@@ -4799,10 +4214,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press Q, #Flight_rollLeft, , "
-						}
+						"#ref"				"/bindings/Flight/Move/RollLeft.vdf"
 					}
 				}
 			}
@@ -4812,10 +4224,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"key_press E, #Flight_rollRight, , "
-						}
+						"#ref"				"/bindings/Flight/Move/RollRight.vdf"
 					}
 				}
 			}
