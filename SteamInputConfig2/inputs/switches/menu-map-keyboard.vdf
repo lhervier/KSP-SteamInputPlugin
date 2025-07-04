@@ -1,0 +1,17 @@
+"ref"
+{
+    "button_menu"
+    {
+        "activators"
+        {
+            "Full_Press"
+            {
+                "#ref"				"/bindings/Flight/ShowMap.vdf"
+            }
+            "Long_Press"
+            {
+                "#ref"				"/bindings/Common/ShowKeyboard.vdf"
+            }
+        }
+    }
+}
