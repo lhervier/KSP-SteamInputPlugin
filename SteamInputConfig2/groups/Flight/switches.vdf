@@ -16,7 +16,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"mode_shift left_trackpad %dpad_modeshift.vdf%"
+							"binding"		"mode_shift left_trackpad %/groups/Common/dpad-vessel-camera.vdf%"
 						}
 					}
 					"Full_Press"

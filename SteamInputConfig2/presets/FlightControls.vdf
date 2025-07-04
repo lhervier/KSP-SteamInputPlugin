@@ -8,8 +8,10 @@
 		{
 			"/groups/Common/right_joystick.vdf"				"right_trackpad active"
 			"/groups/Common/dpad-click-zoom.vdf"			"left_trackpad active"
+			"/groups/Common/dpad-vessel-camera.vdf"			"left_trackpad active modeshift"
 			
 			"/groups/Common/Flight/buttons.vdf"				"button_diamond active"
+			
 			"/groups/Flight/buttons_modeshift.vdf"			"button_diamond active modeshift"
 			"/groups/Flight/left_joystick.vdf"				"joystick active"
 			"/groups/Flight/left_joystick_modeshift.vdf"	"joystick active modeshift"
