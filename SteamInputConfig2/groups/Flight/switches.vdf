@@ -23,8 +23,9 @@
 					{
 						"bindings"
 						{
-							"binding"		"mode_shift joystick %left_joystick_modeshift.vdf%"
+							"binding"		"mode_shift joystick %/groups/Common/left_joystick-actiongroups.vdf%"
 						}
+			
 					}
 					"Full_Press"
 					{

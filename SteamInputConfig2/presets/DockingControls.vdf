@@ -9,12 +9,12 @@
 			"/groups/Common/right_joystick.vdf"				"right_trackpad active"
 			"/groups/Common/dpad-click-zoom.vdf"			"left_trackpad active"
 			"/groups/Common/dpad-vessel-camera.vdf"			"left_trackpad active modeshift"
+			"/groups/Common/left_joystick-actiongroups.vdf"	"joystick active modeshift"
 			
 			"/groups/Common/Docking/buttons.vdf"			"button_diamond active"
 			
 			"/groups/Docking/buttons_modeshift.vdf"			"button_diamond active modeshift"
 			"/groups/Docking/left_joystick.vdf"				"joystick active"
-			"/groups/Docking/left_joystick_modeshift.vdf"	"joystick active modeshift"
 			"/groups/Docking/left_trigger.vdf"				"left_trigger active"
 			"/groups/Docking/right_trigger.vdf"				"right_trigger active"
 			"/groups/Docking/switches.vdf"					"switch active"

@@ -4,6 +4,7 @@
     "#ref"				"dpad-click-zoom.vdf"
     "#ref"				"dpad-click-scroll.vdf"
     "#ref"				"dpad-vessel-camera.vdf"
+    "#ref"				"left_joystick-actiongroups.vdf"
     "#ref"				"Flight/buttons.vdf"
     "#ref"				"Docking/buttons.vdf"
 }
