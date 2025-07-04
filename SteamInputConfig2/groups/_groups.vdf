@@ -6,4 +6,5 @@
     "#ref"				"flight.vdf"
     "#ref"				"map-flight.vdf"
     "#ref"				"docking.vdf"
+    "#ref"				"map-docking.vdf"
 }

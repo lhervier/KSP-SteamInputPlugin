@@ -1,0 +1,16 @@
+"ref"
+{
+    "group"
+	{
+		"id"		"286"
+		"mode"		"four_buttons"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"#ref"				"/inputs/buttons/b-precision-controls.vdf"
+			"#ref"				"/inputs/buttons/x-timewarp-decr.vdf"
+			"#ref"				"/inputs/buttons/y-timewarp-incr.vdf"
+		}
+	}
+}
