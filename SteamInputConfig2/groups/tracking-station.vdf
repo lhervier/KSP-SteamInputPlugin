@@ -1,6 +1,6 @@
 "ref"
 {
-    "#ref"				"TrackingStation/button.vdf"
+    "#ref"				"TrackingStation/buttons.vdf"
     "#ref"				"TrackingStation/left_joystick.vdf"
     "#ref"				"TrackingStation/dpad.vdf"
     "#ref"				"TrackingStation/left_trigger.vdf"
