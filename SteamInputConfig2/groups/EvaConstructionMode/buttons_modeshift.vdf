@@ -1,0 +1,17 @@
+"ref"
+{
+    "group"
+	{
+		"id"		"312"
+		"mode"		"four_buttons"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"#ref"				"/inputs/buttons/a-lights.vdf"
+			"#ref"				"/inputs/buttons/b-embark.vdf"
+			"#ref"				"/inputs/buttons/x-timewarp-decr.vdf"
+			"#ref"				"/inputs/buttons/y-timewarp-incr.vdf"
+		}
+	}
+}

@@ -1,0 +1,12 @@
+"ref"
+{
+    "#ref"				"EvaConstructionMode/buttons.vdf"
+    "#ref"				"EvaConstructionMode/buttons_modeshift.vdf"
+    "#ref"				"EvaConstructionMode/left_joystick.vdf"
+    "#ref"				"EvaConstructionMode/dpad.vdf"
+    "#ref"				"EvaConstructionMode/dpad_modeshift.vdf"
+    "#ref"				"EvaConstructionMode/left_trigger.vdf"
+    "#ref"				"EvaConstructionMode/right_joystick.vdf"
+    "#ref"				"EvaConstructionMode/right_trigger.vdf"
+    "#ref"				"EvaConstructionMode/switches.vdf"
+}

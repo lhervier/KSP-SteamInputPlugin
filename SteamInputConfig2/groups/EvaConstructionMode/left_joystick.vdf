@@ -1,0 +1,14 @@
+"ref"
+{
+    "group"
+	{
+		"id"		"313"
+		"mode"		"dpad"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"#ref"				"/inputs/dpad/eva-move.vdf"
+		}
+	}
+}
