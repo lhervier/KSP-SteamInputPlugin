@@ -1,0 +1,27 @@
+"ref"
+{
+    "left_bumper"
+    {
+        "activators"
+        {
+            "Full_Press"
+            {
+                "#ref"				"/bindings/Common/Bodies/Previous1.vdf"
+            }
+            "Full_Press"
+            {
+                "#ref"				"/bindings/Common/Bodies/Previous2.vdf"
+            }
+        }
+    }
+    "right_bumper"
+    {
+        "activators"
+        {
+            "Full_Press"
+            {
+                "#ref"				"/bindings/Common/Bodies/Next.vdf"
+            }
+        }
+    }
+}

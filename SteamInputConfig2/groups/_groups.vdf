@@ -2,4 +2,5 @@
 {
     "#ref"				"menu.vdf"
     "#ref"				"tracking-station.vdf"
+    "#ref"				"editor.vdf"
 }

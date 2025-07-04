@@ -1,0 +1,24 @@
+"ref"
+{
+    "group"
+	{
+		"id"		"252"
+		"mode"		"trigger"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"click"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"#ref"				"/bindings/Editor/CameraSlew.vdf"
+					}
+				}
+			}
+			"#ref"				"/inputs/left_trigger/right-click.vdf"
+		}
+	}
+}

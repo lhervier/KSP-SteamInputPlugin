@@ -1,0 +1,19 @@
+"ref"
+{
+    "group"
+	{
+		"id"		"251"
+		"mode"		"dpad"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"#ref"				"/inputs/dpad/click.vdf"
+			"#ref"				"/inputs/dpad/scroll.vdf"
+		}
+		"settings"
+		{
+			"#ref"				"/inputs/dpad/click-settings.vdf"
+		}
+	}
+}

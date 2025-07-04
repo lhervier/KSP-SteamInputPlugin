@@ -1,0 +1,53 @@
+"ref"
+{
+    "group"
+	{
+		"id"		"247"
+		"mode"		"four_buttons"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"button_a"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"#ref"				"/bindings/Editor/ResetPartRotation.vdf"
+					}
+				}
+			}
+			"button_b"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"#ref"				"/bindings/Editor/DeletePart.vdf"
+					}
+				}
+			}
+			"button_x"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"#ref"				"/bindings/Editor/SymmetryCycle.vdf"
+					}
+				}
+			}
+			"button_y"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"#ref"				"/bindings/Editor/SnapToggle.vdf"
+					}
+				}
+			}
+		}
+	}
+}

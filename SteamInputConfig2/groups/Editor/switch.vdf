@@ -1,0 +1,40 @@
+"ref"
+{
+    "group"
+	{
+		"id"		"255"
+		"mode"		"switches"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"#ref"				"/inputs/switches/mod-key.vdf"
+			"#ref"				"/inputs/switches/undo-redo-keyboard.vdf"
+			"#ref"				"/inputs/switches/roll.vdf"
+			"button_back_right"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"#ref"				"/bindings/Editor/CameraSlew.vdf"
+					}
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"mode_shift button_diamond 248"
+						}
+					}
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"mode_shift joystick 250"
+						}
+					}
+				}
+			}
+		}
+	}
+}

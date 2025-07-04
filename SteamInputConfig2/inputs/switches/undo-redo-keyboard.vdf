@@ -1,0 +1,35 @@
+"ref"
+{
+    "button_escape"
+    {
+        "activators"
+        {
+            "Full_Press"
+            {
+                "#ref"				"/bindings/Editor/Redo1.vdf"
+            }
+            "Full_Press"
+            {
+                "#ref"				"/bindings/Editor/Redo2.vdf"
+            }
+        }
+    }
+    "button_menu"
+    {
+        "activators"
+        {
+            "Full_Press"
+            {
+                "#ref"				"/bindings/Editor/Undo1.vdf"
+            }
+            "Full_Press"
+            {
+                "#ref"				"/bindings/Editor/Undo2.vdf"
+            }
+            "Long_Press"
+            {
+                "#ref"				"/bindings/Common/ShowKeyboard.vdf"
+            }
+        }
+    }
+}

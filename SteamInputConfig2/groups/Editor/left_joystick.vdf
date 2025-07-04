@@ -1,0 +1,53 @@
+"ref"
+{
+    "group"
+	{
+		"id"		"249"
+		"mode"		"dpad"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"dpad_east"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"#ref"				"/bindings/Editor/MovePart/YawRight.vdf"
+					}
+				}
+			}
+			"dpad_north"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"#ref"				"/bindings/Editor/MovePart/PitchDown.vdf"
+					}
+				}
+			}
+			"dpad_south"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"#ref"				"/bindings/Editor/MovePart/PitchUp.vdf"
+					}
+				}
+			}
+			"dpad_west"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"#ref"				"/bindings/Editor/MovePart/YawLeft.vdf"
+					}
+				}
+			}
+		}
+	}
+}

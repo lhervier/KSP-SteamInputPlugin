@@ -1,0 +1,23 @@
+"ref"
+{
+    "dpad_north"
+    {
+        "activators"
+        {
+            "Full_Press"
+            {
+                "#ref"				"/bindings/Common/Mouse/ScrollUp.vdf"
+            }
+        }
+    }
+    "dpad_south"
+    {
+        "activators"
+        {
+            "Full_Press"
+            {
+                "#ref"				"/bindings/Common/Mouse/ScrollDown.vdf"
+            }
+        }
+    }
+}

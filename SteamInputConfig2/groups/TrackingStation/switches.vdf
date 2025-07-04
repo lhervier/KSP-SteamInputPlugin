@@ -1,0 +1,17 @@
+"ref"
+{
+    "group"
+	{
+		"id"		"246"
+		"mode"		"switches"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"#ref"				"/inputs/switches/mod-key.vdf"
+			"#ref"				"/inputs/switches/menu-debug.vdf"
+			"#ref"				"/inputs/switches/keyboard.vdf"
+			"#ref"				"/inputs/switches/prev-next-vessel.vdf"
+		}
+	}
+}

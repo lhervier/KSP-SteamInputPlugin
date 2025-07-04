@@ -1,0 +1,13 @@
+"ref"
+{
+    "mode"		"absolute_mouse"
+    "name"		""
+    "description"		""
+    "inputs"
+    {
+    }
+    "settings"
+    {
+        "#ref"				"/inputs/right_joystick/mouse-settings.vdf"
+    }
+}

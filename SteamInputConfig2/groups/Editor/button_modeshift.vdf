@@ -1,0 +1,53 @@
+"ref"
+{
+    "group"
+	{
+		"id"		"248"
+		"mode"		"four_buttons"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"button_a"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"#ref"				"/bindings/Editor/Tools/Place.vdf"
+					}
+				}
+			}
+			"button_b"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"#ref"				"/bindings/Editor/Tools/Offset.vdf"
+					}
+				}
+			}
+			"button_x"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"#ref"				"/bindings/Editor/Tools/Rotate.vdf"
+					}
+				}
+			}
+			"button_y"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"#ref"				"/bindings/Editor/Tools/Root.vdf"
+					}
+				}
+			}
+		}
+	}
+}

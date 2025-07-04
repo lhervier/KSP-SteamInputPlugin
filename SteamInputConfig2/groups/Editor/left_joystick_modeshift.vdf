@@ -1,0 +1,33 @@
+"ref"
+{
+    "group"
+	{
+		"id"		"250"
+		"mode"		"dpad"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"dpad_north"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"#ref"				"/bindings/Editor/CoordFrameToggle.vdf"
+					}
+				}
+			}
+			"dpad_south"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"#ref"				"/bindings/Editor/SymmetryModeToggle.vdf"
+					}
+				}
+			}
+		}
+	}
+}

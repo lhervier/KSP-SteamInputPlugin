@@ -5,8 +5,8 @@ const { saveVdfFile, loadVdfFile } = require('./vdf-utils');
 
 // Load the root controller file, resolving #ref
 const vdf = loadVdfFile(
-    '.', 
-    'controller_steamcontroller_gordon.vdf'
+    path.join('.', 'controller_steamcontroller_gordon.vdf'),
+    'controller_steamcontroller_gordon'
 );
 
 // Create the "build" directory if it doesn't exist

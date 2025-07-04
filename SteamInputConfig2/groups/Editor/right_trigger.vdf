@@ -1,0 +1,14 @@
+"ref"
+{
+    "group"
+	{
+		"id"		"254"
+		"mode"		"trigger"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"#ref"				"/inputs/right_trigger/left-click.vdf"
+		}
+	}
+}
