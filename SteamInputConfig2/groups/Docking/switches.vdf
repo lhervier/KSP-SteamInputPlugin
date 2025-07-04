@@ -23,7 +23,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"mode_shift button_diamond %buttons_modeshift.vdf%"
+							"binding"		"mode_shift button_diamond %/groups/Common/DockingFlight/buttons-timewarp-precision-target.vdf%"
 						}
 					}
 					"Full_Press"

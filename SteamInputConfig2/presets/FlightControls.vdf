@@ -6,18 +6,18 @@
 		"name"		"FlightControls"
 		"group_source_bindings"
 		{
-			"/groups/Common/right_joystick.vdf"				"right_trackpad active"
-			"/groups/Common/dpad-click-zoom.vdf"			"left_trackpad active"
-			"/groups/Common/dpad-vessel-camera.vdf"			"left_trackpad active modeshift"
-			"/groups/Common/left_joystick-actiongroups.vdf"	"joystick active modeshift"
+			"/groups/Common/right_joystick.vdf"											"right_trackpad active"
+			"/groups/Common/dpad-click-zoom.vdf"										"left_trackpad active"
+			"/groups/Common/dpad-vessel-camera.vdf"										"left_trackpad active modeshift"
+			"/groups/Common/left_joystick-actiongroups.vdf"								"joystick active modeshift"
 			
-			"/groups/Common/Flight/buttons.vdf"				"button_diamond active"
+			"/groups/Common/Flight/buttons.vdf"											"button_diamond active"
+			"/groups/Common/DockingFlight/buttons-timewarp-precision-target.vdf"		"button_diamond active modeshift"
 			
-			"/groups/Flight/buttons_modeshift.vdf"			"button_diamond active modeshift"
-			"/groups/Flight/left_joystick.vdf"				"joystick active"
-			"/groups/Flight/left_trigger.vdf"				"left_trigger active"
-			"/groups/Flight/right_trigger.vdf"				"right_trigger active"
-			"/groups/Flight/switches.vdf"					"switch active"
+			"/groups/Flight/left_joystick.vdf"											"joystick active"
+			"/groups/Flight/left_trigger.vdf"											"left_trigger active"
+			"/groups/Flight/right_trigger.vdf"											"right_trigger active"
+			"/groups/Flight/switches.vdf"												"switch active"
 		}
 	}
 }

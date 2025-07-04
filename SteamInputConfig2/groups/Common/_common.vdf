@@ -7,4 +7,5 @@
     "#ref"				"left_joystick-actiongroups.vdf"
     "#ref"				"Flight/buttons.vdf"
     "#ref"				"Docking/buttons.vdf"
+    "#ref"				"DockingFlight/buttons-timewarp-precision-target.vdf"
 }
