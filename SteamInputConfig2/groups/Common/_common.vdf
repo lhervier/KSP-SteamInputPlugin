@@ -8,5 +8,6 @@
     "#ref"				"Flight/buttons.vdf"
     "#ref"				"Flight/left_joystick-yaw-pitch.vdf"
     "#ref"				"Docking/buttons.vdf"
+    "#ref"				"Docking/left_joystick-translate.vdf"
     "#ref"				"DockingFlight/buttons-timewarp-precision-target.vdf"
 }
