@@ -1,9 +1,0 @@
-"ref"
-{
-    "#ref"				"Iva/buttons.vdf"
-    "#ref"				"Iva/buttons_modeshift.vdf"
-    "#ref"				"Iva/dpad.vdf"
-    "#ref"				"Iva/dpad_modeshift.vdf"
-    "#ref"				"Iva/right_joystick.vdf"
-    "#ref"				"Iva/switches.vdf"
-}
