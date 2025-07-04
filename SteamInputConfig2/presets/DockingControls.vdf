@@ -2,20 +2,20 @@
 {
     "preset"
 	{
-		"id"		"31"
+		"id"		"#fileName"
 		"name"		"DockingControls"
 		"group_source_bindings"
 		{
-			"275"		"button_diamond active"
-			"276"		"button_diamond active modeshift"
-			"277"		"joystick active"
-			"278"		"joystick active modeshift"
-			"279"		"left_trackpad active"
-			"280"		"left_trackpad active modeshift"
-			"281"		"left_trigger active"
-			"282"		"right_trackpad active"
-			"283"		"right_trigger active"
-			"284"		"switch active"
+			"/groups/Docking/buttons.vdf"					"button_diamond active"
+			"/groups/Docking/buttons_modeshift.vdf"			"button_diamond active modeshift"
+			"/groups/Docking/left_joystick.vdf"				"joystick active"
+			"/groups/Docking/left_joystick_modeshift.vdf"	"joystick active modeshift"
+			"/groups/Docking/dpad.vdf"						"left_trackpad active"
+			"/groups/Docking/dpad_modeshift.vdf"			"left_trackpad active modeshift"
+			"/groups/Docking/left_trigger.vdf"				"left_trigger active"
+			"/groups/Docking/right_joystick.vdf"			"right_trackpad active"
+			"/groups/Docking/right_trigger.vdf"				"right_trigger active"
+			"/groups/Docking/switches.vdf"					"switch active"
 		}
 	}
 }

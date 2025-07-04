@@ -2,20 +2,19 @@
 {
     "preset"
 	{
-		"id"		"29"
+		"id"		"#fileName"
 		"name"		"FlightControls"
 		"group_source_bindings"
 		{
-			"256"		"button_diamond active"
-			"257"		"button_diamond active modeshift"
-			"258"		"joystick active"
-			"259"		"joystick active modeshift"
-			"260"		"left_trackpad active"
-			"261"		"left_trackpad active modeshift"
-			"262"		"left_trigger active"
-			"263"		"right_trackpad active"
-			"264"		"right_trigger active"
-			"265"		"switch active"
+			"/groups/Flight/buttons.vdf"					"button_diamond active"
+			"/groups/Flight/buttons_modeshift.vdf"			"button_diamond active modeshift"
+			"/groups/Flight/left_joystick.vdf"				"joystick active"
+			"/groups/Flight/left_joystick_modeshift.vdf"	"joystick active modeshift"
+			"/groups/Flight/dpad.vdf"						"left_trackpad active"
+			"/groups/Flight/left_trigger.vdf"				"left_trigger active"
+			"/groups/Flight/right_joystick.vdf"				"right_trackpad active"
+			"/groups/Flight/right_trigger.vdf"				"right_trigger active"
+			"/groups/Flight/switches.vdf"					"switch active"
 		}
 	}
 }

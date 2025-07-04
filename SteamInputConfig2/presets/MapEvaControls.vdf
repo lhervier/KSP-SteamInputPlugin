@@ -2,18 +2,18 @@
 {
     "preset"
 	{
-		"id"		"34"
+		"id"		"#fileName"
 		"name"		"MapEvaControls"
 		"group_source_bindings"
 		{
-			"303"		"button_diamond active"
-			"304"		"button_diamond active modeshift"
-			"305"		"joystick active"
-			"306"		"left_trackpad active"
-			"307"		"left_trigger active"
-			"308"		"right_trackpad active"
-			"309"		"right_trigger active"
-			"310"		"switch active"
+			"/groups/MapEva/buttons.vdf"				"button_diamond active"
+			"/groups/MapEva/buttons_modeshift.vdf"		"button_diamond active modeshift"
+			"/groups/MapEva/left_joystick.vdf"			"joystick active"
+			"/groups/MapEva/dpad.vdf"					"left_trackpad active"
+			"/groups/MapEva/left_trigger.vdf"			"left_trigger active"
+			"/groups/MapEva/right_joystick.vdf"			"right_trackpad active"
+			"/groups/MapEva/right_trigger.vdf"			"right_trigger active"
+			"/groups/MapEva/switches.vdf"				"switch active"
 		}
 	}
 }

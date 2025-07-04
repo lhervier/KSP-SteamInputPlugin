@@ -2,19 +2,19 @@
 {
     "preset"
 	{
-		"id"		"33"
+		"id"		"#fileName"
 		"name"		"EvaControls"
 		"group_source_bindings"
 		{
-			"294"		"button_diamond active"
-			"295"		"button_diamond active modeshift"
-			"296"		"joystick active"
-			"297"		"left_trackpad active"
-			"298"		"left_trackpad active modeshift"
-			"299"		"left_trigger active"
-			"300"		"right_trackpad active"
-			"301"		"right_trigger active"
-			"302"		"switch active"
+			"/groups/Eva/buttons.vdf"					"button_diamond active"
+			"/groups/Eva/buttons_modeshift.vdf"			"button_diamond active modeshift"
+			"/groups/Eva/left_joystick.vdf"				"joystick active"
+			"/groups/Eva/dpad.vdf"						"left_trackpad active"
+			"/groups/Eva/left_joystick_modeshift.vdf"	"left_trackpad active modeshift"
+			"/groups/Eva/left_trigger.vdf"				"left_trigger active"
+			"/groups/Eva/right_joystick.vdf"			"right_trackpad active"
+			"/groups/Eva/right_trigger.vdf"				"right_trigger active"
+			"/groups/Eva/switches.vdf"					"switch active"
 		}
 	}
 }

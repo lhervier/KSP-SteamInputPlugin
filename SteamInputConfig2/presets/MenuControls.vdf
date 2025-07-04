@@ -2,17 +2,17 @@
 {
     "preset"
 	{
-		"id"		"26"
+		"id"		"#fileName"
 		"name"		"MenuControls"
 		"group_source_bindings"
 		{
-			"233"		"button_diamond active"
-			"234"		"joystick active"
-			"235"		"left_trackpad active"
-			"236"		"left_trigger active"
-			"237"		"right_trackpad active"
-			"238"		"right_trigger active"
-			"239"		"switch"
+			"/groups/Menu/buttons.vdf"				"button_diamond active"
+			"/groups/Menu/left_joystick.vdf"		"joystick active"
+			"/groups/Menu/dpad.vdf"					"left_trackpad active"
+			"/groups/Menu/left_trigger.vdf"			"left_trigger active"
+			"/groups/Menu/right_joystick.vdf"		"right_trackpad active"
+			"/groups/Menu/right_trigger.vdf"		"right_trigger active"
+			"/groups/Menu/switches.vdf"				"switch"
 		}
 	}
 }

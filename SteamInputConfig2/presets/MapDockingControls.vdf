@@ -2,19 +2,19 @@
 {
     "preset"
 	{
-		"id"		"32"
+		"id"		"#fileName"
 		"name"		"MapDockingControls"
 		"group_source_bindings"
 		{
-			"285"		"button_diamond active"
-			"286"		"button_diamond active modeshift"
-			"287"		"joystick active"
-			"288"		"joystick active modeshift"
-			"289"		"left_trackpad active"
-			"290"		"left_trigger active"
-			"291"		"right_trackpad active"
-			"292"		"right_trigger active"
-			"293"		"switch active"
+			"/groups/MapDocking/buttons.vdf"					"button_diamond active"
+			"/groups/MapDocking/buttons_modeshift.vdf"			"button_diamond active modeshift"
+			"/groups/MapDocking/left_joystick.vdf"				"joystick active"
+			"/groups/MapDocking/left_joystick_modeshift.vdf"	"joystick active modeshift"
+			"/groups/MapDocking/dpad.vdf"						"left_trackpad active"
+			"/groups/MapDocking/left_trigger.vdf"				"left_trigger active"
+			"/groups/MapDocking/right_joystick.vdf"				"right_trackpad active"
+			"/groups/MapDocking/right_trigger.vdf"				"right_trigger active"
+			"/groups/MapDocking/switches.vdf"					"switch active"
 		}
 	}
 }

@@ -2,19 +2,18 @@
 {
     "preset"
 	{
-		"id"		"35"
+		"id"		"#fileName"
 		"name"		"EvaConstructionModeControls"
 		"group_source_bindings"
 		{
-			"311"		"button_diamond active"
-			"312"		"button_diamond active modeshift"
-			"313"		"joystick active"
-			"314"		"left_trackpad active"
-			"315"		"left_trackpad active modeshift"
-			"316"		"left_trigger active"
-			"317"		"right_trackpad active"
-			"318"		"right_trigger active"
-			"319"		"switch active"
+			"/groups/EvaConstructionMode/buttons.vdf"					"button_diamond active"
+			"/groups/EvaConstructionMode/buttons_modeshift.vdf"			"button_diamond active modeshift"
+			"/groups/EvaConstructionMode/left_joystick.vdf"				"joystick active"
+			"/groups/EvaConstructionMode/left_joystick_modeshift.vdf"	"left_trackpad active modeshift"
+			"/groups/EvaConstructionMode/left_trigger.vdf"				"left_trigger active"
+			"/groups/EvaConstructionMode/right_joystick.vdf"			"right_trackpad active"
+			"/groups/EvaConstructionMode/right_trigger.vdf"				"right_trigger active"
+			"/groups/EvaConstructionMode/switches.vdf"					"switch active"
 		}
 	}
 }

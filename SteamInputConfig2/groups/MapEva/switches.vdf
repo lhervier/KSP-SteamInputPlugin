@@ -2,7 +2,7 @@
 {
     "group"
 	{
-		"id"		"310"
+		"id"		"#fileName"
 		"mode"		"switches"
 		"name"		""
 		"description"		""
@@ -16,7 +16,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"mode_shift button_diamond 304"
+							"binding"		"mode_shift button_diamond %buttons_modeshift.vdf%"
 						}
 					}
 				}

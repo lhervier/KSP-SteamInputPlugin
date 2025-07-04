@@ -2,7 +2,7 @@
 {
     "group"
 	{
-		"id"		        "253"
+		"id"		        "#fileName"
 		"#ref"				"/groups/Common/absolute_mouse.vdf"
 	}
 }

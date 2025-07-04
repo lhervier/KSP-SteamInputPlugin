@@ -2,11 +2,14 @@
 {
     "group"
 	{
-		"id"		"324"
+		"id"		"#fileName"
 		"mode"		"absolute_mouse"
 		"name"		""
 		"description"		""
 		"inputs"
+		{
+		}
+		"settings"
 		{
 			"#ref"				"/inputs/joysticks/right/mouse-settings.vdf"
 		}

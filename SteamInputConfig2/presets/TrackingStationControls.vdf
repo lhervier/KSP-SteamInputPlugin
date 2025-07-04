@@ -2,17 +2,17 @@
 {
     "preset"
 	{
-		"id"		"27"
+		"id"		"#fileName"
 		"name"		"TrackingStationControls"
 		"group_source_bindings"
 		{
-			"240"		"button_diamond active"
-			"241"		"joystick active"
-			"242"		"left_trackpad active"
-			"243"		"left_trigger active"
-			"244"		"right_trackpad active"
-			"245"		"right_trigger active"
-			"246"		"switch active"
+			"/groups/TrackingStation/buttons.vdf"			"button_diamond active"
+			"/groups/TrackingStation/left_joystick.vdf"		"joystick active"
+			"/groups/TrackingStation/dpad.vdf"				"left_trackpad active"
+			"/groups/TrackingStation/left_trigger.vdf"		"left_trigger active"
+			"/groups/TrackingStation/right_joystick.vdf"	"right_trackpad active"
+			"/groups/TrackingStation/right_trigger.vdf"		"right_trigger active"
+			"/groups/TrackingStation/switches.vdf"			"switch active"
 		}
 	}
 }

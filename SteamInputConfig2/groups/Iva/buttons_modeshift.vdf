@@ -2,7 +2,7 @@
 {
     "group"
 	{
-		"id"		"321"
+		"id"		"#fileName"
 		"mode"		"four_buttons"
 		"name"		""
 		"description"		""
@@ -11,8 +11,6 @@
 			"#ref"				"/inputs/buttons/a-targetdisplay.vdf"
 			"#ref"				"/inputs/buttons/x-timewarp-decr.vdf"
 			"#ref"				"/inputs/buttons/y-timewarp-incr.vdf"
-			
-			
 		}
 	}
 }

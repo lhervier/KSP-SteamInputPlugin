@@ -2,16 +2,16 @@
 {
     "preset"
 	{
-		"id"		"36"
+		"id"		"#fileName"
 		"name"		"IvaControls"
 		"group_source_bindings"
 		{
-			"320"		"button_diamond active"
-			"321"		"button_diamond active modeshift"
-			"322"		"left_trackpad active"
-			"323"		"left_trackpad active modeshift"
-			"324"		"right_trackpad active"
-			"325"		"switch active"
+			"/groups/Iva/buttons.vdf"			"button_diamond active"
+			"/groups/Iva/buttons_modeshift.vdf"	"button_diamond active modeshift"
+			"/groups/Iva/dpad.vdf"				"left_trackpad active"
+			"/groups/Iva/dpad_modeshift.vdf"	"left_trackpad active modeshift"
+			"/groups/Iva/right_joystick.vdf"	"right_trackpad active"
+			"/groups/Iva/switches.vdf"			"switch active"
 		}
 	}
 }

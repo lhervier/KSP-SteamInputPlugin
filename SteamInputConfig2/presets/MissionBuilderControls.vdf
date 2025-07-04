@@ -2,17 +2,17 @@
 {
     "preset"
 	{
-		"id"		"38"
+		"id"		"#fileName"
 		"name"		"MissionBuilderControls"
 		"group_source_bindings"
 		{
-			"335"		"button_diamond active"
-			"336"		"joystick active"
-			"337"		"left_trackpad active"
-			"338"		"left_trigger active"
-			"339"		"right_trackpad active"
-			"340"		"right_trigger active"
-			"341"		"switch active"
+			"/groups/MissionBuilder/buttons.vdf"		"button_diamond active"
+			"/groups/MissionBuilder/left_joystick.vdf"	"joystick active"
+			"/groups/MissionBuilder/dpad.vdf"			"left_trackpad active"
+			"/groups/MissionBuilder/left_trigger.vdf"	"left_trigger active"
+			"/groups/MissionBuilder/right_joystick.vdf"	"right_trackpad active"
+			"/groups/MissionBuilder/right_trigger.vdf"	"right_trigger active"
+			"/groups/MissionBuilder/switches.vdf"		"switch active"
 		}
 	}
 }

@@ -8,5 +8,5 @@
     "#ref"				"Editor/left_trigger.vdf"
     "#ref"				"Editor/right_joystick.vdf"
     "#ref"				"Editor/right_trigger.vdf"
-    "#ref"				"Editor/switch.vdf"
+    "#ref"				"Editor/switches.vdf"
 }

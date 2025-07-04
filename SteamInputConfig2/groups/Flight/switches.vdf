@@ -2,7 +2,7 @@
 {
     "group"
 	{
-		"id"		"265"
+		"id"		"#fileName"
 		"mode"		"switches"
 		"name"		""
 		"description"		""
@@ -16,21 +16,21 @@
 					{
 						"bindings"
 						{
-							"binding"		"mode_shift left_trackpad 261"
+							"binding"		"mode_shift left_trackpad %dpad_modeshift.vdf%"
 						}
 					}
 					"Full_Press"
 					{
 						"bindings"
 						{
-							"binding"		"mode_shift joystick 259"
+							"binding"		"mode_shift joystick %left_joystick_modeshift.vdf%"
 						}
 					}
 					"Full_Press"
 					{
 						"bindings"
 						{
-							"binding"		"mode_shift button_diamond 257"
+							"binding"		"mode_shift button_diamond %buttons_modeshift.vdf%"
 						}
 					}
 				}
