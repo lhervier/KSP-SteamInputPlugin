@@ -1,0 +1,17 @@
+"ref"
+{
+    "group"
+	{
+		"id"		"326"
+		"mode"		"four_buttons"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"#ref"				"/inputs/buttons/a-jump.vdf"
+			"#ref"				"/inputs/buttons/b-back-to-seat.vdf"
+			"#ref"				"/inputs/buttons/x-crouch.vdf"
+			"#ref"				"/inputs/buttons/y-goto-eva.vdf"
+		}
+	}
+}
