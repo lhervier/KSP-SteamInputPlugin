@@ -11,7 +11,7 @@
 			"/groups/EvaConstructionMode/left_joystick.vdf"				"joystick active"
 			"/groups/EvaConstructionMode/left_joystick_modeshift.vdf"	"left_trackpad active modeshift"
 			"/groups/EvaConstructionMode/left_trigger.vdf"				"left_trigger active"
-			"/groups/EvaConstructionMode/right_joystick.vdf"			"right_trackpad active"
+			"/groups/Common/right_joystick.vdf"							"right_trackpad active"
 			"/groups/EvaConstructionMode/right_trigger.vdf"				"right_trigger active"
 			"/groups/EvaConstructionMode/switches.vdf"					"switch active"
 		}

@@ -1,5 +1,6 @@
 "ref"
 {
+    "#ref"				"Common/_common.vdf"
     "#ref"				"Menu/_menu.vdf"
     "#ref"				"TrackingStation/_tracking-station.vdf"
     "#ref"				"Editor/_editor.vdf"

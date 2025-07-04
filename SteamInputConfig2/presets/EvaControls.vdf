@@ -12,7 +12,7 @@
 			"/groups/Eva/dpad.vdf"						"left_trackpad active"
 			"/groups/Eva/left_joystick_modeshift.vdf"	"left_trackpad active modeshift"
 			"/groups/Eva/left_trigger.vdf"				"left_trigger active"
-			"/groups/Eva/right_joystick.vdf"			"right_trackpad active"
+			"/groups/Common/right_joystick.vdf"			"right_trackpad active"
 			"/groups/Eva/right_trigger.vdf"				"right_trigger active"
 			"/groups/Eva/switches.vdf"					"switch active"
 		}

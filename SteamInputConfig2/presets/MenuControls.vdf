@@ -10,7 +10,7 @@
 			"/groups/Menu/left_joystick.vdf"		"joystick active"
 			"/groups/Menu/dpad.vdf"					"left_trackpad active"
 			"/groups/Menu/left_trigger.vdf"			"left_trigger active"
-			"/groups/Menu/right_joystick.vdf"		"right_trackpad active"
+			"/groups/Common/right_joystick.vdf"		"right_trackpad active"
 			"/groups/Menu/right_trigger.vdf"		"right_trigger active"
 			"/groups/Menu/switches.vdf"				"switch"
 		}

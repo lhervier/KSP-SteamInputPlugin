@@ -5,7 +5,6 @@
     "#ref"				"left_joystick.vdf"
     "#ref"				"dpad.vdf"
     "#ref"				"left_trigger.vdf"
-    "#ref"				"right_joystick.vdf"
     "#ref"				"right_trigger.vdf"
     "#ref"				"switches.vdf"
 }

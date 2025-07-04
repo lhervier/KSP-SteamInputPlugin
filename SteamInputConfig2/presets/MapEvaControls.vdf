@@ -11,7 +11,7 @@
 			"/groups/MapEva/left_joystick.vdf"			"joystick active"
 			"/groups/MapEva/dpad.vdf"					"left_trackpad active"
 			"/groups/MapEva/left_trigger.vdf"			"left_trigger active"
-			"/groups/MapEva/right_joystick.vdf"			"right_trackpad active"
+			"/groups/Common/right_joystick.vdf"			"right_trackpad active"
 			"/groups/MapEva/right_trigger.vdf"			"right_trigger active"
 			"/groups/MapEva/switches.vdf"				"switch active"
 		}

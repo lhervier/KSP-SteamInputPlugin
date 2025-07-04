@@ -12,7 +12,7 @@
 			"/groups/MapDocking/left_joystick_modeshift.vdf"	"joystick active modeshift"
 			"/groups/MapDocking/dpad.vdf"						"left_trackpad active"
 			"/groups/MapDocking/left_trigger.vdf"				"left_trigger active"
-			"/groups/MapDocking/right_joystick.vdf"				"right_trackpad active"
+			"/groups/Common/right_joystick.vdf"					"right_trackpad active"
 			"/groups/MapDocking/right_trigger.vdf"				"right_trigger active"
 			"/groups/MapDocking/switches.vdf"					"switch active"
 		}

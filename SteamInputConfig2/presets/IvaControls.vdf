@@ -10,7 +10,7 @@
 			"/groups/Iva/buttons_modeshift.vdf"	"button_diamond active modeshift"
 			"/groups/Iva/dpad.vdf"				"left_trackpad active"
 			"/groups/Iva/dpad_modeshift.vdf"	"left_trackpad active modeshift"
-			"/groups/Iva/right_joystick.vdf"	"right_trackpad active"
+			"/groups/Common/right_joystick.vdf"	"right_trackpad active"
 			"/groups/Iva/switches.vdf"			"switch active"
 		}
 	}

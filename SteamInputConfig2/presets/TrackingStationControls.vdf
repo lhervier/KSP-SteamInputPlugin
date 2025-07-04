@@ -10,7 +10,7 @@
 			"/groups/TrackingStation/left_joystick.vdf"		"joystick active"
 			"/groups/TrackingStation/dpad.vdf"				"left_trackpad active"
 			"/groups/TrackingStation/left_trigger.vdf"		"left_trigger active"
-			"/groups/TrackingStation/right_joystick.vdf"	"right_trackpad active"
+			"/groups/Common/right_joystick.vdf"				"right_trackpad active"
 			"/groups/TrackingStation/right_trigger.vdf"		"right_trigger active"
 			"/groups/TrackingStation/switches.vdf"			"switch active"
 		}

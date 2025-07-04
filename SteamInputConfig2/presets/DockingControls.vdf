@@ -13,7 +13,7 @@
 			"/groups/Docking/dpad.vdf"						"left_trackpad active"
 			"/groups/Docking/dpad_modeshift.vdf"			"left_trackpad active modeshift"
 			"/groups/Docking/left_trigger.vdf"				"left_trigger active"
-			"/groups/Docking/right_joystick.vdf"			"right_trackpad active"
+			"/groups/Common/right_joystick.vdf"				"right_trackpad active"
 			"/groups/Docking/right_trigger.vdf"				"right_trigger active"
 			"/groups/Docking/switches.vdf"					"switch active"
 		}

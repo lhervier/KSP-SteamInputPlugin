@@ -4,6 +4,5 @@
     "#ref"				"buttons_modeshift.vdf"
     "#ref"				"dpad.vdf"
     "#ref"				"dpad_modeshift.vdf"
-    "#ref"				"right_joystick.vdf"
     "#ref"				"switches.vdf"
 }

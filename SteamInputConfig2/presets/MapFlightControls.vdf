@@ -12,7 +12,7 @@
 			"/groups/MapFlight/left_joystick_modeshift.vdf"	"joystick active modeshift"
 			"/groups/MapFlight/dpad.vdf"					"left_trackpad active"
 			"/groups/MapFlight/left_trigger.vdf"			"left_trigger active"
-			"/groups/MapFlight/right_joystick.vdf"			"right_trackpad active"
+			"/groups/Common/right_joystick.vdf"				"right_trackpad active"
 			"/groups/MapFlight/right_trigger.vdf"			"right_trigger active"
 			"/groups/MapFlight/switches.vdf"				"switch active"
 		}

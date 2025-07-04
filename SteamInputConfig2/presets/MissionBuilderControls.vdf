@@ -10,7 +10,7 @@
 			"/groups/MissionBuilder/left_joystick.vdf"	"joystick active"
 			"/groups/MissionBuilder/dpad.vdf"			"left_trackpad active"
 			"/groups/MissionBuilder/left_trigger.vdf"	"left_trigger active"
-			"/groups/MissionBuilder/right_joystick.vdf"	"right_trackpad active"
+			"/groups/Common/right_joystick.vdf"			"right_trackpad active"
 			"/groups/MissionBuilder/right_trigger.vdf"	"right_trigger active"
 			"/groups/MissionBuilder/switches.vdf"		"switch active"
 		}
