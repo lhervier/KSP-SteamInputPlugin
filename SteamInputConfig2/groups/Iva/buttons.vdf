@@ -1,0 +1,16 @@
+"ref"
+{
+    "group"
+	{
+		"id"		"320"
+		"mode"		"four_buttons"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"#ref"				"/inputs/buttons/b-back-to-flight.vdf"
+			"#ref"				"/inputs/buttons/x-next-kerbal.vdf"
+			"#ref"				"/inputs/buttons/y-unbuckle.vdf"
+		}
+	}
+}

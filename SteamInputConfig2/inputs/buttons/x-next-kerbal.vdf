@@ -1,0 +1,13 @@
+"ref"
+{
+    "button_x"
+    {
+        "activators"
+        {
+            "Full_Press"
+            {
+                "#ref"				"/bindings/IVA/NextKerbal.vdf"
+            }
+        }
+    }
+}

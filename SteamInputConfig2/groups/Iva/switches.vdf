@@ -1,0 +1,36 @@
+"ref"
+{
+    "group"
+	{
+		"id"		"325"
+		"mode"		"switches"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"button_back_right"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"mode_shift button_diamond 321"
+						}
+					}
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"mode_shift left_trackpad 323"
+						}
+					}
+				}
+			}
+			"#ref"				"/inputs/switches/backleft-mod-key.vdf"
+			"#ref"				"/inputs/switches/esc-menu-debug.vdf"
+			"#ref"				"/inputs/switches/menu-keyboard.vdf"
+		}
+	}
+}
