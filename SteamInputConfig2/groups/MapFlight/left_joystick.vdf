@@ -1,0 +1,14 @@
+"ref"
+{
+    "group"
+	{
+		"id"		"268"
+		"mode"		"dpad"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"#ref"				"/inputs/dpad/yaw-pitch.vdf"
+		}
+	}
+}

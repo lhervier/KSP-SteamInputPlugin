@@ -1,0 +1,20 @@
+"ref"
+{
+    "group"
+	{
+		"id"		"273"
+		"mode"		"trigger"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"#ref"				"/inputs/triggers/right/click-full-throttle.vdf"
+			"#ref"				"/inputs/triggers/right/edge-throttle-up.vdf"
+			
+		}
+		"settings"
+		{
+			"#ref"				"/inputs/triggers/settings.vdf"
+		}
+	}
+}

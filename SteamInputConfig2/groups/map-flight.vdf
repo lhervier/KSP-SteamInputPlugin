@@ -1,0 +1,12 @@
+"ref"
+{
+    "#ref"				"MapFlight/buttons.vdf"
+    "#ref"				"MapFlight/buttons_modeshift.vdf"
+    "#ref"				"MapFlight/left_joystick.vdf"
+    "#ref"				"MapFlight/left_joystick_modeshift.vdf"
+    "#ref"				"MapFlight/dpad.vdf"
+    "#ref"				"MapFlight/left_trigger.vdf"
+    "#ref"				"MapFlight/right_joystick.vdf"
+    "#ref"				"MapFlight/right_trigger.vdf"
+    "#ref"				"MapFlight/switches.vdf"
+}

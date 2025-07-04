@@ -1,0 +1,19 @@
+"ref"
+{
+    "group"
+	{
+		"id"		"271"
+		"mode"		"trigger"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"#ref"				"/inputs/triggers/left/click-throttle-cutoff.vdf"
+			"#ref"				"/inputs/triggers/left/edge-throttle-down.vdf"
+		}
+		"settings"
+		{
+			"#ref"				"/inputs/triggers/settings.vdf"
+		}
+	}
+}
