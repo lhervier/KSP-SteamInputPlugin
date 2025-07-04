@@ -1,15 +1,5 @@
 "ref"
 {
-    "button_x"
-    {
-        "activators"
-        {
-            "Full_Press"
-            {
-                "#ref"				"/bindings/Common/TimeWarp/Increase.vdf"
-            }
-        }
-    }
     "button_y"
     {
         "activators"

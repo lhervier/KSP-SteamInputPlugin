@@ -1,15 +1,5 @@
 "ref"
 {
-    "left_bumper"
-    {
-        "activators"
-        {
-            "Full_Press"
-            {
-                "#ref"				"/bindings/Editor/MovePart/RollLeft.vdf"
-            }
-        }
-    }
     "right_bumper"
     {
         "activators"

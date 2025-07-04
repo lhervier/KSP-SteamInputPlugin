@@ -1,0 +1,13 @@
+"ref"
+{
+    "right_bumper"
+    {
+        "activators"
+        {
+            "Full_Press"
+            {
+                "#ref"				"/bindings/Common/Bodies/Next.vdf"
+            }
+        }
+    }
+}

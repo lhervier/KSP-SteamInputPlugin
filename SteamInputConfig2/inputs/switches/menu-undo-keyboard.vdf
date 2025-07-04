@@ -1,19 +1,5 @@
 "ref"
 {
-    "button_escape"
-    {
-        "activators"
-        {
-            "Full_Press"
-            {
-                "#ref"				"/bindings/Editor/Redo1.vdf"
-            }
-            "Full_Press"
-            {
-                "#ref"				"/bindings/Editor/Redo2.vdf"
-            }
-        }
-    }
     "button_menu"
     {
         "activators"

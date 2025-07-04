@@ -8,9 +8,11 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"				"/inputs/switches/mod-key.vdf"
-			"#ref"				"/inputs/switches/undo-redo-keyboard.vdf"
-			"#ref"				"/inputs/switches/roll.vdf"
+			"#ref"				"/inputs/switches/backleft-mod-key.vdf"
+			"#ref"				"/inputs/switches/esc-redo.vdf"
+			"#ref"				"/inputs/switches/menu-undo-keyboard.vdf"
+			"#ref"				"/inputs/switches/leftbumper-roll-left.vdf"
+			"#ref"				"/inputs/switches/rightbumper-roll-right.vdf"
 			"button_back_right"
 			{
 				"activators"

@@ -1,0 +1,17 @@
+"ref"
+{
+    "button_x"
+    {
+        "activators"
+        {
+            "Full_Press"
+            {
+                "#ref"				"/bindings/Flight/RCS.vdf"
+            }
+            "Long_Press"
+            {
+                "#ref"				"/bindings/Flight/TranslationMode.vdf"
+            }
+        }
+    }
+}
