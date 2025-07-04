@@ -1,0 +1,45 @@
+"ref"
+{
+    "group"
+	{
+		"id"		"284"
+		"mode"		"switches"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"button_back_right"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"mode_shift left_trackpad 280"
+						}
+					}
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"mode_shift button_diamond 276"
+						}
+					}
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"mode_shift joystick 278"
+						}
+					}
+				}
+			}
+			"#ref"				"/inputs/switches/backleft-mod-key.vdf"
+			"#ref"				"/inputs/switches/esc-menu-debug.vdf"
+			"#ref"				"/inputs/switches/menu-map-keyboard.vdf"
+			"#ref"				"/inputs/switches/leftbumper-roll-left.vdf"
+			"#ref"				"/inputs/switches/rightbumper-roll-right.vdf"
+		}
+	}
+}

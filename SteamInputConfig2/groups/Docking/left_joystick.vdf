@@ -1,0 +1,14 @@
+"ref"
+{
+    "group"
+	{
+		"id"		"277"
+		"mode"		"dpad"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"#ref"				"/inputs/dpad/translate.vdf"
+		}
+	}
+}

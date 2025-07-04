@@ -5,4 +5,5 @@
     "#ref"				"editor.vdf"
     "#ref"				"flight.vdf"
     "#ref"				"map-flight.vdf"
+    "#ref"				"docking.vdf"
 }

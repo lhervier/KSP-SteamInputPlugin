@@ -1,0 +1,18 @@
+"ref"
+{
+    "group"
+	{
+		"id"		"278"
+		"mode"		"hotbar"
+		"name"		"Action Groups"
+		"description"		"Action Groups"
+		"inputs"
+		{
+			"#ref"				"/inputs/touch_menu/actiongroups.vdf"
+		}
+		"settings"
+		{
+			"#ref"				"/inputs/touch_menu/actiongroups-settings.vdf"
+		}
+	}
+}

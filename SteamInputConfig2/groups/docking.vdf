@@ -1,0 +1,13 @@
+"ref"
+{
+    "#ref"				"Docking/buttons.vdf"
+    "#ref"				"Docking/buttons_modeshift.vdf"
+    "#ref"				"Docking/left_joystick.vdf"
+    "#ref"				"Docking/left_joystick_modeshift.vdf"
+    "#ref"				"Docking/dpad.vdf"
+    "#ref"				"Docking/dpad_modeshift.vdf"
+    "#ref"				"Docking/left_trigger.vdf"
+    "#ref"				"Docking/right_joystick.vdf"
+    "#ref"				"Docking/right_trigger.vdf"
+    "#ref"				"Docking/switches.vdf"
+}
