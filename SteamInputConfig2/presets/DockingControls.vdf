@@ -6,7 +6,7 @@
 		"name"		"DockingControls"
 		"group_source_bindings"
 		{
-			"/groups/Docking/buttons.vdf"					"button_diamond active"
+			"/groups/Common/Docking/buttons.vdf"			"button_diamond active"
 			"/groups/Docking/buttons_modeshift.vdf"			"button_diamond active modeshift"
 			"/groups/Docking/left_joystick.vdf"				"joystick active"
 			"/groups/Docking/left_joystick_modeshift.vdf"	"joystick active modeshift"

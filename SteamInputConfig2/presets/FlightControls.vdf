@@ -6,7 +6,7 @@
 		"name"		"FlightControls"
 		"group_source_bindings"
 		{
-			"/groups/Flight/buttons.vdf"					"button_diamond active"
+			"/groups/Common/Flight/buttons.vdf"				"button_diamond active"
 			"/groups/Flight/buttons_modeshift.vdf"			"button_diamond active modeshift"
 			"/groups/Flight/left_joystick.vdf"				"joystick active"
 			"/groups/Flight/left_joystick_modeshift.vdf"	"joystick active modeshift"

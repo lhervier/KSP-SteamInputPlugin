@@ -1,4 +1,6 @@
 "ref"
 {
     "#ref"				"right_joystick.vdf"
+    "#ref"				"Flight/buttons.vdf"
+    "#ref"				"Docking/buttons.vdf"
 }

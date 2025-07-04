@@ -6,7 +6,7 @@
 		"name"		"MapDockingControls"
 		"group_source_bindings"
 		{
-			"/groups/MapDocking/buttons.vdf"					"button_diamond active"
+			"/groups/Common/Docking/buttons.vdf"				"button_diamond active"
 			"/groups/MapDocking/buttons_modeshift.vdf"			"button_diamond active modeshift"
 			"/groups/MapDocking/left_joystick.vdf"				"joystick active"
 			"/groups/MapDocking/left_joystick_modeshift.vdf"	"joystick active modeshift"

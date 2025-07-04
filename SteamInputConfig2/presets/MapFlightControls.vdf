@@ -6,7 +6,7 @@
 		"name"		"MapFlightControls"
 		"group_source_bindings"
 		{
-			"/groups/MapFlight/buttons.vdf"					"button_diamond active"
+			"/groups/Common/Flight/buttons.vdf"				"button_diamond active"
 			"/groups/MapFlight/buttons_modeshift.vdf"		"button_diamond active modeshift"
 			"/groups/MapFlight/left_joystick.vdf"			"joystick active"
 			"/groups/MapFlight/left_joystick_modeshift.vdf"	"joystick active modeshift"
