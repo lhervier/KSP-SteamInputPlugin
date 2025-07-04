@@ -2,6 +2,7 @@
 {
     "#ref"				"right_joystick.vdf"
     "#ref"				"dpad-click-zoom.vdf"
+    "#ref"				"dpad-click-scroll.vdf"
     "#ref"				"Flight/buttons.vdf"
     "#ref"				"Docking/buttons.vdf"
 }
