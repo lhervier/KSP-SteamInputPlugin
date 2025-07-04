@@ -6,6 +6,7 @@
     "#ref"				"dpad-vessel-camera.vdf"
     "#ref"				"left_joystick-actiongroups.vdf"
     "#ref"				"Flight/buttons.vdf"
+    "#ref"				"Flight/left_joystick-yaw-pitch.vdf"
     "#ref"				"Docking/buttons.vdf"
     "#ref"				"DockingFlight/buttons-timewarp-precision-target.vdf"
 }
