@@ -167,10 +167,6 @@ function processRefs(obj, currentDir, controllerName) {
         const processedRef = refVdf.ref;
         
         for (const [key, value] of Object.entries(processedRef)) {
-            if( key === '#ref' ) {
-                refPaths = addRef(refPaths, value);
-                continue;
-            }
             result[key] = mergeVdfProperties(result[key], value);
         }
     }
