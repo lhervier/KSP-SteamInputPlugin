@@ -1,0 +1,11 @@
+"ref"
+{
+    "#ref"				"MapEva/buttons.vdf"
+    "#ref"				"MapEva/buttons_modeshift.vdf"
+    "#ref"				"MapEva/left_joystick.vdf"
+    "#ref"				"MapEva/dpad.vdf"
+    "#ref"				"MapEva/left_trigger.vdf"
+    "#ref"				"MapEva/right_joystick.vdf"
+    "#ref"				"MapEva/right_trigger.vdf"
+    "#ref"				"MapEva/switches.vdf"
+}

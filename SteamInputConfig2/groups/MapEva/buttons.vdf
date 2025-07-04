@@ -1,0 +1,15 @@
+"ref"
+{
+    "group"
+	{
+		"id"		"303"
+		"mode"		"four_buttons"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"#ref"						"/inputs/buttons/x-rcs.vdf"
+			"#ref"						"/inputs/buttons/y-sas.vdf"
+		}
+	}
+}
