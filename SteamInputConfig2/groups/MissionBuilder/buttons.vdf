@@ -1,0 +1,53 @@
+"ref"
+{
+    "group"
+	{
+		"id"		"335"
+		"mode"		"four_buttons"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"button_a"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"#ref"				"/bindings/MissionBuilder/Space.vdf"
+					}
+				}
+			}
+			"button_b"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"#ref"				"/bindings/MissionBuilder/Delete.vdf"
+					}
+				}
+			}
+			"button_x"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"#ref"				"/bindings/MissionBuilder/X.vdf"
+					}
+				}
+			}
+			"button_y"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"#ref"				"/bindings/MissionBuilder/C.vdf"
+					}
+				}
+			}
+		}
+	}
+}

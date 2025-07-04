@@ -1,0 +1,10 @@
+"ref"
+{
+    "#ref"				"MissionBuilder/buttons.vdf"
+    "#ref"				"MissionBuilder/left_joystick.vdf"
+    "#ref"				"MissionBuilder/dpad.vdf"
+    "#ref"				"MissionBuilder/left_trigger.vdf"
+    "#ref"				"MissionBuilder/right_joystick.vdf"
+    "#ref"				"MissionBuilder/right_trigger.vdf"
+    "#ref"				"MissionBuilder/switches.vdf"
+}

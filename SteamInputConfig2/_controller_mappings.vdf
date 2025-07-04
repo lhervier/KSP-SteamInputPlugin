@@ -21,5 +21,6 @@
 
 	"#ref"				"actions/_actions.vdf"
 	"#ref"				"localization/_localization.vdf"
-	"#ref"				"/presets/_presets.vdf"
+	"#ref"				"groups/_groups.vdf"
+	"#ref"				"presets/_presets.vdf"
 }

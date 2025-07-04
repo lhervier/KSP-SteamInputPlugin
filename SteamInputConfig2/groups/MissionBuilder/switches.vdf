@@ -1,0 +1,46 @@
+"ref"
+{
+    "group"
+	{
+		"id"		"341"
+		"mode"		"switches"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"#ref"				"/inputs/switches/backleft-mod-key.vdf"
+			"button_back_right"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"#ref"				"/bindings/MissionBuilder/LEFT_SHIFT.vdf"
+					}
+				}
+			}
+			"#ref"				"/inputs/switches/esc-redo.vdf"
+			"#ref"				"/inputs/switches/menu-undo-keyboard.vdf"
+			"left_bumper"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"#ref"				"/bindings/MissionBuilder/Q.vdf"
+					}
+				}
+			}
+			"right_bumper"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"#ref"				"/bindings/MissionBuilder/E.vdf"
+					}
+				}
+			}
+		}
+	}
+}
