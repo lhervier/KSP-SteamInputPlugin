@@ -9,26 +9,7 @@
 		"inputs"
 		{
             "#ref"				"/inputs/dpad/click.vdf"
-			"dpad_north"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Common/Mouse/ScrollUp.vdf"
-					}
-				}
-			}
-			"dpad_south"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Common/Mouse/ScrollDown.vdf"
-					}
-				}
-			}
+			"#ref"				"/inputs/dpad/scroll.vdf"
 		}
 		"settings"
 		{

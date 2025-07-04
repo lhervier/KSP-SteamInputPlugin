@@ -2,7 +2,6 @@
 {
     "#ref"				"buttons.vdf"
     "#ref"				"buttons_modeshift.vdf"
-    "#ref"				"dpad.vdf"
     "#ref"				"dpad_modeshift.vdf"
     "#ref"				"switches.vdf"
 }

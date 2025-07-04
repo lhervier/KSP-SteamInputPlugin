@@ -6,14 +6,15 @@
 		"name"		"DockingControls"
 		"group_source_bindings"
 		{
+			"/groups/Common/right_joystick.vdf"				"right_trackpad active"
+			"/groups/Common/dpad-click-zoom.vdf"			"left_trackpad active"
+			
 			"/groups/Common/Docking/buttons.vdf"			"button_diamond active"
 			"/groups/Docking/buttons_modeshift.vdf"			"button_diamond active modeshift"
 			"/groups/Docking/left_joystick.vdf"				"joystick active"
 			"/groups/Docking/left_joystick_modeshift.vdf"	"joystick active modeshift"
-			"/groups/Docking/dpad.vdf"						"left_trackpad active"
 			"/groups/Docking/dpad_modeshift.vdf"			"left_trackpad active modeshift"
 			"/groups/Docking/left_trigger.vdf"				"left_trigger active"
-			"/groups/Common/right_joystick.vdf"				"right_trackpad active"
 			"/groups/Docking/right_trigger.vdf"				"right_trigger active"
 			"/groups/Docking/switches.vdf"					"switch active"
 		}

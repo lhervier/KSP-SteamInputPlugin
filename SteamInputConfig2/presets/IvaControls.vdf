@@ -6,12 +6,13 @@
 		"name"		"IvaControls"
 		"group_source_bindings"
 		{
-			"/groups/Iva/buttons.vdf"			"button_diamond active"
-			"/groups/Iva/buttons_modeshift.vdf"	"button_diamond active modeshift"
-			"/groups/Iva/dpad.vdf"				"left_trackpad active"
-			"/groups/Iva/dpad_modeshift.vdf"	"left_trackpad active modeshift"
-			"/groups/Common/right_joystick.vdf"	"right_trackpad active"
-			"/groups/Iva/switches.vdf"			"switch active"
+			"/groups/Common/right_joystick.vdf"		"right_trackpad active"
+			"/groups/Common/dpad-click-zoom.vdf"	"left_trackpad active"
+			
+			"/groups/Iva/buttons.vdf"				"button_diamond active"
+			"/groups/Iva/buttons_modeshift.vdf"		"button_diamond active modeshift"
+			"/groups/Iva/dpad_modeshift.vdf"		"left_trackpad active modeshift"
+			"/groups/Iva/switches.vdf"				"switch active"
 		}
 	}
 }

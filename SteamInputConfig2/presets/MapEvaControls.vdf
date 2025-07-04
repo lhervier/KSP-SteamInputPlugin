@@ -6,12 +6,13 @@
 		"name"		"MapEvaControls"
 		"group_source_bindings"
 		{
+			"/groups/Common/right_joystick.vdf"			"right_trackpad active"
+			"/groups/Common/dpad-click-zoom.vdf"		"left_trackpad active"
+			
 			"/groups/MapEva/buttons.vdf"				"button_diamond active"
 			"/groups/MapEva/buttons_modeshift.vdf"		"button_diamond active modeshift"
 			"/groups/MapEva/left_joystick.vdf"			"joystick active"
-			"/groups/MapEva/dpad.vdf"					"left_trackpad active"
 			"/groups/MapEva/left_trigger.vdf"			"left_trigger active"
-			"/groups/Common/right_joystick.vdf"			"right_trackpad active"
 			"/groups/MapEva/right_trigger.vdf"			"right_trigger active"
 			"/groups/MapEva/switches.vdf"				"switch active"
 		}
