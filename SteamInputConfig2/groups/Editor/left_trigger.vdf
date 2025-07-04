@@ -18,7 +18,7 @@
 					}
 				}
 			}
-			"#ref"				"/inputs/left_trigger/right-click.vdf"
+			"#ref"				"/inputs/triggers/left/edge-right-click.vdf"
 		}
 	}
 }

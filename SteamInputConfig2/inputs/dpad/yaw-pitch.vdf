@@ -1,0 +1,43 @@
+"ref"
+{
+    "dpad_east"
+    {
+        "activators"
+        {
+            "Full_Press"
+            {
+                "#ref"				"/bindings/Flight/Move/YawRight.vdf"
+            }
+        }
+    }
+    "dpad_north"
+    {
+        "activators"
+        {
+            "Full_Press"
+            {
+                "#ref"				"/bindings/Flight/Move/PitchUp.vdf"
+            }
+        }
+    }
+    "dpad_south"
+    {
+        "activators"
+        {
+            "Full_Press"
+            {
+                "#ref"				"/bindings/Flight/Move/PitchDown.vdf"
+            }
+        }
+    }
+    "dpad_west"
+    {
+        "activators"
+        {
+            "Full_Press"
+            {
+                "#ref"				"/bindings/Flight/Move/YawLeft.vdf"
+            }
+        }
+    }
+}

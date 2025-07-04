@@ -2,13 +2,13 @@
 {
     "group"
 	{
-		"id"		"241"
+		"id"		"258"
 		"mode"		"dpad"
 		"name"		""
 		"description"		""
 		"inputs"
 		{
-			"#ref"				"/inputs/joysticks/left/camera.vdf"
+			"#ref"				"/inputs/dpad/yaw-pitch.vdf"
 		}
 	}
 }

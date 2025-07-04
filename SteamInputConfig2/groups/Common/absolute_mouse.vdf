@@ -8,6 +8,6 @@
     }
     "settings"
     {
-        "#ref"				"/inputs/right_joystick/mouse-settings.vdf"
+        "#ref"				"/inputs/joysticks/right/mouse-settings.vdf"
     }
 }
