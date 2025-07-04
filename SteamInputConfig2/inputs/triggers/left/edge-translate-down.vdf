@@ -1,0 +1,13 @@
+"ref"
+{
+    "edge"
+    {
+        "activators"
+        {
+            "Full_Press"
+            {
+                "#ref"				"/bindings/Flight/Translate/Down.vdf"
+            }
+        }
+    }
+}

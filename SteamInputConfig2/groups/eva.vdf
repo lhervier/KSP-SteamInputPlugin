@@ -1,0 +1,12 @@
+"ref"
+{
+    "#ref"				"Eva/buttons.vdf"
+    "#ref"				"Eva/buttons_modeshift.vdf"
+    "#ref"				"Eva/left_joystick.vdf"
+    "#ref"				"Eva/dpad.vdf"
+    "#ref"				"Eva/dpad_modeshift.vdf"
+    "#ref"				"Eva/left_trigger.vdf"
+    "#ref"				"Eva/right_joystick.vdf"
+    "#ref"				"Eva/right_trigger.vdf"
+    "#ref"				"Eva/switches.vdf"
+}

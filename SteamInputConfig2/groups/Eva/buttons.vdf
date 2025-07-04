@@ -1,0 +1,17 @@
+"ref"
+{
+    "group"
+	{
+		"id"		"294"
+		"mode"		"four_buttons"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"#ref"				"/inputs/buttons/a-jump.vdf"
+			"#ref"				"/inputs/buttons/b-grab.vdf"
+			"#ref"				"/inputs/buttons/x-rcs.vdf"
+			"#ref"				"/inputs/buttons/y-sas.vdf"
+		}
+	}
+}

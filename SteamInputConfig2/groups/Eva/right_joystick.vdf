@@ -1,0 +1,17 @@
+"ref"
+{
+    "group"
+	{
+		"id"		"300"
+		"mode"		"absolute_mouse"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+		}
+		"settings"
+		{
+			"#ref"				"/inputs/joysticks/right/mouse-settings.vdf"
+		}
+	}
+}
