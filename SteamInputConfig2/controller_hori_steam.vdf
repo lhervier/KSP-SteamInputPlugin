@@ -7,36 +7,6 @@
 	
 	"group"
 	{
-		"id"		"3"
-		"mode"		"trigger"
-		"name"		""
-		"description"		""
-		"inputs"
-		{
-			"edge"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"bindings"
-						{
-							"binding"		"mouse_button RIGHT, #Common_rightClick, "
-						}
-					}
-				}
-			}
-		}
-		"settings"
-		{
-			"edge_binding_radius"		"2464"
-			"adaptive_threshold"		"0"
-			"curve_exponent"		"5"
-			"custom_curve_exponent"		"124"
-		}
-	}
-	"group"
-	{
 		"id"		"4"
 		"mode"		"joystick_mouse"
 		"name"		""
