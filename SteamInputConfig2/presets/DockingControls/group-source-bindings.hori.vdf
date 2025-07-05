@@ -1,0 +1,6 @@
+"ref"
+{
+	"/groups/Common/right_joystick.vdf"										"right_joystick active"
+	"/groups/Common/dpad-click-zoom.vdf"									"dpad active"
+	"/groups/Common/dpad-vessel-camera.vdf"									"dpad active modeshift"
+}

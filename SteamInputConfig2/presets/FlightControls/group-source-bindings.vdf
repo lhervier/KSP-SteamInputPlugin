@@ -1,0 +1,12 @@
+"ref"
+{
+	"/groups/Common/left_joystick-actiongroups.vdf"								"joystick active modeshift"
+	
+	"/groups/Common/Flight/buttons.vdf"											"button_diamond active"
+	"/groups/Common/Flight/left_joystick-yaw-pitch.vdf"							"joystick active"
+	"/groups/Common/DockingFlight/buttons-timewarp-precision-target.vdf"		"button_diamond active modeshift"
+	
+	"/groups/Flight/left_trigger.vdf"											"left_trigger active"
+	"/groups/Flight/right_trigger.vdf"											"right_trigger active"
+	"/groups/Flight/switches.vdf"												"switch active"
+}

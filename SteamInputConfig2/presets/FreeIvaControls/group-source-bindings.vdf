@@ -1,0 +1,9 @@
+"ref"
+{
+	"/groups/FreeIva/buttons.vdf"			"button_diamond active"
+	"/groups/FreeIva/buttons_modeshift.vdf"	"button_diamond active modeshift"
+	"/groups/FreeIva/left_joystick.vdf"		"joystick active"
+	"/groups/FreeIva/left_trigger.vdf"		"left_trigger active"
+	"/groups/FreeIva/right_trigger.vdf"		"right_trigger active"
+	"/groups/FreeIva/switches.vdf"			"switch active"
+}

@@ -1,0 +1,12 @@
+"ref"
+{
+    "preset"
+	{
+		"id"		"#fileName"
+		"name"		"MapFlightControls"
+		"group_source_bindings"
+		{
+			"#ref"				"group-source-bindings.vdf"
+		}
+	}
+}

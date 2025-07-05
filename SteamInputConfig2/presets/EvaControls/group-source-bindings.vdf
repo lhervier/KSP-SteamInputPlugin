@@ -1,0 +1,10 @@
+"ref"
+{
+	"/groups/Eva/buttons.vdf"					"button_diamond active"
+	"/groups/Eva/buttons_modeshift.vdf"			"button_diamond active modeshift"
+	"/groups/Eva/left_joystick.vdf"				"joystick active"
+	"/groups/Eva/left_joystick_modeshift.vdf"	"joystick active modeshift"
+	"/groups/Eva/left_trigger.vdf"				"left_trigger active"
+	"/groups/Eva/right_trigger.vdf"				"right_trigger active"
+	"/groups/Eva/switches.vdf"					"switch active"
+}
