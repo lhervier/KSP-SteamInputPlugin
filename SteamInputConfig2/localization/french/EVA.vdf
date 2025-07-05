@@ -8,4 +8,6 @@
     "EVA_left"			"Gauche"
     "EVA_forward"		"Avant"
     "EVA_backward"		"Arrière"
+    "EVA_up"			"Haut"
+    "EVA_down"			"Bas"
 }

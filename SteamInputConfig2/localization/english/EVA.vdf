@@ -8,4 +8,6 @@
     "EVA_left"			"Left"
     "EVA_forward"		"Forward"
     "EVA_backward"		"Backward"
+    "EVA_up"			"Up"
+    "EVA_down"			"Down"
 }
