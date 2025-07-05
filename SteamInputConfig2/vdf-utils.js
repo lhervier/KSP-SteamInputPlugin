@@ -4,11 +4,11 @@ const VDF = require('vdf-parser');
 
 const ids = {
     "group": {
-        "count": 1,
+        "count": 0,
         "ids": {}
     },
     "preset": {
-        "count": 1,
+        "count": 0,
         "ids": {}
     }
 };
