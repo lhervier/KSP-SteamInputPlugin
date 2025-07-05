@@ -3,10 +3,13 @@ const path = require('path');
 const VDF = require('vdf-parser');
 const { saveVdfFile, loadVdfFile } = require('./vdf-utils');
 
+// Récupérer les arguments de ligne de commande
+const args = process.argv.slice(2);
+
 // Load the root controller file, resolving #ref
 const vdf = loadVdfFile(
-    path.join('.', 'controller_steamcontroller_gordon.vdf'),
-    'controller_steamcontroller_gordon'
+    path.join('.', args[0]),
+    args[1]
 );
 
 // Create the "build" directory if it doesn't exist
@@ -18,7 +21,7 @@ if (!fs.existsSync(buildDir)) {
 // Save the merged VDF file
 saveVdfFile(
     vdf, 
-    path.join(buildDir, 'controller_steamcontroller_gordon.vdf')
+    path.join(buildDir, args[0])
 );
 
 console.log('VDF file merged and saved successfully.');
