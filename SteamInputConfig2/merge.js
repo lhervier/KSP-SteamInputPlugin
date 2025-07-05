@@ -12,6 +12,9 @@ const vdf = loadVdfFile(
     args[1]
 );
 
+// Update the Timestamp property (set in epoch milliseconds)
+vdf.controller_mappings.Timestamp = Date.now().toString();
+
 // Create the "build" directory if it doesn't exist
 const buildDir = path.join(__dirname, 'build');
 if (!fs.existsSync(buildDir)) {
