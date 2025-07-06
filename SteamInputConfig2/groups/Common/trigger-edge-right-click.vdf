@@ -8,9 +8,9 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"				"/inputs/triggers/right/edge-left-click.vdf"
+			"#ref"				"/inputs/triggers/left/edge-right-click.vdf"
 		}
-		"settings"
+        "settings"
 		{
 			"#ref"				"/inputs/triggers/settings.vdf"
 		}

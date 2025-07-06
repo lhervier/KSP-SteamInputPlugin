@@ -6,9 +6,14 @@
     "#ref"				"dpad-click-scroll.vdf"
     "#ref"				"dpad-vessel-camera.vdf"
     "#ref"				"left_joystick-actiongroups.vdf"
+    "#ref"				"trigger-edge-right-click.vdf"
+    "#ref"				"trigger-edge-left-click.vdf"
+
     "#ref"				"Flight/buttons.vdf"
     "#ref"				"Flight/left_joystick-yaw-pitch.vdf"
+    
     "#ref"				"Docking/buttons.vdf"
     "#ref"				"Docking/left_joystick-translate.vdf"
+    
     "#ref"				"DockingFlight/buttons-timewarp-precision-target.vdf"
 }

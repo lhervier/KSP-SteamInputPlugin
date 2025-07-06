@@ -1,8 +1,9 @@
 "ref"
 {
-	"/groups/MissionBuilder/buttons.vdf"		"button_diamond active"
-	"/groups/MissionBuilder/left_joystick.vdf"	"joystick active"
-	"/groups/MissionBuilder/left_trigger.vdf"	"left_trigger active"
-	"/groups/MissionBuilder/right_trigger.vdf"	"right_trigger active"
-	"/groups/MissionBuilder/switches.vdf"		"switch active"
+	"/groups/Common/trigger-edge-right-click.vdf"	"left_trigger active"
+	"/groups/Common/trigger-edge-left-click.vdf"	"right_trigger active"
+	
+	"/groups/MissionBuilder/buttons.vdf"			"button_diamond active"
+	"/groups/MissionBuilder/left_joystick.vdf"		"joystick active"
+	"/groups/MissionBuilder/switches.vdf"			"switch active"
 }
