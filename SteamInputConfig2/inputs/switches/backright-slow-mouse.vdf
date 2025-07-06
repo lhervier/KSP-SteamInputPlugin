@@ -1,0 +1,13 @@
+"ref"
+{
+    "button_back_right"
+    {
+        "activators"
+        {
+            "Full_Press"
+            {
+                "#ref"				"/bindings/Common/ModeShiftRightJoystickSlow.vdf"
+            }
+        }
+    }
+}

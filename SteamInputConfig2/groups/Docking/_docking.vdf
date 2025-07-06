@@ -1,6 +1,4 @@
 "ref"
 {
-    "#ref"				"left_trigger.vdf"
-    "#ref"				"right_trigger.vdf"
     "#ref"				"switches.vdf"
 }

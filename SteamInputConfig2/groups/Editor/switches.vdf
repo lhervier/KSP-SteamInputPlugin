@@ -37,10 +37,7 @@
 					}
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mode_shift right_joystick %/groups/Common/right_joystick-mouse-slow.vdf%"
-						}
+						"#ref"				"/bindings/Common/ModeShiftRightJoystickSlow.vdf"
 					}
 				}
 			}

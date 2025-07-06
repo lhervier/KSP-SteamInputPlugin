@@ -14,10 +14,7 @@
 				{
 					"Full_Press"
 					{
-						"bindings"
-						{
-							"binding"		"mode_shift left_trackpad %/groups/Common/dpad-vessel-camera.vdf%"
-						}
+						"#ref"					"/bindings/Common/ModeShiftDpadVesselCamera.vdf"
 					}
 					"Full_Press"
 					{
@@ -32,6 +29,10 @@
 						{
 							"binding"		"mode_shift joystick %/groups/Common/left_joystick-actiongroups.vdf%"
 						}
+					}
+					"Full_Press"
+					{
+						"#ref"				"/bindings/Common/ModeShiftRightJoystickSlow.vdf"
 					}
 				}
 			}

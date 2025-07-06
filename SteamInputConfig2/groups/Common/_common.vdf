@@ -16,6 +16,8 @@
     
     "#ref"				"Docking/buttons.vdf"
     "#ref"				"Docking/left_joystick-translate.vdf"
+    "#ref"				"Docking/left_trigger-translate.vdf"
+    "#ref"				"Docking/right_trigger-translate.vdf"
     
     "#ref"				"DockingFlight/buttons-timewarp-precision-target.vdf"
 }
