@@ -16,7 +16,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"mode_shift right_joystick %/groups/Common/right_joystick-slow.vdf%"
+							"binding"		"mode_shift right_joystick %/groups/Common/right_joystick-mouse-slow.vdf%"
 						}
 					}
 				}

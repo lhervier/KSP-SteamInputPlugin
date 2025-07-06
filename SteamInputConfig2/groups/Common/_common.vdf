@@ -1,7 +1,7 @@
 "ref"
 {
-    "#ref"				"right_joystick.vdf"
-    "#ref"				"right_joystick-slow.vdf"
+    "#ref"				"right_joystick-mouse.vdf"
+    "#ref"				"right_joystick-mouse-slow.vdf"
     "#ref"				"dpad-click-zoom.vdf"
     "#ref"				"dpad-click-scroll.vdf"
     "#ref"				"dpad-vessel-camera.vdf"
