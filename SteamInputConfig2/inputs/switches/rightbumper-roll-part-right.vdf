@@ -1,12 +1,12 @@
 "ref"
 {
-    "left_bumper"
+    "right_bumper"
     {
         "activators"
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Flight/Move/RollLeft.vdf"
+                "#ref"				"/bindings/Editor/MovePart/RollRight.vdf"
             }
         }
     }
