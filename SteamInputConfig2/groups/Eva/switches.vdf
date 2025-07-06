@@ -23,8 +23,12 @@
 					{
 						"bindings"
 						{
-							"binding"		"mode_shift left_trackpad %dpad_modeshift.vdf%"
+							"#ref"				"switches-dpad-modeshift.vdf"
 						}
+					}
+					"Full_Press"
+					{
+						"#ref"				"/bindings/Common/ModeShiftRightJoystickSlow.vdf"
 					}
 				}
 			}

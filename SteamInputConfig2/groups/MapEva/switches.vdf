@@ -20,6 +20,10 @@
 						}
 					}
 				}
+				"Full_Press"
+				{
+					"#ref"				"/bindings/Common/ModeShiftRightJoystickSlow.vdf"
+				}
 			}
 			"#ref"						"/inputs/switches/backleft-mod-key.vdf"
 			"#ref"						"/inputs/switches/esc-menu-debug.vdf"

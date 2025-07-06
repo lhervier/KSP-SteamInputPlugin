@@ -18,6 +18,10 @@
 						"#ref"				"/bindings/MissionBuilder/LEFT_SHIFT.vdf"
 					}
 				}
+				"Full_Press"
+				{
+					"#ref"				"/bindings/Common/ModeShiftRightJoystickSlow.vdf"
+				}
 			}
 			"#ref"				"/inputs/switches/esc-redo.vdf"
 			"#ref"				"/inputs/switches/menu-undo-keyboard.vdf"
