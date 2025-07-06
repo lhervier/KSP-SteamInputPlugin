@@ -20,5 +20,9 @@
 			}
 			"#ref"				"/inputs/triggers/left/edge-right-click.vdf"
 		}
+		"settings"
+		{
+			"#ref"				"/inputs/triggers/settings.vdf"
+		}
 	}
 }
