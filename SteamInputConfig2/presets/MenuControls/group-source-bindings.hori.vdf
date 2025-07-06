@@ -1,5 +1,6 @@
 "ref"
 {
-    "/groups/Common/right_joystick.vdf"		"right_joystick active"
-    "/groups/Common/dpad-click-scroll.vdf"	"dpad active"
+    "/groups/Common/right_joystick.vdf"		    "right_joystick active"
+    "/groups/Common/right_joystick-slow.vdf"	"right_joystick active modeshift"
+    "/groups/Common/dpad-click-scroll.vdf"	    "dpad active"
 }
