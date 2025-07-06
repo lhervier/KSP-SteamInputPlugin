@@ -7,6 +7,10 @@
             "Full_Press"
             {
                 "#ref"				"/bindings/Common/Camera/ZoomIn.vdf"
+                "settings"
+                {
+                    "#ref"				"/inputs/dpad/zoom-settings.vdf"
+                }
             }
         }
     }
@@ -17,6 +21,10 @@
             "Full_Press"
             {
                 "#ref"				"/bindings/Common/Camera/ZoomOut.vdf"
+                "settings"
+                {
+                    "#ref"				"/inputs/dpad/zoom-settings.vdf"
+                }
             }
         }
     }

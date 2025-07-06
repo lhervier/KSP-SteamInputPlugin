@@ -8,6 +8,19 @@
 		"description"		""
 		"inputs"
 		{
+			"button_back_right"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"mode_shift right_joystick %/groups/Common/right_joystick-slow.vdf%"
+						}
+					}
+				}
+			}
 			"#ref"				"/inputs/switches/backleft-mod-key.vdf"
 			"#ref"				"/inputs/switches/esc-menu-debug.vdf"
 			"#ref"				"/inputs/switches/menu-keyboard.vdf"
