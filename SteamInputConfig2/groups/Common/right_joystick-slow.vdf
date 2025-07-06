@@ -3,7 +3,7 @@
     "group"
 	{
 		"id"		"#fileName"
-		"mode"		"absolute_mouse"
+		"#ref"		"right_joystick-mode.vdf"
 		"name"		""
 		"description"		""
 		"inputs"
