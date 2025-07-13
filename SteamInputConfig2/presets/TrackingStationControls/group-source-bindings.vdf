@@ -1,7 +1,7 @@
 "ref"
 {
-	"/groups/Common/trigger-edge-right-click.vdf"	"left_trigger active"
-	"/groups/Common/trigger-edge-left-click.vdf"	"right_trigger active"
+	"/groups/Common/left_trigger-edge-right-click.vdf"	"left_trigger active"
+	"/groups/Common/right_trigger-edge-left-click.vdf"	"right_trigger active"
 	
 	"/groups/TrackingStation/buttons.vdf"			"button_diamond active"
 	"/groups/TrackingStation/left_joystick.vdf"		"joystick active"

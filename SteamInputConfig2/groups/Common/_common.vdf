@@ -6,8 +6,8 @@
     "#ref"				"dpad-click-scroll.vdf"
     "#ref"				"dpad-vessel-camera.vdf"
     "#ref"				"left_joystick-actiongroups.vdf"
-    "#ref"				"trigger-edge-right-click.vdf"
-    "#ref"				"trigger-edge-left-click.vdf"
+    "#ref"				"left_trigger-edge-right-click.vdf"
+    "#ref"				"right_trigger-edge-left-click.vdf"
 
     "#ref"				"Flight/buttons.vdf"
     "#ref"				"Flight/left_joystick-yaw-pitch.vdf"
