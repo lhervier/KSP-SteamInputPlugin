@@ -25,7 +25,7 @@
             "localRoot": "${workspaceFolder}/SteamInputConfig2",
             "program": "${workspaceFolder}/SteamInputConfig2/merge.js",
             "args": [
-                "controller_steamcontroller_gordon.vdf",
+                "ksp_steaminput_steamcontroller_0.vdf",
                 "steamcontroller"
             ],
             "console": "integratedTerminal",
@@ -41,7 +41,7 @@
             "localRoot": "${workspaceFolder}/SteamInputConfig2",
             "program": "${workspaceFolder}/SteamInputConfig2/merge.js",
             "args": [
-                "controller_hori_steam.vdf",
+                "ksp_steaminput_hori_steam_0.vdf",
                 "hori"
             ],
             "console": "integratedTerminal",
