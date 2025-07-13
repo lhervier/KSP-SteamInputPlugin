@@ -1,6 +1,6 @@
 "ref"
 {
-	"/groups/Common/right_joystick-mouse.vdf"											"right_trackpad active"
+	"/groups/Common/right_joystick-mouse.vdf"									"right_trackpad active"
 	"/groups/Common/dpad-click-zoom.vdf"										"left_trackpad active"
 	"/groups/Common/dpad-vessel-camera.vdf"										"left_trackpad active modeshift"
 }
