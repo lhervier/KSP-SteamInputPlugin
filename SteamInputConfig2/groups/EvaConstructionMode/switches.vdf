@@ -26,10 +26,10 @@
 							"#ref"				"switches-dpad-modeshift.vdf"
 						}
 					}
-				}
-				"Full_Press"
-				{
-					"#ref"				"/bindings/Common/ModeShiftRightJoystickSlow.vdf"
+					"Full_Press"
+					{
+						"#ref"				"/bindings/Common/ModeShiftRightJoystickSlow.vdf"
+					}
 				}
 			}
 			"#ref"				"/inputs/switches/backleft-mod-key.vdf"
