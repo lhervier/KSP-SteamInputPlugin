@@ -7,6 +7,10 @@
             "Full_Press"
             {
                 "#ref"				"/bindings/Common/Mouse/ScrollUp.vdf"
+                "settings"
+                {
+                    "#ref"				"scroll-settings.vdf"
+                }
             }
         }
     }
@@ -17,6 +21,10 @@
             "Full_Press"
             {
                 "#ref"				"/bindings/Common/Mouse/ScrollDown.vdf"
+                "settings"
+                {
+                    "#ref"				"scroll-settings.vdf"
+                }
             }
         }
     }
