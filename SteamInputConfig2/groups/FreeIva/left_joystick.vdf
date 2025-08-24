@@ -8,7 +8,7 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"				"/inputs/dpad/eva-move.vdf"
+			"#ref"				"/inputs/dpad/freeiva-move.vdf"
 		}
 	}
 }
