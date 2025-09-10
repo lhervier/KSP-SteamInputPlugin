@@ -15,7 +15,7 @@ fi
 
 echo ""
 echo "-------------------------------------------"
-echo "Construction du projet C# avec mcs"
+echo "Construction du projet C# avec xbuild"
 echo "-------------------------------------------"
 
 # Vérifier si KSPDIR est défini
@@ -44,27 +44,9 @@ echo "Utilisation de KSPDIR: $KSPDIR"
 # Créer le dossier de sortie
 mkdir -p "Output/obj"
 
-# Compiler avec mcs (Mono C# Compiler)
-echo "Compilation avec mcs..."
-mcs -target:library \
-    -out:Output/obj/SteamInputPlugin.dll \
-    -reference:"$KSP_DATA_DIR/Managed/Assembly-CSharp.dll" \
-    -reference:"$KSP_DATA_DIR/Managed/Assembly-CSharp-firstpass.dll" \
-    -reference:"$KSP_DATA_DIR/Managed/UnityEngine.dll" \
-    -reference:"$KSP_DATA_DIR/Managed/UnityEngine.CoreModule.dll" \
-    -reference:"$KSP_DATA_DIR/Managed/UnityEngine.AnimationModule.dll" \
-    -reference:"$KSP_DATA_DIR/Managed/UnityEngine.IMGUIModule.dll" \
-    -reference:System.dll \
-    -reference:System.Core.dll \
-    -reference:System.Data.dll \
-    -reference:System.Data.DataSetExtensions.dll \
-    -reference:System.Xml.dll \
-    -reference:System.Xml.Linq.dll \
-    -define:DEBUG,TRACE \
-    -debug \
-    -optimize- \
-    SteamInputPlugin/*.cs \
-    SteamInputPlugin/ContextDaemons/*.cs
+# Compiler avec xbuild (Mono MSBuild)
+echo "Compilation avec xbuild..."
+xbuild SteamInput.csproj
 
 if [ $? -ne 0 ]; then
     echo "ERREUR: Échec de la compilation du projet C#"
@@ -95,8 +77,8 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "Copie des fichiers du Plugin..."
-echo "- Copie de SteamInput.dll"
-cp "Output/obj/SteamInputPlugin.dll" "Release/SteamInput/"
+echo "- Copie de SteamInputPlugin.dll"
+cp "Output/bin/SteamInputPlugin.dll" "Release/SteamInput/"
 if [ $? -ne 0 ]; then
     echo "ERREUR: Impossible de copier SteamInputPlugin.dll"
     exit 1

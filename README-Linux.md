@@ -5,26 +5,53 @@ This guide explains how to compile and install the SteamInput mod for KSP on Ubu
 ## Prerequisites
 
 - Ubuntu 24.04 (or compatible Linux distribution)
-- .NET 6.0 (installed via Microsoft repository)
-- Mono (mono-complete package)
+- .NET 6.0.425 (installed manually via Microsoft script)
+- Mono 6.8.0.105 (mono-complete package)
 - Node.js and npm
 - Kerbal Space Program installed via Steam
 
+## Tested Versions
+
+- **Ubuntu**: 24.04.3 LTS (Noble Numbat)
+- **.NET**: 6.0.425
+- **Mono**: 6.8.0.105
+- **Node.js**: Version from Ubuntu repositories
+- **KSP**: Via Steam (KSP_x64_Data folder structure)
+
 ## Installing Dependencies
 
-```bash
-# Install .NET 6.0
-wget https://packages.microsoft.com/config/ubuntu/24.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
-sudo dpkg -i packages-microsoft-prod.deb
-sudo apt update
-sudo apt install -y dotnet-sdk-6.0
+### .NET 6.0 Installation
+**Note**: .NET 6.0 n'est plus disponible dans les dépôts officiels Ubuntu 24.04. Utilisez l'installation manuelle :
 
-# Install Mono
+```bash
+# Installer .NET 6.0 manuellement
+curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version 6.0.425
+
+# Ajouter .NET au PATH (permanent)
+echo 'export PATH=$PATH:$HOME/.dotnet' >> ~/.bashrc
+source ~/.bashrc
+
+# Vérifier l'installation
+dotnet --version
+```
+
+### Mono Installation
+```bash
+# Installer Mono (nécessaire pour .NET Framework)
 sudo apt install -y mono-complete
 
-# Install Node.js
-sudo apt install -y nodejs
-curl -L https://npmjs.org/install.sh | sudo sh
+# Vérifier l'installation
+mono --version
+```
+
+### Node.js Installation
+```bash
+# Installer Node.js
+sudo apt install -y nodejs npm
+
+# Vérifier l'installation
+node --version
+npm --version
 ```
 
 ## Compilation
@@ -58,9 +85,11 @@ curl -L https://npmjs.org/install.sh | sudo sh
 ## Compilation Structure
 
 The compilation process uses:
-- **mcs** (Mono C# Compiler) to compile the C# plugin
+- **xbuild** (Mono MSBuild) to compile the C# plugin (.NET Framework 4.7.2)
 - **Node.js** to generate VDF configuration files
 - **zip** to create the plugin archive
+
+**Note**: Ce projet utilise .NET Framework 4.7.2, pas .NET Core. C'est pourquoi Mono est nécessaire pour la compilation sur Linux.
 
 ## Troubleshooting
 
@@ -71,9 +100,16 @@ export KSPDIR="/path/to/your/KSP"
 ```
 
 ### C# Compilation Error
-Check that Mono is installed:
+Check that Mono is installed and use xbuild instead of msbuild:
 ```bash
+# Installer Mono si nécessaire
 sudo apt install -y mono-complete
+
+# Compiler avec xbuild (pas msbuild)
+xbuild SteamInput.csproj
+
+# Ou utiliser le script de build
+./build-plugin.sh
 ```
 
 ### VDF Generation Error
@@ -85,9 +121,11 @@ npm --version
 
 ## Differences from Windows
 
-- KSP data folder is called `KSP_Data` (not `KSP_x64_Data`)
-- Uses `mcs` instead of MSBuild
+- KSP data folder is called `KSP_x64_Data` (same as Windows on Ubuntu)
+- Uses `xbuild` instead of MSBuild
 - Linux paths for Steam (`~/.steam/steam/` or `~/.local/share/Steam/`)
+- .NET 6.0 doit être installé manuellement (pas via les dépôts Ubuntu)
+- Le projet utilise .NET Framework 4.7.2, nécessitant Mono pour la compilation
 
 ## Generated Files
 
