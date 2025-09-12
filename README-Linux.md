@@ -6,7 +6,7 @@ This guide explains how to compile and install the SteamInput mod for KSP on Ubu
 
 - Ubuntu 24.04 (or compatible Linux distribution)
 - .NET 6.0.425 (installed manually via Microsoft script)
-- Mono 6.8.0.105 (mono-complete package)
+- Mono 6.12 (mono-devel package)
 - Node.js and npm
 - Kerbal Space Program installed via Steam
 
@@ -14,7 +14,7 @@ This guide explains how to compile and install the SteamInput mod for KSP on Ubu
 
 - **Ubuntu**: 24.04.3 LTS (Noble Numbat)
 - **.NET**: 6.0.425
-- **Mono**: 6.8.0.105
+- **Mono**: 6.12
 - **Node.js**: Version from Ubuntu repositories
 - **KSP**: Via Steam (KSP_x64_Data folder structure)
 
@@ -85,7 +85,7 @@ npm --version
 ## Compilation Structure
 
 The compilation process uses:
-- **xbuild** (Mono MSBuild) to compile the C# plugin (.NET Framework 4.7.2)
+- **msbuild** (Mono MSBuild) to compile the C# plugin (.NET Framework 4.7.2)
 - **Node.js** to generate VDF configuration files
 - **zip** to create the plugin archive
 
@@ -100,13 +100,13 @@ export KSPDIR="/path/to/your/KSP"
 ```
 
 ### C# Compilation Error
-Check that Mono is installed and use xbuild instead of msbuild:
+Check that Mono is installed and use msbuild:
 ```bash
 # Installer Mono si nécessaire
 sudo apt install -y mono-complete
 
-# Compiler avec xbuild (pas msbuild)
-xbuild SteamInput.csproj
+# Compiler avec msbuild
+msbuild SteamInput.csproj
 
 # Ou utiliser le script de build
 ./build-plugin.sh
@@ -122,7 +122,7 @@ npm --version
 ## Differences from Windows
 
 - KSP data folder is called `KSP_x64_Data` (same as Windows on Ubuntu)
-- Uses `xbuild` instead of MSBuild
+- Uses `msbuild` (Mono MSBuild)
 - Linux paths for Steam (`~/.steam/steam/` or `~/.local/share/Steam/`)
 - .NET 6.0 doit être installé manuellement (pas via les dépôts Ubuntu)
 - Le projet utilise .NET Framework 4.7.2, nécessitant Mono pour la compilation

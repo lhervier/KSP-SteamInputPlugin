@@ -15,7 +15,7 @@ fi
 
 echo ""
 echo "-------------------------------------------"
-echo "Construction du projet C# avec xbuild"
+echo "Construction du projet C# avec msbuild"
 echo "-------------------------------------------"
 
 # Vérifier si KSPDIR est défini
@@ -44,9 +44,9 @@ echo "Utilisation de KSPDIR: $KSPDIR"
 # Créer le dossier de sortie
 mkdir -p "Output/obj"
 
-# Compiler avec xbuild (Mono MSBuild)
-echo "Compilation avec xbuild..."
-xbuild SteamInput.csproj
+# Compiler avec msbuild (Mono MSBuild)
+echo "Compilation avec msbuild..."
+msbuild SteamInput.csproj
 
 if [ $? -ne 0 ]; then
     echo "ERREUR: Échec de la compilation du projet C#"
