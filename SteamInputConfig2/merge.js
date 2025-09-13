@@ -15,6 +15,9 @@ const vdf = loadVdfFile(
 // Update the Timestamp property (set in epoch milliseconds)
 vdf.controller_mappings.Timestamp = Date.now().toString();
 
+// Add the current date to the title (formatted as YYYY-MM-DD HH:MM:SS.sss)
+vdf.controller_mappings.title += " (" + new Date().toISOString().replace('T', ' ').replace('Z', '') + ")";
+
 // Create the "build" directory if it doesn't exist
 const buildDir = path.join(__dirname, 'build');
 if (!fs.existsSync(buildDir)) {
