@@ -46,7 +46,7 @@ mkdir -p "Output/obj"
 
 # Compiler avec msbuild (Mono MSBuild)
 echo "Compilation avec msbuild..."
-msbuild SteamInput.csproj
+msbuild SteamInput.csproj -p:KSP_DATA_DIR="$KSP_DATA_DIR"
 
 if [ $? -ne 0 ]; then
     echo "ERREUR: Échec de la compilation du projet C#"
