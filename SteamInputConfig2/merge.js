@@ -15,7 +15,7 @@ const vdf = loadVdfFile(
 // Update the Timestamp property (set in epoch milliseconds)
 vdf.controller_mappings.Timestamp = Date.now().toString();
 
-// Add the current date to the title (formatted as YYYY-MM-DD HH:MM:SS.sss)
+// Add the current date to the title (as YYYY-MM-DD HH:MM:SS.sss)
 vdf.controller_mappings.title += " (" + new Date().toISOString().replace('T', ' ').replace('Z', '') + ")";
 
 // Create the "build" directory if it doesn't exist
@@ -24,10 +24,11 @@ if (!fs.existsSync(buildDir)) {
     fs.mkdirSync(buildDir, { recursive: true });
 }
 
-// Save the merged VDF file
+// Save the merged VDF file: Add the build date (as a timestamp) to the filename
+let timestamp = new Date().getTime();
 saveVdfFile(
     vdf, 
-    path.join(buildDir, args[0])
+    path.join(buildDir, args[0].replace('.vdf', '') + "_" + timestamp + "_0.vdf")
 );
 
 console.log('VDF file merged and saved successfully.');
