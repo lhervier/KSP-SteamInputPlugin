@@ -221,6 +221,7 @@ function loadVdfFile(vdfPath, controllerName) {
     const vdf = _loadVdfFile(vdfPath, controllerName);
     resolvePresets(vdf);
     resolveGroupBindings(vdf);
+    duplicateGroups(vdf);
     return vdf;
 }
 
@@ -263,6 +264,10 @@ function resolvePresets(vdf) {
     }
 }
 
+/**
+ * Resolve the group id references in the "binding" properties of activators in the VDF object
+ * @param {*} vdf The VDF object to resolve
+ */
 function resolveGroupBindings(vdf) {
     for( const group of vdf.controller_mappings.group ) {
         if( !group.inputs ) {
@@ -286,10 +291,15 @@ function resolveGroupBindings(vdf) {
                     const binding = activatorValue.bindings.binding;
                     // binding may contain references to an id using the %id% syntax
                     // we need to replace these references with the actual id
-                    const match = binding.match(/%group_id:([^%]+)%/);
-                    if( match ) {
-                        const id = match[1];
-
+                    const match = binding.match(/%([^%]+):([^%]+)%/);
+                    if( !match ) {
+                        continue;
+                    }
+                    
+                    const type = match[1];
+                    const id = match[2];
+                    
+                    if( type === 'group_id' ) {
                         if( !ids.group.ids[id] ) {
                             throw new Error(`Unable to resolve group id for ${id}`);
                         }
@@ -300,6 +310,38 @@ function resolveGroupBindings(vdf) {
             }
         }
     }
+}
+
+/**
+ * Make sure that each group is linked to only one preset
+ * @param {*} vdf The vdf object 
+ */
+function duplicateGroups(vdf) {
+    const existingGroups = [];
+    vdf.controller_mappings.preset.forEach(
+        preset => {
+            for( const [key, value] of Object.entries(preset.group_source_bindings) ) {
+                if( !existingGroups.includes(key) ) {
+                    existingGroups.push(key);
+                } else {
+                    // Find the group
+                    const group = vdf.controller_mappings.group.find(group => group.id === key);
+                    if( !group ) {
+                        throw new Error(`Group ${key} not found`);
+                    }
+                    
+                    // Duplicate the group
+                    const duplicateGroup = { ...group };
+                    duplicateGroup.id = ids.group.count++ + "";
+                    vdf.controller_mappings.group.push(duplicateGroup);
+
+                    // Update the preset
+                    delete preset.group_source_bindings[key];
+                    preset.group_source_bindings[duplicateGroup.id] = value;
+                }
+            }
+        }
+    );
 }
 
 module.exports = {
