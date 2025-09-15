@@ -16,7 +16,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Common/Camera/Up.vdf"
+                "#ref"				"/bindings/Common/Camera/Down.vdf"
             }
         }
     }
@@ -26,7 +26,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Common/Camera/Down.vdf"
+                "#ref"				"/bindings/Common/Camera/Up.vdf"
             }
         }
     }
