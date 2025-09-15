@@ -18,6 +18,15 @@
             {
                 "#ref"				"/bindings/Common/Mouse/RightClick.vdf"
             }
+            "Full_Press"
+            {
+                "bindings"
+                {
+                    # Numéro du preset à activer (numéroté à partir de 1)
+                    # "binding"		"controller_action hold_layer 15 1 1, , "
+                    "binding"		"controller_action hold_layer %layer_index:Camera% 1 1, , "
+                }
+            }
         }
     }
 }

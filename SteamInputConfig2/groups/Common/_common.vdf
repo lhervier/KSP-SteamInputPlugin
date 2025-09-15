@@ -2,10 +2,14 @@
 {
     "#ref"				"right_joystick-mouse.vdf"
     "#ref"				"right_joystick-mouse-slow.vdf"
+    "#ref"				"right_joystick-camera-move.vdf"
+
     "#ref"				"dpad-click-zoom.vdf"
     "#ref"				"dpad-click-scroll.vdf"
     "#ref"				"dpad-vessel-camera.vdf"
+    
     "#ref"				"left_joystick-actiongroups.vdf"
+    
     "#ref"				"left_trigger-edge-right-click.vdf"
     "#ref"				"right_trigger-edge-left-click.vdf"
 

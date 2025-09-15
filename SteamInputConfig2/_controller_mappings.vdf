@@ -12,6 +12,97 @@
     
 	"action_layers"
 	{
+		"MenuCameraControls"
+		{
+			"title"					"Camera"
+			"legacy_set"			"1"
+			"set_layer"				"1"
+			"parent_set_name"		"MenuControls"
+		}
+		"TrackingStationCameraControls"
+		{
+			"title"					"Camera"
+			"legacy_set"			"1"
+			"set_layer"				"1"
+			"parent_set_name"		"TrackingStationControls"
+		}
+		"EditorCameraControls"
+		{
+			"title"					"Camera"
+			"legacy_set"			"1"
+			"set_layer"				"1"
+			"parent_set_name"		"EditorControls"
+		}
+		"FlightCameraControls"
+		{
+			"title"					"Camera"
+			"legacy_set"			"1"
+			"set_layer"				"1"
+			"parent_set_name"		"FlightControls"
+		}
+		"MapFlightCameraControls"
+		{
+			"title"					"Camera"
+			"legacy_set"			"1"
+			"set_layer"				"1"
+			"parent_set_name"		"MapFlightControls"
+		}
+		"DockingCameraControls"
+		{
+			"title"					"Camera"
+			"legacy_set"			"1"
+			"set_layer"				"1"
+			"parent_set_name"		"DockingControls"
+		}
+		"MapDockingCameraControls"
+		{
+			"title"					"Camera"
+			"legacy_set"			"1"
+			"set_layer"				"1"
+			"parent_set_name"		"MapDockingControls"
+		}
+		"EvaCameraControls"
+		{
+			"title"					"Camera"
+			"legacy_set"			"1"
+			"set_layer"				"1"
+			"parent_set_name"		"EvaControls"
+		}
+		"MapEvaCameraControls"
+		{
+			"title"					"Camera"
+			"legacy_set"			"1"
+			"set_layer"				"1"
+			"parent_set_name"		"MapEvaControls"
+		}
+		"EvaConstructionModeCameraControls"
+		{
+			"title"					"Camera"
+			"legacy_set"			"1"
+			"set_layer"				"1"
+			"parent_set_name"		"EvaConstructionModeControls"
+		}
+		"IvaCameraControls"
+		{
+			"title"					"Camera"
+			"legacy_set"			"1"
+			"set_layer"				"1"
+			"parent_set_name"		"IvaControls"
+		}
+		"FreeIvaCameraControls"
+		{
+			"title"					"Camera"
+			"legacy_set"			"1"
+			"set_layer"				"1"
+			"parent_set_name"		"FreeIvaControls"
+		}
+		"MissionBuilderCameraControls"
+		{
+			"title"					"Camera"
+			"legacy_set"			"1"
+			"set_layer"				"1"
+			"parent_set_name"		"MissionBuilderControls"
+		}
 	}
 
 	"settings"

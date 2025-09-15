@@ -1,0 +1,12 @@
+"ref"
+{
+    "preset"
+	{
+		"id"		"#fileName"
+		"name"		"MenuCameraControls"
+		"group_source_bindings"
+		{
+			
+		}
+	}
+}

@@ -1,5 +1,6 @@
 "ref"
 {
+	# Attention, l'ordre des presets est important pour les couches d'action !
     "#ref"				"MenuControls/MenuControls.vdf"
 	"#ref"				"TrackingStationControls/TrackingStationControls.vdf"
 	"#ref"				"EditorControls/EditorControls.vdf"
@@ -13,4 +14,18 @@
 	"#ref"				"IvaControls/IvaControls.vdf"
 	"#ref"				"FreeIvaControls/FreeIvaControls.vdf"
 	"#ref"				"MissionBuilderControls/MissionBuilderControls.vdf"
+
+	"#ref"				"MenuControls/CameraControls.vdf"
+	"#ref"				"TrackingStationControls/CameraControls.vdf"
+	"#ref"				"EditorControls/CameraControls.vdf"
+	"#ref"				"FlightControls/CameraControls.vdf"	
+	"#ref"				"MapFlightControls/CameraControls.vdf"
+	"#ref"				"DockingControls/CameraControls.vdf"
+	"#ref"				"MapDockingControls/CameraControls.vdf"
+	"#ref"				"EvaControls/CameraControls.vdf"
+	"#ref"				"MapEvaControls/CameraControls.vdf"
+	"#ref"				"EvaConstructionModeControls/CameraControls.vdf"
+	"#ref"				"IvaControls/CameraControls.vdf"
+	"#ref"				"FreeIvaControls/CameraControls.vdf"
+	"#ref"				"MissionBuilderControls/CameraControls.vdf"
 }

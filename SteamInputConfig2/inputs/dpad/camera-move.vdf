@@ -1,0 +1,43 @@
+"ref"
+{
+    "dpad_east"
+    {
+        "activators"
+        {
+            "Full_Press"
+            {
+                "#ref"				"/bindings/Common/Camera/Right.vdf"
+            }
+        }
+    }
+    "dpad_north"
+    {
+        "activators"
+        {
+            "Full_Press"
+            {
+                "#ref"				"/bindings/Common/Camera/Up.vdf"
+            }
+        }
+    }
+    "dpad_south"
+    {
+        "activators"
+        {
+            "Full_Press"
+            {
+                "#ref"				"/bindings/Common/Camera/Down.vdf"
+            }
+        }
+    }
+    "dpad_west"
+    {
+        "activators"
+        {
+            "Full_Press"
+            {
+                "#ref"				"/bindings/Common/Camera/Left.vdf"
+            }
+        }
+    }
+}
