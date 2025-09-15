@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"mode_shift right_trackpad %/groups/Common/right_joystick-mouse-slow.vdf%"
+        "binding"		"mode_shift right_trackpad %group_id:/groups/Common/right_joystick-mouse-slow.vdf%"
     }
 }

@@ -165,13 +165,13 @@ function processRefs(obj, parentName, vdfPath, controllerName) {
         } else {
             // If there is an id in the value, we must make sure that it is an absolute path
             if( typeof value === 'string' ) {
-                const match = value.match(/%([^%]+)%/);
+                const match = value.match(/%([^%]+):([^%]+)%/);
                 if( match ) {
-                    let id = match[1];
+                    let id = match[2];
                     if( !id.startsWith('/')) {
                         id = '/' + path.join(path.dirname(vdfPath), id).replace(/\\/g, '/');
                     }
-                    value = value.replace(match[1], id);
+                    value = value.replace(match[2], id);
                 }
             }
             processedValues = value;
@@ -286,14 +286,14 @@ function resolveGroupBindings(vdf) {
                     const binding = activatorValue.bindings.binding;
                     // binding may contain references to an id using the %id% syntax
                     // we need to replace these references with the actual id
-                    const match = binding.match(/%([^%]+)%/);
+                    const match = binding.match(/%group_id:([^%]+)%/);
                     if( match ) {
                         const id = match[1];
 
                         if( !ids.group.ids[id] ) {
                             throw new Error(`Unable to resolve group id for ${id}`);
                         }
-                        const resolvedBinding = binding.replace(`%${id}%`, ids.group.ids[id]);
+                        const resolvedBinding = binding.replace(`%group_id:${id}%`, ids.group.ids[id]);
                         activatorValue.bindings.binding = resolvedBinding;
                     }
                 }
