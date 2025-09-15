@@ -3,7 +3,7 @@
     "preset"
 	{
 		"id"		"#fileName"
-		"name"		"MenuCameraControls"
+		"name"		"MenuRightClickControls"
 		"group_source_bindings"
 		{
 			

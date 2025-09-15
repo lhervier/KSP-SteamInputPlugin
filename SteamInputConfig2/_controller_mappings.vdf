@@ -12,93 +12,93 @@
     
 	"action_layers"
 	{
-		"MenuCameraControls"
+		"MenuRightClickControls"
 		{
-			"title"					"Camera"
+			"title"					"RightClick"
 			"legacy_set"			"1"
 			"set_layer"				"1"
 			"parent_set_name"		"MenuControls"
 		}
-		"TrackingStationCameraControls"
+		"TrackingStationRightClickControls"
 		{
-			"title"					"Camera"
+			"title"					"RightClick"
 			"legacy_set"			"1"
 			"set_layer"				"1"
 			"parent_set_name"		"TrackingStationControls"
 		}
-		"EditorCameraControls"
+		"EditorRightClickControls"
 		{
-			"title"					"Camera"
+			"title"					"RightClick"
 			"legacy_set"			"1"
 			"set_layer"				"1"
 			"parent_set_name"		"EditorControls"
 		}
-		"FlightCameraControls"
+		"FlightRightClickControls"
 		{
-			"title"					"Camera"
+			"title"					"RightClick"
 			"legacy_set"			"1"
 			"set_layer"				"1"
 			"parent_set_name"		"FlightControls"
 		}
-		"MapFlightCameraControls"
+		"MapFlightRightClickControls"
 		{
-			"title"					"Camera"
+			"title"					"RightClick"
 			"legacy_set"			"1"
 			"set_layer"				"1"
 			"parent_set_name"		"MapFlightControls"
 		}
-		"DockingCameraControls"
+		"DockingRightClickControls"
 		{
-			"title"					"Camera"
+			"title"					"RightClick"
 			"legacy_set"			"1"
 			"set_layer"				"1"
 			"parent_set_name"		"DockingControls"
 		}
-		"MapDockingCameraControls"
+		"MapDockingRightClickControls"
 		{
-			"title"					"Camera"
+			"title"					"RightClick"
 			"legacy_set"			"1"
 			"set_layer"				"1"
 			"parent_set_name"		"MapDockingControls"
 		}
-		"EvaCameraControls"
+		"EvaRightClickControls"
 		{
-			"title"					"Camera"
+			"title"					"RightClick"
 			"legacy_set"			"1"
 			"set_layer"				"1"
 			"parent_set_name"		"EvaControls"
 		}
-		"MapEvaCameraControls"
+		"MapEvaRightClickControls"
 		{
-			"title"					"Camera"
+			"title"					"RightClick"
 			"legacy_set"			"1"
 			"set_layer"				"1"
 			"parent_set_name"		"MapEvaControls"
 		}
-		"EvaConstructionModeCameraControls"
+		"EvaConstructionModeRightClickControls"
 		{
-			"title"					"Camera"
+			"title"					"RightClick"
 			"legacy_set"			"1"
 			"set_layer"				"1"
 			"parent_set_name"		"EvaConstructionModeControls"
 		}
-		"IvaCameraControls"
+		"IvaRightClickControls"
 		{
-			"title"					"Camera"
+			"title"					"RightClick"
 			"legacy_set"			"1"
 			"set_layer"				"1"
 			"parent_set_name"		"IvaControls"
 		}
-		"FreeIvaCameraControls"
+		"FreeIvaRightClickControls"
 		{
-			"title"					"Camera"
+			"title"					"RightClick"
 			"legacy_set"			"1"
 			"set_layer"				"1"
 			"parent_set_name"		"FreeIvaControls"
 		}
-		"MissionBuilderCameraControls"
+		"MissionBuilderRightClickControls"
 		{
-			"title"					"Camera"
+			"title"					"RightClick"
 			"legacy_set"			"1"
 			"set_layer"				"1"
 			"parent_set_name"		"MissionBuilderControls"

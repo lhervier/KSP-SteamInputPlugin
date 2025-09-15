@@ -3,7 +3,7 @@
     "preset"
 	{
 		"id"		"#fileName"
-		"name"		"FreeIvaCameraControls"
+		"name"		"MapFlightRightClickControls"
 		"group_source_bindings"
 		{
 			"/groups/Common/right_joystick-camera-move.vdf"		"right_joystick active"

@@ -3,7 +3,7 @@
     "preset"
 	{
 		"id"		"#fileName"
-		"name"		"IvaCameraControls"
+		"name"		"DockingRightClickControls"
 		"group_source_bindings"
 		{
 			"/groups/Common/right_joystick-camera-move.vdf"		"right_joystick active"
