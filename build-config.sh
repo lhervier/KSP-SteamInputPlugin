@@ -3,6 +3,19 @@ set -e
 
 echo ""
 echo "-------------------------------------------"
+echo "Running npm ci"
+echo "-------------------------------------------"
+
+cd SteamInputConfig
+npm ci
+if [ $? -ne 0 ]; then
+    echo "ERREUR: Impossible de lancer npm ci"
+    exit 1
+fi
+cd ..
+
+echo ""
+echo "-------------------------------------------"
 echo "Vérification du dossier Release"
 echo "-------------------------------------------"
 

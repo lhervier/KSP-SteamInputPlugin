@@ -3,6 +3,18 @@ setlocal enabledelayedexpansion
 
 echo.
 echo -------------------------------------------
+echo Running npm ci
+echo -------------------------------------------
+cd SteamInputConfig
+npm ci
+if errorlevel 1 (
+    echo ERROR: Failed to run npm ci
+    exit /b 1
+)
+cd ..
+
+echo.
+echo -------------------------------------------
 echo Checking Release folder
 echo -------------------------------------------
 
