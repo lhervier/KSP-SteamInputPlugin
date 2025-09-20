@@ -36,10 +36,12 @@ dotnet --version
 ```
 
 ### Mono Installation
-```bash
-# Installer Mono (nécessaire pour .NET Framework)
-sudo apt install -y mono-complete
 
+You must install mono 6.12.X to support .net framework 4.7, but as of today, Ubuntu only support version 6.8.
+
+You must go to the official website to install the reauired version.
+
+```bash
 # Vérifier l'installation
 mono --version
 ```
@@ -57,6 +59,9 @@ npm --version
 ## Compilation
 
 1. **Environment Setup**:
+
+Will auto detect KSP installation path, and zill set a KSPDIR environment variable.
+
    ```bash
    ./setup-env.sh
    source ~/.bashrc
