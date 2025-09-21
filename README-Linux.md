@@ -1,3 +1,9 @@
+# Using on Linux
+
+This plugin is working with the native version. As of today, using proton will break key bindings with SteamInput if you don't have a US QWERTY Keyboard...
+
+Also beware that by default, with the native Linux version of KSP, the modifier key is Right Shift instead of Left Alt. Edit the settings.cfg file (search for "RightShift"), and change the value (Set it to "LeftAlt").
+
 # Compilation and Installation on Linux
 
 This guide explains how to compile and install the SteamInput mod for KSP on Ubuntu 24.04.
