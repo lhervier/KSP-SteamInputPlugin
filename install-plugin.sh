@@ -42,6 +42,10 @@ unzip -o "$OLDPWD/Release/SteamInput.zip"
 # Le zip contient un dossier SteamInput, on doit déplacer son contenu
 if [ -d "SteamInput" ]; then
     echo "Déplacement du contenu du dossier SteamInput..."
+    # Supprimer seulement les fichiers et dossiers du plugin (pas la config)
+    rm -f *.dll *.pdb
+    rm -rf Textures
+    # Déplacer le nouveau contenu
     mv SteamInput/* .
     rmdir SteamInput
 fi
