@@ -1,0 +1,7 @@
+"controller_mappings"
+{
+	"title"				"KSP XBox Elite Custom Config for SteamInput Mod"
+	"controller_type"	"controller_xboxelite"
+	
+	"#ref"				"_controller_mappings.vdf"
+}

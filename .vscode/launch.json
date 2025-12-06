@@ -30,7 +30,7 @@
             ],
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen"
-        }
+        },
         {
             "type": "node",
             "request": "launch",
@@ -43,6 +43,22 @@
             "args": [
                 "ksp_steaminput_hori_steam.vdf",
                 "hori"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "XBox Elite",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "localRoot": "${workspaceFolder}/SteamInputConfig2",
+            "program": "${workspaceFolder}/SteamInputConfig2/merge.js",
+            "args": [
+                "ksp_steaminput_xboxelite.vdf",
+                "xboxelite"
             ],
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen"

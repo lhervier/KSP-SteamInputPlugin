@@ -2,7 +2,7 @@
 
 ## Overview
 
-This plugin enhances the native Steam Input support (through the support af the Steam Controller) in Kerbal Space Program by providing additional action sets and fixing the Maneuver Mode detection issue introduced in KSP 1.6. For more details about the original bug, see [KSP Issue #22165](https://bugs.kerbalspaceprogram.com/issues/22165).
+This plugin enhances the native Steam Input support (through the support of the Steam Controller) in Kerbal Space Program by providing additional action sets and fixing the Maneuver Mode detection issue introduced in KSP 1.6. For more details about the original bug, see [KSP Issue #22165](https://bugs.kerbalspaceprogram.com/issues/22165).
 
 ## Features
 
@@ -40,6 +40,7 @@ If you want to see the logs in realtime, don't forget to tell KSP to flush its l
   - Horipad Steam Controller
   - Xbox One/Series controller with back buttons mapped to joystick click
   - PlayStation 4/5 controller with back buttons mapped to joystick click (Raiju Tournament Edition for example)
+  - XBox Elite controller, set on the default profile so Steam can use the back buttons. Don't forget to install the additionnal tools via the Steam parameters.
   - Other controllers with Steam Input support
 
 ## Installation
@@ -59,6 +60,7 @@ You have two options:
   - `controller_hori_steam_[your language].vdf`: For the Horipad Steam Controller
   - `controller_ps4_[your language].vdf`: For PS4/PS5 like controllers (see requirements)
   - `controller_xbox_[your language].vdf`: For Xbox One/Series controllers (see requirements)
+  - `controller_xboxelite_[your language].vdf`: For Xbox Elite controllers (see requirements)
 
 Custom vdf configurations must be placed in the folder:
 ```
@@ -84,6 +86,14 @@ If you encounter issues:
 3. Verify that the plugin is properly installed in the GameData folder
 4. Check that your controller is properly connected and recognized by Steam. 
 5. Check the KSP.log file for any error messages related to the plugin. Plugins logs are prefixed with the "[SteamInput]" string. You can change the logging level ingame.
+
+Issues specific to the XBox Elite Controller :
+
+1. Check that you have installed the XBox enhanced feature support :
+  - Go to Steam Parameters, in the "Controllers" section
+  - Click on the "install" button next to "XBox enhanced feature support"
+1. Check that your controller firmware is up to date
+2. Check that no profile is selected on the controller (the LED below the XBox button must be OFF !)
 
 ## Known issue
 

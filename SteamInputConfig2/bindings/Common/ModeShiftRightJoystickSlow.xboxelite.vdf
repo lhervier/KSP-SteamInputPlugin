@@ -1,0 +1,7 @@
+"ref"
+{
+    "bindings"
+    {
+        "binding"		"mode_shift right_joystick %group_id:/groups/Common/right_joystick-mouse-slow.vdf%"
+    }
+}
