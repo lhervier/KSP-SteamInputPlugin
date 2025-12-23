@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press B, #Flight_brakes, , "
+        "binding"		"key_press #B, #Flight_brakes, , "
     }
 }

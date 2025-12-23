@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press 4, #Editor_rootTool, , "
+        "binding"		"key_press #4, #Editor_rootTool, , "
     }
 }

@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press R, #Flight_RCS, , "
+        "binding"		"key_press #R, #Flight_RCS, , "
     }
 }

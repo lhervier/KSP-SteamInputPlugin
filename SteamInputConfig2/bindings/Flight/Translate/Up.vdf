@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press S, #Docking_translateUp, , "
+        "binding"		"key_press #S, #Docking_translateUp, , "
     }
 }

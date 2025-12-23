@@ -12,5 +12,6 @@
         "#ref"				"french/Menu.vdf"
         "#ref"				"french/Set.vdf"
         "#ref"				"french/Tracking.vdf"
+        "#ref"              "french/Keyboard.vdf"
     }
 }

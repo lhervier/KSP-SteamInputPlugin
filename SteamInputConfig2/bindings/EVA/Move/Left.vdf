@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press A, #EVA_left, , "
+        "binding"		"key_press #A, #EVA_left, , "
     }
 }

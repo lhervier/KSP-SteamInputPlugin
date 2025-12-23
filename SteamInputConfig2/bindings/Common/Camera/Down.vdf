@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press DOWN_ARROW, #Common_cameraDown, , "
+        "binding"		"key_press #DOWN_ARROW, #Common_cameraDown, , "
     }
 }

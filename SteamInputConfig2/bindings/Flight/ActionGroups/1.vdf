@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press 1, #Flight_actionGroup1, , "
+        "binding"		"key_press #1, #Flight_actionGroup1, , "
     }
 }

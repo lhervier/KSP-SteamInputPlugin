@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press D, #Editor_yawPartRight, , "
+        "binding"		"key_press #D, #Editor_yawPartRight, , "
     }
 }

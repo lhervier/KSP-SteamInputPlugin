@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press Q, , , "
+        "binding"		"key_press #Q, , , "
     }
 }

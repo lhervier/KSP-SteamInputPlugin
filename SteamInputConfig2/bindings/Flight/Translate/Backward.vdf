@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press LEFT_CONTROL, #Docking_translateBackward, , "
+        "binding"		"key_press  #LEFT_CONTROL, #Docking_translateBackward, , "
     }
 }

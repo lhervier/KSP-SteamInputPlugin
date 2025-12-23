@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press D, #Flight_yawRight, , "
+        "binding"		"key_press #D, #Flight_yawRight, , "
     }
 }

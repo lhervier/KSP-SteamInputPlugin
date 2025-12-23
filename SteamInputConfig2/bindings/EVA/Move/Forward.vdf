@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press W, #EVA_forward, , "
+        "binding"		"key_press #W, #EVA_forward, , "
     }
 }

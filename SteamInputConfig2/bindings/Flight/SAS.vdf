@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press T, #Flight_SAS, , "
+        "binding"		"key_press #T, #Flight_SAS, , "
     }
 }

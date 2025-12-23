@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press F, #IVA_goToEVA, , "
+        "binding"		"key_press #F, #IVA_goToEVA, , "
     }
 }

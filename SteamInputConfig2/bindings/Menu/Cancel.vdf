@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press ESCAPE, #Menu_cancel, "
+        "binding"		"key_press #ESCAPE, #Menu_cancel, "
     }
 }

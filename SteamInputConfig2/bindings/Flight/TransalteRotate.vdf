@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press SPACE, #Docking_translateRotate, , "
+        "binding"		"key_press #SPACE, #Docking_translateRotate, , "
     }
 }

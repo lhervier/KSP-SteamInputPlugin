@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press C, #Editor_snapToggle, , "
+        "binding"		"key_press #C, #Editor_snapToggle, , "
     }
 }

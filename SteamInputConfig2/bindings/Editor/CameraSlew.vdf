@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press LEFT_SHIFT, #Editor_cameraSlew, , "
+        "binding"		"key_press #LEFT_SHIFT, #Editor_cameraSlew, , "
     }
 }

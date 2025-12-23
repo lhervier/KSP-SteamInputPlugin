@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press LEFT_ALT, #Common_modKey, , "
+        "binding"		"key_press #LEFT_ALT, #Common_modKey, , "
     }
 }

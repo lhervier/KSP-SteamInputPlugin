@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press SEMICOLON, #Flight_showMap, , "
+        "binding"		"key_press #M, #Flight_showMap, , "
     }
 }

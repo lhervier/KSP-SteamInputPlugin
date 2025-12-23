@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press CAPSLOCK, #Flight_precisionControls, , "
+        "binding"		"key_press #CAPSLOCK, #Flight_precisionControls, , "
     }
 }

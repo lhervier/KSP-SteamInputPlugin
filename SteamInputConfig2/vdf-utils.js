@@ -250,6 +250,46 @@ function processRefs(obj, parentName, vdfPath, controllerName) {
     return result;
 }
 
+function translateVdf(vdf, lang)  {
+    // Search recursively for all properties named "binding" of type string
+    function translateBinding(binding, lang) {
+        // Bindings may contain references to translation keys via the #key syntax
+        const matches = [...binding.matchAll(/#([^,]+)/g)];
+        if( !matches || matches.length === 0 ) {
+            return binding;
+        }
+        for( const match of matches ) {
+            const key = match[1];
+            if( vdf.controller_mappings.localization[lang][key] === undefined ) {
+                throw new Error(`Translation key ${key} not found for language ${lang} in binding ${binding}`);
+            }
+            const translation = vdf.controller_mappings.localization[lang][key];
+            binding = binding.replace(match[0], translation);
+        }
+        return binding;
+    }
+    function searchBindings(obj, lang) {
+        for( const [key, value] of Object.entries(obj) ) {
+            if( key === 'binding' && typeof value === 'string' ) {
+                obj[key] = translateBinding(value, lang);
+            } else if( Array.isArray(value) ) {
+                for( const item of value ) {
+                    searchBindings(item, lang);
+                }
+            } else if( typeof value === 'object' ) {
+                searchBindings(value, lang);
+            }
+        }
+    }
+
+    const clonedVdf = deepClone(vdf);
+    searchBindings(
+        clonedVdf, 
+        lang
+    );
+    return clonedVdf;
+}
+
 function loadVdfFile(vdfPath, controllerName) {
     const vdf = _loadVdfFile(vdfPath, controllerName);
     resolvePresets(vdf);
@@ -460,5 +500,6 @@ function resolveLayerBindings(vdf) {
 
 module.exports = {
     saveVdfFile,
-    loadVdfFile
+    loadVdfFile,
+    translateVdf
 }

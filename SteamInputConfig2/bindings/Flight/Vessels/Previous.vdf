@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press LEFT_BRACKET, #Flight_prevVessel, , "
+        "binding"		"key_press #LEFT_BRACKET, #Flight_prevVessel, , "
     }
 }

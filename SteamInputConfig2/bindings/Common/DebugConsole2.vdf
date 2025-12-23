@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press F12, #Common_console, "
+        "binding"		"key_press #F12, #Common_console, "
     }
 }

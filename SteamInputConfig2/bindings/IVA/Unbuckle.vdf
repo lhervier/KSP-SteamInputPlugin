@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press Y, #IVA_unbuckle, , "
+        "binding"		"key_press #Y, #IVA_unbuckle, , "
     }
 }

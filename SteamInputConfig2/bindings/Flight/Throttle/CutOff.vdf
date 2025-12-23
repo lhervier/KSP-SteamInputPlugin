@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press X, #Flight_throttleCutoff, , "
+        "binding"		"key_press #X, #Flight_throttleCutoff, , "
     }
 }

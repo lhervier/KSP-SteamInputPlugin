@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press X, #IVA_crouch, , "
+        "binding"		"key_press #X, #IVA_crouch, , "
     }
 }

@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press W, #Flight_pitchUp, , "
+        "binding"		"key_press #W, #Flight_pitchUp, , "
     }
 }

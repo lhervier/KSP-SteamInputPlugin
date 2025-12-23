@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press LEFT_CONTROL, #Editor_undo, , "
+        "binding"		"key_press #LEFT_CONTROL, #Editor_undo, , "
     }
 }

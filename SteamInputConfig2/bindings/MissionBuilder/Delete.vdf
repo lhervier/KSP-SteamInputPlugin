@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press DELETE, , , "
+        "binding"		"key_press #DELETE, , , "
     }
 }

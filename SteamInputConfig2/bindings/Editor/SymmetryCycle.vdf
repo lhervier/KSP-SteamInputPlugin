@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press X, #Editor_symmetryCycle, , "
+        "binding"		"key_press #X, #Editor_symmetryCycle, , "
     }
 }

@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press 1, #Editor_placeTool, , "
+        "binding"		"key_press #1, #Editor_placeTool, , "
     }
 }

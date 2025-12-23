@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press F, #Editor_coordFrameToggle, , "
+        "binding"		"key_press #F, #Editor_coordFrameToggle, , "
     }
 }

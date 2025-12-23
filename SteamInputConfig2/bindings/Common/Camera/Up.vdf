@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press UP_ARROW, #Common_cameraUp, , "
+        "binding"		"key_press #UP_ARROW, #Common_cameraUp, , "
     }
 }

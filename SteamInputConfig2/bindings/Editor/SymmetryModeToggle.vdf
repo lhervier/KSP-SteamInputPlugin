@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press R, #Editor_symmetryModeToggle, , "
+        "binding"		"key_press #R, #Editor_symmetryModeToggle, , "
     }
 }

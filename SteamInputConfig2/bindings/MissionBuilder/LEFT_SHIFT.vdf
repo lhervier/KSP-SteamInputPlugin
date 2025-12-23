@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press LEFT_SHIFT, , , "
+        "binding"		"key_press #LEFT_SHIFT, , , "
     }
 }

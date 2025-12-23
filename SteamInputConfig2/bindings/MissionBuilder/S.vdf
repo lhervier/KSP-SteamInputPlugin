@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press S, , , "
+        "binding"		"key_press #S, , , "
     }
 }
