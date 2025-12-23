@@ -287,6 +287,7 @@ function translateVdf(vdf, lang)  {
         clonedVdf, 
         lang
     );
+    clonedVdf.controller_mappings.localization = {};
     return clonedVdf;
 }
 
