@@ -19,6 +19,9 @@ vdf.controller_mappings.Timestamp = Date.now().toString();
 const buildDate = new Date().toISOString().replace('T', ' ').replace('Z', '');
 vdf.controller_mappings.title += " (" + buildDate + ")";
 
+// Create a filename-safe version of buildDate (replace ':' with '-' for Windows compatibility)
+const buildDateForFilename = buildDate.replace(/:/g, '-');
+
 // Create the "build" directory if it doesn't exist
 const buildDir = path.join(__dirname, 'build');
 if (!fs.existsSync(buildDir)) {
@@ -31,7 +34,7 @@ for( const lang of Object.keys(vdf.controller_mappings.localization) ) {
     const translatedVdf = translateVdf(vdf, lang);
     saveVdfFile(
         translatedVdf,
-        path.join(buildDir, args[0].replace('.vdf', '') + "_" + lang + "_" + buildDate + ".vdf")
+        path.join(buildDir, args[0].replace('.vdf', '') + "_" + lang + "_" + buildDateForFilename + ".vdf")
     );
 }
 
