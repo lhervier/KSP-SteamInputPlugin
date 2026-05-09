@@ -293,13 +293,7 @@ function translateVdf(vdf, lang)  {
 }
 
 function loadVdfFile(vdfPath, controllerName) {
-    resetIds();
-    const vdf = _loadVdfFile(vdfPath, controllerName);
-    resolvePresets(vdf);
-    resolveGroupBindings(vdf);
-    duplicateGroups(vdf);
-    resolveLayerBindings(vdf);
-    return vdf;
+    return _loadVdfFile(vdfPath, controllerName);
 }
 
 /**
@@ -502,7 +496,12 @@ function resolveLayerBindings(vdf) {
 }
 
 module.exports = {
+    resetIds,
     saveVdfFile,
     loadVdfFile,
-    translateVdf
+    translateVdf,
+    resolvePresets,
+    resolveGroupBindings,
+    duplicateGroups,
+    resolveLayerBindings
 }

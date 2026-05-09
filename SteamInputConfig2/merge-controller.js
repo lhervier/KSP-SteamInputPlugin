@@ -48,11 +48,20 @@ fs.mkdirSync(buildDir, { recursive: true });
 for (const controller of controllersToBuild) {
     const rootVdfPath = controller.rootVdfPath;
 
+    // Reset the ids
+    resetIds();
+    
     // Load the root controller file, resolving #ref
     const vdf = loadVdfFile(
         path.join('.', rootVdfPath),
         controller.controllerName
     );
+
+    // Resolve the presets, group bindings, duplicate groups and layer bindings
+    resolvePresets(vdf);
+    resolveGroupBindings(vdf);
+    duplicateGroups(vdf);
+    resolveLayerBindings(vdf);
 
     // Update the Timestamp property (set in epoch milliseconds)
     vdf.controller_mappings.Timestamp = Date.now().toString();
