@@ -8,15 +8,15 @@ This plugin enhances the native Steam Input support (through the support of the 
 
 The plugin adds several new action groups to enhance your gameplay experience:
 
-- These action groups, implemented when using Squad native plugin, are also supported:
-  - **Menu**
-  - **Flight**
-  - **Docking**
-  - **Editor**
-- The **Map** is split into three distinct action groups:
-  - Flight mode controls
-  - Docking mode controls
-  - EVA mode controls
+- These action groups, implemented when using Squad native plugin, are supported:
+  - **Menu** : Action group used when in the menus.
+  - **Flight** : Action group when in flight mode (including when in manoeuvre node mode).
+  - **Docking** : Action group when in docking mode.
+  - **Editor** : Action group when in editor mode.
+- The **Map** action group is split into three distinct action groups:
+  - **MapFlight** : Map when in Flight mode controls
+  - **MapDocking** : Map when in Docking mode controls
+  - **MapEVA** : Map when in EVA mode controls
 - Additional action groups:
   - **Tracking Station**: Dedicated controls for the tracking station interface
   - **Mission Builder**: Custom controls for the mission editor
@@ -32,16 +32,14 @@ If you want to see the logs in realtime, don't forget to tell KSP to flush its l
 
 ## System Requirements
 
-- Windows 10 or later
+- Linux, Windows 10 or later
 - Steam client installed and running
 - Kerbal Space Program 1.12 (Steam version)
 - A Steam Input compatible controller, with back buttons:
   - Steam Controller
   - Horipad Steam Controller
-  - Xbox One/Series controller with back buttons mapped to joystick click
-  - PlayStation 4/5 controller with back buttons mapped to joystick click (Raiju Tournament Edition for example)
   - XBox Elite controller, set on the default profile so Steam can use the back buttons. Don't forget to install the additionnal tools via the Steam parameters.
-  - Other controllers with Steam Input support
+  - Any other controllers with Steam Input support.
 
 ## Installation
 
