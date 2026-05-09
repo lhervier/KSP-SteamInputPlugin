@@ -3,13 +3,32 @@ const path = require('path');
 const VDF = require('vdf-parser');
 const { saveVdfFile, loadVdfFile, translateVdf } = require('./vdf-utils');
 
-// Récupérer les arguments de ligne de commande
-const args = process.argv.slice(2);
+const controllers = JSON.parse(
+    fs.readFileSync(path.join(__dirname, 'controllers.json'), 'utf8')
+);
+
+// Only one CLI argument is expected: the controller name
+const [controllerName] = process.argv.slice(2);
+if (!controllerName) {
+    throw new Error('Usage: node merge.js <controllerName>');
+}
+
+const controllerConfig = controllers.find(
+    controller => controller.controllerName === controllerName
+);
+if (!controllerConfig) {
+    const knownControllers = controllers
+        .map(controller => controller.controllerName)
+        .join(', ');
+    throw new Error(`Unknown controller "${controllerName}". Known controllers: ${knownControllers}`);
+}
+
+const rootVdfPath = controllerConfig.rootVdfPath;
 
 // Load the root controller file, resolving #ref
 const vdf = loadVdfFile(
-    path.join('.', args[0]),
-    args[1]
+    path.join('.', rootVdfPath),
+    controllerName
 );
 
 // Update the Timestamp property (set in epoch milliseconds)
@@ -34,7 +53,7 @@ for( const lang of Object.keys(vdf.controller_mappings.localization) ) {
     const translatedVdf = translateVdf(vdf, lang);
     saveVdfFile(
         translatedVdf,
-        path.join(buildDir, args[0].replace('.vdf', '') + "_" + lang + "_" + buildDateForFilename + ".vdf")
+        path.join(buildDir, rootVdfPath.replace('.vdf', '') + "_" + lang + "_" + buildDateForFilename + ".vdf")
     );
 }
 

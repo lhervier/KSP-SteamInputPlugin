@@ -1,0 +1,14 @@
+[
+  {
+    "controllerName": "steamcontroller",
+    "rootVdfPath": "ksp_steaminput_steamcontroller.vdf"
+  },
+  {
+    "controllerName": "hori",
+    "rootVdfPath": "ksp_steaminput_hori_steam.vdf"
+  },
+  {
+    "controllerName": "xboxelite",
+    "rootVdfPath": "ksp_steaminput_xboxelite.vdf"
+  }
+]
