@@ -146,7 +146,7 @@ function addRef(refPaths, additionRefPaths) {
  * @param {Object} obj - The object to process
  * @param {string} parentName - Name of the parent tag (e.g. "group" or "preset")
  * @param {string} vdfPath - Current file path that was used to load the object
- * @param {string} controllerName - Name of the controller for specialized files (e.g., "controller_steamcontroller_gordon")
+ * @param {string} controllerName - Name of the controller for specialized files (e.g., "steamcontroller")
  * @returns {Object} The processed object with #ref properties resolved
  * @throws {Error} If a referenced file cannot be loaded or doesn't have a "ref" root property
  */
@@ -229,11 +229,13 @@ function processRefs(obj, parentName, vdfPath, controllerName) {
         const dir = path.dirname(refAbsolutePath);
         const ext = path.extname(refAbsolutePath);
         const name = path.basename(refAbsolutePath, ext);
-        const specializedPath = path.join(dir, `${name}.${controllerName}${ext}`);
         
         // Check if specialized file exists
-        if (fs.existsSync(specializedPath)) {
-            refPaths.push('/' + specializedPath.replace(/\\/g, '/'));
+        if (controllerName) {
+            const specializedPath = path.join(dir, `${name}.${controllerName}${ext}`);
+            if (fs.existsSync(specializedPath)) {
+                refPaths.push('/' + specializedPath.replace(/\\/g, '/'));
+            }
         }
         
         const refVdf = _loadVdfFile(refAbsolutePath, controllerName);
