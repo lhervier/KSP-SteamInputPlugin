@@ -9,7 +9,7 @@
                 "<node_internals>/**"
             ],
             "localRoot": "${workspaceFolder}/SteamInputConfig2",
-            "program": "${workspaceFolder}/SteamInputConfig2/merge.js",
+            "program": "${workspaceFolder}/SteamInputConfig2/merge-controller.js",
             "args": [
                 "all"
             ],
@@ -24,7 +24,7 @@
                 "<node_internals>/**"
             ],
             "localRoot": "${workspaceFolder}/SteamInputConfig2",
-            "program": "${workspaceFolder}/SteamInputConfig2/merge.js",
+            "program": "${workspaceFolder}/SteamInputConfig2/merge-controller.js",
             "args": [
                 "steamcontroller"
             ],
@@ -39,7 +39,7 @@
                 "<node_internals>/**"
             ],
             "localRoot": "${workspaceFolder}/SteamInputConfig2",
-            "program": "${workspaceFolder}/SteamInputConfig2/merge.js",
+            "program": "${workspaceFolder}/SteamInputConfig2/merge-controller.js",
             "args": [
                 "hori"
             ],
@@ -54,7 +54,7 @@
                 "<node_internals>/**"
             ],
             "localRoot": "${workspaceFolder}/SteamInputConfig2",
-            "program": "${workspaceFolder}/SteamInputConfig2/merge.js",
+            "program": "${workspaceFolder}/SteamInputConfig2/merge-controller.js",
             "args": [
                 "xboxelite"
             ],

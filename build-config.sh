@@ -40,7 +40,7 @@ fi
 
 echo ""
 echo "Construction des VDF..."
-node merge.js all 2>&1
+node merge-controller.js all 2>&1
 if [ $? -ne 0 ]; then
     echo "ERREUR: Échec de la construction des VDF"
     exit 1

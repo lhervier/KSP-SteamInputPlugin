@@ -38,7 +38,7 @@ if errorlevel 1 (
 
 echo.
 echo Building VDF for all controllers...
-node merge.js all 2>&1
+node merge-controller.js all 2>&1
 if errorlevel 1 (
     echo ERROR: Failed to build VDF
     exit /b 1

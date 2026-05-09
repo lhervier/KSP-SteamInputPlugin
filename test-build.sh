@@ -14,8 +14,14 @@ if [ ! -d "Release" ]; then
 fi
 
 cd SteamInputConfig2
-echo "Exécution de merge.js (all)..."
-node merge.js all
+echo "Exécution de merge-controller.js (all)..."
+node merge-controller.js all
+if [ $? -eq 0 ]; then
+    echo "✓ Construction VDF contrôleurs réussie"
+else
+    echo "✗ Échec de la construction VDF contrôleurs"
+    exit 1
+fi
 if [ $? -eq 0 ]; then
     echo "✓ Construction VDF réussie"
 else
