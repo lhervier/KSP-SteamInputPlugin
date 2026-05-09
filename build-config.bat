@@ -3,10 +3,10 @@ setlocal enabledelayedexpansion
 
 echo.
 echo -------------------------------------------
-echo Running npm ci
+echo Running npm ci (SteamInputConfig2)
 echo -------------------------------------------
-cd SteamInputConfig
-npm ci
+cd SteamInputConfig2
+call npm ci
 if errorlevel 1 (
     echo ERROR: Failed to run npm ci
     exit /b 1
@@ -28,21 +28,19 @@ if not exist "Release" (
 
 echo.
 echo -------------------------------------------
-echo Building VDF files for controllers
-echo and game_actions
+echo Building VDF files (SteamInputConfig2)
 echo -------------------------------------------
-cd SteamInputConfig
+cd SteamInputConfig2
 if errorlevel 1 (
-    echo ERROR: Failed to change directory to SteamInputConfig
+    echo ERROR: Failed to change directory to SteamInputConfig2
     exit /b 1
 )
 
 echo.
-echo Building VDF...
-node merge.js 2>&1
+echo Building VDF for all controllers...
+node merge.js all 2>&1
 if errorlevel 1 (
     echo ERROR: Failed to build VDF
-    type controllers.log
     exit /b 1
 )
 
@@ -54,7 +52,7 @@ if errorlevel 1 (
 
 echo.
 echo Copying VDF files to Release folder
-copy /y "SteamInputConfig\*.vdf" "Release\"
+copy /y "SteamInputConfig2\build\*.vdf" "Release\"
 if errorlevel 1 (
     echo ERROR: Failed to copy VDF files
     exit /b 1

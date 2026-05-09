@@ -6,7 +6,7 @@ echo "-------------------------------------------"
 echo "Running npm ci"
 echo "-------------------------------------------"
 
-cd SteamInputConfig
+cd SteamInputConfig2
 npm ci
 if [ $? -ne 0 ]; then
     echo "ERREUR: Impossible de lancer npm ci"
@@ -30,10 +30,9 @@ fi
 echo ""
 echo "-------------------------------------------"
 echo "Construction des fichiers VDF pour les contrôleurs"
-echo "et game_actions"
 echo "-------------------------------------------"
 
-cd SteamInputConfig
+cd SteamInputConfig2
 if [ $? -ne 0 ]; then
     echo "ERREUR: Impossible de changer de répertoire vers SteamInputConfig"
     exit 1
@@ -41,12 +40,9 @@ fi
 
 echo ""
 echo "Construction des VDF..."
-node merge.js 2>&1
+node merge.js all 2>&1
 if [ $? -ne 0 ]; then
     echo "ERREUR: Échec de la construction des VDF"
-    if [ -f "controllers.log" ]; then
-        cat "controllers.log"
-    fi
     exit 1
 fi
 
@@ -58,7 +54,7 @@ fi
 
 echo ""
 echo "Copie des fichiers VDF vers le dossier Release"
-cp SteamInputConfig/*.vdf "Release/"
+cp SteamInputConfig2/build/*.vdf "Release/"
 if [ $? -ne 0 ]; then
     echo "ERREUR: Impossible de copier les fichiers VDF"
     exit 1

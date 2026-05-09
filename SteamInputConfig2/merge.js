@@ -30,12 +30,6 @@ if (rawVersion.includes('%TIMESTAMP%')) {
     buildVersion = rawVersion;
 }
 
-// Create the "build" directory if it doesn't exist
-const buildDir = path.join(__dirname, 'build');
-if (!fs.existsSync(buildDir)) {
-    fs.mkdirSync(buildDir, { recursive: true });
-}
-
 const controllersToBuild = controllerName === 'all'
     ? controllers
     : [controllers.find(controller => controller.controllerName === controllerName)];
@@ -46,6 +40,10 @@ if (!controllersToBuild[0]) {
         .join(', ');
     throw new Error(`Unknown controller "${controllerName}". Known controllers: ${knownControllers}, all`);
 }
+
+const buildDir = path.join(__dirname, 'build');
+fs.rmSync(buildDir, { recursive: true, force: true });
+fs.mkdirSync(buildDir, { recursive: true });
 
 for (const controller of controllersToBuild) {
     const rootVdfPath = controller.rootVdfPath;

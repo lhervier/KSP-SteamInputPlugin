@@ -13,9 +13,9 @@ if [ ! -d "Release" ]; then
     mkdir "Release"
 fi
 
-cd SteamInputConfig
-echo "Exécution de merge.js..."
-node merge.js
+cd SteamInputConfig2
+echo "Exécution de merge.js (all)..."
+node merge.js all
 if [ $? -eq 0 ]; then
     echo "✓ Construction VDF réussie"
 else
@@ -25,7 +25,7 @@ fi
 
 cd ..
 echo "Copie des fichiers VDF..."
-cp SteamInputConfig/*.vdf "Release/" 2>/dev/null || echo "Aucun fichier VDF généré"
+cp SteamInputConfig2/build/*.vdf "Release/" 2>/dev/null || echo "Aucun fichier VDF généré"
 
 echo ""
 echo "==========================================="
