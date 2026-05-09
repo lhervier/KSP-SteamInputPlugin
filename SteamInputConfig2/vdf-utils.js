@@ -2,16 +2,16 @@ const fs = require('fs');
 const path = require('path');
 const VDF = require('vdf-parser');
 
-const ids = {
-    "group": {
-        "count": 0,
-        "ids": {}
-    },
-    "preset": {
-        "count": 0,
-        "ids": {}
-    }
-};
+const ids = {};
+
+function resetIds() {
+    ids.group = {};
+    ids.group.count = 0;
+    ids.group.ids = {};
+    ids.preset = {};
+    ids.preset.count = 0;
+    ids.preset.ids = {};
+}
 
 /**
  * Deep clone an object recursively, including all nested objects and arrays
@@ -291,6 +291,7 @@ function translateVdf(vdf, lang)  {
 }
 
 function loadVdfFile(vdfPath, controllerName) {
+    resetIds();
     const vdf = _loadVdfFile(vdfPath, controllerName);
     resolvePresets(vdf);
     resolveGroupBindings(vdf);

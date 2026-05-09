@@ -4,13 +4,14 @@
 		{
             "type": "node",
             "request": "launch",
-            "name": "Create controller VDF files",
+            "name": "All controllers",
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "localRoot": "${workspaceFolder}/SteamInputConfig",
-            "program": "${workspaceFolder}/SteamInputConfig/merge.js",
+            "localRoot": "${workspaceFolder}/SteamInputConfig2",
+            "program": "${workspaceFolder}/SteamInputConfig2/merge.js",
             "args": [
+                "all"
             ],
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen"
