@@ -56,7 +56,8 @@ for (const controller of controllersToBuild) {
     // Translate the VDF file into all known languages
     // The list of available languages are in the "localization" property of the vdf
     for (const lang of Object.keys(vdf.controller_mappings.localization)) {
-        const translatedVdf = translateVdf(vdf, lang);
+        const langDict = vdf.controller_mappings.localization[lang];
+        const translatedVdf = translateVdf(vdf, langDict);
         saveVdfFile(
             translatedVdf,
             path.join(buildDir, rootVdfPath.replace('.vdf', '') + "_" + lang + "_" + buildVersion + ".vdf")

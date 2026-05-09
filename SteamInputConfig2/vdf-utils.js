@@ -252,9 +252,17 @@ function processRefs(obj, parentName, vdfPath, controllerName) {
     return result;
 }
 
-function translateVdf(vdf, lang)  {
+/**
+ * Clone the VDF and replace #key segments in string "binding" values using localizationMap.
+ * @param {*} vdf Root object to deep-clone and mutate (typically controller_mappings wrapper).
+ * @param {Object<string, string>} localizationMap Translation keys to resolved strings.
+ */
+function translateVdf(vdf, localizationMap) {
+    if (!localizationMap || typeof localizationMap !== 'object') {
+        throw new Error('translateVdf: localizationMap must be a non-null object');
+    }
     // Search recursively for all properties named "binding" of type string
-    function translateBinding(binding, lang) {
+    function translateBinding(binding) {
         // Bindings may contain references to translation keys via the #key syntax
         const matches = [...binding.matchAll(/#([^,]+)/g)];
         if( !matches || matches.length === 0 ) {
@@ -262,33 +270,30 @@ function translateVdf(vdf, lang)  {
         }
         for( const match of matches ) {
             const key = match[1];
-            if( vdf.controller_mappings.localization[lang][key] === undefined ) {
-                throw new Error(`Translation key ${key} not found for language ${lang} in binding ${binding}`);
+            if( localizationMap[key] === undefined ) {
+                throw new Error(`Translation key ${key} not found in binding ${binding}`);
             }
-            const translation = vdf.controller_mappings.localization[lang][key];
+            const translation = localizationMap[key];
             binding = binding.replace(match[0], translation);
         }
         return binding;
     }
-    function searchBindings(obj, lang) {
+    function searchBindings(obj) {
         for( const [key, value] of Object.entries(obj) ) {
             if( key === 'binding' && typeof value === 'string' ) {
-                obj[key] = translateBinding(value, lang);
+                obj[key] = translateBinding(value);
             } else if( Array.isArray(value) ) {
                 for( const item of value ) {
-                    searchBindings(item, lang);
+                    searchBindings(item);
                 }
             } else if( typeof value === 'object' ) {
-                searchBindings(value, lang);
+                searchBindings(value);
             }
         }
     }
 
     const clonedVdf = deepClone(vdf);
-    searchBindings(
-        clonedVdf, 
-        lang
-    );
+    searchBindings(clonedVdf);
     return clonedVdf;
 }
 
