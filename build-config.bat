@@ -44,6 +44,18 @@ if errorlevel 1 (
     exit /b 1
 )
 
+echo.
+echo -------------------------------------------
+echo Building game_actions VDF files...
+echo -------------------------------------------
+echo.
+echo Building game_actions VDF files...
+node merge-game-actions.js 2>&1
+if errorlevel 1 (
+    echo ERROR: Failed to build game_actions VDF
+    exit /b 1
+)
+
 cd ..
 if errorlevel 1 (
     echo ERROR: Failed to return to original directory

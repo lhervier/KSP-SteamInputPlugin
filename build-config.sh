@@ -45,6 +45,18 @@ if [ $? -ne 0 ]; then
     echo "ERREUR: Échec de la construction des VDF"
     exit 1
 fi
+echo ""
+echo "-------------------------------------------"
+echo "Construction des fichiers VDF pour game_actions"
+echo "-------------------------------------------"
+
+echo ""
+echo "Construction des VDF..."
+node merge-game-actions.js 2>&1
+if [ $? -ne 0 ]; then
+    echo "ERREUR: Échec de la construction des VDF game_actions"
+    exit 1
+fi
 
 cd ..
 if [ $? -ne 0 ]; then

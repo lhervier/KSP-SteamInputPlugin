@@ -22,10 +22,13 @@ else
     echo "✗ Échec de la construction VDF contrôleurs"
     exit 1
 fi
+
+echo "Exécution de merge-game-actions.js..."
+node merge-game-actions.js
 if [ $? -eq 0 ]; then
-    echo "✓ Construction VDF réussie"
+    echo "✓ Construction game_actions réussie"
 else
-    echo "✗ Échec de la construction VDF"
+    echo "✗ Échec de la construction game_actions"
     exit 1
 fi
 
