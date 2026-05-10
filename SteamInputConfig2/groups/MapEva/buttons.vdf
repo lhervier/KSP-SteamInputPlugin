@@ -8,8 +8,8 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"						"/inputs/buttons/x-rcs.vdf"
-			"#ref"						"/inputs/buttons/y-sas.vdf"
+			"#ref"						"/inputs/buttons/x/rcs.vdf"
+			"#ref"						"/inputs/buttons/y/sas.vdf"
 		}
 	}
 }

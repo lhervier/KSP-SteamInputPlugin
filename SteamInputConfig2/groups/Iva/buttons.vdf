@@ -8,9 +8,9 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"				"/inputs/buttons/b-back-to-flight.vdf"
-			"#ref"				"/inputs/buttons/x-next-kerbal.vdf"
-			"#ref"				"/inputs/buttons/y-unbuckle.vdf"
+			"#ref"				"/inputs/buttons/b/back-to-flight.vdf"
+			"#ref"				"/inputs/buttons/x/next-kerbal.vdf"
+			"#ref"				"/inputs/buttons/y/unbuckle.vdf"
 		}
 	}
 }

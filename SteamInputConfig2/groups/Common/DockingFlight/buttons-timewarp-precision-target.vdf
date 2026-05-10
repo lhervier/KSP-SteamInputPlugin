@@ -8,10 +8,10 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"					"/inputs/buttons/a-targetdisplay.vdf"
-			"#ref"					"/inputs/buttons/b-precision-controls.vdf"
-			"#ref"					"/inputs/buttons/x-timewarp-decr.vdf"
-			"#ref"					"/inputs/buttons/y-timewarp-incr.vdf"
+			"#ref"					"/inputs/buttons/a/targetdisplay.vdf"
+			"#ref"					"/inputs/buttons/b/precision-controls.vdf"
+			"#ref"					"/inputs/buttons/x/timewarp-decr.vdf"
+			"#ref"					"/inputs/buttons/y/timewarp-incr.vdf"
 		}
 	}
 }
