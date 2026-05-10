@@ -24,7 +24,7 @@
             }
             "Full_Press"
             {
-                "#ref"				"/bindings/Common/ModeShiftRightJoystickSlow.vdf"
+                "#ref"				"/bindings/ModeShift/slow-mouse.vdf"
             }
         }
     }
