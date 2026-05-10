@@ -8,7 +8,8 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"				"/inputs/dpad/click.vdf"
+			"#ref"				"/inputs/dpad/east-click-left.vdf"
+			"#ref"				"/inputs/dpad/west-click-right.vdf"
 			"#ref"				"/inputs/dpad/zoom.vdf"
 		}
 		"settings"

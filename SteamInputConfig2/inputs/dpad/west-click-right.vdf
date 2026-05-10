@@ -1,15 +1,5 @@
 "ref"
 {
-    "dpad_east"
-    {
-        "activators"
-        {
-            "Full_Press"
-            {
-                "#ref"				"/bindings/Common/Mouse/LeftClick.vdf"
-            }
-        }
-    }
     "dpad_west"
     {
         "activators"
