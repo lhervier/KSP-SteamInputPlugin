@@ -9,7 +9,7 @@
                 "#ref"				"/bindings/Common/Camera/ZoomIn.vdf"
                 "settings"
                 {
-                    "#ref"				"_settings-zoom.vdf"
+                    "#ref"				"../_settings-zoom.vdf"
                 }
             }
         }

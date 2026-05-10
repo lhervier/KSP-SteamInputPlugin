@@ -8,10 +8,10 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"				"/inputs/dpad/east-translate-right.vdf"
-			"#ref"				"/inputs/dpad/north-translate-down.vdf"
-			"#ref"				"/inputs/dpad/south-translate-up.vdf"
-			"#ref"				"/inputs/dpad/west-translate-left.vdf"
+			"#ref"				"/inputs/dpad/east/translate-right.vdf"
+			"#ref"				"/inputs/dpad/north/translate-down.vdf"
+			"#ref"				"/inputs/dpad/south/translate-up.vdf"
+			"#ref"				"/inputs/dpad/west/translate-left.vdf"
 		}
 	}
 }

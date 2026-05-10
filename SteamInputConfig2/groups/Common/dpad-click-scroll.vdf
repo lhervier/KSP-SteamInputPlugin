@@ -8,10 +8,10 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"				"/inputs/dpad/east-click-left.vdf"
-			"#ref"				"/inputs/dpad/west-click-right.vdf"
-			"#ref"				"/inputs/dpad/north-scroll-up.vdf"
-			"#ref"				"/inputs/dpad/south-scroll-down.vdf"
+			"#ref"				"/inputs/dpad/east/click-left.vdf"
+			"#ref"				"/inputs/dpad/west/click-right.vdf"
+			"#ref"				"/inputs/dpad/north/scroll-up.vdf"
+			"#ref"				"/inputs/dpad/south/scroll-down.vdf"
 		}
 		"settings"
 		{

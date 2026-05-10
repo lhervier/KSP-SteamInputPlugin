@@ -9,7 +9,7 @@
                 "#ref"				"/bindings/Common/Mouse/ScrollUp.vdf"
                 "settings"
                 {
-                    "#ref"				"_settings-scroll.vdf"
+                    "#ref"				"../_settings-scroll.vdf"
                 }
             }
         }
