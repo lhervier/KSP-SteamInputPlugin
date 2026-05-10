@@ -23,7 +23,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"mode_shift button_diamond %group_id:buttons_modeshift.vdf%"
+							"binding"		"mode_shift button_diamond %group_id:/groups/MapFlight/buttons_modeshift.vdf%"
 						}
 					}
 					"Full_Press"

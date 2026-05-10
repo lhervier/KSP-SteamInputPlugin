@@ -1,4 +1,4 @@
 "ref"
 {
-    "binding"		"mode_shift dpad %group_id:dpad_modeshift.vdf%"
+    "binding"		"mode_shift dpad %group_id:/groups/Iva/dpad_modeshift.vdf%"
 }
