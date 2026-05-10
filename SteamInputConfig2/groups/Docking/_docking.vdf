@@ -2,5 +2,6 @@
 {
     "#ref"				"button_diamond.vdf"
     "#ref"				"joystick.vdf"
+    "#ref"				"left_trigger.vdf"
     "#ref"				"switch.vdf"
 }
