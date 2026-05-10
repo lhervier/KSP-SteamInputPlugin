@@ -32,9 +32,9 @@
 					}
 				}
 			}
-			"#ref"				"/inputs/switches/backleft-mod-key.vdf"
-			"#ref"				"/inputs/switches/esc-menu-debug.vdf"
-			"#ref"				"/inputs/switches/menu-keyboard.vdf"
+			"#ref"				"/inputs/switches/backleft/mod-key.vdf"
+			"#ref"				"/inputs/switches/esc/menu-debug.vdf"
+			"#ref"				"/inputs/switches/menu/keyboard.vdf"
 		}
 	}
 }

@@ -11,7 +11,7 @@
 		}
 		"settings"
 		{
-			"#ref"				"/inputs/joysticks/right/mouse-settings-slow.vdf"
+			"#ref"				"/inputs/mouse/_settings-slow.vdf"
 		}
 	}
 }

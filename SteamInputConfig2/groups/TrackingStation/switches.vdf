@@ -8,12 +8,12 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"				"/inputs/switches/backright-slow-mouse.vdf"
-			"#ref"				"/inputs/switches/backleft-mod-key.vdf"
-			"#ref"				"/inputs/switches/esc-menu-debug.vdf"
-			"#ref"				"/inputs/switches/menu-keyboard.vdf"
-			"#ref"				"/inputs/switches/leftbumper-prev-body.vdf"
-			"#ref"				"/inputs/switches/rightbumper-next-body.vdf"
+			"#ref"				"/inputs/switches/backright/slow-mouse.vdf"
+			"#ref"				"/inputs/switches/backleft/mod-key.vdf"
+			"#ref"				"/inputs/switches/esc/menu-debug.vdf"
+			"#ref"				"/inputs/switches/menu/keyboard.vdf"
+			"#ref"				"/inputs/switches/leftbumper/prev-body.vdf"
+			"#ref"				"/inputs/switches/rightbumper/next-body.vdf"
 		}
 	}
 }

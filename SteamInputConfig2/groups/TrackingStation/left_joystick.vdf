@@ -8,7 +8,10 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"				"/inputs/joysticks/left/camera.vdf"
+			"#ref"				"/inputs/dpad/east/camera-right.vdf"
+			"#ref"				"/inputs/dpad/north/camera-up.vdf"
+			"#ref"				"/inputs/dpad/south/camera-down.vdf"
+			"#ref"				"/inputs/dpad/west/camera-left.vdf"
 		}
 	}
 }
