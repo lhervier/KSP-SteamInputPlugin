@@ -1,4 +1,5 @@
 "ref"
 {
+    "#ref"				"buttons.vdf"
     "#ref"				"switches.vdf"
 }

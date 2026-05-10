@@ -18,7 +18,6 @@
     "#ref"				"Flight/left_trigger-throttle.vdf"
     "#ref"				"Flight/right_trigger-throttle.vdf"
     
-    "#ref"				"Docking/buttons.vdf"
     "#ref"				"Docking/left_joystick-translate.vdf"
     "#ref"				"Docking/left_trigger-translate.vdf"
     "#ref"				"Docking/right_trigger-translate.vdf"
