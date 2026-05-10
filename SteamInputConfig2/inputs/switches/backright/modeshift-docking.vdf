@@ -6,10 +6,6 @@
         {
             "Full_Press"
             {
-                "#ref"					"/bindings/Common/ModeShiftDpadVesselCamera.vdf"
-            }
-            "Full_Press"
-            {
                 "bindings"
                 {
                     "binding"		"mode_shift button_diamond %group_id:/groups/Common/DockingFlight/buttons-timewarp-precision-target.vdf%"
