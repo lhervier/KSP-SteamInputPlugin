@@ -6,7 +6,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Flight/Move/PitchDown.vdf"
+                "#ref"				"/bindings/Rotate/Move/PitchDown.vdf"
             }
         }
     }
