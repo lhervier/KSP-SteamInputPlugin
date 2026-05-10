@@ -44,24 +44,21 @@ if errorlevel 1 (
 
 echo Copying Controllers VDF
 echo - Steam Controller
-copy /y "Release\controller_steamcontroller_gordon_%KSPLANG%.vdf" "%CONTROLLER_CONFIG_DIR%\controller_steamcontroller_gordon.vdf"
+copy /y "Release\ksp_steaminput_steamcontroller_%KSPLANG%.vdf" "%CONTROLLER_CONFIG_DIR%\controller_steamcontroller_gordon.vdf"
 if errorlevel 1 (
     echo ERROR: Failed to copy Steam Controller config
     exit /b 1
 )
-
-echo - PS4
-copy /y "Release\controller_ps4_%KSPLANG%.vdf" "%CONTROLLER_CONFIG_DIR%\controller_ps4.vdf"
-if errorlevel 1 (
-    echo ERROR: Failed to copy PS4 config
-    exit /b 1
-)
-
 echo - Hori Steam
-copy /y "Release\controller_hori_steam_%KSPLANG%.vdf" "%CONTROLLER_CONFIG_DIR%\controller_hori_steam.vdf"
+copy /y "Release\ksp_steaminput_hori_steam_%KSPLANG%.vdf" "%CONTROLLER_CONFIG_DIR%\controller_hori_steam.vdf"
 if errorlevel 1 (
     echo ERROR: Failed to copy Hori Steam config
     exit /b 1
 )
-
+echo - Xbox Elite
+copy /y "Release\ksp_steaminput_xboxelite_%KSPLANG%.vdf" "%CONTROLLER_CONFIG_DIR%\controller_xboxelite.vdf"
+if errorlevel 1 (
+    echo ERROR: Failed to copy Xbox Elite config
+    exit /b 1
+)
 echo Config Installation completed successfully

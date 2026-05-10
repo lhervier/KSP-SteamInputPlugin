@@ -1,6 +1,10 @@
 #!/bin/bash
 set -e
 
+APPID=220200
+KSPLANG="${KSPLANG:-french}"
+USERID="${USERID:-27319809}"
+
 echo ""
 echo "==========================================="
 echo "Installation de la configuration Steam Input"
@@ -13,12 +17,21 @@ if [ ! -d "Release" ]; then
     exit 1
 fi
 
-# Vérifier que les fichiers VDF existent
-if [ ! -f "Release/game_actions_220200.vdf" ]; then
-    echo "ERREUR: Fichiers VDF non trouvés dans Release/"
-    echo "Exécutez d'abord: ./build.sh"
-    exit 1
-fi
+GA_SRC="Release/game_actions_${APPID}_${KSPLANG}.vdf"
+SC_SRC="Release/ksp_steaminput_steamcontroller_${KSPLANG}.vdf"
+HORI_SRC="Release/ksp_steaminput_hori_steam_${KSPLANG}.vdf"
+ELITE_SRC="Release/ksp_steaminput_xboxelite_${KSPLANG}.vdf"
+
+for f in "$GA_SRC" "$SC_SRC" "$HORI_SRC" "$ELITE_SRC"; do
+    if [ ! -f "$f" ]; then
+        echo "ERREUR: Fichier manquant: $f"
+        echo "Exécutez d'abord: ./build.sh"
+        exit 1
+    fi
+done
+
+echo ""
+echo "Paramètres : KSPLANG=$KSPLANG USERID=$USERID APPID=$APPID"
 
 echo ""
 echo "==========================================="
@@ -27,48 +40,44 @@ echo "==========================================="
 
 # Créer le dossier controller_config dans Steam
 STEAM_DIR=""
-if [ -d "$HOME/.steam/steam" ]; then
+if [ -n "${STEAMDIR:-}" ] && [ -d "$STEAMDIR" ]; then
+    STEAM_DIR="$STEAMDIR"
+elif [ -d "$HOME/.steam/steam" ]; then
     STEAM_DIR="$HOME/.steam/steam"
 elif [ -d "$HOME/.local/share/Steam" ]; then
     STEAM_DIR="$HOME/.local/share/Steam"
 else
-    echo "ATTENTION: Dossier Steam non trouvé"
-    echo "Vous devrez copier manuellement les fichiers VDF dans:"
-    echo "  \${SteamDir}/controller_config/"
-    echo ""
-    echo "Fichiers VDF disponibles dans Release/:"
-    ls -la Release/*.vdf
-    exit 0
+    echo "ATTENTION: Dossier Steam non trouvé (STEAMDIR, ~/.steam/steam, ~/.local/share/Steam)"
+    echo "export STEAMDIR=/chemin/vers/Steam puis relancez, ou copiez à la main:"
+    echo "  game_actions → \${SteamDir}/controller_config/game_actions_${APPID}.vdf"
+    echo "  contrôleurs → \${SteamDir}/steamapps/common/Steam Controller Configs/${USERID}/config/${APPID}/"
+    ls -la Release/*.vdf 2>/dev/null || true
+    exit 1
 fi
 
-CONTROLLER_CONFIG_DIR="$STEAM_DIR/controller_config"
-echo "Création du dossier: $CONTROLLER_CONFIG_DIR"
+CONTROLLER_ACTION_DIR="$STEAM_DIR/controller_config"
+CONTROLLER_CONFIG_DIR="$STEAM_DIR/steamapps/common/Steam Controller Configs/$USERID/config/$APPID"
+
+echo "Steam: $STEAM_DIR"
+mkdir -p "$CONTROLLER_ACTION_DIR"
 mkdir -p "$CONTROLLER_CONFIG_DIR"
 
-# Copier les fichiers VDF
-echo "Copie des fichiers de configuration VDF..."
-cp Release/game_actions_220200*.vdf "$CONTROLLER_CONFIG_DIR/"
+echo "Copie game_actions → $CONTROLLER_ACTION_DIR/game_actions_${APPID}.vdf"
+cp "$GA_SRC" "$CONTROLLER_ACTION_DIR/game_actions_${APPID}.vdf"
+
+echo "Copie configs manettes → $CONTROLLER_CONFIG_DIR/"
+cp "$SC_SRC" "$CONTROLLER_CONFIG_DIR/controller_steamcontroller_gordon.vdf"
+cp "$HORI_SRC" "$CONTROLLER_CONFIG_DIR/controller_hori_steam.vdf"
+cp "$ELITE_SRC" "$CONTROLLER_CONFIG_DIR/controller_xboxelite.vdf"
 
 echo ""
 echo "==========================================="
 echo "Installation de la configuration terminée avec succès !"
 echo "==========================================="
 echo ""
-echo "Configuration VDF copiée dans: $CONTROLLER_CONFIG_DIR"
+echo "Fichiers installés:"
+echo "- $CONTROLLER_ACTION_DIR/game_actions_${APPID}.vdf"
+echo "- $CONTROLLER_CONFIG_DIR/controller_steamcontroller_gordon.vdf"
+echo "- $CONTROLLER_CONFIG_DIR/controller_hori_steam.vdf"
+echo "- $CONTROLLER_CONFIG_DIR/controller_xboxelite.vdf"
 echo ""
-echo "Fichiers de configuration disponibles:"
-echo "- game_actions_220200.vdf (général)"
-echo "- game_actions_220200_english.vdf (anglais)"
-echo "- game_actions_220200_french.vdf (français)"
-echo ""
-echo "Pour les contrôleurs spécifiques, copiez manuellement:"
-echo "- controller_hori_steam*.vdf pour Horipad Steam"
-echo "- controller_ps4*.vdf pour PS4/PS5"
-echo "- controller_steamcontroller_gordon*.vdf pour Steam Controller"
-echo ""
-echo "Pour utiliser la configuration:"
-echo "1. Lancez KSP via Steam"
-echo "2. Configurez vos contrôleurs via l'interface Steam"
-echo ""
-echo "Note: Pour une installation complète, exécutez aussi:"
-echo "  ./install-plugin.sh"
