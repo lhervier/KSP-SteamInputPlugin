@@ -15,7 +15,7 @@
 		}
 		"settings"
 		{
-			"#ref"				"/inputs/dpad/settings.vdf"
+			"#ref"				"/inputs/dpad/_settings.vdf"
 		}
 	}
 }
