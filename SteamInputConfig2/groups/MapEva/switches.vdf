@@ -8,7 +8,7 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"						"/inputs/switches/backright/modeshift-mapeva.vdf"
+			"#ref"						"/inputs/switches/backright/mapeva/modeshift.vdf"
 			"#ref"						"/inputs/switches/backleft/mod-key.vdf"
 			"#ref"						"/inputs/switches/esc/menu-debug.vdf"
 			"#ref"						"/inputs/switches/menu/map-keyboard.vdf"

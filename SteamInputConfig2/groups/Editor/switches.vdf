@@ -13,7 +13,7 @@
 			"#ref"				"/inputs/switches/menu/undo-keyboard.vdf"
 			"#ref"				"/inputs/switches/leftbumper/roll-part-left.vdf"
 			"#ref"				"/inputs/switches/rightbumper/roll-part-right.vdf"
-			"#ref"				"/inputs/switches/backright/modeshift-editor.vdf"
+			"#ref"				"/inputs/switches/backright/editor/modeshift.vdf"
 		}
 	}
 }
