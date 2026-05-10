@@ -1,11 +1,8 @@
 const fs = require('fs');
 const path = require('path');
-const { getVersion } = require('./version-utils');
 const { resetIds, saveVdfFile, loadVdfFile, translateVdf } = require('./vdf-utils');
 
 const IN_GAME_ACTIONS_KEY = 'In Game Actions';
-
-const buildVersion = getVersion();
 
 const rootPath = path.join(__dirname, 'game_actions_220200.vdf');
 resetIds();
@@ -24,7 +21,7 @@ const languages = Object.keys(merged.localization);
 for (const lang of languages) {
     const langDict = merged.localization[lang];
     const translatedVdf = translateVdf(merged, langDict);
-    const outName = `game_actions_220200_${lang}_${buildVersion}.vdf`;
+    const outName = `game_actions_220200_${lang}.vdf`;
     saveVdfFile(translatedVdf, path.join(buildDir, outName));
 }
 

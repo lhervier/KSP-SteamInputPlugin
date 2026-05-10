@@ -60,7 +60,7 @@ for (const controller of controllersToBuild) {
         const translatedVdf = translateVdf(vdf, langDict);
         saveVdfFile(
             translatedVdf,
-            path.join(buildDir, rootVdfPath.replace('.vdf', '') + "_" + lang + "_" + buildVersion + ".vdf")
+            path.join(buildDir, rootVdfPath.replace('.vdf', '') + "_" + lang + ".vdf")
         );
     }
 }
