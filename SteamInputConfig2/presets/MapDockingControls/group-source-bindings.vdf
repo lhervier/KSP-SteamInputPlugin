@@ -5,7 +5,7 @@
 	"/groups/Docking/button_diamond.vdf"					"button_diamond active"
 	"/groups/Docking/joystick.vdf"							"joystick active"
 	"/groups/Docking/left_trigger.vdf"						"left_trigger active"
-	"/groups/Common/Docking/right_trigger-translate.vdf"	"right_trigger active"
+	"/groups/Docking/right_trigger.vdf"						"right_trigger active"
 	
 	"/groups/MapDocking/buttons_modeshift.vdf"				"button_diamond active modeshift"
 	"/groups/MapDocking/switches.vdf"						"switch active"

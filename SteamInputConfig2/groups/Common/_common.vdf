@@ -18,7 +18,5 @@
     "#ref"				"Flight/left_trigger-throttle.vdf"
     "#ref"				"Flight/right_trigger-throttle.vdf"
     
-    "#ref"				"Docking/right_trigger-translate.vdf"
-    
     "#ref"				"DockingFlight/buttons-timewarp-precision-target.vdf"
 }
