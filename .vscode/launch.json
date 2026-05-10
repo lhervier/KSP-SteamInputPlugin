@@ -60,6 +60,21 @@
             ],
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "PS4",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "localRoot": "${workspaceFolder}/SteamInputConfig2",
+            "program": "${workspaceFolder}/SteamInputConfig2/merge-controller.js",
+            "args": [
+                "ps4"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
         }
     ]
 } 

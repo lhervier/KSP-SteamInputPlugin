@@ -10,5 +10,9 @@
   {
     "controllerName": "xboxelite",
     "rootVdfPath": "ksp_steaminput_xboxelite.vdf"
+  },
+  {
+    "controllerName": "ps4",
+    "rootVdfPath": "ksp_steaminput_ps4.vdf"
   }
 ]
