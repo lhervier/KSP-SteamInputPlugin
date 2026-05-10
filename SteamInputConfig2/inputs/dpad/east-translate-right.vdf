@@ -1,0 +1,13 @@
+"ref"
+{
+    "dpad_east"
+    {
+        "activators"
+        {
+            "Full_Press"
+            {
+                "#ref"				"/bindings/Flight/Translate/Right.vdf"
+            }
+        }
+    }
+}
