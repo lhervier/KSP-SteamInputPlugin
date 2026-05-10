@@ -6,9 +6,6 @@
 		"#ref"		"right_joystick-mouse-mode.vdf"
 		"name"		""
 		"description"		""
-		"inputs"
-		{
-		}
 		"settings"
 		{
 			"#ref"				"/inputs/mouse/_settings-normal.vdf"
