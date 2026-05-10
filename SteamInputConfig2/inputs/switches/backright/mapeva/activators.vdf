@@ -2,19 +2,6 @@
 {
     "button_back_right"
     {
-        "activators"
-        {
-            "Full_Press"
-            {
-                "bindings"
-                {
-                    "binding"		"mode_shift button_diamond %group_id:/groups/MapEva/buttons_modeshift.vdf%"
-                }
-            }
-        }
-        "Full_Press"
-        {
-            "#ref"				"/bindings/ModeShift/slow-mouse.vdf"
-        }
+        "#ref"          "/activators/modeshift-mapeva.vdf"
     }
 }

@@ -1,0 +1,14 @@
+"ref"
+{
+    "activators"
+    {
+        "Full_Press"
+        {
+            "#ref"				"/bindings/Presets/MissionBuilder/LEFT_SHIFT.vdf"
+        }
+        "Full_Press"
+        {
+            "#ref"				"/bindings/ModeShift/slow-mouse.vdf"
+        }
+    }
+}
