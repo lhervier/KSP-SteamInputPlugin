@@ -8,12 +8,12 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"				"/inputs/triggers/left/click-throttle-cutoff.vdf"
-			"#ref"				"/inputs/triggers/left/edge-throttle-down.vdf"
+			"#ref"				"/inputs/triggers/left-click/throttle-cutoff.vdf"
+			"#ref"				"/inputs/triggers/left-edge/throttle-down.vdf"
 		}
 		"settings"
 		{
-			"#ref"				"/inputs/triggers/settings.vdf"
+			"#ref"				"/inputs/triggers/_settings.vdf"
 		}
 	}
 }

@@ -18,11 +18,11 @@
 					}
 				}
 			}
-			"#ref"				"/inputs/triggers/left/edge-right-click.vdf"
+			"#ref"				"/inputs/triggers/left-edge/right-click.vdf"
 		}
 		"settings"
 		{
-			"#ref"				"/inputs/triggers/settings.vdf"
+			"#ref"				"/inputs/triggers/_settings.vdf"
 		}
 	}
 }

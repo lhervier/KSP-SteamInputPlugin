@@ -8,11 +8,11 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"						"/inputs/triggers/left/edge-eva-down.vdf"
+			"#ref"						"/inputs/triggers/left-edge/eva-down.vdf"
 		}
 		"settings"
 		{
-			"#ref"						"/inputs/triggers/settings.vdf"
+			"#ref"						"/inputs/triggers/_settings.vdf"
 		}
 	}
 }

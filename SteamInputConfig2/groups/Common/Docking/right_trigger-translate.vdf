@@ -8,11 +8,11 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"				"/inputs/triggers/right/edge-dock-forward.vdf"
+			"#ref"				"/inputs/triggers/right-edge/dock-forward.vdf"
 		}
 		"settings"
 		{
-			"#ref"				"/inputs/triggers/settings.vdf"
+			"#ref"				"/inputs/triggers/_settings.vdf"
 		}
 	}
 }
