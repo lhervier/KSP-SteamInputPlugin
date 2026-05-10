@@ -6,7 +6,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/IVA/BackToSeat.vdf"
+                "#ref"				"/bindings/FreeIva/back-to-seat.vdf"
             }
         }
     }

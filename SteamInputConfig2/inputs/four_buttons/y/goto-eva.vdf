@@ -6,7 +6,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/IVA/GoToEVA.vdf"
+                "#ref"				"/bindings/FreeIva/goto-eva.vdf"
             }
         }
     }

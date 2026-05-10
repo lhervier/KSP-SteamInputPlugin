@@ -14,7 +14,7 @@
 				{
 					"Full_Press"
 					{
-						"#ref"				"/bindings/MissionBuilder/Space.vdf"
+						"#ref"				"/bindings/Presets/MissionBuilder/Space.vdf"
 					}
 				}
 			}
@@ -24,7 +24,7 @@
 				{
 					"Full_Press"
 					{
-						"#ref"				"/bindings/MissionBuilder/Delete.vdf"
+						"#ref"				"/bindings/Presets/MissionBuilder/Delete.vdf"
 					}
 				}
 			}
@@ -34,7 +34,7 @@
 				{
 					"Full_Press"
 					{
-						"#ref"				"/bindings/MissionBuilder/X.vdf"
+						"#ref"				"/bindings/Presets/MissionBuilder/X.vdf"
 					}
 				}
 			}
@@ -44,7 +44,7 @@
 				{
 					"Full_Press"
 					{
-						"#ref"				"/bindings/MissionBuilder/C.vdf"
+						"#ref"				"/bindings/Presets/MissionBuilder/C.vdf"
 					}
 				}
 			}

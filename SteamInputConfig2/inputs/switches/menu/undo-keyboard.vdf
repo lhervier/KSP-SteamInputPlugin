@@ -6,11 +6,11 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Editor/Undo1.vdf"
+                "#ref"				"/bindings/Presets/Editor/undo1.vdf"
             }
             "Full_Press"
             {
-                "#ref"				"/bindings/Editor/Undo2.vdf"
+                "#ref"				"/bindings/Presets/Editor/undo2.vdf"
             }
             "Long_Press"
             {

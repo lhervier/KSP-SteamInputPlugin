@@ -6,7 +6,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Vessel/System/FullThrottle.vdf"
+                "#ref"				"/bindings/Vessel/System/full-throttle.vdf"
             }
         }
     }

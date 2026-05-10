@@ -6,7 +6,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/IVA/NextKerbal.vdf"
+                "#ref"				"/bindings/FreeIva/next-kerbal.vdf"
             }
         }
     }

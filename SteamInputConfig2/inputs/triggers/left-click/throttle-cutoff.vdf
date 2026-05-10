@@ -6,7 +6,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Vessel/System/ThrottleCutOff.vdf"
+                "#ref"				"/bindings/Vessel/System/throttle-cutoff.vdf"
             }
         }
     }

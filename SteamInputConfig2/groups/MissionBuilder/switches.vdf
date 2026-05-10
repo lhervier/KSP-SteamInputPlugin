@@ -15,7 +15,7 @@
 				{
 					"Full_Press"
 					{
-						"#ref"				"/bindings/MissionBuilder/LEFT_SHIFT.vdf"
+						"#ref"				"/bindings/Presets/MissionBuilder/LEFT_SHIFT.vdf"
 					}
 				}
 				"Full_Press"
@@ -31,7 +31,7 @@
 				{
 					"Full_Press"
 					{
-						"#ref"				"/bindings/MissionBuilder/Q.vdf"
+						"#ref"				"/bindings/Presets/MissionBuilder/Q.vdf"
 					}
 				}
 			}
@@ -41,7 +41,7 @@
 				{
 					"Full_Press"
 					{
-						"#ref"				"/bindings/MissionBuilder/E.vdf"
+						"#ref"				"/bindings/Presets/MissionBuilder/E.vdf"
 					}
 				}
 			}

@@ -6,7 +6,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/IVA/BackToFlight.vdf"
+                "#ref"				"/bindings/Presets/IVA/back-to-flight.vdf"
             }
         }
     }

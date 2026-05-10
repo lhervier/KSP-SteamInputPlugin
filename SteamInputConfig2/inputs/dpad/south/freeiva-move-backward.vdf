@@ -6,7 +6,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/FreeIva/Move/Backward.vdf"
+                "#ref"				"/bindings/FreeIva/Move/move-backward.vdf"
             }
         }
     }
