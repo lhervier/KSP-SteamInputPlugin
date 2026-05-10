@@ -8,11 +8,11 @@
 		"description"		"Action Groups"
 		"inputs"
 		{
-			"#ref"				"/inputs/touch_menu/actiongroups.vdf"
+			"#ref"				"/inputs/hotbar/actiongroups.vdf"
 		}
 		"settings"
 		{
-			"#ref"				"/inputs/touch_menu/actiongroups-settings.vdf"
+			"#ref"				"/inputs/hotbar/_settings.vdf"
 		}
 	}
 }
