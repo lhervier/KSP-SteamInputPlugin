@@ -1,0 +1,27 @@
+"ref"
+{
+    "button_back_right"
+    {
+        "activators"
+        {
+            "Full_Press"
+            {
+                "bindings"
+                {
+                    "binding"		"mode_shift button_diamond %group_id:/groups/MapDocking/buttons_modeshift.vdf%"
+                }
+            }
+            "Full_Press"
+            {
+                "bindings"
+                {
+                    "binding"		"mode_shift joystick %group_id:/groups/Common/left_joystick-actiongroups.vdf%"
+                }
+            }
+            "Full_Press"
+            {
+                "#ref"				"/bindings/ModeShift/slow-mouse.vdf"
+            }
+        }
+    }
+}

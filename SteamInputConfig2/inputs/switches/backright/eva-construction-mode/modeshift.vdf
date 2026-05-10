@@ -1,27 +1,4 @@
 "ref"
 {
-    "button_back_right"
-    {
-        "activators"
-        {
-            "Full_Press"
-            {
-                "bindings"
-                {
-                    "binding"		"mode_shift button_diamond %group_id:/groups/EvaConstructionMode/buttons_modeshift.vdf%"
-                }
-            }
-            "Full_Press"
-            {
-                "bindings"
-                {
-                    "#ref"				"/groups/EvaConstructionMode/switches-dpad-modeshift.vdf"
-                }
-            }
-            "Full_Press"
-            {
-                "#ref"				"/bindings/ModeShift/slow-mouse.vdf"
-            }
-        }
-    }
+    
 }
