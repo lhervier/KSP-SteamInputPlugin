@@ -8,7 +8,7 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"				"/inputs/switches/backleft/mod-key.vdf"
+			"#ref"				"/inputs/switches/backleft/mod-key/input.vdf"
 			"#ref"				"/inputs/switches/esc/redo.vdf"
 			"#ref"				"/inputs/switches/menu/undo-keyboard.vdf"
 			"#ref"				"/inputs/switches/leftbumper/roll-part-left.vdf"

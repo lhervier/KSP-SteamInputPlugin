@@ -9,7 +9,7 @@
 		"inputs"
 		{
 			"#ref"				"/inputs/switches/backright/iva/modeshift.vdf"
-			"#ref"				"/inputs/switches/backleft/mod-key.vdf"
+			"#ref"				"/inputs/switches/backleft/mod-key/input.vdf"
 			"#ref"				"/inputs/switches/esc/menu-debug.vdf"
 			"#ref"				"/inputs/switches/menu/keyboard.vdf"
 		}
