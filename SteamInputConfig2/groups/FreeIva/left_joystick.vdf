@@ -8,7 +8,10 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"				"/inputs/dpad/freeiva-move.vdf"
+			"#ref"				"/inputs/dpad/east-freeiva-move-right.vdf"
+			"#ref"				"/inputs/dpad/north-freeiva-move-forward.vdf"
+			"#ref"				"/inputs/dpad/south-freeiva-move-backward.vdf"
+			"#ref"				"/inputs/dpad/west-freeiva-move-left.vdf"
 		}
 	}
 }

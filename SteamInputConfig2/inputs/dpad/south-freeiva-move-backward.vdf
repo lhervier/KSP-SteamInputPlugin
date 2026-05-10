@@ -1,0 +1,13 @@
+"ref"
+{
+    "dpad_south"
+    {
+        "activators"
+        {
+            "Full_Press"
+            {
+                "#ref"				"/bindings/FreeIva/Move/Backward.vdf"
+            }
+        }
+    }
+}

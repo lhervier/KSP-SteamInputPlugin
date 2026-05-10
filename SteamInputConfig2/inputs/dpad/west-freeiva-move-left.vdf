@@ -1,0 +1,13 @@
+"ref"
+{
+    "dpad_west"
+    {
+        "activators"
+        {
+            "Full_Press"
+            {
+                "#ref"				"/bindings/FreeIva/Move/Left.vdf"
+            }
+        }
+    }
+}
