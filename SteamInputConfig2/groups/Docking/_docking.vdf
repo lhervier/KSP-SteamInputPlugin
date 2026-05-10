@@ -1,5 +1,6 @@
 "ref"
 {
     "#ref"				"button_diamond.vdf"
+    "#ref"				"joystick.vdf"
     "#ref"				"switch.vdf"
 }

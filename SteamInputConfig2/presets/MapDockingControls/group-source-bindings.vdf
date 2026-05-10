@@ -3,7 +3,7 @@
 	"/groups/Common/left_joystick-actiongroups.vdf"			"joystick active modeshift"
 	
 	"/groups/Docking/button_diamond.vdf"					"button_diamond active"
-	"/groups/Common/Docking/left_joystick-translate.vdf"	"joystick active"
+	"/groups/Docking/joystick.vdf"							"joystick active"
 	"/groups/Common/Docking/left_trigger-translate.vdf"		"left_trigger active"
 	"/groups/Common/Docking/right_trigger-translate.vdf"	"right_trigger active"
 	
