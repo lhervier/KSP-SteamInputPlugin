@@ -4,10 +4,7 @@
     {
         "Full_Press"
         {
-            "bindings"
-            {
-                "binding"		"mode_shift joystick %group_id:/groups/Common/left_joystick-actiongroups.vdf%"
-            }
+            "#ref"				"/bindings/ModeShift/slow-mouse.vdf"
         }
         "Full_Press"
         {
@@ -18,7 +15,10 @@
         }
         "Full_Press"
         {
-            "#ref"				"/bindings/ModeShift/slow-mouse.vdf"
+            "bindings"
+            {
+                "binding"		"mode_shift joystick %group_id:/groups/Common/left_joystick-actiongroups.vdf%"
+            }
         }
     }
 }

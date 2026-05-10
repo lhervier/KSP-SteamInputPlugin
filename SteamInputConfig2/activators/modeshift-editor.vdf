@@ -4,6 +4,10 @@
     {
         "Full_Press"
         {
+            "#ref"				"/bindings/ModeShift/slow-mouse.vdf"
+        }
+        "Full_Press"
+        {
             "#ref"				"/bindings/Game/Editor/camera-slew.vdf"
         }
         "Full_Press"
@@ -19,10 +23,6 @@
             {
                 "binding"		"mode_shift joystick %group_id:/groups/Editor/left_joystick_modeshift.vdf%"
             }
-        }
-        "Full_Press"
-        {
-            "#ref"				"/bindings/ModeShift/slow-mouse.vdf"
         }
     }
 }

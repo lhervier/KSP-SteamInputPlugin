@@ -4,6 +4,10 @@
     {
         "Full_Press"
         {
+            "#ref"				"/bindings/ModeShift/slow-mouse.vdf"
+        }
+        "Full_Press"
+        {
             "bindings"
             {
                 "binding"		"mode_shift button_diamond %group_id:/groups/FreeIva/buttons_modeshift.vdf%"
@@ -13,12 +17,8 @@
         {
             "bindings"
             {
-                "#ref"				"/groups/FreeIva/switches-dpad-modeshift.vdf"
+                "#ref"			"/groups/FreeIva/switches-dpad-modeshift.vdf"
             }
-        }
-        "Full_Press"
-        {
-            "#ref"				"/bindings/ModeShift/slow-mouse.vdf"
         }
     }
 }

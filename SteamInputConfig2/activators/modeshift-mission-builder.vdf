@@ -4,11 +4,11 @@
     {
         "Full_Press"
         {
-            "#ref"				"/bindings/Presets/MissionBuilder/LEFT_SHIFT.vdf"
+            "#ref"				"/bindings/ModeShift/slow-mouse.vdf"
         }
         "Full_Press"
         {
-            "#ref"				"/bindings/ModeShift/slow-mouse.vdf"
+            "#ref"				"/bindings/Presets/MissionBuilder/LEFT_SHIFT.vdf"
         }
     }
 }
