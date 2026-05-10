@@ -12,13 +12,14 @@
 	"Common_leftClick"		"Clic gauche"
 	"Common_middleClick"	"Clic molette"
 	
-	"Common_menu"			"Menu"
+	"Common_pause"			"Pause"
 	"Common_console"		"Console de débogage"
 	"Common_modKey"			"Touche Mod"
 	"Common_showKeyboard"	"Afficher le clavier"
 	
-	"Common_timeWarpIncr"	"Accélération du temps"
-	"Common_timeWarpDecr"	"Décélération du temps"
+	"Common_timeWarpIncr"	"Augmenter l'avance rapide"
+	"Common_timeWarpDecr"	"Réduire l'avance rapide"
+	"Common_stopTimeWarp"	"Arrêter l'avance rapide"
 	
 	"Common_cameraRight"	"Caméra vers la droite"
 	"Common_cameraLeft"		"Caméra vers la gauche"
@@ -30,4 +31,19 @@
 	
 	"Common_nextBody"		"Corps Céleste suivant"
 	"Common_prevBody"		"Corps Céleste précédent"
+
+	"Common_screenshot"		"Capture d'écran"
+	"Common_quicksave"		"Sauvegarde rapide"
+	"Common_quickload"		"Chargement rapide"
+	"Common_reinitCamera"	"Réinitialiser la caméra"
+	"Common_mouseView"		"Vue souris"
+
+	"Common_showUi"			"Afficher l'interface utilisateur"
+	"Common_scrollIconsUp"	"Défiler les icônes vers le haut"
+	"Common_scrollIconsDown"	"Défiler les icônes vers le bas"
+	"Common_showFlightlogs"	"Afficher les journaux de vol"
+	"Common_showAerodynamicForces"	"Afficher les forces aérodynamiques"
+	"Common_showTemperatureGauges"	"Afficher les jauges de température"
+	"Common_showTemperature"	"Afficher la température"
+	"Common_showNavsphere"	"Afficher la sphère de navigation"
 }

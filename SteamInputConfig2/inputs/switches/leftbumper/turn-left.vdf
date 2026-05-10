@@ -1,0 +1,13 @@
+"ref"
+{
+    "left_bumper"
+    {
+        "activators"
+        {
+            "Full_Press"
+            {
+                "#ref"				"/bindings/Kerbals/CharacterControls/turn-left.vdf"
+            }
+        }
+    }
+}

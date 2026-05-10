@@ -6,7 +6,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Flight/ActionGroups/1.vdf"
+                "#ref"				"/bindings/Vessel/Actions/custom-action1.vdf"
             }
         }
     }
@@ -16,7 +16,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Flight/ActionGroups/10.vdf"
+                "#ref"				"/bindings/Vessel/Actions/custom-action10.vdf"
             }
         }
     }
@@ -26,7 +26,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Flight/ActionGroups/2.vdf"
+                "#ref"				"/bindings/Vessel/Actions/custom-action2.vdf"
             }
         }
     }
@@ -36,7 +36,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Flight/ActionGroups/3.vdf"
+                "#ref"				"/bindings/Vessel/Actions/custom-action3.vdf"
             }
         }
     }
@@ -46,7 +46,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Flight/ActionGroups/4.vdf"
+                "#ref"				"/bindings/Vessel/Actions/custom-action4.vdf"
             }
         }
     }
@@ -56,7 +56,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Flight/ActionGroups/5.vdf"
+                "#ref"				"/bindings/Vessel/Actions/custom-action5.vdf"
             }
         }
     }
@@ -66,7 +66,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Flight/ActionGroups/6.vdf"
+                "#ref"				"/bindings/Vessel/Actions/custom-action6.vdf"
             }
         }
     }
@@ -76,7 +76,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Flight/ActionGroups/7.vdf"
+                "#ref"				"/bindings/Vessel/Actions/custom-action7.vdf"
             }
         }
     }
@@ -86,7 +86,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Flight/ActionGroups/8.vdf"
+                "#ref"				"/bindings/Vessel/Actions/custom-action8.vdf"
             }
         }
     }
@@ -96,7 +96,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Flight/ActionGroups/9.vdf"
+                "#ref"				"/bindings/Vessel/Actions/custom-action9.vdf"
             }
         }
     }

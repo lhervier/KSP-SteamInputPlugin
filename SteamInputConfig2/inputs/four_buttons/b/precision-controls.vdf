@@ -6,7 +6,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Flight/PrecisionControls.vdf"
+                "#ref"				"/bindings/Vessel/System/PrecisionControls.vdf"
             }
         }
     }

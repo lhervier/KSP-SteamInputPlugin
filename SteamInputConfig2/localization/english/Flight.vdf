@@ -17,19 +17,19 @@
 	"Flight_prevVessel"			"Previous Vessel"
 	"Flight_nextVessel"			"Next Vessel"
 
-	"Flight_actionGroup1"		"Action Group 1"
-	"Flight_actionGroup2"		"Action Group 2"
-	"Flight_actionGroup3"		"Action Group 3"
-	"Flight_actionGroup4"		"Action Group 4"
-	"Flight_actionGroup5"		"Action Group 5"
-	"Flight_actionGroup6"		"Action Group 6"
-	"Flight_actionGroup7"		"Action Group 7"
-	"Flight_actionGroup8"		"Action Group 8"
-	"Flight_actionGroup9"		"Action Group 9"
-	"Flight_actionGroup10"		"Action Group 10"
+	"Flight_customAction1"		"Custom Action 1"
+	"Flight_customAction2"		"Custom Action 2"
+	"Flight_customAction3"		"Custom Action 3"
+	"Flight_customAction4"		"Custom Action 4"
+	"Flight_customAction5"		"Custom Action 5"
+	"Flight_customAction6"		"Custom Action 6"
+	"Flight_customAction7"		"Custom Action 7"
+	"Flight_customAction8"		"Custom Action 8"
+	"Flight_customAction9"		"Custom Action 9"
+	"Flight_customAction10"		"Custom Action 10"
 
 	"Flight_cameraView"			"Camera View"
-	"Flight_cameraMode"			"Camera Mode"
+	"Flight_nextCamera"			"Next Camera"
 
 	"Flight_throttleCutoff"		"Throttle Cutoff"
 	"Flight_fullThrottle"		"Full Throttle"
@@ -40,4 +40,26 @@
 	"Flight_leaveMap"			"Leave Map"
 
 	"Flight_translationMode"	"Translation Mode"
+
+	"Flight_landingGears"		"Landing Gears"
+	"Flight_emergencyCancel"	"Emergency Cancellation"
+
+	"Flight_prevActionGroup"	"Previous Action Group"
+	"Flight_nextActionGroup"	"Next Action Group"
+
+	"Flight_incCustomAxis1"		"Increase Custom Axis 1"
+	"Flight_decCustomAxis1"		"Decrease Custom Axis 1"
+	"Flight_incCustomAxis2"		"Increase Custom Axis 2"
+	"Flight_decCustomAxis2"		"Decrease Custom Axis 2"
+	"Flight_incCustomAxis3"		"Increase Custom Axis 3"
+	"Flight_decCustomAxis3"		"Decrease Custom Axis 3"
+	"Flight_incCustomAxis4"		"Increase Custom Axis 4"
+	"Flight_decCustomAxis4"		"Decrease Custom Axis 4"
+
+	"Flight_turnLeft"			"Turn Left"
+	"Flight_turnRight"			"Turn Right"
+	"Flight_backward"			"Backward"
+	"Flight_forward"			"Forward"
+
+	"Flight_lights"				"Lights"
 }

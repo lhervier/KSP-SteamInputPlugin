@@ -14,7 +14,7 @@
 				{
 					"Full_Press"
 					{
-						"#ref"				"/bindings/Editor/MovePart/YawRight.vdf"
+						"#ref"				"/bindings/Game/Editor/yaw-part-right.vdf"
 					}
 				}
 			}
@@ -24,7 +24,7 @@
 				{
 					"Full_Press"
 					{
-						"#ref"				"/bindings/Editor/MovePart/PitchDown.vdf"
+						"#ref"				"/bindings/Game/Editor/pitch-part-down.vdf"
 					}
 				}
 			}
@@ -34,7 +34,7 @@
 				{
 					"Full_Press"
 					{
-						"#ref"				"/bindings/Editor/MovePart/PitchUp.vdf"
+						"#ref"				"/bindings/Game/Editor/pitch-part-up.vdf"
 					}
 				}
 			}
@@ -44,7 +44,7 @@
 				{
 					"Full_Press"
 					{
-						"#ref"				"/bindings/Editor/MovePart/YawLeft.vdf"
+						"#ref"				"/bindings/Game/Editor/yaw-part-left.vdf"
 					}
 				}
 			}

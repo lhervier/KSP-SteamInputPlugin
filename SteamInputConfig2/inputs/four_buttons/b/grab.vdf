@@ -6,7 +6,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/EVA/Grab.vdf"
+                "#ref"				"/bindings/Kerbals/CharacterControls/grab.vdf"
             }
         }
     }

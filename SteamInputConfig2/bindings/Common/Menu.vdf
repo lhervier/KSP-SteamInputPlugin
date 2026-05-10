@@ -1,7 +1,0 @@
-"ref"
-{
-    "bindings"
-    {
-        "binding"		"key_press ESCAPE, #Common_menu, , "
-    }
-}

@@ -14,7 +14,7 @@
 				{
 					"Full_Press"
 					{
-						"#ref"				"/bindings/Editor/Tools/Place.vdf"
+						"#ref"				"/bindings/Game/Editor/placement-mode.vdf"
 					}
 				}
 			}
@@ -24,7 +24,7 @@
 				{
 					"Full_Press"
 					{
-						"#ref"				"/bindings/Editor/Tools/Offset.vdf"
+						"#ref"				"/bindings/Game/Editor/offset-mode.vdf"
 					}
 				}
 			}
@@ -34,7 +34,7 @@
 				{
 					"Full_Press"
 					{
-						"#ref"				"/bindings/Editor/Tools/Rotate.vdf"
+						"#ref"				"/bindings/Game/Editor/rotate-mode.vdf"
 					}
 				}
 			}
@@ -44,7 +44,7 @@
 				{
 					"Full_Press"
 					{
-						"#ref"				"/bindings/Editor/Tools/Root.vdf"
+						"#ref"				"/bindings/Game/Editor/root-mode.vdf"
 					}
 				}
 			}

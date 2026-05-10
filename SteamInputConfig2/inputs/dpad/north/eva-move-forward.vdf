@@ -6,7 +6,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/EVA/Move/Forward.vdf"
+                "#ref"				"/bindings/Kerbals/CharacterControls/forward.vdf"
             }
         }
     }

@@ -6,7 +6,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Flight/SAS.vdf"
+                "#ref"				"/bindings/Vessel/System/SAS.vdf"
             }
             "Long_Press"
             {

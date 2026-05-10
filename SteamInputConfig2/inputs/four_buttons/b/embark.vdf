@@ -6,7 +6,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/EVA/Embark.vdf"
+                "#ref"				"/bindings/Kerbals/CharacterControls/embark.vdf"
             }
         }
     }

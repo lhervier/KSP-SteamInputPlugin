@@ -6,7 +6,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Flight/TransalteRotate.vdf"
+                "#ref"				"/bindings/Flight/Other/TranslateRotate.vdf"
             }
         }
     }

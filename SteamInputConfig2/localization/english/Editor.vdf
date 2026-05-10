@@ -12,10 +12,10 @@
 	"Editor_rollPartLeft"				"Roll Part Left"
 	"Editor_rollPartRight"				"Roll Part Right"
 	
-	"Editor_rotateTool"					"Rotate Tool"
-	"Editor_offsetTool"					"Offset Tool"
-	"Editor_rootTool"					"Root Tool"
-	"Editor_placeTool"					"Place Tool"
+	"Editor_rotateMode"					"Rotate Mode"
+	"Editor_offsetMode"					"Offset Mode"
+	"Editor_rootMode"					"Root Mode"
+	"Editor_placementMode"				"Placement Mode"
 
 	"Editor_cameraSlew"					"Camera Slew"
 
@@ -24,4 +24,7 @@
 
 	"Editor_undo"						"Undo"
 	"Editor_redo"						"Redo"
+
+	"Editor_translateCameraUp"			"Translate Camera Up"
+	"Editor_translateCameraDown"		"Translate Camera Down"
 }

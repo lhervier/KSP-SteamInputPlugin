@@ -12,13 +12,14 @@
 	"Common_leftClick"		"Left Click"
 	"Common_middleClick"	"Middle Click"
 	
-	"Common_menu"			"Menu"
+	"Common_pause"			"Pause"
 	"Common_console"		"Debug Console"
 	"Common_modKey"			"Mod Key"
 	"Common_showKeyboard"	"Show Keyboard"
 	
 	"Common_timeWarpIncr"	"TimeWarp Increase"
 	"Common_timeWarpDecr"	"TimeWarp Decrease"
+	"Common_stopTimeWarp"	"Stop TimeWarp"
 	
 	"Common_cameraRight"	"Camera Right"
 	"Common_cameraLeft"		"Camera Left"
@@ -30,4 +31,19 @@
 	
 	"Common_nextBody"		"Next Body"
 	"Common_prevBody"		"Previous Body"
+
+	"Common_screenshot"		"Screenshot"
+	"Common_quicksave"		"Quicksave"
+	"Common_quickload"		"Quickload"
+	"Common_reinitCamera"	"Reinit Camera"
+	"Common_mouseView"		"Mouse View"
+
+	"Common_showUi"			"Show UI"
+	"Common_scrollIconsUp"	"Scroll Icons Up"
+	"Common_scrollIconsDown"	"Scroll Icons Down"
+	"Common_showFlightlogs"	"Show Flightlogs"
+	"Common_showAerodynamicForces"	"Show Aerodynamic Forces"
+	"Common_showTemperatureGauges"	"Show Temperature Gauges"
+	"Common_showTemperature"	"Show Temperature"
+	"Common_showNavsphere"	"Show Navsphere"
 }

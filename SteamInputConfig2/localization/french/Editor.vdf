@@ -12,10 +12,10 @@
 	"Editor_rollPartLeft"				"Lacet de la pièce vers la gauche"
 	"Editor_rollPartRight"				"Lacet de la pièce vers la droite"
 	
-	"Editor_rotateTool"					"Outil de rotation"
-	"Editor_offsetTool"					"Outil de déplacement"
-	"Editor_rootTool"					"Outil de racine"
-	"Editor_placeTool"					"Outil de placement"
+	"Editor_rotateMode"					"Mode rotation"
+	"Editor_offsetMode"					"Mode déplacement"
+	"Editor_rootMode"					"Mode racine"
+	"Editor_placementMode"				"Mode placement"
 
 	"Editor_cameraSlew"					"Déplacement de la caméra"
 
@@ -24,4 +24,7 @@
 
 	"Editor_undo"						"Annuler"
 	"Editor_redo"						"Rétablir"
+
+	"Editor_translateCameraUp"			"Translation caméra haut"
+	"Editor_translateCameraDown"		"Translation caméra bas"
 }

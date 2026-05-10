@@ -1,7 +1,0 @@
-"ref"
-{
-    "bindings"
-    {
-        "binding"		"key_press #1, #Editor_placeTool, , "
-    }
-}

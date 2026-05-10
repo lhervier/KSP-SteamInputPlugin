@@ -6,7 +6,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Common/TimeWarp/Decrease.vdf"
+                "#ref"				"/bindings/Game/General/dec-timewarp.vdf"
             }
         }
     }

@@ -6,7 +6,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/EVA/Jump.vdf"
+                "#ref"				"/bindings/Kerbals/CharacterControls/jump.vdf"
             }
         }
     }

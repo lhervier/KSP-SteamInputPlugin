@@ -14,7 +14,7 @@
 				{
 					"Full_Press"
 					{
-						"#ref"				"/bindings/Editor/ResetPartRotation.vdf"
+						"#ref"				"/bindings/Game/Editor/reset-part-rotation.vdf"
 					}
 				}
 			}
@@ -34,7 +34,7 @@
 				{
 					"Full_Press"
 					{
-						"#ref"				"/bindings/Editor/SymmetryCycle.vdf"
+						"#ref"				"/bindings/Game/Editor/symmetry-cycle.vdf"
 					}
 				}
 			}
@@ -44,7 +44,7 @@
 				{
 					"Full_Press"
 					{
-						"#ref"				"/bindings/Editor/SnapToggle.vdf"
+						"#ref"				"/bindings/Game/Editor/snap-toggle.vdf"
 					}
 				}
 			}

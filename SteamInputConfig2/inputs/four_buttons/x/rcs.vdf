@@ -6,7 +6,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Flight/RCS.vdf"
+                "#ref"				"/bindings/Vessel/System/RCS.vdf"
             }
         }
     }

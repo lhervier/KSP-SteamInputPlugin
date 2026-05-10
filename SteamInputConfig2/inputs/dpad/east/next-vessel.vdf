@@ -6,7 +6,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Flight/Vessels/Next.vdf"
+                "#ref"				"/bindings/Game/General/next-vessel.vdf"
             }
         }
     }

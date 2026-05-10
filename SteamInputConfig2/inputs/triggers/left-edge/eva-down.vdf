@@ -6,7 +6,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/EVA/Move/Down.vdf"
+                "#ref"				"/bindings/Kerbals/Jetpack/down.vdf"
             }
         }
     }

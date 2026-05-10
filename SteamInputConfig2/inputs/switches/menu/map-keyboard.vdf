@@ -6,7 +6,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Flight/ShowMap.vdf"
+                "#ref"				"/bindings/Game/General/show-map.vdf"
             }
             "Long_Press"
             {

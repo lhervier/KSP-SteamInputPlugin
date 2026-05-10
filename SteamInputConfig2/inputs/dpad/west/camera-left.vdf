@@ -6,7 +6,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Common/Camera/Left.vdf"
+                "#ref"				"/bindings/Game/Camera/camera-left.vdf"
             }
         }
     }

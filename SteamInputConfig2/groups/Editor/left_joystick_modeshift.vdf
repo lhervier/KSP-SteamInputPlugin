@@ -14,7 +14,7 @@
 				{
 					"Full_Press"
 					{
-						"#ref"				"/bindings/Editor/CoordFrameToggle.vdf"
+						"#ref"				"/bindings/Game/Editor/coord-frame-toggle.vdf"
 					}
 				}
 			}
@@ -24,7 +24,7 @@
 				{
 					"Full_Press"
 					{
-						"#ref"				"/bindings/Editor/SymmetryModeToggle.vdf"
+						"#ref"				"/bindings/Game/Editor/symmetry-mode-toggle.vdf"
 					}
 				}
 			}

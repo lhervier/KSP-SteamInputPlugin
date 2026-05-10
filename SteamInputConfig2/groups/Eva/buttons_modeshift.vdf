@@ -8,7 +8,7 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"				"/inputs/four_buttons/a/lights.vdf"
+			"#ref"				"/inputs/four_buttons/a/eva-lights.vdf"
 			"#ref"				"/inputs/four_buttons/b/embark.vdf"
 			"#ref"				"/inputs/four_buttons/x/timewarp-decr.vdf"
 			"#ref"				"/inputs/four_buttons/y/timewarp-incr.vdf"

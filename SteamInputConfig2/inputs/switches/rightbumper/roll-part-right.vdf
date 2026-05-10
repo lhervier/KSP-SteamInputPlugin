@@ -6,7 +6,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Editor/MovePart/RollRight.vdf"
+                "#ref"				"/bindings/Game/Editor/roll-part-right.vdf"
             }
         }
     }

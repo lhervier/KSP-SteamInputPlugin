@@ -6,7 +6,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Common/Menu.vdf"
+                "#ref"				"/bindings/Game/General/pause.vdf"
             }
             "Long_Press"
             {

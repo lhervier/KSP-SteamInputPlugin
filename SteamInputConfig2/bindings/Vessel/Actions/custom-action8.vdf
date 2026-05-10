@@ -1,0 +1,7 @@
+"ref"
+{
+    "bindings"
+    {
+        "binding"		"key_press #8, #Flight_customAction8, , "
+    }
+}

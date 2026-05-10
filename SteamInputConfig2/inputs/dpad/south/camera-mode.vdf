@@ -6,7 +6,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Flight/CameraMode.vdf"
+                "#ref"				"/bindings/Game/Camera/camera-mode.vdf"
             }
         }
     }

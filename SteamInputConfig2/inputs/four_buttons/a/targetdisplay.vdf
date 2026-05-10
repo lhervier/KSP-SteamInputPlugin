@@ -6,7 +6,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Flight/TargetDisplay.vdf"
+                "#ref"				"/bindings/Game/UI/target-display.vdf"
             }
         }
     }

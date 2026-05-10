@@ -19,7 +19,7 @@
 				{
 					"Full_Press"
 					{
-						"#ref"				"/bindings/Editor/CameraSlew.vdf"
+						"#ref"				"/bindings/Game/Editor/camera-slew.vdf"
 					}
 					"Full_Press"
 					{

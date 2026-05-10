@@ -17,19 +17,19 @@
 	"Flight_prevVessel"			"Vaisseau précédent"
 	"Flight_nextVessel"			"Vaisseau suivant"
 
-	"Flight_actionGroup1"		"Groupe d'actions 1"
-	"Flight_actionGroup2"		"Groupe d'actions 2"
-	"Flight_actionGroup3"		"Groupe d'actions 3"
-	"Flight_actionGroup4"		"Groupe d'actions 4"
-	"Flight_actionGroup5"		"Groupe d'actions 5"
-	"Flight_actionGroup6"		"Groupe d'actions 6"
-	"Flight_actionGroup7"		"Groupe d'actions 7"
-	"Flight_actionGroup8"		"Groupe d'actions 8"
-	"Flight_actionGroup9"		"Groupe d'actions 9"
-	"Flight_actionGroup10"		"Groupe d'actions 10"
+	"Flight_customAction1"		"Action personnalisée 1"
+	"Flight_customAction2"		"Action personnalisée 2"
+	"Flight_customAction3"		"Action personnalisée 3"
+	"Flight_customAction4"		"Action personnalisée 4"
+	"Flight_customAction5"		"Action personnalisée 5"
+	"Flight_customAction6"		"Action personnalisée 6"
+	"Flight_customAction7"		"Action personnalisée 7"
+	"Flight_customAction8"		"Action personnalisée 8"
+	"Flight_customAction9"		"Action personnalisée 9"
+	"Flight_customAction10"		"Action personnalisée 10"
 
 	"Flight_cameraView"			"Vue de la caméra"
-	"Flight_cameraMode"			"Mode de la caméra"
+	"Flight_nextCamera"			"Caméra suivante"
 
 	"Flight_throttleCutoff"		"Couper de la poussée"
 	"Flight_fullThrottle"		"Poussée maximale"
@@ -40,4 +40,17 @@
 	"Flight_leaveMap"			"Quitter la carte"
 
 	"Flight_translationMode"	"Activer/Désactiver la translation"
+
+	"Flight_landingGears"		"Trains d'atterrissage"
+	"Flight_emergencyCancel"	"Annulation d'urgence"
+
+	"Flight_prevActionGroup"	"Ensemble d'actions précédent"
+	"Flight_nextActionGroup"	"Ensemble d'actions suivant"
+
+	"Flight_turnLeft"			"Tourner à gauche"
+	"Flight_turnRight"			"Tourner à droite"
+	"Flight_backward"			"Reculer"
+	"Flight_forward"			"Avancer"
+
+	"Flight_lights"				"Eclairage"
 }
