@@ -10,7 +10,8 @@
 		{
 			"#ref"				"/inputs/dpad/east-click-left.vdf"
 			"#ref"				"/inputs/dpad/west-click-right.vdf"
-			"#ref"				"/inputs/dpad/zoom.vdf"
+			"#ref"				"/inputs/dpad/north-zoom-in.vdf"
+			"#ref"				"/inputs/dpad/south-zoom-out.vdf"
 		}
 		"settings"
 		{
