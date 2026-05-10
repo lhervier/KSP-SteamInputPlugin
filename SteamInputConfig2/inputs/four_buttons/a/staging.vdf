@@ -6,7 +6,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Flight/Other/Staging.vdf"
+                "#ref"				"/bindings/Flight/Other/staging.vdf"
             }
         }
     }

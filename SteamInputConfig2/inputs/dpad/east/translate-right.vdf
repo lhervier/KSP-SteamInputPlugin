@@ -6,7 +6,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Flight/Translate/Right.vdf"
+                "#ref"				"/bindings/Flight/Translate/translate-right.vdf"
             }
         }
     }

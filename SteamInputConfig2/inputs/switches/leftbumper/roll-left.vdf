@@ -6,7 +6,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Flight/Rotate/RollLeft.vdf"
+                "#ref"				"/bindings/Flight/Rotate/roll-left.vdf"
             }
         }
     }

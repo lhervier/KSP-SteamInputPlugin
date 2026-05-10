@@ -6,7 +6,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Flight/Throttle/Up.vdf"
+                "#ref"				"/bindings/Flight/Throttle/throttle-up.vdf"
             }
         }
     }
