@@ -2,11 +2,11 @@
 {
 	"/groups/Common/left_joystick-actiongroups.vdf"							"joystick active modeshift"
 	
-	"/groups/Docking/buttons.vdf"											"button_diamond active"
+	"/groups/Docking/button_diamond.vdf"									"button_diamond active"
 	"/groups/Common/Docking/left_joystick-translate.vdf"					"joystick active"
 	"/groups/Common/Docking/left_trigger-translate.vdf"						"left_trigger active"
 	"/groups/Common/Docking/right_trigger-translate.vdf"					"right_trigger active"
 	"/groups/Common/DockingFlight/buttons-timewarp-precision-target.vdf"	"button_diamond active modeshift"
 	
-	"/groups/Docking/switches.vdf"											"switch active"
+	"/groups/Docking/switch.vdf"											"switch active"
 }
