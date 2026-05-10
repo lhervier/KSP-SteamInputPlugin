@@ -13,34 +13,7 @@
 			"#ref"				"/inputs/switches/menu/undo-keyboard.vdf"
 			"#ref"				"/inputs/switches/leftbumper/roll-part-left.vdf"
 			"#ref"				"/inputs/switches/rightbumper/roll-part-right.vdf"
-			"button_back_right"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Game/Editor/camera-slew.vdf"
-					}
-					"Full_Press"
-					{
-						"bindings"
-						{
-							"binding"		"mode_shift button_diamond %group_id:/groups/Editor/buttons_modeshift.vdf%"
-						}
-					}
-					"Full_Press"
-					{
-						"bindings"
-						{
-							"binding"		"mode_shift joystick %group_id:/groups/Editor/left_joystick_modeshift.vdf%"
-						}
-					}
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Common/ModeShiftRightJoystickSlow.vdf"
-					}
-				}
-			}
+			"#ref"				"/inputs/switches/backright/modeshift-editor.vdf"
 		}
 	}
 }

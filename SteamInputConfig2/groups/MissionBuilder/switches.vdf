@@ -9,20 +9,7 @@
 		"inputs"
 		{
 			"#ref"				"/inputs/switches/backleft/mod-key.vdf"
-			"button_back_right"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Presets/MissionBuilder/LEFT_SHIFT.vdf"
-					}
-				}
-				"Full_Press"
-				{
-					"#ref"				"/bindings/Common/ModeShiftRightJoystickSlow.vdf"
-				}
-			}
+			"#ref"				"/inputs/switches/backright/modeshift-mission-builder.vdf"
 			"#ref"				"/inputs/switches/esc/redo.vdf"
 			"#ref"				"/inputs/switches/menu/undo-keyboard.vdf"
 			"left_bumper"

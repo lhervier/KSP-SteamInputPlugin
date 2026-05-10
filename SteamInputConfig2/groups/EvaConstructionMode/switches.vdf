@@ -8,30 +8,7 @@
 		"description"		""
 		"inputs"
 		{
-			"button_back_right"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"bindings"
-						{
-							"binding"		"mode_shift button_diamond %group_id:/groups/EvaConstructionMode/buttons_modeshift.vdf%"
-						}
-					}
-					"Full_Press"
-					{
-						"bindings"
-						{
-							"#ref"				"switches-dpad-modeshift.vdf"
-						}
-					}
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Common/ModeShiftRightJoystickSlow.vdf"
-					}
-				}
-			}
+			"#ref"				"/inputs/switches/backright/modeshift-eva-construction-mode.vdf"
 			"#ref"				"/inputs/switches/backleft/mod-key.vdf"
 			"#ref"				"/inputs/switches/esc/menu-debug.vdf"
 			"#ref"				"/inputs/switches/menu/keyboard.vdf"

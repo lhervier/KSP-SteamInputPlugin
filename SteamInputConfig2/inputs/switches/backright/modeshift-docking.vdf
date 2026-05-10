@@ -1,0 +1,31 @@
+"ref"
+{
+    "button_back_right"
+    {
+        "activators"
+        {
+            "Full_Press"
+            {
+                "#ref"					"/bindings/Common/ModeShiftDpadVesselCamera.vdf"
+            }
+            "Full_Press"
+            {
+                "bindings"
+                {
+                    "binding"		"mode_shift button_diamond %group_id:/groups/Common/DockingFlight/buttons-timewarp-precision-target.vdf%"
+                }
+            }
+            "Full_Press"
+            {
+                "bindings"
+                {
+                    "binding"		"mode_shift joystick %group_id:/groups/Common/left_joystick-actiongroups.vdf%"
+                }
+            }
+            "Full_Press"
+            {
+                "#ref"				"/bindings/Common/ModeShiftRightJoystickSlow.vdf"
+            }
+        }
+    }
+}
