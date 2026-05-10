@@ -8,10 +8,10 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"				"/inputs/buttons/a/jump.vdf"
-			"#ref"				"/inputs/buttons/b/back-to-seat.vdf"
-			"#ref"				"/inputs/buttons/x/crouch.vdf"
-			"#ref"				"/inputs/buttons/y/goto-eva.vdf"
+			"#ref"				"/inputs/four_buttons/a/jump.vdf"
+			"#ref"				"/inputs/four_buttons/b/back-to-seat.vdf"
+			"#ref"				"/inputs/four_buttons/x/crouch.vdf"
+			"#ref"				"/inputs/four_buttons/y/goto-eva.vdf"
 		}
 	}
 }

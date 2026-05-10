@@ -8,10 +8,10 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"				"/inputs/buttons/a/translate-rotate.vdf"
-			"#ref"				"/inputs/buttons/b/brakes.vdf"
-			"#ref"				"/inputs/buttons/x/rcs.vdf"
-			"#ref"				"/inputs/buttons/y/sas-translation.vdf"
+			"#ref"				"/inputs/four_buttons/a/translate-rotate.vdf"
+			"#ref"				"/inputs/four_buttons/b/brakes.vdf"
+			"#ref"				"/inputs/four_buttons/x/rcs.vdf"
+			"#ref"				"/inputs/four_buttons/y/sas-translation.vdf"
 		}
 	}
 }

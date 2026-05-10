@@ -8,9 +8,9 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"				"/inputs/buttons/a/targetdisplay.vdf"
-			"#ref"				"/inputs/buttons/x/timewarp-decr.vdf"
-			"#ref"				"/inputs/buttons/y/timewarp-incr.vdf"
+			"#ref"				"/inputs/four_buttons/a/targetdisplay.vdf"
+			"#ref"				"/inputs/four_buttons/x/timewarp-decr.vdf"
+			"#ref"				"/inputs/four_buttons/y/timewarp-incr.vdf"
 		}
 	}
 }
