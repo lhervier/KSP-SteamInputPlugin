@@ -1,0 +1,17 @@
+"ref"
+{
+    "dpad_north"
+    {
+        "activators"
+        {
+            "Full_Press"
+            {
+                "#ref"				"/bindings/Common/Mouse/ScrollUp.vdf"
+                "settings"
+                {
+                    "#ref"				"_settings-scroll.vdf"
+                }
+            }
+        }
+    }
+}
