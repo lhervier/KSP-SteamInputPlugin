@@ -2,7 +2,7 @@
 {
     "MissionBuilderControls"
     {
-        "title"		"#Set_Editor"
+        "title"		        "#Set_Editor"
         "legacy_set"		"0"
     }
 }

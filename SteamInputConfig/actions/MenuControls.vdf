@@ -2,7 +2,7 @@
 {
     "MenuControls"
     {
-        "title"		"#Set_Menu"
+        "title"		        "#Set_Menu"
         "legacy_set"		"0"
     }
 }

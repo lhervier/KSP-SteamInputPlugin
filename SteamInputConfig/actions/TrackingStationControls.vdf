@@ -2,7 +2,7 @@
 {
     "TrackingStationControls"
     {
-        "title"		"#Set_TrackingStation"
+        "title"		        "#Set_TrackingStation"
         "legacy_set"		"0"
     }
 }
