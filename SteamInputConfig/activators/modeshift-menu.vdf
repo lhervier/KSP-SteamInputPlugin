@@ -2,6 +2,8 @@
 {
     "activators"
     {
-        "#ref"                  "/activators/slow-mouse.vdf"
+        {{#if (true allowSlowMouse)}}
+            "#ref"                 "/activators/slow-mouse.vdf"
+        {{/if}}
     }
 }

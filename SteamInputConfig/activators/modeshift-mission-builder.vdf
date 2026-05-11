@@ -2,10 +2,12 @@
 {
     "activators"
     {
-        "#ref"                  "/activators/slow-mouse.vdf"
+        {{#if (true allowSlowMouse)}}
+            "#ref"                 "/activators/slow-mouse.vdf"
+        {{/if}}
         "Full_Press"
         {
-            "#ref"				"/bindings/Presets/MissionBuilder/LEFT_SHIFT.vdf"
+            "#ref"		    		"/bindings/Presets/MissionBuilder/LEFT_SHIFT.vdf"
         }
     }
 }

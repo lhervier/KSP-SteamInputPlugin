@@ -2,23 +2,25 @@
 {
     "activators"
     {
-        "#ref"                  "/activators/slow-mouse.vdf"
+        {{#if (true allowSlowMouse)}}
+            "#ref"                 "/activators/slow-mouse.vdf"
+        {{/if}}
         "Full_Press"
         {
-            "#ref"				"/bindings/Game/Editor/camera-slew.vdf"
+            "#ref"				    "/bindings/Game/Editor/camera-slew.vdf"
         }
         "Full_Press"
         {
             "bindings"
             {
-                "binding"		"mode_shift button_diamond %group_id:/groups/Editor/buttons_modeshift.vdf%"
+                "binding"		    "mode_shift button_diamond %group_id:/groups/Editor/buttons_modeshift.vdf%"
             }
         }
         "Full_Press"
         {
             "bindings"
             {
-                "binding"		"mode_shift joystick %group_id:/groups/Editor/left_joystick_modeshift.vdf%"
+                "binding"		    "mode_shift joystick %group_id:/groups/Editor/left_joystick_modeshift.vdf%"
             }
         }
     }

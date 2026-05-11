@@ -2,19 +2,21 @@
 {
     "activators"
     {
-        "#ref"                  "/activators/slow-mouse.vdf"
+        {{#if (true allowSlowMouse)}}
+            "#ref"                 "/activators/slow-mouse.vdf"
+        {{/if}}
         "Full_Press"
         {
             "bindings"
             {
-                "binding"		"mode_shift button_diamond %group_id:/groups/EvaConstructionMode/buttons_modeshift.vdf%"
+                "binding"		    "mode_shift button_diamond %group_id:/groups/EvaConstructionMode/buttons_modeshift.vdf%"
             }
         }
         "Full_Press"
         {
             "bindings"
             {
-                "#ref"			"/groups/EvaConstructionMode/switches-dpad-modeshift.vdf"
+                "#ref"			    "/groups/EvaConstructionMode/switches-dpad-modeshift.vdf"
             }
         }
     }
