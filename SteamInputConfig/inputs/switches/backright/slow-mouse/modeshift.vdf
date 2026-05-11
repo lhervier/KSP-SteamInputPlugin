@@ -1,4 +1,15 @@
 "ref"
 {
-    
+    {{#if allowSlowMouse}}
+        "button_back_right"
+        {
+            "activators"
+            {
+                "Full_Press"
+                {
+                    "#ref"				"/bindings/ModeShift/slow-mouse.vdf"
+                }
+            }
+        }
+    {{/if}}
 }

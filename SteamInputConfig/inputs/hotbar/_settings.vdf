@@ -5,4 +5,10 @@
     "touch_menu_position_x"		    "4"
 	"touch_menu_position_y"		    "19"
     "virtualmenu_center_bound"		"1"
+    {{#if haptic}}
+        "haptic_intensity"		    "3"
+    {{/if}}
+    {{#if leftTrackpad}}
+        "requires_click"		    "0"
+    {{/if}}
 }

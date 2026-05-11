@@ -1,5 +1,11 @@
 "ref"
 {
     "name"		        ""
-    "description"		""		
+    "description"		""
+
+    {{#if rightTrackpad}}
+        "mode"		"absolute_mouse"
+    {{else}}
+        "mode"		"joystick_mouse"
+    {{/if}}
 }

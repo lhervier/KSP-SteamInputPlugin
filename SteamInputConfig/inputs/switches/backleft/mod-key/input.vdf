@@ -1,4 +1,15 @@
 "ref"
 {
-    
+    {{#if backButtons}}
+        "button_back_left"
+        {
+            "activators"
+            {
+                "Full_Press"
+                {
+                    "#ref"				"/bindings/Common/ModKey.vdf"
+                }
+            }
+        }
+    {{/if}}
 }

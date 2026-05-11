@@ -4,7 +4,7 @@
     {
         "binding"		"key_press #LEFT_SHIFT, #Editor_cameraSlew, , "
     }
-    {{#if steamcontroller}}
+    {{#if haptic}}
         "settings"
         {
             "haptic_intensity"		"2"

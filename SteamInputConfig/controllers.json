@@ -3,9 +3,13 @@
     "controllerName": "steamcontroller",
     "rootVdfPath": "ksp_steaminput_steamcontroller.vdf",
     "context": {
+      "controllerName": "steamcontroller",
       "steamcontroller": true,
+      "haptic": true,
       "rightJoystick": false,
       "rightTrackpad": true,
+      "leftTrackpad": true,
+      "backButtons": true,
       "allowSlowMouse": false
     }
   },
@@ -13,9 +17,13 @@
     "controllerName": "hori",
     "rootVdfPath": "ksp_steaminput_hori_steam.vdf",
     "context": {
+      "controllerName": "hori",
       "hori": true,
+      "haptic": false,
       "rightJoystick": true,
       "rightTrackpad": false,
+      "leftTrackpad": false,
+      "backButtons": true,
       "allowSlowMouse": true
     }
   },
@@ -23,9 +31,13 @@
     "controllerName": "xboxelite",
     "rootVdfPath": "ksp_steaminput_xboxelite.vdf",
     "context": {
+      "controllerName": "xboxelite",
       "xboxelite": true,
+      "haptic": false,
       "rightJoystick": true,
       "rightTrackpad": false,
+      "leftTrackpad": false,
+      "backButtons": true,
       "allowSlowMouse": true
     }
   },
@@ -33,9 +45,13 @@
     "controllerName": "ps4",
     "rootVdfPath": "ksp_steaminput_ps4.vdf",
     "context": {
+      "controllerName": "ps4",
       "ps4": true,
+      "haptic": false,
       "rightJoystick": true,
       "rightTrackpad": false,
+      "leftTrackpad": false,
+      "backButtons": false,
       "allowSlowMouse": false
     }
   }

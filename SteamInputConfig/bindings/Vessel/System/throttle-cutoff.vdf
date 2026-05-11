@@ -4,4 +4,10 @@
     {
         "binding"		"key_press #X, #Flight_throttleCutoff, , "
     }
+    {{#if haptic}}
+        "settings"
+        {
+            "haptic_intensity"		"2"
+        }
+    {{/if}}
 }

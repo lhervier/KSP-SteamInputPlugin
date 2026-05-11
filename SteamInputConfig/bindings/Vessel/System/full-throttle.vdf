@@ -4,4 +4,10 @@
     {
         "binding"		"key_press #Z, #Flight_fullThrottle, , "
     }
+    {{#if haptic}}
+        "settings"
+        {
+            "haptic_intensity"		"2"
+        }
+    {{/if}}
 }

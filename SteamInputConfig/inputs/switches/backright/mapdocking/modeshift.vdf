@@ -1,4 +1,9 @@
 "ref"
 {
-    
+    {{#if backButtons}}
+        "button_back_right"
+        {
+            "#ref"          "/activators/modeshift-mapdocking.vdf"
+        }
+    {{/if}}
 }

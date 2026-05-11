@@ -1,4 +1,9 @@
 "ref"
 {
-    
+    {{#unless backButtons}}
+        "click"
+        {
+            "#ref"          "/activators/modeshift-menu.vdf"
+        }
+    {{/unless}}
 }

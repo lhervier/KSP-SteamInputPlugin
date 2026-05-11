@@ -4,7 +4,7 @@
     {
         "binding"		"key_press #LEFT_CONTROL, #Flight_throttleDown, , "
     }
-    {{#if steamcontroller}}
+    {{#if haptic}}
         "settings"
         {
             "haptic_intensity"		"2"

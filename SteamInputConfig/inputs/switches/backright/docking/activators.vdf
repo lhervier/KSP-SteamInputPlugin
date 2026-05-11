@@ -1,7 +1,0 @@
-"ref"
-{
-    "button_back_right"
-    {
-        "#ref"          "/activators/modeshift-docking.vdf"
-    }
-}
