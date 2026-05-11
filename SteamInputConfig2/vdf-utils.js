@@ -381,7 +381,7 @@ function resolveGroupBindings(vdf) {
                     const id = match[2];
                     
                     if( type === 'group_id' ) {
-                        if( !ids.group.ids[id] ) {
+                        if( ids.group.ids[id] === undefined ) {
                             throw new Error(`Unable to resolve group id for ${id}`);
                         }
                         const resolvedBinding = binding.replace(`%group_id:${id}%`, ids.group.ids[id]);
