@@ -8,9 +8,10 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "localRoot": "${workspaceFolder}/SteamInputConfig",
-            "program": "${workspaceFolder}/SteamInputConfig/merge-controller.js",
+            "localRoot": "${workspaceFolder}/MergeScripts",
+            "program": "${workspaceFolder}/MergeScripts/merge-controller.js",
             "args": [
+                "${workspaceFolder}/SteamInputConfig/controllers.json",
                 "all"
             ],
             "console": "integratedTerminal",
@@ -23,9 +24,10 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "localRoot": "${workspaceFolder}/SteamInputConfig",
-            "program": "${workspaceFolder}/SteamInputConfig/merge-controller.js",
+            "localRoot": "${workspaceFolder}/MergeScripts",
+            "program": "${workspaceFolder}/MergeScripts/merge-controller.js",
             "args": [
+                "${workspaceFolder}/SteamInputConfig/controllers.json",
                 "steamcontroller"
             ],
             "console": "integratedTerminal",
@@ -38,9 +40,10 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "localRoot": "${workspaceFolder}/SteamInputConfig",
-            "program": "${workspaceFolder}/SteamInputConfig/merge-controller.js",
+            "localRoot": "${workspaceFolder}/MergeScripts",
+            "program": "${workspaceFolder}/MergeScripts/merge-controller.js",
             "args": [
+                "${workspaceFolder}/SteamInputConfig/controllers.json",
                 "hori"
             ],
             "console": "integratedTerminal",
@@ -53,9 +56,10 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "localRoot": "${workspaceFolder}/SteamInputConfig",
-            "program": "${workspaceFolder}/SteamInputConfig/merge-controller.js",
+            "localRoot": "${workspaceFolder}/MergeScripts",
+            "program": "${workspaceFolder}/MergeScripts/merge-controller.js",
             "args": [
+                "${workspaceFolder}/SteamInputConfig/controllers.json",
                 "xboxelite"
             ],
             "console": "integratedTerminal",
@@ -68,13 +72,14 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "localRoot": "${workspaceFolder}/SteamInputConfig",
-            "program": "${workspaceFolder}/SteamInputConfig/merge-controller.js",
+            "localRoot": "${workspaceFolder}/MergeScripts",
+            "program": "${workspaceFolder}/MergeScripts/merge-controller.js",
             "args": [
+                "${workspaceFolder}/SteamInputConfig/controllers.json",
                 "ps4"
             ],
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen"
         }
     ]
-} 
+}

@@ -116,14 +116,24 @@ function addRef(refPaths, additionRefPaths) {
  * @param {string} parentName - Name of the parent tag (e.g. "group" or "preset")
  * @param {string} vdfPath - Current file path that was used to load the object
  * @param {string} controllerName - Name of the controller for specialized files (e.g., "steamcontroller")
+ * @param {string} configRoot - Root directory for absolute VDF paths (leading "/"): directory of the entry VDF file
  * @returns {Object} The processed object with #ref properties resolved
  * @throws {Error} If a referenced file cannot be loaded or doesn't have a "ref" root property
  */
-function processRefs(obj, parentName, vdfPath, controllerName) {
+function processRefs(obj, parentName, vdfPath, controllerName, configRoot) {
     if (obj === null) {
         return null;
     }
     const currentDir = path.dirname(vdfPath);
+
+    function toVdfRootPath(absolutePath) {
+        const resolved = path.resolve(absolutePath);
+        const rel = path.relative(configRoot, resolved).replace(/\\/g, '/');
+        if (rel && !rel.startsWith('..') && !path.isAbsolute(rel)) {
+            return '/' + rel;
+        }
+        return '/' + resolved.replace(/\\/g, '/');
+    }
 
     const result = {};
     let refPaths = [];
@@ -143,7 +153,7 @@ function processRefs(obj, parentName, vdfPath, controllerName) {
             }
 
             if( value === "#fileName" ) {
-                value = '/' + vdfPath.replace(/\\/g, '/');
+                value = toVdfRootPath(vdfPath);
             }
             if( ids[parentName].ids[value] !== undefined ) {
                 throw new Error(`Id already set on file ${value}`);
@@ -157,11 +167,11 @@ function processRefs(obj, parentName, vdfPath, controllerName) {
         if (Array.isArray(value)) {
             processedValues = [];
             for( const item of value ) {
-                const processedValue = processRefs(item, key,vdfPath, controllerName);
+                const processedValue = processRefs(item, key, vdfPath, controllerName, configRoot);
                 processedValues.push(processedValue);
             }
         } else if( typeof value === 'object' ) {
-            processedValues = processRefs(value, key, vdfPath, controllerName);
+            processedValues = processRefs(value, key, vdfPath, controllerName, configRoot);
         } else {
             // If there is an id in the value, we must make sure that it is an absolute path
             if( typeof value === 'string' ) {
@@ -170,7 +180,7 @@ function processRefs(obj, parentName, vdfPath, controllerName) {
                     if( match[1] === 'group_id' ) {
                         let id = match[2];
                         if( !id.startsWith('/')) {
-                            id = '/' + path.join(path.dirname(vdfPath), id).replace(/\\/g, '/');
+                            id = toVdfRootPath(path.join(path.dirname(vdfPath), id));
                         }
                         value = value.replace(match[2], id);
                     }
@@ -187,8 +197,8 @@ function processRefs(obj, parentName, vdfPath, controllerName) {
         // Determine the ref absolute path
         let refAbsolutePath;
         if (refPath.startsWith('/')) {
-            // Absolute path (relative to root)
-            refAbsolutePath = path.join('.', refPath.substring(1));
+            // Leading "/" in VDF is relative to the entry VDF directory (configRoot)
+            refAbsolutePath = path.join(configRoot, refPath.substring(1));
         } else {
             // Relative path (relative to current file)
             refAbsolutePath = path.join(currentDir, refPath);
@@ -203,13 +213,13 @@ function processRefs(obj, parentName, vdfPath, controllerName) {
         if (controllerName) {
             const specializedPath = path.join(dir, `${name}.${controllerName}${ext}`);
             if (fs.existsSync(specializedPath)) {
-                refPaths.push('/' + specializedPath.replace(/\\/g, '/'));
+                refPaths.push(toVdfRootPath(specializedPath));
             }
         }
         
-        const refVdf = _loadVdfFile(refAbsolutePath, controllerName);
+        const refVdf = _loadVdfFile(configRoot, refAbsolutePath, controllerName);
         if( !refVdf.ref ) {
-            throw new Error(`Le fichier référencé ${refAbsolutePath} doit avoir "ref" comme propriété racine`);
+            throw new Error(`Referenced file ${refAbsolutePath} must have "ref" as the root property`);
         }
         const processedRef = refVdf.ref;
         
@@ -221,22 +231,30 @@ function processRefs(obj, parentName, vdfPath, controllerName) {
     return result;
 }
 
+/**
+ * Load a VDF file. Paths starting with "/" in the file are relative to the directory of the given root VDF path.
+ * @param {string} vdfPath - Path to the root VDF to load (relative to the current working directory or absolute)
+ * @param {string} controllerName - Controller variant for specialized #ref resolution
+ */
 function loadVdfFile(vdfPath, controllerName) {
+    const absoluteVdfPath = path.resolve(vdfPath);
+    const configRoot = path.dirname(absoluteVdfPath);
     resetIds();
     return {
-        merged: _loadVdfFile(vdfPath, controllerName),
+        merged: _loadVdfFile(configRoot, absoluteVdfPath, controllerName),
         ids: getIds()
-    }
+    };
 }
 
 /**
  * Load, clean and parse a VDF file
- * @param {string} vdfPath - Path of the VDF file to load
+ * @param {string} configRoot - Directory of the entry VDF (root for "/" paths in the VDF)
+ * @param {string} vdfPath - Absolute path to the VDF file to load
  * @param {string} controllerName - Name of the controller for specialized files (e.g., "controller_steamcontroller_gordon")
  * @returns {Object} Parsed object
  * @throws {Error} If the file cannot be loaded or parsed
  */
-function _loadVdfFile(vdfPath, controllerName) {
+function _loadVdfFile(configRoot, vdfPath, controllerName) {
     let content = fs.readFileSync(vdfPath, 'utf8')
         .split('\n')
         .filter(line => !line.trim().startsWith('#'))
@@ -247,11 +265,11 @@ function _loadVdfFile(vdfPath, controllerName) {
     try {
         parsedObj = VDF.parse(content);
     } catch (error) {
-        throw new Error(`Erreur lors du parsing de ${vdfPath}: ${error.message}`);
+        throw new Error(`Error parsing ${vdfPath}: ${error.message}`);
     }
     
     // Process #ref properties
-    return processRefs(parsedObj, null, vdfPath, controllerName);
+    return processRefs(parsedObj, null, vdfPath, controllerName, configRoot);
 }
 
 function getIds() {

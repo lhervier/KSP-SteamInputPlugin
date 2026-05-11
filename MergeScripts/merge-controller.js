@@ -1,22 +1,22 @@
 const fs = require('fs');
 const path = require('path');
 const { getVersion } = require('./version-utils');
-const { resetIds, saveVdfFile, loadVdfFile, getIds } = require('./vdf-utils');
+const { saveVdfFile, loadVdfFile } = require('./vdf-utils');
 const { resolvePresets } = require('./preset-utils');
 const { resolveGroupBindings } = require('./group-bindings-utils');
 const { duplicateGroups } = require('./group-utils');
 const { resolveLayerBindings } = require('./layer-bindings-utils');
 const { translateVdf } = require('./translate-utils');
 
-const controllers = JSON.parse(
-    fs.readFileSync(path.join(__dirname, 'controllers.json'), 'utf8')
-);
-
-// Only one CLI argument is expected: the controller name
-const [controllerName] = process.argv.slice(2);
-if (!controllerName) {
-    throw new Error('Usage: node merge-controller.js <controllerName|all>');
+const [controllersJsonPath, controllerName] = process.argv.slice(2);
+if (!controllersJsonPath || !controllerName) {
+    throw new Error(
+        'Usage: node merge-controller.js <path/to/controllers.json> <controllerName|all>'
+    );
 }
+
+const controllers = JSON.parse(fs.readFileSync(controllersJsonPath, 'utf8'));
+const configDir = path.dirname(path.resolve(controllersJsonPath));
 const buildVersion = getVersion();
 
 const controllersToBuild = controllerName === 'all'
@@ -37,11 +37,9 @@ fs.mkdirSync(buildDir, { recursive: true });
 for (const controller of controllersToBuild) {
     const rootVdfPath = controller.rootVdfPath;
 
-    // Load the root controller file, resolving #ref
-    const { merged, ids } = loadVdfFile(
-        path.join('.', rootVdfPath),
-        controller.controllerName
-    );
+    // Load the root controller file, resolving #ref (leading "/" is relative to this VDF's directory)
+    const entryVdfPath = path.join(configDir, rootVdfPath);
+    const { merged, ids } = loadVdfFile(entryVdfPath, controller.controllerName);
     
     // Resolve the presets, group bindings, duplicate groups and layer bindings
     resolvePresets(merged, ids.group.ids);

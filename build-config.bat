@@ -5,7 +5,7 @@ echo.
 echo -------------------------------------------
 echo Running npm ci
 echo -------------------------------------------
-cd SteamInputConfig
+cd MergeScripts
 call npm ci
 if errorlevel 1 (
     echo ERROR: Failed to run npm ci
@@ -30,15 +30,16 @@ echo.
 echo -------------------------------------------
 echo Building VDF files
 echo -------------------------------------------
-cd SteamInputConfig
+cd MergeScripts
 if errorlevel 1 (
-    echo ERROR: Failed to change directory to SteamInputConfig
+    echo ERROR: Failed to change directory to MergeScripts
     exit /b 1
 )
 
 echo.
 echo Building VDF for all controllers...
-node merge-controller.js all 2>&1
+set "CONTROLLERS_JSON=..\SteamInputConfig\controllers.json"
+node merge-controller.js "%CONTROLLERS_JSON%" all 2>&1
 if errorlevel 1 (
     echo ERROR: Failed to build VDF
     exit /b 1
@@ -48,9 +49,7 @@ echo.
 echo -------------------------------------------
 echo Building game_actions VDF files...
 echo -------------------------------------------
-echo.
-echo Building game_actions VDF files...
-node merge-game-actions.js 2>&1
+node merge-game-actions.js "%CONTROLLERS_JSON%" 2>&1
 if errorlevel 1 (
     echo ERROR: Failed to build game_actions VDF
     exit /b 1
@@ -64,7 +63,7 @@ if errorlevel 1 (
 
 echo.
 echo Copying VDF files to Release folder
-copy /y "SteamInputConfig\build\*.vdf" "Release\"
+copy /y "MergeScripts\build\*.vdf" "Release\"
 if errorlevel 1 (
     echo ERROR: Failed to copy VDF files
     exit /b 1

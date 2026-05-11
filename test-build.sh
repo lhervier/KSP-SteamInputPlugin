@@ -13,9 +13,10 @@ if [ ! -d "Release" ]; then
     mkdir "Release"
 fi
 
-cd SteamInputConfig
+cd MergeScripts
+CONTROLLERS_JSON="../SteamInputConfig/controllers.json"
 echo "Exécution de merge-controller.js (all)..."
-node merge-controller.js all
+node merge-controller.js "$CONTROLLERS_JSON" all
 if [ $? -eq 0 ]; then
     echo "✓ Construction VDF contrôleurs réussie"
 else
@@ -24,7 +25,7 @@ else
 fi
 
 echo "Exécution de merge-game-actions.js..."
-node merge-game-actions.js
+node merge-game-actions.js "$CONTROLLERS_JSON"
 if [ $? -eq 0 ]; then
     echo "✓ Construction game_actions réussie"
 else
@@ -34,7 +35,7 @@ fi
 
 cd ..
 echo "Copie des fichiers VDF..."
-cp SteamInputConfig/build/*.vdf "Release/" 2>/dev/null || echo "Aucun fichier VDF généré"
+cp MergeScripts/build/*.vdf "Release/" 2>/dev/null || echo "Aucun fichier VDF généré"
 
 echo ""
 echo "==========================================="
