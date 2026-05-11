@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
-const { resetIds, saveVdfFile, loadVdfFile, translateVdf } = require('./vdf-utils');
+const { resetIds, saveVdfFile, loadVdfFile } = require('./vdf-utils');
+const { translateVdf } = require('./translate-utils');
 
 const IN_GAME_ACTIONS_KEY = 'In Game Actions';
 

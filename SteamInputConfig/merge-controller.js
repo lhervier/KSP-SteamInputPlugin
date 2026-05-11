@@ -1,7 +1,12 @@
 const fs = require('fs');
 const path = require('path');
 const { getVersion } = require('./version-utils');
-const { resetIds, saveVdfFile, loadVdfFile, translateVdf, resolvePresets, resolveGroupBindings, duplicateGroups, resolveLayerBindings } = require('./vdf-utils');
+const { resetIds, saveVdfFile, loadVdfFile, getIds } = require('./vdf-utils');
+const { resolvePresets } = require('./preset-utils');
+const { resolveGroupBindings } = require('./group-bindings-utils');
+const { duplicateGroups } = require('./group-utils');
+const { resolveLayerBindings } = require('./layer-bindings-utils');
+const { translateVdf } = require('./translate-utils');
 
 const controllers = JSON.parse(
     fs.readFileSync(path.join(__dirname, 'controllers.json'), 'utf8')
@@ -40,11 +45,12 @@ for (const controller of controllersToBuild) {
         path.join('.', rootVdfPath),
         controller.controllerName
     );
-
+    const ids = getIds();
+    
     // Resolve the presets, group bindings, duplicate groups and layer bindings
-    resolvePresets(vdf);
-    resolveGroupBindings(vdf);
-    duplicateGroups(vdf);
+    resolvePresets(vdf, ids.group.ids);
+    resolveGroupBindings(vdf, ids.group.ids);
+    ids.group.count = duplicateGroups(vdf, ids.group.count);
     resolveLayerBindings(vdf);
 
     // Update the Timestamp property (set in epoch milliseconds)
