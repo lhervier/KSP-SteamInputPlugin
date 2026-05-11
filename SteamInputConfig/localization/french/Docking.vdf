@@ -1,9 +1,0 @@
-{
-	"Docking_translateRotate"		"Translater/Tourner"
-	"Docking_translateRight"		"Translater vers la droite"
-	"Docking_translateLeft"			"Translater vers la gauche"
-	"Docking_translateForward"		"Translater vers l'avant"
-	"Docking_translateBackward"		"Translater vers l'arrière"
-	"Docking_translateUp"			"Translater vers le haut"
-	"Docking_translateDown"			"Translater vers le bas"
-}

@@ -1,8 +1,0 @@
-"controller_mappings"
-{
-	"title"					"KSP Hori Steam Controller Custom Config for SteamInput Mod"
-	"description"			"#SettingsController_AutosaveDescription"
-	"creator"				"76561197987585537"
-	"controller_type"		"controller_hori_steam"
-	"controller_caps"		"2179061"
-}
