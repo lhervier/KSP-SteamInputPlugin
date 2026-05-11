@@ -3,7 +3,10 @@
     "activators"
     {
         {{#if (true allowSlowMouse)}}
-            "#ref"                 "/activators/slow-mouse.vdf"
+            "Full_Press"
+            {
+                "#ref"			    "/bindings/ModeShift/slow-mouse.vdf"
+            }
         {{/if}}
         "Full_Press"
         {
@@ -11,17 +14,11 @@
         }
         "Full_Press"
         {
-            "bindings"
-            {
-                "binding"		    "mode_shift button_diamond %group_id:/groups/Editor/buttons_modeshift.vdf%"
-            }
+            "#ref"                  "/bindings/ModeShift/editor/buttons.vdf"
         }
         "Full_Press"
         {
-            "bindings"
-            {
-                "binding"		    "mode_shift joystick %group_id:/groups/Editor/left_joystick_modeshift.vdf%"
-            }
+            "#ref"                  "/bindings/ModeShift/editor/left_joystick.vdf"
         }
     }
 }

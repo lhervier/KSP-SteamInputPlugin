@@ -3,21 +3,18 @@
     "activators"
     {
         {{#if (true allowSlowMouse)}}
-            "#ref"                 "/activators/slow-mouse.vdf"
+            "Full_Press"
+            {
+                "#ref"			    "/bindings/ModeShift/slow-mouse.vdf"
+            }
         {{/if}}
         "Full_Press"
         {
-            "bindings"
-            {
-                "binding"		    "mode_shift button_diamond %group_id:/groups/Common/DockingFlight/buttons-timewarp-precision-target.vdf%"
-            }
+            "#ref"                  "/bindings/ModeShift/flight/buttons.vdf"
         }
         "Full_Press"
         {
-            "bindings"
-            {
-                "binding"		    "mode_shift joystick %group_id:/groups/Common/left_joystick-actiongroups.vdf%"
-            }
+            "#ref"                  "/bindings/ModeShift/flight/left_joystick.vdf"
         }
     }
 }

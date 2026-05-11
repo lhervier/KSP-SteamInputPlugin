@@ -1,0 +1,7 @@
+"ref"
+{
+    "bindings"
+    {
+        "binding"	    	"mode_shift joystick %group_id:/groups/Common/left_joystick-actiongroups.vdf%"
+    }
+}

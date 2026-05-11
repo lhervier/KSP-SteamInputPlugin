@@ -3,7 +3,10 @@
     "activators"
     {
         {{#if (true allowSlowMouse)}}
-            "#ref"                 "/activators/slow-mouse.vdf"
+            "Full_Press"
+            {
+                "#ref"			    "/bindings/ModeShift/slow-mouse.vdf"
+            }
         {{/if}}
     }
 }

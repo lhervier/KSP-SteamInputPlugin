@@ -1,0 +1,7 @@
+"ref"
+{
+    "bindings"
+    {
+        "binding"	    	"mode_shift button_diamond %group_id:/groups/MapEva/buttons_modeshift.vdf%"
+    }
+}
