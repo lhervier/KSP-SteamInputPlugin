@@ -6,7 +6,11 @@
 		"name"		"FlightRightClickControls"
 		"group_source_bindings"
 		{
-			"#ref"		"../RightClick-bindings.vdf"
+			{{#if rightTrackpad}}
+				"/groups/Common/right_joystick-camera-move.vdf"		"right_trackpad active"
+			{{else}}
+				"/groups/Common/right_joystick-camera-move.vdf"		"right_joystick active"
+			{{/if}}
 		}
 	}
 }

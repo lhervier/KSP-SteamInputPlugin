@@ -6,7 +6,28 @@
 		"name"		"FreeIvaControls"
 		"group_source_bindings"
 		{
-			"#ref"				"group-source-bindings.vdf"
+			"/groups/FreeIva/buttons.vdf"							"button_diamond active"
+			"/groups/FreeIva/buttons_modeshift.vdf"					"button_diamond active modeshift"
+			"/groups/FreeIva/left_joystick.vdf"						"joystick active"
+			"/groups/FreeIva/left_trigger.vdf"						"left_trigger active"
+			"/groups/FreeIva/right_trigger.vdf"						"right_trigger active"
+			"/groups/FreeIva/switches.vdf"							"switch active"
+
+			{{#if rightTrackpad}}
+				"/groups/FreeIva/right_joystick.vdf"				"right_trackpad active"
+			{{else}}
+				"/groups/FreeIva/right_joystick.vdf"				"right_joystick active"
+				{{#if allowSlowMouse}}
+					"/groups/Common/right_joystick-mouse-slow.vdf"	"right_joystick active modeshift"
+				{{/if}}
+			{{/if}}
+			{{#if leftTrackpad}}
+				"/groups/Common/dpad-click-zoom.vdf"				"left_trackpad active"
+				"/groups/FreeIva/dpad_modeshift.vdf"				"left_trackpad active modeshift"
+			{{else}}
+				"/groups/Common/dpad-click-zoom.vdf"				"dpad active"
+				"/groups/FreeIva/dpad_modeshift.vdf"				"dpad active modeshift"
+			{{/if}}
 		}
 	}
 }

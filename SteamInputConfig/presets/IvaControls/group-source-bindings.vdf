@@ -1,7 +1,0 @@
-"ref"
-{
-	"/groups/Iva/buttons.vdf"				"button_diamond active"
-	"/groups/Iva/buttons_modeshift.vdf"		"button_diamond active modeshift"
-	"/groups/Iva/dpad_modeshift.vdf"		"left_trackpad active modeshift"
-	"/groups/Iva/switches.vdf"				"switch active"
-}
