@@ -4,4 +4,10 @@
     {
         "binding"		"key_press #F, #Editor_coordFrameToggle, , "
     }
+    {{#if steamcontroller}}
+        "settings"
+        {
+            "haptic_intensity"		"3"
+        }
+    {{/if}}
 }

@@ -4,4 +4,10 @@
     {
         "binding"		"mouse_button RIGHT, #Common_rightClick, "
     }
+    {{#if steamcontroller}}
+        "settings"
+        {
+            "haptic_intensity"		"0"
+        }
+    {{/if}}
 }

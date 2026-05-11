@@ -4,4 +4,10 @@
     {
         "binding"		"key_press #R, #Editor_symmetryModeToggle, , "
     }
+    {{#if steamcontroller}}
+        "settings"
+        {
+            "haptic_intensity"		"3"
+        }
+    {{/if}}
 }
