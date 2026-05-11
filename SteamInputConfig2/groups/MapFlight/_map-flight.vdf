@@ -2,4 +2,5 @@
 {
     "#ref"				"buttons_modeshift.vdf"
     "#ref"				"switches.vdf"
+    "#ref"              "right_joystick.vdf"
 }

@@ -1,0 +1,16 @@
+"ref"
+{
+    "group"
+    {
+        "id"		"#fileName"
+        "#ref"		"/groups/Common/right_joystick-mouse-mode.vdf"
+        "inputs"
+        {
+            "#ref"				"/inputs/joystick_mouse/click/eva-construction-mode/modeshift.vdf"
+        }
+        "settings"
+		{
+			"#ref"				"/inputs/mouse/_settings-normal.vdf"
+		}
+    }
+}

@@ -7,4 +7,5 @@
     "#ref"				"left_trigger.vdf"
     "#ref"				"right_trigger.vdf"
     "#ref"				"switches.vdf"
+    "#ref"              "right_joystick.vdf"
 }

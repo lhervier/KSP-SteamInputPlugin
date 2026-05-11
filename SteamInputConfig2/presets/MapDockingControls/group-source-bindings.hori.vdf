@@ -1,6 +1,6 @@
 "ref"
 {
-	"/groups/Common/right_joystick-mouse.vdf"				"right_joystick active"
-	"/groups/Common/right_joystick-mouse-slow.vdf"			"right_joystick active modeshift"
+	"/groups/MapDocking/right_joystick.vdf"					"right_joystick active"
+	"/groups/Common/right_joystick-mouse-slow.vdf"		"right_joystick active modeshift"
 	"/groups/Common/dpad-click-zoom.vdf"					"dpad active"
 }

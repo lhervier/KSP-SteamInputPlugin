@@ -2,10 +2,7 @@
 {
     "activators"
     {
-        "Full_Press"
-        {
-            "#ref"				"/bindings/ModeShift/slow-mouse.vdf"
-        }
+        "#ref"                  "/activators/slow-mouse.vdf"
         "Full_Press"
         {
             "bindings"
