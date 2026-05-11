@@ -6,7 +6,27 @@
 		"name"		"MapEvaControls"
 		"group_source_bindings"
 		{
-			"#ref"				"group-source-bindings.vdf"
+			"/groups/MapEva/buttons.vdf"							"button_diamond active"
+			"/groups/MapEva/buttons_modeshift.vdf"					"button_diamond active modeshift"
+			"/groups/MapEva/left_joystick.vdf"						"joystick active"
+			"/groups/MapEva/left_trigger.vdf"						"left_trigger active"
+			"/groups/MapEva/right_trigger.vdf"						"right_trigger active"
+			"/groups/MapEva/switches.vdf"							"switch active"
+
+			{{#if (true rightTrackpad)}}
+				"/groups/MapEva/right_joystick.vdf"					"right_trackpad active"
+			{{else}}
+				"/groups/MapEva/right_joystick.vdf"					"right_joystick active"
+				{{#if (true allowSlowMouse)}}
+					"/groups/Common/right_joystick-mouse-slow.vdf"	"right_joystick active modeshift"
+				{{/if}}
+			{{/if}}
+
+			{{#if (true leftTrackpad)}}
+				"/groups/Common/dpad-click-zoom.vdf"				"left_trackpad active"
+			{{else}}
+				"/groups/Common/dpad-click-zoom.vdf"				"dpad active"
+			{{/if}}
 		}
 	}
 }

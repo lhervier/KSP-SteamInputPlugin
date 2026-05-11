@@ -6,7 +6,29 @@
 		"name"		"MapFlightControls"
 		"group_source_bindings"
 		{
-			"#ref"				"group-source-bindings.vdf"
+			"/groups/Common/left_joystick-actiongroups.vdf"				"joystick active modeshift"
+	
+			"/groups/Common/Flight/buttons.vdf"							"button_diamond active"
+			"/groups/Common/Flight/left_joystick-yaw-pitch.vdf"			"joystick active"
+			"/groups/Common/Flight/left_trigger-throttle.vdf"			"left_trigger active"
+			"/groups/Common/Flight/right_trigger-throttle.vdf"			"right_trigger active"
+			
+			"/groups/MapFlight/buttons_modeshift.vdf"					"button_diamond active modeshift"
+			"/groups/MapFlight/switches.vdf"							"switch active"
+
+			{{#if (true rightTrackpad)}}
+				"/groups/MapFlight/right_joystick.vdf"					"right_trackpad active"
+			{{else}}
+				"/groups/MapFlight/right_joystick.vdf"					"right_joystick active"
+				{{#if (true allowSlowMouse)}}
+					"/groups/Common/right_joystick-mouse-slow.vdf"		"right_joystick active modeshift"
+				{{/if}}
+			{{/if}}
+			{{#if (true leftTrackpad)}}
+				"/groups/Common/dpad-click-zoom.vdf"					"left_trackpad active"
+			{{else}}
+				"/groups/Common/dpad-click-zoom.vdf"					"dpad active"
+			{{/if}}
 		}
 	}
 }

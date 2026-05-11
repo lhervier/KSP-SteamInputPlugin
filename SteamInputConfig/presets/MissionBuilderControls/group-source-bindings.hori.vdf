@@ -1,6 +1,0 @@
-"ref"
-{
-	"/groups/MissionBuilder/right_joystick.vdf"					"right_joystick active"
-	"/groups/Common/right_joystick-mouse-slow.vdf"		"right_joystick active modeshift"
-	"/groups/Common/dpad-click-scroll.vdf"						"dpad active"
-}

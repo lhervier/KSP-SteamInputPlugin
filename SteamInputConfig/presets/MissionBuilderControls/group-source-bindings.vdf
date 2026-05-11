@@ -1,9 +1,0 @@
-"ref"
-{
-	"/groups/Common/left_trigger-edge-right-click.vdf"	"left_trigger active"
-	"/groups/Common/right_trigger-edge-left-click.vdf"	"right_trigger active"
-	
-	"/groups/MissionBuilder/buttons.vdf"			"button_diamond active"
-	"/groups/MissionBuilder/left_joystick.vdf"		"joystick active"
-	"/groups/MissionBuilder/switches.vdf"			"switch active"
-}

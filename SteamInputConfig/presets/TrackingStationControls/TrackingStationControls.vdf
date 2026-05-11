@@ -6,7 +6,26 @@
 		"name"		"TrackingStationControls"
 		"group_source_bindings"
 		{
-			"#ref"				"group-source-bindings.vdf"
+			"/groups/Common/left_trigger-edge-right-click.vdf"		"left_trigger active"
+			"/groups/Common/right_trigger-edge-left-click.vdf"		"right_trigger active"
+			
+			"/groups/TrackingStation/buttons.vdf"					"button_diamond active"
+			"/groups/TrackingStation/left_joystick.vdf"				"joystick active"
+			"/groups/TrackingStation/switches.vdf"					"switch active"
+
+			{{#if (true rightTrackpad)}}
+				"/groups/TrackingStation/right_joystick.vdf"		"right_trackpad active"
+			{{else}}
+				"/groups/TrackingStation/right_joystick.vdf"		"right_joystick active"
+				{{#if (true allowSlowMouse)}}
+					"/groups/Common/right_joystick-mouse-slow.vdf"	"right_joystick active modeshift"
+				{{/if}}
+			{{/if}}
+			{{#if (true leftTrackpad)}}
+				"/groups/Common/dpad-click-zoom.vdf"				"left_trackpad active"
+			{{else}}
+				"/groups/Common/dpad-click-zoom.vdf"				"dpad active"
+			{{/if}}
 		}
 	}
 }

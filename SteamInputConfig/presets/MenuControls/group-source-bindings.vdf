@@ -1,9 +1,0 @@
-"ref"
-{
-    "/groups/Common/left_trigger-edge-right-click.vdf"			"left_trigger active"
-    "/groups/Common/right_trigger-edge-left-click.vdf"			"right_trigger active"
-    
-    "/groups/Menu/buttons.vdf"				                "button_diamond active"
-    "/groups/Menu/left_joystick.vdf"		                "joystick active"
-    "/groups/Menu/switches.vdf"				                "switch"
-}
