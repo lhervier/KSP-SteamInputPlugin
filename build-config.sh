@@ -6,7 +6,7 @@ echo "-------------------------------------------"
 echo "Running npm ci"
 echo "-------------------------------------------"
 
-cd SteamInputConfig2
+cd SteamInputConfig
 npm ci
 if [ $? -ne 0 ]; then
     echo "ERREUR: Impossible de lancer npm ci"
@@ -32,7 +32,7 @@ echo "-------------------------------------------"
 echo "Construction des fichiers VDF pour les contrôleurs"
 echo "-------------------------------------------"
 
-cd SteamInputConfig2
+cd SteamInputConfig
 if [ $? -ne 0 ]; then
     echo "ERREUR: Impossible de changer de répertoire vers SteamInputConfig"
     exit 1
@@ -66,7 +66,7 @@ fi
 
 echo ""
 echo "Copie des fichiers VDF vers le dossier Release"
-cp SteamInputConfig2/build/*.vdf "Release/"
+cp SteamInputConfig/build/*.vdf "Release/"
 if [ $? -ne 0 ]; then
     echo "ERREUR: Impossible de copier les fichiers VDF"
     exit 1

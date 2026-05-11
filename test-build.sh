@@ -13,7 +13,7 @@ if [ ! -d "Release" ]; then
     mkdir "Release"
 fi
 
-cd SteamInputConfig2
+cd SteamInputConfig
 echo "Exécution de merge-controller.js (all)..."
 node merge-controller.js all
 if [ $? -eq 0 ]; then
@@ -34,7 +34,7 @@ fi
 
 cd ..
 echo "Copie des fichiers VDF..."
-cp SteamInputConfig2/build/*.vdf "Release/" 2>/dev/null || echo "Aucun fichier VDF généré"
+cp SteamInputConfig/build/*.vdf "Release/" 2>/dev/null || echo "Aucun fichier VDF généré"
 
 echo ""
 echo "==========================================="

@@ -21,8 +21,9 @@ GA_SRC="Release/game_actions_${APPID}_${KSPLANG}.vdf"
 SC_SRC="Release/ksp_steaminput_steamcontroller_${KSPLANG}.vdf"
 HORI_SRC="Release/ksp_steaminput_hori_steam_${KSPLANG}.vdf"
 ELITE_SRC="Release/ksp_steaminput_xboxelite_${KSPLANG}.vdf"
+PS4_SRC="Release/ksp_steaminput_ps4_${KSPLANG}.vdf"
 
-for f in "$GA_SRC" "$SC_SRC" "$HORI_SRC" "$ELITE_SRC"; do
+for f in "$GA_SRC" "$SC_SRC" "$HORI_SRC" "$ELITE_SRC" "$PS4_SRC"; do
     if [ ! -f "$f" ]; then
         echo "ERREUR: Fichier manquant: $f"
         echo "Exécutez d'abord: ./build.sh"
@@ -69,6 +70,7 @@ echo "Copie configs manettes → $CONTROLLER_CONFIG_DIR/"
 cp "$SC_SRC" "$CONTROLLER_CONFIG_DIR/controller_steamcontroller_gordon.vdf"
 cp "$HORI_SRC" "$CONTROLLER_CONFIG_DIR/controller_hori_steam.vdf"
 cp "$ELITE_SRC" "$CONTROLLER_CONFIG_DIR/controller_xboxelite.vdf"
+cp "$PS4_SRC" "$CONTROLLER_CONFIG_DIR/controller_ps4.vdf"
 
 echo ""
 echo "==========================================="
@@ -80,4 +82,5 @@ echo "- $CONTROLLER_ACTION_DIR/game_actions_${APPID}.vdf"
 echo "- $CONTROLLER_CONFIG_DIR/controller_steamcontroller_gordon.vdf"
 echo "- $CONTROLLER_CONFIG_DIR/controller_hori_steam.vdf"
 echo "- $CONTROLLER_CONFIG_DIR/controller_xboxelite.vdf"
+echo "- $CONTROLLER_CONFIG_DIR/controller_ps4.vdf"
 echo ""

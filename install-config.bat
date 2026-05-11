@@ -61,4 +61,10 @@ if errorlevel 1 (
     echo ERROR: Failed to copy Xbox Elite config
     exit /b 1
 )
+echo - PS4/PS5
+copy /y "Release\ksp_steaminput_ps4_%KSPLANG%.vdf" "%CONTROLLER_CONFIG_DIR%\controller_ps4.vdf"
+if errorlevel 1 (
+    echo ERROR: Failed to copy PS4/PS5 config
+    exit /b 1
+)
 echo Config Installation completed successfully

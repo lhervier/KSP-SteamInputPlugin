@@ -3,9 +3,9 @@ setlocal enabledelayedexpansion
 
 echo.
 echo -------------------------------------------
-echo Running npm ci (SteamInputConfig2)
+echo Running npm ci
 echo -------------------------------------------
-cd SteamInputConfig2
+cd SteamInputConfig
 call npm ci
 if errorlevel 1 (
     echo ERROR: Failed to run npm ci
@@ -28,11 +28,11 @@ if not exist "Release" (
 
 echo.
 echo -------------------------------------------
-echo Building VDF files (SteamInputConfig2)
+echo Building VDF files
 echo -------------------------------------------
-cd SteamInputConfig2
+cd SteamInputConfig
 if errorlevel 1 (
-    echo ERROR: Failed to change directory to SteamInputConfig2
+    echo ERROR: Failed to change directory to SteamInputConfig
     exit /b 1
 )
 
@@ -64,7 +64,7 @@ if errorlevel 1 (
 
 echo.
 echo Copying VDF files to Release folder
-copy /y "SteamInputConfig2\build\*.vdf" "Release\"
+copy /y "SteamInputConfig\build\*.vdf" "Release\"
 if errorlevel 1 (
     echo ERROR: Failed to copy VDF files
     exit /b 1
