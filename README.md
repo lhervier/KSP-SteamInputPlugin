@@ -36,10 +36,11 @@ If you want to see the logs in realtime, don't forget to tell KSP to flush its l
 - Steam client installed and running
 - Kerbal Space Program 1.12 (Steam version)
 - A Steam Input compatible controller, with back buttons:
-  - Steam Controller
+  - Steam Controller version 1 (Version 2 is in progress)
   - Horipad Steam Controller
   - XBox Elite controller, set on the default profile so Steam can use the back buttons. Don't forget to install the additionnal tools via the Steam parameters.
-  - Any other controllers with Steam Input support.
+  - PS4/PS5 controller, with additional rear buttons configured to be mapped to joysticks clicks.
+  - Any other controllers with Steam Input support : But you will have to create your own configuration (using Steam configuration interface)
 
 ## Installation
 
@@ -54,11 +55,10 @@ If you want to see the logs in realtime, don't forget to tell KSP to flush its l
 You have two options:
 - Launch the game and create your own bindings through the Steam interface
 - Use one of the pre-configured VDF files included with this mod:
-  - `controller_steamcontroller_gordon_[your language].vdf`: For Steam Controller users
-  - `controller_hori_steam_[your language].vdf`: For the Horipad Steam Controller
-  - `controller_ps4_[your language].vdf`: For PS4/PS5 like controllers (see requirements)
-  - `controller_xbox_[your language].vdf`: For Xbox One/Series controllers (see requirements)
-  - `controller_xboxelite_[your language].vdf`: For Xbox Elite controllers (see requirements)
+  - `ksp_steaminput_steamcontroller_[your language].vdf`: For Steam Controller version 1 users
+  - `ksp_steaminput_hori_[your language].vdf`: For the Horipad Steam Controller
+  - `ksp_steaminput_ps4_[your language].vdf`: For PS4/PS5 like controllers (see requirements)
+  - `ksp_steaminput_xboxelite_[your language].vdf`: For Xbox Elite controllers (see requirements)
 
 Custom vdf configurations must be placed in the folder:
 ```
@@ -80,10 +80,10 @@ You will find an icon in the KSP Tool bar. Clicking on it will allow you to chan
 If you encounter issues:
 
 1. Verify that Steam is running and KSP is launched through Steam
-2. Ensure the VDF configuration files are in the correct location
-3. Verify that the plugin is properly installed in the GameData folder
-4. Check that your controller is properly connected and recognized by Steam. 
-5. Check the KSP.log file for any error messages related to the plugin. Plugins logs are prefixed with the "[SteamInput]" string. You can change the logging level ingame.
+1. Ensure the VDF configuration files are in the correct location
+1. Verify that the plugin is properly installed in the GameData folder
+1. Check that your controller is properly connected and recognized by Steam. 
+1. Check the KSP.log file for any error messages related to the plugin. Plugins logs are prefixed with the "[SteamInput]" string. You can change the logging level ingame.
 
 Issues specific to the XBox Elite Controller :
 
@@ -91,11 +91,17 @@ Issues specific to the XBox Elite Controller :
   - Go to Steam Parameters, in the "Controllers" section
   - Click on the "install" button next to "XBox enhanced feature support"
 1. Check that your controller firmware is up to date
-2. Check that no profile is selected on the controller (the LED below the XBox button must be OFF !)
+1. Check that no profile is selected on the controller (the LED below the XBox button must be OFF !)
+
+Issues specific to the PS4/PS5 Controller :
+
+1. The standard PS4/PS5 controllers are not supported as they do nat have rear buttons.
+1. Check that you have mapped the rear buttons to the joysticks clicks.
+1. If you want to use a real PS4/PS5 controller, you can still create your own SteamInput configuration.
 
 ## Known issue
 
-I provide a VDF file for each language, even if vdf files can be localized. You will also find a version with the localization keys inside. But, they will not work. Steam will always use the english version of the keys... Help is welcomed...
+I provide a VDF file for each language, even if vdf files can be localized. I cannot managed to use Steam localization feature... Help needed here !
 
 ## Support
 
@@ -105,7 +111,7 @@ For issues, feature requests, or contributions, please visit the [GitHub reposit
 
 TBD :
 
-- Windows PC
+- Windows PC / Linux
 - VSCode
 - netcore
 - dotnet Framework 4.7
