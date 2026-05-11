@@ -10,7 +10,8 @@
       "rightTrackpad": true,
       "leftTrackpad": true,
       "backButtons": true,
-      "allowSlowMouse": false
+      "allowSlowMouse": false,
+      "triggersClick": true
     }
   },
   {
@@ -24,7 +25,8 @@
       "rightTrackpad": false,
       "leftTrackpad": false,
       "backButtons": true,
-      "allowSlowMouse": true
+      "allowSlowMouse": true,
+      "triggersClick": false
     }
   },
   {
@@ -38,7 +40,8 @@
       "rightTrackpad": false,
       "leftTrackpad": false,
       "backButtons": true,
-      "allowSlowMouse": true
+      "allowSlowMouse": true,
+      "triggersClick": false
     }
   },
   {
@@ -52,7 +55,8 @@
       "rightTrackpad": false,
       "leftTrackpad": false,
       "backButtons": false,
-      "allowSlowMouse": false
+      "allowSlowMouse": false,
+      "triggersClick": false
     }
   }
 ]
