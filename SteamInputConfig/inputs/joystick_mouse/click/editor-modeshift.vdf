@@ -1,6 +1,6 @@
 "ref"
 {
-    {{#unless backButtons}}
+    {{#unless (true backButtons)}}
         "click"
         {
             "#ref"          "/activators/modeshift-editor.vdf"

@@ -10,6 +10,21 @@ Handlebars.registerHelper('or', function (...args) {
 });
 
 /**
+ * Strict boolean context flag for #if / #unless: {{#if (true haptic)}}
+ * Throws unless the resolved value is strictly true or false (e.g. missing property → undefined).
+ */
+Handlebars.registerHelper('true', function (value) {
+    if (value !== true && value !== false) {
+        const hint =
+            value === undefined
+                ? 'undefined (missing context property?)'
+                : typeof value;
+        throw new Error(`true helper: expected a boolean context flag, got ${hint}`);
+    }
+    return value;
+});
+
+/**
  * @param {object} [hbsContext] - Handlebars root context (from merge-*.js)
  * @returns {string} controllerName for specialized name.controllerName.vdf refs
  */

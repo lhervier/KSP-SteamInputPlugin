@@ -16,15 +16,15 @@
 			
 			"/groups/Docking/switch.vdf"											"switch active"
 
-			{{#if rightTrackpad}}
+			{{#if (true rightTrackpad)}}
 				"/groups/Docking/right_joystick.vdf"								"right_trackpad active"
 			{{else}}
 				"/groups/Docking/right_joystick.vdf"								"right_joystick active"
-				{{#if allowSlowMouse}}
+				{{#if (true allowSlowMouse)}}
 					"/groups/Common/right_joystick-mouse-slow.vdf"					"right_joystick active modeshift"
 				{{/if}}
 			{{/if}}
-			{{#if leftTrackpad}}
+			{{#if (true leftTrackpad)}}
 				"/groups/Common/dpad-click-zoom.vdf"								"left_trackpad active"
 				"/groups/Common/dpad-vessel-camera.vdf"								"left_trackpad active modeshift"
 			{{else}}

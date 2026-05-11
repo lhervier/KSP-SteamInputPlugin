@@ -1,6 +1,6 @@
 "ref"
 {
-    {{#if leftTrackpad}}
+    {{#if (true leftTrackpad)}}
         "binding"		"mode_shift left_trackpad %group_id:/groups/Eva/dpad_modeshift.vdf%"
     {{else}}
         "binding"		"mode_shift dpad %group_id:/groups/Eva/dpad_modeshift.vdf%"

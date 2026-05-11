@@ -1,6 +1,6 @@
 "ref"
 {
-    {{#if backButtons}}
+    {{#if (true backButtons)}}
         "button_back_right"
         {
             "#ref"          "/activators/modeshift-eva-construction-mode.vdf"

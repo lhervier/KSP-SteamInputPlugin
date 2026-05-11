@@ -1,6 +1,6 @@
 "ref"
 {
-    {{#if rightTrackpad}}
+    {{#if (true rightTrackpad)}}
         "sensitivity"		        "173"
         "doubletap_beep"		    "1"
         "rotation_2"		        "8"

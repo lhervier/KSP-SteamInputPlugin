@@ -14,15 +14,15 @@
 			"/groups/Editor/right_trigger.vdf"						"right_trigger active"
 			"/groups/Editor/switches.vdf"							"switch active"
 
-			{{#if rightTrackpad}}
+			{{#if (true rightTrackpad)}}
 				"/groups/Editor/right_joystick.vdf"					"right_trackpad active"
 			{{else}}
 				"/groups/Editor/right_joystick.vdf"					"right_joystick active"
-				{{#if allowSlowMouse}}
+				{{#if (true allowSlowMouse)}}
 					"/groups/Common/right_joystick-mouse-slow.vdf"	"right_joystick active modeshift"
 				{{/if}}
 			{{/if}}
-			{{#if leftTrackpad}}
+			{{#if (true leftTrackpad)}}
 				"/groups/Common/dpad-click-scroll.vdf"				"left_trackpad active"
 			{{else}}
 				"/groups/Common/dpad-click-scroll.vdf"				"dpad active"

@@ -4,7 +4,7 @@
     {
         "binding"		"mouse_button LEFT, #Common_leftClick, "
     }
-    {{#if haptic}}
+    {{#if (true haptic)}}
         "settings"
         {
             "haptic_intensity"		"0"

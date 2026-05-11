@@ -1,6 +1,6 @@
 "ref"
 {
-    {{#if allowSlowMouse}}
+    {{#if (true allowSlowMouse)}}
         "button_back_right"
         {
             "activators"

@@ -16,15 +16,15 @@
 			"/groups/MapDocking/buttons_modeshift.vdf"				"button_diamond active modeshift"
 			"/groups/MapDocking/switches.vdf"						"switch active"
 
-			{{#if rightTrackpad}}
+			{{#if (true rightTrackpad)}}
 				"/groups/MapDocking/right_joystick.vdf"				"right_trackpad active"
 			{{else}}
 				"/groups/MapDocking/right_joystick.vdf"				"right_joystick active"
-				{{#if allowSlowMouse}}
+				{{#if (true allowSlowMouse)}}
 					"/groups/Common/right_joystick-mouse-slow.vdf"	"right_joystick active modeshift"
 				{{/if}}
 			{{/if}}
-			{{#if leftTrackpad}}
+			{{#if (true leftTrackpad)}}
 				"/groups/Common/dpad-click-zoom.vdf"				"left_trackpad active"
 			{{else}}
 				"/groups/Common/dpad-click-zoom.vdf"				"dpad active"

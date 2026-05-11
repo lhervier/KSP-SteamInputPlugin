@@ -4,7 +4,7 @@
     {
         "binding"		"key_press #R, #Editor_symmetryModeToggle, , "
     }
-    {{#if haptic}}
+    {{#if (true haptic)}}
         "settings"
         {
             "haptic_intensity"		"3"

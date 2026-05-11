@@ -1,6 +1,6 @@
 "ref"
 {
-    {{#if triggersClick}}
+    {{#if (true triggersClick)}}
         "edge_binding_radius"		"27202"
     {{else}}
         "edge_binding_radius"		"0"

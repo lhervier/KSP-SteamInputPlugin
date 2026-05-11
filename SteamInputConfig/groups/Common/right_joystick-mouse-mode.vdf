@@ -3,7 +3,7 @@
     "name"		        ""
     "description"		""
 
-    {{#if rightTrackpad}}
+    {{#if (true rightTrackpad)}}
         "mode"		"absolute_mouse"
     {{else}}
         "mode"		"joystick_mouse"
