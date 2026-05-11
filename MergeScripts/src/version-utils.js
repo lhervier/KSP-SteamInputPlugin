@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const VERSION_FILE = path.join(__dirname, '..', 'VERSION.txt');
+const VERSION_FILE = path.join(__dirname, '..', '..', 'VERSION.txt');
 
 /**
  * Read VERSION.txt at the repo root and return the build version string.

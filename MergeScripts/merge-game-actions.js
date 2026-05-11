@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
-const { saveVdfFile, loadVdfFile } = require('./vdf-utils');
-const { translateVdf } = require('./translate-utils');
+const { saveVdfFile, loadVdfFile } = require('./src/vdf-utils');
+const { translateVdf } = require('./src/translate-utils');
 
 const IN_GAME_ACTIONS_KEY = 'In Game Actions';
 
@@ -14,7 +14,7 @@ if (!controllersJsonPath) {
 
 const configDir = path.dirname(path.resolve(controllersJsonPath));
 const gameActionsPath = path.join(configDir, 'game_actions_220200.vdf');
-const { merged } = loadVdfFile(gameActionsPath, '');
+const { merged } = loadVdfFile(gameActionsPath, {});
 if (!merged[IN_GAME_ACTIONS_KEY] || !merged.localization) {
     throw new Error('game_actions_220200.vdf: missing "In Game Actions" or "localization" after resolving #ref');
 }

@@ -1,6 +1,32 @@
 const fs = require('fs');
 const path = require('path');
+const Handlebars = require('handlebars');
 const VDF = require('vdf-parser');
+
+/**
+ * @param {object} [hbsContext] - Handlebars root context (from merge-*.js)
+ * @returns {string} controllerName for specialized name.controllerName.vdf refs
+ */
+function controllerNameFromContext(hbsContext) {
+    const n = hbsContext && hbsContext.controllerName;
+    return typeof n === 'string' ? n : '';
+}
+
+/**
+ * Compile VDF source as a Handlebars template (no HTML escaping).
+ * @param {string} source - Raw file contents
+ * @param {object} [hbsContext] - Passed through to the template (initialized by merge-*.js)
+ * @param {string} vdfPath - For error messages only
+ * @returns {string}
+ */
+function compileVdfSource(source, hbsContext, vdfPath) {
+    try {
+        const template = Handlebars.compile(source, { noEscape: true });
+        return template(hbsContext || {});
+    } catch (error) {
+        throw new Error(`${vdfPath}: Handlebars error: ${error.message}`);
+    }
+}
 
 const ids = {};
 
@@ -115,12 +141,12 @@ function addRef(refPaths, additionRefPaths) {
  * @param {Object} obj - The object to process
  * @param {string} parentName - Name of the parent tag (e.g. "group" or "preset")
  * @param {string} vdfPath - Current file path that was used to load the object
- * @param {string} controllerName - Name of the controller for specialized files (e.g., "steamcontroller")
+ * @param {object} [hbsContext] - Handlebars context (same object for all #ref loads); controllerName drives specialized .vdf files
  * @param {string} configRoot - Root directory for absolute VDF paths (leading "/"): directory of the entry VDF file
  * @returns {Object} The processed object with #ref properties resolved
  * @throws {Error} If a referenced file cannot be loaded or doesn't have a "ref" root property
  */
-function processRefs(obj, parentName, vdfPath, controllerName, configRoot) {
+function processRefs(obj, parentName, vdfPath, hbsContext, configRoot) {
     if (obj === null) {
         return null;
     }
@@ -137,7 +163,8 @@ function processRefs(obj, parentName, vdfPath, controllerName, configRoot) {
 
     const result = {};
     let refPaths = [];
-    
+    const controllerName = controllerNameFromContext(hbsContext);
+
     for (let [key, value] of Object.entries(obj)) {
         if (key === '#ref') {
             refPaths = addRef(refPaths, value);
@@ -167,11 +194,11 @@ function processRefs(obj, parentName, vdfPath, controllerName, configRoot) {
         if (Array.isArray(value)) {
             processedValues = [];
             for( const item of value ) {
-                const processedValue = processRefs(item, key, vdfPath, controllerName, configRoot);
+                const processedValue = processRefs(item, key, vdfPath, hbsContext, configRoot);
                 processedValues.push(processedValue);
             }
         } else if( typeof value === 'object' ) {
-            processedValues = processRefs(value, key, vdfPath, controllerName, configRoot);
+            processedValues = processRefs(value, key, vdfPath, hbsContext, configRoot);
         } else {
             // If there is an id in the value, we must make sure that it is an absolute path
             if( typeof value === 'string' ) {
@@ -217,7 +244,7 @@ function processRefs(obj, parentName, vdfPath, controllerName, configRoot) {
             }
         }
         
-        const refVdf = _loadVdfFile(configRoot, refAbsolutePath, controllerName);
+        const refVdf = _loadVdfFile(configRoot, refAbsolutePath, hbsContext);
         if( !refVdf.ref ) {
             throw new Error(`Referenced file ${refAbsolutePath} must have "ref" as the root property`);
         }
@@ -234,14 +261,14 @@ function processRefs(obj, parentName, vdfPath, controllerName, configRoot) {
 /**
  * Load a VDF file. Paths starting with "/" in the file are relative to the directory of the given root VDF path.
  * @param {string} vdfPath - Path to the root VDF to load (relative to the current working directory or absolute)
- * @param {string} controllerName - Controller variant for specialized #ref resolution
+ * @param {object} [hbsContext] - Handlebars context for all loaded .vdf (from merge-*.js)
  */
-function loadVdfFile(vdfPath, controllerName) {
+function loadVdfFile(vdfPath, hbsContext = {}) {
     const absoluteVdfPath = path.resolve(vdfPath);
     const configRoot = path.dirname(absoluteVdfPath);
     resetIds();
     return {
-        merged: _loadVdfFile(configRoot, absoluteVdfPath, controllerName),
+        merged: _loadVdfFile(configRoot, absoluteVdfPath, hbsContext),
         ids: getIds()
     };
 }
@@ -250,12 +277,14 @@ function loadVdfFile(vdfPath, controllerName) {
  * Load, clean and parse a VDF file
  * @param {string} configRoot - Directory of the entry VDF (root for "/" paths in the VDF)
  * @param {string} vdfPath - Absolute path to the VDF file to load
- * @param {string} controllerName - Name of the controller for specialized files (e.g., "controller_steamcontroller_gordon")
+ * @param {object} [hbsContext] - Handlebars context (same for entry and all #ref targets)
  * @returns {Object} Parsed object
  * @throws {Error} If the file cannot be loaded or parsed
  */
-function _loadVdfFile(configRoot, vdfPath, controllerName) {
-    let content = fs.readFileSync(vdfPath, 'utf8')
+function _loadVdfFile(configRoot, vdfPath, hbsContext) {
+    const raw = fs.readFileSync(vdfPath, 'utf8');
+    let content = compileVdfSource(raw, hbsContext, vdfPath);
+    content = content
         .split('\n')
         .filter(line => !line.trim().startsWith('#'))
         .filter(line => line.length > 0)
@@ -269,7 +298,7 @@ function _loadVdfFile(configRoot, vdfPath, controllerName) {
     }
     
     // Process #ref properties
-    return processRefs(parsedObj, null, vdfPath, controllerName, configRoot);
+    return processRefs(parsedObj, null, vdfPath, hbsContext, configRoot);
 }
 
 function getIds() {

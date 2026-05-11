@@ -1,12 +1,12 @@
 const fs = require('fs');
 const path = require('path');
-const { getVersion } = require('./version-utils');
-const { saveVdfFile, loadVdfFile } = require('./vdf-utils');
-const { resolvePresets } = require('./preset-utils');
-const { resolveGroupBindings } = require('./group-bindings-utils');
-const { duplicateGroups } = require('./group-utils');
-const { resolveLayerBindings } = require('./layer-bindings-utils');
-const { translateVdf } = require('./translate-utils');
+const { getVersion } = require('./src/version-utils');
+const { saveVdfFile, loadVdfFile } = require('./src/vdf-utils');
+const { resolvePresets } = require('./src/preset-utils');
+const { resolveGroupBindings } = require('./src/group-bindings-utils');
+const { duplicateGroups } = require('./src/group-utils');
+const { resolveLayerBindings } = require('./src/layer-bindings-utils');
+const { translateVdf } = require('./src/translate-utils');
 
 const [controllersJsonPath, controllerName] = process.argv.slice(2);
 if (!controllersJsonPath || !controllerName) {
@@ -39,7 +39,11 @@ for (const controller of controllersToBuild) {
 
     // Load the root controller file, resolving #ref (leading "/" is relative to this VDF's directory)
     const entryVdfPath = path.join(configDir, rootVdfPath);
-    const { merged, ids } = loadVdfFile(entryVdfPath, controller.controllerName);
+    const handlebarsContext = {
+        controllerName: controller.controllerName,
+    };
+    handlebarsContext[controller.controllerName] = true;
+    const { merged, ids } = loadVdfFile(entryVdfPath, handlebarsContext);
     
     // Resolve the presets, group bindings, duplicate groups and layer bindings
     resolvePresets(merged, ids.group.ids);
