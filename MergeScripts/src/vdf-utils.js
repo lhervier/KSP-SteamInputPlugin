@@ -3,6 +3,12 @@ const path = require('path');
 const Handlebars = require('handlebars');
 const VDF = require('vdf-parser');
 
+/** Truthy OR for subexpressions, e.g. {{#if (or steamcontroller hori xboxelite)}} */
+Handlebars.registerHelper('or', function (...args) {
+    const values = args.slice(0, -1);
+    return values.some(Boolean);
+});
+
 /**
  * @param {object} [hbsContext] - Handlebars root context (from merge-*.js)
  * @returns {string} controllerName for specialized name.controllerName.vdf refs
