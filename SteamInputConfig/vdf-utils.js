@@ -222,7 +222,11 @@ function processRefs(obj, parentName, vdfPath, controllerName) {
 }
 
 function loadVdfFile(vdfPath, controllerName) {
-    return _loadVdfFile(vdfPath, controllerName);
+    resetIds();
+    return {
+        merged: _loadVdfFile(vdfPath, controllerName),
+        ids: getIds()
+    }
 }
 
 /**
@@ -255,8 +259,6 @@ function getIds() {
 }
 
 module.exports = {
-    resetIds,
     saveVdfFile,
-    loadVdfFile,
-    getIds
+    loadVdfFile
 }

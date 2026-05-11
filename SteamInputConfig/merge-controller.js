@@ -37,33 +37,29 @@ fs.mkdirSync(buildDir, { recursive: true });
 for (const controller of controllersToBuild) {
     const rootVdfPath = controller.rootVdfPath;
 
-    // Reset the ids
-    resetIds();
-    
     // Load the root controller file, resolving #ref
-    const vdf = loadVdfFile(
+    const { merged, ids } = loadVdfFile(
         path.join('.', rootVdfPath),
         controller.controllerName
     );
-    const ids = getIds();
     
     // Resolve the presets, group bindings, duplicate groups and layer bindings
-    resolvePresets(vdf, ids.group.ids);
-    resolveGroupBindings(vdf, ids.group.ids);
-    ids.group.count = duplicateGroups(vdf, ids.group.count);
-    resolveLayerBindings(vdf);
+    resolvePresets(merged, ids.group.ids);
+    resolveGroupBindings(merged, ids.group.ids);
+    duplicateGroups(merged, ids.group.count);
+    resolveLayerBindings(merged);
 
     // Update the Timestamp property (set in epoch milliseconds)
-    vdf.controller_mappings.Timestamp = Date.now().toString();
+    merged.controller_mappings.Timestamp = Date.now().toString();
 
     // Add the resolved build version to the VDF title
-    vdf.controller_mappings.title += " (" + buildVersion + ")";
+    merged.controller_mappings.title += " (" + buildVersion + ")";
 
     // Translate the VDF file into all known languages
     // The list of available languages are in the "localization" property of the vdf
-    for (const lang of Object.keys(vdf.controller_mappings.localization)) {
-        const langDict = vdf.controller_mappings.localization[lang];
-        const translatedVdf = translateVdf(vdf, langDict);
+    for (const lang of Object.keys(merged.controller_mappings.localization)) {
+        const langDict = merged.controller_mappings.localization[lang];
+        const translatedVdf = translateVdf(merged, langDict);
         saveVdfFile(
             translatedVdf,
             path.join(buildDir, rootVdfPath.replace('.vdf', '') + "_" + lang + ".vdf")
