@@ -5,16 +5,15 @@ const { translateVdf } = require('./src/translate-utils');
 
 const IN_GAME_ACTIONS_KEY = 'In Game Actions';
 
-const [controllersJsonPath] = process.argv.slice(2);
-if (!controllersJsonPath) {
+const [gameActionsVdfPath] = process.argv.slice(2);
+if (!gameActionsVdfPath) {
     throw new Error(
-        'Usage: node merge-game-actions.js <path/to/controllers.json>'
+        'Usage: node merge-game-actions.js <path/to/game_actions_220200.vdf>'
     );
 }
 
-const configDir = path.dirname(path.resolve(controllersJsonPath));
-const gameActionsPath = path.join(configDir, 'game_actions_220200.vdf');
-const { merged } = loadVdfFile(gameActionsPath, {});
+const gameActionsPath = path.resolve(gameActionsVdfPath);
+const { merged } = loadVdfFile(gameActionsPath);
 if (!merged[IN_GAME_ACTIONS_KEY] || !merged.localization) {
     throw new Error('game_actions_220200.vdf: missing "In Game Actions" or "localization" after resolving #ref');
 }

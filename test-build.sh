@@ -25,7 +25,8 @@ else
 fi
 
 echo "Exécution de merge-game-actions.js..."
-node merge-game-actions.js "$CONTROLLERS_JSON"
+GAME_ACTIONS_VDF="../SteamInputConfig/game_actions_220200.vdf"
+node merge-game-actions.js "$GAME_ACTIONS_VDF"
 if [ $? -eq 0 ]; then
     echo "✓ Construction game_actions réussie"
 else

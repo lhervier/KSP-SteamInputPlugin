@@ -49,7 +49,8 @@ echo.
 echo -------------------------------------------
 echo Building game_actions VDF files...
 echo -------------------------------------------
-node merge-game-actions.js "%CONTROLLERS_JSON%" 2>&1
+set "GAME_ACTIONS_VDF=..\SteamInputConfig\game_actions_220200.vdf"
+node merge-game-actions.js "%GAME_ACTIONS_VDF%" 2>&1
 if errorlevel 1 (
     echo ERROR: Failed to build game_actions VDF
     exit /b 1

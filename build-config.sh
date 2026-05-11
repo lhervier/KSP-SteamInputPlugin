@@ -53,7 +53,8 @@ echo "-------------------------------------------"
 
 echo ""
 echo "Construction des VDF..."
-node merge-game-actions.js "$CONTROLLERS_JSON" 2>&1
+GAME_ACTIONS_VDF="../SteamInputConfig/game_actions_220200.vdf"
+node merge-game-actions.js "$GAME_ACTIONS_VDF" 2>&1
 if [ $? -ne 0 ]; then
     echo "ERREUR: Échec de la construction des VDF game_actions"
     exit 1

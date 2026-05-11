@@ -1,18 +1,42 @@
 [
   {
     "controllerName": "steamcontroller",
-    "rootVdfPath": "ksp_steaminput_steamcontroller.vdf"
+    "rootVdfPath": "ksp_steaminput_steamcontroller.vdf",
+    "context": {
+      "steamcontroller": true,
+      "rightJoystick": false,
+      "rightTrackpad": true,
+      "allowSlowMouse": false
+    }
   },
   {
     "controllerName": "hori",
-    "rootVdfPath": "ksp_steaminput_hori_steam.vdf"
+    "rootVdfPath": "ksp_steaminput_hori_steam.vdf",
+    "context": {
+      "hori": true,
+      "rightJoystick": true,
+      "rightTrackpad": false,
+      "allowSlowMouse": true
+    }
   },
   {
     "controllerName": "xboxelite",
-    "rootVdfPath": "ksp_steaminput_xboxelite.vdf"
+    "rootVdfPath": "ksp_steaminput_xboxelite.vdf",
+    "context": {
+      "xboxelite": true,
+      "rightJoystick": true,
+      "rightTrackpad": false,
+      "allowSlowMouse": true
+    }
   },
   {
     "controllerName": "ps4",
-    "rootVdfPath": "ksp_steaminput_ps4.vdf"
+    "rootVdfPath": "ksp_steaminput_ps4.vdf",
+    "context": {
+      "ps4": true,
+      "rightJoystick": true,
+      "rightTrackpad": false,
+      "allowSlowMouse": false
+    }
   }
 ]

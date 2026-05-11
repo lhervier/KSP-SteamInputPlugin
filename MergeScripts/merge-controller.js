@@ -39,11 +39,7 @@ for (const controller of controllersToBuild) {
 
     // Load the root controller file, resolving #ref (leading "/" is relative to this VDF's directory)
     const entryVdfPath = path.join(configDir, rootVdfPath);
-    const handlebarsContext = {
-        controllerName: controller.controllerName,
-    };
-    handlebarsContext[controller.controllerName] = true;
-    const { merged, ids } = loadVdfFile(entryVdfPath, handlebarsContext);
+    const { merged, ids } = loadVdfFile(entryVdfPath, controller.context || {});
     
     // Resolve the presets, group bindings, duplicate groups and layer bindings
     resolvePresets(merged, ids.group.ids);
