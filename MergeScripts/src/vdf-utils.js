@@ -25,15 +25,6 @@ Handlebars.registerHelper('true', function (value) {
 });
 
 /**
- * @param {object} [hbsContext] - Handlebars root context (from merge-*.js)
- * @returns {string} controllerName for specialized name.controllerName.vdf refs
- */
-function controllerNameFromContext(hbsContext) {
-    const n = hbsContext && hbsContext.controllerName;
-    return typeof n === 'string' ? n : '';
-}
-
-/**
  * Compile VDF source as a Handlebars template (no HTML escaping, strict lookups).
  * @param {string} source - Raw file contents
  * @param {object} [hbsContext] - Passed through to the template (initialized by merge-*.js)
@@ -162,7 +153,7 @@ function addRef(refPaths, additionRefPaths) {
  * @param {Object} obj - The object to process
  * @param {string} parentName - Name of the parent tag (e.g. "group" or "preset")
  * @param {string} vdfPath - Current file path that was used to load the object
- * @param {object} [hbsContext] - Handlebars context (same object for all #ref loads); controllerName drives specialized .vdf files
+ * @param {object} [hbsContext] - Handlebars context (same object for all #ref loads)
  * @param {string} configRoot - Root directory for absolute VDF paths (leading "/"): directory of the entry VDF file
  * @returns {Object} The processed object with #ref properties resolved
  * @throws {Error} If a referenced file cannot be loaded or doesn't have a "ref" root property
@@ -184,7 +175,6 @@ function processRefs(obj, parentName, vdfPath, hbsContext, configRoot) {
 
     const result = {};
     let refPaths = [];
-    const controllerName = controllerNameFromContext(hbsContext);
 
     for (let [key, value] of Object.entries(obj)) {
         if (key === '#ref') {
@@ -251,20 +241,7 @@ function processRefs(obj, parentName, vdfPath, hbsContext, configRoot) {
             // Relative path (relative to current file)
             refAbsolutePath = path.join(currentDir, refPath);
         }
-            
-        // Generate specialized path
-        const dir = path.dirname(refAbsolutePath);
-        const ext = path.extname(refAbsolutePath);
-        const name = path.basename(refAbsolutePath, ext);
-        
-        // Check if specialized file exists
-        if (controllerName) {
-            const specializedPath = path.join(dir, `${name}.${controllerName}${ext}`);
-            if (fs.existsSync(specializedPath)) {
-                refPaths.push(toVdfRootPath(specializedPath));
-            }
-        }
-        
+
         const refVdf = _loadVdfFile(configRoot, refAbsolutePath, hbsContext);
         if( !refVdf.ref ) {
             throw new Error(`Referenced file ${refAbsolutePath} must have "ref" as the root property`);

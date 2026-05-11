@@ -3,7 +3,6 @@
     "controllerName": "steamcontroller",
     "rootVdfPath": "ksp_steaminput_steamcontroller.vdf",
     "context": {
-      "controllerName": "steamcontroller",
       "haptic": true,
       "rightJoystick": false,
       "rightTrackpad": true,
@@ -17,7 +16,6 @@
     "controllerName": "hori",
     "rootVdfPath": "ksp_steaminput_hori_steam.vdf",
     "context": {
-      "controllerName": "hori",
       "haptic": false,
       "rightJoystick": true,
       "rightTrackpad": false,
@@ -31,7 +29,6 @@
     "controllerName": "xboxelite",
     "rootVdfPath": "ksp_steaminput_xboxelite.vdf",
     "context": {
-      "controllerName": "xboxelite",
       "haptic": false,
       "rightJoystick": true,
       "rightTrackpad": false,
@@ -45,7 +42,6 @@
     "controllerName": "ps4",
     "rootVdfPath": "ksp_steaminput_ps4.vdf",
     "context": {
-      "controllerName": "ps4",
       "haptic": false,
       "rightJoystick": true,
       "rightTrackpad": false,
