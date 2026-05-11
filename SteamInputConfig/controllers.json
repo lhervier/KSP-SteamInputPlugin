@@ -4,7 +4,6 @@
     "rootVdfPath": "ksp_steaminput_steamcontroller.vdf",
     "context": {
       "haptic": true,
-      "rightJoystick": false,
       "rightTrackpad": true,
       "leftTrackpad": true,
       "backButtons": true,
@@ -17,7 +16,6 @@
     "rootVdfPath": "ksp_steaminput_hori_steam.vdf",
     "context": {
       "haptic": false,
-      "rightJoystick": true,
       "rightTrackpad": false,
       "leftTrackpad": false,
       "backButtons": true,
@@ -30,7 +28,6 @@
     "rootVdfPath": "ksp_steaminput_xboxelite.vdf",
     "context": {
       "haptic": false,
-      "rightJoystick": true,
       "rightTrackpad": false,
       "leftTrackpad": false,
       "backButtons": true,
@@ -43,7 +40,6 @@
     "rootVdfPath": "ksp_steaminput_ps4.vdf",
     "context": {
       "haptic": false,
-      "rightJoystick": true,
       "rightTrackpad": false,
       "leftTrackpad": false,
       "backButtons": false,

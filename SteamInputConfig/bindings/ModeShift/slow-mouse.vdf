@@ -6,8 +6,7 @@
             {
                 "binding"		"mode_shift right_trackpad %group_id:/groups/Common/right_joystick-mouse-slow.vdf%"
             }
-        {{/if}}
-        {{#if (true rightJoystick)}}
+        {{else}}
             "bindings"
             {
                 "binding"		"mode_shift right_joystick %group_id:/groups/Common/right_joystick-mouse-slow.vdf%"
