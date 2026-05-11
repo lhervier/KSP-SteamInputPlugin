@@ -6,7 +6,7 @@
         "#ref"		"/groups/Common/right_joystick-mouse-mode.vdf"
         "inputs"
         {
-            "#ref"				"/inputs/joystick_mouse/click/editor/modeshift.vdf"
+            "#ref"				"/inputs/joystick_mouse/click/editor-modeshift.vdf"
         }
         "settings"
 		{
