@@ -4,8 +4,6 @@
 	{
 		"id"		"#fileName"
 		"#ref"		"right_joystick-mouse-mode.vdf"
-		"name"		""
-		"description"		""
 		"inputs"
 		{
 		}
