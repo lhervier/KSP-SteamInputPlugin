@@ -19,7 +19,7 @@ function controllerNameFromContext(hbsContext) {
 }
 
 /**
- * Compile VDF source as a Handlebars template (no HTML escaping).
+ * Compile VDF source as a Handlebars template (no HTML escaping, strict lookups).
  * @param {string} source - Raw file contents
  * @param {object} [hbsContext] - Passed through to the template (initialized by merge-*.js)
  * @param {string} vdfPath - For error messages only
@@ -27,7 +27,7 @@ function controllerNameFromContext(hbsContext) {
  */
 function compileVdfSource(source, hbsContext, vdfPath) {
     try {
-        const template = Handlebars.compile(source, { noEscape: true });
+        const template = Handlebars.compile(source, { noEscape: true, strict: true });
         return template(hbsContext || {});
     } catch (error) {
         throw new Error(`${vdfPath}: Handlebars error: ${error.message}`);

@@ -14,7 +14,7 @@
 			"/groups/Eva/right_trigger.vdf"								"right_trigger active"
 			"/groups/Eva/switches.vdf"									"switch active"
 
-			{{#if rightTrackad}}
+			{{#if rightTrackpad}}
 				"/groups/Eva/right_joystick.vdf"						"right_trackpad active"
 			{{else}}
 				"/groups/Eva/right_joystick.vdf"						"right_joystick active"
