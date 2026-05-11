@@ -6,7 +6,27 @@
 		"name"		"EditorControls"
 		"group_source_bindings"
 		{
-			"#ref"				"group-source-bindings.vdf"
+			"/groups/Editor/buttons.vdf"							"button_diamond active"
+			"/groups/Editor/buttons_modeshift.vdf"					"button_diamond active modeshift"
+			"/groups/Editor/left_joystick.vdf"						"joystick active"
+			"/groups/Editor/left_joystick_modeshift.vdf"			"joystick active modeshift"
+			"/groups/Editor/left_trigger.vdf"						"left_trigger active"
+			"/groups/Editor/right_trigger.vdf"						"right_trigger active"
+			"/groups/Editor/switches.vdf"							"switch active"
+
+			{{#if rightTrackpad}}
+				"/groups/Editor/right_joystick.vdf"					"right_trackpad active"
+			{{else}}
+				"/groups/Editor/right_joystick.vdf"					"right_joystick active"
+				{{#if allowSlowMouse}}
+					"/groups/Common/right_joystick-mouse-slow.vdf"	"right_joystick active modeshift"
+				{{/if}}
+			{{/if}}
+			{{#if leftTrackpad}}
+				"/groups/Common/dpad-click-scroll.vdf"				"left_trackpad active"
+			{{else}}
+				"/groups/Common/dpad-click-scroll.vdf"				"dpad active"
+			{{/if}}
 		}
 	}
 }
