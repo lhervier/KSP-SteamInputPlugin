@@ -1,0 +1,6 @@
+"ref"
+{
+    "#ref"          "docking-flight/_docking-flight.vdf"
+    "#ref"          "flight/_flight.vdf"
+    "#ref"          "docking/_docking.vdf"
+}

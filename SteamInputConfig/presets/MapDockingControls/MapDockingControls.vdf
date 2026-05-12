@@ -6,28 +6,28 @@
 		"name"		"MapDockingControls"
 		"group_source_bindings"
 		{
-			"/groups/Common/left_joystick-actiongroups.vdf"			"joystick active modeshift"
+			"/groups/Common/left_joystick-actiongroups.vdf"				"joystick active modeshift"
 	
-			"/groups/Docking/button_diamond.vdf"					"button_diamond active"
-			"/groups/Docking/joystick.vdf"							"joystick active"
-			"/groups/Docking/left_trigger.vdf"						"left_trigger active"
-			"/groups/Docking/right_trigger.vdf"						"right_trigger active"
+			"/groups/four_buttons/docking/tr_rot-brakes-rcs-sas.vdf"	"button_diamond active"
+			"/groups/Docking/joystick.vdf"								"joystick active"
+			"/groups/Docking/left_trigger.vdf"							"left_trigger active"
+			"/groups/Docking/right_trigger.vdf"							"right_trigger active"
 			
-			"/groups/MapDocking/buttons_modeshift.vdf"				"button_diamond active modeshift"
-			"/groups/MapDocking/switches.vdf"						"switch active"
+			"/groups/MapDocking/buttons_modeshift.vdf"					"button_diamond active modeshift"
+			"/groups/MapDocking/switches.vdf"							"switch active"
 
 			{{#if (true rightTrackpad)}}
-				"/groups/MapDocking/right_joystick.vdf"				"right_trackpad active"
+				"/groups/MapDocking/right_joystick.vdf"					"right_trackpad active"
 			{{else}}
-				"/groups/MapDocking/right_joystick.vdf"				"right_joystick active"
+				"/groups/MapDocking/right_joystick.vdf"					"right_joystick active"
 				{{#if (true allowSlowMouse)}}
-					"/groups/Common/right_joystick-mouse-slow.vdf"	"right_joystick active modeshift"
+					"/groups/Common/right_joystick-mouse-slow.vdf"		"right_joystick active modeshift"
 				{{/if}}
 			{{/if}}
 			{{#if (true leftTrackpad)}}
-				"/groups/Common/dpad-click-zoom.vdf"				"left_trackpad active"
+				"/groups/Common/dpad-click-zoom.vdf"					"left_trackpad active"
 			{{else}}
-				"/groups/Common/dpad-click-zoom.vdf"				"dpad active"
+				"/groups/Common/dpad-click-zoom.vdf"					"dpad active"
 			{{/if}}
 		}
 	}

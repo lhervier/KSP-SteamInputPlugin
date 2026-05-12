@@ -8,11 +8,11 @@
 		{
 			"/groups/Common/left_joystick-actiongroups.vdf"								"joystick active modeshift"
 	
-			"/groups/Common/Flight/buttons.vdf"											"button_diamond active"
+			"/groups/four_buttons/flight/staging-brakes-rcs-sas.vdf"					"button_diamond active"
 			"/groups/Common/Flight/left_joystick-yaw-pitch.vdf"							"joystick active"
 			"/groups/Common/Flight/left_trigger-throttle.vdf"							"left_trigger active"
 			"/groups/Common/Flight/right_trigger-throttle.vdf"							"right_trigger active"
-			"/groups/Common/DockingFlight/buttons-timewarp-precision-target.vdf"		"button_diamond active modeshift"
+			"/groups/four_buttons/docking-flight/timewarp-precision-target.vdf"			"button_diamond active modeshift"
 			
 			"/groups/Flight/switches.vdf"												"switch active"
 

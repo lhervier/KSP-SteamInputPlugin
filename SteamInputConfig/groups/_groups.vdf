@@ -1,5 +1,6 @@
 "ref"
 {
+    "#ref"              "four_buttons/_four_buttons.vdf"
     "#ref"				"Common/_common.vdf"
     "#ref"				"Menu/_menu.vdf"
     "#ref"				"TrackingStation/_tracking-station.vdf"

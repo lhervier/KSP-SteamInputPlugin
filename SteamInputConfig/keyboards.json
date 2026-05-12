@@ -1,0 +1,141 @@
+[
+    "DOWN_ARROW": {
+        "english": "DOWN_ARROW"
+    },
+    "LEFT_ARROW": {
+        "english": "LEFT_ARROW"
+    },
+    "RIGHT_ARROW": {
+        "english": "RIGHT_ARROW"
+    },
+    "UP_ARROW": {
+        "english": "UP_ARROW"
+    },
+
+    "DELETE": {
+        "english": "DELETE"
+    },
+    "HOME": {
+        "english": "HOME"
+    },
+    "END": {
+        "english": "END"
+    },
+    "PAGE_UP": {
+        "english": "PAGE_UP"
+    },
+    "PAGE_DOWN": {
+        "english": "PAGE_DOWN"
+    },
+
+    "TAB": {
+        "english": "TAB"
+    },
+    "CAPSLOCK": {
+        "english": "CAPSLOCK"
+    },
+    "LEFT_SHIFT": {
+        "english": "LEFT_SHIFT"
+    },
+    "LEFT_CONTROL": {
+        "english": "LEFT_CONTROL"
+    },
+    "LEFT_ALT": {
+        "english": "LEFT_ALT"
+    },
+    
+    "ESCAPE": {
+        "english": "ESCAPE"
+    },
+    "F1": {
+        "english": "F1"
+    },
+    "F2": {
+        "english": "F2"
+    },
+    "F3": {
+        "english": "F3"
+    },
+    "F4": {
+        "english": "F4"
+    },
+    "F5": {
+        "english": "F5"
+    },
+    "F6": {
+        "english": "F6"
+    },
+    "F7": {
+        "english": "F7"
+    },
+    "F8": {
+        "english": "F8"
+    },
+    "F9": {
+        "english": "F9"
+    },
+    "F10": {
+        "english": "F10"
+    },
+    "F11": {
+        "english": "F11"
+    },
+    "F12": {
+        "english": "F12"
+    },
+    
+    "BACK_TICK"         "BACK_TICK"
+    "1"                 "1"
+    "2"                 "2"
+    "3"                 "3"
+    "4"                 "4"
+    "5"                 "5"
+    "6"                 "6"
+    "7"                 "7"
+    "8"                 "8"
+    "9"                 "9"
+    "0"                 "0"
+    "BACKSPACE"         "BACKSPACE"
+        
+    "Q"                 "Q"
+    "W"                 "W"
+    "E"                 "E"
+    "R"                 "R"
+    "T"                 "T"
+    "Y"                 "Y"
+    "U"                 "U"
+    "I"                 "I"
+    "O"                 "O"
+    "P"                 "P"
+    "LEFT_BRACKET"      "LEFT_BRACKET"
+    "RIGHT_BRACKET"     "RIGHT_BRACKET"
+    "BACKSLASH"         "BACKSLASH"
+
+    "A"                 "A"
+    "S"                 "S"
+    "D"                 "D"
+    "F"                 "F"
+    "G"                 "G"
+    "H"                 "H"
+    "J"                 "J"
+    "K"                 "K"
+    "L"                 "L"
+    "SINGLE_QUOTE"      "SINGLE_QUOTE"
+    
+    "Z"                 "Z"
+    "X"                 "X"
+    "C"                 "C"
+    "V"                 "V"
+    "B"                 "B"
+    "N"                 "N"
+    "M"                 "SEMICOLON"
+    "COMMA"             "COMMA"
+    "PERIOD"            "PERIOD"
+    
+    "RETURN"            "RETURN"
+    "SPACE"             "SPACE"
+
+    "KEYPAD_DASH"       "KEYPAD_DASH"
+    "KEYPAD_PLUS"       "KEYPAD_PLUS"
+    "KEYPAD_PERIOD"     "KEYPAD_PERIOD"
+]
