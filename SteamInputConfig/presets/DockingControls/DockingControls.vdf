@@ -17,7 +17,7 @@
 			"/groups/Docking/switch.vdf"											"switch active"
 
 			{{#if (true rightTrackpad)}}
-				"/groups/Docking/absolute_mouse.vdf"								"right_trackpad active"
+				"/groups/absolute_mouse/mouse.vdf"								"right_trackpad active"
 			{{else}}
 				"/groups/Docking/right_joystick.vdf"								"right_joystick active"
 				{{#if (true allowSlowMouse)}}

@@ -15,7 +15,7 @@
 			"/groups/EvaConstructionMode/switches.vdf"					"switch active"
 
 			{{#if (true rightTrackpad)}}
-				"/groups/EvaConstructionMode/absolute_mouse.vdf"		"right_trackpad active"
+				"/groups/absolute_mouse/mouse.vdf"						"right_trackpad active"
 			{{else}}
 				"/groups/EvaConstructionMode/right_joystick.vdf"		"right_joystick active"
 				{{#if (true allowSlowMouse)}}

@@ -2,5 +2,4 @@
 {
     "#ref"				"switches.vdf"
     "#ref"              "right_joystick.vdf"
-    "#ref"              "absolute_mouse.vdf"
 }

@@ -17,7 +17,7 @@
 			"/groups/Flight/switches.vdf"												"switch active"
 
 			{{#if (true rightTrackpad)}}
-				"/groups/Flight/absolute_mouse.vdf"										"right_trackpad active"
+				"/groups/absolute_mouse/mouse.vdf"										"right_trackpad active"
 			{{else}}
 				"/groups/Flight/right_joystick.vdf"										"right_joystick active"
 				{{#if (true allowSlowMouse)}}

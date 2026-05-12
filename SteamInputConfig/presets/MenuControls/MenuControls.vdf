@@ -14,7 +14,7 @@
 			"/groups/Menu/switches.vdf"				                    "switch"
 
 			{{#if (true rightTrackpad)}}
-				"/groups/Menu/absolute_mouse.vdf"           		    "right_trackpad active"
+				"/groups/absolute_mouse/mouse.vdf"           		    "right_trackpad active"
 			{{else}}
 				"/groups/Menu/right_joystick.vdf"				        "right_joystick active"
 				{{#if (true allowSlowMouse)}}

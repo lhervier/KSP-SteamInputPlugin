@@ -14,7 +14,7 @@
 			"/groups/FreeIva/switches.vdf"							"switch active"
 
 			{{#if (true rightTrackpad)}}
-				"/groups/FreeIva/absolute_mouse.vdf"				"right_trackpad active"
+				"/groups/absolute_mouse/mouse.vdf"				"right_trackpad active"
 			{{else}}
 				"/groups/FreeIva/right_joystick.vdf"				"right_joystick active"
 				{{#if (true allowSlowMouse)}}

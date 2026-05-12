@@ -4,10 +4,6 @@
     {
         "id"		"#fileName"
         "mode"		"absolute_mouse"
-        "inputs"
-        {
-            "#ref"				"/inputs/joystick_mouse/click/editor-modeshift.vdf"
-        }
         "settings"
 		{
 			"#ref"				"/inputs/mouse/_settings-normal.vdf"
