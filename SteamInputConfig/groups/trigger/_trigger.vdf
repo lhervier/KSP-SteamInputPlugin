@@ -6,4 +6,6 @@
     "#ref"      "left-click.vdf"
     "#ref"      "backward.vdf"
     "#ref"      "forward.vdf"
+
+    "#ref"      "editor/_editor.vdf"
 }

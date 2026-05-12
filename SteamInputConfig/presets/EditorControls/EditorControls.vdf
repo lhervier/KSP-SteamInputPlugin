@@ -10,7 +10,7 @@
 			"/groups/four_buttons/editor/place-offset-rotate-root.vdf"					"button_diamond active modeshift"
 			"/groups/dpad/editor/rotate-part.vdf"										"joystick active"
 			"/groups/dpad/editor/sym-frame.vdf"											"joystick active modeshift"
-			"/groups/Editor/left_trigger.vdf"											"left_trigger active"
+			"/groups/trigger/editor/right-click-slew.vdf"								"left_trigger active"
 			"/groups/Editor/right_trigger.vdf"											"right_trigger active"
 			"/groups/Editor/switches.vdf"												"switch active"
 			
