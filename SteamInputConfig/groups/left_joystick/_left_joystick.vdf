@@ -3,6 +3,4 @@
     "#ref"          "yaw-pitch.vdf"
     "#ref"          "actiongroups.vdf"
     "#ref"          "translate.vdf"
-
-    "#ref"          "editor/_editor.vdf"
 }
