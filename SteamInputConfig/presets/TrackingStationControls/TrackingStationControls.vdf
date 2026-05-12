@@ -9,7 +9,7 @@
 			"/groups/trigger/right-click.vdf"						"left_trigger active"
 			"/groups/trigger/left-click.vdf"						"right_trigger active"
 			
-			"/groups/four_buttons/timewarp.vdf"						"button_diamond active"
+			"/groups/four_buttons/timewarp.vdf"						"button_diamond active modeshift"
 			"/groups/dpad/camera.vdf"								"joystick active"
 			"/groups/switches/tracking-station.vdf"					"switch active"
 

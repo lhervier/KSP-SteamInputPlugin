@@ -8,5 +8,9 @@
                 "#ref"			    "/bindings/ModeShift/slow-mouse.vdf"
             }
         {{/if}}
+        "Full_Press"
+        {
+            "#ref"                  "/bindings/ModeShift/tracking-station/buttons.vdf"
+        }
     }
 }
