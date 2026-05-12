@@ -14,26 +14,8 @@
 			{{/if}}
 			"#ref"				"/inputs/switches/esc/redo.vdf"
 			"#ref"				"/inputs/switches/menu/undo-keyboard.vdf"
-			"left_bumper"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Game/MissionBuilder/Q.vdf"
-					}
-				}
-			}
-			"right_bumper"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Game/MissionBuilder/E.vdf"
-					}
-				}
-			}
+			"#ref"				"/inputs/switches/leftbumper/mission-builder/Q.vdf"
+			"#ref"				"/inputs/switches/rightbumper/mission-builder/E.vdf"
 		}
 	}
 }

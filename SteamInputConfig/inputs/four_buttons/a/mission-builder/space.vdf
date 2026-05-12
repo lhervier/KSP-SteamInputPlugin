@@ -1,0 +1,13 @@
+"ref"
+{
+    "button_a"
+    {
+        "activators"
+        {
+            "Full_Press"
+            {
+                "#ref"				"/bindings/Game/MissionBuilder/Space.vdf"
+            }
+        }
+    }
+}

@@ -8,46 +8,10 @@
 		"description"		""
 		"inputs"
 		{
-			"button_a"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Game/MissionBuilder/Space.vdf"
-					}
-				}
-			}
-			"button_b"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Game/MissionBuilder/Delete.vdf"
-					}
-				}
-			}
-			"button_x"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Game/MissionBuilder/X.vdf"
-					}
-				}
-			}
-			"button_y"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Game/MissionBuilder/C.vdf"
-					}
-				}
-			}
+			"#ref"			"/inputs/four_buttons/a/mission-builder/space.vdf"
+			"#ref"			"/inputs/four_buttons/b/mission-builder/delete.vdf"
+			"#ref"			"/inputs/four_buttons/x/mission-builder/X.vdf"
+			"#ref"			"/inputs/four_buttons/y/mission-builder/C.vdf"
 		}
 	}
 }
