@@ -8,16 +8,7 @@
 		"description"		""
 		"inputs"
 		{
-			"dpad_east"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Game/Editor/yaw-part-right.vdf"
-					}
-				}
-			}
+			"#ref"					"/inputs/dpad/east/editor/yaw-part-right.vdf"
 			"dpad_north"
 			{
 				"activators"
