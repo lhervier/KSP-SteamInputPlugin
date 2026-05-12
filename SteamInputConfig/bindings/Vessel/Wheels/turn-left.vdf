@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #Q, #Flight_turnLeft, , "
+        "binding"		"key_press #Q, #Vessel_Wheels_turnLeft, , "
     }
 }

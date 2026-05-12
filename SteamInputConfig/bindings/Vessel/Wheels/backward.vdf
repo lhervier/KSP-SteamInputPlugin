@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #S, #Flight_backward, , "
+        "binding"		"key_press #S, #Vessel_Wheels_backward, , "
     }
 }

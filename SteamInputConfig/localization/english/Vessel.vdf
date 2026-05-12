@@ -35,4 +35,10 @@
 	"Vessel_System_SAS"				        "SAS Toggle"
 	"Vessel_System_throttleCutoff"		    "Throttle Cutoff"
 	
+    {{! Wheels }}
+    "Vessel_Wheels_backward"			    "Backward"
+	"Vessel_Wheels_forward"			        "Forward"
+    "Vessel_Wheels_turnLeft"			    "Turn Left"
+	"Vessel_Wheels_turnRight"			    "Turn Right"
+	
 }

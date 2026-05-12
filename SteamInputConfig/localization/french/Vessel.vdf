@@ -37,4 +37,10 @@
 	"Vessel_System_SAS"				        "Activer/Désactiver SAS"
 	"Vessel_System_throttleCutoff"		    "Couper de la poussée"
 	
+    {{! Wheels }}
+    "Vessel_Wheels_backward"			    "Reculer"
+	"Vessel_Wheels_forward"			        "Avancer"
+    "Vessel_Wheels_turnLeft"			    "Tourner à gauche"
+	"Vessel_Wheels_turnRight"			    "Tourner à droite"
+	
 }
