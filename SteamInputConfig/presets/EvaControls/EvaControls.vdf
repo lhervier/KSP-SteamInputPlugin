@@ -9,7 +9,7 @@
 			"/groups/four_buttons/eva/jump-grab-rcs-sas.vdf"			"button_diamond active"
 			"/groups/four_buttons/eva/lights-embark-timewarp.vdf"		"button_diamond active modeshift"
 			"/groups/dpad/eva-move.vdf"									"joystick active"
-			"/groups/Eva/left_joystick_modeshift.vdf"					"joystick active modeshift"
+			"/groups/dpad/prev-next-vessel.vdf"							"joystick active modeshift"
 			"/groups/Eva/left_trigger.vdf"								"left_trigger active"
 			"/groups/Eva/right_trigger.vdf"								"right_trigger active"
 			"/groups/Eva/switches.vdf"									"switch active"
