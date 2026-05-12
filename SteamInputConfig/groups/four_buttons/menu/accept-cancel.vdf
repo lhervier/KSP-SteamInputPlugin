@@ -8,26 +8,8 @@
 		"description"		""
 		"inputs"
 		{
-			"button_a"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Common/accept.vdf"
-					}
-				}
-			}
-			"button_b"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Common/cancel.vdf"
-					}
-				}
-			}
+			"#ref"			"/inputs/four_buttons/a/accept.vdf"
+			"#ref"			"/inputs/four_buttons/b/cancel.vdf"
 		}
 	}
 }
