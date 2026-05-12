@@ -11,7 +11,7 @@
 			
 			"/groups/four_buttons/mission-builder/space-delete-x-c.vdf"	"button_diamond active"
 			"/groups/dpad/mission-builder/d-w-s-a.vdf"					"joystick active"
-			"/groups/MissionBuilder/switches.vdf"						"switch active"
+			"/groups/switches/mission-builder.vdf"						"switch active"
 
 			{{#if (true rightTrackpad)}}
 				"/groups/absolute_mouse/mouse.vdf"						"right_trackpad active"
