@@ -26,10 +26,10 @@
 			{{/if}}
 			{{#if (true leftTrackpad)}}
 				"/groups/dpad/click-zoom.vdf"										"left_trackpad active"
-				"/groups/Common/dpad-vessel-camera.vdf"								"left_trackpad active modeshift"
+				"/groups/dpad/vessel-camera.vdf"									"left_trackpad active modeshift"
 			{{else}}
 				"/groups/dpad/click-zoom.vdf"										"dpad active"
-				"/groups/Common/dpad-vessel-camera.vdf"								"dpad active modeshift"
+				"/groups/dpad/vessel-camera.vdf"									"dpad active modeshift"
 			{{/if}}
 		}
 	}

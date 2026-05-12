@@ -2,8 +2,6 @@
 {
     "#ref"				"right_joystick-mouse-slow.vdf"
     "#ref"				"right_joystick-camera-move.vdf"
-
-    "#ref"				"dpad-vessel-camera.vdf"
     
     "#ref"				"left_joystick-actiongroups.vdf"
     

@@ -2,4 +2,5 @@
 {
     "#ref"          "click-scroll.vdf"
     "#ref"          "click-zoom.vdf"
+    "#ref"          "vessel-camera.vdf"
 }
