@@ -25,9 +25,9 @@
 				{{/if}}
 			{{/if}}
 			{{#if (true leftTrackpad)}}
-				"/groups/Common/dpad-click-zoom.vdf"					"left_trackpad active"
+				"/groups/dpad/click-zoom.vdf"							"left_trackpad active"
 			{{else}}
-				"/groups/Common/dpad-click-zoom.vdf"					"dpad active"
+				"/groups/dpad/click-zoom.vdf"							"dpad active"
 			{{/if}}
 		}
 	}

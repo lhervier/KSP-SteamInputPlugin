@@ -22,10 +22,10 @@
 				{{/if}}
 			{{/if}}
 			{{#if (true leftTrackpad)}}
-				"/groups/Common/dpad-click-zoom.vdf"				"left_trackpad active"
+				"/groups/dpad/click-zoom.vdf"						"left_trackpad active"
 				"/groups/FreeIva/dpad_modeshift.vdf"				"left_trackpad active modeshift"
 			{{else}}
-				"/groups/Common/dpad-click-zoom.vdf"				"dpad active"
+				"/groups/dpad/click-zoom.vdf"						"dpad active"
 				"/groups/FreeIva/dpad_modeshift.vdf"				"dpad active modeshift"
 			{{/if}}
 		}
