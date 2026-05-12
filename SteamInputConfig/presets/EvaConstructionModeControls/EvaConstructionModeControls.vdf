@@ -6,7 +6,7 @@
 		"name"		"EvaConstructionModeControls"
 		"group_source_bindings"
 		{
-			"/groups/EvaConstructionMode/buttons.vdf"					"button_diamond active"
+			"/groups/four_buttons/eva/jump-grab-rcs-sas.vdf"			"button_diamond active"
 			"/groups/EvaConstructionMode/buttons_modeshift.vdf"			"button_diamond active modeshift"
 			"/groups/EvaConstructionMode/left_joystick.vdf"				"joystick active"
 			"/groups/EvaConstructionMode/left_joystick_modeshift.vdf"	"joystick active modeshift"
