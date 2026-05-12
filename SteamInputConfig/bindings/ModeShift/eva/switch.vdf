@@ -2,6 +2,10 @@
 {
     "bindings"
     {
-        "#ref"			    "/groups/Eva/switches-dpad-modeshift.vdf"
+        {{#if (true leftTrackpad)}}
+            "binding"		"mode_shift left_trackpad %group_id:/groups/dpad/prev-next-vessel.vdf%"
+        {{else}}
+            "binding"		"mode_shift dpad %group_id:/groups/dpad/prev-next-vessel.vdf%"
+        {{/if}}
     }
 }
