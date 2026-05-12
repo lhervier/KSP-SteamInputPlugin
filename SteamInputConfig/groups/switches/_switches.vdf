@@ -8,4 +8,5 @@
     "#ref"      "flight.vdf"
     "#ref"      "mapdocking.vdf"
     "#ref"      "mapeva.vdf"
+    "#ref"      "mapflight.vdf"
 }

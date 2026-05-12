@@ -10,7 +10,6 @@
 
     "#ref"				"Menu/_menu.vdf"
     "#ref"				"TrackingStation/_tracking-station.vdf"
-    "#ref"				"MapFlight/_map-flight.vdf"
     "#ref"				"Iva/_iva.vdf"
     "#ref"				"MissionBuilder/_mission-builder.vdf"
 }

@@ -8,8 +8,10 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"				"/inputs/switches/backright/mapflight-modeshift.vdf"
-			"#ref"				"/inputs/switches/backleft/mod-key/input.vdf"
+			{{#if (true backButtons)}}
+				"#ref"				"/inputs/switches/backright/mapflight-modeshift.vdf"
+				"#ref"				"/inputs/switches/backleft/mod-key/input.vdf"
+			{{/if}}
 			"#ref"				"/inputs/switches/esc/menu-debug.vdf"
 			"#ref"				"/inputs/switches/menu/map-keyboard.vdf"
 			"#ref"				"/inputs/switches/leftbumper/roll-left.vdf"
