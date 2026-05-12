@@ -2,4 +2,5 @@
 {
     "#ref"      "docking.vdf"
     "#ref"      "editor.vdf"
+    "#ref"      "eva.vdf"
 }

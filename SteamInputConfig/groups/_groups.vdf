@@ -13,7 +13,6 @@
     "#ref"				"Flight/_flight.vdf"
     "#ref"				"MapFlight/_map-flight.vdf"
     "#ref"				"MapDocking/_map-docking.vdf"
-    "#ref"				"Eva/_eva.vdf"
     "#ref"				"MapEva/_map-eva.vdf"
     "#ref"				"EvaConstructionMode/_eva-construction-mode.vdf"
     "#ref"				"Iva/_iva.vdf"
