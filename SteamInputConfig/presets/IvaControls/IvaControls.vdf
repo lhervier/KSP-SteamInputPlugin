@@ -7,7 +7,7 @@
 		"group_source_bindings"
 		{
 			"/groups/four_buttons/iva/back-next-unbuckle.vdf"		"button_diamond active"
-			"/groups/Iva/buttons_modeshift.vdf"						"button_diamond active modeshift"
+			"/groups/four_buttons/iva/target-timewarp.vdf"			"button_diamond active modeshift"
 			"/groups/Iva/dpad_modeshift.vdf"						"left_trackpad active modeshift"
 			"/groups/Iva/switches.vdf"								"switch active"
 

@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		    "mode_shift button_diamond %group_id:/groups/Iva/buttons_modeshift.vdf%"
+        "binding"		    "mode_shift button_diamond %group_id:/groups/four_buttons/iva/target-timewarp.vdf%"
     }
 }
