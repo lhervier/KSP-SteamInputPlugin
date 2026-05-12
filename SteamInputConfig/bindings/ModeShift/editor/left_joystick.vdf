@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		    "mode_shift joystick %group_id:/groups/Editor/left_joystick_modeshift.vdf%"
+        "binding"		    "mode_shift joystick %group_id:/groups/left_joystick/editor/sym-frame.vdf%"
     }
 }
