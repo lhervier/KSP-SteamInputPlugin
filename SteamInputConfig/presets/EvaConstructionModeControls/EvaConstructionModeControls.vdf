@@ -10,8 +10,8 @@
 			"/groups/four_buttons/eva/lights-embark-timewarp.vdf"		"button_diamond active modeshift"
 			"/groups/dpad/eva-move.vdf"									"joystick active"
 			"/groups/dpad/prev-next-vessel.vdf"							"joystick active modeshift"
-			"/groups/EvaConstructionMode/left_trigger.vdf"				"left_trigger active"
-			"/groups/EvaConstructionMode/right_trigger.vdf"				"right_trigger active"
+			"/groups/trigger/eva/down.vdf"								"left_trigger active"
+			"/groups/trigger/eva/up.vdf"								"right_trigger active"
 			"/groups/EvaConstructionMode/switches.vdf"					"switch active"
 
 			{{#if (true rightTrackpad)}}
