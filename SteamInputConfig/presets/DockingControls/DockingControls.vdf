@@ -14,7 +14,7 @@
 			"/groups/trigger/forward.vdf"											"right_trigger active"
 			"/groups/four_buttons/docking-flight/timewarp-precision-target.vdf"		"button_diamond active modeshift"
 			
-			"/groups/Docking/switch.vdf"											"switch active"
+			"/groups/switches/docking.vdf"											"switch active"
 
 			{{#if (true rightTrackpad)}}
 				"/groups/absolute_mouse/mouse.vdf"									"right_trackpad active"
