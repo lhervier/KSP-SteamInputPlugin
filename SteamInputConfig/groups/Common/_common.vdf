@@ -3,6 +3,5 @@
     "#ref"				"right_joystick-mouse-slow.vdf"
     "#ref"				"right_joystick-camera-move.vdf"
     
-    "#ref"				"left_trigger-edge-right-click.vdf"
     "#ref"				"right_trigger-edge-left-click.vdf"
 }
