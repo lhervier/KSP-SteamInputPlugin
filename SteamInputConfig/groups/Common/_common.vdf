@@ -5,6 +5,4 @@
     
     "#ref"				"left_trigger-edge-right-click.vdf"
     "#ref"				"right_trigger-edge-left-click.vdf"
-
-    "#ref"				"Flight/right_trigger-throttle.vdf"
 }
