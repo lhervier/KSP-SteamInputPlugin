@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"	    	"mode_shift joystick %group_id:/groups/Common/left_joystick-actiongroups.vdf%"
+        "binding"	    	"mode_shift joystick %group_id:/groups/left_joystick/actiongroups.vdf%"
     }
 }

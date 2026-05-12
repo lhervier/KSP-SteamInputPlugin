@@ -6,7 +6,7 @@
 		"name"		"MapFlightControls"
 		"group_source_bindings"
 		{
-			"/groups/Common/left_joystick-actiongroups.vdf"				"joystick active modeshift"
+			"/groups/left_joystick/actiongroups.vdf"					"joystick active modeshift"
 	
 			"/groups/four_buttons/flight/staging-brakes-rcs-sas.vdf"	"button_diamond active"
 			"/groups/left_joystick/yaw-pitch.vdf"						"joystick active"
