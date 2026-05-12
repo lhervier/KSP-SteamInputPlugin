@@ -5,4 +5,5 @@
     "#ref"      "docking-modeshift.vdf"
     "#ref"      "editor-modeshift.vdf"
     "#ref"      "eva-modeshift.vdf"
+    "#ref"      "eva-construction-mode-modeshift.vdf"
 }
