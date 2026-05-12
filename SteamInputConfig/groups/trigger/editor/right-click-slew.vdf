@@ -8,16 +8,7 @@
 		"description"		""
 		"inputs"
 		{
-			"click"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Game/Editor/camera-slew.vdf"
-					}
-				}
-			}
+			"#ref"				"/inputs/triggers/click/camera-slew.vdf"
 			"#ref"				"/inputs/triggers/edge/right-click.vdf"
 		}
 		"settings"
