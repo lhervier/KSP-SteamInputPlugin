@@ -8,46 +8,10 @@
 		"description"		""
 		"inputs"
 		{
-			"button_a"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Game/Editor/reset-part-rotation.vdf"
-					}
-				}
-			}
-			"button_b"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Game/Editor/delete-part.vdf"
-					}
-				}
-			}
-			"button_x"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Game/Editor/symmetry-cycle.vdf"
-					}
-				}
-			}
-			"button_y"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Game/Editor/snap-toggle.vdf"
-					}
-				}
-			}
+			"#ref"			"/inputs/four_buttons/a/editor/reset-part-rotation.vdf"
+			"#ref"			"/inputs/four_buttons/b/editor/delete-part.vdf"
+			"#ref"			"/inputs/four_buttons/x/editor/symmetry-cycle.vdf"
+			"#ref"			"/inputs/four_buttons/y/editor/snap-toggle.vdf"
 		}
 	}
 }

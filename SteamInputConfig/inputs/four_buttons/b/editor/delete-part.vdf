@@ -1,0 +1,13 @@
+"ref"
+{
+    "button_b"
+    {
+        "activators"
+        {
+            "Full_Press"
+            {
+                "#ref"				"/bindings/Game/Editor/delete-part.vdf"
+            }
+        }
+    }
+}

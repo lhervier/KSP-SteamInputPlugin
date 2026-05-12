@@ -1,0 +1,13 @@
+"ref"
+{
+    "button_y"
+    {
+        "activators"
+        {
+            "Full_Press"
+            {
+                "#ref"				"/bindings/Game/Editor/snap-toggle.vdf"
+            }
+        }
+    }
+}
