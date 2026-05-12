@@ -7,7 +7,7 @@
 		"group_source_bindings"
 		{
 			"/groups/four_buttons/freeiva/jump-seat-crouch-eva.vdf"	"button_diamond active"
-			"/groups/four_buttons/freeiva/timewarp.vdf"				"button_diamond active modeshift"
+			"/groups/four_buttons/timewarp.vdf"						"button_diamond active modeshift"
 			"/groups/FreeIva/left_joystick.vdf"						"joystick active"
 			"/groups/FreeIva/left_trigger.vdf"						"left_trigger active"
 			"/groups/FreeIva/right_trigger.vdf"						"right_trigger active"

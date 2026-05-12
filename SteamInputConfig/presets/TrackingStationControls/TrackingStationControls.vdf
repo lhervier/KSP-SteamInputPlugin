@@ -9,7 +9,7 @@
 			"/groups/Common/left_trigger-edge-right-click.vdf"		"left_trigger active"
 			"/groups/Common/right_trigger-edge-left-click.vdf"		"right_trigger active"
 			
-			"/groups/four_buttons/tracking-station/timewarp.vdf"	"button_diamond active"
+			"/groups/four_buttons/timewarp.vdf"						"button_diamond active"
 			"/groups/TrackingStation/left_joystick.vdf"				"joystick active"
 			"/groups/TrackingStation/switches.vdf"					"switch active"
 
