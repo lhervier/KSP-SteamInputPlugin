@@ -9,7 +9,7 @@
 			"/groups/left_joystick/actiongroups.vdf"					"joystick active modeshift"
 	
 			"/groups/four_buttons/docking/tr_rot-brakes-rcs-sas.vdf"	"button_diamond active"
-			"/groups/Docking/joystick.vdf"								"joystick active"
+			"/groups/left_joystick/translate.vdf"						"joystick active"
 			"/groups/Docking/left_trigger.vdf"							"left_trigger active"
 			"/groups/Docking/right_trigger.vdf"							"right_trigger active"
 			
