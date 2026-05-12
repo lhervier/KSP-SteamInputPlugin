@@ -10,7 +10,7 @@
         {{/if}}
         "Full_Press"
         {
-            "#ref"		    		"/bindings/Presets/MissionBuilder/LEFT_SHIFT.vdf"
+            "#ref"		    		"/bindings/Game/MissionBuilder/LEFT_SHIFT.vdf"
         }
     }
 }
