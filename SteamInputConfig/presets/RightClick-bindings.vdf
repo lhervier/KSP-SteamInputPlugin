@@ -1,8 +1,8 @@
 "ref"
 {
     {{#if (true rightTrackpad)}}
-        "/groups/Common/right_joystick-camera-move.vdf"		"right_trackpad active"
+        "/groups/dpad/camera.vdf"		                    "right_trackpad active"
     {{else}}
-        "/groups/Common/right_joystick-camera-move.vdf"		"right_joystick active"
+        "/groups/dpad/camera.vdf"		                    "right_joystick active"
     {{/if}}
 }
