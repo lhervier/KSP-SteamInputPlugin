@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #BACKSPACE, #Flight_emergencyCancel, , "
+        "binding"		"key_press #BACKSPACE, #Vessel_System_emergencyCancel, , "
     }
 }

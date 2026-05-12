@@ -36,31 +36,21 @@
 	
 	
 	
-	"Flight_brakes"				"Freins"
-	"Flight_RCS"				"Activer/Désactiver RCS"
-	"Flight_SAS"				"Activer/Désactiver SAS"
-	"Flight_precisionControls"	"Activer/Désactiver les contrôles précis"
-
 	
 	
 	
 	
-	"Flight_throttleCutoff"		"Couper de la poussée"
-	"Flight_fullThrottle"		"Poussée maximale"
+	
 	
 	"Flight_leaveMap"			"Quitter la carte"
 
 	
-	"Flight_landingGears"		"Trains d'atterrissage"
-	"Flight_emergencyCancel"	"Annulation d'urgence"
-
-	"Flight_prevActionGroup"	"Ensemble d'actions précédent"
-	"Flight_nextActionGroup"	"Ensemble d'actions suivant"
-
+	
+	
 	"Flight_turnLeft"			"Tourner à gauche"
 	"Flight_turnRight"			"Tourner à droite"
 	"Flight_backward"			"Reculer"
 	"Flight_forward"			"Avancer"
 
-	"Flight_lights"				"Eclairage"
+	
 }

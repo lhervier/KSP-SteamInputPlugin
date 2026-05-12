@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #F7, #Flight_nextActionGroup, , "
+        "binding"		"key_press #F7, #Vessel_System_nextActionGroup, , "
     }
 }

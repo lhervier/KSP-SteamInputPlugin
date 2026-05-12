@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #F6, #Flight_prevActionGroup, , "
+        "binding"		"key_press #F6, #Vessel_System_prevActionGroup, , "
     }
 }

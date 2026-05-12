@@ -2,7 +2,7 @@
 {
     "bindings"
     {
-        "binding"		"key_press #Z, #Flight_fullThrottle, , "
+        "binding"		"key_press #Z, #Vessel_System_fullThrottle, , "
     }
     {{#if (true haptic)}}
         "settings"

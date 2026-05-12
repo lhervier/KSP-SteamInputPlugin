@@ -1,16 +1,16 @@
 "ref"
 {
     {{! Action }}
-    "Vessel_Action_customAction1"		"Custom Action 1"
-	"Vessel_Action_customAction2"		"Custom Action 2"
-	"Vessel_Action_customAction3"		"Custom Action 3"
-	"Vessel_Action_customAction4"		"Custom Action 4"
-	"Vessel_Action_customAction5"		"Custom Action 5"
-	"Vessel_Action_customAction6"		"Custom Action 6"
-	"Vessel_Action_customAction7"		"Custom Action 7"
-	"Vessel_Action_customAction8"		"Custom Action 8"
-	"Vessel_Action_customAction9"		"Custom Action 9"
-	"Vessel_Action_customAction10"		"Custom Action 10"
+    "Vessel_Action_customAction1"		    "Custom Action 1"
+	"Vessel_Action_customAction2"		    "Custom Action 2"
+	"Vessel_Action_customAction3"		    "Custom Action 3"
+	"Vessel_Action_customAction4"		    "Custom Action 4"
+	"Vessel_Action_customAction5"		    "Custom Action 5"
+	"Vessel_Action_customAction6"		    "Custom Action 6"
+	"Vessel_Action_customAction7"		    "Custom Action 7"
+	"Vessel_Action_customAction8"		    "Custom Action 8"
+	"Vessel_Action_customAction9"		    "Custom Action 9"
+	"Vessel_Action_customAction10"		    "Custom Action 10"
 
     {{! Axis Actions }}
     "Vessel_AxisAction_incCustomAxis1"		"Increase Custom Axis 1"
@@ -22,5 +22,17 @@
 	"Vessel_AxisAction_incCustomAxis4"		"Increase Custom Axis 4"
 	"Vessel_AxisAction_decCustomAxis4"		"Decrease Custom Axis 4"
 
+	{{! System }}
+    "Vessel_System_brakes"				    "Brakes"
+	"Vessel_System_emergencyCancel"	        "Emergency Cancellation"
+    "Vessel_System_fullThrottle"		    "Full Throttle"
+	"Vessel_System_landingGears"		    "Landing Gears"
+	"Vessel_System_lights"				    "Lights"
+    "Vessel_System_nextActionGroup"	        "Next Action Group"
+    "Vessel_System_precisionControls"	    "Precision Controls"
+    "Vessel_System_prevActionGroup"	        "Previous Action Group"
+	"Vessel_System_RCS"				        "RCS Toggle"
+	"Vessel_System_SAS"				        "SAS Toggle"
+	"Vessel_System_throttleCutoff"		    "Throttle Cutoff"
 	
 }

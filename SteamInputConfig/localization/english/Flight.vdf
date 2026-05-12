@@ -36,29 +36,19 @@
 
 	
 	
-	"Flight_brakes"				"Brakes"
-	"Flight_RCS"				"RCS Toggle"
-	"Flight_SAS"				"SAS Toggle"
-	"Flight_precisionControls"	"Precision Controls"
-
 	
 	
-	"Flight_throttleCutoff"		"Throttle Cutoff"
-	"Flight_fullThrottle"		"Full Throttle"
+	
 	
 	"Flight_leaveMap"			"Leave Map"
 
 	
-	"Flight_landingGears"		"Landing Gears"
-	"Flight_emergencyCancel"	"Emergency Cancellation"
-
-	"Flight_prevActionGroup"	"Previous Action Group"
-	"Flight_nextActionGroup"	"Next Action Group"
-
+	
+	
 	"Flight_turnLeft"			"Turn Left"
 	"Flight_turnRight"			"Turn Right"
 	"Flight_backward"			"Backward"
 	"Flight_forward"			"Forward"
 
-	"Flight_lights"				"Lights"
+	
 }

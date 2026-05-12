@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #G, #Flight_landingGears, , "
+        "binding"		"key_press #G, #Vessel_System_landingGears, , "
     }
 }

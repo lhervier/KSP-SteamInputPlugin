@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #U, #Flight_lights, , "
+        "binding"		"key_press #U, #Vessel_System_lights, , "
     }
 }
