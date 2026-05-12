@@ -9,4 +9,5 @@
     "#ref"          "translate.vdf"
     "#ref"          "yaw-pitch.vdf"
     "#ref"          "eva-move.vdf"
+    "#ref"          "freeiva-move.vdf"
 }
