@@ -9,36 +9,9 @@
 		"inputs"
 		{
 			"#ref"					"/inputs/dpad/east/editor/yaw-part-right.vdf"
-			"dpad_north"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Game/Editor/pitch-part-down.vdf"
-					}
-				}
-			}
-			"dpad_south"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Game/Editor/pitch-part-up.vdf"
-					}
-				}
-			}
-			"dpad_west"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Game/Editor/yaw-part-left.vdf"
-					}
-				}
-			}
+			"#ref"					"/inputs/dpad/north/editor/pitch-part-down.vdf"
+			"#ref"					"/inputs/dpad/south/editor/pitch-part-up.vdf"
+			"#ref"					"/inputs/dpad/west/editor/yaw-part-left.vdf"
 		}
 	}
 }
