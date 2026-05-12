@@ -15,6 +15,5 @@
     "#ref"				"MapDocking/_map-docking.vdf"
     "#ref"				"MapEva/_map-eva.vdf"
     "#ref"				"Iva/_iva.vdf"
-    "#ref"				"FreeIva/_free-iva.vdf"
     "#ref"				"MissionBuilder/_mission-builder.vdf"
 }
