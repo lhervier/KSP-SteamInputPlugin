@@ -9,4 +9,5 @@
     "#ref"      "flight-modeshift.vdf"
     "#ref"      "freeiva-modeshift.vdf"
     "#ref"      "iva-modeshift.vdf"
+    "#ref"      "mapdocking-modeshift.vdf"
 }
