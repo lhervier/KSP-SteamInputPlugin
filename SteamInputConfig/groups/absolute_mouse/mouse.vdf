@@ -6,7 +6,7 @@
         "mode"		"absolute_mouse"
         "settings"
 		{
-			"#ref"				"/inputs/mouse/_settings-normal.vdf"
+			"#ref"				"/settings/absolute_mouse/normal.vdf"
 		}
     }
 }
