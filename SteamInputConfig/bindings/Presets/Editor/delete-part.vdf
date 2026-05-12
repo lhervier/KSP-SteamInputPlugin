@@ -1,7 +1,0 @@
-"ref"
-{
-    "bindings"
-    {
-        "binding"		"key_press DELETE, #Editor_deletePart, , "
-    }
-}

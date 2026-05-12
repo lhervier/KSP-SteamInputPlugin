@@ -24,7 +24,7 @@
 				{
 					"Full_Press"
 					{
-						"#ref"				"/bindings/Presets/Editor/delete-part.vdf"
+						"#ref"				"/bindings/Game/Editor/delete-part.vdf"
 					}
 				}
 			}

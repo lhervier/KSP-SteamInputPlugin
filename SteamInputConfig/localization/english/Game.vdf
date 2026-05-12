@@ -13,7 +13,8 @@
     {{! Editor }}
     "Game_Editor_cameraSlew"				"Camera Slew"
     "Game_Editor_coordFrameToggle"			"Coord Frame Toggle"
-    "Game_Editor_offsetMode"				"Offset Mode"
+    "Game_Editor_deletePart"				"Delete Part"
+	"Game_Editor_offsetMode"				"Offset Mode"
     "Game_Editor_pitchPartDown"				"Pitch Part Down"
     "Game_Editor_pitchPartUp"				"Pitch Part Up"
     "Game_Editor_placementMode"				"Placement Mode"

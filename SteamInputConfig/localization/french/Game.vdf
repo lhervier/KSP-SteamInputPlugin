@@ -15,7 +15,8 @@
     {{! Editor }}
     "Game_Editor_cameraSlew"				"Déplacement de la caméra"
     "Game_Editor_coordFrameToggle"			"Référentiel absolu/local"
-    "Game_Editor_offsetMode"				"Mode déplacement"
+    "Game_Editor_deletePart"				"Supprimer la pièce"
+	"Game_Editor_offsetMode"				"Mode déplacement"
     "Game_Editor_pitchPartDown"				"Tangage de la pièce vers le bas"
     "Game_Editor_pitchPartUp"				"Tangage de la pièce vers le haut"
     "Game_Editor_placementMode"				"Mode placement"
