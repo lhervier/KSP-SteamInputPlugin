@@ -1,6 +1,6 @@
 "ref"
 {
-    {{#if (true leftTrackpad)}}
+    {{#if (true (or leftTrackpad rightTrackpad))}}
         "requires_click"		"0"
         "layout"		        "0"
     {{/if}}

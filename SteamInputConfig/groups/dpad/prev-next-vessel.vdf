@@ -13,7 +13,7 @@
 		}
 		"settings"
 		{
-			"#ref"				"/inputs/dpad/_settings.vdf"
+			"#ref"				"/settings/dpad/noclick.vdf"
 		}
 	}
 }
