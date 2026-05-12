@@ -11,4 +11,5 @@
     "#ref"          "mapdocking/_mapdocking.vdf"
     "#ref"          "mapeva/_mapeva.vdf"
     "#ref"          "mapflight/_mapflight.vdf"
+    "#ref"          "menu/_menu.vdf"
 }
