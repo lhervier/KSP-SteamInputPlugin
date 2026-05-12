@@ -1,0 +1,42 @@
+"ref"
+{
+    "FreeIva_backToSeat"				"Back to Seat"
+    "FreeIva_crouch"					"Crouch"
+    "FreeIva_goToEVA"					"Go to EVA"
+    "FreeIva_nextKerbal"				"Next Kerbal"
+    "FreeIva_unbuckle"					"Unbuckle"
+    
+    {{! Move }}
+    "FreeIva_backward"		            "Backward"
+    "FreeIva_down"						"Go Down"
+    "FreeIva_forward"		            "Forward"
+    "FreeIva_gotoLeft"		            "Go to Left"
+    "FreeIva_gotoRight"		            "Go to Right"
+    "FreeIva_up"						"Go Up"
+
+
+
+
+
+
+
+
+
+
+    "FreeIva_jump"			            "Jump"
+    "FreeIva_grab"			            "Grab"
+    "FreeIva_lights"		            "Toggle Lights"
+    "FreeIva_embark"		            "Embark"
+    "FreeIva_turnLeft"		            "Turn Left"
+    "FreeIva_turnRight"		            "Turn Right"
+    "FreeIva_up"			            "Up"
+    "FreeIva_down"			            "Down"
+    "FreeIva_run"			            "Run"
+    "FreeIva_toggleMovementMode"	    "Toggle Movement Mode"
+    "FreeIva_orientToView"		        "Orient to View"
+    "FreeIva_toggleHelmet"		        "Toggle Helmet"
+    "FreeIva_deployParachutes"	        "Deploy Parachutes"
+    "FreeIva_activateJetpack"	        "Activate Jetpack"
+    "FreeIva_activateConstructionMode"	"Activate Construction Mode"
+    "FreeIva_backToFlight"				"Back to Flight"   
+}

@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #2, #Editor_offsetTool, , "
+        "binding"		"key_press #2, #Game_Editor_offsetMode, , "
     }
 }

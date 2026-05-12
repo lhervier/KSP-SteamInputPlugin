@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #C, #Flight_cameraMode, , "
+        "binding"		"key_press #C, #Game_Camera_cameraView, , "
     }
 }

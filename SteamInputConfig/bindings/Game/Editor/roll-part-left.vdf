@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #Q, #Editor_rollPartLeft, , "
+        "binding"		"key_press #Q, #Game_Editor_rollPartLeft, , "
     }
 }

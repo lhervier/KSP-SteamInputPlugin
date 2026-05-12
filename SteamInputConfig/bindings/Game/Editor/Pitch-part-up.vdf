@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #S, #Editor_pitchPartUp, , "
+        "binding"		"key_press #S, #Game_Editor_pitchPartUp, , "
     }
 }

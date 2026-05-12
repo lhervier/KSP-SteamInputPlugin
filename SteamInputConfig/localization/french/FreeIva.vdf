@@ -1,0 +1,41 @@
+"ref"
+{
+    "FreeIva_backToSeat"				"Retour à la place"
+    "FreeIva_crouch"					"S'accroupir"
+    "FreeIva_goToEVA"					"Partir en EVA"
+    "FreeIva_nextKerbal"				"Kerbal suivant"
+    "FreeIva_unbuckle"					"Détacher"
+    
+    {{! Move }}
+    "FreeIva_backward"		            "Arrière"
+    "FreeIva_down"						"Descendre"
+    "FreeIva_forward"		            "Avant"
+    "FreeIva_gotoLeft"		            "Aller à gauche"
+    "FreeIva_gotoRight"		            "Aller à droite"
+    "FreeIva_up"						"Monter"
+
+
+
+
+
+
+
+
+
+    "FreeIva_jump"			            "Sauter"
+    "FreeIva_grab"			            "Prendre"
+    "FreeIva_lights"		            "Activer l'éclairage"
+    "FreeIva_embark"		            "Embarquer"
+    "FreeIva_turnLeft"		            "Tourner à gauche"
+    "FreeIva_turnRight"		            "Tourner à droite"
+    "FreeIva_up"			            "Haut"
+    "FreeIva_down"			            "Bas"
+    "FreeIva_run"			            "Courir"
+    "FreeIva_toggleMovementMode"	    "Basculer le mode de déplacement"
+    "FreeIva_orientToView"		        "Orienter pour voir"
+    "FreeIva_toggleHelmet"		        "Activer casque"
+    "FreeIva_deployParachutes"	        "Déployer parachutes"
+    "FreeIva_activateJetpack"	        "Activer jetpack"
+    "FreeIva_activateConstructionMode"	"Activer mode construction"
+    "FreeIva_backToFlight"				"Retour à la navigation"    
+}

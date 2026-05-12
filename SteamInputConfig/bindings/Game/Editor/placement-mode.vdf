@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #1, #Editor_placementMode, , "
+        "binding"		"key_press #1, #Game_Editor_placementMode, , "
     }
 }

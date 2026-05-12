@@ -1,43 +1,57 @@
 "ref"
 {
-	"Common_right"			"Right"
-	"Common_left"			"Left"
-	"Common_up"				"Up"
-	"Common_down"			"Down"
-	
-	"Common_scrollDown"		"Scroll Down"
-	"Common_scrollUp"		"Scroll Up"
-	
-	"Common_rightClick"		"Right Click"
-	"Common_leftClick"		"Left Click"
-	"Common_middleClick"	"Middle Click"
-	
-	"Common_pause"			"Pause"
 	"Common_console"		"Debug Console"
 	"Common_modKey"			"Mod Key"
 	"Common_showKeyboard"	"Show Keyboard"
+	
+	{{! Arrows }}
+	"Common_down"			"Down"
+	"Common_left"			"Left"
+	"Common_right"			"Right"
+	"Common_up"				"Up"
+	
+	{{! Bodies }}
+	"Common_nextBody"		"Next Body"
+	"Common_prevBody"		"Previous Body"
+
+	{{! Mouse }}
+	"Common_leftClick"		"Left Click"
+	"Common_rightClick"		"Right Click"
+	"Common_middleClick"	"Middle Click"
+	"Common_scrollDown"		"Scroll Down"
+	"Common_scrollUp"		"Scroll Up"
+	"Common_mouseZoomIn"	"Zoom In"
+	"Common_mouseZoomOut"	"Zoom Out"
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	"Common_pause"			"Pause"
 	
 	"Common_timeWarpIncr"	"TimeWarp Increase"
 	"Common_timeWarpDecr"	"TimeWarp Decrease"
 	"Common_stopTimeWarp"	"Stop TimeWarp"
 	
-	"Common_cameraRight"	"Camera Right"
-	"Common_cameraLeft"		"Camera Left"
-	"Common_cameraUp"		"Camera Up"
-	"Common_cameraDown"		"Camera Down"
-
-	"Common_zoomIn"			"Zoom In"
-	"Common_zoomOut"		"Zoom Out"
 	
-	"Common_nextBody"		"Next Body"
-	"Common_prevBody"		"Previous Body"
-
 	"Common_screenshot"		"Screenshot"
 	"Common_quicksave"		"Quicksave"
 	"Common_quickload"		"Quickload"
-	"Common_reinitCamera"	"Reinit Camera"
-	"Common_mouseView"		"Mouse View"
-
+	
 	"Common_showUi"			"Show UI"
 	"Common_scrollIconsUp"	"Scroll Icons Up"
 	"Common_scrollIconsDown"	"Scroll Icons Down"

@@ -6,7 +6,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Common/Camera/ZoomOut.vdf"
+                "#ref"				"/bindings/Common/Mouse/ZoomOut.vdf"
                 "settings"
                 {
                     "#ref"				"../_settings-zoom.vdf"

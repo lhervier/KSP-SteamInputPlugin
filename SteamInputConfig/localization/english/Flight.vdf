@@ -1,19 +1,47 @@
 "ref"
 {
+	{{! Other }}
 	"Flight_staging"			"Staging"
+	"Flight_translateRotate"	"Translate/Rotate"
+	
+	{{! Rotate }}
+	"Flight_pitchDown"			"Pitch Down"
+	"Flight_pitchUp"			"Pitch Up"
+	"Flight_rollLeft"			"Roll Left"
+	"Flight_rollRight"			"Roll Right"
+	"Flight_yawLeft"			"Yaw Left"
+	"Flight_yawRight"			"Yaw Right"
+	
+	{{! Throttle }}
+	"Flight_throttleDown"		"Decr. Throttle"
+	"Flight_throttleUp"			"Incr. Throttle"
+
+	{{! Translate }}
+	"Flight_translateBackward"	"Translate Backward"
+	"Flight_translateDown"		"Translate Down"
+	"Flight_translateForward"	"Translate Forward"
+	"Flight_translateLeft"		"Translate Left"
+	"Flight_translateRight"		"Translate Right"
+	"Flight_translateUp"		"Translate Up"
+
+
+
+
+
+
+
+
+
+
+	
+	
 	"Flight_brakes"				"Brakes"
 	"Flight_RCS"				"RCS Toggle"
 	"Flight_SAS"				"SAS Toggle"
 	"Flight_targetDisplay"		"Toggle Target Display"
 	"Flight_precisionControls"	"Precision Controls"
 
-	"Flight_yawRight"			"Yaw Right"
-	"Flight_yawLeft"			"Yaw Left"
-	"Flight_pitchUp"			"Pitch Up"
-	"Flight_pitchDown"			"Pitch Down"
-	"Flight_rollLeft"			"Roll Left"
-	"Flight_rollRight"			"Roll Right"
-
+	
 	"Flight_prevVessel"			"Previous Vessel"
 	"Flight_nextVessel"			"Next Vessel"
 
@@ -28,14 +56,10 @@
 	"Flight_customAction9"		"Custom Action 9"
 	"Flight_customAction10"		"Custom Action 10"
 
-	"Flight_cameraView"			"Camera View"
-	"Flight_nextCamera"			"Next Camera"
-
+	
 	"Flight_throttleCutoff"		"Throttle Cutoff"
 	"Flight_fullThrottle"		"Full Throttle"
-	"Flight_throttleDown"		"Decr. Throttle"
-	"Flight_throttleUp"			"Incr. Throttle"
-
+	
 	"Flight_showMap"			"Show Map"
 	"Flight_leaveMap"			"Leave Map"
 

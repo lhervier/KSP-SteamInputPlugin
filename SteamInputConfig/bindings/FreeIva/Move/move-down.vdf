@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #LEFT_CONTROL, #IVA_down, , "
+        "binding"		"key_press #LEFT_CONTROL, #FreeIva_down, , "
     }
 }

@@ -1,30 +1,13 @@
 "ref"
 {
-	"Editor_resetPartRotation"			"Reset Part Rotation"
 	"Editor_deletePart"					"Delete Part"
-	"Editor_symmetryCycle"				"Symmetry Cycle"
-	"Editor_snapToggle"					"Snap Toggle"
-
-	"Editor_yawPartLeft"				"Yaw Part Left"
-	"Editor_yawPartRight"				"Yaw Part Right"
-	"Editor_pitchPartDown"				"Pitch Part Down"
-	"Editor_pitchPartUp"				"Pitch Part Up"
-	"Editor_rollPartLeft"				"Roll Part Left"
-	"Editor_rollPartRight"				"Roll Part Right"
 	
-	"Editor_rotateMode"					"Rotate Mode"
-	"Editor_offsetMode"					"Offset Mode"
-	"Editor_rootMode"					"Root Mode"
-	"Editor_placementMode"				"Placement Mode"
-
-	"Editor_cameraSlew"					"Camera Slew"
-
-	"Editor_coordFrameToggle"			"Coord Frame Toggle"
-	"Editor_symmetryModeToggle"			"Symmetry Mode Toggle"
-
+	
+	
+	
+	
 	"Editor_undo"						"Undo"
 	"Editor_redo"						"Redo"
 
-	"Editor_translateCameraUp"			"Translate Camera Up"
-	"Editor_translateCameraDown"		"Translate Camera Down"
+	
 }

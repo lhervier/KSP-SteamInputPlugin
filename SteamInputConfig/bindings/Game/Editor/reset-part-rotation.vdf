@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #SPACE, #Editor_resetPartRotation, , "
+        "binding"		"key_press #SPACE, #Game_Editor_resetPartRotation, , "
     }
 }

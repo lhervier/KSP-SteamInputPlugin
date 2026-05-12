@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #PAGE_UP, #Editor_translateCameraUp, , "
+        "binding"		"key_press #PAGE_UP, #Game_Editor_translateCameraUp, , "
     }
 }

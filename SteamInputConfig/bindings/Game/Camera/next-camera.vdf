@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #V, #Flight_nextCamera, , "
+        "binding"		"key_press #V, #Game_Camera_nextCamera, , "
     }
 }

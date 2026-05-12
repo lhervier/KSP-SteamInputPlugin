@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #PAGE_DOWN, #Editor_translateCameraDown, , "
+        "binding"		"key_press #PAGE_DOWN, #Game_Editor_translateCameraDown, , "
     }
 }

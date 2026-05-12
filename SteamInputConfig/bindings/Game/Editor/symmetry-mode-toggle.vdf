@@ -2,7 +2,7 @@
 {
     "bindings"
     {
-        "binding"		"key_press #R, #Editor_symmetryModeToggle, , "
+        "binding"		"key_press #R, #Game_Editor_symmetryModeToggle, , "
     }
     {{#if (true haptic)}}
         "settings"

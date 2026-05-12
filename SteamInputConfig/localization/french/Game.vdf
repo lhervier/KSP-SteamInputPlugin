@@ -1,0 +1,35 @@
+"ref"
+{
+    {{! Camera }}
+    "Game_Camera_cameraDown"		        "Caméra vers le bas"
+    "Game_Camera_cameraLeft"		        "Caméra vers la gauche"
+    "Game_Camera_cameraView"		        "Vue de la caméra"
+    "Game_Camera_cameraRight"	            "Caméra vers la droite"
+    "Game_Camera_cameraUp"		            "Caméra vers le haut"
+    "Game_Camera_mouseView"		            "Vue souris"
+    "Game_Camera_nextCamera"		        "Caméra suivante"
+    "Game_Camera_reinitCamera"	            "Réinitialiser la caméra"
+    "Game_Camera_zoomIn"	                "Zoom avant"
+    "Game_Camera_zoomOut"    	            "Zoom arrière"
+
+    {{! Editor }}
+    "Game_Editor_cameraSlew"				"Déplacement de la caméra"
+    "Game_Editor_coordFrameToggle"			"Référentiel absolu/local"
+    "Game_Editor_offsetMode"				"Mode déplacement"
+    "Game_Editor_pitchPartDown"				"Tangage de la pièce vers le bas"
+    "Game_Editor_pitchPartUp"				"Tangage de la pièce vers le haut"
+    "Game_Editor_placementMode"				"Mode placement"
+    "Game_Editor_resetPartRotation"			"Réinitialiser la rotation de la pièce"
+    "Game_Editor_rollPartLeft"				"Lacet de la pièce vers la gauche"
+    "Game_Editor_rollPartRight"				"Lacet de la pièce vers la droite"
+    "Game_Editor_rootMode"					"Mode racine"
+    "Game_Editor_rotateMode"				"Mode rotation"
+    "Game_Editor_snapToggle"				"Activer/Désactiver le mode d'attachement"
+    "Game_Editor_symmetryCycle"				"Cycle de symétrie"
+    "Game_Editor_symmetryModeToggle"		"Mode de symétrie"
+    "Game_Editor_translateCameraDown"		"Translation caméra bas"
+    "Game_Editor_translateCameraUp"			"Translation caméra haut"
+    "Game_Editor_yawPartLeft"				"Roulis de la pièce à gauche"
+    "Game_Editor_yawPartRight"				"Roulis de la pièce à droite"
+    
+}

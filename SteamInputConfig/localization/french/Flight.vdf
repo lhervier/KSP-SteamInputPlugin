@@ -1,19 +1,47 @@
 "ref"
 {
+	{{! Other }}
 	"Flight_staging"			"Larguer"
+	"Flight_translateRotate"	"Translater/Tourner"
+
+	{{! Rotate }}
+	"Flight_pitchDown"			"Tangage vers le bas"
+	"Flight_pitchUp"			"Tangage vers le haut"
+	"Flight_rollLeft"			"Lacet vers la gauche"
+	"Flight_rollRight"			"Lacet vers la droite"
+	"Flight_yawLeft"			"Roulis à gauche"
+	"Flight_yawRight"			"Roulis à droite"
+	
+	{{! Throttle }}
+	"Flight_throttleDown"		"Décr. poussée"
+	"Flight_throttleUp"			"Incr. poussée"
+
+	{{! Translate }}
+	"Flight_translateBackward"	"Translater vers l'arrière"
+	"Flight_translateDown"		"Translater vers le bas"
+	"Flight_translateForward"	"Translater vers l'avant"
+	"Flight_translateLeft"		"Translater vers la gauche"
+	"Flight_translateRight"		"Translater vers la droite"
+	"Flight_translateUp"		"Translater vers le haut"
+
+
+
+
+
+
+
+
+
+	
+	
+	
 	"Flight_brakes"				"Freins"
 	"Flight_RCS"				"Activer/Désactiver RCS"
 	"Flight_SAS"				"Activer/Désactiver SAS"
 	"Flight_targetDisplay"		"Afficher/Masquer la cible"
 	"Flight_precisionControls"	"Activer/Désactiver les contrôles précis"
 
-	"Flight_yawRight"			"Roulis à droite"
-	"Flight_yawLeft"			"Roulis à gauche"
-	"Flight_pitchUp"			"Tangage vers le haut"
-	"Flight_pitchDown"			"Tangage vers le bas"
-	"Flight_rollLeft"			"Lacet vers la gauche"
-	"Flight_rollRight"			"Lacet vers la droite"
-
+	
 	"Flight_prevVessel"			"Vaisseau précédent"
 	"Flight_nextVessel"			"Vaisseau suivant"
 
@@ -28,14 +56,10 @@
 	"Flight_customAction9"		"Action personnalisée 9"
 	"Flight_customAction10"		"Action personnalisée 10"
 
-	"Flight_cameraView"			"Vue de la caméra"
-	"Flight_nextCamera"			"Caméra suivante"
-
+	
 	"Flight_throttleCutoff"		"Couper de la poussée"
 	"Flight_fullThrottle"		"Poussée maximale"
-	"Flight_throttleDown"		"Décr. poussée"
-	"Flight_throttleUp"			"Incr. poussée"
-
+	
 	"Flight_showMap"			"Afficher la carte"
 	"Flight_leaveMap"			"Quitter la carte"
 

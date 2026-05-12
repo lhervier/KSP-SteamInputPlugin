@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #A, #Editor_yawPartLeft, , "
+        "binding"		"key_press #A, #Game_Editor_yawPartLeft, , "
     }
 }

@@ -1,7 +1,0 @@
-"ref"
-{
-    "bindings"
-    {
-        "binding"		"mouse_wheel SCROLL_UP, #Common_zoomIn, "
-    }
-}

@@ -3,14 +3,16 @@
     "french"
     {
         "#ref"				"french/Common.vdf"
-        "#ref"				"french/Docking.vdf"
         "#ref"				"french/Editor.vdf"
         "#ref"				"french/EVA.vdf"
         "#ref"				"french/Flight.vdf"
+        "#ref"				"english/FreeIva.vdf"
+        "#ref"				"english/Game.vdf"
         "#ref"				"french/IVA.vdf"
         "#ref"				"french/Map.vdf"
         "#ref"				"french/Menu.vdf"
         "#ref"				"french/Set.vdf"
+        "#ref"				"english/SettingsController.vdf"
         "#ref"				"french/Tracking.vdf"
         "#ref"              "french/Keyboard.vdf"
     }

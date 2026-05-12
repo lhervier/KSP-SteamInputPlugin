@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #S, #EVA_backward, , "
+        "binding"		"key_press #S, #FreeIva_backward, , "
     }
 }

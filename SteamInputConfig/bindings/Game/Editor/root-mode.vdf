@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #4, #Editor_rootMode, , "
+        "binding"		"key_press #4, #Game_Editor_rootMode, , "
     }
 }

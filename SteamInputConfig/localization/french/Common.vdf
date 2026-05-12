@@ -1,43 +1,52 @@
 "ref"
 {
-	"Common_right"			"Droite"
-	"Common_left"			"Gauche"
-	"Common_up"				"Haut"
-	"Common_down"			"Bas"
-	
-	"Common_scrollDown"		"Défiler vers le bas"
-	"Common_scrollUp"		"Défiler vers le haut"
-	
-	"Common_rightClick"		"Clic droit"
-	"Common_leftClick"		"Clic gauche"
-	"Common_middleClick"	"Clic molette"
-	
-	"Common_pause"			"Pause"
 	"Common_console"		"Console de débogage"
 	"Common_modKey"			"Touche Mod"
 	"Common_showKeyboard"	"Afficher le clavier"
+
+	{{! Arrows }}
+	"Common_down"			"Bas"
+	"Common_left"			"Gauche"
+	"Common_right"			"Droite"
+	"Common_up"				"Haut"
+	
+	{{! Bodies }}
+	"Common_nextBody"		"Corps Céleste suivant"
+	"Common_prevBody"		"Corps Céleste précédent"
+
+	{{! Mouse }}
+	"Common_leftClick"		"Clic gauche"
+	"Common_rightClick"		"Clic droit"
+	"Common_middleClick"	"Clic molette"
+	"Common_scrollDown"		"Défiler vers le bas"
+	"Common_scrollUp"		"Défiler vers le haut"
+	"Common_mouseZoomIn"	"Zoom avant"
+	"Common_mouseZoomOut"	"Zoom arrière"
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+	
+	"Common_pause"			"Pause"
 	
 	"Common_timeWarpIncr"	"Augmenter l'avance rapide"
 	"Common_timeWarpDecr"	"Réduire l'avance rapide"
 	"Common_stopTimeWarp"	"Arrêter l'avance rapide"
 	
-	"Common_cameraRight"	"Caméra vers la droite"
-	"Common_cameraLeft"		"Caméra vers la gauche"
-	"Common_cameraUp"		"Caméra vers le haut"
-	"Common_cameraDown"		"Caméra vers le bas"
-
-	"Common_zoomIn"			"Zoom avant"
-	"Common_zoomOut"		"Zoom arrière"
 	
-	"Common_nextBody"		"Corps Céleste suivant"
-	"Common_prevBody"		"Corps Céleste précédent"
-
 	"Common_screenshot"		"Capture d'écran"
 	"Common_quicksave"		"Sauvegarde rapide"
 	"Common_quickload"		"Chargement rapide"
-	"Common_reinitCamera"	"Réinitialiser la caméra"
-	"Common_mouseView"		"Vue souris"
-
+	
 	"Common_showUi"			"Afficher l'interface utilisateur"
 	"Common_scrollIconsUp"	"Défiler les icônes vers le haut"
 	"Common_scrollIconsDown"	"Défiler les icônes vers le bas"

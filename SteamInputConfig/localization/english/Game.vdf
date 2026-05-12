@@ -1,0 +1,33 @@
+"ref"
+{
+    {{! Camera }}
+    "Game_Camera_cameraDown"		        "Camera Down"
+    "Game_Camera_cameraLeft"		        "Camera Left"
+    "Game_Camera_cameraView"		        "Camera View"
+    "Game_Camera_cameraRight"	            "Camera Right"
+    "Game_Camera_cameraUp"		            "Camera Up"
+    "Game_Camera_mouseView"		            "Mouse View"
+    "Game_Camera_nextCamera"		        "Next Camera"
+    "Game_Camera_reinitCamera"	            "Reinit Camera"
+    
+    {{! Editor }}
+    "Game_Editor_cameraSlew"				"Camera Slew"
+    "Game_Editor_coordFrameToggle"			"Coord Frame Toggle"
+    "Game_Editor_offsetMode"				"Offset Mode"
+    "Game_Editor_pitchPartDown"				"Pitch Part Down"
+    "Game_Editor_pitchPartUp"				"Pitch Part Up"
+    "Game_Editor_placementMode"				"Placement Mode"
+    "Game_Editor_resetPartRotation"			"Reset Part Rotation"
+    "Game_Editor_rollPartLeft"				"Roll Part Left"
+    "Game_Editor_rollPartRight"				"Roll Part Right"
+    "Game_Editor_rootMode"					"Root Mode"
+    "Game_Editor_rotateMode"				"Rotate Mode"
+    "Game_Editor_snapToggle"				"Snap Toggle"
+    "Game_Editor_symmetryCycle"				"Symmetry Cycle"
+    "Game_Editor_symmetryModeToggle"		"Symmetry Mode Toggle"
+    "Game_Editor_translateCameraDown"		"Translate Camera Down"
+    "Game_Editor_translateCameraUp"			"Translate Camera Up"
+    "Game_Editor_yawPartLeft"				"Yaw Part Left"
+    "Game_Editor_yawPartRight"				"Yaw Part Right"
+    
+}

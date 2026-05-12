@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #C, #IVA_backToSeat, , "
+        "binding"		"key_press #C, #FreeIva_backToSeat, , "
     }
 }

@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #V, #IVA_nextKerbal, , "
+        "binding"		"key_press #V, #FreeIva_nextKerbal, , "
     }
 }

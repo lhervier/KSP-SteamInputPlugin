@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #KEYPAD_DASH, #Common_zoomOut, , "
+        "binding"		"key_press #KEYPAD_DASH, #Game_Camera_zoomOut, , "
     }
 }

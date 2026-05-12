@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #BACK_TICK, #Common_reinitCamera, , "
+        "binding"		"key_press #BACK_TICK, #Game_Camera_reinitCamera, , "
     }
 }

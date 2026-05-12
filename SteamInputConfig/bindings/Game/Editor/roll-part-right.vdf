@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #E, #Editor_rollPartRight, , "
+        "binding"		"key_press #E, #Game_Editor_rollPartRight, , "
     }
 }

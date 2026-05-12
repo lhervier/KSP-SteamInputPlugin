@@ -1,0 +1,7 @@
+"ref"
+{
+    "bindings"
+    {
+        "binding"		"mouse_wheel SCROLL_DOWN, #Common_mouseZoomOut, "
+    }
+}
