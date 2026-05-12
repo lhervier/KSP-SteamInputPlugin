@@ -6,4 +6,5 @@
     "#ref"          "editor/_editor.vdf"
     "#ref"          "eva/_eva.vdf"
     "#ref"          "eva-construction-mode/_eva-construction-mode.vdf"
+    "#ref"          "freeiva/_freeiva.vdf"
 }

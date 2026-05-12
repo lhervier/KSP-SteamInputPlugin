@@ -6,7 +6,7 @@
 		"name"		"FreeIvaControls"
 		"group_source_bindings"
 		{
-			"/groups/FreeIva/buttons.vdf"							"button_diamond active"
+			"/groups/four_buttons/freeiva/jump-seat-crouch-eva.vdf"	"button_diamond active"
 			"/groups/FreeIva/buttons_modeshift.vdf"					"button_diamond active modeshift"
 			"/groups/FreeIva/left_joystick.vdf"						"joystick active"
 			"/groups/FreeIva/left_trigger.vdf"						"left_trigger active"
