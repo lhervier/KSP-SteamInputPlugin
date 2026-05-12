@@ -11,7 +11,7 @@
 			"/groups/dpad/eva-move.vdf"								"joystick active"
 			"/groups/trigger/eva/down.vdf"							"left_trigger active"
 			"/groups/trigger/eva/up.vdf"							"right_trigger active"
-			"/groups/MapEva/switches.vdf"							"switch active"
+			"/groups/switches/mapeva.vdf"							"switch active"
 
 			{{#if (true rightTrackpad)}}
 				"/groups/absolute_mouse/mouse.vdf"					"right_trackpad active"
