@@ -11,7 +11,7 @@
 			"/groups/dpad/editor/rotate-part.vdf"										"joystick active"
 			"/groups/dpad/editor/sym-frame.vdf"											"joystick active modeshift"
 			"/groups/trigger/editor/right-click-slew.vdf"								"left_trigger active"
-			"/groups/Editor/right_trigger.vdf"											"right_trigger active"
+			"/groups/trigger/left-click.vdf"											"right_trigger active"
 			"/groups/Editor/switches.vdf"												"switch active"
 			
 			{{#if (true rightTrackpad)}}
