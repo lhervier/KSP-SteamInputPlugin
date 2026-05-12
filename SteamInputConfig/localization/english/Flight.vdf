@@ -1,20 +1,20 @@
 "ref"
 {
 	{{! Other }}
-	"Flight_staging"			"Staging"
-	"Flight_translateRotate"	"Translate/Rotate"
+	"Flight_Other_staging"			"Staging"
+	"Flight_Other_translateRotate"	"Translate/Rotate"
 	
 	{{! Rotate }}
-	"Flight_pitchDown"			"Pitch Down"
-	"Flight_pitchUp"			"Pitch Up"
-	"Flight_rollLeft"			"Roll Left"
-	"Flight_rollRight"			"Roll Right"
-	"Flight_yawLeft"			"Yaw Left"
-	"Flight_yawRight"			"Yaw Right"
+	"Flight_Rotate_pitchDown"			"Pitch Down"
+	"Flight_Rotate_pitchUp"			"Pitch Up"
+	"Flight_Rotate_rollLeft"			"Roll Left"
+	"Flight_Rotate_rollRight"			"Roll Right"
+	"Flight_Rotate_yawLeft"			"Yaw Left"
+	"Flight_Rotate_yawRight"			"Yaw Right"
 	
 	{{! Throttle }}
-	"Flight_throttleDown"		"Decr. Throttle"
-	"Flight_throttleUp"			"Incr. Throttle"
+	"Flight_Throttle_throttleDown"		"Decr. Throttle"
+	"Flight_Throttle_throttleUp"			"Incr. Throttle"
 
 	{{! Translate }}
 	"Flight_translateBackward"	"Translate Backward"

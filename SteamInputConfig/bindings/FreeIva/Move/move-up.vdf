@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #LEFT_SHIFT, #FreeIva_up, , "
+        "binding"		"key_press #LEFT_SHIFT, #FreeIva_Move_up, , "
     }
 }

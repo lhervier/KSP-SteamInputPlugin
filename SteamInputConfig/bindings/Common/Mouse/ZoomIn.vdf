@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"mouse_wheel SCROLL_UP, #Common_mouseZoomIn, "
+        "binding"		"mouse_wheel SCROLL_UP, #Common_Mouse_mouseZoomIn, "
     }
 }

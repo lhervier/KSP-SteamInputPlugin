@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #TAB, #Common_prevBody, , "
+        "binding"		"key_press #TAB, #Common_Bodies_prevBody, , "
     }
 }

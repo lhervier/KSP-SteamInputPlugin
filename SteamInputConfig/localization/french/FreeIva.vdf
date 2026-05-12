@@ -7,12 +7,12 @@
     "FreeIva_unbuckle"					"Détacher"
     
     {{! Move }}
-    "FreeIva_backward"		            "Arrière"
-    "FreeIva_down"						"Descendre"
-    "FreeIva_forward"		            "Avant"
-    "FreeIva_gotoLeft"		            "Aller à gauche"
-    "FreeIva_gotoRight"		            "Aller à droite"
-    "FreeIva_up"						"Monter"
+    "FreeIva_Move_backward"	            "Arrière"
+    "FreeIva_Move_down"					"Descendre"
+    "FreeIva_Move_forward"	            "Avant"
+    "FreeIva_Move_gotoLeft"	            "Aller à gauche"
+    "FreeIva_Move_gotoRight"            "Aller à droite"
+    "FreeIva_Move_up"					"Monter"
 
 
 

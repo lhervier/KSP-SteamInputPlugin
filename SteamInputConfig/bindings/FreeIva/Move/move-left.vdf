@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #Q, #FreeIva_gotoLeft, , "
+        "binding"		"key_press #Q, #FreeIva_Move_gotoLeft, , "
     }
 }

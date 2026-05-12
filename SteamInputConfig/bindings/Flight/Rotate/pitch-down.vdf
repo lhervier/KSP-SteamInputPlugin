@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #S, #Flight_pitchDown, , "
+        "binding"		"key_press #S, #Flight_Rotate_pitchDown, , "
     }
 }

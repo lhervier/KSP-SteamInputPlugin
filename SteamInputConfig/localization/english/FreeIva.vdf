@@ -7,12 +7,12 @@
     "FreeIva_unbuckle"					"Unbuckle"
     
     {{! Move }}
-    "FreeIva_backward"		            "Backward"
-    "FreeIva_down"						"Go Down"
-    "FreeIva_forward"		            "Forward"
-    "FreeIva_gotoLeft"		            "Go to Left"
-    "FreeIva_gotoRight"		            "Go to Right"
-    "FreeIva_up"						"Go Up"
+    "FreeIva_Move_backward"	            "Backward"
+    "FreeIva_Move_down"					"Go Down"
+    "FreeIva_Move_forward"	            "Forward"
+    "FreeIva_Move_gotoLeft"	            "Go to Left"
+    "FreeIva_Move_gotoRight"            "Go to Right"
+    "FreeIva_Move_up"					"Go Up"
 
 
 

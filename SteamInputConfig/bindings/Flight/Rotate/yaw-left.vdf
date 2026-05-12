@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #A, #Flight_yawLeft, , "
+        "binding"		"key_press #A, #Flight_Rotate_yawLeft, , "
     }
 }

@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #LEFT_ARROW, #Common_left, , "
+        "binding"		"key_press #LEFT_ARROW, #Common_Arrows_left, , "
     }
 }

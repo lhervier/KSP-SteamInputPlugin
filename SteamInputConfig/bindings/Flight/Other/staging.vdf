@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #SPACE, #Flight_staging, , "
+        "binding"		"key_press #SPACE, #Flight_Other_staging, , "
     }
 }

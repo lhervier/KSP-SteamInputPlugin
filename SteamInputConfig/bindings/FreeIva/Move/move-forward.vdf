@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #Z, #FreeIva_forward, , "
+        "binding"		"key_press #Z, #FreeIva_Move_forward, , "
     }
 }

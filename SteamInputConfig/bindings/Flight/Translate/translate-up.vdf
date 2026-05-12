@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #S, #Flight_translateUp, , "
+        "binding"		"key_press #S, #Flight_Translate_translateUp, , "
     }
 }

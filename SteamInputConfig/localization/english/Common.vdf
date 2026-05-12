@@ -5,23 +5,23 @@
 	"Common_showKeyboard"	"Show Keyboard"
 	
 	{{! Arrows }}
-	"Common_down"			"Down"
-	"Common_left"			"Left"
-	"Common_right"			"Right"
-	"Common_up"				"Up"
+	"Common_Arrows_down"			"Down"
+	"Common_Arrows_left"			"Left"
+	"Common_Arrows_right"			"Right"
+	"Common_Arrows_up"				"Up"
 	
 	{{! Bodies }}
-	"Common_nextBody"		"Next Body"
-	"Common_prevBody"		"Previous Body"
+	"Common_Bodies_nextBody"		"Next Body"
+	"Common_Bodies_prevBody"		"Previous Body"
 
 	{{! Mouse }}
-	"Common_leftClick"		"Left Click"
-	"Common_rightClick"		"Right Click"
-	"Common_middleClick"	"Middle Click"
-	"Common_scrollDown"		"Scroll Down"
-	"Common_scrollUp"		"Scroll Up"
-	"Common_mouseZoomIn"	"Zoom In"
-	"Common_mouseZoomOut"	"Zoom Out"
+	"Common_Mouse_leftClick"		"Left Click"
+	"Common_Mouse_rightClick"		"Right Click"
+	"Common_Mouse_middleClick"	"Middle Click"
+	"Common_Mouse_scrollDown"		"Scroll Down"
+	"Common_Mouse_scrollUp"		"Scroll Up"
+	"Common_Mouse_mouseZoomIn"	"Zoom In"
+	"Common_Mouse_mouseZoomOut"	"Zoom Out"
 	
 	
 

@@ -5,23 +5,23 @@
 	"Common_showKeyboard"	"Afficher le clavier"
 
 	{{! Arrows }}
-	"Common_down"			"Bas"
-	"Common_left"			"Gauche"
-	"Common_right"			"Droite"
-	"Common_up"				"Haut"
+	"Common_Arrows_down"			"Bas"
+	"Common_Arrows_left"			"Gauche"
+	"Common_Arrows_right"			"Droite"
+	"Common_Arrows_up"				"Haut"
 	
 	{{! Bodies }}
-	"Common_nextBody"		"Corps Céleste suivant"
-	"Common_prevBody"		"Corps Céleste précédent"
+	"Common_Bodies_nextBody"		"Corps Céleste suivant"
+	"Common_Bodies_prevBody"		"Corps Céleste précédent"
 
 	{{! Mouse }}
-	"Common_leftClick"		"Clic gauche"
-	"Common_rightClick"		"Clic droit"
-	"Common_middleClick"	"Clic molette"
-	"Common_scrollDown"		"Défiler vers le bas"
-	"Common_scrollUp"		"Défiler vers le haut"
-	"Common_mouseZoomIn"	"Zoom avant"
-	"Common_mouseZoomOut"	"Zoom arrière"
+	"Common_Mouse_leftClick"		"Clic gauche"
+	"Common_Mouse_rightClick"		"Clic droit"
+	"Common_Mouse_middleClick"	"Clic molette"
+	"Common_Mouse_scrollDown"		"Défiler vers le bas"
+	"Common_Mouse_scrollUp"		"Défiler vers le haut"
+	"Common_Mouse_mouseZoomIn"	"Zoom avant"
+	"Common_Mouse_mouseZoomOut"	"Zoom arrière"
 	
 	
 

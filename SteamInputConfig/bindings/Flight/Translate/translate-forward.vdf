@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #LEFT_SHIFT, #Flight_translateForward, , "
+        "binding"		"key_press #LEFT_SHIFT, #Flight_Translate_translateForward, , "
     }
 }

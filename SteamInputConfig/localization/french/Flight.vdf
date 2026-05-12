@@ -1,28 +1,28 @@
 "ref"
 {
 	{{! Other }}
-	"Flight_staging"			"Larguer"
-	"Flight_translateRotate"	"Translater/Tourner"
+	"Flight_Other_staging"			"Larguer"
+	"Flight_Other_translateRotate"	"Translater/Tourner"
 
 	{{! Rotate }}
-	"Flight_pitchDown"			"Tangage vers le bas"
-	"Flight_pitchUp"			"Tangage vers le haut"
-	"Flight_rollLeft"			"Lacet vers la gauche"
-	"Flight_rollRight"			"Lacet vers la droite"
-	"Flight_yawLeft"			"Roulis à gauche"
-	"Flight_yawRight"			"Roulis à droite"
+	"Flight_Rotate_pitchDown"			"Tangage vers le bas"
+	"Flight_Rotate_pitchUp"			"Tangage vers le haut"
+	"Flight_Rotate_rollLeft"			"Lacet vers la gauche"
+	"Flight_Rotate_rollRight"			"Lacet vers la droite"
+	"Flight_Rotate_yawLeft"			"Roulis à gauche"
+	"Flight_Rotate_yawRight"			"Roulis à droite"
 	
 	{{! Throttle }}
-	"Flight_throttleDown"		"Décr. poussée"
-	"Flight_throttleUp"			"Incr. poussée"
+	"Flight_Throttle_throttleDown"		"Décr. poussée"
+	"Flight_Throttle_throttleUp"			"Incr. poussée"
 
 	{{! Translate }}
-	"Flight_translateBackward"	"Translater vers l'arrière"
-	"Flight_translateDown"		"Translater vers le bas"
-	"Flight_translateForward"	"Translater vers l'avant"
-	"Flight_translateLeft"		"Translater vers la gauche"
-	"Flight_translateRight"		"Translater vers la droite"
-	"Flight_translateUp"		"Translater vers le haut"
+	"Flight_Translate_translateBackward"	"Translater vers l'arrière"
+	"Flight_Translate_translateDown"		"Translater vers le bas"
+	"Flight_Translate_translateForward"	"Translater vers l'avant"
+	"Flight_Translate_translateLeft"		"Translater vers la gauche"
+	"Flight_Translate_translateRight"		"Translater vers la droite"
+	"Flight_Translate_translateUp"		"Translater vers le haut"
 
 
 

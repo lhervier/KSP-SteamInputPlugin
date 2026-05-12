@@ -2,7 +2,7 @@
 {
     "bindings"
     {
-        "binding"		"mouse_button RIGHT, #Common_rightClick, "
+        "binding"		"mouse_button RIGHT, #Common_Mouse_rightClick, "
     }
     {{#if (true haptic)}}
         "settings"

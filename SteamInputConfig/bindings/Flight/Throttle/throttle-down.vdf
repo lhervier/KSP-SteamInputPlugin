@@ -2,7 +2,7 @@
 {
     "bindings"
     {
-        "binding"		"key_press #LEFT_CONTROL, #Flight_throttleDown, , "
+        "binding"		"key_press #LEFT_CONTROL, #Flight_Throttle_throttleDown, , "
     }
     {{#if (true haptic)}}
         "settings"

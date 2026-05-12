@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"mouse_wheel SCROLL_UP, #Common_scrollUp, "
+        "binding"		"mouse_wheel SCROLL_UP, #Common_Mouse_scrollUp, "
     }
 }

@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #Q, #Flight_rollLeft, , "
+        "binding"		"key_press #Q, #Flight_Rotate_rollLeft, , "
     }
 }
