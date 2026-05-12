@@ -9,7 +9,7 @@
 			"/groups/four_buttons/iva/back-next-unbuckle.vdf"		"button_diamond active"
 			"/groups/four_buttons/iva/target-timewarp.vdf"			"button_diamond active modeshift"
 			"/groups/dpad/prev-next-vessel.vdf"						"left_trackpad active modeshift"
-			"/groups/Iva/switches.vdf"								"switch active"
+			"/groups/switches/iva.vdf"								"switch active"
 
 			{{#if (true rightTrackpad)}}
 				"/groups/absolute_mouse/mouse.vdf"					"right_trackpad active"
