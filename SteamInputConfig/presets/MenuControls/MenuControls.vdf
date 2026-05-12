@@ -10,6 +10,7 @@
 			"/groups/trigger/left-click.vdf"							"right_trigger active"
 			
 			"/groups/four_buttons/menu/accept-cancel.vdf"               "button_diamond active"
+			"/groups/four_buttons/timewarp.vdf"							"button_diamond active modeshift"
 			"/groups/dpad/arrows.vdf"				                    "joystick active"
 			"/groups/switches/menu.vdf"				                    "switch active"
 
