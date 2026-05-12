@@ -13,7 +13,7 @@
 			"/groups/Common/Flight/left_trigger-throttle.vdf"			"left_trigger active"
 			"/groups/Common/Flight/right_trigger-throttle.vdf"			"right_trigger active"
 			
-			"/groups/MapFlight/buttons_modeshift.vdf"					"button_diamond active modeshift"
+			"/groups/four_buttons/mapflight/precision-timewarp.vdf"		"button_diamond active modeshift"
 			"/groups/MapFlight/switches.vdf"							"switch active"
 
 			{{#if (true rightTrackpad)}}

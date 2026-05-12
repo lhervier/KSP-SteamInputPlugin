@@ -10,4 +10,5 @@
     "#ref"          "iva/_iva.vdf"
     "#ref"          "mapdocking/_mapdocking.vdf"
     "#ref"          "mapeva/_mapeva.vdf"
+    "#ref"          "mapflight/_mapflight.vdf"
 }
