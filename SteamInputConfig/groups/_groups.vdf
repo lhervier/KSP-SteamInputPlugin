@@ -7,6 +7,4 @@
     "#ref"              "joystick_mouse/_joystick_mouse.vdf"
     "#ref"              "absolute_mouse/_absolute_mouse.vdf"
     "#ref"              "switches/_switches.vdf"
-
-    "#ref"				"TrackingStation/_tracking-station.vdf"
 }

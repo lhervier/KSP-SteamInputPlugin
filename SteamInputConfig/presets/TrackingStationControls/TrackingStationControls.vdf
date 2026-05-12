@@ -11,7 +11,7 @@
 			
 			"/groups/four_buttons/timewarp.vdf"						"button_diamond active"
 			"/groups/dpad/camera.vdf"								"joystick active"
-			"/groups/TrackingStation/switches.vdf"					"switch active"
+			"/groups/switches/tracking-station.vdf"					"switch active"
 
 			{{#if (true rightTrackpad)}}
 				"/groups/absolute_mouse/mouse.vdf"					"right_trackpad active"

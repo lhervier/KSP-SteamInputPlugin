@@ -8,8 +8,10 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"				"/inputs/switches/backright/slow-mouse-modeshift.vdf"
-			"#ref"				"/inputs/switches/backleft/mod-key/input.vdf"
+			{{#if (true backButtons)}}
+				"#ref"				"/inputs/switches/backright/slow-mouse-modeshift.vdf"
+				"#ref"				"/inputs/switches/backleft/mod-key/input.vdf"
+			{{/if}}
 			"#ref"				"/inputs/switches/esc/menu-debug.vdf"
 			"#ref"				"/inputs/switches/menu/keyboard.vdf"
 			"#ref"				"/inputs/switches/leftbumper/prev-body.vdf"
