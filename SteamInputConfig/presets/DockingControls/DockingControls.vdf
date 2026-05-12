@@ -11,7 +11,7 @@
 			"/groups/four_buttons/docking/tr_rot-brakes-rcs-sas.vdf"				"button_diamond active"
 			"/groups/dpad/translate.vdf"											"joystick active"
 			"/groups/trigger/backward.vdf"											"left_trigger active"
-			"/groups/Docking/right_trigger.vdf"										"right_trigger active"
+			"/groups/trigger/forward.vdf"											"right_trigger active"
 			"/groups/four_buttons/docking-flight/timewarp-precision-target.vdf"		"button_diamond active modeshift"
 			
 			"/groups/Docking/switch.vdf"											"switch active"
