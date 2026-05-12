@@ -7,47 +7,11 @@
 		"name"		""
 		"description"		""
 		"inputs"
-		{
-			"dpad_east"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Game/MissionBuilder/D.vdf"
-					}
-				}
-			}
-			"dpad_north"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Game/MissionBuilder/W.vdf"
-					}
-				}
-			}
-			"dpad_south"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Game/MissionBuilder/S.vdf"
-					}
-				}
-			}
-			"dpad_west"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Game/MissionBuilder/A.vdf"
-					}
-				}
-			}
+		{	
+			"#ref"				"/inputs/dpad/east/mission-builder/D.vdf"
+			"#ref"				"/inputs/dpad/north/mission-builder/W.vdf"
+			"#ref"				"/inputs/dpad/south/mission-builder/S.vdf"
+			"#ref"				"/inputs/dpad/west/mission-builder/A.vdf"
 		}
 	}
 }
