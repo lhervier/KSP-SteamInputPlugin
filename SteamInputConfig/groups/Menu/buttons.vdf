@@ -14,7 +14,7 @@
 				{
 					"Full_Press"
 					{
-						"#ref"				"/bindings/Presets/Menu/accept.vdf"
+						"#ref"				"/bindings/Common/accept.vdf"
 					}
 				}
 			}
@@ -24,7 +24,7 @@
 				{
 					"Full_Press"
 					{
-						"#ref"				"/bindings/Presets/Menu/cancel.vdf"
+						"#ref"				"/bindings/Common/cancel.vdf"
 					}
 				}
 			}
