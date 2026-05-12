@@ -8,7 +8,7 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"				"/inputs/triggers/right-edge/eva-up.vdf"
+			"#ref"				"/inputs/triggers/edge/eva-up.vdf"
 		}
 		"settings"
 		{
