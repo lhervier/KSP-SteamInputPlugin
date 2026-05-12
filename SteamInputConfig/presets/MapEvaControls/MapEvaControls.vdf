@@ -7,7 +7,7 @@
 		"group_source_bindings"
 		{
 			"/groups/four_buttons/mapeva/rcs-sas.vdf"				"button_diamond active"
-			"/groups/MapEva/buttons_modeshift.vdf"					"button_diamond active modeshift"
+			"/groups/four_buttons/mapeva/timewarp.vdf"				"button_diamond active modeshift"
 			"/groups/MapEva/left_joystick.vdf"						"joystick active"
 			"/groups/MapEva/left_trigger.vdf"						"left_trigger active"
 			"/groups/MapEva/right_trigger.vdf"						"right_trigger active"
