@@ -14,11 +14,13 @@
 			"/groups/FreeIva/switches.vdf"							"switch active"
 
 			{{#if (true rightTrackpad)}}
-				"/groups/absolute_mouse/mouse.vdf"				"right_trackpad active"
+				"/groups/absolute_mouse/mouse.vdf"					"right_trackpad active"
 			{{else}}
-				"/groups/FreeIva/right_joystick.vdf"				"right_joystick active"
-				{{#if (true allowSlowMouse)}}
+				{{#if (true backButtons)}}
 					"/groups/joystick_mouse/slow-mouse.vdf"			"right_joystick active modeshift"
+					"/groups/joystick_mouse/mouse.vdf"				"right_joystick active"
+				{{else}}
+					"/groups/joystick_mouse/freeiva-modeshift.vdf"	"right_joystick active"
 				{{/if}}
 			{{/if}}
 			{{#if (true leftTrackpad)}}
