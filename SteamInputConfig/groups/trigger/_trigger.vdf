@@ -8,4 +8,5 @@
     "#ref"      "forward.vdf"
 
     "#ref"      "editor/_editor.vdf"
+    "#ref"      "eva/_eva.vdf"
 }
