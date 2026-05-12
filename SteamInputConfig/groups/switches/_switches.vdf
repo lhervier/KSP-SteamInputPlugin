@@ -3,4 +3,5 @@
     "#ref"      "docking.vdf"
     "#ref"      "editor.vdf"
     "#ref"      "eva.vdf"
+    "#ref"      "eva-construction-mode.vdf"
 }

@@ -12,7 +12,7 @@
 			"/groups/dpad/prev-next-vessel.vdf"							"joystick active modeshift"
 			"/groups/trigger/eva/down.vdf"								"left_trigger active"
 			"/groups/trigger/eva/up.vdf"								"right_trigger active"
-			"/groups/EvaConstructionMode/switches.vdf"					"switch active"
+			"/groups/switches/eva-construction-mode.vdf"				"switch active"
 
 			{{#if (true rightTrackpad)}}
 				"/groups/absolute_mouse/mouse.vdf"						"right_trackpad active"
