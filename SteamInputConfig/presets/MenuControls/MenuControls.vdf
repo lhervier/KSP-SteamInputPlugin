@@ -10,7 +10,7 @@
 			"/groups/Common/right_trigger-edge-left-click.vdf"			"right_trigger active"
 			
 			"/groups/four_buttons/menu/accept-cancel.vdf"               "button_diamond active"
-			"/groups/Menu/left_joystick.vdf"		                    "joystick active"
+			"/groups/dpad/arrows.vdf"				                    "joystick active"
 			"/groups/Menu/switches.vdf"				                    "switch"
 
 			{{#if (true rightTrackpad)}}
