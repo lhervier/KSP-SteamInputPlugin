@@ -43,18 +43,6 @@
 
 	
 	
-	"Flight_customAction1"		"Custom Action 1"
-	"Flight_customAction2"		"Custom Action 2"
-	"Flight_customAction3"		"Custom Action 3"
-	"Flight_customAction4"		"Custom Action 4"
-	"Flight_customAction5"		"Custom Action 5"
-	"Flight_customAction6"		"Custom Action 6"
-	"Flight_customAction7"		"Custom Action 7"
-	"Flight_customAction8"		"Custom Action 8"
-	"Flight_customAction9"		"Custom Action 9"
-	"Flight_customAction10"		"Custom Action 10"
-
-	
 	"Flight_throttleCutoff"		"Throttle Cutoff"
 	"Flight_fullThrottle"		"Full Throttle"
 	

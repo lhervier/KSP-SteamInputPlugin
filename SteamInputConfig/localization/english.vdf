@@ -12,6 +12,7 @@
         "#ref"				"english/Set.vdf"
         "#ref"				"english/SettingsController.vdf"
         "#ref"				"english/Tracking.vdf"
+        "#ref"				"english/Vessel.vdf"
         "#ref"              "english/Keyboard.vdf"
     }
 }

@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #8, #Flight_customAction8, , "
+        "binding"		"key_press #8, #Vessel_Action_customAction8, , "
     }
 }

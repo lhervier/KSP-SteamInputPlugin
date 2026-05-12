@@ -43,17 +43,7 @@
 
 	
 	
-	"Flight_customAction1"		"Action personnalisée 1"
-	"Flight_customAction2"		"Action personnalisée 2"
-	"Flight_customAction3"		"Action personnalisée 3"
-	"Flight_customAction4"		"Action personnalisée 4"
-	"Flight_customAction5"		"Action personnalisée 5"
-	"Flight_customAction6"		"Action personnalisée 6"
-	"Flight_customAction7"		"Action personnalisée 7"
-	"Flight_customAction8"		"Action personnalisée 8"
-	"Flight_customAction9"		"Action personnalisée 9"
-	"Flight_customAction10"		"Action personnalisée 10"
-
+	
 	
 	"Flight_throttleCutoff"		"Couper de la poussée"
 	"Flight_fullThrottle"		"Poussée maximale"
