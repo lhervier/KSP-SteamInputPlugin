@@ -8,26 +8,8 @@
 		"description"		""
 		"inputs"
 		{
-			"dpad_north"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Game/Editor/coord-frame-toggle.vdf"
-					}
-				}
-			}
-			"dpad_south"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Game/Editor/symmetry-mode-toggle.vdf"
-					}
-				}
-			}
+			"#ref"			"/inputs/dpad/north/editor/coord-frame-toggle.vdf"
+			"#ref"			"/inputs/dpad/south/editor/symmetry-mode-toggle.vdf"
 		}
 	}
 }
