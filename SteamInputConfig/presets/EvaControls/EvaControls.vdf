@@ -11,7 +11,7 @@
 			"/groups/dpad/eva-move.vdf"									"joystick active"
 			"/groups/dpad/prev-next-vessel.vdf"							"joystick active modeshift"
 			"/groups/trigger/eva/down.vdf"								"left_trigger active"
-			"/groups/Eva/right_trigger.vdf"								"right_trigger active"
+			"/groups/trigger/eva/up.vdf"								"right_trigger active"
 			"/groups/Eva/switches.vdf"									"switch active"
 
 			{{#if (true rightTrackpad)}}
