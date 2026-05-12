@@ -3,7 +3,8 @@
 	{{! Other }}
 	"Flight_Other_staging"			"Staging"
 	"Flight_Other_translateRotate"	"Translate/Rotate"
-	
+	"Flight_Other_translationMode"	"Translation Mode"
+
 	{{! Rotate }}
 	"Flight_Rotate_pitchDown"			"Pitch Down"
 	"Flight_Rotate_pitchUp"			"Pitch Up"
@@ -59,8 +60,7 @@
 	
 	"Flight_leaveMap"			"Leave Map"
 
-	"Flight_translationMode"	"Translation Mode"
-
+	
 	"Flight_landingGears"		"Landing Gears"
 	"Flight_emergencyCancel"	"Emergency Cancellation"
 

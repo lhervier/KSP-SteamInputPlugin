@@ -10,7 +10,7 @@
             }
             "Long_Press"
             {
-                "#ref"				"/bindings/Presets/Flight/translation-mode.vdf"
+                "#ref"				"/bindings/Flight/Other/translation-mode.vdf"
             }
         }
     }

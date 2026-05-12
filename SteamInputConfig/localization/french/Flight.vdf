@@ -3,6 +3,7 @@
 	{{! Other }}
 	"Flight_Other_staging"			"Larguer"
 	"Flight_Other_translateRotate"	"Translater/Tourner"
+	"Flight_Other_translationMode"	"Activer/Désactiver la translation"
 
 	{{! Rotate }}
 	"Flight_Rotate_pitchDown"			"Tangage vers le bas"
@@ -59,8 +60,7 @@
 	
 	"Flight_leaveMap"			"Quitter la carte"
 
-	"Flight_translationMode"	"Activer/Désactiver la translation"
-
+	
 	"Flight_landingGears"		"Trains d'atterrissage"
 	"Flight_emergencyCancel"	"Annulation d'urgence"
 
