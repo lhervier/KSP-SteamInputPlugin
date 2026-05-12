@@ -6,7 +6,7 @@
 		"name"		"EvaControls"
 		"group_source_bindings"
 		{
-			"/groups/Eva/buttons.vdf"									"button_diamond active"
+			"/groups/four_buttons/eva/jump-grab-rcs-sas.vdf"			"button_diamond active"
 			"/groups/Eva/buttons_modeshift.vdf"							"button_diamond active modeshift"
 			"/groups/Eva/left_joystick.vdf"								"joystick active"
 			"/groups/Eva/left_joystick_modeshift.vdf"					"joystick active modeshift"

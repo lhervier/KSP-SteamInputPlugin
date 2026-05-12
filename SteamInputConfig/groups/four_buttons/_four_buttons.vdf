@@ -4,4 +4,5 @@
     "#ref"          "flight/_flight.vdf"
     "#ref"          "docking/_docking.vdf"
     "#ref"          "editor/_editor.vdf"
+    "#ref"          "eva/_eva.vdf"
 }
