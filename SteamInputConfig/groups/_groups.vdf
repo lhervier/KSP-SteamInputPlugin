@@ -10,7 +10,6 @@
 
     "#ref"				"Menu/_menu.vdf"
     "#ref"				"TrackingStation/_tracking-station.vdf"
-    "#ref"				"Flight/_flight.vdf"
     "#ref"				"MapFlight/_map-flight.vdf"
     "#ref"				"MapDocking/_map-docking.vdf"
     "#ref"				"MapEva/_map-eva.vdf"
