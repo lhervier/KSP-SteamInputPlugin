@@ -7,7 +7,7 @@
 		"group_source_bindings"
 		{
 			"/groups/trigger/right-click.vdf"							"left_trigger active"
-			"/groups/Common/right_trigger-edge-left-click.vdf"			"right_trigger active"
+			"/groups/trigger/left-click.vdf"							"right_trigger active"
 			
 			"/groups/four_buttons/mission-builder/space-delete-x-c.vdf"	"button_diamond active"
 			"/groups/dpad/mission-builder/d-w-s-a.vdf"					"joystick active"

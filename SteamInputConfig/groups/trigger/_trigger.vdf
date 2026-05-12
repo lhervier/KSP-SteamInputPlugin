@@ -3,4 +3,5 @@
     "#ref"      "throttle-down.vdf"
     "#ref"      "throttle-up.vdf"
     "#ref"      "right-click.vdf"
+    "#ref"      "left-click.vdf"
 }
