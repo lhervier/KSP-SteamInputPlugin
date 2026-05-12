@@ -8,7 +8,6 @@
     "#ref"              "absolute_mouse/_absolute_mouse.vdf"
     "#ref"              "switches/_switches.vdf"
 
-    "#ref"				"Menu/_menu.vdf"
     "#ref"				"TrackingStation/_tracking-station.vdf"
     "#ref"				"Iva/_iva.vdf"
     "#ref"				"MissionBuilder/_mission-builder.vdf"
