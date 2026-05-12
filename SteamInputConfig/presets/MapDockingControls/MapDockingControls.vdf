@@ -13,7 +13,7 @@
 			"/groups/Docking/left_trigger.vdf"							"left_trigger active"
 			"/groups/Docking/right_trigger.vdf"							"right_trigger active"
 			
-			"/groups/MapDocking/buttons_modeshift.vdf"					"button_diamond active modeshift"
+			"/groups/four_buttons/mapdocking/precision-timewarp.vdf"	"button_diamond active modeshift"
 			"/groups/MapDocking/switches.vdf"							"switch active"
 
 			{{#if (true rightTrackpad)}}

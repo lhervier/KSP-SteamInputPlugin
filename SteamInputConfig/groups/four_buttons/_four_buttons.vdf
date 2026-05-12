@@ -8,4 +8,5 @@
     "#ref"          "eva-construction-mode/_eva-construction-mode.vdf"
     "#ref"          "freeiva/_freeiva.vdf"
     "#ref"          "iva/_iva.vdf"
+    "#ref"          "mapdocking/_mapdocking.vdf"
 }
