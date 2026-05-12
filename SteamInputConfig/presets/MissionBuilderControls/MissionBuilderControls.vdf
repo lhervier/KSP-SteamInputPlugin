@@ -22,9 +22,9 @@
 				{{/if}}
 			{{/if}}
 			{{#if (true leftTrackpad)}}
-				"/groups/Common/dpad-click-scroll.vdf"					"left_trackpad active"
+				"/groups/dpad/click-scroll.vdf"							"left_trackpad active"
 			{{else}}
-				"/groups/Common/dpad-click-scroll.vdf"					"dpad active"
+				"/groups/dpad/click-scroll.vdf"							"dpad active"
 			{{/if}}
 		}
 	}
