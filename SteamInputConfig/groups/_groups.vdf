@@ -3,6 +3,7 @@
     "#ref"              "four_buttons/_four_buttons.vdf"
     "#ref"              "dpad/_dpad.vdf"
     "#ref"              "hotbar/_hotbar.vdf"
+    "#ref"              "trigger/_trigger.vdf"
 
     "#ref"				"Common/_common.vdf"
     "#ref"				"Menu/_menu.vdf"
