@@ -7,4 +7,5 @@
     "#ref"          "vessel-camera.vdf"
     "#ref"          "prev-next-vessel.vdf"
     "#ref"          "translate.vdf"
+    "#ref"          "yaw-pitch.vdf"
 }
