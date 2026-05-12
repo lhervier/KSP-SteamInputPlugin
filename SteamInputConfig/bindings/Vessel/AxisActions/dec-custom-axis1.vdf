@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #PAGE_DOWN, #Flight_decCustomAxis1, , "
+        "binding"		"key_press #PAGE_DOWN, #Vessel_AxisAction_decCustomAxis1, , "
     }
 }

@@ -12,4 +12,15 @@
 	"Vessel_Action_customAction9"		"Custom Action 9"
 	"Vessel_Action_customAction10"		"Custom Action 10"
 
+    {{! Axis Actions }}
+    "Vessel_AxisAction_incCustomAxis1"		"Increase Custom Axis 1"
+	"Vessel_AxisAction_decCustomAxis1"		"Decrease Custom Axis 1"
+	"Vessel_AxisAction_incCustomAxis2"		"Increase Custom Axis 2"
+	"Vessel_AxisAction_decCustomAxis2"		"Decrease Custom Axis 2"
+	"Vessel_AxisAction_incCustomAxis3"		"Increase Custom Axis 3"
+	"Vessel_AxisAction_decCustomAxis3"		"Decrease Custom Axis 3"
+	"Vessel_AxisAction_incCustomAxis4"		"Increase Custom Axis 4"
+	"Vessel_AxisAction_decCustomAxis4"		"Decrease Custom Axis 4"
+
+	
 }

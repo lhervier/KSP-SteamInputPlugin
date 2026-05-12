@@ -12,4 +12,16 @@
 	"Vessel_Action_customAction9"		"Action personnalisée 9"
 	"Vessel_Action_customAction10"		"Action personnalisée 10"
 
+    {{! Axis Actions }}
+    "Vessel_AxisAction_customAction1"		"Action personnalisée 1"
+	"Vessel_AxisAction_customAction2"		"Action personnalisée 2"
+	"Vessel_AxisAction_customAction3"		"Action personnalisée 3"
+	"Vessel_AxisAction_customAction4"		"Action personnalisée 4"
+	"Vessel_AxisAction_customAction5"		"Action personnalisée 5"
+	"Vessel_AxisAction_customAction6"		"Action personnalisée 6"
+	"Vessel_AxisAction_customAction7"		"Action personnalisée 7"
+	"Vessel_AxisAction_customAction8"		"Action personnalisée 8"
+	"Vessel_AxisAction_customAction9"		"Action personnalisée 9"
+	"Vessel_AxisAction_customAction10"		"Action personnalisée 10"
+
 }
