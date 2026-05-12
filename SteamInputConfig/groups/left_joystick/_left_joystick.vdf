@@ -2,5 +2,4 @@
 {
     "#ref"          "yaw-pitch.vdf"
     "#ref"          "actiongroups.vdf"
-    "#ref"          "translate.vdf"
 }

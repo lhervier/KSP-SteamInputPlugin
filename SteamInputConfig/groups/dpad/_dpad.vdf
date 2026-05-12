@@ -6,4 +6,5 @@
     "#ref"          "click-zoom.vdf"
     "#ref"          "vessel-camera.vdf"
     "#ref"          "prev-next-vessel.vdf"
+    "#ref"          "translate.vdf"
 }
