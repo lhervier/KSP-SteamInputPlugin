@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #D, #EVA_turnRight, , "
+        "binding"		"key_press #D, #Kerbals_CharacterControls_turnRight, , "
     }
 }

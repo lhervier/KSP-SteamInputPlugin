@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #LEFT_ALT, #EVA_toggleMovementMode, , "
+        "binding"		"key_press #LEFT_ALT, #Kerbals_CharacterControls_toggleMovementMode, , "
     }
 }

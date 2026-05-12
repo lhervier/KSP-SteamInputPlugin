@@ -1,0 +1,32 @@
+"ref"
+{
+    {{! Character Controls }}
+    "Kerbals_CharacterControls_backward"		            "Arrière"
+    "Kerbals_CharacterControls_deployParachutes"	        "Déployer parachutes"
+    "Kerbals_CharacterControls_embark"		                "Embarquer"
+    "Kerbals_CharacterControls_forward"		                "Avant"
+    "Kerbals_CharacterControls_gotoLeft"		            "Aller à gauche"
+    "Kerbals_CharacterControls_gotoRight"		            "Aller à droite"
+    "Kerbals_CharacterControls_grab"			            "Prendre"
+    "Kerbals_CharacterControls_jump"			            "Sauter"
+    "Kerbals_CharacterControls_lights"		                "Activer l'éclairage"
+    "Kerbals_CharacterControls_orientToView"		        "Orienter pour voir"
+    "Kerbals_CharacterControls_run"			                "Courir"
+    "Kerbals_CharacterControls_toggleHelmet"		        "Activer casque"
+    "Kerbals_CharacterControls_toggleMovementMode"	        "Basculer le mode de déplacement"
+    "Kerbals_CharacterControls_turnLeft"		            "Tourner à gauche"
+    "Kerbals_CharacterControls_turnRight"		            "Tourner à droite"
+    
+    {{! Construction Mode }}
+    "Kerbals_ConstructionMode_activateConstructionMode"	    "Activer mode construction"
+
+    {{! Jetpack }}
+    "Kerbals_Jetpack_activateJetpack"	                    "Activer jetpack"
+    "Kerbals_Jetpack_backward"		                        "Arrière"
+    "Kerbals_Jetpack_down"			                        "Bas"
+    "Kerbals_Jetpack_forward"		                        "Avant"
+    "Kerbals_Jetpack_gotoLeft"		                        "Aller à gauche"
+    "Kerbals_Jetpack_gotoRight"		                        "Aller à droite"
+    "Kerbals_Jetpack_up"			                        "Haut"
+    
+}

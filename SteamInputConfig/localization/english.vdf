@@ -4,11 +4,11 @@
     {
         "#ref"				"english/Common.vdf"
         "#ref"				"english/Editor.vdf"
-        "#ref"				"english/EVA.vdf"
         "#ref"				"english/Flight.vdf"
         "#ref"				"english/FreeIva.vdf"
         "#ref"				"english/Game.vdf"
         "#ref"				"english/IVA.vdf"
+        "#ref"				"english/Kerbals.vdf"
         "#ref"				"english/Map.vdf"
         "#ref"				"english/Menu.vdf"
         "#ref"				"english/Set.vdf"

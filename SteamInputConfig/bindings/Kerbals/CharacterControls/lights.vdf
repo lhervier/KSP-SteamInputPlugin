@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #U, #EVA_lights, , "
+        "binding"		"key_press #U, #Kerbals_CharacterControls_lights, , "
     }
 }

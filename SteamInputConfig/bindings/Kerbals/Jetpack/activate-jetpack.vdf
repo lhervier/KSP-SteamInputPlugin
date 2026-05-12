@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #R, #EVA_activateJetpack, , "
+        "binding"		"key_press #R, #Kerbals_Jetpack_activateJetpack, , "
     }
 }

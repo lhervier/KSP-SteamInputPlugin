@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #D, #EVA_gotoRight, , "
+        "binding"		"key_press #D, #Kerbals_Jetpack_gotoRight, , "
     }
 }

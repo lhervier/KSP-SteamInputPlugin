@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #LEFT_SHIFT, #EVA_up, , "
+        "binding"		"key_press #LEFT_SHIFT, #Kerbals_Jetpack_up, , "
     }
 }

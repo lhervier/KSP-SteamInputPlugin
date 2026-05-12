@@ -1,0 +1,32 @@
+"ref"
+{
+    {{! Character Controls }}
+    "Kerbals_CharacterControls_backward"		            "Backward"
+    "Kerbals_CharacterControls_deployParachutes"	        "Deploy Parachutes"
+    "Kerbals_CharacterControls_embark"		                "Embark"
+    "Kerbals_CharacterControls_forward"		                "Forward"
+    "Kerbals_CharacterControls_gotoLeft"		            "Go to Left"
+    "Kerbals_CharacterControls_gotoRight"		            "Go to Right"
+    "Kerbals_CharacterControls_grab"			            "Grab"
+    "Kerbals_CharacterControls_jump"			            "Jump"
+    "Kerbals_CharacterControls_lights"		                "Toggle Lights"
+    "Kerbals_CharacterControls_orientToView"		        "Orient to View"
+    "Kerbals_CharacterControls_run"			                "Run"
+    "Kerbals_CharacterControls_toggleHelmet"		        "Toggle Helmet"
+    "Kerbals_CharacterControls_toggleMovementMode"	        "Toggle Movement Mode"
+    "Kerbals_CharacterControls_turnLeft"		            "Turn Left"
+    "Kerbals_CharacterControls_turnRight"		            "Turn Right"
+    
+    {{! Construction Mode }}
+    "Kerbals_ConstructionMode_activateConstructionMode"	    "Activate Construction Mode"
+
+    {{! Jetpack }}
+    "Kerbals_Jetpack_activateJetpack"	                    "Activate Jetpack"
+    "Kerbals_Jetpack_backward"		                        "Backward"
+    "Kerbals_Jetpack_down"			                        "Down"
+    "Kerbals_Jetpack_forward"		                        "Forward"
+    "Kerbals_Jetpack_gotoLeft"		                        "Go to Left"
+    "Kerbals_Jetpack_gotoRight"		                        "Go to Right"
+    "Kerbals_Jetpack_up"			                        "Up"
+    
+}

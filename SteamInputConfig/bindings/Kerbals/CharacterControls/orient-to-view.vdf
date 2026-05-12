@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #SPACE, #EVA_orientToView, , "
+        "binding"		"key_press #SPACE, #Kerbals_CharacterControls_orientToView, , "
     }
 }

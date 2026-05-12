@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #LEFT_CONTROL, #EVA_down, , "
+        "binding"		"key_press #LEFT_CONTROL, #Kerbals_Jetpack_down, , "
     }
 }

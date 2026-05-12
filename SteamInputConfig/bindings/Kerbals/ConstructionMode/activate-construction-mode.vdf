@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #I, #EVA_activateConstructionMode, , "
+        "binding"		"key_press #I, #Kerbals_ConstructionMode_activateConstructionMode, , "
     }
 }

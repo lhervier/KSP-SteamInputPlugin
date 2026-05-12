@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #P, #EVA_deployParachutes, , "
+        "binding"		"key_press #P, #Kerbals_CharacterControls_deployParachutes, , "
     }
 }
