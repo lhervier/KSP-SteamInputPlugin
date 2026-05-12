@@ -8,4 +8,5 @@
     "#ref"          "prev-next-vessel.vdf"
     "#ref"          "translate.vdf"
     "#ref"          "yaw-pitch.vdf"
+    "#ref"          "eva-move.vdf"
 }
