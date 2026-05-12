@@ -13,7 +13,7 @@
 		}
 		"settings"
 		{
-			"#ref"				"/inputs/triggers/_settings.vdf"
+			"#ref"				"/settings/triggers/edge.vdf"
 		}
 	}
 }
