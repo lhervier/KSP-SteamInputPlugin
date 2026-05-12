@@ -1,0 +1,12 @@
+"ref"
+{
+    "group"
+    {
+        "id"		"#fileName"
+        "mode"		"joystick_mouse"
+        "settings"
+		{
+			"#ref"				"/inputs/mouse/_settings-normal.vdf"
+		}
+    }
+}

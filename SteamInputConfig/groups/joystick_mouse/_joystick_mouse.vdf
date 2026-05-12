@@ -1,4 +1,6 @@
 "ref"
 {
     "#ref"      "slow-mouse.vdf"
+    "#ref"      "mouse.vdf"
+    "#ref"      "docking-modeshift.vdf"
 }
