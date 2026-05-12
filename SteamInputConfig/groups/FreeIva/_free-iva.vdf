@@ -1,6 +1,5 @@
 "ref"
 {
-    "#ref"				"buttons_modeshift.vdf"
     "#ref"				"left_joystick.vdf"
     "#ref"				"dpad_modeshift.vdf"
     "#ref"				"left_trigger.vdf"
