@@ -3,7 +3,7 @@
     "group"
     {
         "id"		"#fileName"
-        "#ref"		"/groups/Common/right_joystick-mouse-mode.vdf"
+        "mode"		"joystick_mouse"
         "inputs"
         {
             "#ref"				"/inputs/joystick_mouse/click/mapflight-modeshift.vdf"

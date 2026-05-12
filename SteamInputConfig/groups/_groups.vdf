@@ -4,8 +4,8 @@
     "#ref"              "dpad/_dpad.vdf"
     "#ref"              "hotbar/_hotbar.vdf"
     "#ref"              "trigger/_trigger.vdf"
+    "#ref"              "joystick_mouse/_joystick_mouse.vdf"
 
-    "#ref"				"Common/_common.vdf"
     "#ref"				"Menu/_menu.vdf"
     "#ref"				"TrackingStation/_tracking-station.vdf"
     "#ref"				"Editor/_editor.vdf"

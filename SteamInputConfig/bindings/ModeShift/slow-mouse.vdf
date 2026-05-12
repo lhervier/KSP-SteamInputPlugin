@@ -4,7 +4,7 @@
         {{#unless (true rightTrackpad)}}
             "bindings"
             {
-                "binding"		"mode_shift right_joystick %group_id:/groups/Common/right_joystick-mouse-slow.vdf%"
+                "binding"		"mode_shift right_joystick %group_id:/groups/joystick_mouse/slow-mouse.vdf%"
             }
         {{/unless}}
     {{/if}}

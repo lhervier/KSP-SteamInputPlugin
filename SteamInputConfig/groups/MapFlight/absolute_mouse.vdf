@@ -3,10 +3,10 @@
     "group"
     {
         "id"		"#fileName"
-        "mode"		"joystick_mouse"
+        "mode"		"absolute_mouse"
         "inputs"
         {
-            "#ref"				"/inputs/joystick_mouse/click/editor-modeshift.vdf"
+            "#ref"				"/inputs/joystick_mouse/click/mapflight-modeshift.vdf"
         }
         "settings"
 		{
