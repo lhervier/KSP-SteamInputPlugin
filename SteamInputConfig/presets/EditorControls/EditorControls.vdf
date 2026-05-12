@@ -12,7 +12,7 @@
 			"/groups/dpad/editor/sym-frame.vdf"											"joystick active modeshift"
 			"/groups/trigger/editor/right-click-slew.vdf"								"left_trigger active"
 			"/groups/trigger/left-click.vdf"											"right_trigger active"
-			"/groups/Editor/switches.vdf"												"switch active"
+			"/groups/switches/editor.vdf"												"switch active"
 			
 			{{#if (true rightTrackpad)}}
 				"/groups/absolute_mouse/mouse.vdf"										"right_trackpad active"
