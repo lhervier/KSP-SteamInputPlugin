@@ -3,7 +3,6 @@
     "english"
     {
         "#ref"				"english/Common.vdf"
-        "#ref"				"english/Editor.vdf"
         "#ref"				"english/Flight.vdf"
         "#ref"				"english/FreeIva.vdf"
         "#ref"				"english/Game.vdf"

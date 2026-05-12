@@ -20,6 +20,7 @@
     "Game_Editor_pitchPartDown"				"Tangage de la pièce vers le bas"
     "Game_Editor_pitchPartUp"				"Tangage de la pièce vers le haut"
     "Game_Editor_placementMode"				"Mode placement"
+	"Game_Editor_redo"						"Rétablir"
     "Game_Editor_resetPartRotation"			"Réinitialiser la rotation de la pièce"
     "Game_Editor_rollPartLeft"				"Lacet de la pièce vers la gauche"
     "Game_Editor_rollPartRight"				"Lacet de la pièce vers la droite"
@@ -30,6 +31,7 @@
     "Game_Editor_symmetryModeToggle"		"Mode de symétrie"
     "Game_Editor_translateCameraDown"		"Translation caméra bas"
     "Game_Editor_translateCameraUp"			"Translation caméra haut"
+    "Game_Editor_undo"						"Annuler"
     "Game_Editor_yawPartLeft"				"Roulis de la pièce à gauche"
     "Game_Editor_yawPartRight"				"Roulis de la pièce à droite"
     

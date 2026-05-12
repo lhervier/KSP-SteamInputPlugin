@@ -3,7 +3,6 @@
     "french"
     {
         "#ref"				"french/Common.vdf"
-        "#ref"				"french/Editor.vdf"
         "#ref"				"french/Flight.vdf"
         "#ref"				"english/FreeIva.vdf"
         "#ref"				"english/Game.vdf"

@@ -6,11 +6,11 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Presets/Editor/redo1.vdf"
+                "#ref"				"/bindings/Game/Editor/redo1.vdf"
             }
             "Full_Press"
             {
-                "#ref"				"/bindings/Presets/Editor/redo2.vdf"
+                "#ref"				"/bindings/Game/Editor/redo2.vdf"
             }
         }
     }

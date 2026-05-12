@@ -6,11 +6,11 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Presets/Editor/undo1.vdf"
+                "#ref"				"/bindings/Game/Editor/undo1.vdf"
             }
             "Full_Press"
             {
-                "#ref"				"/bindings/Presets/Editor/undo2.vdf"
+                "#ref"				"/bindings/Game/Editor/undo2.vdf"
             }
             "Long_Press"
             {
