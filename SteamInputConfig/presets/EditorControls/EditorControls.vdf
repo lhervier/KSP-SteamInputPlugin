@@ -13,15 +13,18 @@
 			"/groups/Editor/left_trigger.vdf"											"left_trigger active"
 			"/groups/Editor/right_trigger.vdf"											"right_trigger active"
 			"/groups/Editor/switches.vdf"												"switch active"
-
+			
 			{{#if (true rightTrackpad)}}
 				"/groups/absolute_mouse/mouse.vdf"										"right_trackpad active"
 			{{else}}
-				"/groups/Editor/right_joystick.vdf"										"right_joystick active"
-				{{#if (true allowSlowMouse)}}
+				{{#if (true backButtons)}}
 					"/groups/joystick_mouse/slow-mouse.vdf"								"right_joystick active modeshift"
+					"/groups/joystick_mouse/mouse.vdf"									"right_joystick active"
+				{{else}}
+					"/groups/joystick_mouse/editor-modeshift.vdf"						"right_joystick active"
 				{{/if}}
 			{{/if}}
+			
 			{{#if (true leftTrackpad)}}
 				"/groups/dpad/click-scroll.vdf"											"left_trackpad active"
 			{{else}}
