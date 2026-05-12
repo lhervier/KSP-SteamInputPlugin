@@ -1,0 +1,10 @@
+"ref"
+{
+    "activators"
+    {
+        "Full_Press"
+        {
+            "#ref"				"/bindings/Game/Editor/rotate-mode.vdf"
+        }
+    }
+}

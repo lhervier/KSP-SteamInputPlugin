@@ -8,46 +8,10 @@
 		"description"		""
 		"inputs"
 		{
-			"button_a"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Game/Editor/placement-mode.vdf"
-					}
-				}
-			}
-			"button_b"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Game/Editor/offset-mode.vdf"
-					}
-				}
-			}
-			"button_x"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Game/Editor/rotate-mode.vdf"
-					}
-				}
-			}
-			"button_y"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"#ref"				"/bindings/Game/Editor/root-mode.vdf"
-					}
-				}
-			}
+			"#ref"		"/inputs/four_buttons/a/editor/placement-mode.vdf"
+			"#ref"		"/inputs/four_buttons/b/editor/offset-mode.vdf"
+			"#ref"		"/inputs/four_buttons/x/editor/rotate-mode.vdf"
+			"#ref"		"/inputs/four_buttons/y/editor/root-mode.vdf"
 		}
 	}
 }
