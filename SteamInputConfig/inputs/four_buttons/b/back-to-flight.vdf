@@ -6,7 +6,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Presets/IVA/back-to-flight.vdf"
+                "#ref"				"/bindings/Kerbals/back-to-flight.vdf"
             }
         }
     }

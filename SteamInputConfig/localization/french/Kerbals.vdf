@@ -1,5 +1,7 @@
 "ref"
 {
+    "Kerbals_backToFlight"				                    "Retour à la navigation"
+    
     {{! Character Controls }}
     "Kerbals_CharacterControls_backward"		            "Arrière"
     "Kerbals_CharacterControls_deployParachutes"	        "Déployer parachutes"
