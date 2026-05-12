@@ -9,8 +9,8 @@
 			"/groups/four_buttons/freeiva/jump-seat-crouch-eva.vdf"	"button_diamond active"
 			"/groups/four_buttons/timewarp.vdf"						"button_diamond active modeshift"
 			"/groups/dpad/freeiva-move.vdf"							"joystick active"
-			"/groups/FreeIva/left_trigger.vdf"						"left_trigger active"
-			"/groups/FreeIva/right_trigger.vdf"						"right_trigger active"
+			"/groups/trigger/eva/down.vdf"							"left_trigger active"
+			"/groups/trigger/eva/up.vdf"							"right_trigger active"
 			"/groups/FreeIva/switches.vdf"							"switch active"
 
 			{{#if (true rightTrackpad)}}
