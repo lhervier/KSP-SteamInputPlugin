@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #F5, #Common_quicksave, , "
+        "binding"		"key_press #F5, #Game_General_quicksave, , "
     }
 }

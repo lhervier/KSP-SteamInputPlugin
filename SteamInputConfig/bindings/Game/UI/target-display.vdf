@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #F4, #Flight_targetDisplay, , "
+        "binding"		"key_press #F4, #Game_UI_targetDisplay, , "
     }
 }

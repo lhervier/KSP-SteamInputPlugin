@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #F2, #Common_showUi, , "
+        "binding"		"key_press #F2, #Game_UI_showUi, , "
     }
 }

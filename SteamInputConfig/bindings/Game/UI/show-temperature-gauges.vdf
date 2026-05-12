@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #F10, #Common_showTemperatureGauges, , "
+        "binding"		"key_press #F10, #Game_UI_showTemperatureGauges, , "
     }
 }

@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #F9, #Common_quickload, , "
+        "binding"		"key_press #F9, #Game_General_quickload, , "
     }
 }

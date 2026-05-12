@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #F11, #Common_showTemperature, , "
+        "binding"		"key_press #F11, #Game_UI_showTemperature, , "
     }
 }

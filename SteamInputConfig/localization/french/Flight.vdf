@@ -38,13 +38,10 @@
 	"Flight_brakes"				"Freins"
 	"Flight_RCS"				"Activer/Désactiver RCS"
 	"Flight_SAS"				"Activer/Désactiver SAS"
-	"Flight_targetDisplay"		"Afficher/Masquer la cible"
 	"Flight_precisionControls"	"Activer/Désactiver les contrôles précis"
 
 	
-	"Flight_prevVessel"			"Vaisseau précédent"
-	"Flight_nextVessel"			"Vaisseau suivant"
-
+	
 	"Flight_customAction1"		"Action personnalisée 1"
 	"Flight_customAction2"		"Action personnalisée 2"
 	"Flight_customAction3"		"Action personnalisée 3"
@@ -60,7 +57,6 @@
 	"Flight_throttleCutoff"		"Couper de la poussée"
 	"Flight_fullThrottle"		"Poussée maximale"
 	
-	"Flight_showMap"			"Afficher la carte"
 	"Flight_leaveMap"			"Quitter la carte"
 
 	"Flight_translationMode"	"Activer/Désactiver la translation"

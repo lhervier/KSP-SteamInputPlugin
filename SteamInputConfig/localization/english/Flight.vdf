@@ -38,13 +38,10 @@
 	"Flight_brakes"				"Brakes"
 	"Flight_RCS"				"RCS Toggle"
 	"Flight_SAS"				"SAS Toggle"
-	"Flight_targetDisplay"		"Toggle Target Display"
 	"Flight_precisionControls"	"Precision Controls"
 
 	
-	"Flight_prevVessel"			"Previous Vessel"
-	"Flight_nextVessel"			"Next Vessel"
-
+	
 	"Flight_customAction1"		"Custom Action 1"
 	"Flight_customAction2"		"Custom Action 2"
 	"Flight_customAction3"		"Custom Action 3"
@@ -60,7 +57,6 @@
 	"Flight_throttleCutoff"		"Throttle Cutoff"
 	"Flight_fullThrottle"		"Full Throttle"
 	
-	"Flight_showMap"			"Show Map"
 	"Flight_leaveMap"			"Leave Map"
 
 	"Flight_translationMode"	"Translation Mode"

@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #F3, #Common_showFlightlogs, , "
+        "binding"		"key_press #F3, #Game_UI_showFlightlogs, , "
     }
 }

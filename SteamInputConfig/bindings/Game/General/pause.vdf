@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press ESCAPE, #Common_pause, , "
+        "binding"		"key_press ESCAPE, #Game_General_pause, , "
     }
 }

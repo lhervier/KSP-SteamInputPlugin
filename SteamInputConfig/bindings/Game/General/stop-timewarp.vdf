@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #BACKSLASH, #Common_stopTimeWarp, , "
+        "binding"		"key_press #BACKSLASH, #Game_General_stopTimeWarp, , "
     }
 }

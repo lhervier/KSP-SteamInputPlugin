@@ -32,4 +32,27 @@
     "Game_Editor_yawPartLeft"				"Roulis de la pièce à gauche"
     "Game_Editor_yawPartRight"				"Roulis de la pièce à droite"
     
+    {{! General }}
+    "Game_General_timeWarpDecr"	            "Réduire l'avance rapide"
+    "Game_General_timeWarpIncr"	            "Augmenter l'avance rapide"
+    "Game_General_nextVessel"			    "Vaisseau suivant"
+    "Game_General_pause"			        "Pause"
+    "Game_General_prevVessel"			    "Vaisseau précédent"
+    "Game_General_quickload"		        "Chargement rapide"
+    "Game_General_quicksave"		        "Sauvegarde rapide"
+    "Game_General_screenshot"		        "Capture d'écran"
+    "Game_General_showMap"			        "Afficher la carte"
+    "Game_General_stopTimeWarp"	            "Arrêter l'avance rapide"
+    
+    {{! UI }}
+    "Game_UI_scrollIconsDown"	            "Défiler les icônes vers le bas"
+    "Game_UI_scrollIconsUp"	                "Défiler les icônes vers le haut"
+    "Game_UI_showAerodynamicForces"	        "Afficher les forces aérodynamiques"
+    "Game_UI_showFlightlogs"	            "Afficher les journaux de vol"
+    "Game_UI_showNavsphere"	                "Afficher la sphère de navigation"
+    "Game_UI_showTemperatureGauges"	        "Afficher les jauges de température"
+    "Game_UI_showTemperature"	            "Afficher la température"
+    "Game_UI_showUi"			            "Afficher l'interface utilisateur"
+    "Game_UI_targetDisplay"		            "Afficher/Masquer la cible"
+    
 }

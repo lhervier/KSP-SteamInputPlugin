@@ -36,23 +36,9 @@
 
 
 	
-	"Common_pause"			"Pause"
-	
-	"Common_timeWarpIncr"	"Augmenter l'avance rapide"
-	"Common_timeWarpDecr"	"Réduire l'avance rapide"
-	"Common_stopTimeWarp"	"Arrêter l'avance rapide"
 	
 	
-	"Common_screenshot"		"Capture d'écran"
-	"Common_quicksave"		"Sauvegarde rapide"
-	"Common_quickload"		"Chargement rapide"
 	
-	"Common_showUi"			"Afficher l'interface utilisateur"
-	"Common_scrollIconsUp"	"Défiler les icônes vers le haut"
-	"Common_scrollIconsDown"	"Défiler les icônes vers le bas"
-	"Common_showFlightlogs"	"Afficher les journaux de vol"
-	"Common_showAerodynamicForces"	"Afficher les forces aérodynamiques"
-	"Common_showTemperatureGauges"	"Afficher les jauges de température"
-	"Common_showTemperature"	"Afficher la température"
-	"Common_showNavsphere"	"Afficher la sphère de navigation"
+	
+	
 }

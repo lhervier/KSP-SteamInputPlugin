@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #KEYPAD_PERIOD, #Common_showNavsphere, , "
+        "binding"		"key_press #KEYPAD_PERIOD, #Game_UI_showNavsphere, , "
     }
 }

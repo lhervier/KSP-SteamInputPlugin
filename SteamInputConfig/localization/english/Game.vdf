@@ -30,4 +30,27 @@
     "Game_Editor_yawPartLeft"				"Yaw Part Left"
     "Game_Editor_yawPartRight"				"Yaw Part Right"
     
+    {{! General }}
+    "Game_General_timeWarpDecr"	            "TimeWarp Decrease"
+    "Game_General_timeWarpIncr"	            "TimeWarp Increase"
+    "Game_General_nextVessel"			    "Next Vessel"
+    "Game_General_pause"			        "Pause"
+    "Game_General_prevVessel"			    "Previous Vessel"
+    "Game_General_quickload"		        "Quickload"
+    "Game_General_quicksave"		        "Quicksave"
+    "Game_General_screenshot"		        "Screenshot"
+    "Game_General_showMap"			        "Show Map"
+    "Game_General_stopTimeWarp"	            "Stop TimeWarp"
+    
+    {{! UI }}
+    "Common_scrollIconsDown"	            "Scroll Icons Down"
+    "Common_scrollIconsUp"	                "Scroll Icons Up"
+    "Common_showAerodynamicForces"	        "Show Aerodynamic Forces"
+    "Common_showFlightlogs"	                "Show Flightlogs"
+    "Common_showNavsphere"	                "Show Navsphere"
+    "Common_showTemperatureGauges"	        "Show Temperature Gauges"
+    "Common_showTemperature"	            "Show Temperature"
+    "Common_showUi"			                "Show UI"
+    "Flight_targetDisplay"		            "Toggle Target Display"
+    
 }

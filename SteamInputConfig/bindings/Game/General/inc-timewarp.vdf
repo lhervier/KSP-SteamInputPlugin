@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #PERIOD, #Common_timeWarpIncr, , "
+        "binding"		"key_press #PERIOD, #Game_General_timeWarpIncr, , "
     }
 }

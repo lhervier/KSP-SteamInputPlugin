@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #END, #Common_scrollIconsDown, , "
+        "binding"		"key_press #END, #Game_UI_scrollIconsDown, , "
     }
 }
