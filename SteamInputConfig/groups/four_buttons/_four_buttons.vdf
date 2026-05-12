@@ -13,4 +13,5 @@
     "#ref"          "mapflight/_mapflight.vdf"
     "#ref"          "menu/_menu.vdf"
     "#ref"          "mission-builder/_mission-builder.vdf"
+    "#ref"          "tracking-station/_tracking-station.vdf"
 }
