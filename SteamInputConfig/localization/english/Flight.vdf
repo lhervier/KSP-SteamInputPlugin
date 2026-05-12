@@ -1,50 +1,27 @@
 "ref"
 {
 	{{! Other }}
-	"Flight_Other_staging"			"Staging"
-	"Flight_Other_translateRotate"	"Translate/Rotate"
-	"Flight_Other_translationMode"	"Translation Mode"
+	"Flight_Other_staging"					"Staging"
+	"Flight_Other_translateRotate"			"Translate/Rotate"
+	"Flight_Other_translationMode"			"Translation Mode"
 
 	{{! Rotate }}
-	"Flight_Rotate_pitchDown"			"Pitch Down"
-	"Flight_Rotate_pitchUp"			"Pitch Up"
-	"Flight_Rotate_rollLeft"			"Roll Left"
-	"Flight_Rotate_rollRight"			"Roll Right"
-	"Flight_Rotate_yawLeft"			"Yaw Left"
-	"Flight_Rotate_yawRight"			"Yaw Right"
+	"Flight_Rotate_pitchDown"				"Pitch Down"
+	"Flight_Rotate_pitchUp"					"Pitch Up"
+	"Flight_Rotate_rollLeft"				"Roll Left"
+	"Flight_Rotate_rollRight"				"Roll Right"
+	"Flight_Rotate_yawLeft"					"Yaw Left"
+	"Flight_Rotate_yawRight"				"Yaw Right"
 	
 	{{! Throttle }}
-	"Flight_Throttle_throttleDown"		"Decr. Throttle"
+	"Flight_Throttle_throttleDown"			"Decr. Throttle"
 	"Flight_Throttle_throttleUp"			"Incr. Throttle"
 
 	{{! Translate }}
-	"Flight_translateBackward"	"Translate Backward"
-	"Flight_translateDown"		"Translate Down"
-	"Flight_translateForward"	"Translate Forward"
-	"Flight_translateLeft"		"Translate Left"
-	"Flight_translateRight"		"Translate Right"
-	"Flight_translateUp"		"Translate Up"
-
-
-
-
-
-
-
-
-
-
-	
-	
-	
-	
-	
-	
-	"Flight_leaveMap"			"Leave Map"
-
-	
-	
-	
-	
-	
+	"Flight_Translate_translateBackward"	"Translate Backward"
+	"Flight_Translate_translateDown"		"Translate Down"
+	"Flight_Translate_translateForward"		"Translate Forward"
+	"Flight_Translate_translateLeft"		"Translate Left"
+	"Flight_Translate_translateRight"		"Translate Right"
+	"Flight_Translate_translateUp"			"Translate Up"
 }

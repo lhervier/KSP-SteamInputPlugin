@@ -1,51 +1,27 @@
 "ref"
 {
-	"Common_console"				"Debug Console"
-	"Common_modKey"					"Mod Key"
-	"Common_showKeyboard"			"Show Keyboard"
-	"Common_accept"					"Accept"
-	"Common_cancel"					"Cancel"
-	
-	{{! Arrows }}
-	"Common_Arrows_down"			"Down"
-	"Common_Arrows_left"			"Left"
-	"Common_Arrows_right"			"Right"
-	"Common_Arrows_up"				"Up"
-	
-	{{! Bodies }}
-	"Common_Bodies_nextBody"		"Next Body"
-	"Common_Bodies_prevBody"		"Previous Body"
+    "Common_console"				"Debug Console"
+    "Common_modKey"					"Mod Key"
+    "Common_showKeyboard"			"Show Keyboard"
+    "Common_accept"					"Accept"
+    "Common_cancel"					"Cancel"
+    
+    {{! Arrows }}
+    "Common_Arrows_down"			"Down"
+    "Common_Arrows_left"			"Left"
+    "Common_Arrows_right"			"Right"
+    "Common_Arrows_up"				"Up"
+    
+    {{! Bodies }}
+    "Common_Bodies_nextBody"		"Next Body"
+    "Common_Bodies_prevBody"		"Previous Body"
 
-	{{! Mouse }}
-	"Common_Mouse_leftClick"		"Left Click"
-	"Common_Mouse_rightClick"		"Right Click"
-	"Common_Mouse_middleClick"		"Middle Click"
-	"Common_Mouse_scrollDown"		"Scroll Down"
-	"Common_Mouse_scrollUp"			"Scroll Up"
-	"Common_Mouse_mouseZoomIn"		"Zoom In"
-	"Common_Mouse_mouseZoomOut"		"Zoom Out"
-	
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-	
-	
-	
-	
+    {{! Mouse }}
+    "Common_Mouse_leftClick"		"Left Click"
+    "Common_Mouse_rightClick"		"Right Click"
+    "Common_Mouse_middleClick"		"Middle Click"
+    "Common_Mouse_scrollDown"		"Scroll Down"
+    "Common_Mouse_scrollUp"			"Scroll Up"
+    "Common_Mouse_mouseZoomIn"		"Zoom In"
+    "Common_Mouse_mouseZoomOut"		"Zoom Out"
 }

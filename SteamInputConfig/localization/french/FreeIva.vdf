@@ -13,29 +13,4 @@
     "FreeIva_Move_gotoLeft"	            "Aller à gauche"
     "FreeIva_Move_gotoRight"            "Aller à droite"
     "FreeIva_Move_up"					"Monter"
-
-
-
-
-
-
-
-
-
-    "FreeIva_jump"			            "Sauter"
-    "FreeIva_grab"			            "Prendre"
-    "FreeIva_lights"		            "Activer l'éclairage"
-    "FreeIva_embark"		            "Embarquer"
-    "FreeIva_turnLeft"		            "Tourner à gauche"
-    "FreeIva_turnRight"		            "Tourner à droite"
-    "FreeIva_up"			            "Haut"
-    "FreeIva_down"			            "Bas"
-    "FreeIva_run"			            "Courir"
-    "FreeIva_toggleMovementMode"	    "Basculer le mode de déplacement"
-    "FreeIva_orientToView"		        "Orienter pour voir"
-    "FreeIva_toggleHelmet"		        "Activer casque"
-    "FreeIva_deployParachutes"	        "Déployer parachutes"
-    "FreeIva_activateJetpack"	        "Activer jetpack"
-    "FreeIva_activateConstructionMode"	"Activer mode construction"
-    "FreeIva_backToFlight"				"Retour à la navigation"    
 }

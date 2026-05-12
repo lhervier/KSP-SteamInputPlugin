@@ -6,12 +6,9 @@
         "#ref"				"english/Flight.vdf"
         "#ref"				"english/FreeIva.vdf"
         "#ref"				"english/Game.vdf"
-        "#ref"				"english/IVA.vdf"
         "#ref"				"english/Kerbals.vdf"
-        "#ref"				"english/Map.vdf"
         "#ref"				"english/Set.vdf"
         "#ref"				"english/SettingsController.vdf"
-        "#ref"				"english/Tracking.vdf"
         "#ref"				"english/Vessel.vdf"
         "#ref"              "english/Keyboard.vdf"
     }
