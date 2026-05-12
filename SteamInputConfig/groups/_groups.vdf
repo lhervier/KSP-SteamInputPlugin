@@ -2,6 +2,8 @@
 {
     "#ref"              "four_buttons/_four_buttons.vdf"
     "#ref"              "dpad/_dpad.vdf"
+    "#ref"              "left_joystick/_left_joystick.vdf"
+
     "#ref"				"Common/_common.vdf"
     "#ref"				"Menu/_menu.vdf"
     "#ref"				"TrackingStation/_tracking-station.vdf"

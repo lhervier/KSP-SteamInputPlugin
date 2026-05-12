@@ -9,7 +9,7 @@
 			"/groups/Common/left_joystick-actiongroups.vdf"				"joystick active modeshift"
 	
 			"/groups/four_buttons/flight/staging-brakes-rcs-sas.vdf"	"button_diamond active"
-			"/groups/Common/Flight/left_joystick-yaw-pitch.vdf"			"joystick active"
+			"/groups/left_joystick/yaw-pitch.vdf"						"joystick active"
 			"/groups/Common/Flight/left_trigger-throttle.vdf"			"left_trigger active"
 			"/groups/Common/Flight/right_trigger-throttle.vdf"			"right_trigger active"
 			

@@ -8,7 +8,6 @@
     "#ref"				"left_trigger-edge-right-click.vdf"
     "#ref"				"right_trigger-edge-left-click.vdf"
 
-    "#ref"				"Flight/left_joystick-yaw-pitch.vdf"
     "#ref"				"Flight/left_trigger-throttle.vdf"
     "#ref"				"Flight/right_trigger-throttle.vdf"
 }
