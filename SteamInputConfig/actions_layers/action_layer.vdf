@@ -1,0 +1,10 @@
+"ref"
+{
+    "{{preset}}RightClickControls"
+    {
+        "title"					"RightClick"
+        "legacy_set"			"1"
+        "set_layer"				"1"
+        "parent_set_name"		"{{preset}}Controls"
+    }
+}

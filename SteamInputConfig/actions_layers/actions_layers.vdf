@@ -1,0 +1,15 @@
+"ref"{
+    "#ref"				"action_layer.vdf?preset=Menu"
+    "#ref"				"action_layer.vdf?preset=TrackingStation"
+    "#ref"				"action_layer.vdf?preset=Editor"
+    "#ref"				"action_layer.vdf?preset=Flight"
+    "#ref"				"action_layer.vdf?preset=MapFlight"
+    "#ref"				"action_layer.vdf?preset=Docking"
+    "#ref"				"action_layer.vdf?preset=MapDocking"
+    "#ref"				"action_layer.vdf?preset=Eva"
+    "#ref"				"action_layer.vdf?preset=MapEva"
+    "#ref"				"action_layer.vdf?preset=EvaConstructionMode"
+    "#ref"				"action_layer.vdf?preset=Iva"
+    "#ref"				"action_layer.vdf?preset=FreeIva"
+    "#ref"				"action_layer.vdf?preset=MissionBuilder"
+}
