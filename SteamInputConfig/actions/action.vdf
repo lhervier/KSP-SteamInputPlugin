@@ -1,0 +1,8 @@
+"ref"
+{
+    "{{name}}Controls"
+    {
+        "title"		        "#Set_{{name}}"
+        "legacy_set"		"0"
+    }
+}

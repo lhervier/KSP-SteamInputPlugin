@@ -109,7 +109,7 @@
 	{
 	}
 
-	"#ref"				"actions/_actions.vdf"
+	"#ref"				"actions/actions.vdf"
 	"localization"
     {
 		"#ref"				"localization/_localization.vdf"

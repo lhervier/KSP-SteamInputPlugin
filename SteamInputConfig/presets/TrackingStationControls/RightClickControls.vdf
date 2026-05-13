@@ -9,10 +9,8 @@
 			{{! Left Joystick }}
 
 			{{! Right Joystick }}
-			{{#if (equals mouseZone "right_joystick")}}
-				"/groups/dpad/camera.vdf"		                    "right_joystick active"
-			{{/if}}
-
+			"#ref"													"../right-joystick.vdf?preset=tracking-station&dpad=camera"
+			
 			{{! Left Trackpad }}
 
 			{{! Right Trackpad }}

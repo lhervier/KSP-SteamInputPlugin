@@ -39,27 +39,27 @@
 		}
 		"EvaControls"
 		{
-			"title"		"#Set_EVA"
+			"title"		"#Set_Eva"
 			"legacy_set"		"0"
 		}
 		"MapEvaControls"
 		{
-			"title"		"#Set_MapEVA"
+			"title"		"#Set_MapEva"
 			"legacy_set"		"0"
 		}
 		"EvaConstructionModeControls"
 		{
-			"title"		"#Set_EVAConstructionMode"
+			"title"		"#Set_EvaConstructionMode"
 			"legacy_set"		"0"
 		}
 		"IvaControls"
 		{
-			"title"		"#Set_IVA"
+			"title"		"#Set_Iva"
 			"legacy_set"		"0"
 		}
 		"FreeIvaControls"
 		{
-			"title"		"#Set_FreeIVA"
+			"title"		"#Set_FreeIva"
 			"legacy_set"		"0"
 		}
 		"MissionBuilderControls"

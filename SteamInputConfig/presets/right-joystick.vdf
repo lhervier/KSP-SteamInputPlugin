@@ -1,0 +1,13 @@
+"ref"
+{
+    {{#if (equals mouseZone "right_joystick")}}
+        {{#if (true backButtons)}}
+            "/groups/joystick_mouse/slow-mouse.vdf"							"right_joystick active modeshift"
+            "/groups/joystick_mouse/mouse.vdf"								"right_joystick active"
+        {{else}}
+            "/groups/joystick_mouse/modeshift.vdf?preset={{preset}}"		"right_joystick active"
+        {{/if}}
+    {{else}}
+        "/groups/dpad/{{dpad}}.vdf"		                    				"right_joystick active"
+    {{/if}}
+}

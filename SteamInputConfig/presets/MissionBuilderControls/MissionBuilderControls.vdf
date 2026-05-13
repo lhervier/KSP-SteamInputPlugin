@@ -10,17 +10,8 @@
 			"/groups/dpad/mission-builder/d-w-s-a.vdf"					"joystick active"
 			
 			{{! Right Joystick }}
-			{{#if (equals mouseZone "right_joystick")}}
-				{{#if (true backButtons)}}
-					"/groups/joystick_mouse/slow-mouse.vdf"				"right_joystick active modeshift"
-					"/groups/joystick_mouse/mouse.vdf"					"right_joystick active"
-				{{else}}
-					"/groups/joystick_mouse/mission-builder-modeshift.vdf"			"right_joystick active"
-				{{/if}}
-			{{else}}
-				"/groups/dpad/camera.vdf"	                   			"right_joystick active"
-			{{/if}}
-
+			"#ref"														"../right-joystick.vdf?preset=mission-builder&dpad=arrows"
+			
 			{{! Left Trackpad }}
 			{{#if (equals dpadZone "left_trackpad")}}
 				"/groups/dpad/click-scroll.vdf"							"left_trackpad active"

@@ -11,17 +11,8 @@
 			"/groups/dpad/prev-next-vessel.vdf"							"joystick active modeshift"
 			
 			{{! Right Joystick }}
-			{{#if (equals mouseZone "right_joystick")}}
-				{{#if (true backButtons)}}
-					"/groups/joystick_mouse/slow-mouse.vdf"				"right_joystick active modeshift"
-					"/groups/joystick_mouse/mouse.vdf"					"right_joystick active"
-				{{else}}
-					"/groups/joystick_mouse/eva-modeshift.vdf"			"right_joystick active"
-				{{/if}}
-			{{else}}
-				"/groups/dpad/camera.vdf"		                    	"right_joystick active"
-			{{/if}}
-
+			"#ref"														"../right-joystick.vdf?preset=eva&dpad=camera"
+			
 			{{! Left Trackpad }}
 			{{#if (equals dpadZone "left_trackpad")}}
 				"/groups/dpad/click-zoom.vdf"							"left_trackpad active"

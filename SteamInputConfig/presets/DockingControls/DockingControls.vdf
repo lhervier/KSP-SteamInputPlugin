@@ -11,17 +11,8 @@
 			"/groups/hotbar/actiongroups.vdf"										"joystick active modeshift"
 
 			{{! Right Joystick }}
-			{{#if (equals mouseZone "right_joystick")}}
-				{{#if (true backButtons)}}
-					"/groups/joystick_mouse/slow-mouse.vdf"							"right_joystick active modeshift"
-					"/groups/joystick_mouse/mouse.vdf"								"right_joystick active"
-				{{else}}
-					"/groups/joystick_mouse/docking-modeshift.vdf"					"right_joystick active"
-				{{/if}}
-			{{else}}
-				"/groups/dpad/camera.vdf"		                    				"right_joystick active"
-			{{/if}}
-
+			"#ref"																	"../right-joystick.vdf?preset=docking&dpad=camera"
+			
 			{{! Left Trackpad }}
 			{{#if (equals dpadZone "left_trackpad")}}
 				"/groups/dpad/click-zoom.vdf"										"left_trackpad active"

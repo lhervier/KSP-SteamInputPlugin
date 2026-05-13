@@ -9,7 +9,7 @@
 		"inputs"
 		{
 			{{#if (true backButtons)}}
-				"#ref"				"/inputs/switches/backright/mapflight-modeshift.vdf"
+				"#ref"				"/inputs/switches/backright/modeshift.vdf?preset=mapflight"
 				"#ref"				"/inputs/switches/backleft/mod-key/input.vdf"
 			{{/if}}
 			"#ref"				"/inputs/switches/esc/menu-debug.vdf"

@@ -1,9 +1,0 @@
-"ref"
-{
-    {{#unless (true backButtons)}}
-        "click"
-        {
-            "#ref"          "/activators/modeshift-mapflight.vdf"
-        }
-    {{/unless}}
-}

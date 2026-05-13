@@ -6,7 +6,7 @@
         "mode"		"joystick_mouse"
         "inputs"
         {
-            "#ref"				"/inputs/joystick_mouse/click/mapflight-modeshift.vdf"
+            "#ref"				"/inputs/joystick_mouse/click/modeshift.vdf?preset={{preset}}"
         }
         "settings"
 		{

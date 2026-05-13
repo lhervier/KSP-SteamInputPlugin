@@ -1,0 +1,19 @@
+"ref"
+{
+    "actions"
+    {
+        "#ref"				"action.vdf?name=Menu"
+        "#ref"				"action.vdf?name=TrackingStation"
+        "#ref"				"action.vdf?name=Editor"
+        "#ref"				"action.vdf?name=Flight"
+        "#ref"				"action.vdf?name=MapFlight"
+        "#ref"				"action.vdf?name=Docking"
+        "#ref"				"action.vdf?name=MapDocking"
+        "#ref"				"action.vdf?name=Eva"
+        "#ref"				"action.vdf?name=MapEva"
+        "#ref"				"action.vdf?name=EvaConstructionMode"
+        "#ref"				"action.vdf?name=Iva"
+        "#ref"				"action.vdf?name=FreeIva"
+        "#ref"				"action.vdf?name=MissionBuilder"
+    }
+}
