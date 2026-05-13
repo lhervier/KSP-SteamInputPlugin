@@ -49,6 +49,12 @@ if errorlevel 1 (
     echo ERROR: Failed to copy Steam Controller config
     exit /b 1
 )
+echo - Steam Controller V2
+copy /y "Release\ksp_steaminput_steamcontroller_v2_%KSPLANG%.vdf" "%CONTROLLER_CONFIG_DIR%\controller_triton.vdf"
+if errorlevel 1 (
+    echo ERROR: Failed to copy Steam Controller V2 config
+    exit /b 1
+)
 echo - Hori Steam
 copy /y "Release\ksp_steaminput_hori_steam_%KSPLANG%.vdf" "%CONTROLLER_CONFIG_DIR%\controller_hori_steam.vdf"
 if errorlevel 1 (

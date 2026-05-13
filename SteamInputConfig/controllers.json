@@ -11,6 +11,17 @@
     }
   },
   {
+    "controllerName": "steamcontroller_v2",
+    "rootVdfPath": "ksp_steaminput_steamcontroller_v2.vdf",
+    "context": {
+      "haptic": true,
+      "backButtons": true,
+      "triggersClick": false,
+      "mouseZone": "right_trackpad",
+      "dpadZone": "dpad"
+    }
+  },
+  {
     "controllerName": "hori",
     "rootVdfPath": "ksp_steaminput_hori_steam.vdf",
     "context": {
