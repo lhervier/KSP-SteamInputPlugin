@@ -16,7 +16,7 @@
 			"/groups/four_buttons/mapflight/precision-timewarp.vdf"		"button_diamond active modeshift"
 			"/groups/switches/mapflight.vdf"							"switch active"
 
-			{{#if (true rightTrackpad)}}
+			{{#if (equals mouseZone "right_trackpad")}}
 				"/groups/absolute_mouse/mouse.vdf"						"right_trackpad active"
 			{{else}}
 				{{#if (true backButtons)}}
@@ -26,11 +26,7 @@
 					"/groups/joystick_mouse/mapflight-modeshift.vdf"	"right_joystick active"
 				{{/if}}
 			{{/if}}
-			{{#if (true leftTrackpad)}}
-				"/groups/dpad/click-zoom.vdf"							"left_trackpad active"
-			{{else}}
-				"/groups/dpad/click-zoom.vdf"							"dpad active"
-			{{/if}}
+			"/groups/dpad/click-zoom.vdf"								"{{dpadZone}} active"
 		}
 	}
 }

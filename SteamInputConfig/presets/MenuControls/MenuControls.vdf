@@ -14,7 +14,7 @@
 			"/groups/dpad/arrows.vdf"				                    "joystick active"
 			"/groups/switches/menu.vdf"				                    "switch active"
 
-			{{#if (true rightTrackpad)}}
+			{{#if (equals mouseZone "right_trackpad")}}
 				"/groups/absolute_mouse/mouse.vdf"						"right_trackpad active"
 			{{else}}
 				{{#if (true backButtons)}}
@@ -24,11 +24,7 @@
 					"/groups/joystick_mouse/menu-modeshift.vdf"			"right_joystick active"
 				{{/if}}
 			{{/if}}
-			{{#if (true leftTrackpad)}}
-				"/groups/dpad/click-scroll.vdf"			                "left_trackpad active"
-			{{else}}
-				"/groups/dpad/click-scroll.vdf"			                "dpad active"
-			{{/if}}
+			"/groups/dpad/click-scroll.vdf"			                	"{{dpadZone}} active"
 		}
 	}
 }

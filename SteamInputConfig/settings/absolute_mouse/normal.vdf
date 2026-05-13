@@ -1,6 +1,6 @@
 "ref"
 {
-    {{#if (true rightTrackpad)}}
+    {{#if (equals mouseZone "right_trackpad")}}
         "sensitivity"		        "173"
         "doubletap_beep"		    "1"
         "rotation_2"		        "8"

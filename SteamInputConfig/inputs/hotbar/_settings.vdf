@@ -8,7 +8,7 @@
     {{#if (true haptic)}}
         "haptic_intensity"		    "3"
     {{/if}}
-    {{#if (true leftTrackpad)}}
+    {{#if (equals dpadZone "left_trackpad")}}
         "requires_click"		    "0"
     {{/if}}
 }

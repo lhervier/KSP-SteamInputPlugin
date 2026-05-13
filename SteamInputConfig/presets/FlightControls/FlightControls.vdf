@@ -16,7 +16,7 @@
 			
 			"/groups/switches/flight.vdf"												"switch active"
 
-			{{#if (true rightTrackpad)}}
+			{{#if (equals mouseZone "right_trackpad")}}
 				"/groups/absolute_mouse/mouse.vdf"										"right_trackpad active"
 			{{else}}
 				{{#if (true backButtons)}}
@@ -26,13 +26,8 @@
 					"/groups/joystick_mouse/flight-modeshift.vdf"						"right_joystick active"
 				{{/if}}
 			{{/if}}
-			{{#if (true leftTrackpad)}}
-				"/groups/dpad/click-zoom.vdf"											"left_trackpad active"
-				"/groups/dpad/vessel-camera.vdf"										"left_trackpad active modeshift"
-			{{else}}
-				"/groups/dpad/click-zoom.vdf"											"dpad active"
-				"/groups/dpad/vessel-camera.vdf"										"dpad active modeshift"
-			{{/if}}
+			"/groups/dpad/click-zoom.vdf"												"{{dpadZone}} active"
+			"/groups/dpad/vessel-camera.vdf"											"{{dpadZone}} active modeshift"
 		}
 	}
 }

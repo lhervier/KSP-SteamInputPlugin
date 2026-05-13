@@ -1,11 +1,9 @@
 "ref"
 {
     {{#if (true allowSlowMouse)}}
-        {{#unless (true rightTrackpad)}}
-            "bindings"
-            {
-                "binding"		"mode_shift right_joystick %group_id:/groups/joystick_mouse/slow-mouse.vdf%"
-            }
-        {{/unless}}
+        "bindings"
+        {
+            "binding"		"mode_shift {{mouseZone}} %group_id:/groups/joystick_mouse/slow-mouse.vdf%"
+        }
     {{/if}}
 }

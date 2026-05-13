@@ -4,11 +4,11 @@
     "rootVdfPath": "ksp_steaminput_steamcontroller.vdf",
     "context": {
       "haptic": true,
-      "rightTrackpad": true,
-      "leftTrackpad": true,
       "backButtons": true,
       "allowSlowMouse": false,
-      "triggersClick": true
+      "triggersClick": true,
+      "mouseZone": "right_trackpad",
+      "dpadZone": "left_trackpad"
     }
   },
   {
@@ -16,11 +16,11 @@
     "rootVdfPath": "ksp_steaminput_hori_steam.vdf",
     "context": {
       "haptic": false,
-      "rightTrackpad": false,
-      "leftTrackpad": false,
       "backButtons": true,
       "allowSlowMouse": true,
-      "triggersClick": false
+      "triggersClick": false,
+      "mouseZone": "right_joystick",
+      "dpadZone": "dpad"
     }
   },
   {
@@ -28,11 +28,11 @@
     "rootVdfPath": "ksp_steaminput_xboxelite.vdf",
     "context": {
       "haptic": false,
-      "rightTrackpad": false,
-      "leftTrackpad": false,
       "backButtons": true,
       "allowSlowMouse": true,
-      "triggersClick": false
+      "triggersClick": false,
+      "mouseZone": "right_joystick",
+      "dpadZone": "dpad"
     }
   },
   {
@@ -40,11 +40,11 @@
     "rootVdfPath": "ksp_steaminput_ps4.vdf",
     "context": {
       "haptic": false,
-      "rightTrackpad": false,
-      "leftTrackpad": false,
       "backButtons": false,
       "allowSlowMouse": false,
-      "triggersClick": false
+      "triggersClick": false,
+      "mouseZone": "right_joystick",
+      "dpadZone": "dpad"
     }
   }
 ]

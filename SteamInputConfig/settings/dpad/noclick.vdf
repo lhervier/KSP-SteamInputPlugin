@@ -1,6 +1,6 @@
 "ref"
 {
-    {{#if (true (or leftTrackpad rightTrackpad))}}
+    {{#if (equals dpadZone "left_trackpad")}}
         "requires_click"		"0"
         "layout"		        "0"
     {{/if}}

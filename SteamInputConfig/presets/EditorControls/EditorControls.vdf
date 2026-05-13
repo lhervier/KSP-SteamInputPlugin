@@ -14,7 +14,7 @@
 			"/groups/trigger/left-click.vdf"											"right_trigger active"
 			"/groups/switches/editor.vdf"												"switch active"
 			
-			{{#if (true rightTrackpad)}}
+			{{#if (equals mouseZone "right_trackpad")}}
 				"/groups/absolute_mouse/mouse.vdf"										"right_trackpad active"
 			{{else}}
 				{{#if (true backButtons)}}
@@ -25,11 +25,7 @@
 				{{/if}}
 			{{/if}}
 			
-			{{#if (true leftTrackpad)}}
-				"/groups/dpad/click-scroll.vdf"											"left_trackpad active"
-			{{else}}
-				"/groups/dpad/click-scroll.vdf"											"dpad active"
-			{{/if}}
+			"/groups/dpad/click-scroll.vdf"												"{{dpadZone}} active"
 		}
 	}
 }

@@ -1,6 +1,6 @@
 "ref"
 {
-    {{#if (true rightTrackpad)}}
+    {{#if (equals mouseZone "right_trackpad")}}
         {{! Same settings as normal mouse settings. No need to slow down with a trackpad.}}
         "sensitivity"		        "173"
         "doubletap_beep"		    "1"

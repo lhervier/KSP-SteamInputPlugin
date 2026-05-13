@@ -1,8 +1,0 @@
-"ref"
-{
-    {{#if (true rightTrackpad)}}
-        "/groups/dpad/camera.vdf"		                    "right_trackpad active"
-    {{else}}
-        "/groups/dpad/camera.vdf"		                    "right_joystick active"
-    {{/if}}
-}

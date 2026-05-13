@@ -6,7 +6,7 @@
 		"name"		"MapDockingRightClickControls"
 		"group_source_bindings"
 		{
-			"#ref"		"../RightClick-bindings.vdf"
+			"/groups/dpad/camera.vdf"		                    "{{mouseZone}} active"
 		}
 	}
 }
