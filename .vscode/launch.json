@@ -36,6 +36,22 @@
         {
             "type": "node",
             "request": "launch",
+            "name": "Steam Controller V2",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "localRoot": "${workspaceFolder}/MergeScripts",
+            "program": "${workspaceFolder}/MergeScripts/merge-controller.js",
+            "args": [
+                "${workspaceFolder}/SteamInputConfig/controllers.json",
+                "steamcontroller_v2"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
+        },
+        {
+            "type": "node",
+            "request": "launch",
             "name": "Hori Steampad",
             "skipFiles": [
                 "<node_internals>/**"
