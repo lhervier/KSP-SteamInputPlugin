@@ -149,6 +149,38 @@ function saveVdfFile(obj, filePath) {
     fs.writeFileSync(filePath, result);
 }
 
+/**
+ * Parse a ref spec "file.vdf?k1=v1&k2=v2" into { file, params }.
+ * Without "?", params is {}. Throws on duplicate keys.
+ */
+function parseRefSpec(spec) {
+    const idx = spec.indexOf('?');
+    if (idx === -1) return { file: spec, params: {} };
+    const file = spec.substring(0, idx);
+    const usp = new URLSearchParams(spec.substring(idx + 1));
+    const params = {};
+    for (const [k, v] of usp) {
+        if (Object.prototype.hasOwnProperty.call(params, k)) {
+            throw new Error(`Duplicate param "${k}" in ref spec: ${spec}`);
+        }
+        params[k] = v;
+    }
+    return { file, params };
+}
+
+/**
+ * Canonicalize params into "?k1=v1&k2=v2" with sorted keys and full URI encoding.
+ * Empty params → "". Uses encodeURIComponent (not URLSearchParams.toString) so "/" is encoded
+ * and downstream path.dirname / path.relative aren't fooled by raw slashes inside values.
+ */
+function canonicalizeParams(params) {
+    const keys = Object.keys(params).sort();
+    if (keys.length === 0) return '';
+    return '?' + keys
+        .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
+        .join('&');
+}
+
 function addRef(refPaths, additionRefPaths) {
     if( typeof additionRefPaths === 'string' ) {
         additionRefPaths = [additionRefPaths];
@@ -229,11 +261,13 @@ function processRefs(obj, parentName, vdfPath, hbsContext, configRoot) {
                 const match = value.match(/%([^%]+):([^%]+)%/);
                 if( match ) {
                     if( match[1] === 'group_id' ) {
-                        let id = match[2];
-                        if( !id.startsWith('/')) {
-                            id = toVdfRootPath(path.join(path.dirname(vdfPath), id));
+                        const { file: refFile, params: refParams } = parseRefSpec(match[2]);
+                        let absFile = refFile;
+                        if( !absFile.startsWith('/')) {
+                            absFile = toVdfRootPath(path.join(path.dirname(vdfPath), refFile));
                         }
-                        value = value.replace(match[2], id);
+                        const resolved = absFile + canonicalizeParams(refParams);
+                        value = value.replace(match[2], resolved);
                     }
                 }
             }
@@ -243,19 +277,21 @@ function processRefs(obj, parentName, vdfPath, hbsContext, configRoot) {
     }
 
     while( refPaths.length > 0 ) {
-        const refPath = refPaths.shift();
-        
+        const refSpec = refPaths.shift();
+        const { file: refFile, params: refParams } = parseRefSpec(refSpec);
+
         // Determine the ref absolute path
         let refAbsolutePath;
-        if (refPath.startsWith('/')) {
+        if (refFile.startsWith('/')) {
             // Leading "/" in VDF is relative to the entry VDF directory (configRoot)
-            refAbsolutePath = path.join(configRoot, refPath.substring(1));
+            refAbsolutePath = path.join(configRoot, refFile.substring(1));
         } else {
             // Relative path (relative to current file)
-            refAbsolutePath = path.join(currentDir, refPath);
+            refAbsolutePath = path.join(currentDir, refFile);
         }
 
-        const refVdf = _loadVdfFile(configRoot, refAbsolutePath, hbsContext);
+        const canonicalSpec = refAbsolutePath + canonicalizeParams(refParams);
+        const refVdf = _loadVdfFile(configRoot, canonicalSpec, hbsContext);
         if( !refVdf.ref ) {
             throw new Error(`Referenced file ${refAbsolutePath} must have "ref" as the root property`);
         }
@@ -293,8 +329,12 @@ function loadVdfFile(vdfPath, hbsContext = {}) {
  * @throws {Error} If the file cannot be loaded or parsed
  */
 function _loadVdfFile(configRoot, vdfPath, hbsContext) {
-    const raw = fs.readFileSync(vdfPath, 'utf8');
-    let content = compileVdfSource(raw, hbsContext, vdfPath);
+    const { file: diskPath, params } = parseRefSpec(vdfPath);
+    const raw = fs.readFileSync(diskPath, 'utf8');
+    const fileContext = Object.keys(params).length > 0
+        ? { ...hbsContext, ...params }
+        : hbsContext;
+    let content = compileVdfSource(raw, fileContext, vdfPath);
     content = content
         .split('\n')
         .filter(line => !line.trim().startsWith('#'))
