@@ -13,4 +13,5 @@
     "#ref"          "freeiva-move.vdf"
     "#ref"          "arrows.vdf"
     "#ref"          "camera.vdf"
+    "#ref"          "empty.vdf"
 }

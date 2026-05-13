@@ -10,7 +10,7 @@
 			"/groups/dpad/arrows.vdf"				                    "joystick active"
 			
 			{{! Right Joystick }}
-			"#ref"														"../right-joystick.vdf?preset=menu&dpad=arrows"
+			"#ref"														"../right-joystick.vdf?preset=menu&dpad=empty"
 			
 			{{! Left Trackpad }}
 			{{#if (equals dpadZone "left_trackpad")}}

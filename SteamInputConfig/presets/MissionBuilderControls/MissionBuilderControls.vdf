@@ -10,7 +10,7 @@
 			"/groups/dpad/mission-builder/d-w-s-a.vdf"					"joystick active"
 			
 			{{! Right Joystick }}
-			"#ref"														"../right-joystick.vdf?preset=mission-builder&dpad=arrows"
+			"#ref"														"../right-joystick.vdf?preset=mission-builder&dpad=empty"
 			
 			{{! Left Trackpad }}
 			{{#if (equals dpadZone "left_trackpad")}}

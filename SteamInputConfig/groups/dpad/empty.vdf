@@ -1,0 +1,13 @@
+"ref"
+{
+    "group"
+	{
+		"id"		"#fileName"
+		"mode"		"dpad"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+		}
+	}
+}
