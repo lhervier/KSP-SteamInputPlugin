@@ -1,0 +1,14 @@
+"ref"
+{
+    "preset"
+	{
+		"id"		"#fileName"
+		"name"		"{{preset}}RightClickControls"
+		"group_source_bindings"
+		{
+			{{#if (equals mouseZone "right_joystick")}}
+				"/groups/dpad/camera.vdf"		                    "right_joystick active"
+			{{/if}}
+		}
+	}
+}

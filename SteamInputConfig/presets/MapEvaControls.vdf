@@ -3,39 +3,40 @@
     "preset"
 	{
 		"id"		"#fileName"
-		"name"		"IvaControls"
+		"name"		"MapEvaControls"
 		"group_source_bindings"
 		{
 			{{! Left Joystick }}
-
+			"/groups/dpad/eva-move.vdf"								"joystick active"
+			
 			{{! Right Joystick }}
-			"#ref"													"../right-joystick.vdf?preset=iva&dpad=camera"
+			"#ref"													"right-joystick.vdf?preset=mapeva&dpad=camera"
 			
 			{{! Left Trackpad }}
 			{{#if (equals dpadZone "left_trackpad")}}
 				"/groups/dpad/click-zoom.vdf"						"left_trackpad active"
-				"/groups/dpad/prev-next-vessel.vdf"					"left_trackpad active modeshift"
 			{{/if}}
 
 			{{! Right Trackpad }}
 			{{#if (equals mouseZone "right_trackpad")}}
 				"/groups/absolute_mouse/mouse.vdf"					"right_trackpad active"
 			{{/if}}
-			
+
 			{{! Button diamond }}
-			"/groups/four_buttons/iva/back-next-unbuckle.vdf"		"button_diamond active"
-			"/groups/four_buttons/iva/target-timewarp.vdf"			"button_diamond active modeshift"
+			"/groups/four_buttons/mapeva/rcs-sas.vdf"				"button_diamond active"
+			"/groups/four_buttons/timewarp.vdf"						"button_diamond active modeshift"
 			
 			{{! Dpad }}
 			{{#if (equals dpadZone "dpad")}}
 				"/groups/dpad/click-zoom.vdf"						"dpad active"
-				"/groups/dpad/prev-next-vessel.vdf"					"dpad active modeshift"
 			{{/if}}
 
 			{{! Triggers }}
-
+			"/groups/trigger/eva/down.vdf"							"left_trigger active"
+			"/groups/trigger/eva/up.vdf"							"right_trigger active"
+			
 			{{! Switch }}
-			"/groups/switches/iva.vdf"								"switch active"
+			"/groups/switches/mapeva.vdf"							"switch active"
 		}
 	}
 }

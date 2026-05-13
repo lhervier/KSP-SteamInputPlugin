@@ -11,7 +11,7 @@
 			"/groups/dpad/prev-next-vessel.vdf"							"joystick active modeshift"
 			
 			{{! Right Joystick }}
-			"#ref"														"../right-joystick.vdf?preset=eva&dpad=camera"
+			"#ref"														"right-joystick.vdf?preset=eva&dpad=camera"
 			
 			{{! Left Trackpad }}
 			{{#if (equals dpadZone "left_trackpad")}}

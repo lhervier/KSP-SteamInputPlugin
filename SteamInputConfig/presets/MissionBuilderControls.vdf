@@ -3,18 +3,18 @@
     "preset"
 	{
 		"id"		"#fileName"
-		"name"		"MenuControls"
+		"name"		"MissionBuilderControls"
 		"group_source_bindings"
 		{
 			{{! Left Joystick }}
-			"/groups/dpad/arrows.vdf"				                    "joystick active"
+			"/groups/dpad/mission-builder/d-w-s-a.vdf"					"joystick active"
 			
 			{{! Right Joystick }}
-			"#ref"														"../right-joystick.vdf?preset=menu&dpad=empty"
+			"#ref"														"right-joystick.vdf?preset=mission-builder&dpad=empty"
 			
 			{{! Left Trackpad }}
 			{{#if (equals dpadZone "left_trackpad")}}
-				"/groups/dpad/click-scroll.vdf"			                "left_trackpad active"
+				"/groups/dpad/click-scroll.vdf"							"left_trackpad active"
 			{{/if}}
 
 			{{! Right Trackpad }}
@@ -23,20 +23,19 @@
 			{{/if}}
 			
 			{{! Button diamond }}
-			"/groups/four_buttons/menu/accept-cancel.vdf"               "button_diamond active"
-			"/groups/four_buttons/timewarp.vdf"							"button_diamond active modeshift"
+			"/groups/four_buttons/mission-builder/space-delete-x-c.vdf"	"button_diamond active"
 			
 			{{! Dpad }}
 			{{#if (equals dpadZone "dpad")}}
-				"/groups/dpad/click-scroll.vdf"			                "dpad active"
+				"/groups/dpad/click-scroll.vdf"							"dpad active"
 			{{/if}}
-			
+
 			{{! Triggers }}
 			"/groups/trigger/right-click.vdf"							"left_trigger active"
 			"/groups/trigger/left-click.vdf"							"right_trigger active"
 			
 			{{! Switch }}
-			"/groups/switches/menu.vdf"				                    "switch active"
+			"/groups/switches/mission-builder.vdf"						"switch active"
 		}
 	}
 }

@@ -3,15 +3,15 @@
     "preset"
 	{
 		"id"		"#fileName"
-		"name"		"MapFlightControls"
+		"name"		"MapDockingControls"
 		"group_source_bindings"
 		{
 			{{! Left Joystick }}
-			"/groups/dpad/yaw-pitch.vdf"								"joystick active"
+			"/groups/dpad/translate.vdf"								"joystick active"
 			"/groups/hotbar/actiongroups.vdf"							"joystick active modeshift"
-
+	
 			{{! Right Joystick }}
-			"#ref"														"../right-joystick.vdf?preset=mapflight&dpad=camera"
+			"#ref"														"right-joystick.vdf?preset=mapdocking&dpad=camera"
 			
 			{{! Left Trackpad }}
 			{{#if (equals dpadZone "left_trackpad")}}
@@ -22,10 +22,10 @@
 			{{#if (equals mouseZone "right_trackpad")}}
 				"/groups/absolute_mouse/mouse.vdf"						"right_trackpad active"
 			{{/if}}
-
+			
 			{{! Button diamond }}
-			"/groups/four_buttons/flight/staging-brakes-rcs-sas.vdf"	"button_diamond active"
-			"/groups/four_buttons/mapflight/precision-timewarp.vdf"		"button_diamond active modeshift"
+			"/groups/four_buttons/docking/tr_rot-brakes-rcs-sas.vdf"	"button_diamond active"
+			"/groups/four_buttons/mapdocking/precision-timewarp.vdf"	"button_diamond active modeshift"
 			
 			{{! Dpad }}
 			{{#if (equals dpadZone "dpad")}}
@@ -33,11 +33,11 @@
 			{{/if}}
 
 			{{! Triggers }}
-			"/groups/trigger/throttle-down.vdf"							"left_trigger active"
-			"/groups/trigger/throttle-up.vdf"							"right_trigger active"
+			"/groups/trigger/backward.vdf"								"left_trigger active"
+			"/groups/trigger/forward.vdf"								"right_trigger active"
 			
 			{{! Switch }}
-			"/groups/switches/mapflight.vdf"							"switch active"
+			"/groups/switches/mapdocking.vdf"							"switch active"
 		}
 	}
 }

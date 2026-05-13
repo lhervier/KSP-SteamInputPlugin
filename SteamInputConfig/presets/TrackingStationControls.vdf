@@ -3,14 +3,13 @@
     "preset"
 	{
 		"id"		"#fileName"
-		"name"		"MapEvaControls"
+		"name"		"TrackingStationControls"
 		"group_source_bindings"
 		{
 			{{! Left Joystick }}
-			"/groups/dpad/eva-move.vdf"								"joystick active"
 			
 			{{! Right Joystick }}
-			"#ref"													"../right-joystick.vdf?preset=mapeva&dpad=camera"
+			"#ref"													"right-joystick.vdf?preset=menu&dpad=empty"
 			
 			{{! Left Trackpad }}
 			{{#if (equals dpadZone "left_trackpad")}}
@@ -23,20 +22,19 @@
 			{{/if}}
 
 			{{! Button diamond }}
-			"/groups/four_buttons/mapeva/rcs-sas.vdf"				"button_diamond active"
 			"/groups/four_buttons/timewarp.vdf"						"button_diamond active modeshift"
 			
 			{{! Dpad }}
 			{{#if (equals dpadZone "dpad")}}
 				"/groups/dpad/click-zoom.vdf"						"dpad active"
 			{{/if}}
-
+			
 			{{! Triggers }}
-			"/groups/trigger/eva/down.vdf"							"left_trigger active"
-			"/groups/trigger/eva/up.vdf"							"right_trigger active"
+			"/groups/trigger/right-click.vdf"						"left_trigger active"
+			"/groups/trigger/left-click.vdf"						"right_trigger active"
 			
 			{{! Switch }}
-			"/groups/switches/mapeva.vdf"							"switch active"
+			"/groups/switches/tracking-station.vdf"					"switch active"		
 		}
 	}
 }
