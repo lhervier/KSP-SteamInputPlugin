@@ -2,12 +2,7 @@
 {
     "activators"
     {
-        {{#if (true allowSlowMouse)}}
-            "Full_Press"
-            {
-                "#ref"			    "/bindings/ModeShift/slow-mouse.vdf"
-            }
-        {{/if}}
+        "#ref"                      "_slow-mouse.vdf"
         "Full_Press"
         {
             "#ref"		    		"/bindings/Game/MissionBuilder/LEFT_SHIFT.vdf"

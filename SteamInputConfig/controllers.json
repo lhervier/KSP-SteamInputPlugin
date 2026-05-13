@@ -5,7 +5,6 @@
     "context": {
       "haptic": true,
       "backButtons": true,
-      "allowSlowMouse": false,
       "triggersClick": true,
       "mouseZone": "right_trackpad",
       "dpadZone": "left_trackpad"
@@ -17,7 +16,6 @@
     "context": {
       "haptic": false,
       "backButtons": true,
-      "allowSlowMouse": true,
       "triggersClick": false,
       "mouseZone": "right_joystick",
       "dpadZone": "dpad"
@@ -29,7 +27,6 @@
     "context": {
       "haptic": false,
       "backButtons": true,
-      "allowSlowMouse": true,
       "triggersClick": false,
       "mouseZone": "right_joystick",
       "dpadZone": "dpad"
@@ -41,7 +38,6 @@
     "context": {
       "haptic": false,
       "backButtons": false,
-      "allowSlowMouse": false,
       "triggersClick": false,
       "mouseZone": "right_joystick",
       "dpadZone": "dpad"
