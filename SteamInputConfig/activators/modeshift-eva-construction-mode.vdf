@@ -14,7 +14,7 @@
         }
         "Full_Press"
         {
-            "#ref"                  "/bindings/ModeShift/eva-construction-mode/switch.vdf"
+            "#ref"                  "/bindings/ModeShift/eva-construction-mode/dpad.vdf"
         }
     }
 }

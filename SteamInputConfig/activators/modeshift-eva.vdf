@@ -14,7 +14,7 @@
         }
         "Full_Press"
         {
-            "#ref"                  "/bindings/ModeShift/eva/switch.vdf"
+            "#ref"                  "/bindings/ModeShift/eva/dpad.vdf"
         }
     }
 }
