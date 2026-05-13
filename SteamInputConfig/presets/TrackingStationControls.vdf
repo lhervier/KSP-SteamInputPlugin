@@ -29,8 +29,10 @@
 				"/groups/dpad/click-zoom.vdf"						"dpad active"
 			{{/if}}
 			
-			{{! Triggers }}
+			{{! Left Trigger }}
 			"/groups/trigger/right-click.vdf"						"left_trigger active"
+			
+			{{! Right Trigger }}
 			"/groups/trigger/left-click.vdf"						"right_trigger active"
 			
 			{{! Switch }}

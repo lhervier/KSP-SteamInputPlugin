@@ -32,8 +32,10 @@
 				"/groups/dpad/click-scroll.vdf"											"dpad active"
 			{{/if}}
 
-			{{! Triggers }}
+			{{! Left Trigger }}
 			"/groups/trigger/editor/right-click-slew.vdf"								"left_trigger active"
+			
+			{{! Right Trigger }}
 			"/groups/trigger/left-click.vdf"											"right_trigger active"
 			
 			{{! Switch }}

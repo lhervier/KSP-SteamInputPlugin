@@ -34,8 +34,10 @@
 				"/groups/dpad/vessel-camera.vdf"									"dpad active modeshift"
 			{{/if}}
 
-			{{! Triggers }}
+			{{! Left Trigger }}
 			"/groups/trigger/backward.vdf"											"left_trigger active"
+			
+			{{! Right Trigger }}
 			"/groups/trigger/forward.vdf"											"right_trigger active"
 			
 			{{! Switch }}

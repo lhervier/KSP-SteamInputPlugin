@@ -11,5 +11,13 @@
         {
             "#ref"                  "/bindings/ModeShift/mapflight/joystick.vdf"
         }
+        "Full_Press"
+        {
+            "#ref"                  "/bindings/ModeShift/mapflight/left_trigger.vdf"
+        }
+        "Full_Press"
+        {
+            "#ref"                  "/bindings/ModeShift/mapflight/right_trigger.vdf"
+        }
     }
 }

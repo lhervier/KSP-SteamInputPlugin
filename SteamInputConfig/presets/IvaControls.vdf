@@ -32,7 +32,9 @@
 				"/groups/dpad/prev-next-vessel.vdf"					"dpad active modeshift"
 			{{/if}}
 
-			{{! Triggers }}
+			{{! Left Trigger }}
+
+			{{! Right Trigger }}
 
 			{{! Switch }}
 			"/groups/switches/iva.vdf"								"switch active"

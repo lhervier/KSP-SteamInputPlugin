@@ -8,7 +8,6 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"				"/inputs/triggers/click/full-throttle.vdf"
 			"#ref"				"/inputs/triggers/edge/throttle-up.vdf"
 		}
 		"settings"

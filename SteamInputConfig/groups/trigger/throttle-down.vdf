@@ -8,7 +8,6 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"				"/inputs/triggers/click/throttle-cutoff.vdf"
 			"#ref"				"/inputs/triggers/edge/throttle-down.vdf"
 		}
 		"settings"

@@ -32,9 +32,13 @@
 				"/groups/dpad/click-zoom.vdf"							"dpad active"
 			{{/if}}
 
-			{{! Triggers }}
+			{{! Left Trigger }}
 			"/groups/trigger/throttle-down.vdf"							"left_trigger active"
+			"/groups/trigger/throttle-cutoff.vdf"						"left_trigger active modeshift"
+			
+			{{! Right Trigger }}
 			"/groups/trigger/throttle-up.vdf"							"right_trigger active"
+			"/groups/trigger/full-throttle.vdf"							"right_trigger active modeshift"
 			
 			{{! Switch }}
 			"/groups/switches/mapflight.vdf"							"switch active"

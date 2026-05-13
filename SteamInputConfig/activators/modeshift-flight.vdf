@@ -11,5 +11,13 @@
         {
             "#ref"                  "/bindings/ModeShift/flight/joystick.vdf"
         }
+        "Full_Press"
+        {
+            "#ref"                  "/bindings/ModeShift/flight/left_trigger.vdf"
+        }
+        "Full_Press"
+        {
+            "#ref"                  "/bindings/ModeShift/flight/right_trigger.vdf"
+        }
     }
 }

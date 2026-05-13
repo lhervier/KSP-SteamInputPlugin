@@ -34,9 +34,13 @@
 				"/groups/dpad/vessel-camera.vdf"										"dpad active modeshift"
 			{{/if}}
 
-			{{! Triggers }}
+			{{! Left Trigger }}
 			"/groups/trigger/throttle-down.vdf"											"left_trigger active"
+			"/groups/trigger/throttle-cutoff.vdf"										"left_trigger active modeshift"
+			
+			{{! Right Trigger }}
 			"/groups/trigger/throttle-up.vdf"											"right_trigger active"
+			"/groups/trigger/full-throttle.vdf"											"right_trigger active modeshift"
 			
 			{{! Switch }}
 			"/groups/switches/flight.vdf"												"switch active"
