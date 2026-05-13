@@ -104,18 +104,23 @@ function saveVdfFile(obj, filePath) {
         if (Array.isArray(value)) {
             // Case of arrays: write each element with the same key
             value.forEach(item => {
-                result += `${tab.repeat(indent)}"${key}"\n${tab.repeat(indent)}{\n`;
-                
-                // Special case for groups and presets: write the id first
-                if ( (key === 'group' || key === 'preset') && item.id !== undefined) {
-                    result += `${tab.repeat(indent + 1)}"id"\t\t"${item.id}"\n`;
-                    const { id, ...rest } = item;
-                    formatVdf(rest, indent + 1);
+                if (typeof item === 'string' || typeof item === 'number' || typeof item === 'boolean') {
+                    // Primitive values: write as duplicate key-value pairs (valid VDF)
+                    result += `${tab.repeat(indent)}"${key}"\t\t"${item}"\n`;
                 } else {
-                    formatVdf(item, indent + 1);
+                    result += `${tab.repeat(indent)}"${key}"\n${tab.repeat(indent)}{\n`;
+
+                    // Special case for groups and presets: write the id first
+                    if ( (key === 'group' || key === 'preset') && item.id !== undefined) {
+                        result += `${tab.repeat(indent + 1)}"id"\t\t"${item.id}"\n`;
+                        const { id, ...rest } = item;
+                        formatVdf(rest, indent + 1);
+                    } else {
+                        formatVdf(item, indent + 1);
+                    }
+
+                    result += `${tab.repeat(indent)}}\n`;
                 }
-                
-                result += `${tab.repeat(indent)}}\n`;
             });
         } else if (typeof value === 'object' && value !== null) {
             result += `${tab.repeat(indent)}"${key}"\n${tab.repeat(indent)}{\n`;
