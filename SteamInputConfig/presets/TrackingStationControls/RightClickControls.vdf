@@ -15,7 +15,7 @@
 
 			{{! Right Trackpad }}
 			{{#if (equals mouseZone "right_trackpad")}}
-				"/groups/dpad/camera.vdf"		                    "right_trackpad active"
+				"/groups/absolute_mouse/mouse.vdf"					"right_trackpad active"
 			{{/if}}
 
 			{{! Button diamond }}
