@@ -10,7 +10,7 @@
         {{/if}}
         "Full_Press"
         {
-            "#ref"                  "/bindings/ModeShift/eva-construction-mode/buttons.vdf"
+            "#ref"                  "/bindings/ModeShift/eva-construction-mode/button_diamond.vdf"
         }
         "Full_Press"
         {

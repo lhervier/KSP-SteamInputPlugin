@@ -10,11 +10,11 @@
         {{/if}}
         "Full_Press"
         {
-            "#ref"                  "/bindings/ModeShift/mapdocking/buttons.vdf"
+            "#ref"                  "/bindings/ModeShift/mapdocking/button_diamond.vdf"
         }
         "Full_Press"
         {
-            "#ref"                  "/bindings/ModeShift/mapdocking/left_joystick.vdf"
+            "#ref"                  "/bindings/ModeShift/mapdocking/joystick.vdf"
         }
     }
 }

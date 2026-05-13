@@ -10,11 +10,11 @@
         {{/if}}
         "Full_Press"
         {
-            "#ref"                  "/bindings/ModeShift/flight/buttons.vdf"
+            "#ref"                  "/bindings/ModeShift/flight/button_diamond.vdf"
         }
         "Full_Press"
         {
-            "#ref"                  "/bindings/ModeShift/flight/left_joystick.vdf"
+            "#ref"                  "/bindings/ModeShift/flight/joystick.vdf"
         }
     }
 }

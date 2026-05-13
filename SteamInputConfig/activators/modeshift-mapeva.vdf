@@ -10,7 +10,7 @@
         {{/if}}
         "Full_Press"
         {
-            "#ref"                  "/bindings/ModeShift/mapeva/buttons.vdf"
+            "#ref"                  "/bindings/ModeShift/mapeva/button_diamond.vdf"
         }
     }
 }

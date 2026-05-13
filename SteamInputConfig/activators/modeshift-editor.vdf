@@ -14,11 +14,11 @@
         }
         "Full_Press"
         {
-            "#ref"                  "/bindings/ModeShift/editor/buttons.vdf"
+            "#ref"                  "/bindings/ModeShift/editor/button_diamond.vdf"
         }
         "Full_Press"
         {
-            "#ref"                  "/bindings/ModeShift/editor/left_joystick.vdf"
+            "#ref"                  "/bindings/ModeShift/editor/joystick.vdf"
         }
     }
 }

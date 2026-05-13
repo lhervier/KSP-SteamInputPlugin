@@ -10,7 +10,7 @@
         {{/if}}
         "Full_Press"
         {
-            "#ref"                  "/bindings/ModeShift/freeiva/buttons.vdf"
+            "#ref"                  "/bindings/ModeShift/freeiva/button_diamond.vdf"
         }
         "Full_Press"
         {

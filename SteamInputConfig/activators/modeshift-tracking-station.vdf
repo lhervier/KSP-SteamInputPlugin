@@ -10,7 +10,7 @@
         {{/if}}
         "Full_Press"
         {
-            "#ref"                  "/bindings/ModeShift/tracking-station/buttons.vdf"
+            "#ref"                  "/bindings/ModeShift/tracking-station/button_diamond.vdf"
         }
     }
 }
