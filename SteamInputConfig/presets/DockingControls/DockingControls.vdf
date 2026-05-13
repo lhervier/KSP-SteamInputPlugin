@@ -6,29 +6,49 @@
 		"name"		"DockingControls"
 		"group_source_bindings"
 		{
-			"/groups/hotbar/actiongroups.vdf"										"joystick active modeshift"
-	
-			"/groups/four_buttons/docking/tr_rot-brakes-rcs-sas.vdf"				"button_diamond active"
+			{{! Left Joystick }}
 			"/groups/dpad/translate.vdf"											"joystick active"
-			"/groups/trigger/backward.vdf"											"left_trigger active"
-			"/groups/trigger/forward.vdf"											"right_trigger active"
-			"/groups/four_buttons/docking-flight/timewarp-precision-target.vdf"		"button_diamond active modeshift"
-			
-			"/groups/switches/docking.vdf"											"switch active"
+			"/groups/hotbar/actiongroups.vdf"										"joystick active modeshift"
 
-			{{#if (equals mouseZone "right_trackpad")}}
-				"/groups/absolute_mouse/mouse.vdf"									"right_trackpad active"
-			{{else}}
+			{{! Right Joystick }}
+			{{#if (equals mouseZone "right_joystick")}}
 				{{#if (true backButtons)}}
 					"/groups/joystick_mouse/slow-mouse.vdf"							"right_joystick active modeshift"
 					"/groups/joystick_mouse/mouse.vdf"								"right_joystick active"
 				{{else}}
 					"/groups/joystick_mouse/docking-modeshift.vdf"					"right_joystick active"
 				{{/if}}
+			{{else}}
+				"/groups/dpad/camera.vdf"		                    				"right_joystick active"
 			{{/if}}
+
+			{{! Left Trackpad }}
+			{{#if (equals dpadZone "left_trackpad")}}
+				"/groups/dpad/click-zoom.vdf"										"left_trackpad active"
+				"/groups/dpad/vessel-camera.vdf"									"left_trackpad active modeshift"
+			{{/if}}
+
+			{{! Right Trackpad }}
+			{{#if (equals mouseZone "right_trackpad")}}
+				"/groups/absolute_mouse/mouse.vdf"									"right_trackpad active"
+			{{/if}}
+	
+			{{! Button diamond }}
+			"/groups/four_buttons/docking/tr_rot-brakes-rcs-sas.vdf"				"button_diamond active"
+			"/groups/four_buttons/docking-flight/timewarp-precision-target.vdf"		"button_diamond active modeshift"
 			
-			"/groups/dpad/click-zoom.vdf"											"{{dpadZone}} active"
-			"/groups/dpad/vessel-camera.vdf"										"{{dpadZone}} active modeshift"
+			{{! Dpad }}
+			{{#if (equals dpadZone "dpad")}}
+				"/groups/dpad/click-zoom.vdf"										"dpad active"
+				"/groups/dpad/vessel-camera.vdf"									"dpad active modeshift"
+			{{/if}}
+
+			{{! Triggers }}
+			"/groups/trigger/backward.vdf"											"left_trigger active"
+			"/groups/trigger/forward.vdf"											"right_trigger active"
+			
+			{{! Switch }}
+			"/groups/switches/docking.vdf"											"switch active"
 		}
 	}
 }

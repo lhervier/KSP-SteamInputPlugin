@@ -6,26 +6,47 @@
 		"name"		"EditorControls"
 		"group_source_bindings"
 		{
-			"/groups/four_buttons/editor/reset_rot-delete-sym_cycle-snap.vdf"			"button_diamond active"
-			"/groups/four_buttons/editor/place-offset-rotate-root.vdf"					"button_diamond active modeshift"
+			{{! Left Joystick }}
 			"/groups/dpad/editor/rotate-part.vdf"										"joystick active"
 			"/groups/dpad/editor/sym-frame.vdf"											"joystick active modeshift"
-			"/groups/trigger/editor/right-click-slew.vdf"								"left_trigger active"
-			"/groups/trigger/left-click.vdf"											"right_trigger active"
-			"/groups/switches/editor.vdf"												"switch active"
 			
-			{{#if (equals mouseZone "right_trackpad")}}
-				"/groups/absolute_mouse/mouse.vdf"										"right_trackpad active"
-			{{else}}
+			{{! Right Joystick }}
+			{{#if (equals mouseZone "right_joystick")}}
 				{{#if (true backButtons)}}
 					"/groups/joystick_mouse/slow-mouse.vdf"								"right_joystick active modeshift"
 					"/groups/joystick_mouse/mouse.vdf"									"right_joystick active"
 				{{else}}
 					"/groups/joystick_mouse/editor-modeshift.vdf"						"right_joystick active"
 				{{/if}}
+			{{else}}
+				"/groups/dpad/camera.vdf"		                    					"right_joystick active"
+			{{/if}}
+
+			{{! Left Trackpad }}
+			{{#if (equals dpadZone "left_trackpad")}}
+				"/groups/dpad/click-scroll.vdf"											"left_trackpad active"
+			{{/if}}
+
+			{{! Right Trackpad }}
+			{{#if (equals mouseZone "right_trackpad")}}
+				"/groups/absolute_mouse/mouse.vdf"										"right_trackpad active"
 			{{/if}}
 			
-			"/groups/dpad/click-scroll.vdf"												"{{dpadZone}} active"
+			{{! Button diamond }}
+			"/groups/four_buttons/editor/reset_rot-delete-sym_cycle-snap.vdf"			"button_diamond active"
+			"/groups/four_buttons/editor/place-offset-rotate-root.vdf"					"button_diamond active modeshift"
+			
+			{{! Dpad }}
+			{{#if (equals dpadZone "dpad")}}
+				"/groups/dpad/click-scroll.vdf"											"dpad active"
+			{{/if}}
+
+			{{! Triggers }}
+			"/groups/trigger/editor/right-click-slew.vdf"								"left_trigger active"
+			"/groups/trigger/left-click.vdf"											"right_trigger active"
+			
+			{{! Switch }}
+			"/groups/switches/editor.vdf"												"switch active"
 		}
 	}
 }

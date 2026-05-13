@@ -6,25 +6,48 @@
 		"name"		"FreeIvaControls"
 		"group_source_bindings"
 		{
-			"/groups/four_buttons/freeiva/jump-seat-crouch-eva.vdf"	"button_diamond active"
-			"/groups/four_buttons/timewarp.vdf"						"button_diamond active modeshift"
+			{{! Left Joystick }}
 			"/groups/dpad/freeiva-move.vdf"							"joystick active"
-			"/groups/trigger/eva/down.vdf"							"left_trigger active"
-			"/groups/trigger/eva/up.vdf"							"right_trigger active"
-			"/groups/switches/freeiva.vdf"							"switch active"
-
-			{{#if (equals mouseZone "right_trackpad")}}
-				"/groups/absolute_mouse/mouse.vdf"					"right_trackpad active"
-			{{else}}
+			
+			{{! Right Joystick }}
+			{{#if (equals mouseZone "right_joystick")}}
 				{{#if (true backButtons)}}
 					"/groups/joystick_mouse/slow-mouse.vdf"			"right_joystick active modeshift"
 					"/groups/joystick_mouse/mouse.vdf"				"right_joystick active"
 				{{else}}
 					"/groups/joystick_mouse/freeiva-modeshift.vdf"	"right_joystick active"
 				{{/if}}
+			{{else}}
+				"/groups/dpad/camera.vdf"		                    "right_joystick active"
 			{{/if}}
-			"/groups/dpad/click-zoom.vdf"							"{{dpadZone}} active"
-			"/groups/dpad/prev-next-vessel.vdf"						"{{dpadZone}} active modeshift"
+
+			{{! Left Trackpad }}
+			{{#if (equals dpadZone "left_trackpad")}}
+				"/groups/dpad/click-zoom.vdf"						"left_trackpad active"
+				"/groups/dpad/prev-next-vessel.vdf"					"left_trackpad active modeshift"
+			{{/if}}
+
+			{{! Right Trackpad }}
+			{{#if (equals mouseZone "right_trackpad")}}
+				"/groups/absolute_mouse/mouse.vdf"					"right_trackpad active"
+			{{/if}}
+			
+			{{! Button diamond }}
+			"/groups/four_buttons/freeiva/jump-seat-crouch-eva.vdf"	"button_diamond active"
+			"/groups/four_buttons/timewarp.vdf"						"button_diamond active modeshift"
+			
+			{{! Dpad }}
+			{{#if (equals dpadZone "dpad")}}
+				"/groups/dpad/click-zoom.vdf"						"dpad active"
+				"/groups/dpad/prev-next-vessel.vdf"					"dpad active modeshift"
+			{{/if}}
+			
+			{{! Triggers }}
+			"/groups/trigger/eva/down.vdf"							"left_trigger active"
+			"/groups/trigger/eva/up.vdf"							"right_trigger active"
+			
+			{{! Switch }}
+			"/groups/switches/freeiva.vdf"							"switch active"
 		}
 	}
 }

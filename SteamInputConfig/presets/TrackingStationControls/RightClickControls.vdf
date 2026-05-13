@@ -6,7 +6,27 @@
 		"name"		"TrackingStationRightClickControls"
 		"group_source_bindings"
 		{
-			"/groups/dpad/camera.vdf"		                    "{{mouseZone}} active"
+			{{! Left Joystick }}
+
+			{{! Right Joystick }}
+			{{#if (equals mouseZone "right_joystick")}}
+				"/groups/dpad/camera.vdf"		                    "right_joystick active"
+			{{/if}}
+
+			{{! Left Trackpad }}
+
+			{{! Right Trackpad }}
+			{{#if (equals mouseZone "right_trackpad")}}
+				"/groups/dpad/camera.vdf"		                    "right_trackpad active"
+			{{/if}}
+
+			{{! Button diamond }}
+
+			{{! Dpad }}
+
+			{{! Triggers }}
+
+			{{! Switch }}
 		}
 	}
 }

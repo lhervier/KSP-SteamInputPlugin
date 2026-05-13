@@ -6,24 +6,45 @@
 		"name"		"MissionBuilderControls"
 		"group_source_bindings"
 		{
-			"/groups/trigger/right-click.vdf"							"left_trigger active"
-			"/groups/trigger/left-click.vdf"							"right_trigger active"
-			
-			"/groups/four_buttons/mission-builder/space-delete-x-c.vdf"	"button_diamond active"
+			{{! Left Joystick }}
 			"/groups/dpad/mission-builder/d-w-s-a.vdf"					"joystick active"
-			"/groups/switches/mission-builder.vdf"						"switch active"
-
-			{{#if (equals mouseZone "right_trackpad")}}
-				"/groups/absolute_mouse/mouse.vdf"						"right_trackpad active"
-			{{else}}
+			
+			{{! Right Joystick }}
+			{{#if (equals mouseZone "right_joystick")}}
 				{{#if (true backButtons)}}
 					"/groups/joystick_mouse/slow-mouse.vdf"				"right_joystick active modeshift"
 					"/groups/joystick_mouse/mouse.vdf"					"right_joystick active"
 				{{else}}
 					"/groups/joystick_mouse/mission-builder-modeshift.vdf"			"right_joystick active"
 				{{/if}}
+			{{else}}
+				"/groups/dpad/camera.vdf"	                   			"right_joystick active"
 			{{/if}}
-			"/groups/dpad/click-scroll.vdf"								"{{dpadZone}} active"
+
+			{{! Left Trackpad }}
+			{{#if (equals dpadZone "left_trackpad")}}
+				"/groups/dpad/click-scroll.vdf"							"left_trackpad active"
+			{{/if}}
+
+			{{! Right Trackpad }}
+			{{#if (equals mouseZone "right_trackpad")}}
+				"/groups/absolute_mouse/mouse.vdf"						"right_trackpad active"
+			{{/if}}
+			
+			{{! Button diamond }}
+			"/groups/four_buttons/mission-builder/space-delete-x-c.vdf"	"button_diamond active"
+			
+			{{! Dpad }}
+			{{#if (equals dpadZone "dpad")}}
+				"/groups/dpad/click-scroll.vdf"							"dpad active"
+			{{/if}}
+
+			{{! Triggers }}
+			"/groups/trigger/right-click.vdf"							"left_trigger active"
+			"/groups/trigger/left-click.vdf"							"right_trigger active"
+			
+			{{! Switch }}
+			"/groups/switches/mission-builder.vdf"						"switch active"
 		}
 	}
 }
