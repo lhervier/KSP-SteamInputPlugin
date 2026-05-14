@@ -47,13 +47,13 @@
     "Game_General_stopTimeWarp"	            "Stop TimeWarp"
     
     {{! UI }}
-    "Common_scrollIconsDown"	            "Scroll Icons Down"
-    "Common_scrollIconsUp"	                "Scroll Icons Up"
-    "Common_showAerodynamicForces"	        "Show Aerodynamic Forces"
-    "Common_showFlightlogs"	                "Show Flightlogs"
-    "Common_showNavsphere"	                "Show Navsphere"
-    "Common_showTemperatureGauges"	        "Show Temperature Gauges"
-    "Common_showTemperature"	            "Show Temperature"
-    "Common_showUi"			                "Show UI"
-    "Flight_targetDisplay"		            "Toggle Target Display"
+    "Game_UI_scrollIconsDown"	            "Scroll Icons Down"
+    "Game_UI_scrollIconsUp"	                "Scroll Icons Up"
+    "Game_UI_showAerodynamicForces"	        "Show Aerodynamic Forces"
+    "Game_UI_showFlightlogs"	            "Show Flightlogs"
+    "Game_UI_showNavsphere"	                "Show Navsphere"
+    "Game_UI_showTemperatureGauges"	        "Show Temperature Gauges"
+    "Game_UI_showTemperature"	            "Show Temperature"
+    "Game_UI_showUi"			            "Show UI"
+    "Game_UI_targetDisplay"		            "Toggle Target Display"
 }
