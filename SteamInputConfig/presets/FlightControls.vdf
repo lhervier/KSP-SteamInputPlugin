@@ -36,12 +36,15 @@
 
 			{{! Left Trigger }}
 			"/groups/trigger/throttle-down.vdf"											"left_trigger active"
-			"/groups/trigger/throttle-cutoff.vdf"										"left_trigger active modeshift"
+			{{#unless (true triggersClick)}}
+				"/groups/trigger/throttle-cutoff.vdf"									"left_trigger active modeshift"
+			{{/unless}}
 			
 			{{! Right Trigger }}
 			"/groups/trigger/throttle-up.vdf"											"right_trigger active"
-			"/groups/trigger/full-throttle.vdf"											"right_trigger active modeshift"
-			
+			{{#unless (true triggersClick)}}
+				"/groups/trigger/full-throttle.vdf"										"right_trigger active modeshift"
+			{{/unless}}
 			{{! Switch }}
 			"/groups/switches/flight.vdf"												"switch active"
 		}

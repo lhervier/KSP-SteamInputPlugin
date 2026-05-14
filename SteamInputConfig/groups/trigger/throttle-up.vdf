@@ -9,10 +9,13 @@
 		"inputs"
 		{
 			"#ref"				"/inputs/triggers/edge/throttle-up.vdf"
+			{{#if (true triggersClick)}}
+				"#ref"			"/inputs/triggers/click/full-throttle.vdf"
+			{{/if}}
 		}
 		"settings"
 		{
-			"#ref"				"/settings/triggers/edge.vdf"
+			"#ref"				"/settings/triggers/normal.vdf"
 		}
 	}
 }
