@@ -38,6 +38,13 @@ Handlebars.registerHelper('equals', function (a, b) {
 });
 
 /**
+ * Check if variable exists in context #if / #unless: {{#if (defined mod)}}
+ */
+Handlebars.registerHelper('defined', function (variable) {
+    return variable !== undefined;
+});
+
+/**
  * Compile VDF source as a Handlebars template (no HTML escaping, strict lookups).
  * @param {string} source - Raw file contents
  * @param {object} [hbsContext] - Passed through to the template (initialized by merge-*.js)
@@ -175,14 +182,21 @@ function parseRefSpec(spec) {
 
 /**
  * Canonicalize params into "?k1=v1&k2=v2" with sorted keys and full URI encoding.
- * Empty params → "". Uses encodeURIComponent (not URLSearchParams.toString) so "/" is encoded
+ * Empty params → "". A key with an empty string value becomes "?key" (no "=").
+ * Uses encodeURIComponent (not URLSearchParams.toString) so "/" is encoded
  * and downstream path.dirname / path.relative aren't fooled by raw slashes inside values.
  */
 function canonicalizeParams(params) {
     const keys = Object.keys(params).sort();
     if (keys.length === 0) return '';
     return '?' + keys
-        .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
+        .map(k => {
+            const v = params[k];
+            if (v === '') {
+                return encodeURIComponent(k);
+            }
+            return encodeURIComponent(k) + '=' + encodeURIComponent(v);
+        })
         .join('&');
 }
 
