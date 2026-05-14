@@ -7,7 +7,11 @@
 		"group_source_bindings"
 		{
 			{{! Left Joystick }}
-			"/groups/dpad/yaw-pitch.vdf"								"joystick active"
+			{{#if (true backButtons)}}
+				"/groups/dpad/yaw-pitch.vdf"							"joystick active"
+			{{else}}
+				"/groups/dpad/yaw-pitch.vdf?with-mod"					"joystick active"
+			{{/if}}
 			"/groups/hotbar/actiongroups.vdf"							"joystick active modeshift"
 
 			{{! Right Joystick }}

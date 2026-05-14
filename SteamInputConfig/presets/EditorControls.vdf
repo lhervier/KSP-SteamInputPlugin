@@ -7,7 +7,11 @@
 		"group_source_bindings"
 		{
 			{{! Left Joystick }}
-			"/groups/dpad/editor/rotate-part.vdf"										"joystick active"
+			{{#if (true backButtons)}}
+				"/groups/dpad/editor/rotate-part.vdf"									"joystick active"
+			{{else}}
+				"/groups/dpad/editor/rotate-part.vdf?with-mod"							"joystick active"
+			{{/if}}
 			"/groups/dpad/editor/sym-frame.vdf"											"joystick active modeshift"
 			
 			{{! Right Joystick }}

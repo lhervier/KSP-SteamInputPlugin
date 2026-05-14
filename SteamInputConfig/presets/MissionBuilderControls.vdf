@@ -7,7 +7,11 @@
 		"group_source_bindings"
 		{
 			{{! Left Joystick }}
-			"/groups/dpad/mission-builder/d-w-s-a.vdf"					"joystick active"
+			{{#if (true backButtons)}}
+				"/groups/dpad/mission-builder/d-w-s-a.vdf"				"joystick active"
+			{{else}}
+				"/groups/dpad/mission-builder/d-w-s-a.vdf?with-mod"		"joystick active"
+			{{/if}}
 			
 			{{! Right Joystick }}
 			"#ref"														"right-joystick.vdf?preset=mission-builder&dpad=empty"

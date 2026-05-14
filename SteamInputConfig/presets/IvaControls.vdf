@@ -7,6 +7,9 @@
 		"group_source_bindings"
 		{
 			{{! Left Joystick }}
+			{{#unless (true backButtons)}}
+				"/groups/dpad/mod-only.vdf"							"joystick active"
+			{{/unless}}
 
 			{{! Right Joystick }}
 			"#ref"													"right-joystick.vdf?preset=iva&dpad=camera"

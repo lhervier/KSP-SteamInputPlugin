@@ -7,7 +7,11 @@
 		"group_source_bindings"
 		{
 			{{! Left Joystick }}
-			"/groups/dpad/freeiva-move.vdf"							"joystick active"
+			{{#if (true backButtons)}}
+				"/groups/dpad/freeiva-move.vdf"						"joystick active"
+			{{else}}
+				"/groups/dpad/freeiva-move.vdf?with-mod"			"joystick active"
+			{{/if}}
 			
 			{{! Right Joystick }}
 			"#ref"													"right-joystick.vdf?preset=freeiva&dpad=camera"

@@ -7,7 +7,11 @@
 		"group_source_bindings"
 		{
 			{{! Left Joystick }}
-			"/groups/dpad/arrows.vdf"				                    "joystick active"
+			{{#if (true backButtons)}}
+				"/groups/dpad/arrows.vdf"								"joystick active"
+			{{else}}
+				"/groups/dpad/arrows.vdf?with-mod"						"joystick active"
+			{{/if}}
 			
 			{{! Right Joystick }}
 			"#ref"														"right-joystick.vdf?preset=menu&dpad=empty"

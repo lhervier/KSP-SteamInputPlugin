@@ -9,7 +9,7 @@
 		"inputs"
 		{
 			{{#if (true backButtons)}}
-				"#ref"			"/inputs/switches/backleft/mod-key/input.vdf"
+				"#ref"			"/inputs/switches/backleft/mod-key.vdf"
 				"#ref"			"/inputs/switches/backright/modeshift.vdf?preset=editor"
 			{{/if}}
 			"#ref"				"/inputs/switches/esc/redo.vdf"

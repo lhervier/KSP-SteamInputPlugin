@@ -1,0 +1,10 @@
+"ref"
+{
+    "activators"
+    {
+        "Full_Press"
+        {
+            "#ref"				"/bindings/Common/ModKey.vdf"
+        }
+    }
+}

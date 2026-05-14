@@ -10,7 +10,7 @@
 		{
 			{{#if (true backButtons)}}
 				"#ref"						"/inputs/switches/backright/modeshift.vdf?preset=mapeva"
-				"#ref"						"/inputs/switches/backleft/mod-key/input.vdf"
+				"#ref"						"/inputs/switches/backleft/mod-key.vdf"
 			{{/if}}
 			"#ref"						"/inputs/switches/esc/menu-debug.vdf"
 			"#ref"						"/inputs/switches/menu/map-keyboard.vdf"

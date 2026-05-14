@@ -7,7 +7,11 @@
 		"group_source_bindings"
 		{
 			{{! Left Joystick }}
-			"/groups/dpad/eva-move.vdf"									"joystick active"
+			{{#if (true backButtons)}}
+				"/groups/dpad/eva-move.vdf"								"joystick active"
+			{{else}}
+				"/groups/dpad/eva-move.vdf?with-mod"					"joystick active"
+			{{/if}}
 			"/groups/dpad/prev-next-vessel.vdf"							"joystick active modeshift"
 			
 			{{! Right Joystick }}
