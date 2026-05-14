@@ -50,12 +50,12 @@ for (const controller of controllersToBuild) {
     // Update the Timestamp property (set in epoch milliseconds)
     merged.controller_mappings.Timestamp = Date.now().toString();
 
-    // Add the resolved build version to the VDF title
-    merged.controller_mappings.title += " (" + buildVersion + ")";
-
-    // Translate the VDF file into all known languages
+   // Translate the VDF file into all known languages
     // The list of available languages are in the "localization" property of the vdf
+    const title = merged.controller_mappings.title;
     for (const lang of Object.keys(merged.controller_mappings.localization)) {
+        merged.controller_mappings.title = title + " (" + lang + "-" + buildVersion + ")";
+
         const langDict = merged.controller_mappings.localization[lang];
         const translatedVdf = translateVdf(merged, langDict);
         saveVdfFile(
