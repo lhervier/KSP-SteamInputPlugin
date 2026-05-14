@@ -11,6 +11,10 @@
         {
             "#ref"                  "/bindings/ModeShift/flight/joystick.vdf"
         }
+        "Full_Press"
+        {
+            "#ref"                  "/bindings/ModeShift/flight/{{dpadZone}}.vdf"
+        }
         {{#unless (true triggersClick)}}
             "Full_Press"
             {

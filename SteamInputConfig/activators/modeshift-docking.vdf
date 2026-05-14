@@ -9,6 +9,10 @@
         }
         "Full_Press"
         {
+            "#ref"                  "/bindings/ModeShift/flight/{{dpadZone}}.vdf"
+        }
+        "Full_Press"
+        {
             "#ref"                  "/bindings/ModeShift/docking/joystick.vdf"
         }
     }
