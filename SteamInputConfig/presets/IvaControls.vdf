@@ -11,7 +11,7 @@
 			{{/unless}}
 
 			{{! Right Joystick }}
-			"#ref"													"_right-joystick.vdf?preset=iva&dpad=camera"
+			"#ref"													"_right-joystick.vdf?preset=iva&dpad=iva-camera"
 			
 			{{! Left Trackpad }}
 			{{#if (equals dpadZone "left_trackpad")}}

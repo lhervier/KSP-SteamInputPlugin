@@ -13,7 +13,7 @@
 			{{/if}}
 			
 			{{! Right Joystick }}
-			"#ref"													"_right-joystick.vdf?preset=freeiva&dpad=camera"
+			"#ref"													"_right-joystick.vdf?preset=freeiva&dpad=iva-camera"
 			
 			{{! Left Trackpad }}
 			{{#if (equals dpadZone "left_trackpad")}}

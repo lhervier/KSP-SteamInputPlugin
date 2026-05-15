@@ -1,0 +1,13 @@
+"ref"
+{
+    "dpad_east"
+    {
+        "activators"
+        {
+            "Full_Press"
+            {
+                "#ref"				"/bindings/Game/Camera/camera-right.vdf"
+            }
+        }
+    }
+}
