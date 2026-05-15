@@ -1,0 +1,19 @@
+"ref"
+{
+    "activators"
+    {
+        "#ref"                      "_slow-mouse.vdf"
+        "Full_Press"
+        {
+            "#ref"				    "/bindings/Game/Editor/camera-slew.vdf"
+        }
+        "Full_Press"
+        {
+            "#ref"                  "/bindings/modeshift.vdf?zone=button_diamond"
+        }
+        "Full_Press"
+        {
+            "#ref"                  "/bindings/modeshift.vdf?zone={{dpadZone}}"
+        }
+    }
+}

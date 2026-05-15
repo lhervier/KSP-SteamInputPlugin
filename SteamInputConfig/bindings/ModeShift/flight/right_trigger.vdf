@@ -1,7 +1,0 @@
-"ref"
-{
-    "bindings"
-    {
-        "binding"		    "mode_shift right_trigger %group_id:/groups/trigger/full-throttle.vdf%"
-    }
-}

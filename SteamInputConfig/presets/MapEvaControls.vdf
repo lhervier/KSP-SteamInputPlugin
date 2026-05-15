@@ -2,19 +2,18 @@
 {
     "preset"
 	{
-		"id"		"#fileName"
 		"name"		"MapEvaControls"
 		"group_source_bindings"
 		{
 			{{! Left Joystick }}
 			{{#if (true backButtons)}}
-				"/groups/dpad/eva-move.vdf"								"joystick active"
+				"/groups/dpad/eva-move.vdf"							"joystick active"
 			{{else}}
-				"/groups/dpad/eva-move.vdf?with-mod"					"joystick active"
+				"/groups/dpad/eva-move.vdf?with-mod"				"joystick active"
 			{{/if}}
 			
 			{{! Right Joystick }}
-			"#ref"													"right-joystick.vdf?preset=mapeva&dpad=camera"
+			"#ref"													"_right-joystick.vdf?preset=mapeva&dpad=camera"
 			
 			{{! Left Trackpad }}
 			{{#if (equals dpadZone "left_trackpad")}}

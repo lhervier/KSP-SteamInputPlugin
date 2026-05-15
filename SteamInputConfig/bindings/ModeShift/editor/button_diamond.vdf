@@ -1,7 +1,0 @@
-"ref"
-{
-    "bindings"
-    {
-        "binding"		    "mode_shift button_diamond %group_id:/groups/four_buttons/editor/reset_rot-delete-sym_cycle-snap.vdf%"
-    }
-}

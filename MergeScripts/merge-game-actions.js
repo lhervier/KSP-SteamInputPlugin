@@ -13,7 +13,9 @@ if (!gameActionsVdfPath) {
 }
 
 const gameActionsPath = path.resolve(gameActionsVdfPath);
-const { merged } = loadVdfFile(gameActionsPath);
+const configRoot = path.dirname(gameActionsPath);
+const relativeGameActionsPath = '/' + path.relative(configRoot, gameActionsPath).replace(/\\/g, '/');
+const merged = loadVdfFile(configRoot, relativeGameActionsPath);
 if (!merged[IN_GAME_ACTIONS_KEY] || !merged.localization) {
     throw new Error('game_actions_220200.vdf: missing "In Game Actions" or "localization" after resolving #ref');
 }

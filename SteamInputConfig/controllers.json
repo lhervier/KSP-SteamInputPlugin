@@ -1,7 +1,7 @@
 [
   {
     "controllerName": "steamcontroller",
-    "rootVdfPath": "ksp_steaminput_steamcontroller.vdf",
+    "rootVdfPath": "/ksp_steaminput_steamcontroller.vdf",
     "context": {
       "haptic": true,
       "backButtons": true,
@@ -12,7 +12,7 @@
   },
   {
     "controllerName": "steamcontroller_v2",
-    "rootVdfPath": "ksp_steaminput_steamcontroller_v2.vdf",
+    "rootVdfPath": "/ksp_steaminput_steamcontroller_v2.vdf",
     "context": {
       "haptic": true,
       "backButtons": true,
@@ -23,7 +23,7 @@
   },
   {
     "controllerName": "hori",
-    "rootVdfPath": "ksp_steaminput_hori_steam.vdf",
+    "rootVdfPath": "/ksp_steaminput_hori_steam.vdf",
     "context": {
       "haptic": false,
       "backButtons": true,
@@ -34,7 +34,7 @@
   },
   {
     "controllerName": "xboxelite",
-    "rootVdfPath": "ksp_steaminput_xboxelite.vdf",
+    "rootVdfPath": "/ksp_steaminput_xboxelite.vdf",
     "context": {
       "haptic": false,
       "backButtons": true,
@@ -45,7 +45,7 @@
   },
   {
     "controllerName": "ps4",
-    "rootVdfPath": "ksp_steaminput_ps4.vdf",
+    "rootVdfPath": "/ksp_steaminput_ps4.vdf",
     "context": {
       "haptic": false,
       "backButtons": false,

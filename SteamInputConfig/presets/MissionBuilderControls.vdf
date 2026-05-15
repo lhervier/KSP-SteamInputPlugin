@@ -2,7 +2,6 @@
 {
     "preset"
 	{
-		"id"		"#fileName"
 		"name"		"MissionBuilderControls"
 		"group_source_bindings"
 		{
@@ -14,7 +13,7 @@
 			{{/if}}
 			
 			{{! Right Joystick }}
-			"#ref"														"right-joystick.vdf?preset=mission-builder&dpad=empty"
+			"#ref"														"_right-joystick.vdf?preset=mission-builder&dpad=empty"
 			
 			{{! Left Trackpad }}
 			{{#if (equals dpadZone "left_trackpad")}}

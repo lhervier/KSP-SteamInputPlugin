@@ -1,7 +1,0 @@
-"ref"
-{
-    "bindings"
-    {
-        "binding"		    "mode_shift left_trackpad %group_id:/groups/dpad/vessel-camera.vdf%"
-    }
-}

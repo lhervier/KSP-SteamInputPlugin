@@ -20,6 +20,21 @@
         {
             "type": "node",
             "request": "launch",
+            "name": "Game Actions",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "localRoot": "${workspaceFolder}/MergeScripts",
+            "program": "${workspaceFolder}/MergeScripts/merge-game-actions.js",
+            "args": [
+                "${workspaceFolder}/SteamInputConfig/game_actions_220200.vdf"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
+        },
+        {
+            "type": "node",
+            "request": "launch",
             "name": "Steam Controller",
             "skipFiles": [
                 "<node_internals>/**"

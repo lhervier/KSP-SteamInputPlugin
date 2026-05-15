@@ -1,7 +1,0 @@
-"ref"
-{
-    "bindings"
-    {
-        "binding"		    "mode_shift left_trigger %group_id:/groups/trigger/throttle-cutoff.vdf%"
-    }
-}

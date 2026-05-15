@@ -3,7 +3,7 @@
     {{#unless (true backButtons)}}
         "click"
         {
-            "#ref"          "/activators/modeshift-{{preset}}.vdf"
+            "#ref"          "/activators/modeshift/{{preset}}.vdf"
         }
     {{/unless}}
 }

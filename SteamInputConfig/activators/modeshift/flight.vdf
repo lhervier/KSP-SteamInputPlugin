@@ -1,0 +1,29 @@
+"ref"
+{
+    "activators"
+    {
+        "#ref"                      "_slow-mouse.vdf"
+        "Full_Press"
+        {
+            "#ref"                  "/bindings/modeshift.vdf?zone=button_diamond"
+        }
+        "Full_Press"
+        {
+            "#ref"                  "/bindings/modeshift.vdf?zone=joystick"
+        }
+        "Full_Press"
+        {
+            "#ref"                  "/bindings/modeshift.vdf?zone={{dpadZone}}"
+        }
+        {{#unless (true triggersClick)}}
+            "Full_Press"
+            {
+                "#ref"                  "/bindings/modeshift.vdf?zone=left_trigger"
+            }
+            "Full_Press"
+            {
+                "#ref"                  "/bindings/modeshift.vdf?zone=right_trigger"
+            }
+        {{/unless}}
+    }
+}

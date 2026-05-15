@@ -2,7 +2,6 @@
 {
     "group"
 	{
-		"id"		"#fileName"
 		"mode"		"hotbar"
 		"name"		"Action Groups"
 		"description"		"Action Groups"

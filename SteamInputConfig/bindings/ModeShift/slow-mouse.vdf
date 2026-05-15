@@ -1,7 +1,0 @@
-"ref"
-{
-    "bindings"
-    {
-        "binding"		"mode_shift {{mouseZone}} %group_id:/groups/joystick_mouse/slow-mouse.vdf%"
-    }
-}

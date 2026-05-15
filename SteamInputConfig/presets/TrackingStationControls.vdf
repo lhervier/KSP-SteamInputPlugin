@@ -2,7 +2,6 @@
 {
     "preset"
 	{
-		"id"		"#fileName"
 		"name"		"TrackingStationControls"
 		"group_source_bindings"
 		{
@@ -12,7 +11,7 @@
 			{{/unless}}
 			
 			{{! Right Joystick }}
-			"#ref"													"right-joystick.vdf?preset=menu&dpad=empty"
+			"#ref"													"_right-joystick.vdf?preset=menu&dpad=empty"
 			
 			{{! Left Trackpad }}
 			{{#if (equals dpadZone "left_trackpad")}}

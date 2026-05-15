@@ -1,0 +1,17 @@
+"ref"
+{
+    {{! 
+        Mouse slowing can only be applied if :
+        - Real back buttons are available. If it's not the cas, back buttonsd are mapped to joysticks click
+          and SteamInput doesn't allow to change a joystick group from this group...
+        - The mouse is not a trackpad, because there is no need to slow down a trackpad.
+    }}
+    {{#if (true backButtons)}}
+        {{#unless (equals mouseZone "right_trackpad")}}
+            "Full_Press"
+            {
+                "#ref"			    "/bindings/modeshift.vdf?zone=right_joystick"
+            }
+        {{/unless}}
+    {{/if}}
+}

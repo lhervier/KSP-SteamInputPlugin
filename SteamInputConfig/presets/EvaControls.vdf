@@ -2,7 +2,6 @@
 {
     "preset"
 	{
-		"id"		"#fileName"
 		"name"		"EvaControls"
 		"group_source_bindings"
 		{
@@ -15,7 +14,7 @@
 			"/groups/dpad/prev-next-vessel.vdf"							"joystick active modeshift"
 			
 			{{! Right Joystick }}
-			"#ref"														"right-joystick.vdf?preset=eva&dpad=camera"
+			"#ref"														"_right-joystick.vdf?preset=eva&dpad=camera"
 			
 			{{! Left Trackpad }}
 			{{#if (equals dpadZone "left_trackpad")}}

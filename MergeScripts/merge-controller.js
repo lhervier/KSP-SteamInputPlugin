@@ -4,7 +4,6 @@ const { getVersion } = require('./src/version-utils');
 const { saveVdfFile, loadVdfFile } = require('./src/vdf-utils');
 const { resolvePresets } = require('./src/preset-utils');
 const { resolveGroupBindings } = require('./src/group-bindings-utils');
-const { duplicateGroups } = require('./src/group-utils');
 const { resolveLayerBindings } = require('./src/layer-bindings-utils');
 const { translateVdf } = require('./src/translate-utils');
 
@@ -38,13 +37,11 @@ for (const controller of controllersToBuild) {
     const rootVdfPath = controller.rootVdfPath;
 
     // Load the root controller file, resolving #ref (leading "/" is relative to this VDF's directory)
-    const entryVdfPath = path.join(configDir, rootVdfPath);
-    const { merged, ids } = loadVdfFile(entryVdfPath, controller.context || {});
-    
-    // Resolve the presets, group bindings, duplicate groups and layer bindings
-    resolvePresets(merged, ids.group.ids);
-    resolveGroupBindings(merged, ids.group.ids);
-    duplicateGroups(merged, ids.group.count);
+    merged = loadVdfFile(configDir, rootVdfPath, controller.context || {});
+
+    // Resolve the presets, group bindings and layer bindings
+    resolvePresets(merged, configDir, controller.context || {});
+    resolveGroupBindings(merged);
     resolveLayerBindings(merged);
 
     // Update the Timestamp property (set in epoch milliseconds)

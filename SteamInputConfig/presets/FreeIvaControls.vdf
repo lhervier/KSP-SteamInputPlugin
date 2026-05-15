@@ -2,7 +2,6 @@
 {
     "preset"
 	{
-		"id"		"#fileName"
 		"name"		"FreeIvaControls"
 		"group_source_bindings"
 		{
@@ -14,7 +13,7 @@
 			{{/if}}
 			
 			{{! Right Joystick }}
-			"#ref"													"right-joystick.vdf?preset=freeiva&dpad=camera"
+			"#ref"													"_right-joystick.vdf?preset=freeiva&dpad=camera"
 			
 			{{! Left Trackpad }}
 			{{#if (equals dpadZone "left_trackpad")}}

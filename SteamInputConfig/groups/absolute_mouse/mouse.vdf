@@ -2,7 +2,6 @@
 {
     "group"
     {
-        "id"		"#fileName"
         "mode"		"absolute_mouse"
         "settings"
 		{

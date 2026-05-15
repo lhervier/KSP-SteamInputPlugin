@@ -2,7 +2,6 @@
 {
     "preset"
 	{
-		"id"		"#fileName"
 		"name"		"{{preset}}RightClickControls"
 		"group_source_bindings"
 		{

@@ -1,7 +1,0 @@
-"ref"
-{
-    "bindings"
-    {
-        "binding"		    "mode_shift dpad %group_id:/groups/dpad/editor/sym-frame.vdf%"
-    }
-}

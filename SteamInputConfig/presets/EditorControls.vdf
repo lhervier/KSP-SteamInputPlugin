@@ -2,7 +2,6 @@
 {
     "preset"
 	{
-		"id"		"#fileName"
 		"name"		"EditorControls"
 		"group_source_bindings"
 		{
@@ -14,7 +13,7 @@
 			{{/if}}
 			
 			{{! Right Joystick }}
-			"#ref"																		"right-joystick.vdf?preset=editor&dpad=camera"
+			"#ref"																		"_right-joystick.vdf?preset=editor&dpad=camera"
 			
 			{{! Left Trackpad }}
 			{{#if (equals dpadZone "left_trackpad")}}

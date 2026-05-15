@@ -2,7 +2,6 @@
 {
     "preset"
 	{
-		"id"		"#fileName"
 		"name"		"MapFlightControls"
 		"group_source_bindings"
 		{
@@ -15,7 +14,7 @@
 			"/groups/hotbar/actiongroups.vdf"							"joystick active modeshift"
 
 			{{! Right Joystick }}
-			"#ref"														"right-joystick.vdf?preset=mapflight&dpad=camera"
+			"#ref"														"_right-joystick.vdf?preset=mapflight&dpad=camera"
 			
 			{{! Left Trackpad }}
 			{{#if (equals dpadZone "left_trackpad")}}

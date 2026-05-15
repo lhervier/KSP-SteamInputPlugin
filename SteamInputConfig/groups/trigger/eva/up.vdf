@@ -2,7 +2,6 @@
 {
     "group"
 	{
-		"id"		"#fileName"
 		"mode"		"trigger"
 		"name"		""
 		"description"		""

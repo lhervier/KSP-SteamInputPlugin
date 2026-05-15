@@ -24,6 +24,5 @@
     {
 		"#ref"				"localization/_localization.vdf"
 	}
-	"#ref"				"groups/_groups.vdf"
 	"#ref"				"presets/_presets.vdf"
 }

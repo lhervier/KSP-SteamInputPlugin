@@ -1,17 +1,36 @@
+function resolveModeshift(vdf, groupId, groupFilePath, zone) {
+    for( const preset of vdf.controller_mappings.preset ) {
+        for( const [key, _] of Object.entries(preset.group_source_bindings) ) {
+            if( key !== groupId ) {
+                continue;
+            }
+            for( const [searchedGroupId, bind] of Object.entries(preset.group_source_bindings) ) {
+                if( !bind.includes("modeshift")) continue;
+                const searchedZone = bind.split(' ')[0];
+                if( searchedZone === zone ) {
+                    return searchedGroupId;
+                }
+            }
+            throw new Error(`Modeshift zone ${zone} not found for group ${groupFilePath} in preset ${preset.name}`);
+        }
+    }
+    throw new Error(`Group ${groupFilePath}: Modeshifting to zone ${zone}, but not found in presets...`);
+}
+
 /**
  * Resolve the group id references in the "binding" properties of activators in the VDF object
  * @param {*} vdf The VDF object to resolve
  */
-function resolveGroupBindings(vdf, groupIds) {
+function resolveGroupBindings(vdf) {
     for( const group of vdf.controller_mappings.group ) {
         if( !group.inputs ) {
             continue;
         }
-        for( const [inputKey, inputValue] of Object.entries(group.inputs) ) {
+        for( const [_, inputValue] of Object.entries(group.inputs) ) {
             if( !inputValue.activators ) {
                 continue;
             }
-            for( let [activatorKey, activatorValues] of Object.entries(inputValue.activators) ) {
+            for( let [_, activatorValues] of Object.entries(inputValue.activators) ) {
                 if( !Array.isArray(activatorValues) ) {
                     activatorValues = [activatorValues];
                 }
@@ -23,22 +42,10 @@ function resolveGroupBindings(vdf, groupIds) {
                         continue;
                     }
                     const binding = activatorValue.bindings.binding;
-                    // binding may contain references to an id using the %id% syntax
-                    // we need to replace these references with the actual id
-                    const match = binding.match(/%([^%]+):([^%]+)%/);
-                    if( !match ) {
-                        continue;
-                    }
-                    
-                    const type = match[1];
-                    const id = match[2];
-                    
-                    if( type === 'group_id' ) {
-                        if( groupIds[id] === undefined ) {
-                            throw new Error(`Unable to resolve group id for ${id}`);
-                        }
-                        const resolvedBinding = binding.replace(`%group_id:${id}%`, groupIds[id]);
-                        activatorValue.bindings.binding = resolvedBinding;
+                    if( binding.startsWith('mode_shift ')) {
+                        const zone = binding.split(' ')[1];
+                        const modeShiftGroup = resolveModeshift(vdf, group.id, group.filepath, zone);
+                        activatorValue.bindings.binding = "mode_shift " + zone + " " + modeShiftGroup;
                     }
                 }
             }

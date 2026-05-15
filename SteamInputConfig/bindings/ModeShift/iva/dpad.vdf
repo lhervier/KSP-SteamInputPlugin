@@ -1,7 +1,0 @@
-"ref"
-{
-    "bindings"
-    {
-        "binding"		"mode_shift {{dpadZone}} %group_id:/groups/dpad/prev-next-vessel.vdf%"
-    }
-}

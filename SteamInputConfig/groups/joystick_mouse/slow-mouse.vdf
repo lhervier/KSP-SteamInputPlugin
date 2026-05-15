@@ -2,7 +2,6 @@
 {
     "group"
 	{
-		"id"		"#fileName"
 		"mode"		"joystick_mouse"
 		"name"		        ""
     	"description"		""
