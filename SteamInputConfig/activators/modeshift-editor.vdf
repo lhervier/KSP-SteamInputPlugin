@@ -11,9 +11,17 @@
         {
             "#ref"                  "/bindings/ModeShift/editor/button_diamond.vdf"
         }
-        "Full_Press"
-        {
-            "#ref"                  "/bindings/ModeShift/editor/joystick.vdf"
-        }
+        {{#if (equals dpadZone "left_trackpad")}}
+            "Full_Press"
+            {
+                "#ref"                  "/bindings/ModeShift/editor/left_trackpad.vdf"
+            }
+        {{/if}}
+        {{#if (equals dpadZone "dpad")}}
+            "Full_Press"
+            {
+                "#ref"                  "/bindings/ModeShift/editor/dpad.vdf"
+            }
+        {{/if}}
     }
 }
