@@ -2,124 +2,131 @@
 
 ## Overview
 
-This plugin enhances the native Steam Input support (through the support of the Steam Controller) in Kerbal Space Program by providing additional action sets and fixing the Maneuver Mode detection issue introduced in KSP 1.6. For more details about the original bug, see [KSP Issue #22165](https://bugs.kerbalspaceprogram.com/issues/22165).
+This plugin extends Kerbal Space Program’s native Steam Input support by adding extra action sets and fixing maneuver mode detection, which broke in KSP 1.6. For background on the original issue, see [KSP Issue #22165](https://bugs.kerbalspaceprogram.com/issues/22165).
+
+It also restores joystick (HID game controller) support, which stopped working reliably in the Steam build because of Squad’s built-in Steam Controller plugin. This mod disables that plugin and ships a replacement.
 
 ## Features
 
-The plugin adds several new action groups to enhance your gameplay experience:
+The plugin adds several action groups:
 
-- These action groups, implemented when using Squad native plugin, are supported:
-  - **Menu** : Action group used when in the menus.
-  - **Flight** : Action group when in flight mode (including when in manoeuvre node mode).
-  - **Docking** : Action group when in docking mode.
-  - **Editor** : Action group when in editor mode.
-- The **Map** action group is split into three distinct action groups:
-  - **MapFlight** : Map when in Flight mode controls
-  - **MapDocking** : Map when in Docking mode controls
-  - **MapEVA** : Map when in EVA mode controls
-- Additional action groups:
-  - **Tracking Station**: Dedicated controls for the tracking station interface
-  - **Mission Builder**: Custom controls for the mission editor
-  - **Construction Mode**: Special action group for EVA with engineers
-  - **IVA**: Dedicated action group for IVA
-  - **FreeIVA**: Dedicated action group for the [FreeIVA mod](https://github.com/FirstPersonKSP/FreeIva)
+- **Compatible with Squad’s built-in Steam Input plugin** for:
+  - **Menu** — menus and UI
+  - **Flight** — flight (including maneuver node mode)
+  - **Docking** — docking
+  - **Editor** — vehicle editor
+- **Map** is split into three action groups:
+  - **MapFlight** — map while using flight controls
+  - **MapDocking** — map while using docking controls
+  - **MapEVA** — map while in EVA
+- **Additional action groups:**
+  - **Tracking Station** — tracking station interface
+  - **Mission Builder** — mission editor
+  - **Construction Mode** — EVA construction with engineers
+  - **IVA** — interior view
+  - **FreeIVA** — [FreeIVA mod](https://github.com/FirstPersonKSP/FreeIva)
 
-It will also add a button in the action bar to help you troubleshoot problems by changing the logging level. Default is "Info". Set it to "Debug" or event "Trace" to have more details in the KSP.log file. 
+A toolbar button lets you change the plugin’s log level for troubleshooting. The default is **Info**; set **Debug** or **Trace** for more detail in `KSP.log`.
 
-When in flight mode, this icon is not displayed by default. Go to the difficulty settings to find a dedicated section with an option to display the icon.
+In flight, that button is hidden by default. Enable it under **Difficulty** → **Steam Input** (or the equivalent section for your game mode).
 
-If you want to see the logs in realtime, don't forget to tell KSP to flush its logs immediatly in the debug console (using the ALT+F12 shortcut), and check the "Flush logs" option in the Debug/Console section.
+To view logs in near real time, open the debug console (**Alt+F12**), go to **Debug** → **Console**, and enable **Flush logs**
 
 ## System Requirements
 
-- Linux, Windows 10 or later
+- Linux or Windows 10 or later
 - Steam client installed and running
-- Kerbal Space Program 1.12 (Steam version)
-- A Steam Input compatible controller, with back buttons:
-  - Steam Controller version 1 (Version 2 is in progress)
-  - Horipad Steam Controller
-  - XBox Elite controller, set on the default profile so Steam can use the back buttons. Don't forget to install the additionnal tools via the Steam parameters.
-  - PS4/PS5 controller, with additional rear buttons configured to be mapped to joysticks clicks.
-  - Any other controllers with Steam Input support : But you will have to create your own configuration (using Steam configuration interface)
+- Kerbal Space Program 1.12 (Steam build)
+- A Steam Input–compatible controller with **back buttons** (or equivalent), for the bundled layouts:
+  - Steam Controller (v1)
+  - Steam Controller (v2)
+  - HORIPAD for Steam
+  - Xbox Elite controller — use the default profile so Steam can use the paddles; install **Xbox enhanced feature support** from Steam (see **Settings** → **Controller**).
+  - DualShock 4 / DualSense — only with extra rear inputs mapped (e.g. to stick clicks), or a model with back buttons; see **Troubleshooting** below.
+  - Any other Steam Input–capable device — you can build your own layout in Steam’s configuration UI.
 
 ## Installation
 
-### 1. Configure Steam Input Actions
+### 1. Configure Steam Input actions
 
-1. Create a folder named `controller_config` in your Steam directory (e.g., `C:\Program Files (x86)\Steam\controller_config`)
-   - Note: A folder named `controller_base` should already exist. Don't touch to this folder !
-2. Copy the file `game_actions_220200_[your language].vdf` into this folder
+1. Create a folder named `controller_config` in your Steam directory (e.g. `C:\Program Files (x86)\Steam\controller_config`).
+   - A `controller_base` folder may already exist there; **do not modify it**.
+2. Copy `game_actions_220200_[your language].vdf` into `controller_config` and rename it to `game_actions_220200.vdf`.
 
-### 2. Deploy Steam VDF Configuration
+### 2. Install the plugin
 
-You have two options:
-- Launch the game and create your own bindings through the Steam interface
-- Use one of the pre-configured VDF files included with this mod:
-  - `ksp_steaminput_steamcontroller_[your language].vdf`: For Steam Controller version 1 users
-  - `ksp_steaminput_hori_[your language].vdf`: For the Horipad Steam Controller
-  - `ksp_steaminput_ps4_[your language].vdf`: For PS4/PS5 like controllers (see requirements)
-  - `ksp_steaminput_xboxelite_[your language].vdf`: For Xbox Elite controllers (see requirements)
+Extract the plugin into `GameData/SteamInput` inside your KSP install.
 
-Custom vdf configurations must be placed in the folder:
+### 3. Deploy the Steam VDF layout (optional)
+
+You can either:
+
+- Launch the game and bind everything in Steam’s controller UI, or  
+- Use one of the pre-built layouts shipped with the mod:
+  - `ksp_steaminput_steamcontroller_[language].vdf` — Steam Controller v1
+  - `ksp_steaminput_steamcontroller_v2_[language].vdf` — Steam Controller v2
+  - `ksp_steaminput_hori_[language].vdf` — HORIPAD for Steam
+  - `ksp_steaminput_ps4_[language].vdf` — PlayStation-style pads (see requirements above)
+  - `ksp_steaminput_xboxelite_[language].vdf` — Xbox Elite (see requirements above)
+
+Place custom layouts in:
+
 ```
-${SteamDir}/steamapps/common/Steam Controller Configs/[your userid]/config/220200/
+${SteamDir}/steamapps/common/Steam Controller Configs/[your SteamID]/config/220200/
 ```
 
-### 3. Install the Plugin
-
-Extract the plugin files into the `GameData/SteamInput` folder of your KSP installation
+In-game, open the Steam overlay / controller settings. Under **Your configurations**, you should see the layout you added.
 
 ## Usage
 
-After installation, the plugin will automatically detect and activate the appropriate action sets based on your current game context. No additional configuration is required.
+After installation, the plugin selects the correct action sets from your game context. No extra setup is required.
 
-You will find an icon in the KSP Tool bar. Clicking on it will allow you to change the logging level (in the KSP.log file). By default, this icon is hidden when in game. You can show it in the game difficulty settings, in the "Steam Input" section.
+Use the toolbar icon to change the log level (written to `KSP.log`). As above, the icon can be shown from difficulty / **Steam Input** settings.
 
 ### Troubleshooting
 
-If you encounter issues:
+If something goes wrong:
 
-1. Verify that Steam is running and KSP is launched through Steam
-1. Ensure the VDF configuration files are in the correct location
-1. Verify that the plugin is properly installed in the GameData folder
-1. Check that your controller is properly connected and recognized by Steam. 
-1. Check the KSP.log file for any error messages related to the plugin. Plugins logs are prefixed with the "[SteamInput]" string. You can change the logging level ingame.
+1. Steam is running and KSP is started from Steam.
+2. VDF files are in the paths described above.
+3. The plugin files are under `GameData/SteamInput`.
+4. The controller is connected and visible to Steam.
+5. Check `KSP.log` for lines prefixed with `[SteamInput]`; increase the log level in-game if needed.
 
-Issues specific to the XBox Elite Controller :
+#### Xbox Elite Controller
 
-1. Check that you have installed the XBox enhanced feature support :
-  - Go to Steam Parameters, in the "Controllers" section
-  - Click on the "install" button next to "XBox enhanced feature support"
-1. Check that your controller firmware is up to date
-1. Check that no profile is selected on the controller (the LED below the XBox button must be OFF !)
+1. Install **Xbox enhanced feature support**: **Steam** → **Settings** → **Controller** → install next to that option.
+2. Update the controller firmware if prompted.
+3. No Xbox Accessories “slot” profile should override Steam: the LED under the Xbox button should be **off** when using the default Steam profile.
 
-Issues specific to the PS4/PS5 Controller :
+#### PS4 / PS5–style controllers
 
-1. The standard PS4/PS5 controllers are not supported as they do nat have rear buttons.
-1. Check that you have mapped the rear buttons to the joysticks clicks.
-1. If you want to use a real PS4/PS5 controller, you can still create your own SteamInput configuration.
+1. Standard DualShock 4 / DualSense pads have no rear buttons; the bundled PS4-style layout expects extra inputs (e.g. stick clicks used as back buttons).
+2. Map those extra inputs as described in **System Requirements**.
+3. You can always author a custom Steam Input configuration for your hardware.
 
-## Known issue
+## Known issues
 
-I provide a VDF file for each language, even if vdf files can be localized. I cannot managed to use Steam localization feature... Help needed here !
+Separate VDF files are provided per language even though VDF can carry localization; getting Steam’s localization path to work reliably is still **TODO** — contributions welcome.
+
+On Linux, non–US English keyboard layouts (e.g. non-QWERTY) may cause issues; see [this Bazzite report](https://github.com/ublue-os/bazzite/issues/3464).
 
 ## Support
 
-For issues, feature requests, or contributions, please visit the [GitHub repository](https://github.com/lhervier/SteamInputConfig).
+Issues, feature requests, and contributions: [GitHub repository](https://github.com/lhervier/SteamInputConfig).
 
 ## Building from source
 
-TBD :
+**TODO**
 
-- Windows PC / Linux
-- VSCode
-- netcore
-- dotnet Framework 4.7
-- node
+- Windows / Linux
+- VS Code
+- .NET / target framework (e.g. .NET Framework 4.7)
+- Node.js (for VDF merge scripts)
 
-build.bat : Build all the release in the "Release" folder
-install.bat : Deploy all the files
+- `build.bat` — build release outputs into the `Release` folder  
+- `install.bat` — deploy built files
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License — see the `LICENSE` file for details.
