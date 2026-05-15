@@ -5,6 +5,10 @@
         "#ref"                      "_slow-mouse.vdf"
         "Full_Press"
         {
+            "#ref"				    "/bindings/Game/Editor/camera-slew.vdf"
+        }
+        "Full_Press"
+        {
             "#ref"                  "/bindings/ModeShift/eva-construction-mode/button_diamond.vdf"
         }
         "Full_Press"

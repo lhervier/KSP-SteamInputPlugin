@@ -12,7 +12,6 @@
 			{{else}}
 				"/groups/dpad/eva-move.vdf?with-mod"					"joystick active"
 			{{/if}}
-			"/groups/dpad/prev-next-vessel.vdf"							"joystick active modeshift"
 			
 			{{! Right Joystick }}
 			"#ref"														"right-joystick.vdf?preset=eva-construction-mode&dpad=camera"
