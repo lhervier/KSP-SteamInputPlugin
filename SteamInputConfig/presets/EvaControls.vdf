@@ -19,6 +19,7 @@
 			{{! Left Trackpad }}
 			{{#if (equals dpadZone "left_trackpad")}}
 				"/groups/dpad/click-zoom.vdf"							"left_trackpad active"
+				"/groups/dpad/prev-next-vessel.vdf"						"left_trackpad active modeshift"
 			{{/if}}
 
 			{{! Right Trackpad }}
@@ -33,6 +34,7 @@
 			{{! Dpad }}
 			{{#if (equals dpadZone "dpad")}}
 				"/groups/dpad/click-zoom.vdf"							"dpad active"
+				"/groups/dpad/prev-next-vessel.vdf"						"dpad active modeshift"
 			{{/if}}
 
 			{{! Left Trigger }}
