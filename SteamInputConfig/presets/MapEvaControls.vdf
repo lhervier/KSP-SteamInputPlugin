@@ -24,7 +24,7 @@
 			{{/if}}
 
 			{{! Button diamond }}
-			"/groups/button_diamond/mapeva/rcs-sas.vdf"				"button_diamond active"
+			"/groups/button_diamond/rcs-sas.vdf"					"button_diamond active"
 			"/groups/button_diamond/timewarp.vdf"					"button_diamond active modeshift"
 			
 			{{! Left Trigger }}

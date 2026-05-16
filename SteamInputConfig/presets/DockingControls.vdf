@@ -26,8 +26,8 @@
 			{{/if}}
 	
 			{{! Button diamond }}
-			"/groups/button_diamond/docking/tr_rot-brakes-rcs-sas.vdf"				"button_diamond active"
-			"/groups/button_diamond/docking-flight/timewarp-precision-target.vdf"	"button_diamond active modeshift"
+			"/groups/button_diamond/tr_rot-brakes-rcs-sas.vdf"						"button_diamond active"
+			"/groups/button_diamond/timewarp-precision-target.vdf"					"button_diamond active modeshift"
 			
 			{{! Left Trigger }}
 			"/groups/trigger/backward.vdf"											"left_trigger active"

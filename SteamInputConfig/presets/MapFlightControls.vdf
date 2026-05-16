@@ -25,8 +25,8 @@
 			{{/if}}
 
 			{{! Button diamond }}
-			"/groups/button_diamond/flight/staging-brakes-rcs-sas.vdf"	"button_diamond active"
-			"/groups/button_diamond/mapflight/precision-timewarp.vdf"	"button_diamond active modeshift"
+			"/groups/button_diamond/staging-brakes-rcs-sas.vdf"			"button_diamond active"
+			"/groups/button_diamond/precision-timewarp.vdf"				"button_diamond active modeshift"
 			
 			{{! Left Trigger }}
 			"/groups/trigger/throttle-down.vdf"							"left_trigger active"

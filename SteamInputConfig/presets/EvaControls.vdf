@@ -25,8 +25,8 @@
 			{{/if}}
 			
 			{{! Button diamond }}
-			"/groups/button_diamond/eva/jump-grab-rcs-sas.vdf"			"button_diamond active"
-			"/groups/button_diamond/eva/lights-embark-timewarp.vdf"		"button_diamond active modeshift"
+			"/groups/button_diamond/jump-grab-rcs-sas.vdf"				"button_diamond active"
+			"/groups/button_diamond/lights-embark-timewarp.vdf"			"button_diamond active modeshift"
 			
 			{{! Left Trigger }}
 			"/groups/trigger/eva/down.vdf"								"left_trigger active"

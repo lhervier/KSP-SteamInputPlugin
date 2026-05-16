@@ -24,7 +24,7 @@
 			{{/if}}
 			
 			{{! Button diamond }}
-			"/groups/button_diamond/menu/accept-cancel.vdf"             "button_diamond active"
+			"/groups/button_diamond/accept-cancel.vdf"		            "button_diamond active"
 			"/groups/button_diamond/timewarp.vdf"						"button_diamond active modeshift"
 			
 			{{! Left Trigger }}
