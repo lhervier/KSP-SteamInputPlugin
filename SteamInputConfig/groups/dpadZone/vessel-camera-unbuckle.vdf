@@ -8,7 +8,7 @@
 		"inputs"
 		{
 			"#ref"				"/inputs/dpad/east/next-vessel.vdf"
-			"#ref"				"/inputs/dpad/north/camera-view.vdf"
+			"#ref"				"/inputs/dpad/north/unbuckle.vdf"
 			"#ref"				"/inputs/dpad/south/camera-mode.vdf"
 			"#ref"				"/inputs/dpad/west/prev-vessel.vdf"
 		}
