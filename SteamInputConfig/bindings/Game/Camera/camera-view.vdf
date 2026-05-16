@@ -3,5 +3,6 @@
     "bindings"
     {
         "binding"		"key_press #C, #Game_Camera_cameraView, , "
+        
     }
 }
