@@ -10,10 +10,12 @@
 	"major_revision"	"0"
 	"minor_revision"	"0"
     
-	"action_layers"
-	{
-		"#ref"			"actions_layers/actions_layers.vdf"
-	}
+	{{#if (equals mouseZone "right_joystick")}}
+		"action_layers"
+		{
+			"#ref"			"actions_layers/actions_layers.vdf"
+		}
+	{{/if}}
 
 	"settings"
 	{

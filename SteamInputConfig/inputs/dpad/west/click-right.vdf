@@ -8,10 +8,12 @@
             {
                 "#ref"				"/bindings/Common/Mouse/RightClick.vdf"
             }
-            "Full_Press"
-            {
-                "#ref"              "/bindings/Layer/right-click-layer.vdf"
-            }
+            {{#if (equals mouseZone "right_joystick")}}
+                "Full_Press"
+                {
+                    "#ref"              "/bindings/Layer/right-click-layer.vdf"
+                }
+            {{/if}}
         }
     }
 }
