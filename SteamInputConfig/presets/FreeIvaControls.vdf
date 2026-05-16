@@ -7,43 +7,35 @@
 		{
 			{{! Left Joystick }}
 			{{#if (true backButtons)}}
-				"/groups/dpad/freeiva-move.vdf"						"joystick active"
+				"/groups/joystick/freeiva-move.vdf"						"joystick active"
 			{{else}}
-				"/groups/dpad/freeiva-move.vdf?with-mod"			"joystick active"
+				"/groups/joystick/freeiva-move.vdf?with-mod"			"joystick active"
 			{{/if}}
 			
 			{{! Right Joystick }}
-			"#ref"													"_right-joystick.vdf?preset=freeiva&dpad=iva-camera"
+			"#ref"														"_right-joystick.vdf?preset=freeiva&group=iva-camera"
 			
-			{{! Left Trackpad }}
-			{{#if (equals dpadZone "left_trackpad")}}
-				"/groups/dpad/click-zoom.vdf"						"left_trackpad active"
-				"/groups/dpad/prev-next-vessel.vdf"					"left_trackpad active modeshift"
-			{{/if}}
-
+			{{! dpadZone }}
+			"/groups/dpadZone/click-zoom.vdf"							"{{dpadZone}} active"
+			"/groups/dpadZone/prev-next-vessel.vdf"						"{{dpadZone}} active modeshift"
+			
 			{{! Right Trackpad }}
 			{{#if (equals mouseZone "right_trackpad")}}
-				"/groups/absolute_mouse/mouse.vdf"					"right_trackpad active"
+				"/groups/right_trackpad/mouse.vdf"						"right_trackpad active"
 			{{/if}}
 			
 			{{! Button diamond }}
-			"/groups/four_buttons/freeiva/jump-seat-crouch-eva.vdf"	"button_diamond active"
-			"/groups/four_buttons/timewarp.vdf"						"button_diamond active modeshift"
-			
-			{{! Dpad }}
-			{{#if (equals dpadZone "dpad")}}
-				"/groups/dpad/click-zoom.vdf"						"dpad active"
-				"/groups/dpad/prev-next-vessel.vdf"					"dpad active modeshift"
-			{{/if}}
+			"/groups/button_diamond/freeiva/jump-seat-crouch-eva.vdf"	"button_diamond active"
+			"/groups/button_diamond/timewarp.vdf"						"button_diamond active modeshift"
 			
 			{{! Left Trigger }}
-			"/groups/trigger/eva/down.vdf"							"left_trigger active"
+			"/groups/trigger/eva/down.vdf"								"left_trigger active"
 			
 			{{! Right Trigger }}
-			"/groups/trigger/eva/up.vdf"							"right_trigger active"
+			"/groups/trigger/eva/up.vdf"								"right_trigger active"
 			
 			{{! Switch }}
-			"/groups/switches/freeiva.vdf"							"switch active"
+			"/groups/switches/freeiva.vdf"								"switch active"
 		}
 	}
 }

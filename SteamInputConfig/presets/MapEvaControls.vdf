@@ -7,33 +7,26 @@
 		{
 			{{! Left Joystick }}
 			{{#if (true backButtons)}}
-				"/groups/dpad/eva-move.vdf"							"joystick active"
+				"/groups/joystick/eva-move.vdf"						"joystick active"
 			{{else}}
-				"/groups/dpad/eva-move.vdf?with-mod"				"joystick active"
+				"/groups/joystick/eva-move.vdf?with-mod"			"joystick active"
 			{{/if}}
 			
 			{{! Right Joystick }}
-			"#ref"													"_right-joystick.vdf?preset=mapeva&dpad=camera"
+			"#ref"													"_right-joystick.vdf?preset=mapeva&group=camera"
 			
-			{{! Left Trackpad }}
-			{{#if (equals dpadZone "left_trackpad")}}
-				"/groups/dpad/click-zoom.vdf"						"left_trackpad active"
-			{{/if}}
-
+			{{! dpadZone }}
+			"/groups/dpadZone/click-zoom.vdf"						"{{dpadZone}} active"
+			
 			{{! Right Trackpad }}
 			{{#if (equals mouseZone "right_trackpad")}}
-				"/groups/absolute_mouse/mouse.vdf"					"right_trackpad active"
+				"/groups/right_trackpad/mouse.vdf"					"right_trackpad active"
 			{{/if}}
 
 			{{! Button diamond }}
-			"/groups/four_buttons/mapeva/rcs-sas.vdf"				"button_diamond active"
-			"/groups/four_buttons/timewarp.vdf"						"button_diamond active modeshift"
+			"/groups/button_diamond/mapeva/rcs-sas.vdf"				"button_diamond active"
+			"/groups/button_diamond/timewarp.vdf"					"button_diamond active modeshift"
 			
-			{{! Dpad }}
-			{{#if (equals dpadZone "dpad")}}
-				"/groups/dpad/click-zoom.vdf"						"dpad active"
-			{{/if}}
-
 			{{! Left Trigger }}
 			"/groups/trigger/eva/down.vdf"							"left_trigger active"
 			

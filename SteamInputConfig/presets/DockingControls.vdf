@@ -7,36 +7,28 @@
 		{
 			{{! Left Joystick }}
 			{{#if (true backButtons)}}
-				"/groups/dpad/translate.vdf"										"joystick active"
+				"/groups/joystick/translate.vdf"									"joystick active"
 			{{else}}
-				"/groups/dpad/translate.vdf?with-mod"								"joystick active"
+				"/groups/joystick/translate.vdf?with-mod"							"joystick active"
 			{{/if}}
-			"/groups/hotbar/actiongroups.vdf"										"joystick active modeshift"
+			"/groups/joystick/actiongroups.vdf"										"joystick active modeshift"
 
 			{{! Right Joystick }}
-			"#ref"																	"_right-joystick.vdf?preset=docking&dpad=camera"
+			"#ref"																	"_right-joystick.vdf?preset=docking&group=camera"
 			
-			{{! Left Trackpad }}
-			{{#if (equals dpadZone "left_trackpad")}}
-				"/groups/dpad/click-zoom.vdf"										"left_trackpad active"
-				"/groups/dpad/vessel-camera.vdf"									"left_trackpad active modeshift"
-			{{/if}}
-
+			{{! dpadZone }}
+			"/groups/dpadZone/click-zoom.vdf"										"{{dpadZone}} active"
+			"/groups/dpadZone/vessel-camera.vdf"									"{{dpadZone}} active modeshift"
+			
 			{{! Right Trackpad }}
 			{{#if (equals mouseZone "right_trackpad")}}
-				"/groups/absolute_mouse/mouse.vdf"									"right_trackpad active"
+				"/groups/right_trackpad/mouse.vdf"									"right_trackpad active"
 			{{/if}}
 	
 			{{! Button diamond }}
-			"/groups/four_buttons/docking/tr_rot-brakes-rcs-sas.vdf"				"button_diamond active"
-			"/groups/four_buttons/docking-flight/timewarp-precision-target.vdf"		"button_diamond active modeshift"
+			"/groups/button_diamond/docking/tr_rot-brakes-rcs-sas.vdf"				"button_diamond active"
+			"/groups/button_diamond/docking-flight/timewarp-precision-target.vdf"	"button_diamond active modeshift"
 			
-			{{! Dpad }}
-			{{#if (equals dpadZone "dpad")}}
-				"/groups/dpad/click-zoom.vdf"										"dpad active"
-				"/groups/dpad/vessel-camera.vdf"									"dpad active modeshift"
-			{{/if}}
-
 			{{! Left Trigger }}
 			"/groups/trigger/backward.vdf"											"left_trigger active"
 			

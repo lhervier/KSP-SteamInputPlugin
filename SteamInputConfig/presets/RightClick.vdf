@@ -6,7 +6,7 @@
 		"group_source_bindings"
 		{
 			{{#if (equals mouseZone "right_joystick")}}
-				"/groups/dpad/camera.vdf"		                    "right_joystick active"
+				"/groups/right_joystick/camera.vdf"			"right_joystick active"
 			{{/if}}
 		}
 	}

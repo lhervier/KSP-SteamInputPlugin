@@ -7,36 +7,27 @@
 		{
 			{{! Left Joystick }}
 			{{#if (true backButtons)}}
-				"/groups/dpad/eva-move.vdf"								"joystick active"
+				"/groups/joystick/eva-move.vdf"							"joystick active"
 			{{else}}
-				"/groups/dpad/eva-move.vdf?with-mod"					"joystick active"
+				"/groups/joystick/eva-move.vdf?with-mod"				"joystick active"
 			{{/if}}
-			"/groups/dpad/prev-next-vessel.vdf"							"joystick active modeshift"
 			
 			{{! Right Joystick }}
-			"#ref"														"_right-joystick.vdf?preset=eva&dpad=camera"
+			"#ref"														"_right-joystick.vdf?preset=eva&group=camera"
 			
-			{{! Left Trackpad }}
-			{{#if (equals dpadZone "left_trackpad")}}
-				"/groups/dpad/click-zoom.vdf"							"left_trackpad active"
-				"/groups/dpad/prev-next-vessel.vdf"						"left_trackpad active modeshift"
-			{{/if}}
-
+			{{! dpadZone }}
+			"/groups/dpadZone/click-zoom.vdf"							"{{dpadZone}} active"
+			"/groups/dpadZone/prev-next-vessel.vdf"						"{{dpadZone}} active modeshift"
+		
 			{{! Right Trackpad }}
 			{{#if (equals mouseZone "right_trackpad")}}
-				"/groups/absolute_mouse/mouse.vdf"						"right_trackpad active"
+				"/groups/right_trackpad/mouse.vdf"						"right_trackpad active"
 			{{/if}}
 			
 			{{! Button diamond }}
-			"/groups/four_buttons/eva/jump-grab-rcs-sas.vdf"			"button_diamond active"
-			"/groups/four_buttons/eva/lights-embark-timewarp.vdf"		"button_diamond active modeshift"
+			"/groups/button_diamond/eva/jump-grab-rcs-sas.vdf"			"button_diamond active"
+			"/groups/button_diamond/eva/lights-embark-timewarp.vdf"		"button_diamond active modeshift"
 			
-			{{! Dpad }}
-			{{#if (equals dpadZone "dpad")}}
-				"/groups/dpad/click-zoom.vdf"							"dpad active"
-				"/groups/dpad/prev-next-vessel.vdf"						"dpad active modeshift"
-			{{/if}}
-
 			{{! Left Trigger }}
 			"/groups/trigger/eva/down.vdf"								"left_trigger active"
 			
