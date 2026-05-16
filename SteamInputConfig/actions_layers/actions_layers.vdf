@@ -9,7 +9,6 @@
     "#ref"				"action_layer.vdf?preset=Eva"
     "#ref"				"action_layer.vdf?preset=MapEva"
     "#ref"				"action_layer.vdf?preset=EvaConstructionMode"
-    "#ref"				"action_layer.vdf?preset=Iva"
     "#ref"				"action_layer.vdf?preset=FreeIva"
     "#ref"				"action_layer.vdf?preset=MissionBuilder"
 }

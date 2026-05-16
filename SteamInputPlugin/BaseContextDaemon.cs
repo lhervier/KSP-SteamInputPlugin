@@ -65,7 +65,7 @@ namespace com.github.lhervier.ksp
         /// </summary>
         /// <param name="flightUiMode">The flight UI mode to check</param>
         protected bool InFlightMode(FlightUIMode flightUiMode) {
-            if( this.InEVA() || this.InIVA() ) {
+            if( this.InEVA() ) {
                 return false;
             }
             return flightUiMode == FlightUIMode.STAGING || flightUiMode == FlightUIMode.MANEUVER_INFO || flightUiMode == FlightUIMode.MANEUVER_EDIT;
@@ -87,7 +87,7 @@ namespace com.github.lhervier.ksp
         /// </summary>
         /// <param name="flightUiMode">The flight UI mode to check</param>
         protected bool InDockingMode(FlightUIMode flightUiMode) {
-            if( this.InEVA() || this.InIVA() ) {
+            if( this.InEVA() ) {
                 return false;
             }
             return flightUiMode == FlightUIMode.DOCKING;

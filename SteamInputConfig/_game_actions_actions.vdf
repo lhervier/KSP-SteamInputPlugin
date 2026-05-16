@@ -52,11 +52,6 @@
 			"title"		"#Set_EvaConstructionMode"
 			"legacy_set"		"0"
 		}
-		"IvaControls"
-		{
-			"title"		"#Set_Iva"
-			"legacy_set"		"0"
-		}
 		"FreeIvaControls"
 		{
 			"title"		"#Set_FreeIva"

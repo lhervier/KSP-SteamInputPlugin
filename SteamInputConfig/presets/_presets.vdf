@@ -11,7 +11,6 @@
 	"#ref"				"EvaControls.vdf"
 	"#ref"				"MapEvaControls.vdf"
 	"#ref"				"EvaConstructionModeControls.vdf"
-	"#ref"				"IvaControls.vdf"
 	"#ref"				"FreeIvaControls.vdf"
 	"#ref"				"MissionBuilderControls.vdf"
 
@@ -25,7 +24,6 @@
 	"#ref"				"RightClick.vdf?preset=Eva"
 	"#ref"				"RightClick.vdf?preset=MapEva"
 	"#ref"				"RightClick.vdf?preset=EvaConstructionMode"
-	"#ref"				"RightClick.vdf?preset=Iva"
 	"#ref"				"RightClick.vdf?preset=FreeIva"
 	"#ref"				"RightClick.vdf?preset=MissionBuilder"
 }
