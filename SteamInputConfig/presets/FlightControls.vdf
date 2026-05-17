@@ -40,6 +40,7 @@
 			{{#unless (true triggersClick)}}
 				"/groups/trigger/full-throttle.vdf"										"right_trigger active modeshift"
 			{{/unless}}
+			
 			{{! Switch }}
 			"/groups/switches/flight.vdf"												"switch active"
 		}
