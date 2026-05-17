@@ -7,9 +7,9 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"				"/inputs/triggers/edge/throttle-down.vdf"
+			"#ref"				"/inputs/trigger/edge/throttle-down.vdf"
 			{{#if (true triggersClick)}}
-				"#ref"			"/inputs/triggers/click/throttle-cutoff.vdf"
+				"#ref"			"/inputs/trigger/click/throttle-cutoff.vdf"
 			{{/if}}
 		}
 		"settings"

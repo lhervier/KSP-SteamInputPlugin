@@ -7,7 +7,7 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"				"/inputs/triggers/edge/dock-forward.vdf"
+			"#ref"				"/inputs/trigger/edge/dock-forward.vdf"
 		}
 		"settings"
 		{

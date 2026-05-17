@@ -7,7 +7,7 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"				"/inputs/triggers/edge/left-click.vdf"
+			"#ref"				"/inputs/trigger/edge/left-click.vdf"
 		}
 		"settings"
 		{

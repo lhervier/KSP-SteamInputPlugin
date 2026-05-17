@@ -7,7 +7,7 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"				"/inputs/triggers/edge/eva-down.vdf"
+			"#ref"				"/inputs/trigger/edge/eva-down.vdf"
 		}
 		"settings"
 		{

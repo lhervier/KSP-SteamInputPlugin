@@ -7,7 +7,7 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"				"/inputs/triggers/edge/full-throttle.vdf"
+			"#ref"				"/inputs/trigger/edge/full-throttle.vdf"
 		}
 		"settings"
 		{
