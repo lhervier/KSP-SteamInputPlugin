@@ -2,161 +2,115 @@ const fs = require('fs');
 const path = require('path');
 const Handlebars = require('handlebars');
 const VDF = require('vdf-parser');
+const { mergeVdfProperties } = require('./utils');
+const { compileVdfSource } = require('./handlebars-utils');
 
-/** Truthy OR for subexpressions, e.g. {{#if (or steamcontroller hori xboxelite)}} */
-Handlebars.registerHelper('or', function (...args) {
-    const values = args.slice(0, -1);
-    return values.some(Boolean);
-});
+// ---------------------------------------------------------
+// VDF String encoding/decoding
+// ---------------------------------------------------------
 
 /**
- * Strict boolean context flag for #if / #unless: {{#if (true haptic)}}
- * Throws unless the resolved value is strictly true or false (e.g. missing property → undefined).
+ * Encode a string for a VDF file
+ * @param {string} s - The string to encode
+ * @returns {string} The encoded string
  */
-Handlebars.registerHelper('true', function (value) {
-    if (value !== true && value !== false) {
-        const hint =
-            value === undefined
-                ? 'undefined (missing context property?)'
-                : typeof value;
-        throw new Error(`true helper: expected a boolean context flag, got ${hint}`);
+function _encodeVdfString(s) {
+    if( typeof s !== 'string' ) {
+        return String(s);
     }
-    return value;
-});
-
-/**
- * Strict string equality for #if / #unless: {{#if (equals mouseZone "right_trackpad")}}
- * Throws unless both operands are strings (catches missing context properties or typos).
- */
-Handlebars.registerHelper('equals', function (a, b) {
-    if (typeof a !== 'string' || typeof b !== 'string') {
-        const hintA = a === undefined ? 'undefined (missing context property?)' : typeof a;
-        const hintB = b === undefined ? 'undefined (missing context property?)' : typeof b;
-        throw new Error(`equals helper: expected two strings, got ${hintA} and ${hintB}`);
-    }
-    return a === b;
-});
-
-/**
- * Check if variable exists in context #if / #unless: {{#if (defined mod)}}
- */
-Handlebars.registerHelper('defined', function (variable) {
-    return variable !== undefined;
-});
-
-/**
- * Compile VDF source as a Handlebars template (no HTML escaping, strict lookups).
- * @param {string} source - Raw file contents
- * @param {object} [hbsContext] - Passed through to the template (initialized by merge-*.js)
- * @param {string} vdfPath - For error messages only
- * @returns {string}
- */
-function compileVdfSource(source, hbsContext, vdfPath) {
-    try {
-        const template = Handlebars.compile(source, { noEscape: true, strict: true });
-        return template(hbsContext || {});
-    } catch (error) {
-        throw new Error(`${vdfPath}: Handlebars error: ${error.message}`);
-    }
+    return s.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
 }
 
-/**
- * Merge two VDF properties.
- * @param {*} source 
- * @param {*} target 
+/** 
+ * Decode Valve KeyValues escape sequences in a quoted string value.
+ * @param {string} s - The string to decode
+ * @returns {string} The decoded string
  */
-function mergeVdfProperties(source, target) {
-    if( !source ) {
-        return target;
-    }
-    if( Array.isArray(source) ) {
-        if( Array.isArray(target) ) {
-            return [...source, ...target];
-        } else {
-            return [...source, target];
-        }
-    } else {
-        if( Array.isArray(target) ) {
-            return [source, ...target];
-        } else {
-            return [source, target];
-        }
-    }
-}
-
-/**
- * Format and save a VDF object to a file
- * @param {Object} obj - The object to save
- * @param {string} filePath - The path of the output file
- * @throws {Error} If the file cannot be written
- */
-function saveVdfFile(obj, filePath) {
-    const tab = '\t';
+function _decodeVdfString(s) {
     let result = '';
-    
-    function writeProperty(key, value, indent) {
-        if (Array.isArray(value)) {
-            // Case of arrays: write each element with the same key
-            value.forEach(item => {
-                if (typeof item === 'string' || typeof item === 'number' || typeof item === 'boolean') {
-                    // Primitive values: write as duplicate key-value pairs (valid VDF)
-                    result += `${tab.repeat(indent)}"${key}"\t\t"${item}"\n`;
-                } else {
-                    result += `${tab.repeat(indent)}"${key}"\n${tab.repeat(indent)}{\n`;
-
-                    // Special case for groups and presets: write the id first
-                    if ( (key === 'group' || key === 'preset') && item.id !== undefined) {
-                        result += `${tab.repeat(indent + 1)}"id"\t\t"${item.id}"\n`;
-                        const { id, ...rest } = item;
-                        formatVdf(rest, indent + 1);
-                    } else {
-                        formatVdf(item, indent + 1);
-                    }
-
-                    result += `${tab.repeat(indent)}}\n`;
-                }
-            });
-        } else if (typeof value === 'object' && value !== null) {
-            result += `${tab.repeat(indent)}"${key}"\n${tab.repeat(indent)}{\n`;
-            formatVdf(value, indent + 1);
-            result += `${tab.repeat(indent)}}\n`;
+    for (let i = 0; i < s.length; i++) {
+        if (s[i] === '\\' && i + 1 < s.length) {
+            const next = s[++i];
+            switch (next) {
+                case '\\': result += '\\'; break;
+                case '"': result += '"'; break;
+                case 'n': result += '\n'; break;
+                case 't': result += '\t'; break;
+                case 'r': result += '\r'; break;
+                default: result += next;
+            }
         } else {
-            result += `${tab.repeat(indent)}"${key}"\t\t"${value}"\n`;
+            result += s[i];
         }
     }
-    
-    function formatVdf(obj, indent = 0) {
-        // Write the properties in the specified order
-        const orderedProps = ['actions', 'action_layers', 'localization', 'group', 'preset', 'settings'];
-        
-        // Write first the unordered properties
-        for (const [key, value] of Object.entries(obj)) {
-            if (!orderedProps.includes(key)) {
-                writeProperty(key, value, indent);
-            }
-        }
-        
-        // Write then the ordered properties
-        orderedProps.forEach(prop => {
-            if (obj[prop] !== undefined) {
-                writeProperty(prop, obj[prop], indent);
-            }
-        });
-    }
-    
-    formatVdf(obj);
-    fs.writeFileSync(filePath, result);
+    return result;
 }
 
-function toAbsolutePath(configRoot, vdfPath) {
-    if( vdfPath.startsWith('/') ) {
-        return path.join(configRoot, vdfPath.substring(1));
+/** 
+ * Recursively decode escaped string values in a parsed VDF tree.
+ * @param {Object} node - The node to decode
+ * @returns {Object} The decoded node
+ */
+function _decodeVdfValues(node) {
+    if (Array.isArray(node)) {
+        for (let i = 0; i < node.length; i++) {
+            node[i] = _decodeVdfValues(node[i]);
+        }
+        return node;
+    }
+    if (node !== null && typeof node === 'object') {
+        for (const key of Object.keys(node)) {
+            node[key] = _decodeVdfValues(node[key]);
+        }
+        return node;
+    }
+    if (typeof node === 'string') {
+        return _decodeVdfString(node);
+    }
+    return node;
+}
+
+/**
+ * Parse a VDF file and decode the string values
+ * @param {string} content - The content of the VDF file
+ * @returns {Object} The parsed object
+ * @throws {Error} If the file cannot be parsed
+ */
+function _parseVdfFile(content) {
+    try {
+        const parsedObj = VDF.parse(content, { types: false });
+        _decodeVdfValues(parsedObj);
+        return parsedObj;
+    } catch (error) {
+        throw new Error(`Error parsing VDF file: ${error.message}`);
+    }
+}
+
+// ---------------------------------------------------------
+// Path utilities
+// ---------------------------------------------------------
+
+/**
+ * Convert an absolute path, relative to the config root, to an absolute path on the filesystem
+ * @param {string} configRoot - The root directory of the VDF files
+ * @param {string} vdfAbsolutePath - The absolute path to the VDF file, relative to the config root
+ * @returns {string} The absolute path on the filesystem
+ */
+function _toAbsolutePath(configRoot, vdfAbsolutePath) {
+    if( vdfAbsolutePath.startsWith('/') ) {
+        return path.join(configRoot, vdfAbsolutePath.substring(1));
     } else {
-        return path.join(configRoot, vdfPath);
+        return path.join(configRoot, vdfAbsolutePath);
     }
 }
 
-function toAbsoluteConfigPath(absoluteParentVdfPath, vdfPath) {
+/**
+ * Convert a path, relative to another VDF file, to an absolute path, relative to the parent VDF file's directory
+ * @param {string} absoluteParentVdfPath - The absolute path to the parent VDF file
+ * @param {string} vdfPath - The path to the VDF file, relative to the parent VDF file
+ * @returns {string} The absolute path, relative to the parent VDF file's directory
+ */
+function _toAbsoluteConfigPath(absoluteParentVdfPath, vdfPath) {
     if( vdfPath.startsWith('/') ) {
         return vdfPath;
     }
@@ -164,11 +118,15 @@ function toAbsoluteConfigPath(absoluteParentVdfPath, vdfPath) {
     return path.posix.join(folder, vdfPath);
 } 
 
+// ---------------------------------------------------------
+// Parse Ref Spec
+// ---------------------------------------------------------
+
 /**
  * Parse a ref spec "file.vdf?k1=v1&k2=v2" into { file, params }.
  * Without "?", params is {}. Throws on duplicate keys.
  */
-function parseRefSpec(spec) {
+function _parseRefSpec(spec) {
     const idx = spec.indexOf('?');
     if (idx === -1) return { file: spec, params: {} };
     const file = spec.substring(0, idx);
@@ -188,8 +146,10 @@ function parseRefSpec(spec) {
  * Empty params → "". A key with an empty string value becomes "?key" (no "=").
  * Uses encodeURIComponent (not URLSearchParams.toString) so "/" is encoded
  * and downstream path.dirname / path.relative aren't fooled by raw slashes inside values.
+ * @param {Object} params - The parameters to canonicalize
+ * @returns {string} The canonicalized parameters
  */
-function canonicalizeParams(params) {
+function _canonicalizeParams(params) {
     const keys = Object.keys(params).sort();
     if (keys.length === 0) return '';
     return '?' + keys
@@ -203,6 +163,75 @@ function canonicalizeParams(params) {
         .join('&');
 }
 
+// ---------------------------------------------------------
+// Save VDF File
+// ---------------------------------------------------------
+
+/**
+ * Format and save a VDF object to a file
+ * @param {Object} obj - The object to save
+ * @param {string} filePath - The path of the output file
+ * @throws {Error} If the file cannot be written
+ */
+function saveVdfFile(obj, filePath) {
+    const tab = '\t';
+    let result = '';
+    
+    function writeProperty(key, value, indent) {
+        if( key === null || key === undefined ) {
+            throw new Error(`Property key cannot be null or undefined`);
+        }
+        if( typeof key !== 'string' ) {
+            throw new Error(`Property key must be a string, got ${typeof key}`);
+        }
+        if( key.includes('\\') ) {
+            throw new Error(`Property key cannot contain a backslash, got ${key}`);
+        }
+        
+        if( value === null || value === undefined ) {
+            throw new Error(`Property value cannot be null or undefined`);
+        }
+        
+        const indentString = tab.repeat(indent);
+        if (Array.isArray(value)) {
+            value.forEach(item => {
+                writeProperty(key, item, indent);
+            });
+        } else if (typeof value === 'object' ) {
+            result += `${indentString}"${key}"\n${indentString}{\n`;
+            formatVdf(value, indent + 1);
+            result += `${indentString}}\n`;
+        } else if (typeof value == "string") {
+            result += `${indentString}"${key}"${tab}${tab}"${_encodeVdfString(value)}"\n`;
+        } else {
+            throw new Error(`Property ${key} has an invalid type: ${typeof value}`);
+        }
+    }
+    
+    function formatVdf(obj, indent = 0) {
+        for (const [key, value] of Object.entries(obj)) {
+            writeProperty(key, value, indent);
+        }
+    }
+    
+    formatVdf(obj);
+    fs.writeFileSync(filePath, result);
+}
+
+// ---------------------------------------------------------
+// VDF File Loading
+// ---------------------------------------------------------
+
+/**
+ * Load a VDF file. Paths starting with "/" in the file are relative to the directory of the given root VDF path.
+ * @param {string} configRoot - Directory of the entry VDF (root for "/" paths in the VDF)
+ * @param {string} vdfPath - Path to the VDF to load (relative to the configRoot)
+ * @param {object} [hbsContext] - Handlebars context for all loaded .vdf
+ */
+function loadVdfFile(configRoot, vdfPath, hbsContext = {}) {
+    return _loadVdfFile(configRoot, vdfPath, hbsContext);
+}
+
 /**
  * Process #ref properties in an object by loading referenced files and merging their properties
  * @param {Object} obj - The object to process
@@ -212,7 +241,7 @@ function canonicalizeParams(params) {
  * @returns {Object} The processed object with #ref properties resolved
  * @throws {Error} If a referenced file cannot be loaded or doesn't have a "ref" root property
  */
-function processRefs(obj, vdfPath, hbsContext, configRoot) {
+function _processRefs(obj, vdfPath, hbsContext, configRoot) {
     if (obj === null) {
         return null;
     }
@@ -225,7 +254,7 @@ function processRefs(obj, vdfPath, hbsContext, configRoot) {
             return node.map(item => processRefValue(item));
         }
         if (node !== null && typeof node === 'object') {
-            return processRefs(node, vdfPath, hbsContext, configRoot);
+            return _processRefs(node, vdfPath, hbsContext, configRoot);
         }
         return node;
     }
@@ -251,11 +280,11 @@ function processRefs(obj, vdfPath, hbsContext, configRoot) {
 
     while( refPaths.length > 0 ) {
         const refSpec = refPaths.shift();
-        const { file: refFile, params: refParams } = parseRefSpec(refSpec);
+        const { file: refFile, params: refParams } = _parseRefSpec(refSpec);
 
-        let refConfigPath = toAbsoluteConfigPath(vdfPath, refFile);
+        let refConfigPath = _toAbsoluteConfigPath(vdfPath, refFile);
         
-        const refVdf = _loadVdfFile(configRoot, refConfigPath + canonicalizeParams(refParams), hbsContext);
+        const refVdf = _loadVdfFile(configRoot, refConfigPath + _canonicalizeParams(refParams), hbsContext);
         if( !refVdf.ref ) {
             throw new Error(`Referenced file ${refConfigPath} must have "ref" as the root property`);
         }
@@ -267,16 +296,6 @@ function processRefs(obj, vdfPath, hbsContext, configRoot) {
     }
     
     return result;
-}
-
-/**
- * Load a VDF file. Paths starting with "/" in the file are relative to the directory of the given root VDF path.
- * @param {string} configRoot - Directory of the entry VDF (root for "/" paths in the VDF)
- * @param {string} vdfPath - Path to the VDF to load (relative to the configRoot)
- * @param {object} [hbsContext] - Handlebars context for all loaded .vdf
- */
-function loadVdfFile(configRoot, vdfPath, hbsContext = {}) {
-    return _loadVdfFile(configRoot, vdfPath, hbsContext);
 }
 
 /**
@@ -292,8 +311,8 @@ function _loadVdfFile(configRoot, vdfPath, hbsContext) {
     if( !vdfPath.startsWith('/') ) {
         throw new Error(`VDF path must start with "/", got ${vdfPath}`);
     }
-    const { file: diskPath, params } = parseRefSpec(vdfPath);
-    const raw = fs.readFileSync(toAbsolutePath(configRoot, diskPath), 'utf8');
+    const { file: diskPath, params } = _parseRefSpec(vdfPath);
+    const raw = fs.readFileSync(_toAbsolutePath(configRoot, diskPath), 'utf8');
     const fileContext = Object.keys(params).length > 0
         ? { ...hbsContext, ...params }
         : hbsContext;
@@ -301,13 +320,13 @@ function _loadVdfFile(configRoot, vdfPath, hbsContext) {
     
     let parsedObj;
     try {
-        parsedObj = VDF.parse(content);
+        parsedObj = _parseVdfFile(content);
     } catch (error) {
         throw new Error(`Error parsing ${vdfPath}: ${error.message}`);
     }
     
     // Process #ref properties
-    return processRefs(parsedObj, vdfPath, hbsContext, configRoot);
+    return _processRefs(parsedObj, vdfPath, hbsContext, configRoot);
 }
 
 module.exports = {

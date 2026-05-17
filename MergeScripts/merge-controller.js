@@ -6,6 +6,7 @@ const { resolvePresets } = require('./src/preset-utils');
 const { resolveGroupBindings } = require('./src/group-bindings-utils');
 const { resolveLayerBindings } = require('./src/layer-bindings-utils');
 const { translateVdf } = require('./src/translate-utils');
+const { orderControllerProperties } = require('./src/controller-utils');
 
 const [controllersJsonPath, controllerName] = process.argv.slice(2);
 if (!controllersJsonPath || !controllerName) {
@@ -46,6 +47,8 @@ for (const controller of controllersToBuild) {
 
     // Update the Timestamp property (set in epoch milliseconds)
     merged.controller_mappings.Timestamp = Date.now().toString();
+
+    merged = orderControllerProperties(merged);
 
    // Translate the VDF file into all known languages
     // The list of available languages are in the "localization" property of the vdf

@@ -29,6 +29,31 @@ function deepClone(obj) {
     return obj;
 }
 
+/**
+ * Merge two VDF properties.
+ * @param {*} source 
+ * @param {*} target 
+ */
+function mergeVdfProperties(source, target) {
+    if( !source ) {
+        return target;
+    }
+    if( Array.isArray(source) ) {
+        if( Array.isArray(target) ) {
+            return [...source, ...target];
+        } else {
+            return [...source, target];
+        }
+    } else {
+        if( Array.isArray(target) ) {
+            return [source, ...target];
+        } else {
+            return [source, target];
+        }
+    }
+}
+
 module.exports = {
-    deepClone
+    deepClone,
+    mergeVdfProperties
 }
