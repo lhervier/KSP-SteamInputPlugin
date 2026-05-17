@@ -4,12 +4,12 @@
     {
         "#ref"				"french/Common.vdf"
         "#ref"				"french/Flight.vdf"
-        "#ref"				"english/FreeIva.vdf"
-        "#ref"				"english/Game.vdf"
-        "#ref"				"english/Kerbals.vdf"
+        "#ref"				"french/FreeIva.vdf"
+        "#ref"				"french/Game.vdf"
+        "#ref"				"french/Kerbals.vdf"
         "#ref"				"french/Set.vdf"
-        "#ref"				"english/SettingsController.vdf"
-        "#ref"				"english/Vessel.vdf"
+        "#ref"				"french/SettingsController.vdf"
+        "#ref"				"french/Vessel.vdf"
         "#ref"              "french/Keyboard.vdf"
     }
 }
