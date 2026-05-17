@@ -1,0 +1,15 @@
+"ref"
+{
+    "group"
+	{
+		"mode"		"four_buttons"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"#ref"				"/inputs/four_buttons/x/timewarp-decr.vdf"
+			"#ref"				"/inputs/four_buttons/y/timewarp-incr.vdf"
+			"#ref"				"/inputs/four_buttons/b/goto-eva.vdf"
+		}
+	}
+}

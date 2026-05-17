@@ -1,12 +1,12 @@
 "ref"
 {
-    "button_b"
+    "dpad_east"
     {
         "activators"
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Kerbals/back-to-flight.vdf"
+                "#ref"				"/bindings/FreeIva/change-kerbal.vdf"
             }
         }
     }

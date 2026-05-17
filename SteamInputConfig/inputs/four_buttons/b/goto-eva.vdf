@@ -1,12 +1,12 @@
 "ref"
 {
-    "dpad_north"
+    "button_b"
     {
         "activators"
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/FreeIva/unbuckle.vdf"
+                "#ref"				"/bindings/FreeIva/goto-eva.vdf"
             }
         }
     }

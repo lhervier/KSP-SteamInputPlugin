@@ -3,7 +3,7 @@
     "FreeIva_backToSeat"				"Back to Seat"
     "FreeIva_crouch"					"Crouch"
     "FreeIva_goToEVA"					"Go to EVA"
-    "FreeIva_nextKerbal"				"Next Kerbal"
+    "FreeIva_changeKerbal"				"Change Kerbal"
     "FreeIva_unbuckle"					"Unbuckle"
     
     {{! Move }}

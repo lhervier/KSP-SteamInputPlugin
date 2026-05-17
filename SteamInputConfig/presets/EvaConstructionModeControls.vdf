@@ -17,7 +17,7 @@
 			
 			{{! dpadZone }}
 			"/groups/dpadZone/click-zoom.vdf"							"{{dpadZone}} active"
-			"/groups/dpadZone/prev-next-vessel.vdf"						"{{dpadZone}} active modeshift"
+			"/groups/dpadZone/next-vessel.vdf"							"{{dpadZone}} active modeshift"
 		
 			{{! Right Trackpad }}
 			{{#if (equals mouseZone "right_trackpad")}}

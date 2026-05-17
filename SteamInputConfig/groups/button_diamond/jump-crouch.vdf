@@ -8,9 +8,7 @@
 		"inputs"
 		{
 			"#ref"				"/inputs/four_buttons/a/jump.vdf"
-			"#ref"				"/inputs/four_buttons/b/back-to-seat.vdf"
 			"#ref"				"/inputs/four_buttons/x/crouch.vdf"
-			"#ref"				"/inputs/four_buttons/y/goto-eva.vdf"
 		}
 	}
 }

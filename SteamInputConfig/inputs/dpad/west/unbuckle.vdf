@@ -1,12 +1,12 @@
 "ref"
 {
-    "button_b"
+    "dpad_west"
     {
         "activators"
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/FreeIva/back-to-seat.vdf"
+                "#ref"				"/bindings/FreeIva/unbuckle.vdf"
             }
         }
     }

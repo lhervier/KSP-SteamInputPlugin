@@ -17,7 +17,7 @@
 			
 			{{! dpadZone }}
 			"/groups/dpadZone/click-zoom.vdf"							"{{dpadZone}} active"
-			"/groups/dpadZone/prev-next-vessel.vdf"						"{{dpadZone}} active modeshift"
+			"/groups/dpadZone/back-to-seat-kerbal.vdf"					"{{dpadZone}} active modeshift"
 			
 			{{! Right Trackpad }}
 			{{#if (equals mouseZone "right_trackpad")}}
@@ -25,8 +25,8 @@
 			{{/if}}
 			
 			{{! Button diamond }}
-			"/groups/button_diamond/jump-seat-crouch-eva.vdf"			"button_diamond active"
-			"/groups/button_diamond/timewarp.vdf"						"button_diamond active modeshift"
+			"/groups/button_diamond/jump-crouch.vdf"					"button_diamond active"
+			"/groups/button_diamond/timewarp-eva.vdf"					"button_diamond active modeshift"
 			
 			{{! Left Trigger }}
 			"/groups/trigger/eva/down.vdf"								"left_trigger active"
