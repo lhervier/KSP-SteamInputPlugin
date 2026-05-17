@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #D, #Flight_Translate_translateRight, , "
+        "binding"		"key_press {{key 'D'}}, #Flight_Translate_translateRight, , "
     }
 }

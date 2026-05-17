@@ -2,7 +2,7 @@
 {
     "bindings"
     {
-        "binding"		"key_press #C, #Game_Camera_cameraView, , "
+        "binding"		"key_press {{key 'C'}}, #Game_Camera_cameraView, , "
         
     }
 }

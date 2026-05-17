@@ -2,7 +2,7 @@
 {
     "bindings"
     {
-        "binding"		"key_press #F, #Game_Editor_coordFrameToggle, , "
+        "binding"		"key_press {{key 'F'}}, #Game_Editor_coordFrameToggle, , "
     }
     {{#if (true haptic)}}
         "settings"

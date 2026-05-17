@@ -2,7 +2,7 @@
 {
     "bindings"
     {
-        "binding"		"key_press #X, #Vessel_System_throttleCutoff, , "
+        "binding"		"key_press {{key 'X'}}, #Vessel_System_throttleCutoff, , "
     }
     {{#if (true haptic)}}
         "settings"

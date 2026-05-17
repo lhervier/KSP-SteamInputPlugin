@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #3, #Vessel_Action_customAction3, , "
+        "binding"		"key_press {{key '3'}}, #Vessel_Action_customAction3, , "
     }
 }

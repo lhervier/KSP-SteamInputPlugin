@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #ESCAPE, #Common_cancel, "
+        "binding"		"key_press {{key 'ESCAPE'}}, #Common_cancel, "
     }
 }

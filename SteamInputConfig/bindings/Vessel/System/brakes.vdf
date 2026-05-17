@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #B, #Vessel_System_brakes, , "
+        "binding"		"key_press {{key 'B'}}, #Vessel_System_brakes, , "
     }
 }

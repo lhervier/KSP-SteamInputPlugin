@@ -1,57 +1,63 @@
-[
-  {
-    "controllerName": "steamcontroller",
-    "rootVdfPath": "/ksp_steaminput_steamcontroller.vdf",
-    "context": {
-      "haptic": true,
-      "backButtons": true,
-      "triggersClick": true,
-      "mouseZone": "right_trackpad",
-      "dpadZone": "left_trackpad"
-    }
+{
+  "keyboards": {
+    "french": "/keyboard-french.json",
+    "english": "/keyboard-english.json"
   },
-  {
-    "controllerName": "steamcontroller_v2",
-    "rootVdfPath": "/ksp_steaminput_steamcontroller_v2.vdf",
-    "context": {
-      "haptic": true,
-      "backButtons": true,
-      "triggersClick": false,
-      "mouseZone": "right_trackpad",
-      "dpadZone": "dpad"
+  "controllers": [
+    {
+      "controllerName": "steamcontroller",
+      "rootVdfPath": "/ksp_steaminput_steamcontroller.vdf",
+      "context": {
+        "haptic": true,
+        "backButtons": true,
+        "triggersClick": true,
+        "mouseZone": "right_trackpad",
+        "dpadZone": "left_trackpad"
+      }
+    },
+    {
+      "controllerName": "steamcontroller_v2",
+      "rootVdfPath": "/ksp_steaminput_steamcontroller_v2.vdf",
+      "context": {
+        "haptic": true,
+        "backButtons": true,
+        "triggersClick": false,
+        "mouseZone": "right_trackpad",
+        "dpadZone": "dpad"
+      }
+    },
+    {
+      "controllerName": "hori",
+      "rootVdfPath": "/ksp_steaminput_hori_steam.vdf",
+      "context": {
+        "haptic": false,
+        "backButtons": true,
+        "triggersClick": false,
+        "mouseZone": "right_joystick",
+        "dpadZone": "dpad"
+      }
+    },
+    {
+      "controllerName": "xboxelite",
+      "rootVdfPath": "/ksp_steaminput_xboxelite.vdf",
+      "context": {
+        "haptic": false,
+        "backButtons": true,
+        "triggersClick": false,
+        "mouseZone": "right_joystick",
+        "dpadZone": "dpad"
+      }
+    },
+    {
+      "controllerName": "ps4",
+      "rootVdfPath": "/ksp_steaminput_ps4.vdf",
+      "context": {
+        "haptic": false,
+        "backButtons": false,
+        "triggersClick": false,
+        "mouseZone": "right_joystick",
+        "dpadZone": "dpad"
+      }
     }
-  },
-  {
-    "controllerName": "hori",
-    "rootVdfPath": "/ksp_steaminput_hori_steam.vdf",
-    "context": {
-      "haptic": false,
-      "backButtons": true,
-      "triggersClick": false,
-      "mouseZone": "right_joystick",
-      "dpadZone": "dpad"
-    }
-  },
-  {
-    "controllerName": "xboxelite",
-    "rootVdfPath": "/ksp_steaminput_xboxelite.vdf",
-    "context": {
-      "haptic": false,
-      "backButtons": true,
-      "triggersClick": false,
-      "mouseZone": "right_joystick",
-      "dpadZone": "dpad"
-    }
-  },
-  {
-    "controllerName": "ps4",
-    "rootVdfPath": "/ksp_steaminput_ps4.vdf",
-    "context": {
-      "haptic": false,
-      "backButtons": false,
-      "triggersClick": false,
-      "mouseZone": "right_joystick",
-      "dpadZone": "dpad"
-    }
-  }
-]
+  ]
+}

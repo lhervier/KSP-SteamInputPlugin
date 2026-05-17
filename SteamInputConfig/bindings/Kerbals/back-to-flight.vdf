@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #C, #Kerbals_backToFlight, , "
+        "binding"		"key_press {{key 'C'}}, #Kerbals_backToFlight, , "
     }
 }

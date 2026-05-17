@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #SINGLE_QUOTE, #Game_Camera_mouseView, , "
+        "binding"		"key_press {{key 'SINGLE_QUOTE'}}, #Game_Camera_mouseView, , "
     }
 }

@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #Y, #Game_Editor_redo, , "
+        "binding"		"key_press {{key 'Y'}}, #Game_Editor_redo, , "
     }
 }

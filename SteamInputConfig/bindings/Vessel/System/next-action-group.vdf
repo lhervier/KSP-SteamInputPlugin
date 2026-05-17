@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #F7, #Vessel_System_nextActionGroup, , "
+        "binding"		"key_press {{key 'F7'}}, #Vessel_System_nextActionGroup, , "
     }
 }

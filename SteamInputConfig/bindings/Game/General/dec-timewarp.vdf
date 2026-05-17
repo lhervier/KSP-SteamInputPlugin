@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #COMMA, #Game_General_timeWarpDecr, , "
+        "binding"		"key_press {{key 'COMMA'}}, #Game_General_timeWarpDecr, , "
     }
 }

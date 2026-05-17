@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #S, #Kerbals_Jetpack_backward, , "
+        "binding"		"key_press {{key 'S'}}, #Kerbals_Jetpack_backward, , "
     }
 }

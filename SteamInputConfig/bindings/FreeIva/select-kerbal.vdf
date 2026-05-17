@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #V, #FreeIva_changeKerbal, , "
+        "binding"		"key_press {{key 'V'}}, #FreeIva_changeKerbal, , "
     }
 }

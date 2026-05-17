@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #RETURN, #Common_accept, "
+        "binding"		"key_press {{key 'RETURN'}}, #Common_accept, "
     }
 }

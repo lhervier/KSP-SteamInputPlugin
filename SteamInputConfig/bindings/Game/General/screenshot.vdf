@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #F1, #Game_General_screenshot, , "
+        "binding"		"key_press {{key 'F1'}}, #Game_General_screenshot, , "
     }
 }

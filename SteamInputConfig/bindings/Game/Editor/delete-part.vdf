@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press DELETE, #Game_Editor_deletePart, , "
+        "binding"		"key_press {{key 'DELETE'}}, #Game_Editor_deletePart, , "
     }
 }

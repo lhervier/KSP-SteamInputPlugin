@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #RIGHT_ARROW, #Game_Camera_cameraRight, , "
+        "binding"		"key_press {{key 'RIGHT_ARROW'}}, #Game_Camera_cameraRight, , "
     }
 }

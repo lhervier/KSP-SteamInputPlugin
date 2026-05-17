@@ -15,7 +15,9 @@ if (!controllersJsonPath || !controllerName) {
     );
 }
 
-const controllers = JSON.parse(fs.readFileSync(controllersJsonPath, 'utf8'));
+const controllerJson = JSON.parse(fs.readFileSync(controllersJsonPath, 'utf8'));
+const controllers = controllerJson.controllers;
+const keyboards = controllerJson.keyboards;
 const configDir = path.dirname(path.resolve(controllersJsonPath));
 const buildVersion = getVersion();
 
@@ -37,23 +39,33 @@ fs.mkdirSync(buildDir, { recursive: true });
 for (const controller of controllersToBuild) {
     const rootVdfPath = controller.rootVdfPath;
 
-    // Load the root controller file, resolving #ref (leading "/" is relative to this VDF's directory)
-    merged = loadVdfFile(configDir, rootVdfPath, controller.context || {});
+    for (const lang of Object.keys(keyboards)) {
+        let keyboardPath = keyboards[lang];
+        if( keyboardPath.startsWith('/') ) {
+            keyboardPath = keyboardPath.substring(1);
+        }
+        const keyboardJson = JSON.parse(fs.readFileSync(path.join(configDir, keyboardPath), 'utf8'));
+        
+        const hbContext = controller.context || {};
+        hbContext.keyboard = keyboardJson;
 
-    // Resolve the presets, group bindings and layer bindings
-    resolvePresets(merged, configDir, controller.context || {});
-    resolveGroupBindings(merged);
-    resolveLayerBindings(merged);
+        // Load the root controller file, resolving #ref (leading "/" is relative to this VDF's directory)
+        merged = loadVdfFile(configDir, rootVdfPath, controller.context || {});
 
-    // Update the Timestamp property (set in epoch milliseconds)
-    merged.controller_mappings.Timestamp = Date.now().toString();
+        // Resolve the presets, group bindings and layer bindings
+        resolvePresets(merged, configDir, controller.context || {});
+        resolveGroupBindings(merged);
+        resolveLayerBindings(merged);
 
-    merged = orderControllerProperties(merged);
+        // Update the Timestamp property (set in epoch milliseconds)
+        merged.controller_mappings.Timestamp = Date.now().toString();
 
-   // Translate the VDF file into all known languages
-    // The list of available languages are in the "localization" property of the vdf
-    const title = merged.controller_mappings.title;
-    for (const lang of Object.keys(merged.controller_mappings.localization)) {
+        merged = orderControllerProperties(merged);
+
+        // Translate the VDF file into all known languages
+        // The list of available languages are in the "localization" property of the vdf
+        const title = merged.controller_mappings.title;
+        
         merged.controller_mappings.title = title + " (" + lang + "-" + buildVersion + ")";
 
         const langDict = merged.controller_mappings.localization[lang];

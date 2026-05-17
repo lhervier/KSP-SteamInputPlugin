@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #F6, #Vessel_System_prevActionGroup, , "
+        "binding"		"key_press {{key 'F6'}}, #Vessel_System_prevActionGroup, , "
     }
 }

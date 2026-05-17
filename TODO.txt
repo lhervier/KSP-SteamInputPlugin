@@ -1,8 +1,4 @@
-Triggers sur hori
-
 Config :
-- Gérer les localisation correctement
-- Avoir un mode IVAFlight et IVADocking pour pouvoir piloter un vaisseau de l'intérieur
 - Faire les bindings pour le mission builder
 
 Plugin:

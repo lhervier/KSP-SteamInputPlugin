@@ -46,6 +46,21 @@ Handlebars.registerHelper('defined', function (variable) {
 });
 
 /**
+ * Get a value from the keyboard context
+ * @param {string} key - The key to get
+ * @returns {string} The value of the key
+ */
+Handlebars.registerHelper('key', function (key) {
+    if( !this.keyboard ) {
+        throw new Error('key helper: keyboard context is missing');
+    }
+    if( !this.keyboard[key] ) {
+        throw new Error(`key helper: key ${key} is missing in keyboard context`);
+    }
+    return this.keyboard[key];
+});
+
+/**
  * Compile VDF source as a Handlebars template (no HTML escaping, strict lookups).
  * @param {string} source - Raw file contents
  * @param {object} [hbsContext] - Passed through to the template (initialized by merge-*.js)

@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #END, #Game_UI_scrollIconsDown, , "
+        "binding"		"key_press {{key 'END'}}, #Game_UI_scrollIconsDown, , "
     }
 }

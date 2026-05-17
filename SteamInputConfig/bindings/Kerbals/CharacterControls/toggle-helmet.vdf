@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #O, #Kerbals_CharacterControls_toggleHelmet, , "
+        "binding"		"key_press {{key 'O'}}, #Kerbals_CharacterControls_toggleHelmet, , "
     }
 }

@@ -10,6 +10,5 @@
         "#ref"				"french/Set.vdf"
         "#ref"				"french/SettingsController.vdf"
         "#ref"				"french/Vessel.vdf"
-        "#ref"              "french/Keyboard.vdf"
     }
 }

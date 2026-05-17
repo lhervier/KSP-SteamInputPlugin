@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #W, #Kerbals_Jetpack_forward, , "
+        "binding"		"key_press {{key 'W'}}, #Kerbals_Jetpack_forward, , "
     }
 }

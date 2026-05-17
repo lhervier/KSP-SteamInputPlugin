@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #HOME, #Game_UI_scrollIconsUp, , "
+        "binding"		"key_press {{key 'HOME'}}, #Game_UI_scrollIconsUp, , "
     }
 }

@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #S, #Vessel_Wheels_backward, , "
+        "binding"		"key_press {{key 'S'}}, #Vessel_Wheels_backward, , "
     }
 }

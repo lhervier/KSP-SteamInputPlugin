@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #KEYPAD_PLUS, #Game_Camera_zoomIn, , "
+        "binding"		"key_press {{key 'KEYPAD_PLUS'}}, #Game_Camera_zoomIn, , "
     }
 }

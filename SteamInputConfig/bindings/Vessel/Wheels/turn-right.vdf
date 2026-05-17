@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"key_press #D, #Vessel_Wheels_turnRight, , "
+        "binding"		"key_press {{key 'D'}}, #Vessel_Wheels_turnRight, , "
     }
 }
