@@ -7,8 +7,8 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"			"/inputs/dpad/north/editor/coord-frame-toggle.vdf"
-			"#ref"			"/inputs/dpad/south/editor/symmetry-mode-toggle.vdf"
+			"#ref"			"/inputs/dpad/dpad_north/editor/coord-frame-toggle.vdf"
+			"#ref"			"/inputs/dpad/dpad_south/editor/symmetry-mode-toggle.vdf"
 		}
 	}
 }

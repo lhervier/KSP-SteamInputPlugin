@@ -7,7 +7,7 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"				"/inputs/dpad/east/select-kerbal.vdf"
+			"#ref"				"/inputs/dpad/dpad_east/select-kerbal.vdf"
 		}
 		"settings"
 		{

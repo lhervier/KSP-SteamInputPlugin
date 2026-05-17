@@ -7,10 +7,10 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"				"/inputs/dpad/east/yaw-right.vdf"
-			"#ref"				"/inputs/dpad/north/pitch-up.vdf"
-			"#ref"				"/inputs/dpad/south/pitch-down.vdf"
-			"#ref"				"/inputs/dpad/west/yaw-left.vdf"
+			"#ref"				"/inputs/dpad/dpad_east/yaw-right.vdf"
+			"#ref"				"/inputs/dpad/dpad_north/pitch-up.vdf"
+			"#ref"				"/inputs/dpad/dpad_south/pitch-down.vdf"
+			"#ref"				"/inputs/dpad/dpad_west/yaw-left.vdf"
 			{{#if (defined with-mod)}}
 				"#ref"			"/inputs/dpad/click/mod-key.vdf"
 			{{/if}}
