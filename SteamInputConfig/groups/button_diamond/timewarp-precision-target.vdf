@@ -7,10 +7,10 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"					"/inputs/four_buttons/a/targetdisplay.vdf"
-			"#ref"					"/inputs/four_buttons/b/precision-controls.vdf"
-			"#ref"					"/inputs/four_buttons/x/timewarp-decr.vdf"
-			"#ref"					"/inputs/four_buttons/y/timewarp-incr.vdf"
+			"#ref"					"/inputs/four_buttons/button_a/targetdisplay.vdf"
+			"#ref"					"/inputs/four_buttons/button_b/precision-controls.vdf"
+			"#ref"					"/inputs/four_buttons/button_x/timewarp-decr.vdf"
+			"#ref"					"/inputs/four_buttons/button_y/timewarp-incr.vdf"
 		}
 	}
 }

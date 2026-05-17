@@ -7,8 +7,8 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"			"/inputs/four_buttons/a/accept.vdf"
-			"#ref"			"/inputs/four_buttons/b/cancel.vdf"
+			"#ref"			"/inputs/four_buttons/button_a/accept.vdf"
+			"#ref"			"/inputs/four_buttons/button_b/cancel.vdf"
 		}
 	}
 }

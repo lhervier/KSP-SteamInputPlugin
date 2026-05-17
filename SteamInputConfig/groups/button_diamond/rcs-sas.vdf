@@ -7,8 +7,8 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"						"/inputs/four_buttons/x/rcs.vdf"
-			"#ref"						"/inputs/four_buttons/y/sas.vdf"
+			"#ref"						"/inputs/four_buttons/button_x/rcs.vdf"
+			"#ref"						"/inputs/four_buttons/button_y/sas.vdf"
 		}
 	}
 }

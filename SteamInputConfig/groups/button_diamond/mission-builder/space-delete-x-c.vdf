@@ -7,10 +7,10 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"			"/inputs/four_buttons/a/mission-builder/space.vdf"
-			"#ref"			"/inputs/four_buttons/b/mission-builder/delete.vdf"
-			"#ref"			"/inputs/four_buttons/x/mission-builder/X.vdf"
-			"#ref"			"/inputs/four_buttons/y/mission-builder/C.vdf"
+			"#ref"			"/inputs/four_buttons/button_a/mission-builder/space.vdf"
+			"#ref"			"/inputs/four_buttons/button_b/mission-builder/delete.vdf"
+			"#ref"			"/inputs/four_buttons/button_x/mission-builder/X.vdf"
+			"#ref"			"/inputs/four_buttons/button_y/mission-builder/C.vdf"
 		}
 	}
 }

@@ -7,8 +7,8 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"				"/inputs/four_buttons/a/jump.vdf"
-			"#ref"				"/inputs/four_buttons/x/crouch.vdf"
+			"#ref"				"/inputs/four_buttons/button_a/jump.vdf"
+			"#ref"				"/inputs/four_buttons/button_x/crouch.vdf"
 		}
 	}
 }

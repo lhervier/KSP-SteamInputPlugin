@@ -7,10 +7,10 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"					"/inputs/four_buttons/a/staging.vdf"
-			"#ref"					"/inputs/four_buttons/b/brakes.vdf"
-            "#ref"					"/inputs/four_buttons/x/rcs-translation.vdf"
-            "#ref"					"/inputs/four_buttons/y/sas.vdf"
+			"#ref"					"/inputs/four_buttons/button_a/staging.vdf"
+			"#ref"					"/inputs/four_buttons/button_b/brakes.vdf"
+            "#ref"					"/inputs/four_buttons/button_x/rcs-translation.vdf"
+            "#ref"					"/inputs/four_buttons/button_y/sas.vdf"
 		}
 	}
 }

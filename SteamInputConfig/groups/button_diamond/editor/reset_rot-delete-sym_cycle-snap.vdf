@@ -7,10 +7,10 @@
 		"description"		""
 		"inputs"
 		{
-			"#ref"			"/inputs/four_buttons/a/editor/reset-part-rotation.vdf"
-			"#ref"			"/inputs/four_buttons/b/editor/delete-part.vdf"
-			"#ref"			"/inputs/four_buttons/x/editor/symmetry-cycle.vdf"
-			"#ref"			"/inputs/four_buttons/y/editor/snap-toggle.vdf"
+			"#ref"			"/inputs/four_buttons/button_a/editor/reset-part-rotation.vdf"
+			"#ref"			"/inputs/four_buttons/button_b/editor/delete-part.vdf"
+			"#ref"			"/inputs/four_buttons/button_x/editor/symmetry-cycle.vdf"
+			"#ref"			"/inputs/four_buttons/button_y/editor/snap-toggle.vdf"
 		}
 	}
 }
