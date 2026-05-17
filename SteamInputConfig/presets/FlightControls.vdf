@@ -30,15 +30,15 @@
 			"/groups/button_diamond/timewarp-precision-target.vdf"						"button_diamond active modeshift"
 			
 			{{! Left Trigger }}
-			"/groups/trigger/throttle-down.vdf"											"left_trigger active"
+			"/groups/left_trigger/throttle-down.vdf"											"left_trigger active"
 			{{#unless (true triggersClick)}}
-				"/groups/trigger/throttle-cutoff.vdf"									"left_trigger active modeshift"
+				"/groups/left_trigger/throttle-cutoff.vdf"									"left_trigger active modeshift"
 			{{/unless}}
 			
 			{{! Right Trigger }}
-			"/groups/trigger/throttle-up.vdf"											"right_trigger active"
+			"/groups/right_trigger/throttle-up.vdf"											"right_trigger active"
 			{{#unless (true triggersClick)}}
-				"/groups/trigger/full-throttle.vdf"										"right_trigger active modeshift"
+				"/groups/right_trigger/full-throttle.vdf"										"right_trigger active modeshift"
 			{{/unless}}
 			
 			{{! Switch }}

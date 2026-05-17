@@ -30,10 +30,10 @@
 			"/groups/button_diamond/timewarp-precision-target.vdf"					"button_diamond active modeshift"
 			
 			{{! Left Trigger }}
-			"/groups/trigger/backward.vdf"											"left_trigger active"
+			"/groups/left_trigger/backward.vdf"											"left_trigger active"
 			
 			{{! Right Trigger }}
-			"/groups/trigger/forward.vdf"											"right_trigger active"
+			"/groups/right_trigger/forward.vdf"											"right_trigger active"
 			
 			{{! Switch }}
 			"/groups/switches/docking.vdf"											"switch active"

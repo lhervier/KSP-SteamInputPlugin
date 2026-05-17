@@ -28,10 +28,10 @@
 			"/groups/button_diamond/timewarp.vdf"					"button_diamond active modeshift"
 			
 			{{! Left Trigger }}
-			"/groups/trigger/eva/down.vdf"							"left_trigger active"
+			"/groups/left_trigger/eva/down.vdf"							"left_trigger active"
 			
 			{{! Right Trigger }}
-			"/groups/trigger/eva/up.vdf"							"right_trigger active"
+			"/groups/right_trigger/eva/up.vdf"							"right_trigger active"
 			
 			{{! Switch }}
 			"/groups/switches/mapeva.vdf"							"switch active"

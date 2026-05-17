@@ -27,10 +27,10 @@
 			"/groups/button_diamond/mission-builder/space-delete-x-c.vdf"	"button_diamond active"
 			
 			{{! Left Trigger }}
-			"/groups/trigger/right-click.vdf"								"left_trigger active"
+			"/groups/left_trigger/right-click.vdf"								"left_trigger active"
 			
 			{{! Right Trigger }}
-			"/groups/trigger/left-click.vdf"								"right_trigger active"
+			"/groups/right_trigger/left-click.vdf"								"right_trigger active"
 			
 			{{! Switch }}
 			"/groups/switches/mission-builder.vdf"							"switch active"

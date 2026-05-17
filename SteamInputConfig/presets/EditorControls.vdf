@@ -29,10 +29,10 @@
 			"/groups/button_diamond/editor/place-offset-rotate-root.vdf"			"button_diamond active modeshift"
 			
 			{{! Left Trigger }}
-			"/groups/trigger/editor/right-click-slew.vdf"							"left_trigger active"
+			"/groups/left_trigger/editor/right-click-slew.vdf"						"left_trigger active"
 			
 			{{! Right Trigger }}
-			"/groups/trigger/left-click.vdf"										"right_trigger active"
+			"/groups/right_trigger/left-click.vdf"										"right_trigger active"
 			
 			{{! Switch }}
 			"/groups/switches/editor.vdf"											"switch active"
