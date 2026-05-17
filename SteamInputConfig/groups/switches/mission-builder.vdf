@@ -8,13 +8,13 @@
 		"inputs"
 		{
 			{{#if (true backButtons)}}
-				"#ref"				"/inputs/switches/backleft/mod-key.vdf"
-				"#ref"				"/inputs/switches/backright/modeshift.vdf?preset=mission-builder"
+				"#ref"				"/inputs/switches/button_back_left/mod-key.vdf"
+				"#ref"				"/inputs/switches/button_back_right/modeshift.vdf?preset=mission-builder"
 			{{/if}}
-			"#ref"				"/inputs/switches/esc/redo.vdf"
-			"#ref"				"/inputs/switches/menu/undo-keyboard.vdf"
-			"#ref"				"/inputs/switches/leftbumper/mission-builder/Q.vdf"
-			"#ref"				"/inputs/switches/rightbumper/mission-builder/E.vdf"
+			"#ref"				"/inputs/switches/button_escape/redo.vdf"
+			"#ref"				"/inputs/switches/button_menu/undo-keyboard.vdf"
+			"#ref"				"/inputs/switches/left_bumper/mission-builder/Q.vdf"
+			"#ref"				"/inputs/switches/right_bumper/mission-builder/E.vdf"
 		}
 	}
 }

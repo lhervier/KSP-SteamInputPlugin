@@ -8,11 +8,11 @@
 		"inputs"
 		{
 			{{#if (true backButtons)}}
-				"#ref"				"/inputs/switches/backright/modeshift.vdf?preset=menu"
-				"#ref"				"/inputs/switches/backleft/mod-key.vdf"
+				"#ref"				"/inputs/switches/button_back_right/modeshift.vdf?preset=menu"
+				"#ref"				"/inputs/switches/button_back_left/mod-key.vdf"
 			{{/if}}
-			"#ref"				"/inputs/switches/esc/menu-debug.vdf"
-			"#ref"				"/inputs/switches/menu/keyboard.vdf"
+			"#ref"				"/inputs/switches/button_escape/menu-debug.vdf"
+			"#ref"				"/inputs/switches/button_menu/keyboard.vdf"
 		}
 	}
 }

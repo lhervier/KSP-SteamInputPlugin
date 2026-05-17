@@ -8,13 +8,13 @@
 		"inputs"
 		{
 			{{#if (true backButtons)}}
-				"#ref"				"/inputs/switches/backright/modeshift.vdf?preset=eva-construction-mode"
-				"#ref"				"/inputs/switches/backleft/mod-key.vdf"
+				"#ref"				"/inputs/switches/button_back_right/modeshift.vdf?preset=eva-construction-mode"
+				"#ref"				"/inputs/switches/button_back_left/mod-key.vdf"
 			{{/if}}
-			"#ref"				"/inputs/switches/esc/menu-debug.vdf"
-			"#ref"				"/inputs/switches/menu/keyboard.vdf"
-			"#ref"				"/inputs/switches/leftbumper/roll-left.vdf"
-			"#ref"				"/inputs/switches/rightbumper/roll-right.vdf"
+			"#ref"				"/inputs/switches/button_escape/menu-debug.vdf"
+			"#ref"				"/inputs/switches/button_menu/keyboard.vdf"
+			"#ref"				"/inputs/switches/left_bumper/roll-left.vdf"
+			"#ref"				"/inputs/switches/right_bumper/roll-right.vdf"
 		}
 	}
 }

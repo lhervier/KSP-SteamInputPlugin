@@ -8,13 +8,13 @@
 		"inputs"
 		{
 			{{#if (true backButtons)}}
-				"#ref"			"/inputs/switches/backleft/mod-key.vdf"
-				"#ref"			"/inputs/switches/backright/modeshift.vdf?preset=editor"
+				"#ref"			"/inputs/switches/button_back_left/mod-key.vdf"
+				"#ref"			"/inputs/switches/button_back_right/modeshift.vdf?preset=editor"
 			{{/if}}
-			"#ref"				"/inputs/switches/esc/redo.vdf"
-			"#ref"				"/inputs/switches/menu/undo-keyboard.vdf"
-			"#ref"				"/inputs/switches/leftbumper/roll-part-left.vdf"
-			"#ref"				"/inputs/switches/rightbumper/roll-part-right.vdf"
+			"#ref"				"/inputs/switches/button_escape/redo.vdf"
+			"#ref"				"/inputs/switches/button_menu/undo-keyboard.vdf"
+			"#ref"				"/inputs/switches/left_bumper/roll-part-left.vdf"
+			"#ref"				"/inputs/switches/right_bumper/roll-part-right.vdf"
 		}
 	}
 }
