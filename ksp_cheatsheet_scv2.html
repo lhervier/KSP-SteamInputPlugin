@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KSP — Aide Manette — Steam Controller v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Titillium+Web:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0a0a0a;display:flex;justify-content:center;align-items:flex-start;padding:40px 20px;min-height:100vh}
+.kw{font-family:'Titillium Web',sans-serif;font-size:13px;background:#141414;border:1px solid #555;border-radius:3px;color:#ccc;width:360px;position:relative}
+.ktb{background:#2e2e2e;border-bottom:1px solid #444;padding:5px 8px;display:flex;align-items:center;gap:6px}
+.ktitle{font-weight:600;font-size:12px;color:#e8e8e8;letter-spacing:.04em;text-transform:uppercase;flex:1}
+.kbadge{font-size:10px;color:#8dbe45;font-weight:600;letter-spacing:.05em;text-transform:uppercase;border:1px solid #4a6e20;padding:1px 5px;border-radius:2px;background:rgba(141,190,69,.1)}
+.kctrl{font-size:10px;color:#555;letter-spacing:.03em;margin-left:auto}
+.kbtn{background:#383838;border:1px solid #555;border-bottom:2px solid #333;color:#bbb;font-size:13px;width:20px;height:20px;border-radius:2px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Share Tech Mono',monospace}
+.kbtn:hover{background:#484848;color:#fff}
+.kzone{border-bottom:1px solid #222}
+.kzone:last-child{border-bottom:none}
+.kzh{display:flex;align-items:center;padding:4px 8px;background:#1a1a1a;border-bottom:1px solid #222}
+.kzname{font-weight:600;font-size:11px;color:#ddd;text-transform:uppercase;letter-spacing:.05em;flex:1}
+.kbody{padding:3px 0 5px}
+.kmouse-line{display:flex;align-items:center;gap:6px;padding:4px 8px;color:#555;font-size:12px;font-style:italic}
+.kstate{font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:#484848;padding:3px 8px 1px}
+.kstate.shift{color:#b07318}
+.kstate.shift::before{content:'⬇ '}
+.krow{display:flex;align-items:baseline;padding:2px 8px}
+.krow:hover{background:rgba(255,255,255,.03)}
+.kkey{display:flex;align-items:center;gap:3px;min-width:100px;flex-shrink:0}
+.kkbd{font-family:'Share Tech Mono',monospace;font-size:11px;color:#e8e8e8;background:#2a2a2a;border:1px solid #555;border-bottom:2px solid #444;border-radius:2px;padding:0 5px;white-space:nowrap}
+.kpress{font-size:9px;color:#555;background:#222;border:1px solid #333;border-radius:2px;padding:0 3px;white-space:nowrap}
+.ksep{color:#383838;font-size:11px;padding:0 4px;flex-shrink:0}
+.kaction{color:#aaa;font-size:12px}
+.kaction.hi{color:#8dbe45}
+.knote{color:#484848;font-size:11px}
+.kmenu-wrap{position:relative}
+.kmenu{position:absolute;top:24px;right:0;background:#1e1e1e;border:1px solid #555;border-radius:3px;min-width:220px;z-index:100;padding:4px 0;display:none}
+.kmenu.open{display:block}
+.kmenu-title{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:#555;padding:4px 10px 3px}
+.kmenu-sep{border-top:1px solid #2a2a2a;margin:3px 0}
+.kmenu-item{display:flex;align-items:center;gap:7px;padding:4px 10px;cursor:default;user-select:none;white-space:nowrap}
+.kmenu-item:hover{background:#2a2a2a}
+.kmenu-item label{display:flex;align-items:center;gap:7px;cursor:pointer;flex:1;font-size:12px;color:#bbb}
+.kmenu-item input[type=checkbox]{accent-color:#8dbe45;width:12px;height:12px;flex-shrink:0}
+.kmenu-item .karrows{display:flex;gap:2px;margin-left:auto}
+.kmenu-item .ka{background:#2a2a2a;border:1px solid #444;color:#777;font-size:10px;width:16px;height:16px;border-radius:2px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.kmenu-item .ka:hover:not(:disabled){background:#383838;color:#ccc}
+.kmenu-item .ka:disabled{opacity:.25;cursor:default}
+</style>
+</head>
+<body>
+<div class="kw">
+  <div class="ktb">
+    <span class="ktitle">🎮 Aide manette</span>
+    <span class="kbadge">Vol</span>
+    <span class="kctrl">Steam Controller v2</span>
+    <div class="kmenu-wrap">
+      <button class="kbtn" onclick="toggleMenu()" title="Configurer les zones">⋯</button>
+      <div class="kmenu" id="kmenu">
+        <div class="kmenu-title">Zones visibles &amp; ordre</div>
+        <div class="kmenu-sep"></div>
+        <div id="menu-items"></div>
+      </div>
+    </div>
+  </div>
+  <div id="zones-container"></div>
+</div>
+<script>
+const ZONES = [{"id": "joystick", "name": "Stick gauche", "visible": true, "mode": "dpad", "rows": [{"state": "normal", "key": "↑", "action": "Tangage vers le haut"}, {"state": "normal", "key": "↓", "action": "Tangage vers le bas"}, {"state": "normal", "key": "←", "action": "Roulis à gauche"}, {"state": "normal", "key": "→", "action": "Roulis à droite"}]}, {"id": "dpad", "name": "D-Pad", "visible": true, "mode": "dpad", "rows": [{"state": "normal", "key": "↑", "action": "Zoom avant"}, {"state": "normal", "key": "↓", "action": "Zoom arrière"}, {"state": "normal", "key": "←", "action": "Clic droit"}, {"state": "normal", "key": "→", "action": "Clic gauche"}, {"state": "shift", "key": "←", "action": "Vaisseau précédent"}, {"state": "shift", "key": "→", "action": "Vaisseau suivant"}, {"state": "shift", "key": "↑", "action": "Caméra suivante"}]}, {"id": "trackpad", "name": "Trackpad droit", "visible": true, "mode": "absolute_mouse", "rows": []}, {"id": "diamond", "name": "4 boutons", "visible": true, "mode": "four_buttons", "rows": [{"state": "normal", "key": "A", "action": "Larguer"}, {"state": "normal", "key": "B", "action": "Freins"}, {"state": "normal", "key": "X", "action": "Activer/Désactiver RCS"}, {"state": "normal", "key": "Y", "action": "Activer/Désactiver SAS"}, {"state": "shift", "key": "A", "action": "Afficher/Masquer la cible"}, {"state": "shift", "key": "B", "action": "Détacher"}, {"state": "shift", "key": "X", "action": "Réduire l'avance rapide"}, {"state": "shift", "key": "Y", "action": "Augmenter l'avance rapide"}]}, {"id": "bumpers", "name": "LB / RB", "visible": true, "mode": "switches", "rows": [{"state": "normal", "key": "LB", "action": "Lacet vers la gauche"}, {"state": "normal", "key": "RB", "action": "Lacet vers la droite"}]}, {"id": "switch", "name": "Boutons annexes", "visible": true, "mode": "switches", "rows": [{"state": "", "key": "Back G.", "action": "Touche Mod"}, {"state": "", "key": "Back D.", "action": "Modeshift", "note": "(maintenir)", "hi": true}, {"state": "", "key": "Escape", "action": "Pause"}, {"state": "", "key": "Menu", "press": "court", "action": "Afficher la carte"}, {"state": "", "key": "Menu", "press": "long", "action": "Afficher le clavier"}]}, {"id": "rjoy", "name": "Stick droit", "visible": false, "mode": "dpad", "rows": [{"state": "normal", "key": "↑", "action": "Caméra vers le haut"}, {"state": "normal", "key": "↓", "action": "Caméra vers le bas"}, {"state": "normal", "key": "←", "action": "Caméra vers la droite"}, {"state": "normal", "key": "→", "action": "Caméra vers la gauche"}]}];
+const MOUSE_MODES = ['absolute_mouse','joystick_mouse'];
+function zoneBody(z) {
+  const isMouse = MOUSE_MODES.includes(z.mode);
+  let html = '<div class="kbody">';
+  if (isMouse) html += '<div class="kmouse-line">🖱 Souris — déplacement libre</div>';
+  if (z.rows && z.rows.length) html += renderRows(z.rows);
+  return html + '</div>';
+}
+function renderRows(rows) {
+  let html = '', lastState = null;
+  rows.forEach(r => {
+    if (r.state !== '' && r.state !== lastState) {
+      html += `<div class="kstate${r.state==='shift'?' shift':''}">${r.state==='shift'?'Modeshift':'Normal'}</div>`;
+      lastState = r.state;
+    } else if (r.state === '' && lastState !== '') { lastState = ''; }
+    const press = r.press ? `<span class="kpress">${r.press}</span>` : '';
+    const action = r.hi
+      ? `<span class="kaction hi">${r.action} <span class="knote">${r.note||''}</span></span>`
+      : `<span class="kaction">${r.action}</span>`;
+    html += `<div class="krow"><span class="kkey"><span class="kkbd">${r.key}</span>${press}</span><span class="ksep">—</span>${action}</div>`;
+  });
+  return html;
+}
+function renderZones() {
+  const c = document.getElementById('zones-container');
+  c.innerHTML = '';
+  ZONES.forEach(z => {
+    if (!z.visible) return;
+    const d = document.createElement('div');
+    d.className = 'kzone';
+    d.innerHTML = `<div class="kzh"><span class="kzname">${z.name}</span></div>${zoneBody(z)}`;
+    c.appendChild(d);
+  });
+}
+function renderMenu() {
+  const c = document.getElementById('menu-items');
+  c.innerHTML = '';
+  const vis = ZONES.filter(x => x.visible);
+  ZONES.forEach((z, i) => {
+    const item = document.createElement('div');
+    item.className = 'kmenu-item';
+    const vi = vis.indexOf(z);
+    item.innerHTML = `<label><input type="checkbox" ${z.visible?'checked':''} onchange="toggleZone(${i},this.checked)">${z.name}</label><div class="karrows"><button class="ka" ${!z.visible||vi===0?'disabled':''} onclick="moveZone(${i},-1)">▲</button><button class="ka" ${!z.visible||vi===vis.length-1?'disabled':''} onclick="moveZone(${i},1)">▼</button></div>`;
+    c.appendChild(item);
+  });
+}
+function toggleZone(i,v){ZONES[i].visible=v;renderZones();renderMenu();}
+function moveZone(i,d){const j=i+d;if(j<0||j>=ZONES.length)return;[ZONES[i],ZONES[j]]=[ZONES[j],ZONES[i]];renderZones();renderMenu();}
+function toggleMenu(){document.getElementById('kmenu').classList.toggle('open');}
+document.addEventListener('click',e=>{if(!e.target.closest('.kmenu-wrap'))document.getElementById('kmenu').classList.remove('open');});
+renderZones();renderMenu();
+</script>
+</body>
+</html>
