@@ -1,0 +1,13 @@
+"ref"
+{
+    "button_b"
+    {
+        "activators"
+        {
+            "Long_Press"
+            {
+                "#ref"				"/bindings/FreeIva/back-to-seat.vdf"
+            }
+        }
+    }
+}

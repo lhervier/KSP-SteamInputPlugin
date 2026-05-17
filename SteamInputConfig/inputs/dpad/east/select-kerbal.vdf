@@ -1,12 +1,12 @@
 "ref"
 {
-    "dpad_west"
+    "dpad_east"
     {
         "activators"
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/FreeIva/back-to-seat.vdf"
+                "#ref"				"/bindings/FreeIva/select-kerbal.vdf"
             }
         }
     }

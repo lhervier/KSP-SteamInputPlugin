@@ -1,10 +1,10 @@
 "ref"
 {
-    "dpad_west"
+    "button_b"
     {
         "activators"
         {
-            "Full_Press"
+            "Long_Press"
             {
                 "#ref"				"/bindings/FreeIva/unbuckle.vdf"
             }
