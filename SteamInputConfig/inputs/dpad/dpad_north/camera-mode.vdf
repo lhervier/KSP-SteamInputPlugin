@@ -1,10 +1,10 @@
 "ref"
 {
-    "dpad_south"
+    "dpad_north"
     {
         "activators"
         {
-            "Full_Press"
+            "Long_Press"
             {
                 "#ref"				"/bindings/Game/Camera/next-camera.vdf"
             }

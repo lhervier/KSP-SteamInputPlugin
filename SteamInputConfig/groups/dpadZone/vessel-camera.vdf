@@ -9,7 +9,7 @@
 		{
 			"#ref"				"/inputs/dpad/dpad_east/next-vessel.vdf"
 			"#ref"				"/inputs/dpad/dpad_north/camera-view.vdf"
-			"#ref"				"/inputs/dpad/dpad_south/camera-mode.vdf"
+			"#ref"				"/inputs/dpad/dpad_north/camera-mode.vdf"		{{! Long_Press }}
 			"#ref"				"/inputs/dpad/dpad_west/prev-vessel.vdf"
 		}
 		"settings"

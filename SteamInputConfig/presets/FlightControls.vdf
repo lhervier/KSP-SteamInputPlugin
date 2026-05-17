@@ -27,18 +27,18 @@
 			
 			{{! Button diamond }}
 			"/groups/button_diamond/staging-brakes-rcs-sas.vdf"							"button_diamond active"
-			"/groups/button_diamond/timewarp-precision-target.vdf"						"button_diamond active modeshift"
+			"/groups/button_diamond/timewarp-precision-target-unbuckle.vdf"				"button_diamond active modeshift"
 			
 			{{! Left Trigger }}
-			"/groups/left_trigger/throttle-down.vdf"											"left_trigger active"
+			"/groups/left_trigger/throttle-down.vdf"									"left_trigger active"
 			{{#unless (true triggersClick)}}
-				"/groups/left_trigger/throttle-cutoff.vdf"									"left_trigger active modeshift"
+				"/groups/left_trigger/throttle-cutoff.vdf"								"left_trigger active modeshift"
 			{{/unless}}
 			
 			{{! Right Trigger }}
-			"/groups/right_trigger/throttle-up.vdf"											"right_trigger active"
+			"/groups/right_trigger/throttle-up.vdf"										"right_trigger active"
 			{{#unless (true triggersClick)}}
-				"/groups/right_trigger/full-throttle.vdf"										"right_trigger active modeshift"
+				"/groups/right_trigger/full-throttle.vdf"								"right_trigger active modeshift"
 			{{/unless}}
 			
 			{{! Switch }}

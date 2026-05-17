@@ -10,6 +10,7 @@
 			"#ref"				"/inputs/four_buttons/button_x/timewarp-decr.vdf"
 			"#ref"				"/inputs/four_buttons/button_y/timewarp-incr.vdf"
 			"#ref"				"/inputs/four_buttons/button_b/goto-eva.vdf"
+			"#ref"				"/inputs/four_buttons/button_b/back-to-seat.vdf"		{{! Long_Press }}
 		}
 	}
 }

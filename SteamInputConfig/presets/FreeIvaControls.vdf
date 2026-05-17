@@ -26,13 +26,13 @@
 			
 			{{! Button diamond }}
 			"/groups/button_diamond/jump-crouch.vdf"					"button_diamond active"
-			"/groups/button_diamond/timewarp-eva.vdf"					"button_diamond active modeshift"
+			"/groups/button_diamond/timewarp-eva-iva.vdf"				"button_diamond active modeshift"
 			
 			{{! Left Trigger }}
-			"/groups/left_trigger/eva/down.vdf"								"left_trigger active"
+			"/groups/left_trigger/eva/down.vdf"							"left_trigger active"
 			
 			{{! Right Trigger }}
-			"/groups/right_trigger/eva/up.vdf"								"right_trigger active"
+			"/groups/right_trigger/eva/up.vdf"							"right_trigger active"
 			
 			{{! Switch }}
 			"/groups/switches/freeiva.vdf"								"switch active"
