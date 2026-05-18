@@ -15,7 +15,7 @@ fi
 
 echo ""
 echo "-------------------------------------------"
-echo "Construction du projet C# avec msbuild"
+echo "Construction du projet C# avec dotnet build"
 echo "-------------------------------------------"
 
 # Vérifier si KSPDIR est défini
@@ -44,9 +44,9 @@ echo "Utilisation de KSPDIR: $KSPDIR"
 # Créer le dossier de sortie
 mkdir -p "Output/obj"
 
-# Compiler avec msbuild (Mono MSBuild)
-echo "Compilation avec msbuild..."
-msbuild SteamInput.csproj -p:KSP_DATA_DIR="$KSP_DATA_DIR"
+# Compiler avec dotnet build (.NET Framework 4.7.2 via ReferenceAssemblies)
+echo "Compilation avec dotnet build..."
+dotnet build SteamInput.csproj -p:KSP_DATA_DIR="$KSP_DATA_DIR"
 
 if [ $? -ne 0 ]; then
     echo "ERREUR: Échec de la compilation du projet C#"

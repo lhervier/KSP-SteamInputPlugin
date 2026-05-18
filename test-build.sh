@@ -63,23 +63,17 @@ fi
 
 echo ""
 echo "==========================================="
-echo "Test de MSBuild"
+echo "Test de dotnet build"
 echo "==========================================="
 
-echo "Vérification de MSBuild..."
-if command -v msbuild >/dev/null 2>&1; then
-    echo "✓ MSBuild trouvé"
-    msbuild --version
+echo "Vérification de dotnet..."
+if command -v dotnet >/dev/null 2>&1; then
+    echo "✓ dotnet trouvé"
+    dotnet --version
 else
-    echo "✗ MSBuild non trouvé"
-    echo "Installation de MSBuild via Mono..."
-    sudo apt install -y mono-complete
-    if [ $? -eq 0 ]; then
-        echo "✓ Mono installé avec succès"
-    else
-        echo "✗ Échec de l'installation de Mono"
-        exit 1
-    fi
+    echo "✗ dotnet non trouvé"
+    echo "Installez le SDK .NET : https://dotnet.microsoft.com/download"
+    exit 1
 fi
 
 echo ""
@@ -89,7 +83,7 @@ echo "==========================================="
 echo "✓ Node.js et npm fonctionnent"
 echo "✓ Construction VDF réussie"
 echo "✓ Structure du projet C# correcte"
-echo "✓ MSBuild disponible"
+echo "✓ dotnet disponible"
 echo ""
 echo "Le projet est prêt pour la compilation !"
 echo ""
