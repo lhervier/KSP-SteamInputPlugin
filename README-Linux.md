@@ -1,147 +1,185 @@
-# Using on Linux
+# Linux Guide
 
-This plugin is working with the native version. As of today, using proton will break key bindings with SteamInput if you don't have a US QWERTY Keyboard...
+This document covers running, building, and installing the Steam Input plugin on Linux. For general features and controller requirements, see [README.md](README.md).
 
-Also beware that by default, with the native Linux version of KSP, the modifier key is Right Shift instead of Left Alt. Edit the settings.cfg file (search for "RightShift"), and change the value (Set it to "LeftAlt").
+## Running on Linux
 
-# Compilation and Installation on Linux
+### Windows-first development
 
-This guide explains how to compile and install the SteamInput mod for KSP on Ubuntu 24.04.
+This plugin and its bundled layouts were built and tested mainly on **Windows**. Paths, scripts, and defaults assume a typical Windows Steam install (`KSP_x64_Data`, and so on).
 
-## Prerequisites
+On Linux, the **native** Steam build has been tested and works. Linux is supported, but expect less day-to-day testing than on Windows.
 
-- Ubuntu 24.04 (or compatible Linux distribution)
-- .NET 6.0.425 (installed manually via Microsoft script)
-- Mono 6.12 (mono-devel package)
-- Node.js and npm
-- Kerbal Space Program installed via Steam
+### Native vs Proton
 
-## Tested Versions
+| | Native Linux build | Proton (Windows build) |
+|---|-------------------|------------------------|
+| **Recommendation** | Preferred on Linux | Optional; not the primary target |
+| **Plugin** | Verified working | Should work if Steam Input is set up the same way |
+| **Keyboard layout** | See below — **same issue on both** | See below — **same issue on both** |
 
-- **Ubuntu**: 24.04.3 LTS (Noble Numbat)
-- **.NET**: 6.0.425
-- **Mono**: 6.12
-- **Node.js**: Version from Ubuntu repositories
-- **KSP**: Via Steam (KSP_x64_Data folder structure)
+Use the native build when you can. Proton is a valid option if you need it for mods or compatibility, but do not expect the plugin to behave differently regarding keyboard layout between the two.
 
-## Installing Dependencies
+### Keyboard layout (native and Proton)
 
-### .NET 6.0 Installation
-**Note**: .NET 6.0 n'est plus disponible dans les dépôts officiels Ubuntu 24.04. Utilisez l'installation manuelle :
+If your active keyboard layout is not **US English (QWERTY)**, Steam Input bindings often map to the wrong keys or stop working as intended. This affects **both** the native Linux build and the Proton build equally — it is not a Proton-only problem.
+
+**Workaround:** switch to a US QWERTY layout (in the desktop environment, in Steam, or both) while playing KSP.
+
+For more context, see the [Bazzite issue discussion](https://github.com/ublue-os/bazzite/issues/3464) and **Known issues** in [README.md](README.md).
+
+### Modifier key (native Linux only)
+
+On the native Linux build, KSP’s default modifier key is **Right Shift** instead of **Left Alt**. The layouts in this repository assume **Left Alt**. Edit `settings.cfg` in your KSP install, search for `RightShift`, and set the value to `LeftAlt`.
+
+---
+
+## Building and Installing
+
+### Prerequisites
+
+| Requirement | Notes |
+|-------------|--------|
+| Linux (e.g. Ubuntu 24.04+) | Other distributions should work if dependencies are available |
+| [.NET SDK](https://dotnet.microsoft.com/download) 8 or later | Tested with .NET 10; used only to **compile** the plugin |
+| Node.js and npm | To generate Steam Input VDF files |
+| Kerbal Space Program 1.12 | Steam install; `KSPDIR` must point at the game root |
+
+The plugin targets **.NET Framework 4.7.2** (same as KSP). You do **not** need Mono to build: `dotnet build` uses the NuGet package `Microsoft.NETFramework.ReferenceAssemblies.net472`. The resulting DLL still runs on KSP’s Mono/Unity runtime.
+
+### Install dependencies
+
+**.NET SDK**
+
+Follow the instructions on the [.NET download page](https://dotnet.microsoft.com/download). On Ubuntu you can also install a distro package when available, for example:
 
 ```bash
-# Installer .NET 6.0 manuellement
-curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version 6.0.425
+sudo apt install -y dotnet-sdk-10.0
+```
 
-# Ajouter .NET au PATH (permanent)
-echo 'export PATH=$PATH:$HOME/.dotnet' >> ~/.bashrc
-source ~/.bashrc
+Verify:
 
-# Vérifier l'installation
+```bash
 dotnet --version
 ```
 
-### Mono Installation
-
-You must install mono 6.12.X to support .net framework 4.7, but as of today, Ubuntu only support version 6.8.
-
-You must go to the official website to install the reauired version.
+**Node.js**
 
 ```bash
-# Vérifier l'installation
-mono --version
-```
-
-### Node.js Installation
-```bash
-# Installer Node.js
 sudo apt install -y nodejs npm
-
-# Vérifier l'installation
 node --version
 npm --version
 ```
 
-## Compilation
+### Build
 
-1. **Environment Setup**:
-
-Will auto detect KSP installation path, and zill set a KSPDIR environment variable.
+1. **Set `KSPDIR`** (game install root). `setup-env.sh` searches common Steam paths and appends `KSPDIR` to `~/.bashrc`:
 
    ```bash
    ./setup-env.sh
    source ~/.bashrc
    ```
 
-2. **Full Compilation**:
+2. **Build everything** (plugin + VDF configs):
+
    ```bash
    ./build.sh
    ```
 
-3. **Installation**:
+3. **Install** into KSP and Steam config locations:
+
    ```bash
    ./install.sh
    ```
 
-## Available Scripts
+### Build scripts
 
-- `setup-env.sh` : Automatically configures the KSPDIR variable
-- `build.sh` : Compiles the complete mod (plugin + configuration)
-- `build-plugin.sh` : Compiles only the C# plugin
-- `build-config.sh` : Generates only the VDF configuration files
-- `install.sh` : Installs the mod in KSP and configures Steam
-- `install-plugin.sh` : Installs only the plugin
-- `install-config.sh` : Installs only the controller configuration
+| Script | Purpose |
+|--------|---------|
+| `setup-env.sh` | Detect KSP and set `KSPDIR` |
+| `build.sh` | Full build (plugin + configuration) |
+| `build-plugin.sh` | C# plugin only |
+| `build-config.sh` | VDF configuration files only |
+| `install.sh` | Install plugin and Steam configs |
+| `install-plugin.sh` | Plugin only |
+| `install-config.sh` | Controller configuration only |
+| `test-build.sh` | Quick check of tooling and VDF merge (no full plugin build) |
 
-## Compilation Structure
+### What the build does
 
-The compilation process uses:
-- **msbuild** (Mono MSBuild) to compile the C# plugin (.NET Framework 4.7.2)
-- **Node.js** to generate VDF configuration files
-- **zip** to create the plugin archive
+1. **`dotnet build`** — compiles the C# plugin against .NET Framework 4.7.2, referencing assemblies from `$KSPDIR/KSP_x64_Data/Managed` (or `KSP_Data/Managed` on older layouts).
+2. **Node.js** — merges modular VDF sources into controller and game-action files.
+3. **`zip`** — packages the plugin into `Release/SteamInput.zip`.
 
-**Note**: Ce projet utilise .NET Framework 4.7.2, pas .NET Core. C'est pourquoi Mono est nécessaire pour la compilation sur Linux.
+### Output in `Release/`
+
+After a successful build:
+
+| File | Description |
+|------|-------------|
+| `SteamInput.zip` | Plugin archive for `GameData/SteamInput` |
+| `game_actions_220200_<language>.vdf` | Steam Input game actions |
+| `ksp_steaminput_<controller>_<language>.vdf` | Per-controller layouts |
+| `README.md` | Copy of the main readme |
+
+---
 
 ## Troubleshooting
 
-### KSPDIR not found
-If `setup-env.sh` doesn't find KSP automatically:
+### `KSPDIR` not set
+
+If `setup-env.sh` does not find your install:
+
 ```bash
-export KSPDIR="/path/to/your/KSP"
+export KSPDIR="/path/to/Kerbal Space Program"
 ```
 
-### C# Compilation Error
-Check that Mono is installed and use msbuild:
+The build scripts look for `Assembly-CSharp.dll` under:
+
+- `$KSPDIR/KSP_x64_Data/Managed/` (typical Steam layout on Linux and Windows)
+- `$KSPDIR/KSP_Data/Managed/` (legacy layout)
+
+### C# build fails
+
+Confirm the SDK and game path:
+
 ```bash
-# Installer Mono si nécessaire
-sudo apt install -y mono-complete
+dotnet --version
+echo "$KSPDIR"
+ls "$KSPDIR/KSP_x64_Data/Managed/Assembly-CSharp.dll"
+```
 
-# Compiler avec msbuild
-msbuild SteamInput.csproj
+Build manually (adjust `KSP_DATA_DIR` if you use `KSP_Data`):
 
-# Ou utiliser le script de build
+```bash
+dotnet build SteamInput.csproj -p:KSP_DATA_DIR="$KSPDIR/KSP_x64_Data"
+```
+
+Or use:
+
+```bash
 ./build-plugin.sh
 ```
 
-### VDF Generation Error
-Check that Node.js and npm are installed:
+### VDF generation fails
+
+Ensure Node.js and npm are installed. `build-config.sh` (and `build.sh`) run `npm ci` in `MergeScripts/` automatically.
+
 ```bash
 node --version
 npm --version
+cd MergeScripts && npm ci
 ```
 
-## Differences from Windows
+---
 
-- KSP data folder is called `KSP_x64_Data` (same as Windows on Ubuntu)
-- Uses `msbuild` (Mono MSBuild)
-- Linux paths for Steam (`~/.steam/steam/` or `~/.local/share/Steam/`)
-- .NET 6.0 doit être installé manuellement (pas via les dépôts Ubuntu)
-- Le projet utilise .NET Framework 4.7.2, nécessitant Mono pour la compilation
+## Linux vs Windows
 
-## Generated Files
+| Topic | Linux | Windows |
+|-------|-------|---------|
+| Build command | `dotnet build` | `dotnet build` |
+| KSP data folder | Usually `KSP_x64_Data` (same as Windows Steam) | `KSP_x64_Data` |
+| Steam paths | `~/.steam/steam/` or `~/.local/share/Steam/` | `C:\Program Files (x86)\Steam\` |
+| Plugin archive | `zip` in `build-plugin.sh` | PowerShell `Compress-Archive` |
 
-After compilation, the `Release/` folder contains:
-- `SteamInput.zip` : Plugin ready to install
-- `game_actions_220200*.vdf` : Steam Input configuration files
-- `controller_*.vdf` : Specific controller configurations
-- `README.md` : Mod documentation
+For installation steps shared across platforms, see [README.md](README.md).
