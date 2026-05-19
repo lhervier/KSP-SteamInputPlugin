@@ -11,7 +11,7 @@ namespace com.github.lhervier.ksp
     /// Daemon in charge of listening to controller connection/disconnection
     /// It also allow to change the current action set of the controller
     /// </summary>
-    public class SteamInputDaemon : MonoBehaviour 
+    public class GamepadDaemon : MonoBehaviour 
     {
         
         // ==========================================================================================
@@ -21,10 +21,10 @@ namespace com.github.lhervier.ksp
         /// <summary>
         /// Logger object
         /// </summary>
-        private static readonly SteamInputLogger LOGGER = new SteamInputLogger("SteamInputDaemon");
+        private static readonly SteamInputLogger LOGGER = new SteamInputLogger("GamepadDaemon");
 
-        private static SteamInputDaemon _instance;
-        public static SteamInputDaemon Instance {
+        private static GamepadDaemon _instance;
+        public static GamepadDaemon Instance {
             get {
                 return _instance;
             }
@@ -33,41 +33,39 @@ namespace com.github.lhervier.ksp
         // ==========================================================================================
 
         /// <summary>
-        /// Called when a new controller is connected
+        /// Called when a new gamepad is connected
         /// </summary>
-        public readonly EventVoid OnControllerConnected = new EventVoid("SteamInputDaemon.OnControllerConnected");
+        public readonly EventVoid OnGamepadConnected = new EventVoid("GamepadDaemon.OnGamepadConnected");
 
         /// <summary>
-        /// Called when a controller is disconnected
+        /// Called when a gamepad is disconnected
         /// </summary>
-        public readonly EventVoid OnControllerDisconnected = new EventVoid("SteamInputDaemon.OnControllerDisconnected");
+        public readonly EventVoid OnGamepadDisconnected = new EventVoid("GamepadDaemon.OnGamepadDisconnected");
 
         /// <summary>
-        /// Called when an error occurs and a new controller cannot be connected
+        /// Called when an error occurs and a new gamepad cannot be connected
         /// </summary>
-        public readonly EventData<string> OnControllerConnectedWithError = new EventData<string>("SteamInputDaemon.OnControllerConnectedWithError");
+        public readonly EventData<string> OnGamepadConnectedWithError = new EventData<string>("GamepadDaemon.OnGamepadConnectedWithError");
 
         /// <summary>
-        /// Is a controller connected ?
+        /// Is a gamepad connected ?
         /// </summary>
-        public bool ControllerConnected { get; private set; }
+        public bool GamepadConnected { get; private set; }
 
         /// <summary>
-        /// Is a controller connected with an error ?
+        /// Is a gamepad connected with an error ?
         /// </summary>
-        public bool ControllerConnectedWithErrors { get; private set; }
-
-        /// <summary>
-        /// The current action set
-        /// </summary>
-        public string CurrentActionSet { get; private set; }
+        public bool GamepadConnectedWithErrors { get; private set; }
 
         // ==============================================
 
-        private string[] actionSets;
+        /// <summary>
+        /// The names of the action groups
+        /// </summary>
+        private string[] actionGroupNames;
 
         // <summary>
-        //  Handle to the first connected controller. No sense if ControllerConnected = false
+        //  Handle to the first connected gamepad. No sense if GamepadConnected = false
         // </summary>
         private ControllerHandle_t controllerHandle;
 
@@ -85,9 +83,9 @@ namespace com.github.lhervier.ksp
         // =======================================================================
 
         /// <summary>
-        /// Coroutine to check for a controller
+        /// Coroutine to check for a gamepad
         /// </summary>
-        private IEnumerator checkForControllerCoroutine;
+        private IEnumerator checkForGamepadCoroutine;
 
         // =======================================================================
         //              Unity Lifecycle
@@ -110,9 +108,8 @@ namespace com.github.lhervier.ksp
         {
             LOGGER.LogInfo("Starting");
 
-            this.ControllerConnected = false;
-            this.ControllerConnectedWithErrors = false;
-            this.CurrentActionSet = null;
+            this.GamepadConnected = false;
+            this.GamepadConnectedWithErrors = false;
 
             LOGGER.LogInfo("Checking that Steam is initialized");
             if( !SteamManager.Initialized ) 
@@ -122,15 +119,15 @@ namespace com.github.lhervier.ksp
             }
 
             // Load the action sets from the enumeration
-            LOGGER.LogInfo("Loading action sets");
-            this.actionSets = Enum.GetValues(typeof(ActionGroup))
+            LOGGER.LogInfo("Loading action groups");
+            this.actionGroupNames = Enum.GetValues(typeof(ActionGroup))
                 .Cast<ActionGroup>()
                 .Where(actionGroup => actionGroup != ActionGroup.None)
                 .Select(actionGroup => actionGroup.ToString())
                 .ToArray();
-            LOGGER.LogInfo("Action sets loaded : " + this.actionSets.Length);
+            LOGGER.LogInfo("Action groups loaded : " + this.actionGroupNames.Length);
             
-            // Initialize the Steam Controller
+            // Initialize Steam Input
             if( !Steamworks.SteamController.Init() )
             {
                 LOGGER.LogError("Steam is not initialized. Unable to start the daemon.");
@@ -138,8 +135,8 @@ namespace com.github.lhervier.ksp
             }
             
             // Start the main loop
-            this.checkForControllerCoroutine = this.CheckForController();
-            this.StartCoroutine(this.checkForControllerCoroutine);
+            this.checkForGamepadCoroutine = this.CheckForGamepad();
+            this.StartCoroutine(this.checkForGamepadCoroutine);
             
             LOGGER.LogInfo("Started");
         }
@@ -149,22 +146,21 @@ namespace com.github.lhervier.ksp
         /// </summary>
         public void OnDestroy() 
         {
-            this.StopCoroutine(this.checkForControllerCoroutine);
-            this.CurrentActionSet = null;
-            this.ControllerConnected = false;
-            this.ControllerConnectedWithErrors = false;
+            this.StopCoroutine(this.checkForGamepadCoroutine);
+            this.GamepadConnected = false;
+            this.GamepadConnectedWithErrors = false;
             _instance = null;
             LOGGER.LogInfo("Destroyed");
         }
 
         // ==============================================================================
-        //              Detection of connection/disconnection of controllers
+        //              Detection of connection/disconnection of gamepads
         // ==============================================================================
         
         /// <summary>
-        /// Main loop to detect controller connection/disconnection
+        /// Main loop to detect gamepad connection/disconnection
         /// </summary>
-        private IEnumerator CheckForController() 
+        private IEnumerator CheckForGamepad() 
         {
             WaitForSeconds waitFor1Second = new WaitForSeconds(1);
             while( true ) 
@@ -173,81 +169,79 @@ namespace com.github.lhervier.ksp
 
                 // Detect connection/disconnection
                 LOGGER.LogTrace("Detecting controllers connection/disconnection :");
-                int nbControllers = Steamworks.SteamController.GetConnectedControllers(this._controllerHandles);
-                LOGGER.LogTrace("- nbControllers connected: " + nbControllers);
-                bool newController;
-                bool disconnectedController;
-                if( nbControllers == 0 ) 
+                int nbGamepads = Steamworks.SteamController.GetConnectedControllers(this._controllerHandles);
+                LOGGER.LogTrace("- nbGamepads connected: " + nbGamepads);
+                bool newGamepad;
+                bool disconnectedGamepad;
+                if( nbGamepads == 0 ) 
                 {
-                    LOGGER.LogTrace("- No controller connected");
-                    if( this.ControllerConnected ) 
+                    LOGGER.LogTrace("- No gamepad connected");
+                    if( this.GamepadConnected ) 
                     {
-                        LOGGER.LogDebug("  A controller was previously connected");
-                        newController = false;
-                        disconnectedController = true;
+                        LOGGER.LogDebug("  A gamepad was previously connected");
+                        newGamepad = false;
+                        disconnectedGamepad = true;
                     }
                     else
                     {
-                        LOGGER.LogTrace("  No controller previously connected");
-                        newController = false;
-                        disconnectedController = false;
+                        LOGGER.LogTrace("  No gamepad previously connected");
+                        newGamepad = false;
+                        disconnectedGamepad = false;
                     }
                 }
                 else
                 {
-                    LOGGER.LogTrace("- A controller is connected");
-                    if( this.ControllerConnected ) 
+                    LOGGER.LogTrace("- A gamepad is connected");
+                    if( this.GamepadConnected ) 
                     {
                         if( this.controllerHandle == this._controllerHandles[0] ) 
                         {
-                            LOGGER.LogTrace("  The same controller is connected");
-                            newController = false;
-                            disconnectedController = false;
+                            LOGGER.LogTrace("  The same gamepad is connected");
+                            newGamepad = false;
+                            disconnectedGamepad = false;
                         }
                         else
                         {
-                            LOGGER.LogDebug("  A different controller is connected");
-                            newController = true;
-                            disconnectedController = true;
+                            LOGGER.LogDebug("  A different gamepad is connected");
+                            newGamepad = true;
+                            disconnectedGamepad = true;
                         }
                     }
                     else
                     {
-                        LOGGER.LogTrace("  No controller previously connected");
-                        newController = true;
-                        disconnectedController = false;
+                        LOGGER.LogTrace("  No gamepad previously connected");
+                        newGamepad = true;
+                        disconnectedGamepad = false;
                     }
                 }
-                LOGGER.LogTrace("- newController: " + newController);
-                LOGGER.LogTrace("- disconnectedController: " + disconnectedController); 
+                LOGGER.LogTrace("- newGamepad: " + newGamepad);
+                LOGGER.LogTrace("- disconnectedGamepad: " + disconnectedGamepad); 
 
-                // Disconnect the current controller
-                if( disconnectedController ) 
+                // Disconnect the current gamepad
+                if( disconnectedGamepad ) 
                 {
-                    LOGGER.LogInfo("Controller disconnected");
+                    LOGGER.LogInfo("Gamepad disconnected");
                     this.UnloadActionSets();
-                    this.ControllerConnected = false;
-                    this.ControllerConnectedWithErrors = false;
-                    this.CurrentActionSet = null;
-                    this.OnControllerDisconnected.Fire();
+                    this.GamepadConnected = false;
+                    this.GamepadConnectedWithErrors = false;
+                    this.OnGamepadDisconnected.Fire();
                 }
 
-                // Connects a new controller
-                if( newController ) 
+                // Connects a new gamepad
+                if( newGamepad ) 
                 {
-                    LOGGER.LogInfo("Controller connected");
+                    LOGGER.LogInfo("Gamepad connected");
                     this.controllerHandle = this._controllerHandles[0];
-                    this.ControllerConnected = true;
-                    this.ControllerConnectedWithErrors = !this.LoadActionSetsHandles();
-                    if( this.ControllerConnectedWithErrors ) 
+                    this.GamepadConnected = true;
+                    this.GamepadConnectedWithErrors = !this.LoadActionSetsHandles();
+                    if( this.GamepadConnectedWithErrors ) 
                     {
-                        this.ControllerConnected = false;
-                        this.CurrentActionSet = null;
-                        this.OnControllerConnectedWithError.Fire("Unable to load action sets handles.");
+                        this.GamepadConnected = false;
+                        this.OnGamepadConnectedWithError.Fire("Unable to load action sets handles.");
                         yield break;
                     }
                     this.StartCoroutine(this.SayHello());
-                    this.OnControllerConnected.Fire();
+                    this.OnGamepadConnected.Fire();
                 }
 
                 // Wait for 1 second
@@ -262,7 +256,7 @@ namespace com.github.lhervier.ksp
         private bool LoadActionSetsHandles() 
         {
             LOGGER.LogInfo("Loading Action Set Handles");
-            foreach(string actionSetName in this.actionSets) 
+            foreach(string actionSetName in this.actionGroupNames) 
             {
                 LOGGER.LogInfo("- Getting action set handle for " + actionSetName);
                 // Action Sets list should depend on the used controller. But that's not what the API is waiting for...
@@ -289,13 +283,13 @@ namespace com.github.lhervier.ksp
         // </summary>
         private IEnumerator SayHello() 
         {
-            if( !this.ControllerConnected ) 
+            if( !this.GamepadConnected ) 
             {
-                LOGGER.LogError("SayHello: Controller not connected");
+                LOGGER.LogError("SayHello: Gamepad not connected");
                 yield break;
             }
 
-            LOGGER.LogInfo("Hello new Controller !!");
+            LOGGER.LogInfo("Hello new Gamepad !!");
             for( int i = 0; i < 4; i++ ) 
             {
                 Steamworks.SteamController.TriggerHapticPulse(this.controllerHandle, Steamworks.ESteamControllerPad.k_ESteamControllerPad_Right, ushort.MaxValue);
@@ -307,24 +301,31 @@ namespace com.github.lhervier.ksp
 
         // =========================================================================================
 
-        // <param name="actionSetName">The name of the action set to set</param>
+        // <param name="actionGroup">The action group to set</param>
         // <summary>
-        //  Change the current action set
+        //  Change the current action group
         // </summary>
-        public void ChangeActionSet(string actionSetName) 
+        public void ChangeActionGroup(ActionGroup actionGroup) 
         {
-            if( !this.ControllerConnected ) 
+            if( !this.GamepadConnected ) 
             {
-                LOGGER.LogError("ChangeActionSet: Controller not connected");
+                return;
+            }
+            if( actionGroup == ActionGroup.None )
+            {
+                return;
+            }
+            if( !this.actionsSetsHandles.ContainsKey(actionGroup.ToString()) )
+            {
+                LOGGER.LogError("ChangeActionGroup: Action group not found: " + actionGroup.ToString());
                 return;
             }
             
-            LOGGER.LogDebug("ChangeActionSet: " + actionSetName);
+            LOGGER.LogDebug("ChangeActionGroup: " + actionGroup.ToString());
             Steamworks.SteamController.ActivateActionSet(
                 this.controllerHandle, 
-                this.actionsSetsHandles[actionSetName]
+                this.actionsSetsHandles[actionGroup.ToString()]
             );
-            this.CurrentActionSet = actionSetName;
         }
     }
 }

@@ -18,7 +18,6 @@ namespace com.github.lhervier.ksp
         //  Logger
         // </summary>
         private static readonly SteamInputLogger LOGGER = new SteamInputLogger();
-        private static readonly SteamInputLogger LOGGER_CONTEXT = new SteamInputLogger("Contexts");
         private static SteamInputPlugin _instance;
         public static SteamInputPlugin Instance {
             get {
@@ -26,36 +25,7 @@ namespace com.github.lhervier.ksp
             }
         }
 
-        // <summary>
-        //  Delay before applying an action set (in frames)
-        // </summary>
-        private static readonly int DELAY = 10;
-
-        // <summary>
-        //  The default action group
-        // </summary>
-        private static readonly ActionGroup DEFAULT_ACTION_GROUP = ActionGroup.MenuControls;
-
         // ==================================================================================
-
-        // <summary>
-        //  The daemons
-        // </summary>
-        private readonly List<BaseContextDaemon> contextDaemons = new List<BaseContextDaemon>();
-
-        // <summary>
-        //  The active contexts. Idealy, there should be only one active context.
-        //  But some daemons will deactivate before the next one activates.
-        //  And some daemons will activate before the previous one deactivates.
-        //  So we can have zero or 2 active contexts at the same time.
-        //  More than 2 active contexts should never happen.
-        // </summary>
-        private readonly List<BaseContextDaemon> activecontexts = new List<BaseContextDaemon>();
-        public List<String> ActivatedContexts {
-            get {
-                return this.activecontexts.Select(c => c.GetType().Name).ToList();
-            }
-        }
 
         // <summary>
         //  Message indicating when on Steam Controller action set changes
@@ -63,29 +33,24 @@ namespace com.github.lhervier.ksp
         private ScreenMessage screenMessage;
 
         // <summary>
-        //  Previous action group (so we don't display the message when the value has not changed)
-        // </summary>
-        private ActionGroup prevActionGroup;
-
-        // <summary>
         //  Connection Daemon to the steam controller
         // </summary>
-        private SteamInputDaemon steamInputDaemon;
+        private GamepadDaemon steamInputDaemon;
+
+        // <summary>
+        //  Action Set Daemon
+        // </summary>
+        private ActionGroupDaemon actionGroupDaemon;
         
-        // <summary>
-        //  Delayed Action daemon
-        // </summary>
-        private DelayedActionDaemon delayedActionDaemon;
-
-        // <summary>
-        //  The action group to set when triggering a delayed action
-        // </summary>
-        private ActionGroup actionGroupToSet;
-
         // <summary>
         //  The GUI
         // </summary>
         private CheatSheetUI loggingUI;
+
+        // <summary>
+        //  Coroutine to initialize the plugin
+        // </summary>
+        private IEnumerator initializePluginCoroutine;
 
         // ===============================================================================
         //                      Unity initialization
@@ -107,9 +72,8 @@ namespace com.github.lhervier.ksp
         protected void Start() 
         {   
             LOGGER.LogInfo("Start");
-
-            // Start the coroutine to handle the KSPSteamController
-            StartCoroutine(InitializePlugin());
+            this.initializePluginCoroutine = InitializePlugin();
+            StartCoroutine(this.initializePluginCoroutine);
             _instance = this;
             LOGGER.LogDebug("Started");
         }
@@ -123,19 +87,16 @@ namespace com.github.lhervier.ksp
             // Load the global settings
             SteamInputGlobalSettings.Load();
 
+            // Create the action set daemon
+            LOGGER.LogInfo("Creating Action Set Daemon");
+            this.actionGroupDaemon = gameObject.AddComponent<ActionGroupDaemon>();
+            this.actionGroupDaemon.OnActionGroupChanged.Add(this.OnActionGroupChanged);
+            
             // Create the controller daemon
             LOGGER.LogInfo("Creating SteamInput Daemon");
-            this.steamInputDaemon = gameObject.AddComponent<SteamInputDaemon>();
-            this.steamInputDaemon.OnControllerConnected.Add(this.OnControllerConnected);
-            this.steamInputDaemon.OnControllerDisconnected.Add(this.OnControllerDisconnected);
-            this.steamInputDaemon.OnControllerConnectedWithError.Add(this.OnControllerConnectedWithError);
-            
-            // Create the delayed action daemon
-            LOGGER.LogInfo("Creating Delayed Actions Daemon");
-            this.delayedActionDaemon = gameObject.AddComponent<DelayedActionDaemon>();
-            LOGGER.LogInfo("Delayed Actions Daemon attached");
-            this.actionGroupToSet = ActionGroup.None;
-            this.prevActionGroup = ActionGroup.None;
+            this.steamInputDaemon = gameObject.AddComponent<GamepadDaemon>();
+            this.steamInputDaemon.OnGamepadConnected.Add(this.OnControllerConnected);
+            this.steamInputDaemon.OnGamepadConnectedWithError.Add(this.OnControllerConnectedWithError);
             
             // Prepare screen message
             LOGGER.LogInfo("Creating Status Message");
@@ -145,23 +106,6 @@ namespace com.github.lhervier.ksp
                 ScreenMessageStyle.UPPER_RIGHT
             );
             LOGGER.LogInfo("Status message ready");
-
-            // Get all the daemons
-            LOGGER.LogInfo("Loading Context Daemons");
-            this.LoadContextDaemons();
-            this.activecontexts.Clear();
-            LOGGER.LogInfo("Context Daemons loaded");
-
-            // Attach to the context daemons events
-            LOGGER_CONTEXT.LogInfo("Attaching Context Daemons :");
-            foreach(BaseContextDaemon daemon in this.contextDaemons) 
-            {
-                daemon.OnEnterContext().Add(this.OnEnterContext);
-                daemon.OnExitContext().Add(this.OnExitContext);
-                LOGGER_CONTEXT.LogInfo("- " + daemon.GetType().Name);
-            }
-            LOGGER_CONTEXT.LogInfo("Context Daemons attached : " + this.contextDaemons.Count);
-            this.LogDaemons();
 
             // Start the GUI
             LOGGER.LogInfo("Starting Logging UI");
@@ -176,46 +120,31 @@ namespace com.github.lhervier.ksp
         // </summary>
         public void OnDestroy() 
         {
-            Destroy(this.loggingUI);
-
-            this.steamInputDaemon.OnControllerDisconnected.Remove(OnControllerDisconnected);
-            this.steamInputDaemon.OnControllerConnected.Remove(OnControllerConnected);
-            this.steamInputDaemon.OnControllerConnectedWithError.Remove(OnControllerConnectedWithError);
-            Destroy(this.delayedActionDaemon);
-            Destroy(this.steamInputDaemon);
-            Destroy(this.loggingUI);
-            
-            foreach(BaseContextDaemon daemon in this.contextDaemons) 
-            {
-                daemon.OnEnterContext().Remove(this.OnEnterContext);
-                daemon.OnExitContext().Remove(this.OnExitContext);
-                Destroy((MonoBehaviour) daemon);
+            if( this.initializePluginCoroutine != null ) {
+                StopCoroutine(this.initializePluginCoroutine);
+                this.initializePluginCoroutine = null;
             }
-            this.contextDaemons.Clear();
-            this.activecontexts.Clear();
+            if( this.loggingUI != null ) {
+                Destroy(this.loggingUI);
+                this.loggingUI = null;
+            }
+            
+            if( this.steamInputDaemon != null ) {
+                this.steamInputDaemon.OnGamepadConnected.Remove(OnControllerConnected);
+                this.steamInputDaemon.OnGamepadConnectedWithError.Remove(OnControllerConnectedWithError);
+                Destroy(this.steamInputDaemon);
+                this.steamInputDaemon = null;
+            }
+
+            if( this.actionGroupDaemon != null ) {
+                this.actionGroupDaemon.OnActionGroupChanged.Remove(OnActionGroupChanged);
+                Destroy(this.actionGroupDaemon);
+                this.actionGroupDaemon = null;
+            }
+            
             SteamInputControllerVdf.Clear();
             _instance = null;
             LOGGER.LogInfo("Destroyed");
-        }
-
-        // <summary>
-        //  Load the context daemons
-        // </summary>
-        private void LoadContextDaemons()
-        {
-            this.contextDaemons.Clear();
-            
-            // Get all types that implement ControllerContextDaemon
-            var daemonTypes = Assembly.GetExecutingAssembly()
-                .GetTypes()
-                .Where(t => t.IsClass && !t.IsAbstract && typeof(BaseContextDaemon).IsAssignableFrom(t));
-
-            // Add each daemon component to the GameObject
-            foreach (var type in daemonTypes)
-            {
-                BaseContextDaemon component = gameObject.AddComponent(type) as BaseContextDaemon;
-                this.contextDaemons.Add(component);
-            }
         }
 
         private IEnumerator HandleKSPSteamController()
@@ -280,178 +209,22 @@ namespace com.github.lhervier.ksp
 
         // ====================================================================================
 
-        // <summary>
-        //  When a context is activated
-        // </summary>
-        public void OnEnterContext(BaseContextDaemon daemon)
+        /// <summary>
+        /// Called when the action group has changed
+        /// </summary>
+        /// <param name="actionGroup">The action group that has changed</param>
+        private void OnActionGroupChanged(ActionGroup actionGroup)
         {
-            LOGGER_CONTEXT.LogDebug("OnEnterContext : " + daemon.GetType().Name);
-            this.activecontexts.Add(daemon);
-            this.LogKSPContext();
-            this.LogDaemons();
-            this.UpdateActionGroup();
-        }
-
-        // <summary>
-        //  When a context is deactivated
-        // </summary>
-        public void OnExitContext(BaseContextDaemon daemon)
-        {
-            LOGGER_CONTEXT.LogDebug("OnExitContext : " + daemon.GetType().Name);
-            this.activecontexts.Remove(daemon);
-            this.LogKSPContext();
-            this.LogDaemons();
-            this.UpdateActionGroup();
-        }
-
-        public void LogDaemons()
-        {
-            if( this.activecontexts.Count == 0 ) {
-                LOGGER_CONTEXT.LogDebug("No active daemons contexts");
-            } else if( this.activecontexts.Count == 1 ) {
-                LOGGER_CONTEXT.LogDebug("Active daemon context: " + this.activecontexts[0].GetType().Name);
-            } else {
-                LOGGER_CONTEXT.LogDebug("Active daemons contexts: " + this.activecontexts.Count);
-                foreach( BaseContextDaemon daemon in this.activecontexts ) {
-                    LOGGER_CONTEXT.LogDebug("- " + daemon.GetType().Name);
-                }
-            }
-        }
-
-        public void LogKSPContext() {
-            LOGGER_CONTEXT.LogDebug("   ");
-            LOGGER_CONTEXT.LogDebug("KSP Context : ");
-            LOGGER_CONTEXT.LogDebug("- Current Scene : " + SceneManager.GetActiveScene().name);
-            LOGGER_CONTEXT.LogDebug("- HighLogic :");
-            LOGGER_CONTEXT.LogDebug("  - LoadedScene : " + HighLogic.LoadedScene.ToString());
-            LOGGER_CONTEXT.LogDebug("  - LoadedSceneHasPlanetarium : " + HighLogic.LoadedSceneHasPlanetarium);
-            LOGGER_CONTEXT.LogDebug("  - LoadedSceneIsEditor : " + HighLogic.LoadedSceneIsEditor);
-            LOGGER_CONTEXT.LogDebug("  - LoadedSceneIsFlight : " + HighLogic.LoadedSceneIsFlight);
-            LOGGER_CONTEXT.LogDebug("  - LoadedSceneIsGame : " + HighLogic.LoadedSceneIsGame);
-            LOGGER_CONTEXT.LogDebug("  - LoadedSceneIsMissionBuilder : " + HighLogic.LoadedSceneIsMissionBuilder);
-            
-            LOGGER_CONTEXT.LogDebug("- MapView : " + MapView.MapIsEnabled);
-
-            LOGGER_CONTEXT.LogDebug("- FlightUIMode present : " + (FlightUIModeController.Instance != null));
-            if( FlightUIModeController.Instance != null ) {
-                LOGGER_CONTEXT.LogDebug("  FlightUIMode : " + FlightUIModeController.Instance.Mode.ToString());
-            }
-
-            LOGGER_CONTEXT.LogDebug("- Active Vessel present : " + (FlightGlobals.ActiveVessel != null));
-            if( FlightGlobals.ActiveVessel != null ) {
-                LOGGER_CONTEXT.LogDebug("  Active Vessel : " + FlightGlobals.ActiveVessel.name);
-                LOGGER_CONTEXT.LogDebug("  Active Vessel is EVA : " + FlightGlobals.ActiveVessel.isEVA);
-            }
-
-            LOGGER_CONTEXT.LogDebug("- EditorFacility : " + EditorDriver.editorFacility.ToString());
-            
-            LOGGER_CONTEXT.LogDebug("- CameraManager present : " + (CameraManager.Instance != null));
-            if( CameraManager.Instance != null ) {
-                LOGGER_CONTEXT.LogDebug("  CameraMode : " + CameraManager.Instance.currentCameraMode.ToString());
-            }
-        }
-
-        // ====================================================================================
-
-        // <summary>
-        //  Update the action group to use, depending on the activated contexts
-        // </summary>
-        private void UpdateActionGroup() 
-        {
-            if( !this.steamInputDaemon.ControllerConnected) {
-                LOGGER.LogInfo("UpdateActionGroup: Controller not connected");
-                return;
-            }
-
-            if( this.activecontexts.Count == 0 ) {
-                this.TriggerActionGroupChange(DEFAULT_ACTION_GROUP);
-            } else {
-                ActionGroup last = this.activecontexts[this.activecontexts.Count - 1].CorrespondingActionGroup();
-                this.TriggerActionGroupChange(last);
-            }
-        }
-        
-        // ====================================================================================
-        
-        // <summary>
-        //  Trigger an action group change
-        //  <param name="actionGroup">The action group to apply</param>
-        // </summary>
-        public void TriggerActionGroupChange(ActionGroup actionGroup) 
-        {
-            if( !this.steamInputDaemon.ControllerConnected ) {
-                LOGGER.LogInfo("TriggerActionGroupChange: Controller not connected");
-                return;
-            }
-            
-            this.CancelActionGroupChange();
-            
-            this.actionGroupToSet = actionGroup;
-            this.delayedActionDaemon.TriggerDelayedAction(this._TriggerActionGroupChange, DELAY);
-        }
-
-        // <summary>
-        //  Change the action group NOW
-        //  <param name="actionGroup">The action group to apply</param>
-        // </summary>
-        public void ChangeActionGroupNow(ActionGroup actionGroup) 
-        {
-            if( !this.steamInputDaemon.ControllerConnected ) {
-                LOGGER.LogInfo("ChangeActionGroupNow: Controller not connected");
-                return;
-            }
-            
-            this.CancelActionGroupChange();
-            
-            this.actionGroupToSet = actionGroup;
-            this._SetActionGroup(actionGroup);
-        }
-
-        private void _TriggerActionGroupChange() 
-        {
-            if( this.actionGroupToSet == ActionGroup.None ) {
-                LOGGER.LogError("No action group to set");
-                return;
-            }
-            this._SetActionGroup(this.actionGroupToSet);
-            this.actionGroupToSet = ActionGroup.None;
-        }
-
-        // <summary>
-        //  Cancel an action group change
-        // </summary>
-        private void CancelActionGroupChange() 
-        {
-            this.delayedActionDaemon.CancelDelayedAction(this._TriggerActionGroupChange);
-            this.actionGroupToSet = ActionGroup.None;
-        }
-
-        private void _SetActionGroup(ActionGroup actionGroup) 
-        {
+            LOGGER.LogInfo("Action set changed to : " + actionGroup);
             if( actionGroup == ActionGroup.None ) {
                 LOGGER.LogError("Action group is None");
                 return;
             }
-            
-            if( !this.steamInputDaemon.ControllerConnected ) {
-                LOGGER.LogError("Controller not connected");
-                return;
-            }
 
-            if( this.prevActionGroup != ActionGroup.None )
-            {
-                if( actionGroup == this.prevActionGroup ) {
-                    return;
-                }
-            }
-            
-            LOGGER.LogDebug("Setting action group : " + actionGroup.ToString());
-            this.steamInputDaemon.ChangeActionSet(actionGroup.ToString());
-            
             this.screenMessage.message = "Controller: " + actionGroup.ToString() + ".";
             ScreenMessages.PostScreenMessage(this.screenMessage);
-            
-            this.prevActionGroup = actionGroup;
+
+            this.steamInputDaemon.ChangeActionGroup(actionGroup);
         }
 
         // ==============================================================================
@@ -464,28 +237,14 @@ namespace com.github.lhervier.ksp
         private void OnControllerConnected() 
         {
             LOGGER.LogInfo("New Controller connected");
-            this.prevActionGroup = ActionGroup.None;
-            this.actionGroupToSet = ActionGroup.None;
-
+            steamInputDaemon.ChangeActionGroup(actionGroupDaemon.GetCurrentActionGroup());
+            
             // When the steam version of KSP starts, it will not see any connected Joystick
             // It's only when steam will be initialized that KSP will see the steam emulated controllers
             // But it's too late, because the game settings are already loaded.
             // So we need to reload the game settings when a new controller is connected.
             LOGGER.LogInfo("Reloading Game Settings so KSP will see the steam emulated controllers");
             GameSettings.LoadGameSettingsOnly();
-            
-            this.UpdateActionGroup();
-        }
-
-        // <summary>
-        //  Controller disconnected
-        // </summary>
-        private void OnControllerDisconnected() 
-        {
-            LOGGER.LogInfo("Controller disconnected");
-            this.CancelActionGroupChange();
-            this.actionGroupToSet = ActionGroup.None;
-            this.prevActionGroup = ActionGroup.None;
         }
 
         /// <summary>
@@ -495,9 +254,6 @@ namespace com.github.lhervier.ksp
         private void OnControllerConnectedWithError(string error)
         {
             LOGGER.LogError("Controller connected with error: " + error);
-            this.CancelActionGroupChange();
-            this.prevActionGroup = ActionGroup.None;
-            this.actionGroupToSet = ActionGroup.None;
             
             // Display a dialog box to the user
             PopupDialog.SpawnPopupDialog(

@@ -9,7 +9,7 @@ namespace com.github.lhervier.ksp.ui
 
         public string GetActionSetTitle()
         {
-            string actionSetName = SteamInputDaemon.Instance.CurrentActionSet;
+            string actionSetName = ActionGroupDaemon.Instance.GetCurrentActionGroup().ToString();
             if (string.IsNullOrEmpty(actionSetName))
             {
                 return "—";

@@ -180,7 +180,7 @@ namespace com.github.lhervier.ksp.ui
         private void DrawCurrentActionSet()
         {
             GUILayout.Label("Current action set:", SteamInputStyles.Label);
-            var actionSetName = SteamInputDaemon.Instance.CurrentActionSet;
+            var actionSetName = ActionGroupDaemon.Instance.GetCurrentActionGroup().ToString();
             var actionSetLabel = actionSetName != null
                 ? SteamInputControllerVdf.GetActionSetTitle(actionSetName)
                 : "—";
@@ -190,14 +190,14 @@ namespace com.github.lhervier.ksp.ui
         private void DrawControllerConnected() 
         {
             GUILayout.Label("Controller connected:", SteamInputStyles.Label);
-            bool connected = SteamInputDaemon.Instance.ControllerConnected;
+            bool connected = GamepadDaemon.Instance.GamepadConnected;
             GUILayout.Label(connected ? "Yes" : "No", connected ? SteamInputStyles.AccentLabel : SteamInputStyles.WarnLabel);
         }
 
         private void DrawActivatedContexts()
         {
             GUILayout.Label("Activated context(s):");
-            foreach (string context in SteamInputPlugin.Instance.ActivatedContexts)
+            foreach (string context in ActionGroupDaemon.Instance.ActivatedContexts)
             {
                 string contextName;
                 if( context.EndsWith("CtxDaemon") ) {
