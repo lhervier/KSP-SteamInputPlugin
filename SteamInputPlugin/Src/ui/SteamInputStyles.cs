@@ -18,6 +18,7 @@ namespace com.github.lhervier.ksp.ui
         private static readonly Color ColLabel = new Color(204f / 255f, 204f / 255f, 204f / 255f);
         private static readonly Color ColMuted = new Color(136f / 255f, 136f / 255f, 136f / 255f);
         private static readonly Color ColAccent = new Color(141f / 255f, 190f / 255f, 69f / 255f);
+        private static readonly Color ColBadgeBorder = new Color(74f / 255f, 110f / 255f, 32f / 255f);
         private static readonly Color ColWarn = new Color(0.95f, 0.82f, 0.23f);
         private static readonly Color ColBtn = new Color(56f / 255f, 56f / 255f, 56f / 255f);
         private static readonly Color ColBtnText = new Color(187f / 255f, 187f / 255f, 187f / 255f);
@@ -31,6 +32,7 @@ namespace com.github.lhervier.ksp.ui
         public static GUIStyle Body { get; private set; }
         public static GUIStyle HeaderBar { get; private set; }
         public static GUIStyle Title { get; private set; }
+        public static GUIStyle ActionSetBadge { get; private set; }
         public static GUIStyle Label { get; private set; }
         public static GUIStyle MutedLabel { get; private set; }
         public static GUIStyle AccentLabel { get; private set; }
@@ -76,7 +78,7 @@ namespace com.github.lhervier.ksp.ui
 
             HeaderBar = new GUIStyle
             {
-                padding = new RectOffset(8, 6, 5, 5),
+                padding = new RectOffset(8, 6, 4, 4),
                 fixedHeight = TitleBarHeight
             };
             HeaderBar.normal.background = texHeader;
@@ -87,6 +89,18 @@ namespace com.github.lhervier.ksp.ui
                 clipping = TextClipping.Clip
             };
             Title.normal.textColor = ColTitleText;
+
+            ActionSetBadge = new GUIStyle(GUI.skin.label)
+            {
+                fontSize = 10,
+                padding = new RectOffset(5, 5, 2, 2),
+                border = new RectOffset(1, 1, 1, 1),
+                clipping = TextClipping.Clip,
+                wordWrap = false,
+                stretchWidth = false
+            };
+            ActionSetBadge.normal.textColor = ColAccent;
+            ActionSetBadge.normal.background = MakeBorderTexture(Color.clear, ColBadgeBorder);
 
             Label = CreateLabelStyle(ColLabel);
             MutedLabel = CreateLabelStyle(ColMuted);
@@ -158,6 +172,22 @@ namespace com.github.lhervier.ksp.ui
         {
             var tex = new Texture2D(1, 1, TextureFormat.RGBA32, false);
             tex.SetPixel(0, 0, color);
+            tex.Apply();
+            tex.hideFlags = HideFlags.HideAndDontSave;
+            return tex;
+        }
+
+        private static Texture2D MakeBorderTexture(Color fill, Color border)
+        {
+            var tex = new Texture2D(3, 3, TextureFormat.RGBA32, false);
+            for (var y = 0; y < 3; y++)
+            {
+                for (var x = 0; x < 3; x++)
+                {
+                    var isBorder = x == 0 || x == 2 || y == 0 || y == 2;
+                    tex.SetPixel(x, y, isBorder ? border : fill);
+                }
+            }
             tex.Apply();
             tex.hideFlags = HideFlags.HideAndDontSave;
             return tex;
