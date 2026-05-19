@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace com.github.lhervier.ksp
+namespace com.github.lhervier.ksp.ui
 {
     /// <summary>
     /// IMGUI styles for Steam Input windows (palette from ksp_cheatsheet_xbox.html).

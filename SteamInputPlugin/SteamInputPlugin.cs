@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using com.github.lhervier.ksp.ui;
 using System.IO;
 
 namespace com.github.lhervier.ksp 

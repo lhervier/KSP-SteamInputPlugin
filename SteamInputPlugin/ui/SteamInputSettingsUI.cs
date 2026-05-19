@@ -2,7 +2,7 @@ using UnityEngine;
 using KSP.UI.Screens;
 using System;
 
-namespace com.github.lhervier.ksp 
+namespace com.github.lhervier.ksp.ui
 {
     public class SteamInputSettingsUI : MonoBehaviour
     {
