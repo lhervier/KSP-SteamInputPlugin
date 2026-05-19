@@ -12,9 +12,10 @@ namespace com.github.lhervier.ksp.ui
         private ApplicationLauncherButton button;
         private bool showWindow = false;
         private Rect windowRect = new Rect(20, 20, SteamInputStyles.WindowWidth, 320);
-        private bool lastShowLoggingIcon;
         private bool showLogLevelMenu = false;
         private string controllerVdfPathBuffer = string.Empty;
+        private CheatSheetViewModel viewModel;
+        private TitleUI titleUI;
 
         // ===============================================================
 
@@ -28,8 +29,11 @@ namespace com.github.lhervier.ksp.ui
         {
             LOGGER.LogInfo("Start");
             GameEvents.onGUIApplicationLauncherReady.Add(OnGUIAppLauncherReady);
-            lastShowLoggingIcon = ShouldDisplayLoggingIcon();
-            controllerVdfPathBuffer = SteamInputGlobalSettings.GetControllerVdfPath();
+
+            viewModel = new CheatSheetViewModel();
+
+            titleUI = new TitleUI(viewModel, () => OnWindowClosedFromUI());
+
             LOGGER.LogInfo("Start: Started");
         }
 
@@ -37,46 +41,12 @@ namespace com.github.lhervier.ksp.ui
         {
             LOGGER.LogInfo("OnDestroy");
             GameEvents.onGUIApplicationLauncherReady.Remove(OnGUIAppLauncherReady);
-            RemoveButton();
             LOGGER.LogInfo("OnDestroy: Destroyed");
         }
 
         // ===============================================================
 
-        private bool ShouldDisplayLoggingIcon()
-        {
-            // Outside of flight, trackstation, spacecenter or editor
-            // => Display button
-            if ( 
-                HighLogic.LoadedScene != GameScenes.FLIGHT &&
-                HighLogic.LoadedScene != GameScenes.TRACKSTATION && 
-                HighLogic.LoadedScene != GameScenes.SPACECENTER &&
-                HighLogic.LoadedScene != GameScenes.EDITOR
-            ) {
-                return true;
-            }
-
-            return SteamInputGlobalSettings.GetShowLoggingIcon();
-        }
-
-        private void RemoveButton()
-        {
-            LOGGER.LogInfo("Removing button from ApplicationLauncher");
-            if (!ApplicationLauncher.Ready)
-            {
-                LOGGER.LogDebug("ApplicationLauncher not Ready");
-                return;
-            }
-            if (button == null) {
-                LOGGER.LogDebug("Button was not added to ApplicationLauncher");
-                return;
-            }
-            
-            ApplicationLauncher.Instance.RemoveModApplication(button);
-            button = null;
-        }
-
-        private void AddButton()
+        private void OnGUIAppLauncherReady()
         {
             LOGGER.LogInfo("Adding button to ApplicationLauncher");
             if (!ApplicationLauncher.Ready)
@@ -106,8 +76,6 @@ namespace com.github.lhervier.ksp.ui
             );
         }
 
-        // ===============================================================
-
         private void OnToggleOn()
         {
             LOGGER.LogDebug("Displaying window");
@@ -121,6 +89,8 @@ namespace com.github.lhervier.ksp.ui
             LOGGER.LogDebug("Hiding window (toolbar)");
             CloseWindow();
         }
+
+        // ===============================================================
 
         private void CloseWindow()
         {
@@ -138,15 +108,7 @@ namespace com.github.lhervier.ksp.ui
             }
         }
 
-        private void OnGUIAppLauncherReady()
-        {
-            LOGGER.LogDebug("=> OnGUIAppLauncherReady");
-            if( ShouldDisplayLoggingIcon()) {
-                AddButton();
-            } else {
-                RemoveButton();
-            }
-        }
+        // ===============================================================
 
         void OnGUI()
         {
@@ -166,7 +128,7 @@ namespace com.github.lhervier.ksp.ui
 
         private void DrawWindow(int windowID)
         {
-            DrawTitleBar();
+            titleUI.DrawTitle();
 
             GUILayout.BeginVertical(SteamInputStyles.Body);
             DrawSettings();
@@ -181,17 +143,6 @@ namespace com.github.lhervier.ksp.ui
             GUILayout.EndVertical();
 
             GUI.DragWindow(new Rect(0f, 0f, windowRect.width, SteamInputStyles.TitleBarHeight));
-        }
-
-        private void DrawTitleBar()
-        {
-            GUILayout.BeginHorizontal(SteamInputStyles.HeaderBar, GUILayout.Height(SteamInputStyles.TitleBarHeight));
-            GUILayout.Label("AIDE MANETTE", SteamInputStyles.Title, GUILayout.ExpandWidth(true));
-            if (GUILayout.Button("×", SteamInputStyles.CloseButton))
-            {
-                OnWindowClosedFromUI();
-            }
-            GUILayout.EndHorizontal();
         }
 
         private void DrawSettings()
@@ -281,19 +232,6 @@ namespace com.github.lhervier.ksp.ui
                 }
                 GUILayout.EndVertical();
             }
-        }
-        
-        void Update()
-        {
-            bool currentShowLoggingIcon = ShouldDisplayLoggingIcon();
-            if( currentShowLoggingIcon == lastShowLoggingIcon ) return;
-            LOGGER.LogDebug($"showLoggingIcon changed: {lastShowLoggingIcon} -> {currentShowLoggingIcon}");
-            if( currentShowLoggingIcon ) {
-                AddButton();
-            } else {
-                RemoveButton();
-            }
-            lastShowLoggingIcon = currentShowLoggingIcon;
         }
     }
 }
