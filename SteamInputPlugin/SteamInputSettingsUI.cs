@@ -90,15 +90,8 @@ namespace com.github.lhervier.ksp
             }
 
             button = ApplicationLauncher.Instance.AddModApplication(
-                () => { 
-                    LOGGER.LogDebug("Displaying window"); 
-                    controllerVdfPathBuffer = SteamInputGlobalSettings.GetControllerVdfPath();
-                    showWindow = true; 
-                },
-                () => { 
-                    LOGGER.LogDebug("Hiding window"); 
-                    showWindow = false; 
-                },
+                OnToggleOn,
+                OnToggleOff,
                 null,
                 null,
                 null,
@@ -114,6 +107,36 @@ namespace com.github.lhervier.ksp
         }
 
         // ===============================================================
+
+        private void OnToggleOn()
+        {
+            LOGGER.LogDebug("Displaying window");
+            controllerVdfPathBuffer = SteamInputGlobalSettings.GetControllerVdfPath();
+            showWindow = true;
+        }
+
+        /// <summary>Toolbar off callback — visibility only, like VesselBookmark OnToggleOff.</summary>
+        private void OnToggleOff()
+        {
+            LOGGER.LogDebug("Hiding window (toolbar)");
+            CloseWindow();
+        }
+
+        private void CloseWindow()
+        {
+            showWindow = false;
+            showLogLevelMenu = false;
+        }
+
+        /// <summary>After closing from the in-window button — resync toolbar toggle.</summary>
+        private void OnWindowClosedFromUI()
+        {
+            CloseWindow();
+            if (button != null)
+            {
+                button.SetFalse();
+            }
+        }
 
         private void OnGUIAppLauncherReady()
         {
@@ -166,7 +189,7 @@ namespace com.github.lhervier.ksp
             GUILayout.Label("AIDE MANETTE", SteamInputStyles.Title, GUILayout.ExpandWidth(true));
             if (GUILayout.Button("×", SteamInputStyles.CloseButton))
             {
-                showWindow = false;
+                OnWindowClosedFromUI();
             }
             GUILayout.EndHorizontal();
         }
