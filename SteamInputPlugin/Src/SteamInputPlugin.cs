@@ -70,7 +70,7 @@ namespace com.github.lhervier.ksp
         // <summary>
         //  Connection Daemon to the steam controller
         // </summary>
-        private SteamInputDaemon steamControllerDaemon;
+        private SteamInputDaemon steamInputDaemon;
         
         // <summary>
         //  Delayed Action daemon
@@ -125,10 +125,10 @@ namespace com.github.lhervier.ksp
 
             // Create the controller daemon
             LOGGER.LogInfo("Creating SteamInput Daemon");
-            this.steamControllerDaemon = gameObject.AddComponent<SteamInputDaemon>();
-            this.steamControllerDaemon.OnControllerConnected.Add(this.OnControllerConnected);
-            this.steamControllerDaemon.OnControllerDisconnected.Add(this.OnControllerDisconnected);
-            this.steamControllerDaemon.OnControllerConnectedWithError.Add(this.OnControllerConnectedWithError);
+            this.steamInputDaemon = gameObject.AddComponent<SteamInputDaemon>();
+            this.steamInputDaemon.OnControllerConnected.Add(this.OnControllerConnected);
+            this.steamInputDaemon.OnControllerDisconnected.Add(this.OnControllerDisconnected);
+            this.steamInputDaemon.OnControllerConnectedWithError.Add(this.OnControllerConnectedWithError);
             
             // Create the delayed action daemon
             LOGGER.LogInfo("Creating Delayed Actions Daemon");
@@ -178,11 +178,11 @@ namespace com.github.lhervier.ksp
         {
             Destroy(this.loggingUI);
 
-            this.steamControllerDaemon.OnControllerDisconnected.Remove(OnControllerDisconnected);
-            this.steamControllerDaemon.OnControllerConnected.Remove(OnControllerConnected);
-            this.steamControllerDaemon.OnControllerConnectedWithError.Remove(OnControllerConnectedWithError);
+            this.steamInputDaemon.OnControllerDisconnected.Remove(OnControllerDisconnected);
+            this.steamInputDaemon.OnControllerConnected.Remove(OnControllerConnected);
+            this.steamInputDaemon.OnControllerConnectedWithError.Remove(OnControllerConnectedWithError);
             Destroy(this.delayedActionDaemon);
-            Destroy(this.steamControllerDaemon);
+            Destroy(this.steamInputDaemon);
             Destroy(this.loggingUI);
             
             foreach(BaseContextDaemon daemon in this.contextDaemons) 
@@ -358,7 +358,7 @@ namespace com.github.lhervier.ksp
         // </summary>
         private void UpdateActionGroup() 
         {
-            if( !this.steamControllerDaemon.ControllerConnected) {
+            if( !this.steamInputDaemon.ControllerConnected) {
                 LOGGER.LogInfo("UpdateActionGroup: Controller not connected");
                 return;
             }
@@ -379,7 +379,7 @@ namespace com.github.lhervier.ksp
         // </summary>
         public void TriggerActionGroupChange(ActionGroup actionGroup) 
         {
-            if( !this.steamControllerDaemon.ControllerConnected ) {
+            if( !this.steamInputDaemon.ControllerConnected ) {
                 LOGGER.LogInfo("TriggerActionGroupChange: Controller not connected");
                 return;
             }
@@ -396,7 +396,7 @@ namespace com.github.lhervier.ksp
         // </summary>
         public void ChangeActionGroupNow(ActionGroup actionGroup) 
         {
-            if( !this.steamControllerDaemon.ControllerConnected ) {
+            if( !this.steamInputDaemon.ControllerConnected ) {
                 LOGGER.LogInfo("ChangeActionGroupNow: Controller not connected");
                 return;
             }
@@ -433,7 +433,7 @@ namespace com.github.lhervier.ksp
                 return;
             }
             
-            if( !this.steamControllerDaemon.ControllerConnected ) {
+            if( !this.steamInputDaemon.ControllerConnected ) {
                 LOGGER.LogError("Controller not connected");
                 return;
             }
@@ -446,7 +446,7 @@ namespace com.github.lhervier.ksp
             }
             
             LOGGER.LogDebug("Setting action group : " + actionGroup.ToString());
-            this.steamControllerDaemon.ChangeActionSet(actionGroup.ToString());
+            this.steamInputDaemon.ChangeActionSet(actionGroup.ToString());
             
             this.screenMessage.message = "Controller: " + actionGroup.ToString() + ".";
             ScreenMessages.PostScreenMessage(this.screenMessage);
