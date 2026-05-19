@@ -79,8 +79,13 @@ if errorlevel 1 (
     echo ERROR: Failed to copy SteamInputPlugin.dll
     exit /b 1
 )
-echo - Copying Textures
-xcopy /y /i "SteamInputPlugin\Textures" "Release\SteamInput\Textures"
+
+echo - Copying texture files
+if not exist "SteamInputPlugin\GameData\SteamInput\Textures" (
+    echo ERROR: SteamInputPlugin\GameData\SteamInput\Textures folder not found
+    exit /b 1
+)
+copy /y "SteamInputPlugin\GameData\SteamInput\Textures\*" "Release\SteamInput\Textures\"
 if errorlevel 1 (
     echo ERROR: Failed to copy Textures
     exit /b 1

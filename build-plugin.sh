@@ -85,11 +85,11 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "- Copie des Textures"
-cp -r "SteamInputPlugin/Textures"/* "Release/SteamInput/Textures/"
-if [ $? -ne 0 ]; then
-    echo "ERREUR: Impossible de copier les Textures"
+if [ ! -d "SteamInputPlugin/GameData/SteamInput/Textures" ]; then
+    echo "ERREUR: SteamInputPlugin/GameData/SteamInput/Textures introuvable"
     exit 1
 fi
+cp -r "SteamInputPlugin/GameData/SteamInput/Textures/"* "Release/SteamInput/Textures/"
 
 echo "Création de l'archive zip"
 cd "Release"
