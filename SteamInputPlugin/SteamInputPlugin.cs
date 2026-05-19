@@ -166,6 +166,9 @@ namespace com.github.lhervier.ksp
             LOGGER.LogInfo("Starting Logging UI");
             this.loggingUI = gameObject.AddComponent<SteamInputSettingsUI>();
             LOGGER.LogInfo("Logging UI started");
+
+            LOGGER.LogInfo("Starting Unity Input debug logger");
+            gameObject.AddComponent<UnityInputDebugLogger>();
             
             LOGGER.LogInfo("Started");
         }
