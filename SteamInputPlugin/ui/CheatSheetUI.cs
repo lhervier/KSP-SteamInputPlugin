@@ -4,7 +4,7 @@ using System;
 
 namespace com.github.lhervier.ksp.ui
 {
-    public class SteamInputSettingsUI : MonoBehaviour
+    public class CheatSheetUI : MonoBehaviour
     {
         private const int WINDOW_ID = 0x53495355; // "SISUI" ("SteamInputSettingsUI" in hex)
         private static readonly SteamInputLogger LOGGER = new SteamInputLogger("SteamInputSettingsUI");

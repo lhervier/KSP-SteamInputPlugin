@@ -85,7 +85,7 @@ namespace com.github.lhervier.ksp
         // <summary>
         //  The GUI
         // </summary>
-        private SteamInputSettingsUI loggingUI;
+        private CheatSheetUI loggingUI;
 
         // ===============================================================================
         //                      Unity initialization
@@ -165,7 +165,7 @@ namespace com.github.lhervier.ksp
 
             // Start the GUI
             LOGGER.LogInfo("Starting Logging UI");
-            this.loggingUI = gameObject.AddComponent<SteamInputSettingsUI>();
+            this.loggingUI = gameObject.AddComponent<CheatSheetUI>();
             LOGGER.LogInfo("Logging UI started");
             
             LOGGER.LogInfo("Started");
