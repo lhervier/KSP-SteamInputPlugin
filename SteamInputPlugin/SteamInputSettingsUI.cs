@@ -8,12 +8,10 @@ namespace com.github.lhervier.ksp
     {
         private const int WINDOW_ID = 0x53495355; // "SISUI" ("SteamInputSettingsUI" in hex)
         private static readonly SteamInputLogger LOGGER = new SteamInputLogger("SteamInputSettingsUI");
-        private static readonly Color KSPYellow = new Color(0.95f, 0.82f, 0.23f);
-        private static readonly Color KSPGreen = new Color(0.5f, 1f, 0.5f);
 
         private ApplicationLauncherButton button;
         private bool showWindow = false;
-        private Rect windowRect = new Rect(20, 20, 420, 320);
+        private Rect windowRect = new Rect(20, 20, SteamInputStyles.WindowWidth, 320);
         private bool lastShowLoggingIcon;
         private bool showLogLevelMenu = false;
         private string controllerVdfPathBuffer = string.Empty;
@@ -131,67 +129,57 @@ namespace com.github.lhervier.ksp
         {
             if (!showWindow) return;
 
-            // Utilise le skin KSP si disponible
-            var oldSkin = GUI.skin;
-            if (HighLogic.Skin != null)
-                GUI.skin = HighLogic.Skin;
+            SteamInputStyles.EnsureInitialized();
 
+            windowRect.width = SteamInputStyles.WindowWidth;
             windowRect = GUILayout.Window(
                 WINDOW_ID, 
                 windowRect, 
                 DrawWindow, 
-                "SteamInput Settings",
-                GUI.skin.window
+                string.Empty,
+                SteamInputStyles.Window
             );
-
-            GUI.skin = oldSkin;
         }
 
         private void DrawWindow(int windowID)
         {
-            GUILayout.BeginVertical(GUI.skin.box);
+            DrawTitleBar();
 
-            // Ajout du bouton de fermeture en haut à droite
-            GUILayout.BeginHorizontal();
-            GUILayout.FlexibleSpace();
-            if (GUILayout.Button("X", GUILayout.Width(20), GUILayout.Height(20)))
+            GUILayout.BeginVertical(SteamInputStyles.Body);
+            DrawSettings();
+            GUILayout.Space(6);
+            DrawCurrentActionSet();
+            GUILayout.Space(6);
+            DrawControllerConnected();
+            GUILayout.Space(6);
+            DrawActivatedContexts();
+            GUILayout.Space(6);
+            DrawLogLevel();
+            GUILayout.EndVertical();
+
+            GUI.DragWindow(new Rect(0f, 0f, windowRect.width, SteamInputStyles.TitleBarHeight));
+        }
+
+        private void DrawTitleBar()
+        {
+            GUILayout.BeginHorizontal(SteamInputStyles.HeaderBar, GUILayout.Height(SteamInputStyles.TitleBarHeight));
+            GUILayout.Label("AIDE MANETTE", SteamInputStyles.Title, GUILayout.ExpandWidth(true));
+            if (GUILayout.Button("×", SteamInputStyles.CloseButton))
             {
                 showWindow = false;
             }
             GUILayout.EndHorizontal();
-
-            GUIStyle titleStyle = new GUIStyle(GUI.skin.label);
-            titleStyle.fontSize = 16;
-            titleStyle.normal.textColor = Color.white;
-            GUILayout.Label("SteamInput - Infos", titleStyle);
-
-            GUILayout.Space(8);
-            DrawSettings();
-
-            GUILayout.Space(8);
-            DrawCurrentActionSet();
-
-            GUILayout.Space(8);
-            DrawControllerConnected();
-            
-            GUILayout.Space(8);
-            DrawActivatedContexts();
-            
-            GUILayout.Space(8);
-            DrawLogLevel();
-
-            GUILayout.EndVertical();
-            GUI.DragWindow();
         }
 
         private void DrawSettings()
         {
-            GUILayout.Label("Settings", GUI.skin.label);
+            GUILayout.Label("Settings", SteamInputStyles.MutedLabel);
 
             bool showIcon = SteamInputGlobalSettings.GetShowLoggingIcon();
             bool newShowIcon = GUILayout.Toggle(
                 showIcon,
-                "Show logging icon during flight / VAB / KSC / tracking"
+                "Show logging icon during flight / VAB / KSC / tracking",
+                SteamInputStyles.Toggle
             );
             if (newShowIcon != showIcon)
             {
@@ -199,8 +187,8 @@ namespace com.github.lhervier.ksp
             }
 
             GUILayout.Space(4);
-            GUILayout.Label("Controller VDF path (absolute):");
-            string newPath = GUILayout.TextField(controllerVdfPathBuffer, GUILayout.ExpandWidth(true));
+            GUILayout.Label("Controller VDF path (absolute):", SteamInputStyles.Label);
+            string newPath = GUILayout.TextField(controllerVdfPathBuffer, SteamInputStyles.TextField, GUILayout.ExpandWidth(true));
             if (newPath != controllerVdfPathBuffer)
             {
                 controllerVdfPathBuffer = newPath;
@@ -211,33 +199,25 @@ namespace com.github.lhervier.ksp
             var vdfError = SteamInputControllerVdf.LastError;
             if (!string.IsNullOrEmpty(vdfError))
             {
-                GUIStyle errorStyle = new GUIStyle(GUI.skin.label);
-                errorStyle.wordWrap = true;
-                errorStyle.normal.textColor = Color.red;
-                GUILayout.Label(vdfError, errorStyle);
+                GUILayout.Label(vdfError, SteamInputStyles.ErrorLabel);
             }
         }
 
         private void DrawCurrentActionSet()
         {
-            GUILayout.Label("Current action set:");
-            GUIStyle currentActionGroupStyle = new GUIStyle(GUI.skin.label);
-            currentActionGroupStyle.normal.textColor = KSPYellow;
-            // currentActionGroupStyle.fontStyle = FontStyle.Bold;
+            GUILayout.Label("Current action set:", SteamInputStyles.Label);
             var actionSetName = SteamInputDaemon.Instance.CurrentActionSet;
             var actionSetLabel = actionSetName != null
                 ? SteamInputControllerVdf.GetActionSetTitle(actionSetName)
                 : "—";
-            GUILayout.Label(actionSetLabel, currentActionGroupStyle);
+            GUILayout.Label(actionSetLabel, SteamInputStyles.AccentLabel);
         }
 
         private void DrawControllerConnected() 
         {
-            GUILayout.Label("Controller connected:");
-            GUIStyle controllerConnectedStyle = new GUIStyle(GUI.skin.label);
-            controllerConnectedStyle.normal.textColor = SteamInputDaemon.Instance.ControllerConnected ? KSPGreen : KSPYellow;
-            // controllerConnectedStyle.fontStyle = FontStyle.Bold;
-            GUILayout.Label(SteamInputDaemon.Instance.ControllerConnected ? "Yes" : "No", controllerConnectedStyle);
+            GUILayout.Label("Controller connected:", SteamInputStyles.Label);
+            bool connected = SteamInputDaemon.Instance.ControllerConnected;
+            GUILayout.Label(connected ? "Yes" : "No", connected ? SteamInputStyles.AccentLabel : SteamInputStyles.WarnLabel);
         }
 
         private void DrawActivatedContexts()
@@ -245,28 +225,21 @@ namespace com.github.lhervier.ksp
             GUILayout.Label("Activated context(s):");
             foreach (string context in SteamInputPlugin.Instance.ActivatedContexts)
             {
-                GUIStyle style = new GUIStyle(GUI.skin.label);
-                style.normal.textColor = KSPYellow;
-                // style.fontStyle = FontStyle.Bold;
                 string contextName;
                 if( context.EndsWith("CtxDaemon") ) {
                     contextName = context.Substring(0, context.Length - "CtxDaemon".Length);
                 } else {
                     contextName = context;
                 }
-                GUILayout.Label("- " + contextName, style);
+                GUILayout.Label("- " + contextName, SteamInputStyles.WarnLabel);
             }
         }
 
         private void DrawLogLevel()
         {
-            GUILayout.Label("Log Level:");
+            GUILayout.Label("Log Level:", SteamInputStyles.Label);
             GUILayout.BeginHorizontal();
-            GUIStyle buttonStyle = new GUIStyle(GUI.skin.button);
-            buttonStyle.normal.textColor = KSPYellow;
-            // buttonStyle.fontStyle = FontStyle.Bold;
-            buttonStyle.fixedWidth = 100;
-            if (GUILayout.Button(SteamInputGlobalSettings.GetLogLevel().ToString(), buttonStyle))
+            if (GUILayout.Button(SteamInputGlobalSettings.GetLogLevel().ToString(), SteamInputStyles.MenuButton))
             {
                 showLogLevelMenu = !showLogLevelMenu;
             }
@@ -274,10 +247,10 @@ namespace com.github.lhervier.ksp
             
             if (showLogLevelMenu)
             {
-                GUILayout.BeginVertical(GUI.skin.box);
+                GUILayout.BeginVertical(SteamInputStyles.MenuBox);
                 foreach (LogLevel level in Enum.GetValues(typeof(LogLevel)))
                 {
-                    if (GUILayout.Button("=> " + level.ToString(), GUILayout.Width(100)))
+                    if (GUILayout.Button("=> " + level, SteamInputStyles.MenuButton))
                     {
                         SteamInputGlobalSettings.SetLogLevel(level);
                         showLogLevelMenu = false;
