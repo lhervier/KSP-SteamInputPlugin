@@ -55,10 +55,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="SteamInputPlugin\*.cs" />
-    <Compile Include="SteamInputPlugin\ContextDaemons\*.cs" />
-    <Compile Include="SteamInputPlugin\Vdf\*.cs" />
-    <Compile Include="SteamInputPlugin\ui\*.cs" />
+    <Compile Include="SteamInputPlugin\Src\*.cs" />
+    <Compile Include="SteamInputPlugin\Src\ContextDaemons\*.cs" />
+    <Compile Include="SteamInputPlugin\Src\Vdf\*.cs" />
+    <Compile Include="SteamInputPlugin\Src\ui\*.cs" />
   </ItemGroup>
   
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
