@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="SteamInputPlugin\*.cs" />
     <Compile Include="SteamInputPlugin\ContextDaemons\*.cs" />
+    <Compile Include="SteamInputPlugin\Vdf\*.cs" />
   </ItemGroup>
   
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

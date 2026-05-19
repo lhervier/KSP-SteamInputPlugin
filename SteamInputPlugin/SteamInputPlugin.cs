@@ -192,6 +192,7 @@ namespace com.github.lhervier.ksp
             }
             this.contextDaemons.Clear();
             this.activecontexts.Clear();
+            SteamInputControllerVdf.Clear();
             _instance = null;
             LOGGER.LogInfo("Destroyed");
         }

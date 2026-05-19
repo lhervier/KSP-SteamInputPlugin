@@ -1,37 +1,20 @@
-using KSP.Localization;
 using KSP.IO;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Linq;
 using System;
 
 namespace com.github.lhervier.ksp
 {
-    public class SteamInputGameSettings : GameParameters.CustomParameterNode
-    {
-        [GameParameters.CustomParameterUI("Show Logging Icon", toolTip = "Show the logging icon in the action bar", autoPersistance = true)]
-        public bool showLoggingIcon = false;
-
-        public override string Title => "Steam Input";
-        public override string Section => "Steam Input";
-        public override string DisplaySection => "Steam Input";
-        public override int SectionOrder => 1;
-        public override bool HasPresets => false;
-        public override GameParameters.GameMode GameMode => GameParameters.GameMode.ANY;
-
-        public static SteamInputGameSettings Instance => HighLogic.CurrentGame?.Parameters?.CustomParams<SteamInputGameSettings>();
-    }
-
     public class SteamInputGlobalSettings
     {
         private static readonly SteamInputLogger LOGGER = new SteamInputLogger("GlobalSettings");
-        private static readonly string CONFIG_KEY = "SteamInput.LogLevel";
+        private const string CONFIG_KEY_LOG_LEVEL = "SteamInput.LogLevel";
+        private const string CONFIG_KEY_SHOW_LOGGING_ICON = "SteamInput.ShowLoggingIcon";
+        private const string CONFIG_KEY_CONTROLLER_VDF_PATH = "SteamInput.ControllerVdfPath";
         private static PluginConfiguration config;
-        
-        /// <summary>
-        /// Log level
-        /// </summary>
+
         private static LogLevel _logLevel = LogLevel.Info;
+        private static bool _showLoggingIcon;
+        private static string _controllerVdfPath = string.Empty;
+
         public static LogLevel GetLogLevel()
         {
             return _logLevel;
@@ -44,25 +27,46 @@ namespace com.github.lhervier.ksp
             Save();
         }
 
+        public static bool GetShowLoggingIcon()
+        {
+            return _showLoggingIcon;
+        }
+
+        public static void SetShowLoggingIcon(bool show)
+        {
+            LOGGER.LogDebug($"Setting show logging icon to {show}");
+            _showLoggingIcon = show;
+            Save();
+        }
+
+        public static string GetControllerVdfPath()
+        {
+            return _controllerVdfPath ?? string.Empty;
+        }
+
+        public static void SetControllerVdfPath(string path)
+        {
+            var normalized = (path ?? string.Empty).Trim();
+            LOGGER.LogDebug($"Setting controller VDF path to {normalized}");
+            _controllerVdfPath = normalized;
+            Save();
+        }
+
         public static void Load()
         {
             LOGGER.LogDebug("Loading global settings");
-            
-            // Load the config
-            // ================
+
             config = PluginConfiguration.CreateForType<SteamInputGlobalSettings>();
             config.load();
-            
-            // Load the log level
-            // ==================
-            _logLevel = (LogLevel) Enum.Parse(
-                typeof(LogLevel), 
-                config.GetValue(
-                    CONFIG_KEY, 
-                    LogLevel.Info.ToString()
-                )
+
+            _logLevel = (LogLevel)Enum.Parse(
+                typeof(LogLevel),
+                config.GetValue(CONFIG_KEY_LOG_LEVEL, LogLevel.Info.ToString())
             );
-            LOGGER.LogDebug($"Loaded log level: {_logLevel}");
+            _showLoggingIcon = config.GetValue(CONFIG_KEY_SHOW_LOGGING_ICON, false);
+            _controllerVdfPath = config.GetValue(CONFIG_KEY_CONTROLLER_VDF_PATH, string.Empty);
+
+            LOGGER.LogDebug($"Loaded log level: {_logLevel}, showLoggingIcon: {_showLoggingIcon}, controllerVdfPath: {_controllerVdfPath}");
         }
 
         public static void Save()
@@ -72,13 +76,13 @@ namespace com.github.lhervier.ksp
             {
                 config = PluginConfiguration.CreateForType<SteamInputGlobalSettings>();
             }
-            
-            // The log level
-            config.SetValue(CONFIG_KEY, _logLevel.ToString());
 
-            // Save the config
+            config.SetValue(CONFIG_KEY_LOG_LEVEL, _logLevel.ToString());
+            config.SetValue(CONFIG_KEY_SHOW_LOGGING_ICON, _showLoggingIcon);
+            config.SetValue(CONFIG_KEY_CONTROLLER_VDF_PATH, _controllerVdfPath ?? string.Empty);
+
             config.save();
-            LOGGER.LogDebug($"Saved log level: {_logLevel}");
+            LOGGER.LogDebug($"Saved log level: {_logLevel}, showLoggingIcon: {_showLoggingIcon}, controllerVdfPath: {_controllerVdfPath}");
         }
     }
-} 
+}

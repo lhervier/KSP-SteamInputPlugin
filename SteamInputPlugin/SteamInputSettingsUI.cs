@@ -1,9 +1,6 @@
 using UnityEngine;
 using KSP.UI.Screens;
-using JetBrains.Annotations;
 using System;
-using UnityEditor;
-using System.Collections.Generic;
 
 namespace com.github.lhervier.ksp 
 {
@@ -16,9 +13,10 @@ namespace com.github.lhervier.ksp
 
         private ApplicationLauncherButton button;
         private bool showWindow = false;
-        private Rect windowRect = new Rect(20, 20, 250, 150);
+        private Rect windowRect = new Rect(20, 20, 420, 320);
         private bool lastShowLoggingIcon;
         private bool showLogLevelMenu = false;
+        private string controllerVdfPathBuffer = string.Empty;
 
         // ===============================================================
 
@@ -32,7 +30,8 @@ namespace com.github.lhervier.ksp
         {
             LOGGER.LogInfo("Start");
             GameEvents.onGUIApplicationLauncherReady.Add(OnGUIAppLauncherReady);
-            lastShowLoggingIcon = false;
+            lastShowLoggingIcon = ShouldDisplayLoggingIcon();
+            controllerVdfPathBuffer = SteamInputGlobalSettings.GetControllerVdfPath();
             LOGGER.LogInfo("Start: Started");
         }
 
@@ -58,27 +57,8 @@ namespace com.github.lhervier.ksp
             ) {
                 return true;
             }
-            
-            // No current game or parameters for the current game
-            // => Display button
-            if( HighLogic.CurrentGame == null) return true;
-            if( HighLogic.CurrentGame.Parameters == null) return true;
-            
-            // Get custom parameters for the current game
-            // => Display button depending on the value of showLoggingIcon in the parameters
-            SteamInputGameSettings settings;
-            try {
-                settings = HighLogic.CurrentGame.Parameters.CustomParams<SteamInputGameSettings>();
-            } catch {
-                LOGGER.LogError("Error getting custom parameters => Displaying button");
-                return true;
-            }
-            if( settings == null) {
-                LOGGER.LogDebug("Getting null custom parameters => Displaying button");
-                return true;
-            }
-            
-            return settings.showLoggingIcon;
+
+            return SteamInputGlobalSettings.GetShowLoggingIcon();
         }
 
         private void RemoveButton()
@@ -114,6 +94,7 @@ namespace com.github.lhervier.ksp
             button = ApplicationLauncher.Instance.AddModApplication(
                 () => { 
                     LOGGER.LogDebug("Displaying window"); 
+                    controllerVdfPathBuffer = SteamInputGlobalSettings.GetControllerVdfPath();
                     showWindow = true; 
                 },
                 () => { 
@@ -185,6 +166,9 @@ namespace com.github.lhervier.ksp
             GUILayout.Label("SteamInput - Infos", titleStyle);
 
             GUILayout.Space(8);
+            DrawSettings();
+
+            GUILayout.Space(8);
             DrawCurrentActionSet();
 
             GUILayout.Space(8);
@@ -200,13 +184,51 @@ namespace com.github.lhervier.ksp
             GUI.DragWindow();
         }
 
+        private void DrawSettings()
+        {
+            GUILayout.Label("Settings", GUI.skin.label);
+
+            bool showIcon = SteamInputGlobalSettings.GetShowLoggingIcon();
+            bool newShowIcon = GUILayout.Toggle(
+                showIcon,
+                "Show logging icon during flight / VAB / KSC / tracking"
+            );
+            if (newShowIcon != showIcon)
+            {
+                SteamInputGlobalSettings.SetShowLoggingIcon(newShowIcon);
+            }
+
+            GUILayout.Space(4);
+            GUILayout.Label("Controller VDF path (absolute):");
+            string newPath = GUILayout.TextField(controllerVdfPathBuffer, GUILayout.ExpandWidth(true));
+            if (newPath != controllerVdfPathBuffer)
+            {
+                controllerVdfPathBuffer = newPath;
+                SteamInputGlobalSettings.SetControllerVdfPath(newPath);
+                SteamInputControllerVdf.Reload();
+            }
+
+            var vdfError = SteamInputControllerVdf.LastError;
+            if (!string.IsNullOrEmpty(vdfError))
+            {
+                GUIStyle errorStyle = new GUIStyle(GUI.skin.label);
+                errorStyle.wordWrap = true;
+                errorStyle.normal.textColor = Color.red;
+                GUILayout.Label(vdfError, errorStyle);
+            }
+        }
+
         private void DrawCurrentActionSet()
         {
             GUILayout.Label("Current action set:");
             GUIStyle currentActionGroupStyle = new GUIStyle(GUI.skin.label);
             currentActionGroupStyle.normal.textColor = KSPYellow;
             // currentActionGroupStyle.fontStyle = FontStyle.Bold;
-            GUILayout.Label(SteamInputDaemon.Instance.CurrentActionSet, currentActionGroupStyle);
+            var actionSetName = SteamInputDaemon.Instance.CurrentActionSet;
+            var actionSetLabel = actionSetName != null
+                ? SteamInputControllerVdf.GetActionSetTitle(actionSetName)
+                : "—";
+            GUILayout.Label(actionSetLabel, currentActionGroupStyle);
         }
 
         private void DrawControllerConnected() 
