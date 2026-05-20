@@ -41,9 +41,9 @@ namespace com.github.lhervier.ksp.ui
             DrawVerticallyCentered(
                 () => GUILayout.Label(
                     ModLocalization.GetString("SteamInput_titleHelp"),
-                    SteamInputStyles.Title,
-                    GUILayout.ExpandWidth(true)),
-                expandWidth: true);
+                    SteamInputStyles.Title));
+
+            GUILayout.FlexibleSpace();
 
             var badgeContent = new GUIContent(viewModel.GetActionGroupLabel(actionGroupDaemon.GetCurrentActionGroup()));
             var badgeSize = SteamInputStyles.ActionSetBadge.CalcSize(badgeContent);
@@ -59,7 +59,6 @@ namespace com.github.lhervier.ksp.ui
             if (!string.IsNullOrEmpty(controllerName))
             {
                 GUILayout.Space(BadgeControllerGap);
-                GUILayout.FlexibleSpace();
                 var controllerContent = new GUIContent(controllerName);
                 var controllerSize = SteamInputStyles.ControllerName.CalcSize(controllerContent);
                 DrawVerticallyCentered(
