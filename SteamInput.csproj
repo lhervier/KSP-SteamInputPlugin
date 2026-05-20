@@ -60,6 +60,7 @@
     <Compile Include="SteamInputPlugin\Src\Vdf\*.cs" />
     <Compile Include="SteamInputPlugin\Src\ui\*.cs" />
     <Compile Include="SteamInputPlugin\Src\ui\styles\*.cs" />
+    <Compile Include="SteamInputPlugin\Src\ui\model\*.cs" />
   </ItemGroup>
   
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

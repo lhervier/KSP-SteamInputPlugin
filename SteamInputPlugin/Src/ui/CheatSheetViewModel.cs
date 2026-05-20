@@ -1,18 +1,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 using com.github.lhervier.ksp;
+using com.github.lhervier.ksp.ui.model;
+using System.Linq;
 
 namespace com.github.lhervier.ksp.ui
 {
     public class CheatSheetViewModel: MonoBehaviour
     {
         private static readonly SteamInputLogger LOGGER = new SteamInputLogger("CheatSheetViewModel");
+        private static string[] _physicalZonesOrder = new string[] { 
+            "button_diamond", 
+            "dpad", 
+            "left_trigger", 
+            "right_trigger", 
+            "bumpers",
+            "joystick", 
+            "right_joystick", 
+            "left_trackpad", 
+            "right_trackpad", 
+            "switch", 
+        };
 
         private string _actionGroupLabel = "";
         private string _gamepadLabel = "";
         private string _lastError = "";
         private bool _gamepadConnected = false;
         private List<string> _activatedContexts = new List<string>();
+        private List<UIPhysicalZone> _physicalZones = new List<UIPhysicalZone>();
 
         private GamepadConfigDaemon _gamepadConfigDaemon;
         private ActionGroupDaemon _actionGroupDaemon;
@@ -136,6 +151,22 @@ namespace com.github.lhervier.ksp.ui
                     this._actionGroupLabel = currentActionGroup.ToString().ToUpperInvariant();
                 }
             }
+
+            this._physicalZones.Clear();
+            List<PhysicalZone> physicalZones = this._gamepadConfigDaemon.GetPhysicalZones(currentActionGroup);
+            foreach( string zone in _physicalZonesOrder ) {
+                PhysicalZone physicalZone = physicalZones.FirstOrDefault(z => z.Name == zone);
+                if( physicalZone != null ) {
+                    this._physicalZones.Add(
+                        new UIPhysicalZone {
+                            Name = physicalZone.Name,
+                            Label = ModLocalization.GetString("SteamInput_physicalZone_" + physicalZone.Name),
+                            GroupId = physicalZone.GroupId,
+                            ModeshiftGroupId = physicalZone.ModeshiftGroupId
+                        }
+                    );
+                }
+            }
         }
 
         private void OnConfigLoadError(string error)
@@ -168,6 +199,11 @@ namespace com.github.lhervier.ksp.ui
         public string GetGamepadLabel()
         {
             return this._gamepadLabel;
+        }
+
+        public List<UIPhysicalZone> GetPhysicalZones()
+        {
+            return this._physicalZones;
         }
     }
 }

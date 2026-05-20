@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using com.github.lhervier.ksp.Vdf;
 using UnityEngine;
 
@@ -158,6 +157,73 @@ namespace com.github.lhervier.ksp
         public string GetControllerType() {
             var mappings = GetObject(_root, "controller_mappings");
             return GetString(mappings, "controller_type");
+        }
+
+        public List<PhysicalZone> GetPhysicalZones(ActionGroup actionGroup)
+        {
+            var mappings = GetObject(_root, "controller_mappings");
+            List<object> presets = GetList(mappings, "preset");
+            Dictionary<string, object> preset = null;
+            foreach( object presetObject in presets ) {
+                if( presetObject is Dictionary<string, object> presetData ) {
+                    if( presetData.TryGetValue("name", out object name) && name is string nameString && nameString == actionGroup.ToString() ) {
+                        preset = presetData;
+                        break;
+                    }
+                }
+            }
+            if( preset == null ) {
+                return new List<PhysicalZone>();
+            }
+            
+            Dictionary<string, object> groupSourceBindings = GetObject(preset, "group_source_bindings");
+            Dictionary<string, PhysicalZone> physicalZones = new Dictionary<string, PhysicalZone>();
+            
+            foreach( KeyValuePair<string, object> pair in groupSourceBindings ) {
+                if( !(pair.Value is string valueString) ) {
+                    continue;
+                }
+                List<string> parts = new List<string>(valueString.Split(' '));
+
+                if( !parts.Contains("active") ) {
+                    continue;
+                }
+                parts.Remove("active");
+
+                bool modeShift = parts.Contains("modeshift");
+                parts.Remove("modeshift");
+
+                if( parts.Count == 0 ) {
+                    continue;
+                }
+
+                string name = parts[0];
+                string groupId = pair.Key;
+                AddPhysicalZone(physicalZones, name, groupId, modeShift);
+                if( name == "switch") {
+                    AddPhysicalZone(physicalZones, "bumpers", groupId, modeShift);
+                }
+            }
+
+            return new List<PhysicalZone>(physicalZones.Values);
+        }
+
+        private void AddPhysicalZone(
+            Dictionary<string, PhysicalZone> physicalZones, 
+            string name, 
+            string groupId, 
+            bool modeShift
+        ) {
+            if( !physicalZones.ContainsKey(name) ) {
+                physicalZones[name] = new PhysicalZone { 
+                    Name = name, 
+                };
+            }
+            if( modeShift ) {
+                physicalZones[name].ModeshiftGroupId = groupId;
+            } else {
+                physicalZones[name].GroupId = groupId;
+            }
         }
 
         // ============================================================================
