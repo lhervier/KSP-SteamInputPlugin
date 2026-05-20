@@ -2,6 +2,7 @@ using UnityEngine;
 using KSP.UI.Screens;
 using System;
 using com.github.lhervier.ksp;
+using com.github.lhervier.ksp.ui.styles;
 
 namespace com.github.lhervier.ksp.ui
 {

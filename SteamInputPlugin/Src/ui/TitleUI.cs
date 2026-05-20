@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using com.github.lhervier.ksp;
+using com.github.lhervier.ksp.ui.styles;
 
 namespace com.github.lhervier.ksp.ui
 {
