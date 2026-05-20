@@ -12,8 +12,6 @@ namespace com.github.lhervier.ksp.ui
         private string _gamepadLabel = "";
         private string _lastError = "";
 
-        public string ControllerVdfPathBuffer { get; private set; }
-
         private GamepadConfigDaemon _gamepadConfigDaemon;
 
         public void Initialize(GamepadConfigDaemon gamepadConfigDaemon)
@@ -76,12 +74,12 @@ namespace com.github.lhervier.ksp.ui
                 }
             }
 
-            this._lastError = _gamepadConfigDaemon.LastError;
+            this._lastError = string.Empty;
         }
 
         private void OnConfigLoadError(string error)
         {
-            this._lastError = error;
+            this._lastError = error ?? string.Empty;
         }
 
         // =======================================================================

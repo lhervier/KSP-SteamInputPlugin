@@ -8,7 +8,7 @@ using UnityEngine;
 namespace com.github.lhervier.ksp
 {
     /// <summary>
-    /// Loads and caches the controller VDF configured in game settings (absolute path).
+    /// Loads and caches the controller VDF for the config name set in game settings.
     /// </summary>
     public class GamepadConfigDaemon : MonoBehaviour
     {
@@ -80,44 +80,42 @@ namespace com.github.lhervier.ksp
         /// </summary>
         public void UpdateConfiguration()
         {
-            var path = SteamInputGlobalSettings.GetControllerVdfPath();
-            
+            var configName = SteamInputGlobalSettings.GetControllerConfigName();
+
             // Empty path is not an error, just an empty config
-            if (string.IsNullOrEmpty(path))
+            if (string.IsNullOrEmpty(configName))
             {
+                bool hadConfig = _lastPath != "";
                 _root = new Dictionary<string, object>();
                 _lastError = null;
                 _lastPath = "";
                 _lastWriteTime = DateTime.MinValue;
-                if (_lastPath != "")
+                if (hadConfig)
                 {
                     OnConfigLoaded.Fire();
                 }
                 return;
             }
 
-            // File does not exist is an error
-            if (!File.Exists(path))
+            // Resolve the path to the VDF file
+            if (!GamepadConfigPathResolver.TryResolve(configName, out string path, out string resolveError))
             {
-                _root = new Dictionary<string, object>();
-                _lastError = "Controller VDF file not found: " + path;
-                OnConfigLoadError.Fire(_lastError);
+                _lastPath = "";
+                _lastWriteTime = DateTime.MinValue;
+                _lastError = resolveError;
                 LOGGER.LogError(_lastError);
-                return;
-            }
-
-            // Path must be absolute
-            if (!Path.IsPathRooted(path))
-            {
-                _root = new Dictionary<string, object>();
-                _lastError = "Controller VDF path must be absolute: " + path;
                 OnConfigLoadError.Fire(_lastError);
-                LOGGER.LogError(_lastError);
                 return;
             }
 
             // Don't reload if the file has not changed
-            if (path == _lastPath && File.GetLastWriteTime(path) == _lastWriteTime ) {
+            if (path == _lastPath && File.GetLastWriteTime(path) == _lastWriteTime)
+            {
+                if (_lastError != null)
+                {
+                    _lastError = null;
+                    OnConfigLoaded.Fire();
+                }
                 return;
             }
 
@@ -128,16 +126,16 @@ namespace com.github.lhervier.ksp
             }
             catch (VdfParseException ex)
             {
-                _lastError = ex.Message;
+                _lastError = "Failed to parse gamepad VDF: " + ex.Message;
                 OnConfigLoadError.Fire(_lastError);
-                LOGGER.LogError("Failed to parse gamepad VDF: " + ex.Message);
+                LOGGER.LogError(_lastError);
                 return;
             }
             catch (System.Exception ex)
             {
-                _lastError = ex.Message;
+                _lastError = "Failed to load gamepad VDF: " + ex.Message;
                 OnConfigLoadError.Fire(_lastError);
-                LOGGER.LogError("Failed to load gamepad VDF: " + ex.Message);
+                LOGGER.LogError(_lastError);
                 return;
             }
             

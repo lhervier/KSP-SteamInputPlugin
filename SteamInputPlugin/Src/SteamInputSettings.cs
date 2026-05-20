@@ -8,12 +8,12 @@ namespace com.github.lhervier.ksp
         private static readonly SteamInputLogger LOGGER = new SteamInputLogger("GlobalSettings");
         private const string CONFIG_KEY_LOG_LEVEL = "SteamInput.LogLevel";
         private const string CONFIG_KEY_SHOW_LOGGING_ICON = "SteamInput.ShowLoggingIcon";
-        private const string CONFIG_KEY_CONTROLLER_VDF_PATH = "SteamInput.ControllerVdfPath";
+        private const string CONFIG_KEY_CONTROLLER_CONFIG_NAME = "SteamInput.ControllerConfigName";
         private static PluginConfiguration config;
 
         private static LogLevel _logLevel = LogLevel.Info;
         private static bool _showLoggingIcon;
-        private static string _controllerVdfPath = string.Empty;
+        private static string _controllerConfigName = string.Empty;
 
         public static EventVoid OnConfigurationChanged = new EventVoid("SteamInputGlobalSettings.ConfigurationChanged");
 
@@ -41,16 +41,15 @@ namespace com.github.lhervier.ksp
             Save();
         }
 
-        public static string GetControllerVdfPath()
+        public static string GetControllerConfigName()
         {
-            return _controllerVdfPath ?? string.Empty;
+            return _controllerConfigName ?? string.Empty;
         }
 
-        public static void SetControllerVdfPath(string path)
+        public static void SetControllerConfigName(string configName)
         {
-            var normalized = (path ?? string.Empty).Trim();
-            LOGGER.LogDebug($"Setting controller VDF path to {normalized}");
-            _controllerVdfPath = normalized;
+            LOGGER.LogDebug($"Setting controller config name to {configName}");
+            _controllerConfigName = configName ?? string.Empty;
             Save();
         }
 
@@ -66,10 +65,10 @@ namespace com.github.lhervier.ksp
                 config.GetValue(CONFIG_KEY_LOG_LEVEL, LogLevel.Info.ToString())
             );
             _showLoggingIcon = config.GetValue(CONFIG_KEY_SHOW_LOGGING_ICON, false);
-            _controllerVdfPath = config.GetValue(CONFIG_KEY_CONTROLLER_VDF_PATH, string.Empty);
-
+            _controllerConfigName = config.GetValue(CONFIG_KEY_CONTROLLER_CONFIG_NAME, string.Empty);
+            
             OnConfigurationChanged.Fire();
-            LOGGER.LogDebug($"Loaded log level: {_logLevel}, showLoggingIcon: {_showLoggingIcon}, controllerVdfPath: {_controllerVdfPath}");
+            LOGGER.LogDebug($"Loaded log level: {_logLevel}, showLoggingIcon: {_showLoggingIcon}, controllerConfigName: {_controllerConfigName}");
         }
 
         public static void Save()
@@ -82,11 +81,11 @@ namespace com.github.lhervier.ksp
 
             config.SetValue(CONFIG_KEY_LOG_LEVEL, _logLevel.ToString());
             config.SetValue(CONFIG_KEY_SHOW_LOGGING_ICON, _showLoggingIcon);
-            config.SetValue(CONFIG_KEY_CONTROLLER_VDF_PATH, _controllerVdfPath ?? string.Empty);
+            config.SetValue(CONFIG_KEY_CONTROLLER_CONFIG_NAME, _controllerConfigName ?? string.Empty);
 
             config.save();
             OnConfigurationChanged.Fire();
-            LOGGER.LogDebug($"Saved log level: {_logLevel}, showLoggingIcon: {_showLoggingIcon}, controllerVdfPath: {_controllerVdfPath}");
+            LOGGER.LogDebug($"Saved log level: {_logLevel}, showLoggingIcon: {_showLoggingIcon}, controllerConfigName: {_controllerConfigName}");
         }
     }
 }

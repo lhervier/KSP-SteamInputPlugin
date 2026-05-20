@@ -15,7 +15,7 @@ namespace com.github.lhervier.ksp.ui
         private bool showWindow = false;
         private Rect windowRect = new Rect(20, 20, SteamInputStyles.WindowWidth, 320);
         private bool showLogLevelMenu = false;
-        private string controllerVdfPathBuffer = string.Empty;
+        private string controllerConfigNameBuffer = string.Empty;
         private CheatSheetViewModel viewModel;
         private ActionGroupDaemon actionGroupDaemon;
         private GamepadDaemon gamepadDaemon;
@@ -91,7 +91,7 @@ namespace com.github.lhervier.ksp.ui
         private void OnToggleOn()
         {
             LOGGER.LogDebug("Displaying window");
-            controllerVdfPathBuffer = SteamInputGlobalSettings.GetControllerVdfPath();
+            controllerConfigNameBuffer = SteamInputGlobalSettings.GetControllerConfigName();
             showWindow = true;
         }
 
@@ -173,12 +173,12 @@ namespace com.github.lhervier.ksp.ui
             }
 
             GUILayout.Space(4);
-            GUILayout.Label(ModLocalization.GetString("SteamInput_controllerVdfPath"), SteamInputStyles.Label);
-            string newPath = GUILayout.TextField(controllerVdfPathBuffer, SteamInputStyles.TextField, GUILayout.ExpandWidth(true));
-            if (newPath != controllerVdfPathBuffer)
+            GUILayout.Label(ModLocalization.GetString("SteamInput_controllerConfigName"), SteamInputStyles.Label);
+            string newName = GUILayout.TextField(controllerConfigNameBuffer, SteamInputStyles.TextField, GUILayout.ExpandWidth(true));
+            if (newName != controllerConfigNameBuffer)
             {
-                controllerVdfPathBuffer = newPath;
-                SteamInputGlobalSettings.SetControllerVdfPath(newPath);
+                controllerConfigNameBuffer = newName;
+                SteamInputGlobalSettings.SetControllerConfigName(newName);
             }
 
             var vdfError = viewModel.getLastError();
