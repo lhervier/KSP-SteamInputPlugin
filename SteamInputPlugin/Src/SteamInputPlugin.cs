@@ -90,6 +90,15 @@ namespace com.github.lhervier.ksp
             LOGGER.LogInfo("Waiting for Squad KSPSteamController plugin");
             yield return StartCoroutine(HandleKSPSteamController());
 
+            LOGGER.LogInfo("Waiting for Steam (SteamManager)");
+            bool steamReady = false;
+            yield return TryInitializeSteam(() => steamReady = true);
+            if (!steamReady)
+            {
+                yield break;
+            }
+            LOGGER.LogInfo("Steam ready");
+            
             // Load the global settings
             SteamInputGlobalSettings.Load();
 
@@ -127,8 +136,46 @@ namespace com.github.lhervier.ksp
             this.loggingUI = gameObject.AddComponent<CheatSheetUI>();
             this.loggingUI.Initialize(this.viewModel, this.actionGroupDaemon, this.gamepadDaemon);
             LOGGER.LogInfo("Logging UI started");
+
+            // Log the detected steam environment
+            bool hasPath = SteamEnvironmentDetector.TryGetSteamInstallPath(out string installPath);
+            bool hasAccount = SteamEnvironmentDetector.TryGetSteamAccountId(out uint accountId);
+            LOGGER.LogInfo("Steam environment: "); 
+            LOGGER.LogInfo("- Install path=" + (hasPath ? installPath : "(unknown)"));
+            LOGGER.LogInfo("- Account id=" + (hasAccount ? accountId.ToString() : "(unknown)"));
+            LOGGER.LogInfo("- App id=" + SteamEnvironmentDetector.APP_ID);
             
             LOGGER.LogInfo("Started");
+        }
+
+        /// <summary>
+        /// Waits for KSP Steamworks and calls <see cref="SteamController.Init"/>. Invokes <paramref name="onSuccess"/> only when ready.
+        /// </summary>
+        private IEnumerator TryInitializeSteam(System.Action onSuccess)
+        {
+            const float timeoutSeconds = 60f;
+            float elapsed = 0f;
+
+            while (!SteamManager.Initialized && elapsed < timeoutSeconds)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                yield return null;
+            }
+
+            if (!SteamManager.Initialized)
+            {
+                LOGGER.LogInfo("Steam not detected. Plugin will not start.");
+                yield break;
+            }
+
+            LOGGER.LogInfo("Initializing Steam Controller API");
+            if (!Steamworks.SteamController.Init())
+            {
+                LOGGER.LogError("SteamController.Init() failed. Plugin will not start.");
+                yield break;
+            }
+
+            onSuccess?.Invoke();
         }
 
         // <summary>

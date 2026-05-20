@@ -111,13 +111,6 @@ namespace com.github.lhervier.ksp
             this.GamepadConnected = false;
             this.GamepadConnectedWithErrors = false;
 
-            LOGGER.LogInfo("Checking that Steam is initialized");
-            if( !SteamManager.Initialized ) 
-            {
-                LOGGER.LogInfo("Steam not detected. Unable to start the daemon.");
-                return;
-            }
-
             // Load the action sets from the enumeration
             LOGGER.LogInfo("Loading action groups");
             this.actionGroupNames = Enum.GetValues(typeof(ActionGroup))
@@ -126,13 +119,6 @@ namespace com.github.lhervier.ksp
                 .Select(actionGroup => actionGroup.ToString())
                 .ToArray();
             LOGGER.LogInfo("Action groups loaded : " + this.actionGroupNames.Length);
-            
-            // Initialize Steam Input
-            if( !Steamworks.SteamController.Init() )
-            {
-                LOGGER.LogError("Steam is not initialized. Unable to start the daemon.");
-                return;
-            }
             
             // Start the main loop
             this.checkForGamepadCoroutine = this.CheckForGamepad();
