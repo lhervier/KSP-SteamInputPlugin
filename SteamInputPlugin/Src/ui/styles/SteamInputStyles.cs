@@ -20,6 +20,11 @@ namespace com.github.lhervier.ksp.ui.styles
         public static GUIStyle ActionSetBadge => TitleBarStyles.ActionSetBadge;
         public static GUIStyle ControllerName => TitleBarStyles.ControllerName;
         public static GUIStyle CloseButton => TitleBarStyles.CloseButton;
+        public static GUIStyle TitleBarMenuButton => TitleBarStyles.MenuButton;
+
+        public static GUIStyle ZonesMenuPanel => ZonesMenuStyles.Panel;
+        public static GUIStyle ZonesMenuTitle => ZonesMenuStyles.Title;
+        public static GUIStyle ZonesMenuSeparator => ZonesMenuStyles.Separator;
 
         public static GUIStyle Label => LabelStyles.Label;
         public static GUIStyle MutedLabel => LabelStyles.MutedLabel;
@@ -53,6 +58,7 @@ namespace com.github.lhervier.ksp.ui.styles
             LabelStyles.Initialize();
             FormControlStyles.Initialize(textures);
             PhysicalZoneStyles.Initialize(textures);
+            ZonesMenuStyles.Initialize(textures);
             _ready = true;
         }
     }

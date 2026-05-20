@@ -103,6 +103,7 @@ namespace com.github.lhervier.ksp.ui
         {
             showWindow = false;
             showLogLevelMenu = false;
+            titleUI?.ZonesMenu.Close();
         }
 
         /// <summary>After closing from the in-window button — resync toolbar toggle.</summary>
@@ -135,6 +136,7 @@ namespace com.github.lhervier.ksp.ui
 
         private void DrawWindow(int windowID)
         {
+            titleUI.ZonesMenu.HandleOutsideClick(windowRect);
             titleUI.DrawTitle();
             physicalZonesUI.Draw();
 
@@ -149,6 +151,8 @@ namespace com.github.lhervier.ksp.ui
             GUILayout.Space(6);
             DrawLogLevel();
             GUILayout.EndVertical();
+
+            titleUI.ZonesMenu.DrawOverlay(windowRect.width);
 
             GUI.DragWindow(new Rect(0f, 0f, windowRect.width, SteamInputStyles.TitleBarHeight));
         }

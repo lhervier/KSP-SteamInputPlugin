@@ -22,7 +22,12 @@ namespace com.github.lhervier.ksp.ui.styles
         public static readonly Color ButtonText = new Color(187f / 255f, 187f / 255f, 187f / 255f);
         public static readonly Color FieldBackground = new Color(42f / 255f, 42f / 255f, 42f / 255f);
         public static readonly Color ButtonHover = new Color(72f / 255f, 72f / 255f, 72f / 255f);
-        public static readonly Color MenuBox = new Color(30f / 255f, 30f / 255f, 30f / 255f);
+        /// <summary>.kmenu background (#1e1e1e) — lighter than window body (#141414).</summary>
+        public static readonly Color ZonesMenuBackground = new Color(30f / 255f, 30f / 255f, 30f / 255f);
+        public static readonly Color MenuBox = ZonesMenuBackground;
+        public static readonly Color MenuTitle = new Color(85f / 255f, 85f / 255f, 85f / 255f);
+        /// <summary>.kmenu-sep (#2a2a2a).</summary>
+        public static readonly Color MenuSeparator = new Color(42f / 255f, 42f / 255f, 42f / 255f);
 
         // Physical zones (ksp_cheatsheet *.html — .kzone, .kzh, .kstate)
         public static readonly Color ZoneHeaderBg = new Color(26f / 255f, 26f / 255f, 26f / 255f);

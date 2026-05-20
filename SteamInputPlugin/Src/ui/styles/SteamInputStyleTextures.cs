@@ -11,6 +11,8 @@ namespace com.github.lhervier.ksp.ui.styles
         public Texture2D FieldBackground;
         public Texture2D ButtonHover;
         public Texture2D MenuBox;
+        public Texture2D ZonesMenuBackground;
+        public Texture2D MenuSeparator;
 
         public static SteamInputStyleTextures Create()
         {
@@ -23,6 +25,8 @@ namespace com.github.lhervier.ksp.ui.styles
                 FieldBackground = MakeTexture(SteamInputPalette.FieldBackground),
                 ButtonHover = MakeTexture(SteamInputPalette.ButtonHover),
                 MenuBox = MakeTexture(SteamInputPalette.MenuBox),
+                ZonesMenuBackground = MakeTexture(SteamInputPalette.ZonesMenuBackground),
+                MenuSeparator = MakeTexture(SteamInputPalette.MenuSeparator),
             };
         }
 
@@ -38,6 +42,7 @@ namespace com.github.lhervier.ksp.ui.styles
                 }
             }
             tex.Apply();
+            tex.filterMode = FilterMode.Point;
             tex.hideFlags = HideFlags.HideAndDontSave;
             return tex;
         }
@@ -47,6 +52,7 @@ namespace com.github.lhervier.ksp.ui.styles
             var tex = new Texture2D(1, 1, TextureFormat.RGBA32, false);
             tex.SetPixel(0, 0, color);
             tex.Apply();
+            tex.filterMode = FilterMode.Point;
             tex.hideFlags = HideFlags.HideAndDontSave;
             return tex;
         }

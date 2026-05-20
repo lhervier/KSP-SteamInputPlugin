@@ -9,6 +9,7 @@ namespace com.github.lhervier.ksp.ui.styles
         public static GUIStyle ActionSetBadge { get; private set; }
         public static GUIStyle ControllerName { get; private set; }
         public static GUIStyle CloseButton { get; private set; }
+        public static GUIStyle MenuButton { get; private set; }
 
         internal static void Initialize(SteamInputStyleTextures textures)
         {
@@ -56,6 +57,8 @@ namespace com.github.lhervier.ksp.ui.styles
             CloseButton.hover.textColor = Color.white;
             CloseButton.active.background = textures.Button;
             CloseButton.active.textColor = SteamInputPalette.ButtonText;
+
+            MenuButton = new GUIStyle(CloseButton);
         }
     }
 }

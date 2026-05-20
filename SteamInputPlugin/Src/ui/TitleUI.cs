@@ -17,6 +17,7 @@ namespace com.github.lhervier.ksp.ui
         private readonly CheatSheetViewModel viewModel;
         private readonly Action onClose;
         private readonly SteamInputIcon gamepadIcon;
+        private readonly ZonesMenuUI zonesMenuUI;
 
         public TitleUI(
             CheatSheetViewModel viewModel, 
@@ -25,6 +26,12 @@ namespace com.github.lhervier.ksp.ui
             this.viewModel = viewModel;
             this.onClose = onClose;
             this.gamepadIcon = new SteamInputIcon(GamepadIconPath, GamepadIconSize, GamepadIconSize);
+            this.zonesMenuUI = new ZonesMenuUI();
+        }
+
+        public ZonesMenuUI ZonesMenu
+        {
+            get { return zonesMenuUI; }
         }
 
         public void DrawTitle()
@@ -66,6 +73,10 @@ namespace com.github.lhervier.ksp.ui
                         GUILayout.Height(controllerSize.y)),
                     controllerSize.x);
             }
+
+            GUILayout.Space(ControllerCloseGap);
+
+            DrawVerticallyCentered(() => zonesMenuUI.DrawTitleBarButton(), 20f);
 
             GUILayout.Space(ControllerCloseGap);
 
