@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using com.github.lhervier.ksp;
 
 namespace com.github.lhervier.ksp.ui
 {
@@ -36,7 +37,10 @@ namespace com.github.lhervier.ksp.ui
             GUILayout.Space(IconTitleGap);
 
             DrawVerticallyCentered(
-                () => GUILayout.Label("AIDE MANETTE", SteamInputStyles.Title, GUILayout.ExpandWidth(true)),
+                () => GUILayout.Label(
+                    ModLocalization.GetString("SteamInput_titleHelp"),
+                    SteamInputStyles.Title,
+                    GUILayout.ExpandWidth(true)),
                 expandWidth: true);
 
             var badgeContent = new GUIContent(viewModel.GetActionGroupLabel(actionGroupDaemon.GetCurrentActionGroup()));

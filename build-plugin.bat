@@ -71,6 +71,11 @@ if errorlevel 1 (
     echo ERROR: Failed to create Textures folder
     exit /b 1
 )
+mkdir "Release\SteamInput\Localization"
+if errorlevel 1 (
+    echo ERROR: Failed to create Localization folder
+    exit /b 1
+)
 
 echo Copying Plugin Files...
 echo - Copying SteamInput.dll
@@ -88,6 +93,17 @@ if not exist "SteamInputPlugin\GameData\SteamInput\Textures" (
 copy /y "SteamInputPlugin\GameData\SteamInput\Textures\*" "Release\SteamInput\Textures\"
 if errorlevel 1 (
     echo ERROR: Failed to copy Textures
+    exit /b 1
+)
+
+echo - Copying localization files
+if not exist "SteamInputPlugin\GameData\SteamInput\Localization" (
+    echo ERROR: SteamInputPlugin\GameData\SteamInput\Localization folder not found
+    exit /b 1
+)
+copy /y "SteamInputPlugin\GameData\SteamInput\Localization\*" "Release\SteamInput\Localization\"
+if errorlevel 1 (
+    echo ERROR: Failed to copy Localization
     exit /b 1
 )
 

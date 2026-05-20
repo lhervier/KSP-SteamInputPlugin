@@ -1,6 +1,7 @@
 using UnityEngine;
 using KSP.UI.Screens;
 using System;
+using com.github.lhervier.ksp;
 
 namespace com.github.lhervier.ksp.ui
 {
@@ -157,12 +158,12 @@ namespace com.github.lhervier.ksp.ui
 
         private void DrawSettings()
         {
-            GUILayout.Label("Settings", SteamInputStyles.MutedLabel);
+            GUILayout.Label(ModLocalization.GetString("SteamInput_settings"), SteamInputStyles.MutedLabel);
 
             bool showIcon = SteamInputGlobalSettings.GetShowLoggingIcon();
             bool newShowIcon = GUILayout.Toggle(
                 showIcon,
-                "Show logging icon during flight / VAB / KSC / tracking",
+                ModLocalization.GetString("SteamInput_showLoggingIcon"),
                 SteamInputStyles.Toggle
             );
             if (newShowIcon != showIcon)
@@ -171,7 +172,7 @@ namespace com.github.lhervier.ksp.ui
             }
 
             GUILayout.Space(4);
-            GUILayout.Label("Controller VDF path (absolute):", SteamInputStyles.Label);
+            GUILayout.Label(ModLocalization.GetString("SteamInput_controllerVdfPath"), SteamInputStyles.Label);
             string newPath = GUILayout.TextField(controllerVdfPathBuffer, SteamInputStyles.TextField, GUILayout.ExpandWidth(true));
             if (newPath != controllerVdfPathBuffer)
             {
@@ -188,7 +189,7 @@ namespace com.github.lhervier.ksp.ui
 
         private void DrawCurrentActionSet()
         {
-            GUILayout.Label("Current action set:", SteamInputStyles.Label);
+            GUILayout.Label(ModLocalization.GetString("SteamInput_currentActionSet"), SteamInputStyles.Label);
             var actionGroup = actionGroupDaemon.GetCurrentActionGroup();
             var actionGroupLabel = viewModel.GetActionGroupLabel(actionGroup);
             GUILayout.Label(actionGroupLabel, SteamInputStyles.AccentLabel);
@@ -196,14 +197,18 @@ namespace com.github.lhervier.ksp.ui
 
         private void DrawControllerConnected() 
         {
-            GUILayout.Label("Controller connected:", SteamInputStyles.Label);
+            GUILayout.Label(ModLocalization.GetString("SteamInput_controllerConnected"), SteamInputStyles.Label);
             bool connected = gamepadDaemon.GamepadConnected;
-            GUILayout.Label(connected ? "Yes" : "No", connected ? SteamInputStyles.AccentLabel : SteamInputStyles.WarnLabel);
+            GUILayout.Label(
+                connected
+                    ? ModLocalization.GetString("SteamInput_yes")
+                    : ModLocalization.GetString("SteamInput_no"),
+                connected ? SteamInputStyles.AccentLabel : SteamInputStyles.WarnLabel);
         }
 
         private void DrawActivatedContexts()
         {
-            GUILayout.Label("Activated context(s):");
+            GUILayout.Label(ModLocalization.GetString("SteamInput_activatedContexts"));
             foreach (string context in actionGroupDaemon.ActivatedContexts)
             {
                 string contextName;
@@ -218,7 +223,7 @@ namespace com.github.lhervier.ksp.ui
 
         private void DrawLogLevel()
         {
-            GUILayout.Label("Log Level:", SteamInputStyles.Label);
+            GUILayout.Label(ModLocalization.GetString("SteamInput_logLevel"), SteamInputStyles.Label);
             GUILayout.BeginHorizontal();
             if (GUILayout.Button(SteamInputGlobalSettings.GetLogLevel().ToString(), SteamInputStyles.MenuButton))
             {

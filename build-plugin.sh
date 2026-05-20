@@ -76,6 +76,12 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+mkdir "Release/SteamInput/Localization"
+if [ $? -ne 0 ]; then
+    echo "ERREUR: Impossible de créer le dossier Localization"
+    exit 1
+fi
+
 echo "Copie des fichiers du Plugin..."
 echo "- Copie de SteamInputPlugin.dll"
 cp "Output/bin/SteamInputPlugin.dll" "Release/SteamInput/"
@@ -90,6 +96,13 @@ if [ ! -d "SteamInputPlugin/GameData/SteamInput/Textures" ]; then
     exit 1
 fi
 cp -r "SteamInputPlugin/GameData/SteamInput/Textures/"* "Release/SteamInput/Textures/"
+
+echo "- Copie des fichiers de localisation"
+if [ ! -d "SteamInputPlugin/GameData/SteamInput/Localization" ]; then
+    echo "ERREUR: SteamInputPlugin/GameData/SteamInput/Localization introuvable"
+    exit 1
+fi
+cp "SteamInputPlugin/GameData/SteamInput/Localization/"* "Release/SteamInput/Localization/"
 
 echo "Création de l'archive zip"
 cd "Release"
