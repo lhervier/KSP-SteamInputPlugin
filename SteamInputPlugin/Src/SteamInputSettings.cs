@@ -12,14 +12,14 @@ namespace com.github.lhervier.ksp
         private const string CONFIG_KEY_LOG_LEVEL = "SteamInput.LogLevel";
         private const string CONFIG_KEY_SHOW_LOGGING_ICON = "SteamInput.ShowLoggingIcon";
         private const string CONFIG_KEY_CONTROLLER_CONFIG_NAME = "SteamInput.ControllerConfigName";
-        private const string CONFIG_KEY_PHYSICAL_ZONES = "SteamInput.PhysicalZones";
-        private const char PHYSICAL_ZONES_SEPARATOR = ',';
+        private const string CONFIG_KEY_GAMEPAD_ZONES = "SteamInput.GamepadZones";
+        private const char GAMEPAD_ZONES_SEPARATOR = ',';
         private static PluginConfiguration config;
 
         private static LogLevel _logLevel = LogLevel.Info;
         private static bool _showLoggingIcon;
         private static string _controllerConfigName = string.Empty;
-        private static List<GamepadZone> _physicalZones = new List<GamepadZone>();
+        private static List<GamepadZone> _gamepadZones = new List<GamepadZone>();
 
         public static EventVoid OnConfigurationChanged = new EventVoid("SteamInputGlobalSettings.ConfigurationChanged");
 
@@ -100,21 +100,21 @@ namespace com.github.lhervier.ksp
 
         // =======================================================================
 
-        private static void LoadPhysicalZones()
+        private static void LoadGamepadZones()
         {
             string raw = config.GetValue(
-                CONFIG_KEY_PHYSICAL_ZONES,
-                string.Join(PHYSICAL_ZONES_SEPARATOR.ToString(), GamepadZone.All.Select(z => z.ToString()))
+                CONFIG_KEY_GAMEPAD_ZONES,
+                string.Join(GAMEPAD_ZONES_SEPARATOR.ToString(), GamepadZone.All.Select(z => z.ToString()))
             );
 
             if (string.IsNullOrEmpty(raw))
             {
-                _physicalZones = new List<GamepadZone>(GamepadZone.All);
+                _gamepadZones = new List<GamepadZone>(GamepadZone.All);
                 return;
             }
 
-            _physicalZones = new List<GamepadZone>();
-            foreach (string part in raw.Split(PHYSICAL_ZONES_SEPARATOR))
+            _gamepadZones = new List<GamepadZone>();
+            foreach (string part in raw.Split(GAMEPAD_ZONES_SEPARATOR))
             {
                 string zone = part.Trim();
                 if (string.IsNullOrEmpty(zone))
@@ -122,31 +122,31 @@ namespace com.github.lhervier.ksp
                     continue;
                 }
                 if( GamepadZone.TryParse(zone, out GamepadZone gpZone) ) {
-                    _physicalZones.Add(gpZone);
+                    _gamepadZones.Add(gpZone);
                 }
             }
-            if( _physicalZones.Count == 0 ) {
-                _physicalZones = new List<GamepadZone>(GamepadZone.All);
+            if( _gamepadZones.Count == 0 ) {
+                _gamepadZones = new List<GamepadZone>(GamepadZone.All);
             }
         }
 
-        private static void SavePhysicalZones()
+        private static void SaveGamepadZones()
         {
             config.SetValue(
-                CONFIG_KEY_PHYSICAL_ZONES, 
-                string.Join(PHYSICAL_ZONES_SEPARATOR.ToString(), _physicalZones)
+                CONFIG_KEY_GAMEPAD_ZONES, 
+                string.Join(GAMEPAD_ZONES_SEPARATOR.ToString(), _gamepadZones)
             );
         }
 
-        public static List<GamepadZone> GetPhysicalZones()
+        public static List<GamepadZone> GetGamepadZones()
         {
-            return new List<GamepadZone>(_physicalZones);
+            return new List<GamepadZone>(_gamepadZones);
         }
 
-        public static void SetPhysicalZones(List<GamepadZone> physicalZones)
+        public static void SetGamepadZones(List<GamepadZone> gamepadZones)
         {
-            LOGGER.LogDebug($"Setting physical zones to {string.Join(PHYSICAL_ZONES_SEPARATOR.ToString(), physicalZones)}");
-            _physicalZones = new List<GamepadZone>(physicalZones);
+            LOGGER.LogDebug($"Setting gamepad zones to {string.Join(GAMEPAD_ZONES_SEPARATOR.ToString(), gamepadZones)}");
+            _gamepadZones = new List<GamepadZone>(gamepadZones);
             Save();
         }
 
@@ -162,7 +162,7 @@ namespace com.github.lhervier.ksp
             LoadLogLevel();
             LoadShowLoggingIcon();
             LoadControllerConfigName();
-            LoadPhysicalZones();
+            LoadGamepadZones();
             
             OnConfigurationChanged.Fire();
             LOGGER.LogDebug($"Loaded configuration");
@@ -179,7 +179,7 @@ namespace com.github.lhervier.ksp
             SaveLogLevel();
             SaveShowLoggingIcon();
             SaveControllerConfigName();
-            SavePhysicalZones();
+            SaveGamepadZones();
 
             config.save();
             OnConfigurationChanged.Fire();

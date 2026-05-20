@@ -168,7 +168,7 @@ namespace com.github.lhervier.ksp.ui
             this._physicalZones.Clear();
             ActionGroup currentActionGroup = this._actionGroupDaemon.GetCurrentActionGroup();
             List<PhysicalZone> physicalZones = this._gamepadConfigDaemon.GetPhysicalZones(currentActionGroup);
-            foreach( GamepadZone zone in SteamInputGlobalSettings.GetPhysicalZones() ) {
+            foreach( GamepadZone zone in SteamInputGlobalSettings.GetGamepadZones() ) {
                 PhysicalZone physicalZone = physicalZones.FirstOrDefault(z => z.Zone == zone);
                 if( physicalZone == null ) {
                     continue;
