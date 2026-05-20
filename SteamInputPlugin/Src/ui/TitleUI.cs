@@ -9,7 +9,8 @@ namespace com.github.lhervier.ksp.ui
         private const string GamepadIconPath = "SteamInput/Textures/gamepad_icon";
         private const int GamepadIconSize = 18;
         private const float IconTitleGap = 6f;
-        private const float BadgeCloseGap = 6f;
+        private const float BadgeControllerGap = 6f;
+        private const float ControllerCloseGap = 6f;
         private const float BarContentHeight = 20f;
 
         private readonly ActionGroupDaemon actionGroupDaemon;
@@ -53,7 +54,23 @@ namespace com.github.lhervier.ksp.ui
                     GUILayout.Height(badgeSize.y)),
                 badgeSize.x);
 
-            GUILayout.Space(BadgeCloseGap);
+            var controllerName = viewModel.GetGamepadLabel();
+            if (!string.IsNullOrEmpty(controllerName))
+            {
+                GUILayout.Space(BadgeControllerGap);
+                GUILayout.FlexibleSpace();
+                var controllerContent = new GUIContent(controllerName);
+                var controllerSize = SteamInputStyles.ControllerName.CalcSize(controllerContent);
+                DrawVerticallyCentered(
+                    () => GUILayout.Label(
+                        controllerContent,
+                        SteamInputStyles.ControllerName,
+                        GUILayout.Width(controllerSize.x),
+                        GUILayout.Height(controllerSize.y)),
+                    controllerSize.x);
+            }
+
+            GUILayout.Space(ControllerCloseGap);
 
             if (GUILayout.Button("×", SteamInputStyles.CloseButton))
             {

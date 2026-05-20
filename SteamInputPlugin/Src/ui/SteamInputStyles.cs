@@ -17,6 +17,7 @@ namespace com.github.lhervier.ksp.ui
         private static readonly Color ColTitleText = new Color(232f / 255f, 232f / 255f, 232f / 255f);
         private static readonly Color ColLabel = new Color(204f / 255f, 204f / 255f, 204f / 255f);
         private static readonly Color ColMuted = new Color(136f / 255f, 136f / 255f, 136f / 255f);
+        private static readonly Color ColControllerName = new Color(85f / 255f, 85f / 255f, 85f / 255f);
         private static readonly Color ColAccent = new Color(141f / 255f, 190f / 255f, 69f / 255f);
         private static readonly Color ColBadgeBorder = new Color(74f / 255f, 110f / 255f, 32f / 255f);
         private static readonly Color ColWarn = new Color(0.95f, 0.82f, 0.23f);
@@ -33,6 +34,7 @@ namespace com.github.lhervier.ksp.ui
         public static GUIStyle HeaderBar { get; private set; }
         public static GUIStyle Title { get; private set; }
         public static GUIStyle ActionSetBadge { get; private set; }
+        public static GUIStyle ControllerName { get; private set; }
         public static GUIStyle Label { get; private set; }
         public static GUIStyle MutedLabel { get; private set; }
         public static GUIStyle AccentLabel { get; private set; }
@@ -101,6 +103,15 @@ namespace com.github.lhervier.ksp.ui
             };
             ActionSetBadge.normal.textColor = ColAccent;
             ActionSetBadge.normal.background = MakeBorderTexture(Color.clear, ColBadgeBorder);
+
+            ControllerName = new GUIStyle(GUI.skin.label)
+            {
+                fontSize = 10,
+                clipping = TextClipping.Clip,
+                wordWrap = false,
+                stretchWidth = false
+            };
+            ControllerName.normal.textColor = ColControllerName;
 
             Label = CreateLabelStyle(ColLabel);
             MutedLabel = CreateLabelStyle(ColMuted);

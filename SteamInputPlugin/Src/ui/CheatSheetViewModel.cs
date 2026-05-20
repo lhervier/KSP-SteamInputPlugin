@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using com.github.lhervier.ksp;
 
 namespace com.github.lhervier.ksp.ui
 {
@@ -7,8 +8,8 @@ namespace com.github.lhervier.ksp.ui
     {
         private static readonly SteamInputLogger LOGGER = new SteamInputLogger("CheatSheetViewModel");
 
-        private Dictionary<string, string> _actionNames = new Dictionary<string, string>();
-        private string _controllerType = "";
+        private Dictionary<string, string> _actionLabels = new Dictionary<string, string>();
+        private string _gamepadLabel = "";
         private string _lastError = "";
 
         public string ControllerVdfPathBuffer { get; private set; }
@@ -57,9 +58,11 @@ namespace com.github.lhervier.ksp.ui
             if( this._gamepadConfigDaemon == null ) {
                 return;
             }
-            this._controllerType = this._gamepadConfigDaemon.GetControllerType();
+            this._gamepadLabel = GamepadControllerTypes.GetDisplayName(
+                this._gamepadConfigDaemon.GetControllerType()
+            );
 
-            this._actionNames.Clear();
+            this._actionLabels.Clear();
             Dictionary<string, object> actions = this._gamepadConfigDaemon.GetActions();
             foreach (var action in actions)
             {
@@ -67,7 +70,7 @@ namespace com.github.lhervier.ksp.ui
                 {
                     if( actionData.TryGetValue("title", out object title) ) {
                         if( title is string titleString ) {
-                            this._actionNames[action.Key] = titleString;
+                            this._actionLabels[action.Key] = titleString;
                         }
                     }
                 }
@@ -93,10 +96,15 @@ namespace com.github.lhervier.ksp.ui
             if( actionGroup == ActionGroup.None ) {
                 return "—";
             }
-            if (this._actionNames.TryGetValue(actionGroup.ToString(), out string actionGroupLabel)) {
+            if (this._actionLabels.TryGetValue(actionGroup.ToString(), out string actionGroupLabel)) {
                 return actionGroupLabel.ToUpperInvariant();
             }
             return actionGroup.ToString().ToUpperInvariant();
+        }
+
+        public string GetGamepadLabel()
+        {
+            return this._gamepadLabel;
         }
     }
 }
