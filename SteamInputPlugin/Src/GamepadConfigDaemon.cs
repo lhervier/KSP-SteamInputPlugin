@@ -151,6 +151,11 @@ namespace com.github.lhervier.ksp
             return GetString(mappings, "controller_type");
         }
 
+        /// <summary>
+        /// Get all the physical zones defined for the given action group.
+        /// </summary>
+        /// <param name="actionGroup">The action group to get the physical zones for.</param>
+        /// <returns>A list of all the physical zones defined for the given action group.</returns>
         public List<PhysicalZone> GetPhysicalZones(ActionGroup actionGroup)
         {
             var mappings = GetObject(_root, "controller_mappings");
@@ -176,25 +181,9 @@ namespace com.github.lhervier.ksp
                 if( !(pair.Value is string valueString) ) {
                     continue;
                 }
-                List<string> parts = new List<string>(valueString.Split(' '));
-
-                if( !parts.Contains("active") ) {
+                if( !ParseGroupBinding(valueString, out GamepadZone zone, out bool modeShift) ) {
                     continue;
                 }
-                parts.Remove("active");
-
-                bool modeShift = parts.Contains("modeshift");
-                parts.Remove("modeshift");
-
-                if( parts.Count == 0 ) {
-                    continue;
-                }
-
-                string name = parts[0];
-                if( !GamepadZone.TryParse(name, out GamepadZone zone) ) {
-                    continue;
-                }
-                
                 AddPhysicalZone(physicalZones, zone, groupId, modeShift);
                 if( zone == GamepadZone.Switch ) {
                     AddPhysicalZone(physicalZones, GamepadZone.Bumpers, groupId, modeShift);
@@ -204,6 +193,79 @@ namespace com.github.lhervier.ksp
             return new List<PhysicalZone>(physicalZones.Values);
         }
 
+        /// <summary>
+        /// Get all the gamepad zones defined in the VDF.
+        /// </summary>
+        /// <returns>A list of all the gamepad zones defined in the VDF.</returns>
+        public List<GamepadZone> GetGamepadZones()
+        {
+            var mappings = GetObject(_root, "controller_mappings");
+            List<object> presets = GetList(mappings, "preset");
+            List<GamepadZone> gamepadZones = new List<GamepadZone>();
+            foreach( object presetObject in presets ) {
+                if( presetObject is Dictionary<string, object> presetData ) {
+                    var bindings = GetObject(presetData, "group_source_bindings");
+                    foreach( KeyValuePair<string, object> pair in bindings ) {
+                        if( !(pair.Value is string valueString) ) {
+                            continue;
+                        }
+                        if( !ParseGroupBinding(valueString, out GamepadZone zone, out bool _) ) {
+                            continue;
+                        }
+                        if( gamepadZones.Contains(zone) ) {
+                            continue;
+                        }
+                        gamepadZones.Add(zone);
+                    }
+                }
+            }
+            return gamepadZones;
+        }
+
+        // ============================================================================
+        // Helpers
+        // ============================================================================
+
+        /// <summary>
+        /// Parse a group binding string into a gamepad zone and mode shift flag.
+        /// </summary>
+        /// <param name="groupBinding">The group binding string to parse.</param>
+        /// <param name="zone">The parsed gamepad zone.</param>
+        /// <param name="modeShift">The mode shift flag.</param>
+        /// <returns>True if the group binding string was parsed successfully, false otherwise.</returns>
+        private bool ParseGroupBinding(string groupBinding, out GamepadZone zone, out bool modeShift) {
+            List<string> parts = new List<string>(groupBinding.Split(' '));
+            zone = null;
+            modeShift = false;
+
+            if( !parts.Contains("active") ) {
+                return false;
+            }
+            parts.Remove("active");
+
+            modeShift = parts.Contains("modeshift");
+            parts.Remove("modeshift");
+
+            if( parts.Count == 0 ) {
+                return false;
+            }
+            string name = parts[0];
+
+            if( GamepadZone.TryParse(name, out GamepadZone z) ) {
+                zone = z;
+            } else {
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Add a physical zone to the dictionary.
+        /// </summary>
+        /// <param name="physicalZones">The dictionary to add the physical zone to.</param>
+        /// <param name="zone">The gamepad zone to add.</param>
+        /// <param name="groupId">The group id to add.</param>
+        /// <param name="modeShift">The mode shift flag to add.</param>
         private void AddPhysicalZone(
             Dictionary<GamepadZone, PhysicalZone> physicalZones, 
             GamepadZone zone, 
@@ -223,7 +285,15 @@ namespace com.github.lhervier.ksp
         }
 
         // ============================================================================
+        // Helpers : VDF parsing
+        // ============================================================================
 
+        /// <summary>
+        /// Get an object from the VDF.
+        /// </summary>
+        /// <param name="parent">The parent object to get the object from.</param>
+        /// <param name="key">The key to get the object from.</param>
+        /// <returns>The object from the VDF.</returns>
         private static Dictionary<string, object> GetObject(Dictionary<string, object> parent, string key)
         {
             if (parent == null)
@@ -244,6 +314,12 @@ namespace com.github.lhervier.ksp
             throw new System.InvalidOperationException("Expected Dictionnary, got " + value.GetType().Name);
         }
 
+        /// <summary>
+        /// Get a string from the VDF.
+        /// </summary>
+        /// <param name="parent">The parent object to get the string from.</param>
+        /// <param name="key">The key to get the string from.</param>
+        /// <returns>The string from the VDF.</returns>
         private static string GetString(Dictionary<string, object> parent, string key)
         {
             if (parent == null)
@@ -263,6 +339,12 @@ namespace com.github.lhervier.ksp
             throw new System.InvalidOperationException("Expected String, got " + value.GetType().Name);
         }
 
+        /// <summary>
+        /// Get a list from the VDF.
+        /// </summary>
+        /// <param name="parent">The parent object to get the list from.</param>
+        /// <param name="key">The key to get the list from.</param>
+        /// <returns>The list from the VDF.</returns>
         private static List<object> GetList(Dictionary<string, object> parent, string key)
         {
             if (parent == null)
