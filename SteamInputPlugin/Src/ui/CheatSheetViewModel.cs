@@ -160,7 +160,7 @@ namespace com.github.lhervier.ksp.ui
                     this._physicalZones.Add(
                         new UIPhysicalZone {
                             Name = physicalZone.Name,
-                            Label = ModLocalization.GetString("SteamInput_physicalZone_" + physicalZone.Name),
+                            Label = ModLocalization.GetString("SteamInput_physicalZone_" + physicalZone.Name).ToUpperInvariant(),
                             GroupId = physicalZone.GroupId,
                             ModeshiftGroupId = physicalZone.ModeshiftGroupId
                         }

@@ -23,5 +23,15 @@ namespace com.github.lhervier.ksp.ui.styles
         public static readonly Color FieldBackground = new Color(42f / 255f, 42f / 255f, 42f / 255f);
         public static readonly Color ButtonHover = new Color(72f / 255f, 72f / 255f, 72f / 255f);
         public static readonly Color MenuBox = new Color(30f / 255f, 30f / 255f, 30f / 255f);
+
+        // Physical zones (ksp_cheatsheet *.html — .kzone, .kzh, .kstate)
+        public static readonly Color ZoneHeaderBg = new Color(26f / 255f, 26f / 255f, 26f / 255f);
+        public static readonly Color ZoneSeparator = new Color(34f / 255f, 34f / 255f, 34f / 255f);
+        public static readonly Color ZoneName = new Color(221f / 255f, 221f / 255f, 221f / 255f);
+        public static readonly Color SectionNormal = new Color(72f / 255f, 72f / 255f, 72f / 255f);
+        public static readonly Color SectionModeshift = new Color(176f / 255f, 115f / 255f, 24f / 255f);
+        public const float ZoneHeaderHeight = 22f;
+        public const float ZoneSectionSpacing = 2f;
+        public const float ZoneBodyPaddingBottom = 5f;
     }
 }

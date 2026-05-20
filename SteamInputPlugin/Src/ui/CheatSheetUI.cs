@@ -18,6 +18,7 @@ namespace com.github.lhervier.ksp.ui
         private string controllerConfigNameBuffer = string.Empty;
         private CheatSheetViewModel viewModel;
         private TitleUI titleUI;
+        private PhysicalZonesUI physicalZonesUI;
 
         // ===============================================================
 
@@ -38,6 +39,7 @@ namespace com.github.lhervier.ksp.ui
             GameEvents.onGUIApplicationLauncherReady.Add(OnGUIAppLauncherReady);
 
             titleUI = new TitleUI(viewModel, () => OnWindowClosedFromUI());
+            physicalZonesUI = new PhysicalZonesUI(viewModel);
 
             LOGGER.LogInfo("Start: Started");
         }
@@ -134,6 +136,7 @@ namespace com.github.lhervier.ksp.ui
         private void DrawWindow(int windowID)
         {
             titleUI.DrawTitle();
+            physicalZonesUI.Draw();
 
             GUILayout.BeginVertical(SteamInputStyles.Body);
             DrawSettings();

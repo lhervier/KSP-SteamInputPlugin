@@ -32,6 +32,14 @@ namespace com.github.lhervier.ksp.ui.styles
         public static GUIStyle MenuButton => FormControlStyles.MenuButton;
         public static GUIStyle MenuBox => FormControlStyles.MenuBox;
 
+        public static GUIStyle ZoneListPanel => PhysicalZoneStyles.ZoneListPanel;
+        public static GUIStyle ZoneBody => PhysicalZoneStyles.ZoneBody;
+        public static GUIStyle ZoneHeaderBar => PhysicalZoneStyles.ZoneHeaderBar;
+        public static GUIStyle ZoneName => PhysicalZoneStyles.ZoneName;
+        public static GUIStyle SectionNormal => PhysicalZoneStyles.SectionNormal;
+        public static GUIStyle SectionModeshift => PhysicalZoneStyles.SectionModeshift;
+        public static GUIStyle ZoneSeparator => PhysicalZoneStyles.ZoneSeparator;
+
         public static void EnsureInitialized()
         {
             if (_ready)
@@ -44,6 +52,7 @@ namespace com.github.lhervier.ksp.ui.styles
             TitleBarStyles.Initialize(textures);
             LabelStyles.Initialize();
             FormControlStyles.Initialize(textures);
+            PhysicalZoneStyles.Initialize(textures);
             _ready = true;
         }
     }
