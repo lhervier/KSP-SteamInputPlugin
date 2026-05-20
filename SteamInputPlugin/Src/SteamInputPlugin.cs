@@ -35,16 +35,22 @@ namespace com.github.lhervier.ksp
         // <summary>
         //  Connection Daemon to the steam controller
         // </summary>
-        private GamepadDaemon steamInputDaemon;
+        private GamepadDaemon gamepadDaemon;
 
         // <summary>
         //  Action Set Daemon
         // </summary>
         private ActionGroupDaemon actionGroupDaemon;
+
+        // <summary>
+        //  Gamepad Config Daemon
+        // </summary>
+        private GamepadConfigDaemon gamepadConfigDaemon;
         
         // <summary>
         //  The GUI
         // </summary>
+        private CheatSheetViewModel viewModel;
         private CheatSheetUI loggingUI;
 
         // <summary>
@@ -94,9 +100,13 @@ namespace com.github.lhervier.ksp
             
             // Create the controller daemon
             LOGGER.LogInfo("Creating SteamInput Daemon");
-            this.steamInputDaemon = gameObject.AddComponent<GamepadDaemon>();
-            this.steamInputDaemon.OnGamepadConnected.Add(this.OnControllerConnected);
-            this.steamInputDaemon.OnGamepadConnectedWithError.Add(this.OnControllerConnectedWithError);
+            this.gamepadDaemon = gameObject.AddComponent<GamepadDaemon>();
+            this.gamepadDaemon.OnGamepadConnected.Add(this.OnControllerConnected);
+            this.gamepadDaemon.OnGamepadConnectedWithError.Add(this.OnControllerConnectedWithError);
+            
+            // Create the gamepad config daemon
+            LOGGER.LogInfo("Creating Gamepad Config Daemon");
+            this.gamepadConfigDaemon = gameObject.AddComponent<GamepadConfigDaemon>();
             
             // Prepare screen message
             LOGGER.LogInfo("Creating Status Message");
@@ -107,9 +117,15 @@ namespace com.github.lhervier.ksp
             );
             LOGGER.LogInfo("Status message ready");
 
+            // Create the view model
+            LOGGER.LogInfo("Creating View Model");
+            this.viewModel = gameObject.AddComponent<CheatSheetViewModel>();
+            this.viewModel.Initialize(this.gamepadConfigDaemon);
+
             // Start the GUI
             LOGGER.LogInfo("Starting Logging UI");
             this.loggingUI = gameObject.AddComponent<CheatSheetUI>();
+            this.loggingUI.Initialize(this.viewModel, this.actionGroupDaemon, this.gamepadDaemon);
             LOGGER.LogInfo("Logging UI started");
             
             LOGGER.LogInfo("Started");
@@ -124,16 +140,27 @@ namespace com.github.lhervier.ksp
                 StopCoroutine(this.initializePluginCoroutine);
                 this.initializePluginCoroutine = null;
             }
+            
             if( this.loggingUI != null ) {
                 Destroy(this.loggingUI);
                 this.loggingUI = null;
             }
+
+            if( this.viewModel != null ) {
+                Destroy(this.viewModel);
+                this.viewModel = null;
+            }
             
-            if( this.steamInputDaemon != null ) {
-                this.steamInputDaemon.OnGamepadConnected.Remove(OnControllerConnected);
-                this.steamInputDaemon.OnGamepadConnectedWithError.Remove(OnControllerConnectedWithError);
-                Destroy(this.steamInputDaemon);
-                this.steamInputDaemon = null;
+            if( this.gamepadConfigDaemon != null ) {
+                Destroy(this.gamepadConfigDaemon);
+                this.gamepadConfigDaemon = null;
+            }
+            
+            if( this.gamepadDaemon != null ) {
+                this.gamepadDaemon.OnGamepadConnected.Remove(OnControllerConnected);
+                this.gamepadDaemon.OnGamepadConnectedWithError.Remove(OnControllerConnectedWithError);
+                Destroy(this.gamepadDaemon);
+                this.gamepadDaemon = null;
             }
 
             if( this.actionGroupDaemon != null ) {
@@ -141,8 +168,7 @@ namespace com.github.lhervier.ksp
                 Destroy(this.actionGroupDaemon);
                 this.actionGroupDaemon = null;
             }
-            
-            SteamInputControllerVdf.Clear();
+
             _instance = null;
             LOGGER.LogInfo("Destroyed");
         }
@@ -224,7 +250,7 @@ namespace com.github.lhervier.ksp
             this.screenMessage.message = "Controller: " + actionGroup.ToString() + ".";
             ScreenMessages.PostScreenMessage(this.screenMessage);
 
-            this.steamInputDaemon.ChangeActionGroup(actionGroup);
+            this.gamepadDaemon.ChangeActionGroup(actionGroup);
         }
 
         // ==============================================================================
@@ -237,7 +263,7 @@ namespace com.github.lhervier.ksp
         private void OnControllerConnected() 
         {
             LOGGER.LogInfo("New Controller connected");
-            steamInputDaemon.ChangeActionGroup(actionGroupDaemon.GetCurrentActionGroup());
+            gamepadDaemon.ChangeActionGroup(actionGroupDaemon.GetCurrentActionGroup());
             
             // When the steam version of KSP starts, it will not see any connected Joystick
             // It's only when steam will be initialized that KSP will see the steam emulated controllers

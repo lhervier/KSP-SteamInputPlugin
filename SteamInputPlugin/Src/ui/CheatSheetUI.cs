@@ -15,9 +15,21 @@ namespace com.github.lhervier.ksp.ui
         private bool showLogLevelMenu = false;
         private string controllerVdfPathBuffer = string.Empty;
         private CheatSheetViewModel viewModel;
+        private ActionGroupDaemon actionGroupDaemon;
+        private GamepadDaemon gamepadDaemon;
         private TitleUI titleUI;
 
         // ===============================================================
+
+        public void Initialize(
+            CheatSheetViewModel viewModel,
+            ActionGroupDaemon actionGroupDaemon,
+            GamepadDaemon gamepadDaemon)
+        {
+            this.viewModel = viewModel;
+            this.actionGroupDaemon = actionGroupDaemon;
+            this.gamepadDaemon = gamepadDaemon;
+        }
 
         public void Awake()
         {
@@ -30,9 +42,7 @@ namespace com.github.lhervier.ksp.ui
             LOGGER.LogInfo("Start");
             GameEvents.onGUIApplicationLauncherReady.Add(OnGUIAppLauncherReady);
 
-            viewModel = new CheatSheetViewModel();
-
-            titleUI = new TitleUI(viewModel, () => OnWindowClosedFromUI());
+            titleUI = new TitleUI(viewModel, actionGroupDaemon, () => OnWindowClosedFromUI());
 
             LOGGER.LogInfo("Start: Started");
         }
@@ -167,10 +177,9 @@ namespace com.github.lhervier.ksp.ui
             {
                 controllerVdfPathBuffer = newPath;
                 SteamInputGlobalSettings.SetControllerVdfPath(newPath);
-                SteamInputControllerVdf.Reload();
             }
 
-            var vdfError = SteamInputControllerVdf.LastError;
+            var vdfError = viewModel.getLastError();
             if (!string.IsNullOrEmpty(vdfError))
             {
                 GUILayout.Label(vdfError, SteamInputStyles.ErrorLabel);
@@ -180,24 +189,22 @@ namespace com.github.lhervier.ksp.ui
         private void DrawCurrentActionSet()
         {
             GUILayout.Label("Current action set:", SteamInputStyles.Label);
-            var actionSetName = ActionGroupDaemon.Instance.GetCurrentActionGroup().ToString();
-            var actionSetLabel = actionSetName != null
-                ? SteamInputControllerVdf.GetActionSetTitle(actionSetName)
-                : "—";
-            GUILayout.Label(actionSetLabel, SteamInputStyles.AccentLabel);
+            var actionGroup = actionGroupDaemon.GetCurrentActionGroup();
+            var actionGroupLabel = viewModel.GetActionGroupLabel(actionGroup);
+            GUILayout.Label(actionGroupLabel, SteamInputStyles.AccentLabel);
         }
 
         private void DrawControllerConnected() 
         {
             GUILayout.Label("Controller connected:", SteamInputStyles.Label);
-            bool connected = GamepadDaemon.Instance.GamepadConnected;
+            bool connected = gamepadDaemon.GamepadConnected;
             GUILayout.Label(connected ? "Yes" : "No", connected ? SteamInputStyles.AccentLabel : SteamInputStyles.WarnLabel);
         }
 
         private void DrawActivatedContexts()
         {
             GUILayout.Label("Activated context(s):");
-            foreach (string context in ActionGroupDaemon.Instance.ActivatedContexts)
+            foreach (string context in actionGroupDaemon.ActivatedContexts)
             {
                 string contextName;
                 if( context.EndsWith("CtxDaemon") ) {

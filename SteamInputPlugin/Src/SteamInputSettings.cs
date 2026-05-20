@@ -15,6 +15,8 @@ namespace com.github.lhervier.ksp
         private static bool _showLoggingIcon;
         private static string _controllerVdfPath = string.Empty;
 
+        public static EventVoid OnConfigurationChanged = new EventVoid("SteamInputGlobalSettings.ConfigurationChanged");
+
         public static LogLevel GetLogLevel()
         {
             return _logLevel;
@@ -66,6 +68,7 @@ namespace com.github.lhervier.ksp
             _showLoggingIcon = config.GetValue(CONFIG_KEY_SHOW_LOGGING_ICON, false);
             _controllerVdfPath = config.GetValue(CONFIG_KEY_CONTROLLER_VDF_PATH, string.Empty);
 
+            OnConfigurationChanged.Fire();
             LOGGER.LogDebug($"Loaded log level: {_logLevel}, showLoggingIcon: {_showLoggingIcon}, controllerVdfPath: {_controllerVdfPath}");
         }
 
@@ -82,6 +85,7 @@ namespace com.github.lhervier.ksp
             config.SetValue(CONFIG_KEY_CONTROLLER_VDF_PATH, _controllerVdfPath ?? string.Empty);
 
             config.save();
+            OnConfigurationChanged.Fire();
             LOGGER.LogDebug($"Saved log level: {_logLevel}, showLoggingIcon: {_showLoggingIcon}, controllerVdfPath: {_controllerVdfPath}");
         }
     }

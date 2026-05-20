@@ -11,13 +11,18 @@ namespace com.github.lhervier.ksp.ui
         private const float BadgeCloseGap = 6f;
         private const float BarContentHeight = 20f;
 
+        private readonly ActionGroupDaemon actionGroupDaemon;
         private readonly CheatSheetViewModel viewModel;
         private readonly Action onClose;
         private readonly SteamInputIcon gamepadIcon;
 
-        public TitleUI(CheatSheetViewModel viewModel, Action onClose)
+        public TitleUI(
+            CheatSheetViewModel viewModel, 
+            ActionGroupDaemon actionGroupDaemon,
+            Action onClose)
         {
             this.viewModel = viewModel;
+            this.actionGroupDaemon = actionGroupDaemon; 
             this.onClose = onClose;
             this.gamepadIcon = new SteamInputIcon(GamepadIconPath, GamepadIconSize, GamepadIconSize);
         }
@@ -34,7 +39,7 @@ namespace com.github.lhervier.ksp.ui
                 () => GUILayout.Label("AIDE MANETTE", SteamInputStyles.Title, GUILayout.ExpandWidth(true)),
                 expandWidth: true);
 
-            var badgeContent = new GUIContent(viewModel.GetActionSetTitle().ToUpperInvariant());
+            var badgeContent = new GUIContent(viewModel.GetActionGroupLabel(actionGroupDaemon.GetCurrentActionGroup()));
             var badgeSize = SteamInputStyles.ActionSetBadge.CalcSize(badgeContent);
             DrawVerticallyCentered(
                 () => GUILayout.Label(
