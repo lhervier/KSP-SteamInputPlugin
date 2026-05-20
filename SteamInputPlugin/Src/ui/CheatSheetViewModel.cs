@@ -8,15 +8,25 @@ namespace com.github.lhervier.ksp.ui
     {
         private static readonly SteamInputLogger LOGGER = new SteamInputLogger("CheatSheetViewModel");
 
-        private Dictionary<string, string> _actionLabels = new Dictionary<string, string>();
+        private string _actionGroupLabel = "";
         private string _gamepadLabel = "";
         private string _lastError = "";
+        private bool _gamepadConnected = false;
+        private List<string> _activatedContexts = new List<string>();
 
         private GamepadConfigDaemon _gamepadConfigDaemon;
+        private ActionGroupDaemon _actionGroupDaemon;
+        private GamepadDaemon _gamepadDaemon;
 
-        public void Initialize(GamepadConfigDaemon gamepadConfigDaemon)
+        public void Initialize(
+            GamepadConfigDaemon gamepadConfigDaemon, 
+            ActionGroupDaemon actionGroupDaemon,
+            GamepadDaemon gamepadDaemon
+        )
         {
             this._gamepadConfigDaemon = gamepadConfigDaemon;
+            this._actionGroupDaemon = actionGroupDaemon;
+            this._gamepadDaemon = gamepadDaemon;
         }
 
         public void Awake()
@@ -28,13 +38,24 @@ namespace com.github.lhervier.ksp.ui
         public void Start()
         {
             LOGGER.LogInfo("Start");
-            if( this._gamepadConfigDaemon == null ) {
-                LOGGER.LogError("Start: GamepadConfigDaemon not initialized");
+            if( this._gamepadConfigDaemon == null
+                || this._actionGroupDaemon == null
+                || this._gamepadDaemon == null ) {
+                LOGGER.LogError("Start: ViewModel dependencies not initialized");
                 return;
             }
             this._gamepadConfigDaemon.OnConfigLoaded.Add(this.OnConfigLoaded);
             this._gamepadConfigDaemon.OnConfigLoadError.Add(this.OnConfigLoadError);
-            this.OnConfigLoaded();
+
+            this._actionGroupDaemon.OnActionGroupChanged.Add(this.OnActionGroupChanged);
+
+            this._gamepadDaemon.OnGamepadConnected.Add(this.OnGamepadConnected);
+            this._gamepadDaemon.OnGamepadDisconnected.Add(this.OnGamepadDisconnected);
+
+            this._gamepadConnected = this._gamepadDaemon.GamepadConnected;
+            this.RefreshActivatedContexts();
+
+            this.UpdateViewModel();
             LOGGER.LogInfo("Start: Started");
         }
 
@@ -45,36 +66,76 @@ namespace com.github.lhervier.ksp.ui
                 this._gamepadConfigDaemon.OnConfigLoaded.Remove(this.OnConfigLoaded);
                 this._gamepadConfigDaemon.OnConfigLoadError.Remove(this.OnConfigLoadError);
             }
+            if( this._actionGroupDaemon != null ) {
+                this._actionGroupDaemon.OnActionGroupChanged.Remove(this.OnActionGroupChanged);
+            }
+            if( this._gamepadDaemon != null ) {
+                this._gamepadDaemon.OnGamepadConnected.Remove(this.OnGamepadConnected);
+                this._gamepadDaemon.OnGamepadDisconnected.Remove(this.OnGamepadDisconnected);
+            }
             LOGGER.LogInfo("OnDestroy: Destroyed");
         }
 
         // =======================================================================
 
+        private void OnActionGroupChanged(ActionGroup actionGroup)
+        {
+            LOGGER.LogDebug("OnActionGroupChanged: " + actionGroup.ToString());
+            this.RefreshActivatedContexts();
+            this.UpdateViewModel();
+        }
+
         private void OnConfigLoaded()
         {
-            LOGGER.LogInfo("OnConfigLoaded");
-            if( this._gamepadConfigDaemon == null ) {
-                return;
+            LOGGER.LogDebug("OnConfigLoaded");
+            this.UpdateViewModel();
+            this._lastError = string.Empty;
+        }
+
+        private void RefreshActivatedContexts()
+        {
+            this._activatedContexts.Clear();
+            if (this._actionGroupDaemon != null)
+            {
+                this._activatedContexts.AddRange(this._actionGroupDaemon.ActivatedContexts);
             }
+        }
+
+        private void OnGamepadConnected()
+        {
+            LOGGER.LogDebug("OnGamepadConnected");
+            this._gamepadConnected = true;
+        }
+
+        private void OnGamepadDisconnected()
+        {
+            LOGGER.LogDebug("OnGamepadDisconnected");
+            this._gamepadConnected = false;
+        }
+
+        private void UpdateViewModel()
+        {
             this._gamepadLabel = GamepadControllerTypes.GetDisplayName(
                 this._gamepadConfigDaemon.GetControllerType()
             );
 
-            this._actionLabels.Clear();
-            Dictionary<string, object> actions = this._gamepadConfigDaemon.GetActions();
-            foreach (var action in actions)
+            ActionGroup currentActionGroup = this._actionGroupDaemon.GetCurrentActionGroup();
+            if( currentActionGroup == ActionGroup.None )
             {
-                if( action.Value is Dictionary<string, object> actionData ) 
+                this._actionGroupLabel = "—";
+            }
+            else
+            {
+                Dictionary<string, object> actionData = this._gamepadConfigDaemon.GetAction(currentActionGroup);
+                if( actionData.TryGetValue("title", out object title) && title is string titleString )
                 {
-                    if( actionData.TryGetValue("title", out object title) ) {
-                        if( title is string titleString ) {
-                            this._actionLabels[action.Key] = titleString;
-                        }
-                    }
+                    this._actionGroupLabel = titleString.ToUpperInvariant();
+                }
+                else
+                {
+                    this._actionGroupLabel = currentActionGroup.ToString().ToUpperInvariant();
                 }
             }
-
-            this._lastError = string.Empty;
         }
 
         private void OnConfigLoadError(string error)
@@ -89,15 +150,19 @@ namespace com.github.lhervier.ksp.ui
             return this._lastError;
         }
 
-        public string GetActionGroupLabel(ActionGroup actionGroup)
+        public bool GetGamepadConnected()
         {
-            if( actionGroup == ActionGroup.None ) {
-                return "—";
-            }
-            if (this._actionLabels.TryGetValue(actionGroup.ToString(), out string actionGroupLabel)) {
-                return actionGroupLabel.ToUpperInvariant();
-            }
-            return actionGroup.ToString().ToUpperInvariant();
+            return this._gamepadConnected;
+        }
+
+        public List<string> GetActivatedContexts()
+        {
+            return this._activatedContexts;
+        }
+
+        public string GetActionGroupLabel()
+        {
+            return this._actionGroupLabel;
         }
 
         public string GetGamepadLabel()

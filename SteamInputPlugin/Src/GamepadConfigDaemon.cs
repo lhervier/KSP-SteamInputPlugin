@@ -148,22 +148,15 @@ namespace com.github.lhervier.ksp
 
         // ============================================================================
 
-        public Dictionary<string, object> GetActions()
+        public Dictionary<string, object> GetAction(ActionGroup actionGroup)
         {
             var mappings = GetObject(_root, "controller_mappings");
-            if (mappings == null)
-            {
-                return new Dictionary<string, object>();
-            }
-            return GetObject(mappings, "actions");
+            Dictionary<string, object> actions = GetObject(mappings, "actions");
+            return GetObject(actions, actionGroup.ToString());
         }
 
         public string GetControllerType() {
             var mappings = GetObject(_root, "controller_mappings");
-            if (mappings == null)
-            {
-                return "";
-            }
             return GetString(mappings, "controller_type");
         }
 

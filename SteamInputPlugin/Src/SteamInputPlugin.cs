@@ -129,12 +129,16 @@ namespace com.github.lhervier.ksp
             // Create the view model
             LOGGER.LogInfo("Creating View Model");
             this.viewModel = gameObject.AddComponent<CheatSheetViewModel>();
-            this.viewModel.Initialize(this.gamepadConfigDaemon);
+            this.viewModel.Initialize(
+                this.gamepadConfigDaemon, 
+                this.actionGroupDaemon, 
+                this.gamepadDaemon
+            );
 
             // Start the GUI
             LOGGER.LogInfo("Starting Logging UI");
             this.loggingUI = gameObject.AddComponent<CheatSheetUI>();
-            this.loggingUI.Initialize(this.viewModel, this.actionGroupDaemon, this.gamepadDaemon);
+            this.loggingUI.Initialize(this.viewModel);
             LOGGER.LogInfo("Logging UI started");
 
             // Log the detected steam environment

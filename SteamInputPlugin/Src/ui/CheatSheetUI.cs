@@ -17,20 +17,13 @@ namespace com.github.lhervier.ksp.ui
         private bool showLogLevelMenu = false;
         private string controllerConfigNameBuffer = string.Empty;
         private CheatSheetViewModel viewModel;
-        private ActionGroupDaemon actionGroupDaemon;
-        private GamepadDaemon gamepadDaemon;
         private TitleUI titleUI;
 
         // ===============================================================
 
-        public void Initialize(
-            CheatSheetViewModel viewModel,
-            ActionGroupDaemon actionGroupDaemon,
-            GamepadDaemon gamepadDaemon)
+        public void Initialize(CheatSheetViewModel viewModel)
         {
             this.viewModel = viewModel;
-            this.actionGroupDaemon = actionGroupDaemon;
-            this.gamepadDaemon = gamepadDaemon;
         }
 
         public void Awake()
@@ -44,7 +37,7 @@ namespace com.github.lhervier.ksp.ui
             LOGGER.LogInfo("Start");
             GameEvents.onGUIApplicationLauncherReady.Add(OnGUIAppLauncherReady);
 
-            titleUI = new TitleUI(viewModel, actionGroupDaemon, () => OnWindowClosedFromUI());
+            titleUI = new TitleUI(viewModel, () => OnWindowClosedFromUI());
 
             LOGGER.LogInfo("Start: Started");
         }
@@ -191,15 +184,14 @@ namespace com.github.lhervier.ksp.ui
         private void DrawCurrentActionSet()
         {
             GUILayout.Label(ModLocalization.GetString("SteamInput_currentActionSet"), SteamInputStyles.Label);
-            var actionGroup = actionGroupDaemon.GetCurrentActionGroup();
-            var actionGroupLabel = viewModel.GetActionGroupLabel(actionGroup);
+            var actionGroupLabel = viewModel.GetActionGroupLabel();
             GUILayout.Label(actionGroupLabel, SteamInputStyles.AccentLabel);
         }
 
         private void DrawControllerConnected() 
         {
             GUILayout.Label(ModLocalization.GetString("SteamInput_controllerConnected"), SteamInputStyles.Label);
-            bool connected = gamepadDaemon.GamepadConnected;
+            bool connected = viewModel.GetGamepadConnected();
             GUILayout.Label(
                 connected
                     ? ModLocalization.GetString("SteamInput_yes")
@@ -210,7 +202,7 @@ namespace com.github.lhervier.ksp.ui
         private void DrawActivatedContexts()
         {
             GUILayout.Label(ModLocalization.GetString("SteamInput_activatedContexts"));
-            foreach (string context in actionGroupDaemon.ActivatedContexts)
+            foreach (string context in viewModel.GetActivatedContexts())
             {
                 string contextName;
                 if( context.EndsWith("CtxDaemon") ) {
