@@ -9,19 +9,7 @@ namespace com.github.lhervier.ksp.ui
     public class CheatSheetViewModel: MonoBehaviour
     {
         private static readonly SteamInputLogger LOGGER = new SteamInputLogger("CheatSheetViewModel");
-        private static string[] _physicalZonesOrder = new string[] { 
-            "button_diamond", 
-            "dpad", 
-            "left_trigger", 
-            "right_trigger", 
-            "bumpers",
-            "joystick", 
-            "right_joystick", 
-            "left_trackpad", 
-            "right_trackpad", 
-            "switch", 
-        };
-
+        
         private string _actionGroupLabel = "";
         private string _gamepadLabel = "";
         private string _lastError = "";
@@ -67,16 +55,19 @@ namespace com.github.lhervier.ksp.ui
             this._gamepadDaemon.OnGamepadConnected.Add(this.OnGamepadConnected);
             this._gamepadDaemon.OnGamepadDisconnected.Add(this.OnGamepadDisconnected);
 
+            SteamInputGlobalSettings.OnConfigurationChanged.Add(this.OnConfigurationChanged);
+
             this._gamepadConnected = this._gamepadDaemon.GamepadConnected;
             this.RefreshActivatedContexts();
-
-            this.UpdateViewModel();
+            this.RefreshControllerType();
+            this.RefreshPhysicalZones();
             LOGGER.LogInfo("Start: Started");
         }
 
         public void OnDestroy()
         {
             LOGGER.LogInfo("OnDestroy");
+            SteamInputGlobalSettings.OnConfigurationChanged.Remove(this.OnConfigurationChanged);
             if( this._gamepadConfigDaemon != null ) {
                 this._gamepadConfigDaemon.OnConfigLoaded.Remove(this.OnConfigLoaded);
                 this._gamepadConfigDaemon.OnConfigLoadError.Remove(this.OnConfigLoadError);
@@ -97,23 +88,20 @@ namespace com.github.lhervier.ksp.ui
         {
             LOGGER.LogDebug("OnActionGroupChanged: " + actionGroup.ToString());
             this.RefreshActivatedContexts();
-            this.UpdateViewModel();
+            this.RefreshPhysicalZones();
         }
 
         private void OnConfigLoaded()
         {
             LOGGER.LogDebug("OnConfigLoaded");
-            this.UpdateViewModel();
+            this.RefreshControllerType();
+            this.RefreshPhysicalZones();
             this._lastError = string.Empty;
         }
 
-        private void RefreshActivatedContexts()
+        private void OnConfigLoadError(string error)
         {
-            this._activatedContexts.Clear();
-            if (this._actionGroupDaemon != null)
-            {
-                this._activatedContexts.AddRange(this._actionGroupDaemon.ActivatedContexts);
-            }
+            this._lastError = error ?? string.Empty;
         }
 
         private void OnGamepadConnected()
@@ -128,12 +116,33 @@ namespace com.github.lhervier.ksp.ui
             this._gamepadConnected = false;
         }
 
-        private void UpdateViewModel()
+        private void OnConfigurationChanged()
+        {
+            LOGGER.LogDebug("OnConfigurationChanged");
+            this.RefreshControllerType();
+            this.RefreshPhysicalZones();
+        }
+
+        // =======================================================================
+
+        private void RefreshControllerType()
         {
             this._gamepadLabel = GamepadControllerTypes.GetDisplayName(
                 this._gamepadConfigDaemon.GetControllerType()
             );
+        }
 
+        private void RefreshActivatedContexts()
+        {
+            this._activatedContexts.Clear();
+            if (this._actionGroupDaemon != null)
+            {
+                this._activatedContexts.AddRange(this._actionGroupDaemon.ActivatedContexts);
+            }
+        }
+
+        private void RefreshPhysicalZones()
+        {
             ActionGroup currentActionGroup = this._actionGroupDaemon.GetCurrentActionGroup();
             if( currentActionGroup == ActionGroup.None )
             {
@@ -154,24 +163,19 @@ namespace com.github.lhervier.ksp.ui
 
             this._physicalZones.Clear();
             List<PhysicalZone> physicalZones = this._gamepadConfigDaemon.GetPhysicalZones(currentActionGroup);
-            foreach( string zone in _physicalZonesOrder ) {
-                PhysicalZone physicalZone = physicalZones.FirstOrDefault(z => z.Name == zone);
+            foreach( GamepadZone zone in SteamInputGlobalSettings.GetPhysicalZones() ) {
+                PhysicalZone physicalZone = physicalZones.FirstOrDefault(z => z.Zone == zone);
                 if( physicalZone != null ) {
                     this._physicalZones.Add(
                         new UIPhysicalZone {
-                            Name = physicalZone.Name,
-                            Label = ModLocalization.GetString("SteamInput_physicalZone_" + physicalZone.Name).ToUpperInvariant(),
+                            Zone = physicalZone.Zone,
+                            Label = ModLocalization.GetString("SteamInput_physicalZone_" + physicalZone.Zone.Name).ToUpperInvariant(),
                             GroupId = physicalZone.GroupId,
                             ModeshiftGroupId = physicalZone.ModeshiftGroupId
                         }
                     );
                 }
             }
-        }
-
-        private void OnConfigLoadError(string error)
-        {
-            this._lastError = error ?? string.Empty;
         }
 
         // =======================================================================

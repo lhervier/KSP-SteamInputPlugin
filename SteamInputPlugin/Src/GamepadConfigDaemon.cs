@@ -169,9 +169,10 @@ namespace com.github.lhervier.ksp
             }
             
             Dictionary<string, object> groupSourceBindings = GetObject(preset, "group_source_bindings");
-            Dictionary<string, PhysicalZone> physicalZones = new Dictionary<string, PhysicalZone>();
+            Dictionary<GamepadZone, PhysicalZone> physicalZones = new Dictionary<GamepadZone, PhysicalZone>();
             
             foreach( KeyValuePair<string, object> pair in groupSourceBindings ) {
+                string groupId = pair.Key;
                 if( !(pair.Value is string valueString) ) {
                     continue;
                 }
@@ -190,10 +191,13 @@ namespace com.github.lhervier.ksp
                 }
 
                 string name = parts[0];
-                string groupId = pair.Key;
-                AddPhysicalZone(physicalZones, name, groupId, modeShift);
-                if( name == "switch") {
-                    AddPhysicalZone(physicalZones, "bumpers", groupId, modeShift);
+                if( !GamepadZone.TryParse(name, out GamepadZone zone) ) {
+                    continue;
+                }
+                
+                AddPhysicalZone(physicalZones, zone, groupId, modeShift);
+                if( zone == GamepadZone.Switch ) {
+                    AddPhysicalZone(physicalZones, GamepadZone.Bumpers, groupId, modeShift);
                 }
             }
 
@@ -201,20 +205,20 @@ namespace com.github.lhervier.ksp
         }
 
         private void AddPhysicalZone(
-            Dictionary<string, PhysicalZone> physicalZones, 
-            string name, 
+            Dictionary<GamepadZone, PhysicalZone> physicalZones, 
+            GamepadZone zone, 
             string groupId, 
             bool modeShift
         ) {
-            if( !physicalZones.ContainsKey(name) ) {
-                physicalZones[name] = new PhysicalZone { 
-                    Name = name, 
+            if( !physicalZones.ContainsKey(zone) ) {
+                physicalZones[zone] = new PhysicalZone { 
+                    Zone = zone, 
                 };
             }
             if( modeShift ) {
-                physicalZones[name].ModeshiftGroupId = groupId;
+                physicalZones[zone].ModeshiftGroupId = groupId;
             } else {
-                physicalZones[name].GroupId = groupId;
+                physicalZones[zone].GroupId = groupId;
             }
         }
 
