@@ -10,9 +10,9 @@ namespace com.github.lhervier.ksp.ui
     {
         private static readonly SteamInputLogger LOGGER = new SteamInputLogger("CheatSheetViewModel");
         
+        private string _lastError = "";
         private string _actionGroupLabel = "";
         private string _gamepadLabel = "";
-        private string _lastError = "";
         private bool _gamepadConnected = false;
         private List<string> _activatedContexts = new List<string>();
         private List<UIPhysicalZone> _physicalZones = new List<UIPhysicalZone>();
@@ -88,6 +88,7 @@ namespace com.github.lhervier.ksp.ui
         {
             LOGGER.LogDebug("OnActionGroupChanged: " + actionGroup.ToString());
             this.RefreshActivatedContexts();
+            this.RefreshActionGroupLabel();
             this.RefreshPhysicalZones();
         }
 
@@ -95,6 +96,7 @@ namespace com.github.lhervier.ksp.ui
         {
             LOGGER.LogDebug("OnConfigLoaded");
             this.RefreshControllerType();
+            this.RefreshActionGroupLabel();
             this.RefreshPhysicalZones();
             this._lastError = string.Empty;
         }
@@ -120,6 +122,7 @@ namespace com.github.lhervier.ksp.ui
         {
             LOGGER.LogDebug("OnConfigurationChanged");
             this.RefreshControllerType();
+            this.RefreshActionGroupLabel();
             this.RefreshPhysicalZones();
         }
 
@@ -141,40 +144,43 @@ namespace com.github.lhervier.ksp.ui
             }
         }
 
-        private void RefreshPhysicalZones()
+        private void RefreshActionGroupLabel()
         {
             ActionGroup currentActionGroup = this._actionGroupDaemon.GetCurrentActionGroup();
             if( currentActionGroup == ActionGroup.None )
             {
                 this._actionGroupLabel = "—";
+                return;
+            }
+            Dictionary<string, object> actionData = this._gamepadConfigDaemon.GetAction(currentActionGroup);
+            if( actionData.TryGetValue("title", out object title) && title is string titleString )
+            {
+                this._actionGroupLabel = titleString.ToUpperInvariant();
             }
             else
             {
-                Dictionary<string, object> actionData = this._gamepadConfigDaemon.GetAction(currentActionGroup);
-                if( actionData.TryGetValue("title", out object title) && title is string titleString )
-                {
-                    this._actionGroupLabel = titleString.ToUpperInvariant();
-                }
-                else
-                {
-                    this._actionGroupLabel = currentActionGroup.ToString().ToUpperInvariant();
-                }
+                this._actionGroupLabel = currentActionGroup.ToString().ToUpperInvariant();
             }
+        }
 
+        private void RefreshPhysicalZones()
+        {
             this._physicalZones.Clear();
+            ActionGroup currentActionGroup = this._actionGroupDaemon.GetCurrentActionGroup();
             List<PhysicalZone> physicalZones = this._gamepadConfigDaemon.GetPhysicalZones(currentActionGroup);
             foreach( GamepadZone zone in SteamInputGlobalSettings.GetPhysicalZones() ) {
                 PhysicalZone physicalZone = physicalZones.FirstOrDefault(z => z.Zone == zone);
-                if( physicalZone != null ) {
-                    this._physicalZones.Add(
-                        new UIPhysicalZone {
-                            Zone = physicalZone.Zone,
-                            Label = ModLocalization.GetString("SteamInput_physicalZone_" + physicalZone.Zone.Name).ToUpperInvariant(),
-                            GroupId = physicalZone.GroupId,
-                            ModeshiftGroupId = physicalZone.ModeshiftGroupId
-                        }
-                    );
+                if( physicalZone == null ) {
+                    continue;
                 }
+                this._physicalZones.Add(
+                    new UIPhysicalZone {
+                        Zone = physicalZone.Zone,
+                        Label = ModLocalization.GetString("SteamInput_physicalZone_" + physicalZone.Zone.Name).ToUpperInvariant(),
+                        GroupId = physicalZone.GroupId,
+                        ModeshiftGroupId = physicalZone.ModeshiftGroupId
+                    }
+                );
             }
         }
 
