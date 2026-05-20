@@ -30,15 +30,7 @@ namespace com.github.lhervier.ksp
 
         /// <summary>Parsed VDF root, or null if unavailable.</summary>
         private Dictionary<string, object> _root = new Dictionary<string, object>();
-        public Dictionary<string, object> Root
-        {
-            get
-            {
-                UpdateConfiguration();
-                return _root;
-            }
-        }
-
+        
         public EventVoid OnConfigLoaded = new EventVoid("GamepadConfigDaemon.OnConfigLoaded");
         public EventData<string> OnConfigLoadError = new EventData<string>("GamepadConfigDaemon.OnConfigLoadError");
 
