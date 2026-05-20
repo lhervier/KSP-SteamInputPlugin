@@ -86,7 +86,7 @@ namespace com.github.lhervier.ksp.ui
         private void OnToggleOn()
         {
             LOGGER.LogDebug("Displaying window");
-            controllerConfigNameBuffer = SteamInputGlobalSettings.GetControllerConfigName();
+            controllerConfigNameBuffer = viewModel.GetControllerConfigName();
             showWindow = true;
         }
 
@@ -161,7 +161,7 @@ namespace com.github.lhervier.ksp.ui
         {
             GUILayout.Label(ModLocalization.GetString("SteamInput_settings"), SteamInputStyles.MutedLabel);
 
-            bool showIcon = SteamInputGlobalSettings.GetShowLoggingIcon();
+            bool showIcon = viewModel.GetShowLoggingIcon();
             bool newShowIcon = GUILayout.Toggle(
                 showIcon,
                 ModLocalization.GetString("SteamInput_showLoggingIcon"),
@@ -169,7 +169,7 @@ namespace com.github.lhervier.ksp.ui
             );
             if (newShowIcon != showIcon)
             {
-                SteamInputGlobalSettings.SetShowLoggingIcon(newShowIcon);
+                viewModel.SetShowLoggingIcon(newShowIcon);
             }
 
             GUILayout.Space(4);
@@ -178,7 +178,7 @@ namespace com.github.lhervier.ksp.ui
             if (newName != controllerConfigNameBuffer)
             {
                 controllerConfigNameBuffer = newName;
-                SteamInputGlobalSettings.SetControllerConfigName(newName);
+                viewModel.SetControllerConfigName(newName);
             }
 
             var vdfError = viewModel.getLastError();
@@ -225,7 +225,7 @@ namespace com.github.lhervier.ksp.ui
         {
             GUILayout.Label(ModLocalization.GetString("SteamInput_logLevel"), SteamInputStyles.Label);
             GUILayout.BeginHorizontal();
-            if (GUILayout.Button(SteamInputGlobalSettings.GetLogLevel().ToString(), SteamInputStyles.MenuButton))
+            if (GUILayout.Button(viewModel.GetLogLevel().ToString(), SteamInputStyles.MenuButton))
             {
                 showLogLevelMenu = !showLogLevelMenu;
             }
@@ -238,7 +238,7 @@ namespace com.github.lhervier.ksp.ui
                 {
                     if (GUILayout.Button("=> " + level, SteamInputStyles.MenuButton))
                     {
-                        SteamInputGlobalSettings.SetLogLevel(level);
+                        viewModel.SetLogLevel(level);
                         showLogLevelMenu = false;
                     }
                 }

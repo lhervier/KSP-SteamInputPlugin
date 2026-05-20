@@ -187,6 +187,8 @@ namespace com.github.lhervier.ksp
         // </summary>
         public void OnDestroy() 
         {
+            SteamInputGlobalSettings.Save();
+            
             if( this.initializePluginCoroutine != null ) {
                 StopCoroutine(this.initializePluginCoroutine);
                 this.initializePluginCoroutine = null;

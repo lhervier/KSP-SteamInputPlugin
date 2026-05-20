@@ -48,15 +48,15 @@ namespace com.github.lhervier.ksp
         public void Start() 
         {
             LOGGER.LogInfo("Start");
-            SteamInputGlobalSettings.OnConfigurationChanged.Add(this.UpdateConfiguration);
-            this.UpdateConfiguration();
+            SteamInputGlobalSettings.OnGlobalSettingsChanged.Add(this.UpdateConfiguration);
+            this.UpdateConfiguration(UpdatedConfiguration.ALL);
             LOGGER.LogInfo("Started");
         }
 
         public void OnDestroy() 
         {
             LOGGER.LogInfo("OnDestroy");
-            SteamInputGlobalSettings.OnConfigurationChanged.Remove(this.UpdateConfiguration);
+            SteamInputGlobalSettings.OnGlobalSettingsChanged.Remove(this.UpdateConfiguration);
             _instance = null;
             LOGGER.LogInfo("Destroyed");
         }
@@ -69,8 +69,12 @@ namespace com.github.lhervier.ksp
         /// Reload the gamepad configuration from the configured path
         /// if the path has changed or the file has been modified.
         /// </summary>
-        public void UpdateConfiguration()
+        /// <param name="updateFlags">The update flags.</param>
+        public void UpdateConfiguration(int updateFlags)
         {
+            if( (updateFlags & UpdatedConfiguration.CONTROLLER_CONFIG_NAME) == 0 ) {
+                return;
+            }
             var configName = SteamInputGlobalSettings.GetControllerConfigName();
 
             // Empty path is not an error, just an empty config
