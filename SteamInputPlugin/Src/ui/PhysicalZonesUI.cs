@@ -32,7 +32,10 @@ namespace com.github.lhervier.ksp.ui
                 DrawZone(zones[i]);
                 if (i < zones.Count - 1)
                 {
-                    GUILayout.Box(GUIContent.none, SteamInputStyles.ZoneSeparator, GUILayout.ExpandWidth(true));
+                    GUILayout.Box(
+                        GUIContent.none,
+                        SteamInputStyles.ZoneSeparator,
+                        GUILayout.ExpandWidth(true));
                 }
             }
             GUILayout.EndVertical();
@@ -42,9 +45,7 @@ namespace com.github.lhervier.ksp.ui
         {
             GUILayout.BeginVertical(GUILayout.ExpandWidth(true));
 
-            GUILayout.BeginHorizontal(SteamInputStyles.ZoneHeaderBar, GUILayout.ExpandWidth(true));
-            GUILayout.Label(zone.Label.ToUpperInvariant(), SteamInputStyles.ZoneName, GUILayout.ExpandWidth(true));
-            GUILayout.EndHorizontal();
+            DrawZoneHeader(zone.Label);
 
             GUILayout.BeginVertical(SteamInputStyles.ZoneBody, GUILayout.ExpandWidth(true));
             DrawSection(
@@ -58,9 +59,29 @@ namespace com.github.lhervier.ksp.ui
             GUILayout.EndVertical();
         }
 
+        private static void DrawZoneHeader(string label)
+        {
+            var content = new GUIContent(label.ToUpperInvariant());
+            Rect headerRect = GUILayoutUtility.GetRect(
+                content,
+                SteamInputStyles.ZoneHeaderText,
+                GUILayout.ExpandWidth(true),
+                GUILayout.Height(SteamInputPalette.ZoneHeaderHeight));
+
+            if (Event.current.type == EventType.Repaint)
+            {
+                GUI.DrawTexture(headerRect, PhysicalZoneStyles.ZoneHeaderBackground);
+                GUI.DrawTexture(
+                    new Rect(headerRect.xMin, headerRect.yMax - 1f, headerRect.width, 1f),
+                    PhysicalZoneStyles.ZoneHeaderBottomLine);
+            }
+
+            GUI.Label(headerRect, content, SteamInputStyles.ZoneHeaderText);
+        }
+
         private static void DrawSection(string title, GUIStyle sectionStyle)
         {
-            GUILayout.Label(title, sectionStyle, GUILayout.ExpandWidth(true));
+            GUILayout.Label(title, sectionStyle);
         }
     }
 }

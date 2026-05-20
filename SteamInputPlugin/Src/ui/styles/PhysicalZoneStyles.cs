@@ -7,14 +7,20 @@ namespace com.github.lhervier.ksp.ui.styles
     {
         public static GUIStyle ZoneListPanel { get; private set; }
         public static GUIStyle ZoneBody { get; private set; }
-        public static GUIStyle ZoneHeaderBar { get; private set; }
+        public static GUIStyle ZoneHeaderText { get; private set; }
         public static GUIStyle ZoneName { get; private set; }
         public static GUIStyle SectionNormal { get; private set; }
         public static GUIStyle SectionModeshift { get; private set; }
         public static GUIStyle ZoneSeparator { get; private set; }
 
+        internal static Texture2D ZoneHeaderBackground { get; private set; }
+        internal static Texture2D ZoneHeaderBottomLine { get; private set; }
+
         internal static void Initialize(SteamInputStyleTextures textures)
         {
+            ZoneHeaderBackground = textures.ZoneHeaderBackground;
+            ZoneHeaderBottomLine = textures.ZoneHeaderBottomLine;
+
             ZoneListPanel = new GUIStyle
             {
                 padding = new RectOffset(0, 0, 0, 0),
@@ -29,16 +35,18 @@ namespace com.github.lhervier.ksp.ui.styles
             };
             ZoneBody.normal.background = textures.Body;
 
-            ZoneHeaderBar = new GUIStyle
+            ZoneHeaderText = new GUIStyle(GUI.skin.label)
             {
-                fixedHeight = SteamInputPalette.ZoneHeaderHeight,
+                fontSize = 11,
+                fontStyle = FontStyle.Bold,
                 padding = new RectOffset(8, 8, 4, 4),
                 margin = new RectOffset(0, 0, 0, 0),
-                border = new RectOffset(0, 0, 0, 1)
+                alignment = TextAnchor.MiddleLeft,
+                clipping = TextClipping.Clip,
+                wordWrap = false
             };
-            ZoneHeaderBar.normal.background = SteamInputStyleTextures.MakeBorderTexture(
-                SteamInputPalette.ZoneHeaderBg,
-                SteamInputPalette.ZoneSeparator);
+            ZoneHeaderText.normal.textColor = SteamInputPalette.ZoneName;
+            ClearLabelBackground(ZoneHeaderText);
 
             ZoneName = new GUIStyle(GUI.skin.label)
             {
@@ -48,6 +56,7 @@ namespace com.github.lhervier.ksp.ui.styles
                 padding = new RectOffset(0, 0, 0, 0)
             };
             ZoneName.normal.textColor = SteamInputPalette.ZoneName;
+            ClearLabelBackground(ZoneName);
 
             SectionNormal = CreateSectionHeader(SteamInputPalette.SectionNormal);
             SectionModeshift = CreateSectionHeader(SteamInputPalette.SectionModeshift);
@@ -58,9 +67,7 @@ namespace com.github.lhervier.ksp.ui.styles
                 margin = new RectOffset(0, 0, 0, 0),
                 padding = new RectOffset(0, 0, 0, 0)
             };
-            ZoneSeparator.normal.background = SteamInputStyleTextures.MakeBorderTexture(
-                SteamInputPalette.ZoneSeparator,
-                SteamInputPalette.ZoneSeparator);
+            ZoneSeparator.normal.background = textures.ZoneSeparatorLine;
         }
 
         private static GUIStyle CreateSectionHeader(Color textColor)
@@ -73,7 +80,20 @@ namespace com.github.lhervier.ksp.ui.styles
                 margin = new RectOffset(0, 0, 0, 0)
             };
             style.normal.textColor = textColor;
+            ClearLabelBackground(style);
             return style;
+        }
+
+        private static void ClearLabelBackground(GUIStyle style)
+        {
+            style.normal.background = null;
+            style.hover.background = null;
+            style.active.background = null;
+            style.focused.background = null;
+            style.onNormal.background = null;
+            style.onHover.background = null;
+            style.onActive.background = null;
+            style.onFocused.background = null;
         }
     }
 }

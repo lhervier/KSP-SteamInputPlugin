@@ -39,7 +39,7 @@ namespace com.github.lhervier.ksp.ui.styles
 
         public static GUIStyle ZoneListPanel => PhysicalZoneStyles.ZoneListPanel;
         public static GUIStyle ZoneBody => PhysicalZoneStyles.ZoneBody;
-        public static GUIStyle ZoneHeaderBar => PhysicalZoneStyles.ZoneHeaderBar;
+        public static GUIStyle ZoneHeaderText => PhysicalZoneStyles.ZoneHeaderText;
         public static GUIStyle ZoneName => PhysicalZoneStyles.ZoneName;
         public static GUIStyle SectionNormal => PhysicalZoneStyles.SectionNormal;
         public static GUIStyle SectionModeshift => PhysicalZoneStyles.SectionModeshift;

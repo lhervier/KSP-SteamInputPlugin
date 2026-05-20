@@ -13,6 +13,9 @@ namespace com.github.lhervier.ksp.ui.styles
         public Texture2D MenuBox;
         public Texture2D ZonesMenuBackground;
         public Texture2D MenuSeparator;
+        public Texture2D ZoneHeaderBackground;
+        public Texture2D ZoneHeaderBottomLine;
+        public Texture2D ZoneSeparatorLine;
 
         public static SteamInputStyleTextures Create()
         {
@@ -27,6 +30,9 @@ namespace com.github.lhervier.ksp.ui.styles
                 MenuBox = MakeTexture(SteamInputPalette.MenuBox),
                 ZonesMenuBackground = MakeTexture(SteamInputPalette.ZonesMenuBackground),
                 MenuSeparator = MakeTexture(SteamInputPalette.MenuSeparator),
+                ZoneHeaderBackground = MakeTexture(SteamInputPalette.ZoneHeaderBg),
+                ZoneHeaderBottomLine = MakeTexture(SteamInputPalette.ZoneSeparator),
+                ZoneSeparatorLine = MakeTexture(SteamInputPalette.ZoneSeparator),
             };
         }
 
