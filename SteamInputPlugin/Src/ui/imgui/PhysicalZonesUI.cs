@@ -4,7 +4,7 @@ using com.github.lhervier.ksp.ui.model;
 using com.github.lhervier.ksp.ui.styles;
 using UnityEngine;
 
-namespace com.github.lhervier.ksp.ui
+namespace com.github.lhervier.ksp.ui.imgui
 {
     /// <summary>
     /// Cheat sheet physical zones list (.kzone) — section headers only until inputs are wired.

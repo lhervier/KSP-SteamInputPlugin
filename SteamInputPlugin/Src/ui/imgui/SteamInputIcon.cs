@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace com.github.lhervier.ksp.ui
+namespace com.github.lhervier.ksp.ui.imgui
 {
     /// <summary>
     /// Simple icon loaded from GameDatabase (see VesselBookmarkIcon).

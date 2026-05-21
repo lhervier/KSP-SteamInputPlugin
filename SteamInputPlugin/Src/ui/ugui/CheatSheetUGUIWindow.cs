@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using com.github.lhervier.ksp.ui.styles;
 
-namespace com.github.lhervier.ksp.ugui
+namespace com.github.lhervier.ksp.ui.ugui
 {
     /// <summary>
     /// uGUI test shell via KSP PopupDialog (same approach as Trajectories MainGUI).

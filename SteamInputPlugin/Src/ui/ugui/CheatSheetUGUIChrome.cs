@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using com.github.lhervier.ksp.ui.styles;
 
-namespace com.github.lhervier.ksp.ugui
+namespace com.github.lhervier.ksp.ui.ugui
 {
     /// <summary>Applies ksp_cheatsheet mockup colors to a KSP PopupDialog shell.</summary>
     internal static class CheatSheetUGUIChrome

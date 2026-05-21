@@ -2,7 +2,7 @@ using UnityEngine;
 using com.github.lhervier.ksp;
 using com.github.lhervier.ksp.ui.styles;
 
-namespace com.github.lhervier.ksp.ui
+namespace com.github.lhervier.ksp.ui.imgui
 {
     /// <summary>
     /// Title-bar "⋯" menu for zone visibility and order (.kmenu in ksp_cheatsheet mockup).
