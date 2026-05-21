@@ -55,6 +55,12 @@
     <Reference Include="UnityEngine.TextRenderingModule">
       <HintPath>$(KSP_DATA_DIR)\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>$(KSP_DATA_DIR)\Managed\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule">
+      <HintPath>$(KSP_DATA_DIR)\Managed\UnityEngine.UIModule.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>
@@ -62,6 +68,7 @@
     <Compile Include="SteamInputPlugin\Src\ContextDaemons\*.cs" />
     <Compile Include="SteamInputPlugin\Src\Vdf\*.cs" />
     <Compile Include="SteamInputPlugin\Src\ui\*.cs" />
+    <Compile Include="SteamInputPlugin\Src\ugui\*.cs" />
     <Compile Include="SteamInputPlugin\Src\ui\styles\*.cs" />
     <Compile Include="SteamInputPlugin\Src\ui\model\*.cs" />
   </ItemGroup>

@@ -1,8 +1,8 @@
 using UnityEngine;
 using KSP.UI.Screens;
 using System;
-using com.github.lhervier.ksp;
 using com.github.lhervier.ksp.ui.styles;
+using com.github.lhervier.ksp.ugui;
 
 namespace com.github.lhervier.ksp.ui
 {
@@ -19,6 +19,7 @@ namespace com.github.lhervier.ksp.ui
         private CheatSheetViewModel viewModel;
         private TitleUI titleUI;
         private PhysicalZonesUI physicalZonesUI;
+        private CheatSheetUGUIWindow uguiWindow;
 
         // ===============================================================
 
@@ -40,6 +41,7 @@ namespace com.github.lhervier.ksp.ui
 
             titleUI = new TitleUI(viewModel, () => OnWindowClosedFromUI());
             physicalZonesUI = new PhysicalZonesUI(viewModel);
+            uguiWindow = new CheatSheetUGUIWindow();
 
             LOGGER.LogInfo("Start: Started");
         }
@@ -48,6 +50,7 @@ namespace com.github.lhervier.ksp.ui
         {
             LOGGER.LogInfo("OnDestroy");
             GameEvents.onGUIApplicationLauncherReady.Remove(OnGUIAppLauncherReady);
+            uguiWindow?.Destroy();
             LOGGER.LogInfo("OnDestroy: Destroyed");
         }
 
@@ -88,6 +91,7 @@ namespace com.github.lhervier.ksp.ui
             LOGGER.LogDebug("Displaying window");
             controllerConfigNameBuffer = viewModel.GetControllerConfigName();
             showWindow = true;
+            uguiWindow?.Show();
         }
 
         /// <summary>Toolbar off callback — visibility only, like VesselBookmark OnToggleOff.</summary>
@@ -104,6 +108,7 @@ namespace com.github.lhervier.ksp.ui
             showWindow = false;
             showLogLevelMenu = false;
             titleUI?.ZonesMenu.Close();
+            uguiWindow?.Hide();
         }
 
         /// <summary>After closing from the in-window button — resync toolbar toggle.</summary>
