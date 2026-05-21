@@ -100,28 +100,8 @@ namespace com.github.lhervier.ksp.ui.ugui
 
         private static void AddTitleBar(PopupDialog popupDialog)
         {
-            // Check if title bar already exist
-            if( popupDialog.popupWindow.transform.Find(TITLEBAR_OBJECT_NAME) != null ) {
-                return;
-            }
-
-            // Create the title bar, and add it to the popup dialog
             GameObject titleBarGo = TitleBarBuilder.Create(TITLEBAR_OBJECT_NAME);
             titleBarGo.transform.SetParent(popupDialog.popupWindow.transform, false);
-            titleBarGo.transform.SetAsLastSibling();
-
-            // Décale tous les transform vers le bas
-            foreach (Transform child in popupDialog.popupWindow.transform)
-            {
-                if( child == null ) continue;
-                if (child.name == TITLEBAR_OBJECT_NAME) continue;
-                if( child is RectTransform rt)
-                {
-                    rt.offsetMax = new Vector2(rt.offsetMax.x, -SteamInputPalette.TitleBarHeight);
-                }
-            }
-
-            LayoutRebuilder.ForceRebuildLayoutImmediate(titleBarGo.GetComponent<RectTransform>());
         }
 
         /// <summary>
