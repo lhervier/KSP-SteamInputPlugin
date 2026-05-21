@@ -45,14 +45,16 @@ namespace com.github.lhervier.ksp.ui.ugui
                     new DialogGUIBase[]
                     {
                         new DialogGUIBox(null, -1, -1, () => true, content)
-                    });
+                    }
+                );
                     
                 _popupDialog = PopupDialog.SpawnPopupDialog(
                     _multiOptionDialog,
                     true,
                     HighLogic.UISkin,
                     false,
-                    string.Empty);
+                    string.Empty
+                );
                 CheatSheetUGUITitleBar.Build(_popupDialog);
                 CheatSheetUGUIChrome.Apply(_popupDialog);
                 _popupDialog.onDestroy.AddListener(new UnityAction(() => OnPopupDestroy()));
