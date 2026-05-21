@@ -8,7 +8,7 @@ namespace com.github.lhervier.ksp.ui.ugui
     internal static class CheatSheetUGUIChrome
     {
         private static Sprite windowChromeSprite;
-        private static Sprite WindowChromeSprite
+        public static Sprite WindowChromeSprite
         {
             get
             {
@@ -35,7 +35,7 @@ namespace com.github.lhervier.ksp.ui.ugui
         }
 
         private static Sprite bodyFillSprite;
-        private static Sprite BodyFillSprite
+        public static Sprite BodyFillSprite
         {
             get
             {
@@ -55,45 +55,60 @@ namespace com.github.lhervier.ksp.ui.ugui
             }
         }
 
-        public static void Apply(PopupDialog dialog)
+        private static Sprite _gamepadIconSprite;
+        public static Sprite GamepadIconSprite
         {
-            if (dialog == null || dialog.popupWindow == null)
+            get
             {
-                return;
-            }
-
-            // Set background color as non-transparent
-            var canvasGroup = dialog.GetComponent<CanvasGroup>();
-            if (canvasGroup != null)
-            {
-                canvasGroup.alpha = 1f;
-            }
-
-            // Set windows border color 
-            var windowGo = dialog.popupWindow;
-            var windowImage = windowGo.GetComponent<Image>();
-            if (windowImage != null)
-            {
-                windowImage.sprite = WindowChromeSprite;
-                windowImage.type = Image.Type.Sliced;
-                windowImage.color = Color.white;
-                windowImage.raycastTarget = true;
-            }
-
-            // Set windows background color
-            foreach (var image in windowGo.GetComponentsInChildren<Image>(true))
-            {
-                if (image == windowImage)
+                if (_gamepadIconSprite != null)
                 {
-                    continue;
+                    return _gamepadIconSprite;
                 }
 
-                image.sprite = BodyFillSprite;
-                image.type = Image.Type.Simple;
-                image.color = SteamInputPalette.Body;
+                if (GameDatabase.Instance == null)
+                {
+                    return null;
+                }
+
+                var tex = GameDatabase.Instance.GetTexture(
+                    SteamInputPalette.GamepadIconPath, 
+                    false
+                );
+                if (tex == null)
+                {
+                    return null;
+                }
+
+                _gamepadIconSprite = Sprite.Create(
+                    tex,
+                    new Rect(0f, 0f, tex.width, tex.height),
+                    new Vector2(0.5f, 0.5f),
+                    100f
+                );
+                _gamepadIconSprite.hideFlags = HideFlags.HideAndDontSave;
+                return _gamepadIconSprite;
             }
         }
 
-        
+        private static Sprite _headerFillSprite;
+        public static Sprite HeaderFillSprite
+        {
+            get
+            {
+                if (_headerFillSprite != null)
+                {
+                    return _headerFillSprite;
+                }
+
+                var tex = new Texture2D(1, 1, TextureFormat.RGBA32, false);
+                tex.SetPixel(0, 0, Color.white);
+                tex.Apply();
+                tex.filterMode = FilterMode.Point;
+                tex.hideFlags = HideFlags.HideAndDontSave;
+                _headerFillSprite = Sprite.Create(tex, new Rect(0f, 0f, 1f, 1f), new Vector2(0.5f, 0.5f), 100f);
+                _headerFillSprite.hideFlags = HideFlags.HideAndDontSave;
+                return _headerFillSprite;
+            }
+        }
     }
 }

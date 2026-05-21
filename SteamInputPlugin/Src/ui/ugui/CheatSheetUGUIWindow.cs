@@ -1,7 +1,6 @@
+using com.github.lhervier.ksp.ui.styles;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
-using com.github.lhervier.ksp.ui.styles;
 
 namespace com.github.lhervier.ksp.ui.ugui
 {
@@ -12,7 +11,7 @@ namespace com.github.lhervier.ksp.ui.ugui
     {
         private static readonly SteamInputLogger LOGGER = new SteamInputLogger("CheatSheetUGUIWindow");
         public const string TITLEBAR_OBJECT_NAME = "CheatSheetTitleBar";
-        private const string DIALOG_ID = "SteamInputCheatSheetUGUI";
+        public const string DIALOG_ID = "SteamInputCheatSheetUGUI";
         private const float WindowHeight = 320f;
         private const float ScreenX = 428f;
         private const float ScreenYFromTop = 20f;
@@ -27,10 +26,9 @@ namespace com.github.lhervier.ksp.ui.ugui
         {
             if (_popupDialog == null)
             {
-                _popupDialog = CreatePopupDialog();
+                CreatePopup();
                 if( _popupDialog == null ) return;
-                CheatSheetUGUIChrome.Apply(_popupDialog);
-
+                
                 AddTitleBar(_popupDialog);
             }
 
@@ -57,63 +55,21 @@ namespace com.github.lhervier.ksp.ui.ugui
         // Helpers
         // ===============================================================
 
-        private PopupDialog CreatePopupDialog()
+        private void CreatePopup()
         {
-            // Creates a ultra minimal MultiOptionDialog. We will not use it.
-            var pos = NormalizedWindowPos(ScreenX, ScreenYFromTop, SteamInputPalette.WindowWidth, WindowHeight);
-            var content = new DialogGUIVerticalLayout();
-            MultiOptionDialog multiOptionDialog = new MultiOptionDialog(
-                DIALOG_ID,
-                string.Empty,
-                string.Empty,
-                HighLogic.UISkin,
-                new Rect(pos.x, pos.y, SteamInputPalette.WindowWidth, WindowHeight),
-                new DialogGUIBase[]
-                {
-                    new DialogGUIBox(null, -1, -1, () => true, content)
-                }
+            _popupDialog = PopupDialogBuilder.Create(
+                ScreenX, 
+                ScreenYFromTop, 
+                SteamInputPalette.WindowWidth,
+                WindowHeight,
+                new UnityAction(() => OnPopupDestroy())
             );
-            
-            // Creates the popup dialog
-            PopupDialog popupDialog = PopupDialog.SpawnPopupDialog(
-                multiOptionDialog,
-                true,
-                HighLogic.UISkin,
-                false,
-                string.Empty
-            );
-            if( popupDialog == null || popupDialog.popupWindow == null )
-            {
-                return null;
-            }
-            popupDialog.onDestroy.AddListener(new UnityAction(() => OnPopupDestroy()));
-
-            // Remove KSP default title
-            var title = popupDialog.popupWindow.transform.Find("Title");
-            if (title != null)
-            {
-                title.gameObject.SetActive(false);
-            }
-
-            return popupDialog;
         }
 
-        private static void AddTitleBar(PopupDialog popupDialog)
+        private void AddTitleBar(PopupDialog popupDialog)
         {
             GameObject titleBarGo = TitleBarBuilder.Create(TITLEBAR_OBJECT_NAME);
             titleBarGo.transform.SetParent(popupDialog.popupWindow.transform, false);
         }
-
-        /// <summary>
-        /// Normalized position from screen top-left, expressed as a percentage of the screen width and height.
-        /// </summary>
-        private static Vector2 NormalizedWindowPos(float screenX, float screenYFromTop, float width, float height)
-        {
-            var centerX = screenX + width * 0.5f;
-            var centerY = Screen.height - screenYFromTop - height * 0.5f;
-            return new Vector2(centerX / Screen.width, centerY / Screen.height);
-        }
-
-        
     }
 }
