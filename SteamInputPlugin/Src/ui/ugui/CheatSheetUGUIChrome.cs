@@ -80,17 +80,25 @@ namespace com.github.lhervier.ksp.ui.ugui
                 windowImage.raycastTarget = true;
             }
 
-            // Hide title bar
+            // Hide KSP title bar
             var title = windowGo.transform.Find("Title");
             if (title != null)
             {
                 title.gameObject.SetActive(false);
             }
 
+            // Get the custom title bar
+            var customTitleBar = windowGo.transform.Find(CheatSheetUGUITitleBar.ObjectName);
+
             // Set windows background color
             foreach (var image in windowGo.GetComponentsInChildren<Image>(true))
             {
                 if (image == windowImage)
+                {
+                    continue;
+                }
+
+                if (customTitleBar != null && image.transform.IsChildOf(customTitleBar))
                 {
                     continue;
                 }

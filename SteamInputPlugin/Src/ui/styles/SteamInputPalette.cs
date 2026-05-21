@@ -5,12 +5,25 @@ namespace com.github.lhervier.ksp.ui.styles
     /// <summary>Layout metrics and colors from ksp_cheatsheet mockup.</summary>
     public static class SteamInputPalette
     {
+        // ===============================================================
+        // Window
+        // ===============================================================
         public const float WindowWidth = 400f;
-        public const float TitleBarHeight = 28f;
-
         public static readonly Color Body = new Color(20f / 255f, 20f / 255f, 20f / 255f);
-        public static readonly Color Header = new Color(46f / 255f, 46f / 255f, 46f / 255f);
         public static readonly Color Border = new Color(85f / 255f, 85f / 255f, 85f / 255f);
+        
+        // ===============================================================
+        // Title bar
+        // ===============================================================
+        public const float TitleBarHeight = 28f;
+        public const string GamepadIconPath = "SteamInput/Textures/gamepad_icon";
+        public const int GamepadIconSize = 18;
+        public const float IconTitleGap = 6f;
+
+
+
+        
+        public static readonly Color Header = new Color(46f / 255f, 46f / 255f, 46f / 255f);
         public static readonly Color TitleText = new Color(232f / 255f, 232f / 255f, 232f / 255f);
         public static readonly Color Label = new Color(204f / 255f, 204f / 255f, 204f / 255f);
         public static readonly Color Muted = new Color(136f / 255f, 136f / 255f, 136f / 255f);

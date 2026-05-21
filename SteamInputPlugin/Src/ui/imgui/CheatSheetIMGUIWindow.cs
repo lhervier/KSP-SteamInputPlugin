@@ -9,7 +9,7 @@ namespace com.github.lhervier.ksp.ui.imgui
     {
         private const int WINDOW_ID = 0x53495355; // "SISUI" ("SteamInputSettingsUI" in hex)
         private bool showWindow = false;
-        private Rect windowRect = new Rect(20, 20, SteamInputStyles.WindowWidth, 320);
+        private Rect windowRect = new Rect(20, 20, SteamInputPalette.WindowWidth, 320);
         private bool showLogLevelMenu = false;
         private string controllerConfigNameBuffer = string.Empty;
         private CheatSheetViewModel viewModel;
@@ -50,7 +50,7 @@ namespace com.github.lhervier.ksp.ui.imgui
             
             SteamInputStyles.EnsureInitialized();
 
-            windowRect.width = SteamInputStyles.WindowWidth;
+            windowRect.width = SteamInputPalette.WindowWidth;
             windowRect = GUILayout.Window(
                 WINDOW_ID, 
                 windowRect, 
@@ -80,7 +80,7 @@ namespace com.github.lhervier.ksp.ui.imgui
 
             titleUI.ZonesMenu.DrawOverlay(windowRect.width);
 
-            GUI.DragWindow(new Rect(0f, 0f, windowRect.width, SteamInputStyles.TitleBarHeight));
+            GUI.DragWindow(new Rect(0f, 0f, windowRect.width, SteamInputPalette.TitleBarHeight));
         }
 
         private void DrawSettings()

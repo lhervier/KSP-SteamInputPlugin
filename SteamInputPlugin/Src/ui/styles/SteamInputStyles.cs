@@ -9,9 +9,6 @@ namespace com.github.lhervier.ksp.ui.styles
     {
         private static bool _ready;
 
-        public static float WindowWidth => SteamInputPalette.WindowWidth;
-        public static float TitleBarHeight => SteamInputPalette.TitleBarHeight;
-
         public static GUIStyle Window => WindowShellStyles.Window;
         public static GUIStyle Body => WindowShellStyles.Body;
         public static GUIStyle HeaderBar => WindowShellStyles.HeaderBar;

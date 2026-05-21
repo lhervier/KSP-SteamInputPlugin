@@ -7,9 +7,6 @@ namespace com.github.lhervier.ksp.ui.imgui
 {
     public class TitleUI
     {
-        private const string GamepadIconPath = "SteamInput/Textures/gamepad_icon";
-        private const int GamepadIconSize = 18;
-        private const float IconTitleGap = 6f;
         private const float BadgeControllerGap = 6f;
         private const float ControllerCloseGap = 6f;
         private const float BarContentHeight = 20f;
@@ -25,7 +22,11 @@ namespace com.github.lhervier.ksp.ui.imgui
         {
             this.viewModel = viewModel;
             this.onClose = onClose;
-            this.gamepadIcon = new SteamInputIcon(GamepadIconPath, GamepadIconSize, GamepadIconSize);
+            this.gamepadIcon = new SteamInputIcon(
+                SteamInputPalette.GamepadIconPath, 
+                SteamInputPalette.GamepadIconSize, 
+                SteamInputPalette.GamepadIconSize
+            );
             this.zonesMenuUI = new ZonesMenuUI();
         }
 
@@ -36,14 +37,14 @@ namespace com.github.lhervier.ksp.ui.imgui
 
         public void DrawTitle()
         {
-            GUILayout.BeginHorizontal(SteamInputStyles.HeaderBar, GUILayout.Height(SteamInputStyles.TitleBarHeight));
+            GUILayout.BeginHorizontal(SteamInputStyles.HeaderBar, GUILayout.Height(SteamInputPalette.TitleBarHeight));
 
             DrawVerticallyCentered(
                 () => gamepadIcon.Draw(), 
-                GamepadIconSize
+                SteamInputPalette.GamepadIconSize
             );
 
-            GUILayout.Space(IconTitleGap);
+            GUILayout.Space(SteamInputPalette.IconTitleGap);
 
             DrawVerticallyCentered(
                 () => GUILayout.Label(
