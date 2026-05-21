@@ -56,7 +56,7 @@ namespace com.github.lhervier.ksp.ui.ugui
                 CheatSheetUGUIChrome.Apply(_popupDialog);
                 _popupDialog.onDestroy.AddListener(new UnityAction(() => OnPopupDestroy()));
             }
-            
+
             _popupDialog?.gameObject.SetActive(true);
         }
 
