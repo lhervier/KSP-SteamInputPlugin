@@ -88,7 +88,7 @@ namespace com.github.lhervier.ksp.ui.ugui
             }
 
             // Get the custom title bar
-            var customTitleBar = windowGo.transform.Find(CheatSheetUGUITitleBar.ObjectName);
+            var customTitleBar = windowGo.transform.Find(CheatSheetUGUIWindow.TITLEBAR_OBJECT_NAME);
 
             // Set windows background color
             foreach (var image in windowGo.GetComponentsInChildren<Image>(true))

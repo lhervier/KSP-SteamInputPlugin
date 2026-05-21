@@ -5,19 +5,16 @@ using com.github.lhervier.ksp.ui.styles;
 
 namespace com.github.lhervier.ksp.ui.ugui
 {
-    /// <summary>Custom title bar for the cheat sheet uGUI window (ksp_cheatsheet .ktb).</summary>
-    internal static class CheatSheetUGUITitleBar
+    public class TitleBarBuilder
     {
-        public const string ObjectName = "CheatSheetTitleBar";
-
-        private static Sprite iconSprite;
+        private static Sprite _gamepadIconSprite;
         private static Sprite GamepadIconSprite
         {
             get
             {
-                if (iconSprite != null)
+                if (_gamepadIconSprite != null)
                 {
-                    return iconSprite;
+                    return _gamepadIconSprite;
                 }
 
                 if (GameDatabase.Instance == null)
@@ -34,25 +31,25 @@ namespace com.github.lhervier.ksp.ui.ugui
                     return null;
                 }
 
-                iconSprite = Sprite.Create(
+                _gamepadIconSprite = Sprite.Create(
                     tex,
                     new Rect(0f, 0f, tex.width, tex.height),
                     new Vector2(0.5f, 0.5f),
                     100f
                 );
-                iconSprite.hideFlags = HideFlags.HideAndDontSave;
-                return iconSprite;
+                _gamepadIconSprite.hideFlags = HideFlags.HideAndDontSave;
+                return _gamepadIconSprite;
             }
         }
 
-        private static Sprite headerFillSprite;
+        private static Sprite _headerFillSprite;
         private static Sprite HeaderFillSprite
         {
             get
             {
-                if (headerFillSprite != null)
+                if (_headerFillSprite != null)
                 {
-                    return headerFillSprite;
+                    return _headerFillSprite;
                 }
 
                 var tex = new Texture2D(1, 1, TextureFormat.RGBA32, false);
@@ -60,9 +57,9 @@ namespace com.github.lhervier.ksp.ui.ugui
                 tex.Apply();
                 tex.filterMode = FilterMode.Point;
                 tex.hideFlags = HideFlags.HideAndDontSave;
-                headerFillSprite = Sprite.Create(tex, new Rect(0f, 0f, 1f, 1f), new Vector2(0.5f, 0.5f), 100f);
-                headerFillSprite.hideFlags = HideFlags.HideAndDontSave;
-                return headerFillSprite;
+                _headerFillSprite = Sprite.Create(tex, new Rect(0f, 0f, 1f, 1f), new Vector2(0.5f, 0.5f), 100f);
+                _headerFillSprite.hideFlags = HideFlags.HideAndDontSave;
+                return _headerFillSprite;
             }
         }
 
@@ -73,23 +70,9 @@ namespace com.github.lhervier.ksp.ui.ugui
         private const float BottomBorderHeight = 1f;
         private static readonly Color TitleBarBottomBorder = new Color(68f / 255f, 68f / 255f, 68f / 255f);
 
-        public static void Build(PopupDialog dialog)
+        public static GameObject Create(string objectName)
         {
-            if (dialog == null || dialog.popupWindow == null)
-            {
-                return;
-            }
-
-            var window = dialog.popupWindow.transform;
-            if (window.Find(ObjectName) != null)
-            {
-                return;
-            }
-
-            var titleBarGo = new GameObject(ObjectName, typeof(RectTransform));
-            titleBarGo.transform.SetParent(window, false);
-            // Draw above dialog content (same canvas: later sibling = in front).
-            titleBarGo.transform.SetAsLastSibling();
+            var titleBarGo = new GameObject(objectName, typeof(RectTransform));
 
             var titleBarRect = titleBarGo.GetComponent<RectTransform>();
             titleBarRect.anchorMin = new Vector2(0f, 1f);
@@ -118,6 +101,7 @@ namespace com.github.lhervier.ksp.ui.ugui
             bottomBorderRect.pivot = new Vector2(0.5f, 0f);
             bottomBorderRect.sizeDelta = new Vector2(0f, BottomBorderHeight);
             bottomBorderRect.anchoredPosition = Vector2.zero;
+            
             var bottomBorderImage = bottomBorderGo.AddComponent<Image>();
             bottomBorderImage.sprite = HeaderFillSprite;
             bottomBorderImage.type = Image.Type.Simple;
@@ -183,27 +167,7 @@ namespace com.github.lhervier.ksp.ui.ugui
             var labelLayout = labelGo.AddComponent<LayoutElement>();
             labelLayout.preferredHeight = SteamInputPalette.GamepadIconSize;
 
-            ReserveContentSpaceBelowTitleBar(window);
-            LayoutRebuilder.ForceRebuildLayoutImmediate(titleBarRect);
-        }
-
-        private static void ReserveContentSpaceBelowTitleBar(Transform window)
-        {
-            foreach (Transform child in window)
-            {
-                if (child.name == ObjectName || child.name == "Title")
-                {
-                    continue;
-                }
-
-                var rt = child as RectTransform;
-                if (rt == null)
-                {
-                    continue;
-                }
-
-                rt.offsetMax = new Vector2(rt.offsetMax.x, -SteamInputPalette.TitleBarHeight);
-            }
+            return titleBarGo;
         }
     }
 }
