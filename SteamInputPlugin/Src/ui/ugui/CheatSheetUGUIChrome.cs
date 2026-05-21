@@ -7,21 +7,21 @@ namespace com.github.lhervier.ksp.ui.ugui
     /// <summary>Applies ksp_cheatsheet mockup colors to a KSP PopupDialog shell.</summary>
     internal static class CheatSheetUGUIChrome
     {
-        private static Sprite windowChromeSprite;
+        private static Sprite _windowChromeSprite;
         public static Sprite WindowChromeSprite
         {
             get
             {
-                if (windowChromeSprite != null)
+                if (_windowChromeSprite != null)
                 {
-                    return windowChromeSprite;
+                    return _windowChromeSprite;
                 }
 
                 var tex = SteamInputStyleTextures.MakeBorderTexture(
                     SteamInputPalette.Body,
                     SteamInputPalette.Border
                 );
-                windowChromeSprite = Sprite.Create(
+                _windowChromeSprite = Sprite.Create(
                     tex,
                     new Rect(0f, 0f, 3f, 3f),
                     new Vector2(0.5f, 0.5f),
@@ -29,19 +29,19 @@ namespace com.github.lhervier.ksp.ui.ugui
                     0u,
                     SpriteMeshType.FullRect,
                     new Vector4(1f, 1f, 1f, 1f));
-                windowChromeSprite.hideFlags = HideFlags.HideAndDontSave;
-                return windowChromeSprite;
+                _windowChromeSprite.hideFlags = HideFlags.HideAndDontSave;
+                return _windowChromeSprite;
             }
         }
 
-        private static Sprite bodyFillSprite;
-        public static Sprite BodyFillSprite
+        private static Sprite _fillSprite;
+        public static Sprite FillSprite
         {
             get
             {
-                if (bodyFillSprite != null)
+                if (_fillSprite != null)
                 {
-                    return bodyFillSprite;
+                    return _fillSprite;
                 }
 
                 var tex = new Texture2D(1, 1, TextureFormat.RGBA32, false);
@@ -49,9 +49,9 @@ namespace com.github.lhervier.ksp.ui.ugui
                 tex.Apply();
                 tex.filterMode = FilterMode.Point;
                 tex.hideFlags = HideFlags.HideAndDontSave;
-                bodyFillSprite = Sprite.Create(tex, new Rect(0f, 0f, 1f, 1f), new Vector2(0.5f, 0.5f), 100f);
-                bodyFillSprite.hideFlags = HideFlags.HideAndDontSave;
-                return bodyFillSprite;
+                _fillSprite = Sprite.Create(tex, new Rect(0f, 0f, 1f, 1f), new Vector2(0.5f, 0.5f), 100f);
+                _fillSprite.hideFlags = HideFlags.HideAndDontSave;
+                return _fillSprite;
             }
         }
 
@@ -87,27 +87,6 @@ namespace com.github.lhervier.ksp.ui.ugui
                 );
                 _gamepadIconSprite.hideFlags = HideFlags.HideAndDontSave;
                 return _gamepadIconSprite;
-            }
-        }
-
-        private static Sprite _headerFillSprite;
-        public static Sprite HeaderFillSprite
-        {
-            get
-            {
-                if (_headerFillSprite != null)
-                {
-                    return _headerFillSprite;
-                }
-
-                var tex = new Texture2D(1, 1, TextureFormat.RGBA32, false);
-                tex.SetPixel(0, 0, Color.white);
-                tex.Apply();
-                tex.filterMode = FilterMode.Point;
-                tex.hideFlags = HideFlags.HideAndDontSave;
-                _headerFillSprite = Sprite.Create(tex, new Rect(0f, 0f, 1f, 1f), new Vector2(0.5f, 0.5f), 100f);
-                _headerFillSprite.hideFlags = HideFlags.HideAndDontSave;
-                return _headerFillSprite;
             }
         }
     }

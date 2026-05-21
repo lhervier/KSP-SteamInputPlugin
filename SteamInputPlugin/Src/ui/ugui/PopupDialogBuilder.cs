@@ -77,7 +77,7 @@ namespace com.github.lhervier.ksp.ui.ugui
                     continue;
                 }
 
-                image.sprite = CheatSheetUGUIChrome.BodyFillSprite;
+                image.sprite = CheatSheetUGUIChrome.FillSprite;
                 image.type = Image.Type.Simple;
                 image.color = SteamInputPalette.Body;
             }

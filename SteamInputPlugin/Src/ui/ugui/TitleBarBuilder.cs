@@ -31,7 +31,7 @@ namespace com.github.lhervier.ksp.ui.ugui
             titleBarLayout.preferredHeight = SteamInputPalette.TitleBarHeight;
 
             var headerImage = titleBarGo.AddComponent<Image>();
-            headerImage.sprite = CheatSheetUGUIChrome.HeaderFillSprite;
+            headerImage.sprite = CheatSheetUGUIChrome.FillSprite;
             headerImage.type = Image.Type.Simple;
             headerImage.color = SteamInputPalette.Header;
             headerImage.raycastTarget = true;
@@ -46,7 +46,7 @@ namespace com.github.lhervier.ksp.ui.ugui
             bottomBorderRect.anchoredPosition = Vector2.zero;
             
             var bottomBorderImage = bottomBorderGo.AddComponent<Image>();
-            bottomBorderImage.sprite = CheatSheetUGUIChrome.HeaderFillSprite;
+            bottomBorderImage.sprite = CheatSheetUGUIChrome.FillSprite;
             bottomBorderImage.type = Image.Type.Simple;
             bottomBorderImage.color = TitleBarBottomBorder;
             bottomBorderImage.raycastTarget = false;
