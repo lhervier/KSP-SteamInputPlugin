@@ -58,6 +58,7 @@ namespace com.github.lhervier.ksp.ugui
                 HighLogic.UISkin,
                 false,
                 string.Empty);
+            CheatSheetUGUIChrome.Apply(popupDialog);
             popupDialog.onDestroy.AddListener(new UnityAction(() => OnPopupDestroy()));
         }
 
