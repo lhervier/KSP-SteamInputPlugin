@@ -1,129 +1,103 @@
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Events;
 using com.github.lhervier.ksp.ui.styles;
 
 namespace com.github.lhervier.ksp.ugui
 {
     /// <summary>
-    /// Minimal uGUI shell for comparing chrome with the IMGUI window (no title bar).
+    /// uGUI test shell via KSP PopupDialog (same approach as Trajectories MainGUI).
     /// </summary>
     internal sealed class CheatSheetUGUIWindow
     {
-        private const int CanvasSortOrder = 30000;
-        private const float BorderPixels = 1f;
-        private const float PanelScreenX = 428f;
-        private const float PanelScreenY = 20f;
-        private const float PanelHeight = 320f;
+        private const string DialogId = "SteamInputCheatSheetUGUI";
+        private const float WindowWidth = SteamInputPalette.WindowWidth;
+        private const float WindowHeight = 320f;
+        private const float ScreenX = 428f;
+        private const float ScreenYFromTop = 20f;
 
-        private GameObject root;
-        private RectTransform panelRect;
-        private static Sprite solidSprite;
+        private MultiOptionDialog multiDialog;
+        private PopupDialog popupDialog;
 
         public void Show()
         {
-            if (root == null || panelRect == null)
+            if (popupDialog == null)
             {
-                if (root != null)
-                {
-                    Object.Destroy(root);
-                    root = null;
-                    panelRect = null;
-                }
-                Build();
+                SpawnDialog();
             }
-            root.SetActive(true);
+            if (popupDialog != null)
+            {
+                popupDialog.gameObject.SetActive(true);
+            }
         }
 
         public void Hide()
         {
-            if (root != null)
+            if (popupDialog != null)
             {
-                root.SetActive(false);
+                popupDialog.gameObject.SetActive(false);
             }
         }
 
         public void Destroy()
         {
-            if (root != null)
+            if (popupDialog != null)
             {
-                Object.Destroy(root);
-                root = null;
-                panelRect = null;
+                popupDialog.Dismiss();
+                popupDialog = null;
             }
+            multiDialog = null;
         }
 
-        private void Build()
+        private void SpawnDialog()
         {
-            root = new GameObject("CheatSheetUGUI");
-            Object.DontDestroyOnLoad(root);
+            EnsureMultiDialog();
 
-            var canvas = root.AddComponent<Canvas>();
-            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            canvas.sortingOrder = CanvasSortOrder;
-            canvas.pixelPerfect = true;
-
-            root.AddComponent<GraphicRaycaster>();
-
-            var panelGo = new GameObject("Panel", typeof(RectTransform));
-            panelRect = panelGo.GetComponent<RectTransform>();
-            panelRect.SetParent(root.transform, false);
-            panelRect.anchorMin = new Vector2(0f, 1f);
-            panelRect.anchorMax = new Vector2(0f, 1f);
-            panelRect.pivot = new Vector2(0f, 1f);
-            panelRect.anchoredPosition = new Vector2(PanelScreenX, -PanelScreenY);
-            panelRect.sizeDelta = new Vector2(SteamInputPalette.WindowWidth, PanelHeight);
-
-            var borderGo = CreateStretchChild(panelRect, "Border");
-            var borderImage = borderGo.AddComponent<Image>();
-            SetupSolidImage(borderImage, SteamInputPalette.Border);
-
-            var backgroundGo = CreateStretchChild(panelRect, "Background");
-            var backgroundRect = backgroundGo.GetComponent<RectTransform>();
-            backgroundRect.offsetMin = new Vector2(BorderPixels, BorderPixels);
-            backgroundRect.offsetMax = new Vector2(-BorderPixels, -BorderPixels);
-
-            var backgroundImage = backgroundGo.AddComponent<Image>();
-            SetupSolidImage(backgroundImage, SteamInputPalette.Body);
+            popupDialog = PopupDialog.SpawnPopupDialog(
+                multiDialog,
+                false,
+                HighLogic.UISkin,
+                false,
+                string.Empty);
+            popupDialog.onDestroy.AddListener(new UnityAction(() => OnPopupDestroy()));
         }
 
-        private static void SetupSolidImage(Image image, Color color)
+        private void EnsureMultiDialog()
         {
-            image.sprite = SolidSprite;
-            image.type = Image.Type.Simple;
-            image.color = color;
-            image.raycastTarget = false;
-        }
+            var pos = NormalizedWindowPos(ScreenX, ScreenYFromTop, WindowWidth, WindowHeight);
 
-        private static Sprite SolidSprite
-        {
-            get
+            if (multiDialog != null)
             {
-                if (solidSprite != null)
+                multiDialog.dialogRect.Set(pos.x, pos.y, WindowWidth, WindowHeight);
+                return;
+            }
+
+            var content = new DialogGUIVerticalLayout();
+
+            multiDialog = new MultiOptionDialog(
+                DialogId,
+                string.Empty,
+                string.Empty,
+                HighLogic.UISkin,
+                new Rect(pos.x, pos.y, WindowWidth, WindowHeight),
+                new DialogGUIBase[]
                 {
-                    return solidSprite;
-                }
-
-                var tex = new Texture2D(1, 1, TextureFormat.RGBA32, false);
-                tex.SetPixel(0, 0, Color.white);
-                tex.Apply();
-                tex.hideFlags = HideFlags.HideAndDontSave;
-                solidSprite = Sprite.Create(tex, new Rect(0f, 0f, 1f, 1f), new Vector2(0.5f, 0.5f), 1f);
-                solidSprite.hideFlags = HideFlags.HideAndDontSave;
-                return solidSprite;
-            }
+                    new DialogGUIBox(null, -1, -1, () => true, content)
+                });
         }
 
-        private static GameObject CreateStretchChild(RectTransform parentRect, string name)
+        /// <summary>
+        /// Normalized position from screen top-left (see Trajectories MainGUI dialogRect).
+        /// </summary>
+        private static Vector2 NormalizedWindowPos(float screenX, float screenYFromTop, float width, float height)
         {
-            var go = new GameObject(name, typeof(RectTransform));
-            var rect = go.GetComponent<RectTransform>();
-            rect.SetParent(parentRect, false);
-            rect.anchorMin = Vector2.zero;
-            rect.anchorMax = Vector2.one;
-            rect.pivot = new Vector2(0.5f, 0.5f);
-            rect.offsetMin = Vector2.zero;
-            rect.offsetMax = Vector2.zero;
-            return go;
+            var centerX = screenX + width * 0.5f;
+            var centerY = Screen.height - screenYFromTop - height * 0.5f;
+            return new Vector2(centerX / Screen.width, centerY / Screen.height);
+        }
+
+        private void OnPopupDestroy()
+        {
+            popupDialog = null;
         }
     }
 }
