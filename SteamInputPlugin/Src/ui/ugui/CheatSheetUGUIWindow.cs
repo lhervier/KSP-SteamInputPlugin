@@ -9,85 +9,86 @@ namespace com.github.lhervier.ksp.ui.ugui
     /// </summary>
     internal sealed class CheatSheetUGUIWindow
     {
-        private const string DialogId = "SteamInputCheatSheetUGUI";
+        private const string DIALOG_ID = "SteamInputCheatSheetUGUI";
         private const float WindowWidth = SteamInputPalette.WindowWidth;
         private const float WindowHeight = 320f;
         private const float ScreenX = 428f;
         private const float ScreenYFromTop = 20f;
 
-        private MultiOptionDialog multiDialog;
-        private PopupDialog popupDialog;
+        private MultiOptionDialog _multiOptionDialog;
+        private PopupDialog _popupDialog;
+
+        // ===============================================================
+        // Public API
+        // ===============================================================
 
         public void Show()
         {
-            if (popupDialog == null)
+            if (_popupDialog == null)
             {
-                SpawnDialog();
+                var pos = NormalizedWindowPos(ScreenX, ScreenYFromTop, WindowWidth, WindowHeight);
+
+                if (_multiOptionDialog != null)
+                {
+                    _multiOptionDialog.dialogRect.Set(pos.x, pos.y, WindowWidth, WindowHeight);
+                    return;
+                }
+
+                var content = new DialogGUIVerticalLayout();
+
+                _multiOptionDialog = new MultiOptionDialog(
+                    DIALOG_ID,
+                    string.Empty,
+                    string.Empty,
+                    HighLogic.UISkin,
+                    new Rect(pos.x, pos.y, WindowWidth, WindowHeight),
+                    new DialogGUIBase[]
+                    {
+                        new DialogGUIBox(null, -1, -1, () => true, content)
+                    });
+                    
+                _popupDialog = PopupDialog.SpawnPopupDialog(
+                    _multiOptionDialog,
+                    true,
+                    HighLogic.UISkin,
+                    false,
+                    string.Empty);
+                CheatSheetUGUIChrome.Apply(_popupDialog);
+                _popupDialog.onDestroy.AddListener(new UnityAction(() => OnPopupDestroy()));
             }
-            if (popupDialog != null)
-            {
-                popupDialog.gameObject.SetActive(true);
-            }
+            
+            _popupDialog?.gameObject.SetActive(true);
         }
 
         public void Hide()
         {
-            if (popupDialog != null)
+            if (_popupDialog != null)
             {
-                popupDialog.gameObject.SetActive(false);
+                _popupDialog.gameObject.SetActive(false);
             }
         }
 
         public void Destroy()
         {
-            if (popupDialog != null)
+            if (_popupDialog != null)
             {
-                popupDialog.Dismiss();
-                popupDialog = null;
+                _popupDialog.Dismiss();
+                _popupDialog = null;
             }
-            multiDialog = null;
+            _multiOptionDialog = null;
         }
 
-        private void SpawnDialog()
+        private void OnPopupDestroy()
         {
-            EnsureMultiDialog();
-
-            popupDialog = PopupDialog.SpawnPopupDialog(
-                multiDialog,
-                false,
-                HighLogic.UISkin,
-                false,
-                string.Empty);
-            CheatSheetUGUIChrome.Apply(popupDialog);
-            popupDialog.onDestroy.AddListener(new UnityAction(() => OnPopupDestroy()));
+            _popupDialog = null;
         }
 
-        private void EnsureMultiDialog()
-        {
-            var pos = NormalizedWindowPos(ScreenX, ScreenYFromTop, WindowWidth, WindowHeight);
-
-            if (multiDialog != null)
-            {
-                multiDialog.dialogRect.Set(pos.x, pos.y, WindowWidth, WindowHeight);
-                return;
-            }
-
-            var content = new DialogGUIVerticalLayout();
-
-            multiDialog = new MultiOptionDialog(
-                DialogId,
-                string.Empty,
-                string.Empty,
-                HighLogic.UISkin,
-                new Rect(pos.x, pos.y, WindowWidth, WindowHeight),
-                new DialogGUIBase[]
-                {
-                    new DialogGUIBox(null, -1, -1, () => true, content)
-                });
-        }
+        // ===============================================================
+        // Helpers
+        // ===============================================================
 
         /// <summary>
-        /// Normalized position from screen top-left (see Trajectories MainGUI dialogRect).
+        /// Normalized position from screen top-left, expressed as a percentage of the screen width and height.
         /// </summary>
         private static Vector2 NormalizedWindowPos(float screenX, float screenYFromTop, float width, float height)
         {
@@ -96,9 +97,6 @@ namespace com.github.lhervier.ksp.ui.ugui
             return new Vector2(centerX / Screen.width, centerY / Screen.height);
         }
 
-        private void OnPopupDestroy()
-        {
-            popupDialog = null;
-        }
+        
     }
 }

@@ -8,55 +8,6 @@ namespace com.github.lhervier.ksp.ui.ugui
     internal static class CheatSheetUGUIChrome
     {
         private static Sprite windowChromeSprite;
-        private static Sprite bodyFillSprite;
-
-        public static void Apply(PopupDialog dialog)
-        {
-            if (dialog == null || dialog.popupWindow == null)
-            {
-                return;
-            }
-
-            var canvasGroup = dialog.GetComponent<CanvasGroup>();
-            if (canvasGroup != null)
-            {
-                canvasGroup.alpha = 1f;
-            }
-
-            var windowGo = dialog.popupWindow;
-            var windowImage = windowGo.GetComponent<Image>();
-            if (windowImage != null)
-            {
-                windowImage.sprite = WindowChromeSprite;
-                windowImage.type = Image.Type.Sliced;
-                windowImage.color = Color.white;
-                windowImage.raycastTarget = true;
-            }
-
-            HideTitleBar(windowGo);
-
-            foreach (var image in windowGo.GetComponentsInChildren<Image>(true))
-            {
-                if (image == windowImage)
-                {
-                    continue;
-                }
-
-                image.sprite = BodyFillSprite;
-                image.type = Image.Type.Simple;
-                image.color = SteamInputPalette.Body;
-            }
-        }
-
-        private static void HideTitleBar(GameObject windowGo)
-        {
-            var title = windowGo.transform.Find("Title");
-            if (title != null)
-            {
-                title.gameObject.SetActive(false);
-            }
-        }
-
         private static Sprite WindowChromeSprite
         {
             get
@@ -68,7 +19,8 @@ namespace com.github.lhervier.ksp.ui.ugui
 
                 var tex = SteamInputStyleTextures.MakeBorderTexture(
                     SteamInputPalette.Body,
-                    SteamInputPalette.Border);
+                    SteamInputPalette.Border
+                );
                 windowChromeSprite = Sprite.Create(
                     tex,
                     new Rect(0f, 0f, 3f, 3f),
@@ -82,6 +34,7 @@ namespace com.github.lhervier.ksp.ui.ugui
             }
         }
 
+        private static Sprite bodyFillSprite;
         private static Sprite BodyFillSprite
         {
             get
@@ -101,5 +54,53 @@ namespace com.github.lhervier.ksp.ui.ugui
                 return bodyFillSprite;
             }
         }
+
+        public static void Apply(PopupDialog dialog)
+        {
+            if (dialog == null || dialog.popupWindow == null)
+            {
+                return;
+            }
+
+            // Set background color as non-transparent
+            var canvasGroup = dialog.GetComponent<CanvasGroup>();
+            if (canvasGroup != null)
+            {
+                canvasGroup.alpha = 1f;
+            }
+
+            // Set windows border color 
+            var windowGo = dialog.popupWindow;
+            var windowImage = windowGo.GetComponent<Image>();
+            if (windowImage != null)
+            {
+                windowImage.sprite = WindowChromeSprite;
+                windowImage.type = Image.Type.Sliced;
+                windowImage.color = Color.white;
+                windowImage.raycastTarget = true;
+            }
+
+            // Hide title bar
+            var title = windowGo.transform.Find("Title");
+            if (title != null)
+            {
+                title.gameObject.SetActive(false);
+            }
+
+            // Set windows background color
+            foreach (var image in windowGo.GetComponentsInChildren<Image>(true))
+            {
+                if (image == windowImage)
+                {
+                    continue;
+                }
+
+                image.sprite = BodyFillSprite;
+                image.type = Image.Type.Simple;
+                image.color = SteamInputPalette.Body;
+            }
+        }
+
+        
     }
 }
