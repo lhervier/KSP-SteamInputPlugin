@@ -5,24 +5,34 @@ namespace com.github.lhervier.ksp.ui.styles
     /// <summary>Layout metrics and colors from ksp_cheatsheet mockup.</summary>
     public static class SteamInputPalette
     {
+        // ==============================================================
+        // Default settings
+        // ==============================================================
+        public const float DefaultPaddingLeft = 8f;
+        public const float DefaultPaddingRight = 8f;
+        public const float DefaultPaddingTop = 5f;
+        public const float DefaultPaddingBottom = 5f;
+        public const float DefaultSpacing = 6f;
+        public const int DefaultIconSize = 18;
+
         // ===============================================================
         // Window
         // ===============================================================
         public const float WindowWidth = 400f;
-        public static readonly Color Body = new Color(20f / 255f, 20f / 255f, 20f / 255f);
-        public static readonly Color Border = new Color(85f / 255f, 85f / 255f, 85f / 255f);
+        public static readonly Color BodyColor = new Color(20f / 255f, 20f / 255f, 20f / 255f);
+        public static readonly Color BorderColor = new Color(85f / 255f, 85f / 255f, 85f / 255f);
         
         // ===============================================================
         // Title bar
         // ===============================================================
         public const float TitleBarHeight = 28f;
-        public const string GamepadIconPath = "SteamInput/Textures/gamepad_icon";
-        public const int GamepadIconSize = 18;
-        public const float IconTitleGap = 6f;
-
-
+        public const float TitleBarSeparatorHeight = 1f;
+        public const string TitleBarGamepadIconPath = "SteamInput/Textures/gamepad_icon";
+        public static readonly Color TitleBarTitleColor = new Color(232f / 255f, 232f / 255f, 232f / 255f);
+        public static readonly Color TitleBarSeparatorColor = new Color(68f / 255f, 68f / 255f, 68f / 255f);
 
         
+        public const float IconTitleGap = 6f;
         public static readonly Color Header = new Color(46f / 255f, 46f / 255f, 46f / 255f);
         public static readonly Color TitleText = new Color(232f / 255f, 232f / 255f, 232f / 255f);
         public static readonly Color Label = new Color(204f / 255f, 204f / 255f, 204f / 255f);

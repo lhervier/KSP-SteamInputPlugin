@@ -67,6 +67,8 @@ namespace com.github.lhervier.ksp.ui.ugui
                 windowImage.sprite = SpritesPopupDialog.WindowChromeSprite;
                 windowImage.type = Image.Type.Sliced;
                 windowImage.color = Color.white;
+
+                // Raycast to prevent mouse event to be sent to the game
                 windowImage.raycastTarget = true;
             }
 
@@ -80,7 +82,7 @@ namespace com.github.lhervier.ksp.ui.ugui
 
                 image.sprite = SpritesGlobal.FillSprite;
                 image.type = Image.Type.Simple;
-                image.color = SteamInputPalette.Body;
+                image.color = SteamInputPalette.BodyColor;
             }
 
             return popupDialog;

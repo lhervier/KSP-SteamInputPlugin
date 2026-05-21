@@ -23,9 +23,9 @@ namespace com.github.lhervier.ksp.ui.imgui
             this.viewModel = viewModel;
             this.onClose = onClose;
             this.gamepadIcon = new SteamInputIcon(
-                SteamInputPalette.GamepadIconPath, 
-                SteamInputPalette.GamepadIconSize, 
-                SteamInputPalette.GamepadIconSize
+                SteamInputPalette.TitleBarGamepadIconPath, 
+                SteamInputPalette.DefaultIconSize, 
+                SteamInputPalette.DefaultIconSize
             );
             this.zonesMenuUI = new ZonesMenuUI();
         }
@@ -41,7 +41,7 @@ namespace com.github.lhervier.ksp.ui.imgui
 
             DrawVerticallyCentered(
                 () => gamepadIcon.Draw(), 
-                SteamInputPalette.GamepadIconSize
+                SteamInputPalette.DefaultIconSize
             );
 
             GUILayout.Space(SteamInputPalette.IconTitleGap);

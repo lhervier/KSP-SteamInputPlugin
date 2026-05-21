@@ -21,9 +21,9 @@ namespace com.github.lhervier.ksp.ui.styles
         {
             return new SteamInputStyleTextures
             {
-                Body = MakeTexture(SteamInputPalette.Body),
+                Body = MakeTexture(SteamInputPalette.BodyColor),
                 Header = MakeTexture(SteamInputPalette.Header),
-                Border = MakeTexture(SteamInputPalette.Border),
+                Border = MakeTexture(SteamInputPalette.BorderColor),
                 Button = MakeTexture(SteamInputPalette.Button),
                 FieldBackground = MakeTexture(SteamInputPalette.FieldBackground),
                 ButtonHover = MakeTexture(SteamInputPalette.ButtonHover),

@@ -23,7 +23,7 @@ namespace com.github.lhervier.ksp.ui.ugui.styles
                 }
 
                 var tex = GameDatabase.Instance.GetTexture(
-                    SteamInputPalette.GamepadIconPath, 
+                    SteamInputPalette.TitleBarGamepadIconPath, 
                     false
                 );
                 if (tex == null)
