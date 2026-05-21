@@ -1,4 +1,3 @@
-using ClickThroughFix;
 using UnityEngine;
 using KSP.UI.Screens;
 using System;
@@ -126,10 +125,10 @@ namespace com.github.lhervier.ksp.ui
             SteamInputStyles.EnsureInitialized();
 
             windowRect.width = SteamInputStyles.WindowWidth;
-            windowRect = ClickThruBlocker.GUILayoutWindow(
-                WINDOW_ID,
-                windowRect,
-                DrawWindow,
+            windowRect = GUILayout.Window(
+                WINDOW_ID, 
+                windowRect, 
+                DrawWindow, 
                 string.Empty,
                 SteamInputStyles.Window
             );

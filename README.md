@@ -37,7 +37,6 @@ To view logs in near real time, open the debug console (**Alt+F12**), go to **De
 - Linux or Windows 10 or later
 - Steam client installed and running
 - Kerbal Space Program 1.12 (Steam build)
-- [Click Through Blocker](https://forum.kerbalspaceprogram.com/topic/170747-112x-click-through-blocker-new-dependency/) (prevents clicks on the cheat sheet window from reaching the game UI underneath)
 - A Steam Input–compatible controller with **back buttons** (or equivalent), for the bundled layouts:
   - Steam Controller (v1)
   - Steam Controller (v2)
