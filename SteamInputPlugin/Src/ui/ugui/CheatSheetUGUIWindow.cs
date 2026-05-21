@@ -29,9 +29,9 @@ namespace com.github.lhervier.ksp.ui.ugui
             {
                 _popupDialog = CreatePopupDialog();
                 if( _popupDialog == null ) return;
-                
-                AddTitleBar(_popupDialog);
                 CheatSheetUGUIChrome.Apply(_popupDialog);
+
+                AddTitleBar(_popupDialog);
             }
 
             _popupDialog.gameObject.SetActive(true);
@@ -87,6 +87,14 @@ namespace com.github.lhervier.ksp.ui.ugui
                 return null;
             }
             popupDialog.onDestroy.AddListener(new UnityAction(() => OnPopupDestroy()));
+
+            // Remove KSP default title
+            var title = popupDialog.popupWindow.transform.Find("Title");
+            if (title != null)
+            {
+                title.gameObject.SetActive(false);
+            }
+
             return popupDialog;
         }
 
