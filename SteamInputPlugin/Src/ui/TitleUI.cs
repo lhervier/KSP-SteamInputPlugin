@@ -38,14 +38,19 @@ namespace com.github.lhervier.ksp.ui
         {
             GUILayout.BeginHorizontal(SteamInputStyles.HeaderBar, GUILayout.Height(SteamInputStyles.TitleBarHeight));
 
-            DrawVerticallyCentered(() => gamepadIcon.Draw(), GamepadIconSize);
+            DrawVerticallyCentered(
+                () => gamepadIcon.Draw(), 
+                GamepadIconSize
+            );
 
             GUILayout.Space(IconTitleGap);
 
             DrawVerticallyCentered(
                 () => GUILayout.Label(
                     ModLocalization.GetString("SteamInput_titleHelp"),
-                    SteamInputStyles.Title));
+                    SteamInputStyles.Title
+                )
+            );
 
             GUILayout.FlexibleSpace();
 
@@ -56,8 +61,10 @@ namespace com.github.lhervier.ksp.ui
                     badgeContent,
                     SteamInputStyles.ActionSetBadge,
                     GUILayout.Width(badgeSize.x),
-                    GUILayout.Height(badgeSize.y)),
-                badgeSize.x);
+                    GUILayout.Height(badgeSize.y)
+                ),
+                badgeSize.x
+            );
 
             var controllerName = viewModel.GetGamepadLabel();
             if (!string.IsNullOrEmpty(controllerName))
