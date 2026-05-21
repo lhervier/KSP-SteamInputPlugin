@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using com.github.lhervier.ksp.ui.styles;
 using UnityEngine.Events;
+using com.github.lhervier.ksp.ui.ugui.styles;
 
 namespace com.github.lhervier.ksp.ui.ugui
 {
@@ -63,7 +64,7 @@ namespace com.github.lhervier.ksp.ui.ugui
             var windowImage = windowGo.GetComponent<Image>();
             if (windowImage != null)
             {
-                windowImage.sprite = CheatSheetUGUIChrome.WindowChromeSprite;
+                windowImage.sprite = SpritesPopupDialog.WindowChromeSprite;
                 windowImage.type = Image.Type.Sliced;
                 windowImage.color = Color.white;
                 windowImage.raycastTarget = true;
@@ -77,7 +78,7 @@ namespace com.github.lhervier.ksp.ui.ugui
                     continue;
                 }
 
-                image.sprite = CheatSheetUGUIChrome.FillSprite;
+                image.sprite = SpritesGlobal.FillSprite;
                 image.type = Image.Type.Simple;
                 image.color = SteamInputPalette.Body;
             }
