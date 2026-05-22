@@ -15,12 +15,16 @@ namespace com.github.lhervier.ksp.ui
         private bool _showLoggingIcon = false;
         private string _controllerConfigName = "";
         private LogLevel _logLevel = LogLevel.Info;
+        
         private string _actionGroupLabel = "";
+        public EventData<string> OnActionGroupLabelChanged = new EventData<string>("SteamInput.ActionGroupLabelChanged");
+        
         private string _gamepadLabel = "";
         private bool _gamepadConnected = false;
         private List<string> _activatedContexts = new List<string>();
         private List<UIPhysicalZone> _physicalZones = new List<UIPhysicalZone>();
 
+        
         private GamepadConfigDaemon _gamepadConfigDaemon;
         private ActionGroupDaemon _actionGroupDaemon;
         private GamepadDaemon _gamepadDaemon;
@@ -199,17 +203,20 @@ namespace com.github.lhervier.ksp.ui
             if( currentActionGroup == ActionGroup.None )
             {
                 this._actionGroupLabel = "—";
-                return;
-            }
-            Dictionary<string, object> actionData = this._gamepadConfigDaemon.GetAction(currentActionGroup);
-            if( actionData.TryGetValue("title", out object title) && title is string titleString )
-            {
-                this._actionGroupLabel = titleString.ToUpperInvariant();
             }
             else
             {
-                this._actionGroupLabel = currentActionGroup.ToString().ToUpperInvariant();
+                Dictionary<string, object> actionData = this._gamepadConfigDaemon.GetAction(currentActionGroup);
+                if( actionData.TryGetValue("title", out object title) && title is string titleString )
+                {
+                    this._actionGroupLabel = titleString.ToUpperInvariant();
+                }
+                else
+                {
+                    this._actionGroupLabel = currentActionGroup.ToString().ToUpperInvariant();
+                }
             }
+            this.OnActionGroupLabelChanged.Fire(this._actionGroupLabel);
         }
 
         private void RefreshPhysicalZones()
