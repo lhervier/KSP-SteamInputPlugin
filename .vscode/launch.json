@@ -4,7 +4,7 @@
 		{
             "type": "node",
             "request": "launch",
-            "name": "All controllers",
+            "name": "Build all controllers",
             "skipFiles": [
                 "<node_internals>/**"
             ],
@@ -20,7 +20,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Game Actions",
+            "name": "Build Game Actions",
             "skipFiles": [
                 "<node_internals>/**"
             ],
@@ -35,7 +35,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Steam Controller",
+            "name": "Build Steam Controller",
             "skipFiles": [
                 "<node_internals>/**"
             ],
@@ -51,7 +51,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Steam Controller V2",
+            "name": "Build Steam Controller V2",
             "skipFiles": [
                 "<node_internals>/**"
             ],
@@ -67,7 +67,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Hori Steampad",
+            "name": "Build Horipad Steam",
             "skipFiles": [
                 "<node_internals>/**"
             ],
@@ -83,7 +83,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "XBox Elite",
+            "name": "Build XBox Elite",
             "skipFiles": [
                 "<node_internals>/**"
             ],
@@ -99,7 +99,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "PS4",
+            "name": "Build PS4",
             "skipFiles": [
                 "<node_internals>/**"
             ],
