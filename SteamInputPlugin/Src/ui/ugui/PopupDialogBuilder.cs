@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using com.github.lhervier.ksp.ui.styles;
 using UnityEngine.Events;
 using com.github.lhervier.ksp.ui.ugui.styles;
+using com.github.lhervier.ksp.ui.ugui.titleBar;
 
 namespace com.github.lhervier.ksp.ui.ugui
 {
