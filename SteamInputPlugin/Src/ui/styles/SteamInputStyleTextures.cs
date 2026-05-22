@@ -36,14 +36,16 @@ namespace com.github.lhervier.ksp.ui.styles
             };
         }
 
-        public static Texture2D MakeBorderTexture(Color fill, Color border)
+        public static Texture2D MakeBorderTexture(Color fill, Color border, int thickness)
         {
-            var tex = new Texture2D(3, 3, TextureFormat.RGBA32, false);
-            for (var y = 0; y < 3; y++)
+            var size = 2 * thickness + 1;
+            var tex = new Texture2D(size, size, TextureFormat.RGBA32, false);
+            for (var y = 0; y < size; y++)
             {
-                for (var x = 0; x < 3; x++)
+                for (var x = 0; x < size; x++)
                 {
-                    var isBorder = x == 0 || x == 2 || y == 0 || y == 2;
+                    var isBorder = x < thickness || x >= size - thickness
+                                || y < thickness || y >= size - thickness;
                     tex.SetPixel(x, y, isBorder ? border : fill);
                 }
             }

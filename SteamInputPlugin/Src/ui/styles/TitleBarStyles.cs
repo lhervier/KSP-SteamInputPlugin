@@ -32,7 +32,8 @@ namespace com.github.lhervier.ksp.ui.styles
             ActionSetBadge.normal.textColor = SteamInputPalette.Accent;
             ActionSetBadge.normal.background = SteamInputStyleTextures.MakeBorderTexture(
                 Color.clear,
-                SteamInputPalette.BadgeBorder);
+                SteamInputPalette.BadgeBorder,
+                (int)SteamInputPalette.BadgeBorderThickness);
 
             ControllerName = new GUIStyle(GUI.skin.label)
             {
