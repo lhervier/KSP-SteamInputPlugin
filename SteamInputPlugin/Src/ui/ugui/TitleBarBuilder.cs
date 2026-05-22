@@ -264,6 +264,10 @@ namespace com.github.lhervier.ksp.ui.ugui
             label.verticalOverflow = VerticalWrapMode.Overflow;
             label.raycastTarget = false;
 
+            // Push the current action group label and react to changes via the ViewModel event
+            var binder = go.AddComponent<GamepadLabelBinder>();
+            binder.Bind(this._viewModel, label);
+            
             return go;
         }
 
@@ -349,6 +353,38 @@ namespace com.github.lhervier.ksp.ui.ugui
             public void OnDestroy()
             {
                 this._viewModel?.OnActionGroupLabelChanged.Remove(OnLabelChanged);
+            }
+
+            private void OnLabelChanged(string value)
+            {
+                if (this._label != null)
+                {
+                    this._label.text = value;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Pushes the gamepad label from the ViewModel into a Text component.
+        /// Subscribes on Bind, unsubscribes on OnDestroy.
+        /// </summary>
+        private class GamepadLabelBinder : MonoBehaviour
+        {
+            private CheatSheetViewModel _viewModel;
+            private Text _label;
+
+            public void Bind(CheatSheetViewModel viewModel, Text label)
+            {
+                this._viewModel = viewModel;
+                this._label = label;
+
+                this._viewModel.OnGamepadLabelChanged.Add(OnLabelChanged);
+                OnLabelChanged(this._viewModel.GamepadLabel);
+            }
+
+            public void OnDestroy()
+            {
+                this._viewModel?.OnGamepadLabelChanged.Remove(OnLabelChanged);
             }
 
             private void OnLabelChanged(string value)
