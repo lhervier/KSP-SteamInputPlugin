@@ -11,20 +11,47 @@ namespace com.github.lhervier.ksp.ui
     {
         private static readonly SteamInputLogger LOGGER = new SteamInputLogger("CheatSheetViewModel");
         
+        public string LastConfigError => _lastConfigLoadError;
         private string _lastConfigLoadError = "";
+
+        public bool ShowLoggingIcon
+        {
+            get => _showLoggingIcon;
+            set => SteamInputGlobalSettings.SetShowLoggingIcon(value);
+        }
         private bool _showLoggingIcon = false;
+
+
+        public string ControllerConfigName
+        {
+            get => _controllerConfigName;
+            set => SteamInputGlobalSettings.SetControllerConfigName(value);
+        }
         private string _controllerConfigName = "";
+
+        public LogLevel LogLevel
+        {
+            get => _logLevel;
+            set => SteamInputGlobalSettings.SetLogLevel(value);
+        }
         private LogLevel _logLevel = LogLevel.Info;
         
         private string _actionGroupLabel = "";
+        public string ActionGroupLabel => _actionGroupLabel;
         public EventData<string> OnActionGroupLabelChanged = new EventData<string>("SteamInput.ActionGroupLabelChanged");
         
+        public string GamepadLabel => _gamepadLabel;
         private string _gamepadLabel = "";
+
+        public bool GamepadConnected => _gamepadConnected;
         private bool _gamepadConnected = false;
+
+        public List<string> ActivatedContexts => new List<string>(_activatedContexts);
         private List<string> _activatedContexts = new List<string>();
+        
+        public List<UIPhysicalZone> PhysicalZones => new List<UIPhysicalZone>(_physicalZones);
         private List<UIPhysicalZone> _physicalZones = new List<UIPhysicalZone>();
 
-        
         private GamepadConfigDaemon _gamepadConfigDaemon;
         private ActionGroupDaemon _actionGroupDaemon;
         private GamepadDaemon _gamepadDaemon;
@@ -245,68 +272,6 @@ namespace com.github.lhervier.ksp.ui
         public void CloseWindow()
         {
             this._onClose?.Invoke();
-        }
-
-        public string getLastError()
-        {
-            return this._lastConfigLoadError;
-        }
-
-        public bool GetShowLoggingIcon()
-        {
-            return this._showLoggingIcon;
-        }
-
-        public string GetControllerConfigName()
-        {
-            return this._controllerConfigName;
-        }
-
-        public LogLevel GetLogLevel()
-        {
-            return this._logLevel;
-        }
-
-        public bool GetGamepadConnected()
-        {
-            return this._gamepadConnected;
-        }
-
-        public List<string> GetActivatedContexts()
-        {
-            return this._activatedContexts;
-        }
-
-        public string GetActionGroupLabel()
-        {
-            return this._actionGroupLabel;
-        }
-
-        public string GetGamepadLabel()
-        {
-            return this._gamepadLabel;
-        }
-
-        public List<UIPhysicalZone> GetPhysicalZones()
-        {
-            return this._physicalZones;
-        }
-
-        // =======================================================================
-
-        public void SetShowLoggingIcon(bool showLoggingIcon)
-        {
-            SteamInputGlobalSettings.SetShowLoggingIcon(showLoggingIcon);
-        }
-
-        public void SetControllerConfigName(string controllerConfigName)
-        {
-            SteamInputGlobalSettings.SetControllerConfigName(controllerConfigName);
-        }
-
-        public void SetLogLevel(LogLevel logLevel)
-        {
-            SteamInputGlobalSettings.SetLogLevel(logLevel);
         }
     }
 }

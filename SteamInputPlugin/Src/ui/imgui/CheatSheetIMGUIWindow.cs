@@ -25,7 +25,7 @@ namespace com.github.lhervier.ksp.ui.imgui
             titleUI = new TitleUI(viewModel, onWindowClosedFromUI);
             physicalZonesUI = new PhysicalZonesUI(viewModel);
 
-            controllerConfigNameBuffer = viewModel.GetControllerConfigName();
+            controllerConfigNameBuffer = viewModel.ControllerConfigName;
         }
 
         public void Destroy()
@@ -87,7 +87,7 @@ namespace com.github.lhervier.ksp.ui.imgui
         {
             GUILayout.Label(ModLocalization.GetString("SteamInput_settings"), SteamInputStyles.MutedLabel);
 
-            bool showIcon = viewModel.GetShowLoggingIcon();
+            bool showIcon = viewModel.ShowLoggingIcon;
             bool newShowIcon = GUILayout.Toggle(
                 showIcon,
                 ModLocalization.GetString("SteamInput_showLoggingIcon"),
@@ -95,7 +95,7 @@ namespace com.github.lhervier.ksp.ui.imgui
             );
             if (newShowIcon != showIcon)
             {
-                viewModel.SetShowLoggingIcon(newShowIcon);
+                viewModel.ShowLoggingIcon = newShowIcon;
             }
 
             GUILayout.Space(4);
@@ -104,10 +104,10 @@ namespace com.github.lhervier.ksp.ui.imgui
             if (newName != controllerConfigNameBuffer)
             {
                 controllerConfigNameBuffer = newName;
-                viewModel.SetControllerConfigName(newName);
+                viewModel.ControllerConfigName = newName;
             }
 
-            var vdfError = viewModel.getLastError();
+            var vdfError = viewModel.LastConfigError;
             if (!string.IsNullOrEmpty(vdfError))
             {
                 GUILayout.Label(vdfError, SteamInputStyles.ErrorLabel);
@@ -117,14 +117,14 @@ namespace com.github.lhervier.ksp.ui.imgui
         private void DrawCurrentActionSet()
         {
             GUILayout.Label(ModLocalization.GetString("SteamInput_currentActionSet"), SteamInputStyles.Label);
-            var actionGroupLabel = viewModel.GetActionGroupLabel();
+            var actionGroupLabel = viewModel.ActionGroupLabel;
             GUILayout.Label(actionGroupLabel, SteamInputStyles.AccentLabel);
         }
 
         private void DrawControllerConnected() 
         {
             GUILayout.Label(ModLocalization.GetString("SteamInput_controllerConnected"), SteamInputStyles.Label);
-            bool connected = viewModel.GetGamepadConnected();
+            bool connected = viewModel.GamepadConnected;
             GUILayout.Label(
                 connected
                     ? ModLocalization.GetString("SteamInput_yes")
@@ -135,7 +135,7 @@ namespace com.github.lhervier.ksp.ui.imgui
         private void DrawActivatedContexts()
         {
             GUILayout.Label(ModLocalization.GetString("SteamInput_activatedContexts"));
-            foreach (string context in viewModel.GetActivatedContexts())
+            foreach (string context in viewModel.ActivatedContexts)
             {
                 string contextName;
                 if( context.EndsWith("CtxDaemon") ) {
@@ -151,7 +151,7 @@ namespace com.github.lhervier.ksp.ui.imgui
         {
             GUILayout.Label(ModLocalization.GetString("SteamInput_logLevel"), SteamInputStyles.Label);
             GUILayout.BeginHorizontal();
-            if (GUILayout.Button(viewModel.GetLogLevel().ToString(), SteamInputStyles.MenuButton))
+            if (GUILayout.Button(viewModel.LogLevel.ToString(), SteamInputStyles.MenuButton))
             {
                 showLogLevelMenu = !showLogLevelMenu;
             }
@@ -164,7 +164,7 @@ namespace com.github.lhervier.ksp.ui.imgui
                 {
                     if (GUILayout.Button("=> " + level, SteamInputStyles.MenuButton))
                     {
-                        viewModel.SetLogLevel(level);
+                        viewModel.LogLevel = level;
                         showLogLevelMenu = false;
                     }
                 }

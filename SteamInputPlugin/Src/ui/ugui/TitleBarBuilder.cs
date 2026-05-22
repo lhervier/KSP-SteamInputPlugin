@@ -339,15 +339,12 @@ namespace com.github.lhervier.ksp.ui.ugui
                 this._label = label;
 
                 this._viewModel.OnActionGroupLabelChanged.Add(OnLabelChanged);
-                OnLabelChanged(this._viewModel.GetActionGroupLabel());
+                OnLabelChanged(this._viewModel.ActionGroupLabel);
             }
 
             public void OnDestroy()
             {
-                if (this._viewModel != null)
-                {
-                    this._viewModel.OnActionGroupLabelChanged.Remove(OnLabelChanged);
-                }
+                this._viewModel?.OnActionGroupLabelChanged.Remove(OnLabelChanged);
             }
 
             private void OnLabelChanged(string value)

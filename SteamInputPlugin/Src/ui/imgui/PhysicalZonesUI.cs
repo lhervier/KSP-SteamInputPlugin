@@ -20,7 +20,7 @@ namespace com.github.lhervier.ksp.ui.imgui
 
         public void Draw()
         {
-            List<UIPhysicalZone> zones = viewModel.GetPhysicalZones();
+            List<UIPhysicalZone> zones = viewModel.PhysicalZones;
             if (zones == null || zones.Count == 0)
             {
                 return;

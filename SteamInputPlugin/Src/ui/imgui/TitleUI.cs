@@ -55,7 +55,7 @@ namespace com.github.lhervier.ksp.ui.imgui
 
             GUILayout.FlexibleSpace();
 
-            var badgeContent = new GUIContent(viewModel.GetActionGroupLabel());
+            var badgeContent = new GUIContent(viewModel.ActionGroupLabel);
             var badgeSize = SteamInputStyles.ActionSetBadge.CalcSize(badgeContent);
             DrawVerticallyCentered(
                 () => GUILayout.Label(
@@ -67,7 +67,7 @@ namespace com.github.lhervier.ksp.ui.imgui
                 badgeSize.x
             );
 
-            var controllerName = viewModel.GetGamepadLabel();
+            var controllerName = viewModel.GamepadLabel;
             if (!string.IsNullOrEmpty(controllerName))
             {
                 GUILayout.Space(BadgeControllerGap);
