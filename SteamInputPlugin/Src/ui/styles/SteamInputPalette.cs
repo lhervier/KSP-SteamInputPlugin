@@ -17,11 +17,11 @@ namespace com.github.lhervier.ksp.ui.styles
         public const float DefaultButtonSize = 18f;
 
         // ===============================================================
-        // Window
+        // Main Window
         // ===============================================================
         public const float WindowWidth = 400f;
-        public static readonly Color BodyColor = new Color(20f / 255f, 20f / 255f, 20f / 255f);
-        public static readonly Color BorderColor = new Color(85f / 255f, 85f / 255f, 85f / 255f);
+        public static readonly Color WindowBodyColor = new Color(20f / 255f, 20f / 255f, 20f / 255f);
+        public static readonly Color WindowBorderColor = new Color(85f / 255f, 85f / 255f, 85f / 255f);
         
         // ===============================================================
         // Title bar

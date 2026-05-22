@@ -82,7 +82,7 @@ namespace com.github.lhervier.ksp.ui.ugui
 
                 image.sprite = SpritesGlobal.FillSprite;
                 image.type = Image.Type.Simple;
-                image.color = SteamInputPalette.BodyColor;
+                image.color = SteamInputPalette.WindowBodyColor;
             }
 
             return popupDialog;

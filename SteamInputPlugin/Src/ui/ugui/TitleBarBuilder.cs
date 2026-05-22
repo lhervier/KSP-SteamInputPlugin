@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using com.github.lhervier.ksp.ui.styles;
 using com.github.lhervier.ksp.ui.ugui.styles;
 using UnityEngine.Events;
@@ -254,7 +255,7 @@ namespace com.github.lhervier.ksp.ui.ugui
             var colors = button.colors;
             colors.normalColor = SteamInputPalette.Button;
             colors.highlightedColor = SteamInputPalette.ButtonHover;
-            colors.pressedColor = SteamInputPalette.ButtonHover;
+            colors.pressedColor = SteamInputPalette.Button;
             colors.selectedColor = SteamInputPalette.Button;
             colors.colorMultiplier = 1f;
             colors.fadeDuration = 0.1f;
@@ -271,13 +272,22 @@ namespace com.github.lhervier.ksp.ui.ugui
             labelRect.offsetMax = Vector2.zero;
 
             var label = labelGo.AddComponent<Text>();
-            label.text = "X";
+            label.text = "×";
             label.font = HighLogic.UISkin.font;
-            label.fontSize = 12;
-            label.fontStyle = FontStyle.Bold;
+            label.fontSize = 13;
             label.color = SteamInputPalette.ButtonText;
             label.alignment = TextAnchor.MiddleCenter;
             label.raycastTarget = false;
+
+            // Button.colors only tints the targetGraphic (the background); replicate IMGUI's text
+            // color swap (ButtonText → white on hover) via an EventTrigger on the same GameObject.
+            var trigger = buttonGo.AddComponent<EventTrigger>();
+            var enterEntry = new EventTrigger.Entry { eventID = EventTriggerType.PointerEnter };
+            enterEntry.callback.AddListener(_ => label.color = Color.white);
+            trigger.triggers.Add(enterEntry);
+            var exitEntry = new EventTrigger.Entry { eventID = EventTriggerType.PointerExit };
+            exitEntry.callback.AddListener(_ => label.color = SteamInputPalette.ButtonText);
+            trigger.triggers.Add(exitEntry);
 
             return buttonGo;
         }

@@ -18,8 +18,8 @@ namespace com.github.lhervier.ksp.ui.ugui.styles
                 }
 
                 var tex = SteamInputStyleTextures.MakeBorderTexture(
-                    SteamInputPalette.BodyColor,
-                    SteamInputPalette.BorderColor
+                    SteamInputPalette.WindowBodyColor,
+                    SteamInputPalette.WindowBorderColor
                 );
                 _windowChromeSprite = Sprite.Create(
                     tex,

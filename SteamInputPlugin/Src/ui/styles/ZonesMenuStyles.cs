@@ -37,7 +37,7 @@ namespace com.github.lhervier.ksp.ui.styles
             };
             Panel.normal.background = SteamInputStyleTextures.MakeBorderTexture(
                 SteamInputPalette.ZonesMenuBackground,
-                SteamInputPalette.BorderColor);
+                SteamInputPalette.WindowBorderColor);
 
             Title = new GUIStyle(GUI.skin.label)
             {
