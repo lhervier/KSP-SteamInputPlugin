@@ -1,3 +1,4 @@
+using System;
 using com.github.lhervier.ksp.ui.styles;
 using UnityEngine;
 using UnityEngine.Events;
@@ -17,6 +18,14 @@ namespace com.github.lhervier.ksp.ui.ugui
         private const float ScreenYFromTop = 20f;
 
         private PopupDialog _popupDialog = null;
+        private CheatSheetViewModel _viewModel;
+        private Action _onWindowClosedFromUI;
+
+        public void Initialize(CheatSheetViewModel viewModel, Action onWindowClosedFromUI)
+        {
+            _viewModel = viewModel;
+            _onWindowClosedFromUI = onWindowClosedFromUI;
+        }
 
         // ===============================================================
         // Public API
@@ -68,7 +77,10 @@ namespace com.github.lhervier.ksp.ui.ugui
 
         private void AddTitleBar(PopupDialog popupDialog)
         {
-            GameObject titleBarGo = TitleBarBuilder.Create(TITLEBAR_OBJECT_NAME);
+            GameObject titleBarGo = TitleBarBuilder.Create(
+                TITLEBAR_OBJECT_NAME,
+                () => _onWindowClosedFromUI()
+            );
             titleBarGo.transform.SetParent(popupDialog.popupWindow.transform, false);
         }
     }

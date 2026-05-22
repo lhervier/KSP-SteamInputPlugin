@@ -38,6 +38,7 @@ namespace com.github.lhervier.ksp.ui
             imguiWindow.Initialize(viewModel, () => OnWindowClosedFromUI());
             
             uguiWindow = new CheatSheetUGUIWindow();
+            uguiWindow.Initialize(viewModel, () => OnWindowClosedFromUI());
 
             LOGGER.LogInfo("Start: Started");
         }

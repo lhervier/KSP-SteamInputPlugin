@@ -14,6 +14,7 @@ namespace com.github.lhervier.ksp.ui.styles
         public const float DefaultPaddingBottom = 5f;
         public const float DefaultSpacing = 6f;
         public const int DefaultIconSize = 18;
+        public const float DefaultButtonSize = 18f;
 
         // ===============================================================
         // Window

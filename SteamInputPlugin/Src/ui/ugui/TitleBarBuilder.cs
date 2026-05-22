@@ -2,13 +2,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using com.github.lhervier.ksp.ui.styles;
 using com.github.lhervier.ksp.ui.ugui.styles;
+using UnityEngine.Events;
 
 namespace com.github.lhervier.ksp.ui.ugui
 {
     public class TitleBarBuilder
     {
         
-        public static GameObject Create(string objectName)
+        public static GameObject Create(
+            string objectName,
+            UnityAction onClose
+        )
         {
             var titleBarGo = new GameObject(objectName, typeof(RectTransform));
 
@@ -34,7 +38,7 @@ namespace com.github.lhervier.ksp.ui.ugui
             GameObject separatorGo = CreateSeparator("BottomBorder");
             separatorGo.transform.SetParent(titleBarGo.transform, false);
 
-            GameObject rootGo = CreateRoot("Root");
+            GameObject rootGo = CreateRoot("Root", onClose);
             rootGo.transform.SetParent(titleBarGo.transform, false);
 
             return titleBarGo;
@@ -62,7 +66,7 @@ namespace com.github.lhervier.ksp.ui.ugui
             return separatorGo;
         }
 
-        public static GameObject CreateRoot(string objectName)
+        public static GameObject CreateRoot(string objectName, UnityAction onClose)
         {
             var rootGo = new GameObject(objectName, typeof(RectTransform));
 
@@ -93,7 +97,7 @@ namespace com.github.lhervier.ksp.ui.ugui
             var leftRow = CreateLeftRow("LeftRow");
             leftRow.transform.SetParent(rootGo.transform, false);
 
-            var rightRow = CreateRightRow("RightRow");
+            var rightRow = CreateRightRow("RightRow", onClose);
             rightRow.transform.SetParent(rootGo.transform, false);
 
             return rootGo;
@@ -175,7 +179,7 @@ namespace com.github.lhervier.ksp.ui.ugui
         // Right row
         // ====================================================
 
-        private static GameObject CreateRightRow(string objectName)
+        private static GameObject CreateRightRow(string objectName, UnityAction onClose)
         {
             var rightRowGo = new GameObject(objectName, typeof(RectTransform));
 
@@ -194,7 +198,7 @@ namespace com.github.lhervier.ksp.ui.ugui
             var controllerGo = CreateGamepadNameLabel("Controller");
             controllerGo.transform.SetParent(rightRowGo.transform, false);
 
-            var closeGo = CreateCloseButton("Close");
+            var closeGo = CreateCloseButton("Close", onClose);
             closeGo.transform.SetParent(rightRowGo.transform, false);
 
             return rightRowGo;
@@ -226,17 +230,56 @@ namespace com.github.lhervier.ksp.ui.ugui
             return go;
         }
 
-        private static GameObject CreateCloseButton(string objectName)
+        private static GameObject CreateCloseButton(string objectName, UnityAction onClose)
         {
-            var go = new GameObject(objectName, typeof(RectTransform));
+            var buttonGo = new GameObject(objectName, typeof(RectTransform));
 
-            var label = go.AddComponent<Text>();
+            // Fixed square size; parent's HorizontalLayoutGroup has childControl* = true so it reads these
+            var layoutElement = buttonGo.AddComponent<LayoutElement>();
+            layoutElement.preferredWidth = SteamInputPalette.DefaultButtonSize;
+            layoutElement.preferredHeight = SteamInputPalette.DefaultButtonSize;
+            layoutElement.minWidth = SteamInputPalette.DefaultButtonSize;
+            layoutElement.minHeight = SteamInputPalette.DefaultButtonSize;
+
+            // White background fill so the Button's color tint applies as-is (no multiplication)
+            var image = buttonGo.AddComponent<Image>();
+            image.sprite = SpritesGlobal.FillSprite;
+            image.type = Image.Type.Simple;
+            image.color = Color.white;
+            image.raycastTarget = true;
+
+            // Button: hover/press color transitions on the background, plus the click handler
+            var button = buttonGo.AddComponent<Button>();
+            button.targetGraphic = image;
+            var colors = button.colors;
+            colors.normalColor = SteamInputPalette.Button;
+            colors.highlightedColor = SteamInputPalette.ButtonHover;
+            colors.pressedColor = SteamInputPalette.ButtonHover;
+            colors.selectedColor = SteamInputPalette.Button;
+            colors.colorMultiplier = 1f;
+            colors.fadeDuration = 0.1f;
+            button.colors = colors;
+            button.onClick.AddListener(onClose);
+
+            // The "X" label, centered in the button
+            var labelGo = new GameObject("Label", typeof(RectTransform));
+            labelGo.transform.SetParent(buttonGo.transform, false);
+            var labelRect = labelGo.GetComponent<RectTransform>();
+            labelRect.anchorMin = Vector2.zero;
+            labelRect.anchorMax = Vector2.one;
+            labelRect.offsetMin = Vector2.zero;
+            labelRect.offsetMax = Vector2.zero;
+
+            var label = labelGo.AddComponent<Text>();
             label.text = "X";
             label.font = HighLogic.UISkin.font;
-            label.color = Color.white;
+            label.fontSize = 12;
+            label.fontStyle = FontStyle.Bold;
+            label.color = SteamInputPalette.ButtonText;
+            label.alignment = TextAnchor.MiddleCenter;
             label.raycastTarget = false;
 
-            return go;
+            return buttonGo;
         }
     }
 }
