@@ -98,7 +98,7 @@ namespace com.github.lhervier.ksp.ui.ugui
             }
 
             // Add the title bar
-            GameObject titleBarGo = this._titleBarBuilder.CreateGameObject();
+            GameObject titleBarGo = this._titleBarBuilder.Create();
             titleBarGo.transform.SetParent(popupDialog.popupWindow.transform, false);
 
             return popupDialog;
