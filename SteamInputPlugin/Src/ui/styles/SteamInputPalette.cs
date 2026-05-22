@@ -20,6 +20,7 @@ namespace com.github.lhervier.ksp.ui.styles
         // Main Window
         // ===============================================================
         public const float WindowWidth = 400f;
+        public const float WindowHeight = 320f;
         public const float WindowBorderThickness = 1f;
         public static readonly Color WindowBodyColor = new Color(20f / 255f, 20f / 255f, 20f / 255f);
         public static readonly Color WindowBorderColor = new Color(85f / 255f, 85f / 255f, 85f / 255f);

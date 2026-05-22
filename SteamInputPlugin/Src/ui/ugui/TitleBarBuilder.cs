@@ -9,14 +9,17 @@ namespace com.github.lhervier.ksp.ui.ugui
 {
     public class TitleBarBuilder
     {
-        
-        public static GameObject Create(
-            string objectName,
-            UnityAction onClose
-        )
-        {
-            var titleBarGo = new GameObject(objectName, typeof(RectTransform));
+        private CheatSheetViewModel _viewModel;
 
+        public TitleBarBuilder(CheatSheetViewModel viewModel)
+        {
+            this._viewModel = viewModel;
+        }
+
+        public GameObject CreateGameObject()
+        {
+            var titleBarGo = new GameObject("SteamInput.TitleBar", typeof(RectTransform));
+            
             // If the parent has a layout (and that's the case), forget about me, I will position elements myself.
             var titleBarLayout = titleBarGo.AddComponent<LayoutElement>();
             titleBarLayout.ignoreLayout = true;
@@ -37,18 +40,18 @@ namespace com.github.lhervier.ksp.ui.ugui
             headerImage.color = SteamInputPalette.Header;
             headerImage.raycastTarget = false;
 
-            GameObject separatorGo = CreateSeparator("BottomBorder");
+            GameObject separatorGo = CreateSeparator();
             separatorGo.transform.SetParent(titleBarGo.transform, false);
 
-            GameObject rootGo = CreateRoot("Root", onClose);
+            GameObject rootGo = CreateRoot();
             rootGo.transform.SetParent(titleBarGo.transform, false);
 
             return titleBarGo;
         }
 
-        public static GameObject CreateSeparator(string objectName)
+        public GameObject CreateSeparator()
         {
-            var separatorGo = new GameObject(objectName, typeof(RectTransform));
+            var separatorGo = new GameObject("SteamInput.TitleBar.Separator", typeof(RectTransform));
             
             // Stretched horizontally, positionned at the bottom of the parent
             var separatorRect = separatorGo.GetComponent<RectTransform>();
@@ -68,9 +71,9 @@ namespace com.github.lhervier.ksp.ui.ugui
             return separatorGo;
         }
 
-        public static GameObject CreateRoot(string objectName, UnityAction onClose)
+        public GameObject CreateRoot()
         {
-            var rootGo = new GameObject(objectName, typeof(RectTransform));
+            var rootGo = new GameObject("SteamInput.TitleBar.Root", typeof(RectTransform));
 
             // Full size of the parent = the title bar, minus the bottom separator
             var rootRect = rootGo.GetComponent<RectTransform>();
@@ -96,10 +99,10 @@ namespace com.github.lhervier.ksp.ui.ugui
             rootLayout.childForceExpandWidth = false;
             rootLayout.childForceExpandHeight = true;
 
-            var leftRow = CreateLeftRow("LeftRow");
+            var leftRow = CreateLeftColumn();
             leftRow.transform.SetParent(rootGo.transform, false);
 
-            var rightRow = CreateRightRow("RightRow", onClose);
+            var rightRow = CreateRightRow();
             rightRow.transform.SetParent(rootGo.transform, false);
 
             return rootGo;
@@ -109,9 +112,9 @@ namespace com.github.lhervier.ksp.ui.ugui
         // Left row
         // ===================================================
 
-        private static GameObject CreateLeftRow(string objectName)
+        private GameObject CreateLeftColumn()
         {
-            var leftRowGo = new GameObject(objectName, typeof(RectTransform));
+            var leftRowGo = new GameObject("SteamInput.TitleBar.LeftColumn", typeof(RectTransform));
 
             // Greedy on width so it consumes the leftover space and pushes the right row against the right edge
             var leftRowLayoutElement = leftRowGo.AddComponent<LayoutElement>();
@@ -126,18 +129,18 @@ namespace com.github.lhervier.ksp.ui.ugui
             leftRowLayout.childForceExpandWidth = false;
             leftRowLayout.childForceExpandHeight = false;
 
-            var iconGo = CreateIcon("GamepadIcon");
+            var iconGo = CreateIcon();
             iconGo.transform.SetParent(leftRowLayoutElement.transform, false);
 
-            var labelGo = CreateLabel("TitleLabel");
+            var labelGo = CreateLabel();
             labelGo.transform.SetParent(leftRowLayoutElement.transform, false);
 
             return leftRowGo;
         }
 
-        private static GameObject CreateIcon(string objectName)
+        private GameObject CreateIcon()
         {
-            var iconGo = new GameObject(objectName, typeof(RectTransform));
+            var iconGo = new GameObject("SteamInput.TitleBar.LeftColumn.Icon", typeof(RectTransform));
 
             // The icon itself
             var iconImage = iconGo.AddComponent<Image>();
@@ -159,9 +162,9 @@ namespace com.github.lhervier.ksp.ui.ugui
             return iconGo;
         }
 
-        private static GameObject CreateLabel(string gameObject)
+        private GameObject CreateLabel()
         {
-            var labelGo = new GameObject(gameObject, typeof(RectTransform));
+            var labelGo = new GameObject("SteamInput.TitleBar.LeftColumn.Label", typeof(RectTransform));
             
             var label = labelGo.AddComponent<Text>();
             label.text = ModLocalization.GetString("SteamInput_titleHelp").ToUpperInvariant();
@@ -181,9 +184,9 @@ namespace com.github.lhervier.ksp.ui.ugui
         // Right row
         // ====================================================
 
-        private static GameObject CreateRightRow(string objectName, UnityAction onClose)
+        private GameObject CreateRightRow()
         {
-            var rightRowGo = new GameObject(objectName, typeof(RectTransform));
+            var rightRowGo = new GameObject("SteamInput.TitleBar.RightColumn", typeof(RectTransform));
 
             // Horizontal layout containing the right-side placeholders, sized to their text content
             var rightRowLayout = rightRowGo.AddComponent<HorizontalLayoutGroup>();
@@ -194,21 +197,21 @@ namespace com.github.lhervier.ksp.ui.ugui
             rightRowLayout.childForceExpandWidth = false;
             rightRowLayout.childForceExpandHeight = false;
 
-            var actionGroupGo = CreateActionGroupLabel("ActionGroup");
+            var actionGroupGo = CreateActionGroupLabel();
             actionGroupGo.transform.SetParent(rightRowGo.transform, false);
 
-            var controllerGo = CreateGamepadNameLabel("Controller");
+            var controllerGo = CreateGamepadNameLabel();
             controllerGo.transform.SetParent(rightRowGo.transform, false);
 
-            var closeGo = CreateCloseButton("Close", onClose);
+            var closeGo = CreateCloseButton();
             closeGo.transform.SetParent(rightRowGo.transform, false);
 
             return rightRowGo;
         }
 
-        private static GameObject CreateActionGroupLabel(string objectName)
+        private GameObject CreateActionGroupLabel()
         {
-            var badgeGo = new GameObject(objectName, typeof(RectTransform));
+            var badgeGo = new GameObject("SteamInput.TitleBar.RightColumn.ActionGroup", typeof(RectTransform));
 
             // Sliced sprite: transparent fill with a green border
             var image = badgeGo.AddComponent<Image>();
@@ -244,9 +247,9 @@ namespace com.github.lhervier.ksp.ui.ugui
             return badgeGo;
         }
 
-        private static GameObject CreateGamepadNameLabel(string objectName)
+        private GameObject CreateGamepadNameLabel()
         {
-            var go = new GameObject(objectName, typeof(RectTransform));
+            var go = new GameObject("SteamInput.TitleBar.RightColumn.GamepadName", typeof(RectTransform));
 
             var label = go.AddComponent<Text>();
             label.text = "<gamepad>";
@@ -257,9 +260,9 @@ namespace com.github.lhervier.ksp.ui.ugui
             return go;
         }
 
-        private static GameObject CreateCloseButton(string objectName, UnityAction onClose)
+        private GameObject CreateCloseButton()
         {
-            var buttonGo = new GameObject(objectName, typeof(RectTransform));
+            var buttonGo = new GameObject("SteamInput.TitleBar.RightColumn.Close", typeof(RectTransform));
 
             // Fixed square size; parent's HorizontalLayoutGroup has childControl* = true so it reads these
             var layoutElement = buttonGo.AddComponent<LayoutElement>();
@@ -286,7 +289,7 @@ namespace com.github.lhervier.ksp.ui.ugui
             colors.colorMultiplier = 1f;
             colors.fadeDuration = 0.1f;
             button.colors = colors;
-            button.onClick.AddListener(onClose);
+            button.onClick.AddListener(() => this._viewModel.CloseWindow());
 
             // The "X" label, centered in the button
             var labelGo = new GameObject("Label", typeof(RectTransform));

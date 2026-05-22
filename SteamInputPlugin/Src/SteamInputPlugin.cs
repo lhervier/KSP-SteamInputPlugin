@@ -132,7 +132,8 @@ namespace com.github.lhervier.ksp
             this.viewModel.Initialize(
                 this.gamepadConfigDaemon, 
                 this.actionGroupDaemon, 
-                this.gamepadDaemon
+                this.gamepadDaemon,
+                () => this.loggingUI.CloseWindow()
             );
 
             // Start the GUI

@@ -3,6 +3,7 @@ using UnityEngine;
 using com.github.lhervier.ksp;
 using com.github.lhervier.ksp.ui.model;
 using System.Linq;
+using System;
 
 namespace com.github.lhervier.ksp.ui
 {
@@ -23,16 +24,19 @@ namespace com.github.lhervier.ksp.ui
         private GamepadConfigDaemon _gamepadConfigDaemon;
         private ActionGroupDaemon _actionGroupDaemon;
         private GamepadDaemon _gamepadDaemon;
+        private Action _onClose;
 
         public void Initialize(
             GamepadConfigDaemon gamepadConfigDaemon, 
             ActionGroupDaemon actionGroupDaemon,
-            GamepadDaemon gamepadDaemon
+            GamepadDaemon gamepadDaemon,
+            Action onClose
         )
         {
             this._gamepadConfigDaemon = gamepadConfigDaemon;
             this._actionGroupDaemon = actionGroupDaemon;
             this._gamepadDaemon = gamepadDaemon;
+            this._onClose = onClose;
         }
 
         public void Awake()
@@ -230,6 +234,11 @@ namespace com.github.lhervier.ksp.ui
         }
 
         // =======================================================================
+
+        public void CloseWindow()
+        {
+            this._onClose?.Invoke();
+        }
 
         public string getLastError()
         {

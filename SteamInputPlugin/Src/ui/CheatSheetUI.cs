@@ -35,10 +35,10 @@ namespace com.github.lhervier.ksp.ui
             GameEvents.onGUIApplicationLauncherReady.Add(OnGUIAppLauncherReady);
 
             imguiWindow = new CheatSheetIMGUIWindow();
-            imguiWindow.Initialize(viewModel, () => OnWindowClosedFromUI());
+            imguiWindow.Initialize(viewModel, () => CloseWindow());
             
             uguiWindow = new CheatSheetUGUIWindow();
-            uguiWindow.Initialize(viewModel, () => OnWindowClosedFromUI());
+            uguiWindow.Initialize(viewModel);
 
             LOGGER.LogInfo("Start: Started");
         }
@@ -87,34 +87,37 @@ namespace com.github.lhervier.ksp.ui
         private void OnToggleOn()
         {
             LOGGER.LogDebug("Displaying window");
-            imguiWindow?.Show();
-            uguiWindow?.Show();
+            ShowInternal();
         }
 
-        /// <summary>Toolbar off callback — visibility only, like VesselBookmark OnToggleOff.</summary>
         private void OnToggleOff()
         {
-            LOGGER.LogDebug("Hiding window (toolbar)");
-            CloseWindow();
+            LOGGER.LogDebug("Hiding window (from toolbar)");
+            HideInternal();
+        }
+
+        public void CloseWindow()
+        {
+            LOGGER.LogDebug("Hiding window (from UI)");
+            HideInternal();
+            if (button != null)
+            {
+                button.SetFalse();
+            }
         }
 
         // ===============================================================
 
-        private void CloseWindow()
+        private void HideInternal()
         {
             imguiWindow?.Hide();
             uguiWindow?.Hide();
         }
 
-        /// <summary>After closing from the in-window button — resync toolbar toggle.</summary>
-        private void OnWindowClosedFromUI()
+        private void ShowInternal()
         {
-            LOGGER.LogDebug("Hiding window (from UI)");
-            CloseWindow();
-            if (button != null)
-            {
-                button.SetFalse();
-            }
+            imguiWindow?.Show();
+            uguiWindow?.Show();
         }
 
         // ===============================================================

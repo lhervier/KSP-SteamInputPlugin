@@ -10,21 +10,14 @@ namespace com.github.lhervier.ksp.ui.ugui
     /// </summary>
     internal sealed class CheatSheetUGUIWindow
     {
-        private static readonly SteamInputLogger LOGGER = new SteamInputLogger("CheatSheetUGUIWindow");
-        public const string TITLEBAR_OBJECT_NAME = "CheatSheetTitleBar";
-        public const string DIALOG_ID = "SteamInputCheatSheetUGUI";
-        private const float WindowHeight = 320f;
-        private const float ScreenX = 428f;
-        private const float ScreenYFromTop = 20f;
-
+        private PopupDialogBuilder _popupDialogBuilder;
         private PopupDialog _popupDialog = null;
         private CheatSheetViewModel _viewModel;
-        private Action _onWindowClosedFromUI;
 
-        public void Initialize(CheatSheetViewModel viewModel, Action onWindowClosedFromUI)
+        public void Initialize(CheatSheetViewModel viewModel)
         {
             _viewModel = viewModel;
-            _onWindowClosedFromUI = onWindowClosedFromUI;
+            this._popupDialogBuilder = new PopupDialogBuilder(viewModel);
         }
 
         // ===============================================================
@@ -35,13 +28,11 @@ namespace com.github.lhervier.ksp.ui.ugui
         {
             if (_popupDialog == null)
             {
-                CreatePopup();
-                if( _popupDialog == null ) return;
-                
-                AddTitleBar(_popupDialog);
+                _popupDialog = this._popupDialogBuilder.CreatePopupDialog();
+                _popupDialog?.onDestroy.AddListener(OnPopupDestroyed);
             }
 
-            _popupDialog.gameObject.SetActive(true);
+            _popupDialog?.gameObject.SetActive(true);
         }
 
         public void Hide()
@@ -51,37 +42,14 @@ namespace com.github.lhervier.ksp.ui.ugui
 
         public void Destroy()
         {
+            _popupDialog?.onDestroy.RemoveListener(OnPopupDestroyed);
             _popupDialog?.Dismiss();
             _popupDialog = null;
         }
 
-        private void OnPopupDestroy()
+        public void OnPopupDestroyed()
         {
             _popupDialog = null;
-        }
-
-        // ===============================================================
-        // Helpers
-        // ===============================================================
-
-        private void CreatePopup()
-        {
-            _popupDialog = PopupDialogBuilder.Create(
-                ScreenX, 
-                ScreenYFromTop, 
-                SteamInputPalette.WindowWidth,
-                WindowHeight,
-                new UnityAction(() => OnPopupDestroy())
-            );
-        }
-
-        private void AddTitleBar(PopupDialog popupDialog)
-        {
-            GameObject titleBarGo = TitleBarBuilder.Create(
-                TITLEBAR_OBJECT_NAME,
-                () => _onWindowClosedFromUI()
-            );
-            titleBarGo.transform.SetParent(popupDialog.popupWindow.transform, false);
         }
     }
 }
