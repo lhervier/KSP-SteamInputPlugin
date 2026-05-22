@@ -4,8 +4,9 @@ using UnityEngine.EventSystems;
 using com.github.lhervier.ksp.ui.styles;
 using com.github.lhervier.ksp.ui.ugui.styles;
 using UnityEngine.Events;
+using System;
 
-namespace com.github.lhervier.ksp.ui.ugui.titleBar
+namespace com.github.lhervier.ksp.ui.ugui
 {
     public class OverlayBuilder
     {
@@ -16,16 +17,20 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
             this._viewModel = viewModel;
         }
 
-        public GameObject Create(UnityAction onClick)
+        public GameObject Create(Action onClick)
         {
-            var overlayGo = new GameObject("SteamInput.TitleBar.MenuOverlay", typeof(RectTransform));
+            var overlayGo = new GameObject("SteamInput.Overlay", typeof(RectTransform));
 
-            // Anchored to the title bar's bottom-center; oversized so it covers anything below the title bar
-            // (popup body, and beyond if the popup is small relative to the screen).
+            // popupWindow has a VerticalLayoutGroup that would otherwise place us in its flow.
+            // Tell it to ignore us so our anchors take effect.
+            var layoutElement = overlayGo.AddComponent<LayoutElement>();
+            layoutElement.ignoreLayout = true;
+
+            // Centered on the popup, oversized so it covers anything around the screen
             var rect = overlayGo.GetComponent<RectTransform>();
-            rect.anchorMin = new Vector2(0.5f, 0f);
-            rect.anchorMax = new Vector2(0.5f, 0f);
-            rect.pivot = new Vector2(0.5f, 1f);
+            rect.anchorMin = new Vector2(0.5f, 0.5f);
+            rect.anchorMax = new Vector2(0.5f, 0.5f);
+            rect.pivot = new Vector2(0.5f, 0.5f);
             rect.sizeDelta = new Vector2(3000f, 3000f);
             rect.anchoredPosition = Vector2.zero;
 
@@ -48,7 +53,7 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
             colors.colorMultiplier = 1f;
             colors.fadeDuration = 0f;
             button.colors = colors;
-            button.onClick.AddListener(onClick);
+            button.onClick.AddListener(() => onClick());
 
             return overlayGo;
         }

@@ -4,6 +4,7 @@ using com.github.lhervier.ksp.ui.styles;
 using UnityEngine.Events;
 using com.github.lhervier.ksp.ui.ugui.styles;
 using com.github.lhervier.ksp.ui.ugui.titleBar;
+using System;
 
 namespace com.github.lhervier.ksp.ui.ugui
 {
@@ -15,11 +16,15 @@ namespace com.github.lhervier.ksp.ui.ugui
 
         private CheatSheetViewModel _viewModel;
         private TitleBarBuilder _titleBarBuilder;
+        private OverlayBuilder _overlayBuilder;
+        private MenuBuilder _menuBuilder;
 
         public PopupDialogBuilder(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             this._titleBarBuilder = new TitleBarBuilder(viewModel);
+            this._overlayBuilder = new OverlayBuilder(viewModel);
+            this._menuBuilder = new MenuBuilder(viewModel);
         }
 
         public PopupDialog CreatePopupDialog()
@@ -97,9 +102,35 @@ namespace com.github.lhervier.ksp.ui.ugui
                 image.color = SteamInputPalette.WindowBodyColor;
             }
 
+            // Create the menu and the overlay events
+            GameObject overlayGo = null;
+            GameObject menuGo = null;
+            Action toggleMenu = () => {
+                if( menuGo == null || overlayGo == null )  return;
+                bool willOpen = !menuGo.activeSelf;
+                menuGo.SetActive(willOpen);
+                overlayGo.SetActive(willOpen);
+            };
+
+            Action closeMenu = () => {
+                if( menuGo == null || overlayGo == null )  return;
+                menuGo.SetActive(false);
+                overlayGo.SetActive(false);
+            };
+
+            // Add the overlay
+            overlayGo = _overlayBuilder.Create(closeMenu);
+            overlayGo.transform.SetParent(popupDialog.popupWindow.transform, false);
+            overlayGo.SetActive(false);
+
             // Add the title bar
-            GameObject titleBarGo = this._titleBarBuilder.Create();
+            GameObject titleBarGo = this._titleBarBuilder.Create(toggleMenu);
             titleBarGo.transform.SetParent(popupDialog.popupWindow.transform, false);
+
+            // Add the menu
+            menuGo = this._menuBuilder.Create();
+            menuGo.transform.SetParent(popupDialog.popupWindow.transform, false);
+            menuGo.SetActive(false);
 
             return popupDialog;
         }

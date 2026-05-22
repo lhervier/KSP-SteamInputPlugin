@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 using com.github.lhervier.ksp.ui.styles;
 using com.github.lhervier.ksp.ui.ugui.styles;
 using UnityEngine.Events;
+using System;
 
 namespace com.github.lhervier.ksp.ui.ugui.titleBar
 {
@@ -20,7 +21,7 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
             this._rightColumnBuiler = new RightColumnBuilder(viewModel);
         }
 
-        public GameObject Create(UnityAction onMenuToggle)
+        public GameObject Create(Action onMenuToggle)
         {
             var rootGo = new GameObject("SteamInput.TitleBar.Root", typeof(RectTransform));
 

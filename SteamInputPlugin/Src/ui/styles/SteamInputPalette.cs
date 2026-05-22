@@ -37,7 +37,15 @@ namespace com.github.lhervier.ksp.ui.styles
         public static readonly Color TitleBarActionGroupLabelColor = new Color(141f / 255f, 190f / 255f, 69f / 255f);
         public static readonly Color TitleBarActionGroupBorderColor = new Color(74f / 255f, 110f / 255f, 32f / 255f);
         public static readonly Color TitleBarControllerNameColor = new Color(85f / 255f, 85f / 255f, 85f / 255f);
-        
+
+        // ====================================================================
+        // Menu
+        // ====================================================================
+
+        public const float MenuWidth = 220f;
+        public const float MenuHeight = 180f;
+
+
         
         public const float IconTitleGap = 6f;
         public static readonly Color Header = new Color(46f / 255f, 46f / 255f, 46f / 255f);

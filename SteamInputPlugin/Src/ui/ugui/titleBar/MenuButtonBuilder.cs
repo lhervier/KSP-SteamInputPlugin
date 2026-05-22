@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 using com.github.lhervier.ksp.ui.styles;
 using com.github.lhervier.ksp.ui.ugui.styles;
 using UnityEngine.Events;
+using System;
 
 namespace com.github.lhervier.ksp.ui.ugui.titleBar
 {
@@ -16,7 +17,7 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
             this._viewModel = viewModel;
         }
 
-        public GameObject Create(UnityAction onClick)
+        public GameObject Create(Action onClick)
         {
             var buttonGo = new GameObject("SteamInput.TitleBar.RightColumn.MenuButton", typeof(RectTransform));
 
@@ -45,7 +46,7 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
             colors.colorMultiplier = 1f;
             colors.fadeDuration = 0.1f;
             button.colors = colors;
-            button.onClick.AddListener(onClick);
+            button.onClick.AddListener(() => onClick());
 
             // The "⋯" label (U+22EF), centered in the button
             var labelGo = new GameObject("Label", typeof(RectTransform));
