@@ -22,12 +22,13 @@ namespace com.github.lhervier.ksp.ui.ugui
             titleBarLayout.ignoreLayout = true;
 
             // Title bar zone relative to the parent, stretched horizontaly
+            // Beware not to overlap the borders
             var titleBarRect = titleBarGo.GetComponent<RectTransform>();
             titleBarRect.anchorMin = new Vector2(0f, 1f);
             titleBarRect.anchorMax = new Vector2(1f, 1f);
             titleBarRect.pivot = new Vector2(0.5f, 1f);
-            titleBarRect.sizeDelta = new Vector2(0f, SteamInputPalette.TitleBarHeight);
-            titleBarRect.anchoredPosition = Vector2.zero;
+            titleBarRect.sizeDelta = new Vector2(-2f * SteamInputPalette.WindowBorderThickness, SteamInputPalette.TitleBarHeight);
+            titleBarRect.anchoredPosition = new Vector2(0f, -SteamInputPalette.WindowBorderThickness);
 
             // Image for the backgroup of the title bar
             var headerImage = titleBarGo.AddComponent<Image>();
