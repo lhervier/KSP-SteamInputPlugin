@@ -257,7 +257,11 @@ namespace com.github.lhervier.ksp.ui.ugui
             var label = go.AddComponent<Text>();
             label.text = "<gamepad>";
             label.font = HighLogic.UISkin.font;
-            label.color = Color.white;
+            label.fontSize = 10;
+            label.color = SteamInputPalette.TitleBarControllerNameColor;
+            label.alignment = TextAnchor.MiddleLeft;
+            label.horizontalOverflow = HorizontalWrapMode.Overflow;
+            label.verticalOverflow = VerticalWrapMode.Overflow;
             label.raycastTarget = false;
 
             return go;
