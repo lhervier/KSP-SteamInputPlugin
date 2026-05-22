@@ -168,7 +168,7 @@ namespace com.github.lhervier.ksp.ui.ugui
             label.font = HighLogic.UISkin.font;
             label.fontSize = 12;
             label.fontStyle = FontStyle.Bold;
-            label.color = SteamInputPalette.TitleBarTitleColor;
+            label.color = SteamInputPalette.TitleBarLabelColor;
             label.alignment = TextAnchor.MiddleLeft;
             label.horizontalOverflow = HorizontalWrapMode.Overflow;
             label.verticalOverflow = VerticalWrapMode.Overflow;
@@ -208,15 +208,40 @@ namespace com.github.lhervier.ksp.ui.ugui
 
         private static GameObject CreateActionGroupLabel(string objectName)
         {
-            var go = new GameObject(objectName, typeof(RectTransform));
+            var badgeGo = new GameObject(objectName, typeof(RectTransform));
 
-            var label = go.AddComponent<Text>();
+            // Sliced sprite: transparent fill with a green border
+            var image = badgeGo.AddComponent<Image>();
+            image.sprite = SpritesTitleBar.ActionGroupBorderSprite;
+            image.type = Image.Type.Sliced;
+            image.color = Color.white;
+            image.raycastTarget = false;
+
+            // Padding around the text; badge size driven by content + padding via the HLG's reported preferredSize
+            var layout = badgeGo.AddComponent<HorizontalLayoutGroup>();
+            layout.padding = new RectOffset(5, 5, 2, 2);
+            layout.spacing = 0f;
+            layout.childAlignment = TextAnchor.MiddleCenter;
+            layout.childControlWidth = true;
+            layout.childControlHeight = true;
+            layout.childForceExpandWidth = false;
+            layout.childForceExpandHeight = false;
+
+            // Green label
+            var labelGo = new GameObject("Label", typeof(RectTransform));
+            labelGo.transform.SetParent(badgeGo.transform, false);
+
+            var label = labelGo.AddComponent<Text>();
             label.text = "<action group>";
             label.font = HighLogic.UISkin.font;
-            label.color = Color.white;
+            label.fontSize = 10;
+            label.color = SteamInputPalette.TitleBarActionGroupLabelColor;
+            label.alignment = TextAnchor.MiddleCenter;
+            label.horizontalOverflow = HorizontalWrapMode.Overflow;
+            label.verticalOverflow = VerticalWrapMode.Overflow;
             label.raycastTarget = false;
 
-            return go;
+            return badgeGo;
         }
 
         private static GameObject CreateGamepadNameLabel(string objectName)

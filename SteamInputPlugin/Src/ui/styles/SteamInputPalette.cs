@@ -30,9 +30,12 @@ namespace com.github.lhervier.ksp.ui.styles
         public const float TitleBarHeight = 28f;
         public const float TitleBarSeparatorHeight = 1f;
         public const string TitleBarGamepadIconPath = "SteamInput/Textures/gamepad_icon";
-        public static readonly Color TitleBarTitleColor = new Color(232f / 255f, 232f / 255f, 232f / 255f);
+        public const float TitleBarActionGroupBorderThickness = 1f;
+        public static readonly Color TitleBarLabelColor = new Color(232f / 255f, 232f / 255f, 232f / 255f);
         public static readonly Color TitleBarSeparatorColor = new Color(68f / 255f, 68f / 255f, 68f / 255f);
-
+        public static readonly Color TitleBarActionGroupLabelColor = new Color(141f / 255f, 190f / 255f, 69f / 255f);
+        public static readonly Color TitleBarActionGroupBorderColor = new Color(74f / 255f, 110f / 255f, 32f / 255f);
+        
         
         public const float IconTitleGap = 6f;
         public static readonly Color Header = new Color(46f / 255f, 46f / 255f, 46f / 255f);
