@@ -25,7 +25,7 @@ namespace com.github.lhervier.ksp.ui.imgui
             titleUI = new TitleUI(viewModel, onWindowClosedFromUI);
             physicalZonesUI = new PhysicalZonesUI(viewModel);
 
-            controllerConfigNameBuffer = viewModel.ControllerConfigName;
+            controllerConfigNameBuffer = viewModel.GamepadConfigName;
         }
 
         public void Destroy()
@@ -104,7 +104,7 @@ namespace com.github.lhervier.ksp.ui.imgui
             if (newName != controllerConfigNameBuffer)
             {
                 controllerConfigNameBuffer = newName;
-                viewModel.ControllerConfigName = newName;
+                viewModel.GamepadConfigName = newName;
             }
 
             var vdfError = viewModel.LastConfigError;

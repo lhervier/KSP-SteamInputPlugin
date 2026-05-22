@@ -11,46 +11,82 @@ namespace com.github.lhervier.ksp.ui
     {
         private static readonly SteamInputLogger LOGGER = new SteamInputLogger("CheatSheetViewModel");
         
+        // ===================================================
+        // The error when loading a gamepad config
+        // ===================================================
         public string LastConfigError => _lastConfigLoadError;
         private string _lastConfigLoadError = "";
+        public EventData<string> OnConfigLoadError = new EventData<string>("SteamInput.OnConfigLoadError");
 
+        // ===================================================
+        // Should we display the logging icon
+        // ===================================================
         public bool ShowLoggingIcon
         {
             get => _showLoggingIcon;
             set => SteamInputGlobalSettings.SetShowLoggingIcon(value);
         }
         private bool _showLoggingIcon = false;
+        public EventData<bool> OnShowLoggingIconChanged = new EventData<bool>("SteamInput.OnShowLoggingIconChanged");
 
-
-        public string ControllerConfigName
+        // ===================================================
+        // The gamepad config name
+        // ===================================================
+        public string GamepadConfigName
         {
-            get => _controllerConfigName;
+            get => _gamepadConfigName;
             set => SteamInputGlobalSettings.SetControllerConfigName(value);
         }
-        private string _controllerConfigName = "";
+        private string _gamepadConfigName = "";
+        public EventData<string> OnGamepadConfigNameChanged = new EventData<string>("SteamInput.OnGamepadConfigNameChanged");
 
+        // ===================================================
+        // The log level
+        // ===================================================
         public LogLevel LogLevel
         {
             get => _logLevel;
             set => SteamInputGlobalSettings.SetLogLevel(value);
         }
         private LogLevel _logLevel = LogLevel.Info;
+        public EventData<LogLevel> OnLogLevelChanged = new EventData<LogLevel>("SteamInput.OnLogLevelChanged");
         
+        // ===================================================
+        // The label of the current action group
+        // ===================================================
         private string _actionGroupLabel = "";
         public string ActionGroupLabel => _actionGroupLabel;
-        public EventData<string> OnActionGroupLabelChanged = new EventData<string>("SteamInput.ActionGroupLabelChanged");
+        public EventData<string> OnActionGroupLabelChanged = new EventData<string>("SteamInput.OnActionGroupLabelChanged");
         
+        // ====================================================
+        // The label of the loaded gamepad
+        // ====================================================
         public string GamepadLabel => _gamepadLabel;
         private string _gamepadLabel = "";
+        public EventData<string> OnGamepadLabelChanged = new EventData<string>("SteamInput.OnGamepadLabelChanged");
 
+        // ====================================================
+        // Is a gamepad connected ?
+        // ====================================================
         public bool GamepadConnected => _gamepadConnected;
         private bool _gamepadConnected = false;
+        public EventData<bool> OnGamepadConnected = new EventData<bool>("SteamInput.OnGamepadConnected");
 
+        // ====================================================
+        // The active contexts
+        // ====================================================
         public List<string> ActivatedContexts => new List<string>(_activatedContexts);
         private List<string> _activatedContexts = new List<string>();
+        public EventData<List<string>> OnActivatedContextsChanged = new EventData<List<string>>("SteamInput.OnActiveContextsChanged");
         
+        // ====================================================
+        // The current physical zones
+        // ====================================================
         public List<UIPhysicalZone> PhysicalZones => new List<UIPhysicalZone>(_physicalZones);
         private List<UIPhysicalZone> _physicalZones = new List<UIPhysicalZone>();
+        public EventData<List<UIPhysicalZone>> OnPhysicalZonesChanged = new EventData<List<UIPhysicalZone>>("SteamInput.OnPhysicalZonesChanged");
+
+        // ==============================================================================================
 
         private GamepadConfigDaemon _gamepadConfigDaemon;
         private ActionGroupDaemon _actionGroupDaemon;
@@ -85,15 +121,15 @@ namespace com.github.lhervier.ksp.ui
                 LOGGER.LogError("Start: ViewModel dependencies not initialized");
                 return;
             }
-            this._gamepadConfigDaemon.OnConfigLoaded.Add(this.OnGamepadConfigLoaded);
-            this._gamepadConfigDaemon.OnConfigLoadError.Add(this.OnGamepadConfigLoadError);
+            this._gamepadConfigDaemon.OnConfigLoaded.Add(this._OnGamepadConfigLoaded);
+            this._gamepadConfigDaemon.OnConfigLoadError.Add(this._OnGamepadConfigLoadError);
 
-            this._actionGroupDaemon.OnActionGroupChanged.Add(this.OnActionGroupChanged);
+            this._actionGroupDaemon.OnActionGroupChanged.Add(this._OnActionGroupChanged);
 
-            this._gamepadDaemon.OnGamepadConnected.Add(this.OnGamepadConnected);
-            this._gamepadDaemon.OnGamepadDisconnected.Add(this.OnGamepadDisconnected);
+            this._gamepadDaemon.OnGamepadConnected.Add(this._OnGamepadConnected);
+            this._gamepadDaemon.OnGamepadDisconnected.Add(this._OnGamepadDisconnected);
 
-            SteamInputGlobalSettings.OnGlobalSettingsChanged.Add(this.OnGlobalSettingsChanged);
+            SteamInputGlobalSettings.OnGlobalSettingsChanged.Add(this._OnGlobalSettingsChanged);
 
             this.RefreshAll();
 
@@ -103,24 +139,24 @@ namespace com.github.lhervier.ksp.ui
         public void OnDestroy()
         {
             LOGGER.LogInfo("OnDestroy");
-            SteamInputGlobalSettings.OnGlobalSettingsChanged.Remove(this.OnGlobalSettingsChanged);
+            SteamInputGlobalSettings.OnGlobalSettingsChanged.Remove(this._OnGlobalSettingsChanged);
             if( this._gamepadConfigDaemon != null ) {
-                this._gamepadConfigDaemon.OnConfigLoaded.Remove(this.OnGamepadConfigLoaded);
-                this._gamepadConfigDaemon.OnConfigLoadError.Remove(this.OnGamepadConfigLoadError);
+                this._gamepadConfigDaemon.OnConfigLoaded.Remove(this._OnGamepadConfigLoaded);
+                this._gamepadConfigDaemon.OnConfigLoadError.Remove(this._OnGamepadConfigLoadError);
             }
             if( this._actionGroupDaemon != null ) {
-                this._actionGroupDaemon.OnActionGroupChanged.Remove(this.OnActionGroupChanged);
+                this._actionGroupDaemon.OnActionGroupChanged.Remove(this._OnActionGroupChanged);
             }
             if( this._gamepadDaemon != null ) {
-                this._gamepadDaemon.OnGamepadConnected.Remove(this.OnGamepadConnected);
-                this._gamepadDaemon.OnGamepadDisconnected.Remove(this.OnGamepadDisconnected);
+                this._gamepadDaemon.OnGamepadConnected.Remove(this._OnGamepadConnected);
+                this._gamepadDaemon.OnGamepadDisconnected.Remove(this._OnGamepadDisconnected);
             }
             LOGGER.LogInfo("OnDestroy: Destroyed");
         }
 
         // =======================================================================
 
-        private void OnActionGroupChanged(ActionGroup actionGroup)
+        private void _OnActionGroupChanged(ActionGroup actionGroup)
         {
             LOGGER.LogDebug("OnActionGroupChanged: " + actionGroup.ToString());
             this.RefreshActivatedContexts();
@@ -128,7 +164,7 @@ namespace com.github.lhervier.ksp.ui
             this.RefreshPhysicalZones();
         }
 
-        private void OnGamepadConfigLoaded()
+        private void _OnGamepadConfigLoaded()
         {
             LOGGER.LogDebug("OnConfigLoaded");
             this.RefreshControllerType();
@@ -136,26 +172,28 @@ namespace com.github.lhervier.ksp.ui
             this.RefreshPhysicalZones();
 
             this._lastConfigLoadError = string.Empty;
+            this.OnConfigLoadError.Fire(_lastConfigLoadError);
         }
 
-        private void OnGamepadConfigLoadError(string error)
+        private void _OnGamepadConfigLoadError(string error)
         {
             this._lastConfigLoadError = error ?? string.Empty;
+            this.OnConfigLoadError.Fire(_lastConfigLoadError);
         }
 
-        private void OnGamepadConnected()
+        private void _OnGamepadConnected()
         {
             LOGGER.LogDebug("OnGamepadConnected");
             this.RefreshGamepadConnected();
         }
 
-        private void OnGamepadDisconnected()
+        private void _OnGamepadDisconnected()
         {
             LOGGER.LogDebug("OnGamepadDisconnected");
             this.RefreshGamepadConnected();
         }
 
-        private void OnGlobalSettingsChanged(int updateFlags)
+        private void _OnGlobalSettingsChanged(int updateFlags)
         {
             LOGGER.LogDebug("OnGlobalSettingsChanged");
             if( (updateFlags & UpdatedConfiguration.SHOW_LOGGING_ICON) != 0 ) {
@@ -191,21 +229,25 @@ namespace com.github.lhervier.ksp.ui
         private void RefreshShowLoggingIcon()
         {
             this._showLoggingIcon = SteamInputGlobalSettings.GetShowLoggingIcon();
+            this.OnShowLoggingIconChanged.Fire(this._showLoggingIcon);
         }
 
         private void RefreshControllerConfigName()
         {
-            this._controllerConfigName = SteamInputGlobalSettings.GetControllerConfigName();
+            this._gamepadConfigName = SteamInputGlobalSettings.GetControllerConfigName();
+            this.OnGamepadConfigNameChanged.Fire(this._gamepadConfigName);
         }
 
         private void RefreshLogLevel()
         {
             this._logLevel = SteamInputGlobalSettings.GetLogLevel();
+            OnLogLevelChanged.Fire(this._logLevel);
         }
 
         private void RefreshGamepadConnected()
         {
             this._gamepadConnected = this._gamepadDaemon.GamepadConnected;
+            OnGamepadConnected.Fire(this._gamepadConnected);
         }
 
         private void RefreshControllerType()
@@ -213,6 +255,7 @@ namespace com.github.lhervier.ksp.ui
             this._gamepadLabel = GamepadControllerTypes.GetDisplayName(
                 this._gamepadConfigDaemon.GetControllerType()
             );
+            OnGamepadLabelChanged.Fire(this._gamepadLabel);
         }
 
         private void RefreshActivatedContexts()
@@ -222,6 +265,7 @@ namespace com.github.lhervier.ksp.ui
             {
                 this._activatedContexts.AddRange(this._actionGroupDaemon.ActivatedContexts);
             }
+            OnActivatedContextsChanged.Fire(this._activatedContexts);
         }
 
         private void RefreshActionGroupLabel()
@@ -265,6 +309,7 @@ namespace com.github.lhervier.ksp.ui
                     }
                 );
             }
+            OnPhysicalZonesChanged.Fire(this._physicalZones);
         }
 
         // =======================================================================
