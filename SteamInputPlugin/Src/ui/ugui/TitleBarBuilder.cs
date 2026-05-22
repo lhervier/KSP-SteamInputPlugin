@@ -64,44 +64,69 @@ namespace com.github.lhervier.ksp.ui.ugui
 
         public static GameObject CreateRoot(string objectName)
         {
-            var rowGo = CreateLeftRow("LeftRow");
-
-            var iconGo = CreateIcon("GamepadIcon");
-            iconGo.transform.SetParent(rowGo.transform, false);
-
-            var labelGo = CreateLabel("TitleLabel");
-            labelGo.transform.SetParent(rowGo.transform, false);
-            
-            return rowGo;
-        }
-
-        private static GameObject CreateLeftRow(string objectName)
-        {
-            var rowGo = new GameObject(objectName, typeof(RectTransform));
+            var rootGo = new GameObject(objectName, typeof(RectTransform));
 
             // Full size of the parent = the title bar, minus the bottom separator
-            var rowRect = rowGo.GetComponent<RectTransform>();
-            rowRect.anchorMin = Vector2.zero;
-            rowRect.anchorMax = Vector2.one;
-            rowRect.offsetMin = new Vector2(0f, SteamInputPalette.TitleBarSeparatorHeight);
-            rowRect.offsetMax = Vector2.zero;
+            var rootRect = rootGo.GetComponent<RectTransform>();
+            rootRect.anchorMin = Vector2.zero;
+            rootRect.anchorMax = Vector2.one;
+            rootRect.offsetMin = new Vector2(0f, SteamInputPalette.TitleBarSeparatorHeight);
+            rootRect.offsetMax = Vector2.zero;
 
-            // Horizontal layout with padding
-            var layout = rowGo.AddComponent<HorizontalLayoutGroup>();
-            layout.padding = new RectOffset(
+            // Horizontal layout splitting the title bar in two cells (left + right)
+            var rootLayout = rootGo.AddComponent<HorizontalLayoutGroup>();
+            rootLayout.padding = new RectOffset(
                 Mathf.RoundToInt(SteamInputPalette.DefaultPaddingLeft),
                 Mathf.RoundToInt(SteamInputPalette.DefaultPaddingRight),
                 Mathf.RoundToInt(SteamInputPalette.DefaultPaddingTop),
                 Mathf.RoundToInt(SteamInputPalette.DefaultPaddingBottom)
             );
-            layout.spacing = SteamInputPalette.DefaultSpacing;
-            layout.childAlignment = TextAnchor.MiddleLeft;
-            layout.childControlWidth = false;
-            layout.childControlHeight = false;
-            layout.childForceExpandWidth = false;
-            layout.childForceExpandHeight = false;
+            rootLayout.spacing = 0f;
+            rootLayout.childAlignment = TextAnchor.MiddleLeft;
+            // Width controlled by the layout so flexibleWidth on LeftRow pushes RightRow to the right
+            // Height forced so the rows fill the title bar's height for proper vertical centering
+            rootLayout.childControlWidth = true;
+            rootLayout.childControlHeight = true;
+            rootLayout.childForceExpandWidth = false;
+            rootLayout.childForceExpandHeight = true;
 
-            return rowGo;
+            var leftRow = CreateLeftRow("LeftRow");
+            leftRow.transform.SetParent(rootGo.transform, false);
+
+            var rightRow = CreateRightRow("RightRow");
+            rightRow.transform.SetParent(rootGo.transform, false);
+
+            return rootGo;
+        }
+
+        // ===================================================
+        // Left row
+        // ===================================================
+
+        private static GameObject CreateLeftRow(string objectName)
+        {
+            var leftRowGo = new GameObject(objectName, typeof(RectTransform));
+
+            // Greedy on width so it consumes the leftover space and pushes the right row against the right edge
+            var leftRowLayoutElement = leftRowGo.AddComponent<LayoutElement>();
+            leftRowLayoutElement.flexibleWidth = 1f;
+
+            // Horizontal layout containing icon + label
+            var leftRowLayout = leftRowGo.AddComponent<HorizontalLayoutGroup>();
+            leftRowLayout.spacing = SteamInputPalette.DefaultSpacing;
+            leftRowLayout.childAlignment = TextAnchor.MiddleLeft;
+            leftRowLayout.childControlWidth = false;
+            leftRowLayout.childControlHeight = false;
+            leftRowLayout.childForceExpandWidth = false;
+            leftRowLayout.childForceExpandHeight = false;
+
+            var iconGo = CreateIcon("GamepadIcon");
+            iconGo.transform.SetParent(leftRowLayoutElement.transform, false);
+
+            var labelGo = CreateLabel("TitleLabel");
+            labelGo.transform.SetParent(leftRowLayoutElement.transform, false);
+
+            return leftRowGo;
         }
 
         private static GameObject CreateIcon(string objectName)
@@ -144,6 +169,74 @@ namespace com.github.lhervier.ksp.ui.ugui
             label.raycastTarget = false;
 
             return labelGo;
+        }
+
+        // ====================================================
+        // Right row
+        // ====================================================
+
+        private static GameObject CreateRightRow(string objectName)
+        {
+            var rightRowGo = new GameObject(objectName, typeof(RectTransform));
+
+            // Horizontal layout containing the right-side placeholders, sized to their text content
+            var rightRowLayout = rightRowGo.AddComponent<HorizontalLayoutGroup>();
+            rightRowLayout.spacing = SteamInputPalette.DefaultSpacing;
+            rightRowLayout.childAlignment = TextAnchor.MiddleLeft;
+            rightRowLayout.childControlWidth = true;
+            rightRowLayout.childControlHeight = true;
+            rightRowLayout.childForceExpandWidth = false;
+            rightRowLayout.childForceExpandHeight = false;
+
+            var actionGroupGo = CreateActionGroupLabel("ActionGroup");
+            actionGroupGo.transform.SetParent(rightRowGo.transform, false);
+
+            var controllerGo = CreateGamepadNameLabel("Controller");
+            controllerGo.transform.SetParent(rightRowGo.transform, false);
+
+            var closeGo = CreateCloseButton("Close");
+            closeGo.transform.SetParent(rightRowGo.transform, false);
+
+            return rightRowGo;
+        }
+
+        private static GameObject CreateActionGroupLabel(string objectName)
+        {
+            var go = new GameObject(objectName, typeof(RectTransform));
+
+            var label = go.AddComponent<Text>();
+            label.text = "<action group>";
+            label.font = HighLogic.UISkin.font;
+            label.color = Color.white;
+            label.raycastTarget = false;
+
+            return go;
+        }
+
+        private static GameObject CreateGamepadNameLabel(string objectName)
+        {
+            var go = new GameObject(objectName, typeof(RectTransform));
+
+            var label = go.AddComponent<Text>();
+            label.text = "<gamepad>";
+            label.font = HighLogic.UISkin.font;
+            label.color = Color.white;
+            label.raycastTarget = false;
+
+            return go;
+        }
+
+        private static GameObject CreateCloseButton(string objectName)
+        {
+            var go = new GameObject(objectName, typeof(RectTransform));
+
+            var label = go.AddComponent<Text>();
+            label.text = "X";
+            label.font = HighLogic.UISkin.font;
+            label.color = Color.white;
+            label.raycastTarget = false;
+
+            return go;
         }
     }
 }
