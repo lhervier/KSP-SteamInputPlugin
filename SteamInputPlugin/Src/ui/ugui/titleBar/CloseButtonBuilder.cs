@@ -37,10 +37,10 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
             var button = buttonGo.AddComponent<Button>();
             button.targetGraphic = image;
             var colors = button.colors;
-            colors.normalColor = SteamInputPalette.Button;
-            colors.highlightedColor = SteamInputPalette.ButtonHover;
-            colors.pressedColor = SteamInputPalette.Button;
-            colors.selectedColor = SteamInputPalette.Button;
+            colors.normalColor = SteamInputPalette.TitleBarButtonColor;
+            colors.highlightedColor = SteamInputPalette.TitleBarButtonHoverColor;
+            colors.pressedColor = SteamInputPalette.TitleBarButtonColor;
+            colors.selectedColor = SteamInputPalette.TitleBarButtonColor;
             colors.colorMultiplier = 1f;
             colors.fadeDuration = 0.1f;
             button.colors = colors;

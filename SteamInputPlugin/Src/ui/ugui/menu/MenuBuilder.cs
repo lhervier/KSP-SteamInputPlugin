@@ -13,12 +13,14 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
         private CheatSheetViewModel _viewModel;
         private TitleBuilder _titleBuilder;
         private SeparatorBuilder _separatorBuilder;
-        
+        private ZoneRowBuilder _zoneRowBuilder;
+
         public MenuBuilder(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             this._titleBuilder = new TitleBuilder(viewModel);
             this._separatorBuilder = new SeparatorBuilder(viewModel);
+            this._zoneRowBuilder = new ZoneRowBuilder(viewModel);
         }
 
         public GameObject Create()
@@ -77,26 +79,9 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
 
             _titleBuilder.Create().transform.SetParent(menuGo.transform, false);
             _separatorBuilder.Create().transform.SetParent(menuGo.transform, false);
-            CreateZonesPlaceholder().transform.SetParent(menuGo.transform, false);
+            _zoneRowBuilder.Create().transform.SetParent(menuGo.transform, false);
 
             return menuGo;
-        }
-
-        private GameObject CreateZonesPlaceholder()
-        {
-            var go = new GameObject("Zones", typeof(RectTransform));
-
-            var text = go.AddComponent<Text>();
-            text.text = "<Zones>";
-            text.font = HighLogic.UISkin.font;
-            text.fontSize = 10;
-            text.color = SteamInputPalette.DefaultButtonTextColor;
-            text.alignment = TextAnchor.MiddleLeft;
-            text.horizontalOverflow = HorizontalWrapMode.Overflow;
-            text.verticalOverflow = VerticalWrapMode.Overflow;
-            text.raycastTarget = false;
-
-            return go;
         }
     }
 }

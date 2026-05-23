@@ -8,21 +8,40 @@ namespace com.github.lhervier.ksp.ui.styles
         // ==============================================================
         // Default settings
         // ==============================================================
+        
+        // Default values
         public const float DefaultPaddingLeft = 8f;
         public const float DefaultPaddingRight = 8f;
         public const float DefaultPaddingTop = 5f;
         public const float DefaultPaddingBottom = 5f;
         public const float DefaultSpacing = 6f;
-        public const int DefaultIconSize = 18;
-        public const float DefaultButtonSize = 18f;
-        public static readonly Color DefaultButtonTextColor = new Color(187f / 255f, 187f / 255f, 187f / 255f);
+        
+        // Default colors
+        public static readonly Color DefaultAccentColor = new Color(141f / 255f, 190f / 255f, 69f / 255f);
+        public static readonly Color DefaultLabelColor = new Color(187f / 255f, 187f / 255f, 187f / 255f);
+        public static readonly Color DefaultFieldBackgroundColor = new Color(42f / 255f, 42f / 255f, 42f / 255f);
+        public static readonly Color DefaultSeparatorColor = new Color(42f / 255f, 42f / 255f, 42f / 255f);
 
+        // Icons
+        public const int DefaultIconSize = 18;
+        
+        // Buttons
+        public const float DefaultButtonSize = 18f;
+        public static readonly Color DefaultButtonColor = new Color(42f / 255f, 42f / 255f, 42f / 255f);
+        public static readonly Color DefaultButtonHoverColor = new Color(56f / 255f, 56f / 255f, 56f / 255f);
+        public static readonly Color DefaultButtonTextColor = new Color(187f / 255f, 187f / 255f, 187f / 255f);
+        
+        // Checkbox
+        public const float DefaultCheckboxSize = 12f;
+        public const float DefaultCheckmarkInset = 2f;
+                
         // ===============================================================
         // Main Window
         // ===============================================================
         public const float WindowWidth = 400f;
         public const float WindowHeight = 320f;
         public const float WindowBorderThickness = 1f;
+        // Colors
         public static readonly Color WindowBodyColor = new Color(20f / 255f, 20f / 255f, 20f / 255f);
         public static readonly Color WindowBorderColor = new Color(85f / 255f, 85f / 255f, 85f / 255f);
         
@@ -33,11 +52,14 @@ namespace com.github.lhervier.ksp.ui.styles
         public const float TitleBarSeparatorHeight = 1f;
         public const string TitleBarGamepadIconPath = "SteamInput/Textures/gamepad_icon";
         public const float TitleBarActionGroupBorderThickness = 1f;
+        
+        // Colors
         public static readonly Color TitleBarLabelColor = new Color(232f / 255f, 232f / 255f, 232f / 255f);
         public static readonly Color TitleBarSeparatorColor = new Color(68f / 255f, 68f / 255f, 68f / 255f);
-        public static readonly Color TitleBarActionGroupLabelColor = new Color(141f / 255f, 190f / 255f, 69f / 255f);
         public static readonly Color TitleBarActionGroupBorderColor = new Color(74f / 255f, 110f / 255f, 32f / 255f);
         public static readonly Color TitleBarControllerNameColor = new Color(85f / 255f, 85f / 255f, 85f / 255f);
+        public static readonly Color TitleBarButtonColor = new Color(56f / 255f, 56f / 255f, 56f / 255f);
+        public static readonly Color TitleBarButtonHoverColor = new Color(72f / 255f, 72f / 255f, 72f / 255f);
 
         // ====================================================================
         // Menu
@@ -49,9 +71,10 @@ namespace com.github.lhervier.ksp.ui.styles
         public const float MenuPaddingRight = 10f;
         public const float MenuPaddingTop = 4f;
         public const float MenuPaddingBottom = 4f;
-        public static readonly Color MenuTitleColor = new Color(85f / 255f, 85f / 255f, 85f / 255f);
-        public static readonly Color MenuSeparatorColor = new Color(42f / 255f, 42f / 255f, 42f / 255f);
+        public const float MenuArrowsSpacing = 2f;
 
+        public static readonly Color MenuTitleColor = new Color(85f / 255f, 85f / 255f, 85f / 255f);
+        
 
 
 

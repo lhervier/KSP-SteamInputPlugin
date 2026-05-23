@@ -28,7 +28,7 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             var image = go.AddComponent<Image>();
             image.sprite = SpritesGlobal.FillSprite;
             image.type = Image.Type.Simple;
-            image.color = SteamInputPalette.MenuSeparatorColor;
+            image.color = SteamInputPalette.DefaultSeparatorColor;
             image.raycastTarget = false;
 
             return go;
