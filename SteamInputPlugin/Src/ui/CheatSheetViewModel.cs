@@ -208,6 +208,9 @@ namespace com.github.lhervier.ksp.ui
             if( (updateFlags & UpdatedConfiguration.ORDERED_GAMEPAD_ZONES) != 0 ) {
                 this.RefreshPhysicalZones();
             }
+            if( (updateFlags & UpdatedConfiguration.VISIBLE_GAMEPAD_ZONES) != 0 ) {
+                this.RefreshPhysicalZones();
+            }
         }
 
         // =======================================================================
@@ -319,6 +322,41 @@ namespace com.github.lhervier.ksp.ui
         public void CloseWindow()
         {
             this._onClose?.Invoke();
+        }
+
+        public void MoveZoneUp(UIPhysicalZone zone)
+        {
+            List<GamepadZone> zones = SteamInputGlobalSettings.GetOrderedGamepadZones();
+            int index = zones.IndexOf(zone.Zone);
+            if( index == -1 ) return;
+            if( index == 0 ) return;
+            
+            (zones[index - 1], zones[index]) = (zones[index], zones[index - 1]);
+            SteamInputGlobalSettings.SetOrderedGamepadZones(zones);
+        }
+
+        public void MoveZoneDown(UIPhysicalZone zone)
+        {
+            List<GamepadZone> zones = SteamInputGlobalSettings.GetOrderedGamepadZones();
+            int index = zones.IndexOf(zone.Zone);
+            if( index == -1 ) return;
+            if( index == zones.Count - 1 ) return;
+            
+            (zones[index], zones[index + 1]) = (zones[index + 1], zones[index]);
+            SteamInputGlobalSettings.SetOrderedGamepadZones(zones);
+        }
+
+        public void ToggleZoneVisibility(UIPhysicalZone zone)
+        {
+            List<GamepadZone> visibleZones = SteamInputGlobalSettings.GetVisibleGamepadZones();
+            if( visibleZones.Contains(zone.Zone) )
+            {
+                visibleZones.Remove(zone.Zone);
+            } else
+            {
+                visibleZones.Add(zone.Zone);
+            }
+            SteamInputGlobalSettings.SetVisibleGamepadZones(visibleZones);
         }
     }
 }

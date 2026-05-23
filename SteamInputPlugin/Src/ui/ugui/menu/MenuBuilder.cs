@@ -13,14 +13,14 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
         private CheatSheetViewModel _viewModel;
         private TitleBuilder _titleBuilder;
         private SeparatorBuilder _separatorBuilder;
-        private ZoneRowBuilder _zoneRowBuilder;
+        private ZonesBuilder _zonesBuilder;
 
         public MenuBuilder(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             this._titleBuilder = new TitleBuilder(viewModel);
             this._separatorBuilder = new SeparatorBuilder(viewModel);
-            this._zoneRowBuilder = new ZoneRowBuilder(viewModel);
+            this._zonesBuilder = new ZonesBuilder(viewModel);
         }
 
         public GameObject Create()
@@ -79,7 +79,7 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
 
             _titleBuilder.Create().transform.SetParent(menuGo.transform, false);
             _separatorBuilder.Create().transform.SetParent(menuGo.transform, false);
-            _zoneRowBuilder.Create().transform.SetParent(menuGo.transform, false);
+            _zonesBuilder.Create().transform.SetParent(menuGo.transform, false);
 
             return menuGo;
         }

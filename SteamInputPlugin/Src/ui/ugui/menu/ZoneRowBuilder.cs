@@ -3,13 +3,13 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using com.github.lhervier.ksp.ui.styles;
 using com.github.lhervier.ksp.ui.ugui.styles;
+using com.github.lhervier.ksp.ui.model;
+using System;
 
 namespace com.github.lhervier.ksp.ui.ugui.menu
 {
     public class ZoneRowBuilder
     {
-        
-        private const float ArrowSpacing = 2f;
 
         private CheatSheetViewModel _viewModel;
         private CheckboxBuilder _checkBoxBuilder;
@@ -24,9 +24,9 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             this._arrowsBuilder = new ArrowsBuilder(viewModel);
         }
 
-        public GameObject Create()
+        public GameObject Create(UIPhysicalZone zone, bool first, bool last)
         {
-            var rowGo = new GameObject("Zone", typeof(RectTransform));
+            var rowGo = new GameObject("Zone." + zone.Zone.Name, typeof(RectTransform));
 
             // Horizontal: checkbox + label (greedy) + arrows
             var layout = rowGo.AddComponent<HorizontalLayoutGroup>();
@@ -38,11 +38,59 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             layout.childForceExpandWidth = false;
             layout.childForceExpandHeight = false;
 
-            this._checkBoxBuilder.Create().transform.SetParent(rowGo.transform, false);
-            this._zoneLabelBuilder.Create().transform.SetParent(rowGo.transform, false);
-            this._arrowsBuilder.Create().transform.SetParent(rowGo.transform, false);
+            // Controller used to propagate changes from the viewModel into the GameObjects
+            var controller = rowGo.AddComponent<ZoneRowController>();
+            
+            var checkboxGo = this._checkBoxBuilder.Create(
+                zone.Visible,
+                _ => this._viewModel.ToggleZoneVisibility(zone),
+                controller
+            );
+            checkboxGo.transform.SetParent(rowGo.transform, false);
+
+            var labelGo = this._zoneLabelBuilder.Create(
+                zone.Label,
+                controller
+            );
+            labelGo.transform.SetParent(rowGo.transform, false);
+
+            this._arrowsBuilder.Create(
+                () => this._viewModel.MoveZoneUp(zone),
+                () => this._viewModel.MoveZoneDown(zone),
+                first,
+                last
+            )
+            .transform.SetParent(rowGo.transform, false);
 
             return rowGo;
+        }
+
+        public class ZoneRowController : MonoBehaviour
+        {
+            private GameObject _checkmark;
+            private Text _label;
+
+            public void InitCheckmark(GameObject checkmark)
+            {
+                this._checkmark = checkmark;
+            }
+
+            public void InitLabel(Text label)
+            {
+                this._label = label;
+            }
+
+            public void UpdateZone(UIPhysicalZone zone)
+            {
+                if (this._checkmark != null)
+                {
+                    this._checkmark.SetActive(zone.Visible);
+                }
+                if (this._label != null)
+                {
+                    this._label.text = zone.Label;
+                }
+            }
         }
     }
 }

@@ -26,11 +26,22 @@ namespace com.github.lhervier.ksp.ui.imgui
                 return;
             }
 
-            GUILayout.BeginVertical(SteamInputStyles.ZoneListPanel, GUILayout.ExpandWidth(true));
-            for (int i = 0; i < zones.Count; i++)
+            // Filter to the zones the user wants to see; preserves the order from the ViewModel
+            List<UIPhysicalZone> visibleZones = new List<UIPhysicalZone>();
+            foreach (UIPhysicalZone zone in zones)
             {
-                DrawZone(zones[i]);
-                if (i < zones.Count - 1)
+                if (zone.Visible) visibleZones.Add(zone);
+            }
+            if (visibleZones.Count == 0)
+            {
+                return;
+            }
+
+            GUILayout.BeginVertical(SteamInputStyles.ZoneListPanel, GUILayout.ExpandWidth(true));
+            for (int i = 0; i < visibleZones.Count; i++)
+            {
+                DrawZone(visibleZones[i]);
+                if (i < visibleZones.Count - 1)
                 {
                     GUILayout.Box(
                         GUIContent.none,

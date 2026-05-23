@@ -16,7 +16,7 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             this._viewModel = viewModel;
         }
 
-        public GameObject Create()
+        public GameObject Create(string label, ZoneRowBuilder.ZoneRowController controller)
         {
             var go = new GameObject("Label", typeof(RectTransform));
 
@@ -25,7 +25,7 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             layoutElement.flexibleWidth = 1f;
 
             var text = go.AddComponent<Text>();
-            text.text = "<zone>";
+            text.text = label;
             text.font = HighLogic.UISkin.font;
             text.fontSize = 12;
             text.color = SteamInputPalette.DefaultLabelColor;
@@ -33,6 +33,8 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             text.horizontalOverflow = HorizontalWrapMode.Overflow;
             text.verticalOverflow = VerticalWrapMode.Overflow;
             text.raycastTarget = false;
+
+            controller.InitLabel(text);
 
             return go;
         }

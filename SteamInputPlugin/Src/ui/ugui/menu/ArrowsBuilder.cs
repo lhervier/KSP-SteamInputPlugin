@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using com.github.lhervier.ksp.ui.styles;
 using com.github.lhervier.ksp.ui.ugui.styles;
+using System;
 
 namespace com.github.lhervier.ksp.ui.ugui.menu
 {
@@ -17,7 +18,7 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             this._buttonBuilder = new ButtonBuilder(viewModel);
         }
 
-        public GameObject Create()
+        public GameObject Create(Action onUp, Action onDown, bool first, bool last)
         {
             var go = new GameObject("Arrows", typeof(RectTransform));
 
@@ -30,10 +31,18 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             layout.childForceExpandWidth = false;
             layout.childForceExpandHeight = false;
 
-            this._buttonBuilder.Create("Up", "▲", () => Debug.Log("[SteamInput] Zone UP"))
-                .transform.SetParent(go.transform, false);
-            this._buttonBuilder.Create("Down", "▼", () => Debug.Log("[SteamInput] Zone DOWN"))
-                .transform.SetParent(go.transform, false);
+            this._buttonBuilder.Create(
+                "Up", 
+                "▲", 
+                onUp
+            )
+            .transform.SetParent(go.transform, false);
+            this._buttonBuilder.Create(
+                "Down", 
+                "▼", 
+                onDown
+            )
+            .transform.SetParent(go.transform, false);
 
             return go;
         }

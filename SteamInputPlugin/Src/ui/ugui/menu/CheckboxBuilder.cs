@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using com.github.lhervier.ksp.ui.styles;
 using com.github.lhervier.ksp.ui.ugui.styles;
+using System;
 
 namespace com.github.lhervier.ksp.ui.ugui.menu
 {
@@ -15,7 +16,11 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             this._viewModel = viewModel;
         }
 
-        public GameObject Create()
+        public GameObject Create(
+            bool initialChecked, 
+            Action<bool> onToggle,
+            ZoneRowBuilder.ZoneRowController controller
+        )
         {
             var go = new GameObject("Checkbox", typeof(RectTransform));
 
@@ -36,10 +41,11 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             // Green inner fill that represents the "checked" state
             var checkmarkGo = new GameObject("Checkmark", typeof(RectTransform));
             checkmarkGo.transform.SetParent(go.transform, false);
+            controller.InitCheckmark(checkmarkGo);
+
             var checkmarkRect = checkmarkGo.GetComponent<RectTransform>();
             checkmarkRect.anchorMin = Vector2.zero;
             checkmarkRect.anchorMax = Vector2.one;
-            layoutElement.preferredHeight = SteamInputPalette.DefaultCheckboxSize;
             checkmarkRect.offsetMin = new Vector2(SteamInputPalette.DefaultCheckmarkInset, SteamInputPalette.DefaultCheckmarkInset);
             checkmarkRect.offsetMax = new Vector2(-SteamInputPalette.DefaultCheckmarkInset, -SteamInputPalette.DefaultCheckmarkInset);
 
@@ -49,9 +55,9 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             checkmarkImage.color = SteamInputPalette.DefaultAccentColor;
             checkmarkImage.raycastTarget = false;
 
-            // Click toggles the checkmark visibility. State is captured by closure.
-            bool isChecked = true;
-            checkmarkGo.SetActive(isChecked);
+            // Initial visibility from the parameter; checkmarkGo.activeSelf is the source of truth
+            // (so external updates via SetActive stay consistent with what the click handler reads).
+            checkmarkGo.SetActive(initialChecked);
 
             var button = go.AddComponent<Button>();
             button.targetGraphic = bgImage;
@@ -63,11 +69,10 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             colors.colorMultiplier = 1f;
             colors.fadeDuration = 0f;
             button.colors = colors;
-            button.onClick.AddListener(() => {
-                isChecked = !isChecked;
-                checkmarkGo.SetActive(isChecked);
-                Debug.Log(isChecked ? "[SteamInput] Zone ON" : "[SteamInput] Zone OFF");
-            });
+            // checkmarkGo.activeSelf is the current (pre-click) visual state, so the new desired
+            // state is its negation. The callee decides whether to apply it (e.g., by reading
+            // the model's state, calling a toggle method, etc.).
+            button.onClick.AddListener(() => onToggle(!checkmarkGo.activeSelf));
 
             return go;
         }
