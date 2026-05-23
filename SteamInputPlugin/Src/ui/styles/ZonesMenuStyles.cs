@@ -50,7 +50,7 @@ namespace com.github.lhervier.ksp.ui.styles
                 wordWrap = false,
                 stretchWidth = true
             };
-            Title.normal.textColor = SteamInputPalette.MenuTitle;
+            Title.normal.textColor = SteamInputPalette.MenuTitleColor;
 
             Separator = new GUIStyle
             {

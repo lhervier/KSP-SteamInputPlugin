@@ -53,11 +53,11 @@ namespace com.github.lhervier.ksp.ui.styles
                 margin = new RectOffset(0, 0, 0, 0)
             };
             CloseButton.normal.background = textures.Button;
-            CloseButton.normal.textColor = SteamInputPalette.ButtonText;
+            CloseButton.normal.textColor = SteamInputPalette.DefaultButtonTextColor;
             CloseButton.hover.background = textures.ButtonHover;
             CloseButton.hover.textColor = Color.white;
             CloseButton.active.background = textures.Button;
-            CloseButton.active.textColor = SteamInputPalette.ButtonText;
+            CloseButton.active.textColor = SteamInputPalette.DefaultButtonTextColor;
 
             MenuButton = new GUIStyle(CloseButton);
         }

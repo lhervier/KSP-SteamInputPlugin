@@ -61,7 +61,7 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
             label.text = "⋯";
             label.font = HighLogic.UISkin.font;
             label.fontSize = 13;
-            label.color = SteamInputPalette.ButtonText;
+            label.color = SteamInputPalette.DefaultButtonTextColor;
             label.alignment = TextAnchor.MiddleCenter;
             label.raycastTarget = false;
 
@@ -71,7 +71,7 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
             enterEntry.callback.AddListener(_ => label.color = Color.white);
             trigger.triggers.Add(enterEntry);
             var exitEntry = new EventTrigger.Entry { eventID = EventTriggerType.PointerExit };
-            exitEntry.callback.AddListener(_ => label.color = SteamInputPalette.ButtonText);
+            exitEntry.callback.AddListener(_ => label.color = SteamInputPalette.DefaultButtonTextColor);
             trigger.triggers.Add(exitEntry);
 
             return buttonGo;

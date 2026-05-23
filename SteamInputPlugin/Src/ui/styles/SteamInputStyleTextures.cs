@@ -29,7 +29,7 @@ namespace com.github.lhervier.ksp.ui.styles
                 ButtonHover = MakeTexture(SteamInputPalette.ButtonHover),
                 MenuBox = MakeTexture(SteamInputPalette.MenuBox),
                 ZonesMenuBackground = MakeTexture(SteamInputPalette.ZonesMenuBackground),
-                MenuSeparator = MakeTexture(SteamInputPalette.MenuSeparator),
+                MenuSeparator = MakeTexture(SteamInputPalette.MenuSeparatorColor),
                 ZoneHeaderBackground = MakeTexture(SteamInputPalette.ZoneHeaderBg),
                 ZoneHeaderBottomLine = MakeTexture(SteamInputPalette.ZoneSeparator),
                 ZoneSeparatorLine = MakeTexture(SteamInputPalette.ZoneSeparator),

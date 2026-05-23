@@ -294,6 +294,7 @@ namespace com.github.lhervier.ksp.ui
         {
             this._physicalZones.Clear();
             ActionGroup currentActionGroup = this._actionGroupDaemon.GetCurrentActionGroup();
+            List<GamepadZone> visibleZones = SteamInputGlobalSettings.GetVisibleGamepadZones();
             List<PhysicalZone> physicalZones = this._gamepadConfigDaemon.GetPhysicalZones(currentActionGroup);
             foreach( GamepadZone zone in SteamInputGlobalSettings.GetOrderedGamepadZones() ) {
                 PhysicalZone physicalZone = physicalZones.FirstOrDefault(z => z.Zone == zone);
@@ -305,7 +306,8 @@ namespace com.github.lhervier.ksp.ui
                         Zone = physicalZone.Zone,
                         Label = ModLocalization.GetString("SteamInput_physicalZone_" + physicalZone.Zone.Name).ToUpperInvariant(),
                         GroupId = physicalZone.GroupId,
-                        ModeshiftGroupId = physicalZone.ModeshiftGroupId
+                        ModeshiftGroupId = physicalZone.ModeshiftGroupId,
+                        Visible = visibleZones.Contains(zone)
                     }
                 );
             }

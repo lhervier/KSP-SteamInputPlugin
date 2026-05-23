@@ -15,6 +15,7 @@ namespace com.github.lhervier.ksp.ui.styles
         public const float DefaultSpacing = 6f;
         public const int DefaultIconSize = 18;
         public const float DefaultButtonSize = 18f;
+        public static readonly Color DefaultButtonTextColor = new Color(187f / 255f, 187f / 255f, 187f / 255f);
 
         // ===============================================================
         // Main Window
@@ -43,7 +44,15 @@ namespace com.github.lhervier.ksp.ui.styles
         // ====================================================================
 
         public const float MenuWidth = 220f;
-        public const float MenuHeight = 180f;
+        public const float MenuSpacing = 3f;
+        public const float MenuPaddingLeft = 10f;
+        public const float MenuPaddingRight = 10f;
+        public const float MenuPaddingTop = 4f;
+        public const float MenuPaddingBottom = 4f;
+        public static readonly Color MenuTitleColor = new Color(85f / 255f, 85f / 255f, 85f / 255f);
+        public static readonly Color MenuSeparatorColor = new Color(42f / 255f, 42f / 255f, 42f / 255f);
+
+
 
 
         
@@ -58,15 +67,15 @@ namespace com.github.lhervier.ksp.ui.styles
         public const float BadgeBorderThickness = 1f;
         public static readonly Color Warn = new Color(0.95f, 0.82f, 0.23f);
         public static readonly Color Button = new Color(56f / 255f, 56f / 255f, 56f / 255f);
-        public static readonly Color ButtonText = new Color(187f / 255f, 187f / 255f, 187f / 255f);
+        
         public static readonly Color FieldBackground = new Color(42f / 255f, 42f / 255f, 42f / 255f);
         public static readonly Color ButtonHover = new Color(72f / 255f, 72f / 255f, 72f / 255f);
         /// <summary>.kmenu background (#1e1e1e) — lighter than window body (#141414).</summary>
         public static readonly Color ZonesMenuBackground = new Color(30f / 255f, 30f / 255f, 30f / 255f);
         public static readonly Color MenuBox = ZonesMenuBackground;
-        public static readonly Color MenuTitle = new Color(85f / 255f, 85f / 255f, 85f / 255f);
+        
         /// <summary>.kmenu-sep (#2a2a2a).</summary>
-        public static readonly Color MenuSeparator = new Color(42f / 255f, 42f / 255f, 42f / 255f);
+        
 
         // Physical zones (ksp_cheatsheet *.html — .kzone, .kzh, .kstate)
         public static readonly Color ZoneHeaderBg = new Color(26f / 255f, 26f / 255f, 26f / 255f);
