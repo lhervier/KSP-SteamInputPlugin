@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using com.github.lhervier.ksp.ui.styles;
 using com.github.lhervier.ksp.ui.ugui.styles;
 using com.github.lhervier.ksp.ui.model;
@@ -29,7 +30,25 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             var rowGo = new GameObject("Zone." + zone.Zone.Name, typeof(RectTransform));
             var controller = rowGo.AddComponent<ZoneRowController>();
             controller.Initialize(_viewModel);
-            
+
+            // Background image: transparent normally, FieldBackground (#2a2a2a) on hover.
+            // raycastTarget = true so pointer events fire on the row (including its empty area).
+            var bgImage = rowGo.AddComponent<Image>();
+            bgImage.sprite = SpritesGlobal.FillSprite;
+            bgImage.type = Image.Type.Simple;
+            bgImage.color = Color.clear;
+            bgImage.raycastTarget = true;
+
+            // PointerEnter/Exit on the row itself. Hovering a child (button/checkbox) does NOT
+            // unhighlight the row, because in uGUI a child is part of its parent's pointer chain.
+            var trigger = rowGo.AddComponent<EventTrigger>();
+            var enterEntry = new EventTrigger.Entry { eventID = EventTriggerType.PointerEnter };
+            enterEntry.callback.AddListener(_ => bgImage.color = SteamInputPalette.DefaultFieldBackgroundColor);
+            trigger.triggers.Add(enterEntry);
+            var exitEntry = new EventTrigger.Entry { eventID = EventTriggerType.PointerExit };
+            exitEntry.callback.AddListener(_ => bgImage.color = Color.clear);
+            trigger.triggers.Add(exitEntry);
+
             // Horizontal: checkbox + label (greedy) + arrows
             var layout = rowGo.AddComponent<HorizontalLayoutGroup>();
             layout.padding = new RectOffset(0, 0, 0, 0);
