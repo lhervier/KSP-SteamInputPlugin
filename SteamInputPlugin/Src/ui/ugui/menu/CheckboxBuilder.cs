@@ -16,13 +16,15 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             this._viewModel = viewModel;
         }
 
-        public GameObject Create(
+        public CheckboxController Create(
             bool initialChecked, 
             Action<bool> onToggle,
-            ZoneRowBuilder.ZoneRowController controller
+            ZoneRowBuilder.ZoneRowController zoneRowController
         )
         {
             var go = new GameObject("Checkbox", typeof(RectTransform));
+            CheckboxController controller = go.AddComponent<CheckboxController>();
+            controller.Initialize(_viewModel);
 
             // Fixed 12x12 square
             var layoutElement = go.AddComponent<LayoutElement>();
@@ -41,7 +43,7 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             // Green inner fill that represents the "checked" state
             var checkmarkGo = new GameObject("Checkmark", typeof(RectTransform));
             checkmarkGo.transform.SetParent(go.transform, false);
-            controller.InitCheckmark(checkmarkGo);
+            zoneRowController.InitCheckmark(checkmarkGo);
 
             var checkmarkRect = checkmarkGo.GetComponent<RectTransform>();
             checkmarkRect.anchorMin = Vector2.zero;
@@ -74,7 +76,11 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             // the model's state, calling a toggle method, etc.).
             button.onClick.AddListener(() => onToggle(!checkmarkGo.activeSelf));
 
-            return go;
+            return controller;
+        }
+
+        public class CheckboxController : BaseSteamInputController
+        {
         }
     }
 }

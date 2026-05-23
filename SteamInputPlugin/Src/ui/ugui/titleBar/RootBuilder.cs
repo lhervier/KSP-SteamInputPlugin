@@ -21,10 +21,12 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
             this._rightColumnBuiler = new RightColumnBuilder(viewModel);
         }
 
-        public GameObject Create(Action onMenuToggle)
+        public RootController Create(Action onMenuToggle)
         {
             var rootGo = new GameObject("SteamInput.TitleBar.Root", typeof(RectTransform));
-
+            RootController controller = rootGo.AddComponent<RootController>();
+            controller.Initialize(this._viewModel);
+            
             // Full size of the parent = the title bar, minus the bottom separator
             var rootRect = rootGo.GetComponent<RectTransform>();
             rootRect.anchorMin = Vector2.zero;
@@ -55,7 +57,11 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
             var rightRow = this._rightColumnBuiler.Create(onMenuToggle);
             rightRow.transform.SetParent(rootGo.transform, false);
 
-            return rootGo;
+            return controller;
+        }
+
+        public class RootController : BaseSteamInputController
+        {
         }
     }
 }

@@ -1,9 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using com.github.lhervier.ksp.ui.styles;
-using com.github.lhervier.ksp.ui.ugui.styles;
-using UnityEngine.Events;
 
 namespace com.github.lhervier.ksp.ui.ugui.titleBar
 {
@@ -15,9 +12,11 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
             this._viewModel = viewModel;
         }
 
-        public GameObject Create()
+        public TitleController Create()
         {
             var labelGo = new GameObject("SteamInput.TitleBar.LeftColumn.Label", typeof(RectTransform));
+            TitleController controller = labelGo.AddComponent<TitleController>();
+            controller.Initialize(this._viewModel);
             
             var label = labelGo.AddComponent<Text>();
             label.text = ModLocalization.GetString("SteamInput_titleHelp").ToUpperInvariant();
@@ -30,7 +29,11 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
             label.verticalOverflow = VerticalWrapMode.Overflow;
             label.raycastTarget = false;
 
-            return labelGo;
+            return controller;
+        }
+
+        public class TitleController : BaseSteamInputController
+        {
         }
     }
 }

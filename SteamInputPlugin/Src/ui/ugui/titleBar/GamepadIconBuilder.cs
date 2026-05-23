@@ -16,9 +16,11 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
             this._viewModel = viewModel;
         }
 
-        public GameObject Create()
+        public GamepadIconController Create()
         {
             var iconGo = new GameObject("SteamInput.TitleBar.LeftColumn.Icon", typeof(RectTransform));
+            GamepadIconController controller = iconGo.AddComponent<GamepadIconController>();
+            controller.Initialize(this._viewModel);
 
             // The icon itself
             var iconImage = iconGo.AddComponent<Image>();
@@ -37,7 +39,11 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
                     SteamInputPalette.DefaultIconSize
                 );
             }
-            return iconGo;
+            return controller;
+        }
+
+        public class GamepadIconController : BaseSteamInputController
+        {
         }
     }
 }

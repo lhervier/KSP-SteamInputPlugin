@@ -104,34 +104,34 @@ namespace com.github.lhervier.ksp.ui.ugui
             }
 
             // Create the menu and the overlay events
-            GameObject overlayGo = null;
-            GameObject menuGo = null;
+            OverlayBuilder.OverlayController overlayController = null;
+            MenuBuilder.MenuController menuController = null;
             Action toggleMenu = () => {
-                if( menuGo == null || overlayGo == null )  return;
-                bool willOpen = !menuGo.activeSelf;
-                menuGo.SetActive(willOpen);
-                overlayGo.SetActive(willOpen);
+                if( menuController == null || overlayController == null )  return;
+                bool willOpen = !menuController.gameObject.activeSelf;
+                menuController.gameObject.SetActive(willOpen);
+                overlayController.gameObject.SetActive(willOpen);
             };
 
             Action closeMenu = () => {
-                if( menuGo == null || overlayGo == null )  return;
-                menuGo.SetActive(false);
-                overlayGo.SetActive(false);
+                if( menuController == null || overlayController == null )  return;
+                menuController.gameObject.SetActive(false);
+                overlayController.gameObject.SetActive(false);
             };
 
             // Add the overlay
-            overlayGo = _overlayBuilder.Create(closeMenu);
-            overlayGo.transform.SetParent(popupDialog.popupWindow.transform, false);
-            overlayGo.SetActive(false);
+            overlayController = _overlayBuilder.Create(closeMenu);
+            overlayController.transform.SetParent(popupDialog.popupWindow.transform, false);
+            overlayController.gameObject.SetActive(false);
 
             // Add the title bar
-            GameObject titleBarGo = this._titleBarBuilder.Create(toggleMenu);
-            titleBarGo.transform.SetParent(popupDialog.popupWindow.transform, false);
+            TitleBarBuilder.TitleBarController titleBarController = this._titleBarBuilder.Create(toggleMenu);
+            titleBarController.transform.SetParent(popupDialog.popupWindow.transform, false);
 
             // Add the menu
-            menuGo = this._menuBuilder.Create();
-            menuGo.transform.SetParent(popupDialog.popupWindow.transform, false);
-            menuGo.SetActive(false);
+            menuController = this._menuBuilder.Create();
+            menuController.transform.SetParent(popupDialog.popupWindow.transform, false);
+            menuController.gameObject.SetActive(false);
 
             return popupDialog;
         }

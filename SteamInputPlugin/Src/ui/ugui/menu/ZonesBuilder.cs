@@ -21,10 +21,12 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             this._zoneRowBuilder = new ZoneRowBuilder(viewModel);
         }
 
-        public GameObject Create()
+        public ZonesController Create()
         {
             var go = new GameObject("Zones", typeof(RectTransform));
-
+            ZonesController controller = go.AddComponent<ZonesController>();
+            controller.Initialize(_viewModel);
+            
             // VLG stacks the zone rows. spacing matches the outer menu so rows breathe like
             // title/separator above. The ZonesBinder calls SetSiblingIndex on rows to apply order.
             var layout = go.AddComponent<VerticalLayoutGroup>();
@@ -36,10 +38,9 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             layout.childForceExpandWidth = true;
             layout.childForceExpandHeight = false;
 
-            var binder = go.AddComponent<ZonesBinder>();
-            binder.Bind(_viewModel, _zoneRowBuilder);
+            controller.InitRowBuilder(_zoneRowBuilder);
 
-            return go;
+            return controller;
         }
 
         /// <summary>
@@ -47,28 +48,25 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
         /// Diff-and-patch: existing rows are reused (and updated via their controller), missing zones
         /// destroyed, new zones created. Reordering is applied via SetSiblingIndex.
         /// </summary>
-        private class ZonesBinder : MonoBehaviour
+        public class ZonesController : BaseSteamInputController
         {
-            private CheatSheetViewModel _viewModel;
             private ZoneRowBuilder _rowBuilder;
-            private Dictionary<GamepadZone, GameObject> _rows;
+            private Dictionary<GamepadZone, ZoneRowBuilder.ZoneRowController> _rows = new Dictionary<GamepadZone, ZoneRowBuilder.ZoneRowController>();
 
-            public void Bind(CheatSheetViewModel viewModel, ZoneRowBuilder rowBuilder)
+            public void InitRowBuilder(ZoneRowBuilder rowBuilder)
             {
-                this._viewModel = viewModel;
                 this._rowBuilder = rowBuilder;
-                this._rows = new Dictionary<GamepadZone, GameObject>();
+            }
 
-                this._viewModel.OnPhysicalZonesChanged.Add(Sync);
-                Sync(this._viewModel.PhysicalZones);
+            public void Start()
+            {
+                this.ViewModel.OnPhysicalZonesChanged.Add(Sync);
+                Sync(this.ViewModel.PhysicalZones);
             }
 
             public void OnDestroy()
             {
-                if (this._viewModel != null)
-                {
-                    this._viewModel.OnPhysicalZonesChanged.Remove(Sync);
-                }
+                this.ViewModel?.OnPhysicalZonesChanged.Remove(Sync);
             }
 
             private void Sync(List<UIPhysicalZone> zones)
@@ -99,7 +97,7 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
                 for (int i = 0; i < zones.Count; i++)
                 {
                     var zone = zones[i];
-                    if (!this._rows.TryGetValue(zone.Zone, out GameObject row))
+                    if (!this._rows.TryGetValue(zone.Zone, out ZoneRowBuilder.ZoneRowController row))
                     {
                         row = this._rowBuilder.Create(zone, (i == 0), (i == zones.Count - 1));
                         row.transform.SetParent(this.transform, false);
@@ -107,8 +105,7 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
                     }
                     else
                     {
-                        var controller = row.GetComponent<ZoneRowBuilder.ZoneRowController>();
-                        controller?.UpdateZone(zone);
+                        row.UpdateZone(zone);
                     }
                     row.transform.SetSiblingIndex(i);
                 }

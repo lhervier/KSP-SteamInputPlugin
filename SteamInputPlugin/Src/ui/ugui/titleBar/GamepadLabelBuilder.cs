@@ -16,10 +16,12 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
             this._viewModel = viewModel;
         }
 
-        public GameObject Create()
+        public GamepadLabelController Create()
         {
             var go = new GameObject("SteamInput.TitleBar.RightColumn.GamepadName", typeof(RectTransform));
-
+            var controller = go.AddComponent<GamepadLabelController>();
+            controller.Initialize(this._viewModel);
+            
             var label = go.AddComponent<Text>();
             label.text = "<gamepad>";
             label.font = HighLogic.UISkin.font;
@@ -29,35 +31,33 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
             label.horizontalOverflow = HorizontalWrapMode.Overflow;
             label.verticalOverflow = VerticalWrapMode.Overflow;
             label.raycastTarget = false;
-
-            // Push the current action group label and react to changes via the ViewModel event
-            var binder = go.AddComponent<GamepadLabelBinder>();
-            binder.Bind(this._viewModel, label);
+            controller.InitLabel(label);
             
-            return go;
+            return controller;
         }
 
         /// <summary>
         /// Pushes the gamepad label from the ViewModel into a Text component.
         /// Subscribes on Bind, unsubscribes on OnDestroy.
         /// </summary>
-        private class GamepadLabelBinder : MonoBehaviour
+        public class GamepadLabelController : BaseSteamInputController
         {
-            private CheatSheetViewModel _viewModel;
             private Text _label;
 
-            public void Bind(CheatSheetViewModel viewModel, Text label)
+            public void InitLabel(Text label)
             {
-                this._viewModel = viewModel;
                 this._label = label;
+            }
 
-                this._viewModel.OnGamepadLabelChanged.Add(OnLabelChanged);
-                OnLabelChanged(this._viewModel.GamepadLabel);
+            public void Start()
+            {
+                this.ViewModel.OnGamepadLabelChanged.Add(OnLabelChanged);
+                OnLabelChanged(this.ViewModel.GamepadLabel);
             }
 
             public void OnDestroy()
             {
-                this._viewModel?.OnGamepadLabelChanged.Remove(OnLabelChanged);
+                this.ViewModel?.OnGamepadLabelChanged.Remove(OnLabelChanged);
             }
 
             private void OnLabelChanged(string value)

@@ -17,9 +17,11 @@ namespace com.github.lhervier.ksp.ui.ugui
             this._viewModel = viewModel;
         }
 
-        public GameObject Create(Action onClick)
+        public OverlayController Create(Action onClick)
         {
             var overlayGo = new GameObject("SteamInput.Overlay", typeof(RectTransform));
+            OverlayController controller = overlayGo.AddComponent<OverlayController>();
+            controller.Initialize(_viewModel);
 
             // popupWindow has a VerticalLayoutGroup that would otherwise place us in its flow.
             // Tell it to ignore us so our anchors take effect.
@@ -55,7 +57,11 @@ namespace com.github.lhervier.ksp.ui.ugui
             button.colors = colors;
             button.onClick.AddListener(() => onClick());
 
-            return overlayGo;
+            return controller;
+        }
+
+        public class OverlayController : BaseSteamInputController
+        {
         }
     }
 }

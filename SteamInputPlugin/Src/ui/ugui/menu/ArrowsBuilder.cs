@@ -18,9 +18,11 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             this._buttonBuilder = new ButtonBuilder(viewModel);
         }
 
-        public GameObject Create(Action onUp, Action onDown, bool first, bool last)
+        public ArrowsController Create(Action onUp, Action onDown, bool first, bool last)
         {
             var go = new GameObject("Arrows", typeof(RectTransform));
+            ArrowsController controller = go.AddComponent<ArrowsController>();
+            controller.Initialize(_viewModel);
 
             var layout = go.AddComponent<HorizontalLayoutGroup>();
             layout.padding = new RectOffset(0, 0, 0, 0);
@@ -44,7 +46,11 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             )
             .transform.SetParent(go.transform, false);
 
-            return go;
+            return controller;
+        }
+
+        public class ArrowsController : BaseSteamInputController
+        {
         }
     }
 }

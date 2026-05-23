@@ -20,30 +20,36 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
             this._titleBuilder = new TitleBuilder(viewModel);
         }
 
-        public GameObject Create()
+        public LeftColumnController Create()
         {
-            var leftRowGo = new GameObject("SteamInput.TitleBar.LeftColumn", typeof(RectTransform));
-
+            var leftColumnGo = new GameObject("SteamInput.TitleBar.LeftColumn", typeof(RectTransform));
+            LeftColumnController controller = leftColumnGo.AddComponent<LeftColumnController>();
+            controller.Initialize(this._viewModel);
+            
             // Greedy on width so it consumes the leftover space and pushes the right row against the right edge
-            var leftRowLayoutElement = leftRowGo.AddComponent<LayoutElement>();
-            leftRowLayoutElement.flexibleWidth = 1f;
+            var leftColumnLayoutElement = leftColumnGo.AddComponent<LayoutElement>();
+            leftColumnLayoutElement.flexibleWidth = 1f;
 
             // Horizontal layout containing icon + label
-            var leftRowLayout = leftRowGo.AddComponent<HorizontalLayoutGroup>();
-            leftRowLayout.spacing = SteamInputPalette.DefaultSpacing;
-            leftRowLayout.childAlignment = TextAnchor.MiddleLeft;
-            leftRowLayout.childControlWidth = false;
-            leftRowLayout.childControlHeight = false;
-            leftRowLayout.childForceExpandWidth = false;
-            leftRowLayout.childForceExpandHeight = false;
+            var leftColumnLayout = leftColumnGo.AddComponent<HorizontalLayoutGroup>();
+            leftColumnLayout.spacing = SteamInputPalette.DefaultSpacing;
+            leftColumnLayout.childAlignment = TextAnchor.MiddleLeft;
+            leftColumnLayout.childControlWidth = false;
+            leftColumnLayout.childControlHeight = false;
+            leftColumnLayout.childForceExpandWidth = false;
+            leftColumnLayout.childForceExpandHeight = false;
 
             var iconGo = this._gamepadIconBuilder.Create();
-            iconGo.transform.SetParent(leftRowLayoutElement.transform, false);
+            iconGo.transform.SetParent(leftColumnLayoutElement.transform, false);
 
             var labelGo = this._titleBuilder.Create();
-            labelGo.transform.SetParent(leftRowLayoutElement.transform, false);
+            labelGo.transform.SetParent(leftColumnLayoutElement.transform, false);
 
-            return leftRowGo;
+            return controller;
+        }
+
+        public class LeftColumnController : BaseSteamInputController
+        {
         }
     }
 }

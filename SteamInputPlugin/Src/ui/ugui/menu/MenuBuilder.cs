@@ -23,9 +23,11 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             this._zonesBuilder = new ZonesBuilder(viewModel);
         }
 
-        public GameObject Create()
+        public MenuController Create()
         {
             var menuGo = new GameObject("SteamInput.TitleBar.Menu", typeof(RectTransform));
+            MenuController controller = menuGo.AddComponent<MenuController>();
+            controller.Initialize(_viewModel);
 
             // popupWindow has a VerticalLayoutGroup that would otherwise place us in its flow.
             // Tell it to ignore us so our anchors take effect.
@@ -81,7 +83,11 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             _separatorBuilder.Create().transform.SetParent(menuGo.transform, false);
             _zonesBuilder.Create().transform.SetParent(menuGo.transform, false);
 
-            return menuGo;
+            return controller;
+        }
+
+        public class MenuController : BaseSteamInputController
+        {
         }
     }
 }

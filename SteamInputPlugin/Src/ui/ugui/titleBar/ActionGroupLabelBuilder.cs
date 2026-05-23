@@ -16,10 +16,12 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
             this._viewModel = viewModel;
         }
 
-        public GameObject Create()
+        public ActionGroupLabelController Create()
         {
             var badgeGo = new GameObject("SteamInput.TitleBar.RightColumn.ActionGroup", typeof(RectTransform));
-
+            var controller = badgeGo.AddComponent<ActionGroupLabelController>();
+            controller.Initialize(this._viewModel);
+            
             // Sliced sprite: transparent fill with a green border
             var image = badgeGo.AddComponent<Image>();
             image.sprite = SpritesTitleBar.ActionGroupBorderSprite;
@@ -49,35 +51,33 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
             label.horizontalOverflow = HorizontalWrapMode.Overflow;
             label.verticalOverflow = VerticalWrapMode.Overflow;
             label.raycastTarget = false;
+            controller.InitLabel(label);
 
-            // Push the current action group label and react to changes via the ViewModel event
-            var binder = labelGo.AddComponent<ActionGroupLabelBinder>();
-            binder.Bind(this._viewModel, label);
-
-            return badgeGo;
+            return controller;
         }
 
         /// <summary>
         /// Pushes the action group label from the ViewModel into a Text component.
         /// Subscribes on Bind, unsubscribes on OnDestroy.
         /// </summary>
-        private class ActionGroupLabelBinder : MonoBehaviour
+        public class ActionGroupLabelController : BaseSteamInputController
         {
-            private CheatSheetViewModel _viewModel;
             private Text _label;
 
-            public void Bind(CheatSheetViewModel viewModel, Text label)
+            public void InitLabel(Text label)
             {
-                this._viewModel = viewModel;
                 this._label = label;
+            }
 
-                this._viewModel.OnActionGroupLabelChanged.Add(OnLabelChanged);
-                OnLabelChanged(this._viewModel.ActionGroupLabel);
+            public void Start()
+            {
+                this.ViewModel.OnActionGroupLabelChanged.Add(OnLabelChanged);
+                OnLabelChanged(this.ViewModel.ActionGroupLabel);
             }
 
             public void OnDestroy()
             {
-                this._viewModel?.OnActionGroupLabelChanged.Remove(OnLabelChanged);
+                this.ViewModel?.OnActionGroupLabelChanged.Remove(OnLabelChanged);
             }
 
             private void OnLabelChanged(string value)

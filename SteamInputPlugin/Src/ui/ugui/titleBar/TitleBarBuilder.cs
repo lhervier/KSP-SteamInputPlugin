@@ -21,10 +21,12 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
             this._rootBuilder = new RootBuilder(viewModel);
         }
 
-        public GameObject Create(Action toggleMenu)
+        public TitleBarController Create(Action toggleMenu)
         {
             var titleBarGo = new GameObject("SteamInput.TitleBar", typeof(RectTransform));
-            
+            TitleBarController controller = titleBarGo.AddComponent<TitleBarController>();
+            controller.Initialize(_viewModel);
+
             // If the parent has a layout (and that's the case), forget about me, I will position elements myself.
             var titleBarLayout = titleBarGo.AddComponent<LayoutElement>();
             titleBarLayout.ignoreLayout = true;
@@ -46,14 +48,18 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
             headerImage.raycastTarget = false;
 
             // The main part of the title with all the elements
-            GameObject rootGo = this._rootBuilder.Create(toggleMenu);
+            RootBuilder.RootController rootGo = this._rootBuilder.Create(toggleMenu);
             rootGo.transform.SetParent(titleBarGo.transform, false);            
 
             // The separator
-            GameObject separatorGo = _separatorBuilder.Create();
+            SeparatorBuilder.SeparatorController separatorGo = _separatorBuilder.Create();
             separatorGo.transform.SetParent(titleBarGo.transform, false);
 
-            return titleBarGo;
+            return controller;
+        }
+
+        public class TitleBarController : BaseSteamInputController
+        {
         }
     }
 }

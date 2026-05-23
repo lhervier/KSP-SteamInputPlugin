@@ -25,9 +25,11 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
             this._buttonBuilder = new ButtonBuilder(viewModel);
         }
 
-        public GameObject Create(Action onMenuToggle)
+        public RightColumnController Create(Action onMenuToggle)
         {
             var rightRowGo = new GameObject("SteamInput.TitleBar.RightColumn", typeof(RectTransform));
+            RightColumnController controller = rightRowGo.AddComponent<RightColumnController>();
+            controller.Initialize(_viewModel);
 
             // Horizontal layout containing the right-side placeholders, sized to their text content
             var rightRowLayout = rightRowGo.AddComponent<HorizontalLayoutGroup>();
@@ -38,8 +40,8 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
             rightRowLayout.childForceExpandWidth = false;
             rightRowLayout.childForceExpandHeight = false;
 
-            var actionGroupGo = this._actionGroupLabelBuilder.Create();
-            actionGroupGo.transform.SetParent(rightRowGo.transform, false);
+            var actionGroupLabelController = this._actionGroupLabelBuilder.Create();
+            actionGroupLabelController.transform.SetParent(rightRowGo.transform, false);
 
             var controllerGo = this._gamepadLabelBuilder.Create();
             controllerGo.transform.SetParent(rightRowGo.transform, false);
@@ -64,7 +66,11 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
             );
             closeButtonController.transform.SetParent(rightRowGo.transform, false);
 
-            return rightRowGo;
+            return controller;
+        }
+
+        public class RightColumnController : BaseSteamInputController
+        {
         }
     }
 }

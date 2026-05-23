@@ -43,6 +43,8 @@ namespace com.github.lhervier.ksp.ui.ugui
         )
         {
             var buttonGo = new GameObject(objectName, typeof(RectTransform));
+            ButtonController controller = buttonGo.AddComponent<ButtonController>();
+            controller.Initialize(_viewModel);
 
             var layoutElement = buttonGo.AddComponent<LayoutElement>();
             layoutElement.preferredWidth = SteamInputPalette.DefaultButtonSize;
@@ -70,6 +72,7 @@ namespace com.github.lhervier.ksp.ui.ugui
             button.colors = colors;
             button.interactable = interactable;
             button.onClick.AddListener(() => onClick());
+            controller.InitButton(button);
 
             // Button label, centered in the button
             var labelGo = new GameObject("Label", typeof(RectTransform));
@@ -95,9 +98,7 @@ namespace com.github.lhervier.ksp.ui.ugui
 
             label.alignment = TextAnchor.MiddleCenter;
             label.raycastTarget = false;
-
-            ButtonController controller = buttonGo.AddComponent<ButtonController>();
-            controller.Initialize(label, button);
+            controller.InitLabel(label);
 
             // Button.colors only tints the targetGraphic (the background); replicate IMGUI's text
             // color swap (ButtonText → white on hover) via an EventTrigger on the same GameObject.
@@ -119,14 +120,18 @@ namespace com.github.lhervier.ksp.ui.ugui
         }
     }
 
-    public class ButtonController : MonoBehaviour
+    public class ButtonController : BaseSteamInputController
     {
         private Text _label;
         private Button _button;
 
-        public void Initialize(Text label, Button button)
+        public void InitLabel(Text label)
         {
             this._label = label;
+        }
+
+        public void InitButton(Button button)
+        {
             this._button = button;
         }
 

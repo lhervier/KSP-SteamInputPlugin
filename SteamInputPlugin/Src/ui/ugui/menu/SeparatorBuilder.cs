@@ -16,9 +16,11 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
         {
             this._viewModel = viewModel;
         }
-        public GameObject Create()
+        public SeparatorController Create()
         {
             var go = new GameObject("Separator", typeof(RectTransform));
+            SeparatorController controller = go.AddComponent<SeparatorController>();
+            controller.Initialize(_viewModel);
 
             // 1px tall, full width (the parent VLG stretches it via childForceExpandWidth = true)
             var layoutElement = go.AddComponent<LayoutElement>();
@@ -31,7 +33,11 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             image.color = SteamInputPalette.DefaultSeparatorColor;
             image.raycastTarget = false;
 
-            return go;
+            return controller;
+        }
+
+        public class SeparatorController : BaseSteamInputController
+        {
         }
     }
 }

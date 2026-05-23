@@ -24,10 +24,12 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             this._arrowsBuilder = new ArrowsBuilder(viewModel);
         }
 
-        public GameObject Create(UIPhysicalZone zone, bool first, bool last)
+        public ZoneRowController Create(UIPhysicalZone zone, bool first, bool last)
         {
             var rowGo = new GameObject("Zone." + zone.Zone.Name, typeof(RectTransform));
-
+            var controller = rowGo.AddComponent<ZoneRowController>();
+            controller.Initialize(_viewModel);
+            
             // Horizontal: checkbox + label (greedy) + arrows
             var layout = rowGo.AddComponent<HorizontalLayoutGroup>();
             layout.padding = new RectOffset(0, 0, 0, 0);
@@ -39,7 +41,6 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             layout.childForceExpandHeight = false;
 
             // Controller used to propagate changes from the viewModel into the GameObjects
-            var controller = rowGo.AddComponent<ZoneRowController>();
             
             var checkboxGo = this._checkBoxBuilder.Create(
                 zone.Visible,
@@ -62,10 +63,10 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             )
             .transform.SetParent(rowGo.transform, false);
 
-            return rowGo;
+            return controller;
         }
 
-        public class ZoneRowController : MonoBehaviour
+        public class ZoneRowController : BaseSteamInputController
         {
             private GameObject _checkmark;
             private Text _label;

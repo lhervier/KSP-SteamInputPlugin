@@ -16,9 +16,11 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             this._viewModel = viewModel;
         }
 
-        public GameObject Create(string label, ZoneRowBuilder.ZoneRowController controller)
+        public ZoneLabelController Create(string label, ZoneRowBuilder.ZoneRowController zoneRowController)
         {
             var go = new GameObject("Label", typeof(RectTransform));
+            ZoneLabelController controller = go.AddComponent<ZoneLabelController>();
+            controller.Initialize(_viewModel);
 
             // Greedy on width: consumes the leftover space and pushes the arrows to the right
             var layoutElement = go.AddComponent<LayoutElement>();
@@ -34,9 +36,13 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             text.verticalOverflow = VerticalWrapMode.Overflow;
             text.raycastTarget = false;
 
-            controller.InitLabel(text);
+            zoneRowController.InitLabel(text);
 
-            return go;
+            return controller;
+        }
+
+        public class ZoneLabelController : BaseSteamInputController
+        {
         }
     }
 }

@@ -16,9 +16,11 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
             this._viewModel = viewModel;
         }
 
-        public GameObject Create()
+        public SeparatorController Create()
         {
             var separatorGo = new GameObject("SteamInput.TitleBar.Separator", typeof(RectTransform));
+            SeparatorController controller = separatorGo.AddComponent<SeparatorController>();
+            controller.Initialize(this._viewModel);
             
             // Stretched horizontally, positionned at the bottom of the parent
             var separatorRect = separatorGo.GetComponent<RectTransform>();
@@ -35,7 +37,11 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
             separatorImage.color = SteamInputPalette.TitleBarSeparatorColor;
             separatorImage.raycastTarget = false;
 
-            return separatorGo;
+            return controller;
+        }
+
+        public class SeparatorController : BaseSteamInputController
+        {
         }
     }
 }

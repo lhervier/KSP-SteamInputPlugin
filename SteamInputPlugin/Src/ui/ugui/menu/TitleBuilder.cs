@@ -17,9 +17,11 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             this._viewModel = viewModel;
         }
 
-        public GameObject Create()
+        public TitleController Create()
         {
             var go = new GameObject("Title", typeof(RectTransform));
+            TitleController controller = go.AddComponent<TitleController>();
+            controller.Initialize(_viewModel);
 
             var text = go.AddComponent<Text>();
             text.text = ModLocalization.GetString("SteamInput_zonesMenuTitle").ToUpperInvariant();
@@ -32,7 +34,11 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             text.verticalOverflow = VerticalWrapMode.Overflow;
             text.raycastTarget = false;
 
-            return go;
+            return controller;
+        }
+
+        public class TitleController : BaseSteamInputController
+        {
         }
     }
 }
