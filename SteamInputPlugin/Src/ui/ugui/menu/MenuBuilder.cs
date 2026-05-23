@@ -6,15 +6,19 @@ using com.github.lhervier.ksp.ui.ugui.styles;
 using UnityEngine.Events;
 using System;
 
-namespace com.github.lhervier.ksp.ui.ugui
+namespace com.github.lhervier.ksp.ui.ugui.menu
 {
     public class MenuBuilder
     {
         private CheatSheetViewModel _viewModel;
+        private TitleBuilder _titleBuilder;
+        private SeparatorBuilder _separatorBuilder;
         
         public MenuBuilder(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
+            this._titleBuilder = new TitleBuilder(viewModel);
+            this._separatorBuilder = new SeparatorBuilder(viewModel);
         }
 
         public GameObject Create()
@@ -71,47 +75,11 @@ namespace com.github.lhervier.ksp.ui.ugui
             fitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
             fitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
 
-            CreateTitle().transform.SetParent(menuGo.transform, false);
-            CreateSeparator().transform.SetParent(menuGo.transform, false);
+            _titleBuilder.Create().transform.SetParent(menuGo.transform, false);
+            _separatorBuilder.Create().transform.SetParent(menuGo.transform, false);
             CreateZonesPlaceholder().transform.SetParent(menuGo.transform, false);
 
             return menuGo;
-        }
-
-        private GameObject CreateTitle()
-        {
-            var go = new GameObject("Title", typeof(RectTransform));
-
-            var text = go.AddComponent<Text>();
-            text.text = ModLocalization.GetString("LOC_SteamInput_zonesMenuTitle").ToUpperInvariant();
-            text.font = HighLogic.UISkin.font;
-            text.fontSize = 10;
-            text.fontStyle = FontStyle.Bold;
-            text.color = SteamInputPalette.MenuTitleColor;
-            text.alignment = TextAnchor.MiddleLeft;
-            text.horizontalOverflow = HorizontalWrapMode.Overflow;
-            text.verticalOverflow = VerticalWrapMode.Overflow;
-            text.raycastTarget = false;
-
-            return go;
-        }
-
-        private GameObject CreateSeparator()
-        {
-            var go = new GameObject("Separator", typeof(RectTransform));
-
-            // 1px tall, full width (the parent VLG stretches it via childForceExpandWidth = true)
-            var layoutElement = go.AddComponent<LayoutElement>();
-            layoutElement.preferredHeight = 1f;
-            layoutElement.minHeight = 1f;
-
-            var image = go.AddComponent<Image>();
-            image.sprite = SpritesGlobal.FillSprite;
-            image.type = Image.Type.Simple;
-            image.color = SteamInputPalette.MenuSeparatorColor;
-            image.raycastTarget = false;
-
-            return go;
         }
 
         private GameObject CreateZonesPlaceholder()
