@@ -42,12 +42,21 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             // PointerEnter/Exit on the row itself. Hovering a child (button/checkbox) does NOT
             // unhighlight the row, because in uGUI a child is part of its parent's pointer chain.
             var trigger = rowGo.AddComponent<EventTrigger>();
+
             var enterEntry = new EventTrigger.Entry { eventID = EventTriggerType.PointerEnter };
             enterEntry.callback.AddListener(_ => bgImage.color = SteamInputPalette.DefaultFieldBackgroundColor);
             trigger.triggers.Add(enterEntry);
+            
             var exitEntry = new EventTrigger.Entry { eventID = EventTriggerType.PointerExit };
             exitEntry.callback.AddListener(_ => bgImage.color = Color.clear);
             trigger.triggers.Add(exitEntry);
+            
+            // Click on the row (anywhere not handled by a child) toggles the checkbox.
+            // Clicks on the checkbox/arrows are consumed by their own Button components
+            // (IPointerClickHandler stops at the first handler in the chain) so they don't reach here.
+            var clickEntry = new EventTrigger.Entry { eventID = EventTriggerType.PointerClick };
+            clickEntry.callback.AddListener(_ => this._viewModel.ToggleZoneVisibility(zone));
+            trigger.triggers.Add(clickEntry);
 
             // Horizontal: checkbox + label (greedy) + arrows
             var layout = rowGo.AddComponent<HorizontalLayoutGroup>();
