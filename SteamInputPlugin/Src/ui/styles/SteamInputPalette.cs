@@ -30,6 +30,7 @@ namespace com.github.lhervier.ksp.ui.styles
         public static readonly Color DefaultButtonColor = new Color(42f / 255f, 42f / 255f, 42f / 255f);
         public static readonly Color DefaultButtonHoverColor = new Color(56f / 255f, 56f / 255f, 56f / 255f);
         public static readonly Color DefaultButtonTextColor = new Color(187f / 255f, 187f / 255f, 187f / 255f);
+        public static readonly Color DefaultButtonDisabledTextColor = new Color(187f / 255f, 187f / 255f, 187f / 255f, 0.25f);
         
         // Checkbox
         public const float DefaultCheckboxSize = 12f;

@@ -44,23 +44,25 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
             var controllerGo = this._gamepadLabelBuilder.Create();
             controllerGo.transform.SetParent(rightRowGo.transform, false);
 
-            var menuGo = this._buttonBuilder.Create(
+            var menuButtonController = this._buttonBuilder.Create(
                 "SteamInput.TitleBar.RightColumn.MenuButton",
                 "⋯",
                 onMenuToggle,
+                true,
                 SteamInputPalette.TitleBarButtonColor,
                 SteamInputPalette.TitleBarButtonHoverColor
             );
-            menuGo.transform.SetParent(rightRowGo.transform, false);
+            menuButtonController.transform.SetParent(rightRowGo.transform, false);
 
-            var closeGo = this._buttonBuilder.Create(
+            var closeButtonController = this._buttonBuilder.Create(
                 "SteamInput.TitleBar.RightColumn.Close",
                 "×",
                 this._viewModel.CloseWindow,
+                true,
                 SteamInputPalette.TitleBarButtonColor,
                 SteamInputPalette.TitleBarButtonHoverColor
             );
-            closeGo.transform.SetParent(rightRowGo.transform, false);
+            closeButtonController.transform.SetParent(rightRowGo.transform, false);
 
             return rightRowGo;
         }

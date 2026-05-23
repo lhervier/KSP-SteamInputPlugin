@@ -16,25 +16,28 @@ namespace com.github.lhervier.ksp.ui.ugui
             this._viewModel = viewModel;
         }
 
-        public GameObject Create(
+        public ButtonController Create(
             string objectName, 
             string buttonLabel,
-            Action onClick
+            Action onClick,
+            bool interactable = true
         )
         {
             return Create(
                 objectName, 
                 buttonLabel,
                 onClick, 
+                interactable,
                 SteamInputPalette.DefaultButtonColor, 
                 SteamInputPalette.DefaultButtonHoverColor
             );
         }
 
-        public GameObject Create(
+        public ButtonController Create(
             string objectName, 
             string buttonLabel,
             Action onClick,
+            bool interactable,
             Color backgroundColor,
             Color hoverColor
         )
@@ -65,6 +68,7 @@ namespace com.github.lhervier.ksp.ui.ugui
             colors.colorMultiplier = 1f;
             colors.fadeDuration = 0.1f;
             button.colors = colors;
+            button.interactable = interactable;
             button.onClick.AddListener(() => onClick());
 
             // Button label, centered in the button
@@ -80,21 +84,68 @@ namespace com.github.lhervier.ksp.ui.ugui
             label.text = buttonLabel;
             label.font = HighLogic.UISkin.font;
             label.fontSize = 13;
-            label.color = SteamInputPalette.DefaultButtonTextColor;
+            if( interactable )
+            {
+                label.color = SteamInputPalette.DefaultButtonTextColor;
+            }
+            else
+            {
+                label.color = SteamInputPalette.DefaultButtonDisabledTextColor;
+            }
+
             label.alignment = TextAnchor.MiddleCenter;
             label.raycastTarget = false;
+
+            ButtonController controller = buttonGo.AddComponent<ButtonController>();
+            controller.Initialize(label, button);
 
             // Button.colors only tints the targetGraphic (the background); replicate IMGUI's text
             // color swap (ButtonText → white on hover) via an EventTrigger on the same GameObject.
             var trigger = buttonGo.AddComponent<EventTrigger>();
             var enterEntry = new EventTrigger.Entry { eventID = EventTriggerType.PointerEnter };
-            enterEntry.callback.AddListener(_ => label.color = Color.white);
+            enterEntry.callback.AddListener(_ => {
+                if( !button.interactable ) return;
+                label.color = Color.white;
+            });
             trigger.triggers.Add(enterEntry);
             var exitEntry = new EventTrigger.Entry { eventID = EventTriggerType.PointerExit };
-            exitEntry.callback.AddListener(_ => label.color = SteamInputPalette.DefaultButtonTextColor);
+            exitEntry.callback.AddListener(_ => {
+                if( !button.interactable ) return;
+                label.color = SteamInputPalette.DefaultButtonTextColor;
+            });
             trigger.triggers.Add(exitEntry);
 
-            return buttonGo;
+            return controller;
+        }
+    }
+
+    public class ButtonController : MonoBehaviour
+    {
+        private Text _label;
+        private Button _button;
+
+        public void Initialize(Text label, Button button)
+        {
+            this._label = label;
+            this._button = button;
+        }
+
+        public bool IsInteractable()
+        {
+            return _button.interactable;
+        }
+
+        public void SetInteractable(bool enableState)
+        {
+            _button.interactable = enableState;
+            if( enableState )
+            {
+                _label.color = SteamInputPalette.DefaultButtonTextColor;
+            }
+            else
+            {
+                _label.color = SteamInputPalette.DefaultButtonDisabledTextColor;
+            }
         }
     }
 }
