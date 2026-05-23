@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using com.github.lhervier.ksp.ui.styles;
 using com.github.lhervier.ksp.ui.ugui.styles;
 
-namespace com.github.lhervier.ksp.ui.ugui
+namespace com.github.lhervier.ksp.ui.ugui.body
 {
     /// <summary>
     /// Scrollable body of the popup (below the title bar). Content larger than the viewport
@@ -12,10 +12,12 @@ namespace com.github.lhervier.ksp.ui.ugui
     public class BodyBuilder
     {
         private CheatSheetViewModel _viewModel;
+        private ZonesBuilder _zonesBuilder;
 
         public BodyBuilder(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
+            this._zonesBuilder = new ZonesBuilder(viewModel);
         }
 
         public BodyController Create()
@@ -64,8 +66,8 @@ namespace com.github.lhervier.ksp.ui.ugui
             viewportImage.raycastTarget = true;
             scrollRect.viewport = viewportRect;
 
-            // Content: child of the viewport, anchored to its top. Height fixed > viewport height
-            // to force the scrollbar to appear (placeholder behavior).
+            // Content: child of the viewport, anchored to its top edge. Height is auto-managed
+            // by the ContentSizeFitter below, based on the sum of children's preferred heights.
             var contentGo = new GameObject("Content", typeof(RectTransform));
             contentGo.transform.SetParent(viewportGo.transform, false);
 
@@ -74,28 +76,26 @@ namespace com.github.lhervier.ksp.ui.ugui
             contentRect.anchorMax = new Vector2(1f, 1f);
             contentRect.pivot = new Vector2(0.5f, 1f);
             contentRect.anchoredPosition = Vector2.zero;
-            contentRect.sizeDelta = new Vector2(0f, SteamInputPalette.MainPlaceholderHeight);
+            contentRect.sizeDelta = Vector2.zero;
             scrollRect.content = contentRect;
 
-            // Placeholder text (multi-line) so we can visually verify scrolling
-            var placeholderGo = new GameObject("Placeholder", typeof(RectTransform));
-            placeholderGo.transform.SetParent(contentGo.transform, false);
+            // VLG stacks the children (the PhysicalZones list for now)
+            var contentLayout = contentGo.AddComponent<VerticalLayoutGroup>();
+            contentLayout.padding = new RectOffset(0, 0, 0, 0);
+            contentLayout.spacing = 0f;
+            contentLayout.childAlignment = TextAnchor.UpperLeft;
+            contentLayout.childControlWidth = true;
+            contentLayout.childControlHeight = true;
+            contentLayout.childForceExpandWidth = true;
+            contentLayout.childForceExpandHeight = false;
 
-            var placeholderRect = placeholderGo.GetComponent<RectTransform>();
-            placeholderRect.anchorMin = Vector2.zero;
-            placeholderRect.anchorMax = Vector2.one;
-            placeholderRect.offsetMin = new Vector2(8f, 8f);
-            placeholderRect.offsetMax = new Vector2(-8f, -8f);
+            // Auto-grow Content height to fit its children — drives the scrollbar's behavior
+            var contentFitter = contentGo.AddComponent<ContentSizeFitter>();
+            contentFitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
+            contentFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
 
-            var placeholderText = placeholderGo.AddComponent<Text>();
-            placeholderText.font = HighLogic.UISkin.font;
-            placeholderText.fontSize = 12;
-            placeholderText.color = SteamInputPalette.DefaultLabelColor;
-            placeholderText.alignment = TextAnchor.UpperLeft;
-            placeholderText.horizontalOverflow = HorizontalWrapMode.Wrap;
-            placeholderText.verticalOverflow = VerticalWrapMode.Overflow;
-            placeholderText.raycastTarget = false;
-            placeholderText.text = BuildPlaceholderText();
+            // The actual zones
+            _zonesBuilder.Create().transform.SetParent(contentGo.transform, false);
 
             // Scrollbar: vertical bar pinned to the right of the body, full height.
             var scrollbarGo = new GameObject("Scrollbar", typeof(RectTransform));
@@ -160,16 +160,6 @@ namespace com.github.lhervier.ksp.ui.ugui
             scrollRect.verticalScrollbar = scrollbar;
 
             return controller;
-        }
-
-        private static string BuildPlaceholderText()
-        {
-            var sb = new System.Text.StringBuilder();
-            for (int i = 1; i <= 50; i++)
-            {
-                sb.Append("Ligne placeholder ").Append(i).Append('\n');
-            }
-            return sb.ToString();
         }
 
         public class BodyController : BaseSteamInputController

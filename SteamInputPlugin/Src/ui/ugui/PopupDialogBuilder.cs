@@ -6,6 +6,7 @@ using com.github.lhervier.ksp.ui.ugui.styles;
 using com.github.lhervier.ksp.ui.ugui.titleBar;
 using System;
 using com.github.lhervier.ksp.ui.ugui.menu;
+using com.github.lhervier.ksp.ui.ugui.body;
 
 namespace com.github.lhervier.ksp.ui.ugui
 {

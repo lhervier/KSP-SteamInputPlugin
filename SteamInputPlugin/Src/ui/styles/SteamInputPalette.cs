@@ -52,6 +52,13 @@ namespace com.github.lhervier.ksp.ui.styles
 
         public const float MainScrollbarWidth = 8f;
         public const float MainPlaceholderHeight = 800f;
+        
+        // Header of each zone
+        public const float MainZoneHeaderHeight = 22f;
+        public static readonly Color MainZoneHeaderColor = new Color(26f / 255f, 26f / 255f, 26f / 255f);
+
+        // Sections
+        public const float MainSectionSpacing = 2f;
 
         // ===============================================================
         // Title bar

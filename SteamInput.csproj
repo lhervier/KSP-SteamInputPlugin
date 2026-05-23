@@ -69,6 +69,7 @@
     <Compile Include="SteamInputPlugin\Src\Vdf\*.cs" />
     <Compile Include="SteamInputPlugin\Src\ui\*.cs" />
     <Compile Include="SteamInputPlugin\Src\ui\ugui\*.cs" />
+    <Compile Include="SteamInputPlugin\Src\ui\ugui\body\*.cs" />
     <Compile Include="SteamInputPlugin\Src\ui\ugui\menu\*.cs" />
     <Compile Include="SteamInputPlugin\Src\ui\ugui\styles\*.cs" />
     <Compile Include="SteamInputPlugin\Src\ui\ugui\titleBar\*.cs" />
