@@ -4,6 +4,8 @@ using UnityEngine.Events;
 using com.github.lhervier.ksp.ui.styles;
 using com.github.lhervier.ksp.ui.ugui.styles;
 using System;
+using com.github.lhervier.ksp.ui.model;
+using System.Security.Policy;
 
 namespace com.github.lhervier.ksp.ui.ugui.menu
 {
@@ -11,18 +13,19 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
     {
         private CheatSheetViewModel _viewModel;
         private ButtonBuilder _buttonBuilder;
-
+        
         public ArrowsBuilder(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             this._buttonBuilder = new ButtonBuilder(viewModel);
         }
 
-        public ArrowsController Create(Action onUp, Action onDown, bool first, bool last)
+        public ArrowsController Create(UIPhysicalZone zone)
         {
             var go = new GameObject("Arrows", typeof(RectTransform));
             ArrowsController controller = go.AddComponent<ArrowsController>();
             controller.Initialize(_viewModel);
+            controller.InitZone(zone);
 
             var layout = go.AddComponent<HorizontalLayoutGroup>();
             layout.padding = new RectOffset(0, 0, 0, 0);
@@ -33,24 +36,63 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             layout.childForceExpandWidth = false;
             layout.childForceExpandHeight = false;
 
-            this._buttonBuilder.Create(
+            ButtonController upButtonController = this._buttonBuilder.Create(
                 "Up", 
                 "▲", 
-                onUp
-            )
-            .transform.SetParent(go.transform, false);
-            this._buttonBuilder.Create(
+                controller.MoveUp,
+                !zone.First
+            );
+            upButtonController.transform.SetParent(go.transform, false);
+            controller.InitUpButton(upButtonController);
+            
+            ButtonController downButtonController = this._buttonBuilder.Create(
                 "Down", 
                 "▼", 
-                onDown
-            )
-            .transform.SetParent(go.transform, false);
+                controller.MoveDown,
+                !zone.Last
+            );
+            downButtonController.transform.SetParent(go.transform, false);
+            controller.InitDownButton(downButtonController);
 
             return controller;
         }
 
         public class ArrowsController : BaseSteamInputController
         {
+            private UIPhysicalZone _zone;
+            private ButtonController _upButton;
+            private ButtonController _downButton;
+
+            public void InitZone(UIPhysicalZone zone)
+            {
+                _zone = zone;
+            }
+
+            public void InitUpButton(ButtonController upButton)
+            {
+                _upButton = upButton;
+            }
+
+            public void InitDownButton(ButtonController downButton)
+            {
+                _downButton = downButton;
+            }
+
+            public void MoveUp()
+            {
+                ViewModel?.MoveZoneUp(_zone);
+            }
+
+            public void MoveDown()
+            {
+                ViewModel?.MoveZoneDown(_zone);
+            }
+
+            public void UpdateZone(UIPhysicalZone zone)
+            {
+                _upButton?.SetInteractable(!zone.First);
+                _downButton?.SetInteractable(!zone.Last);
+            }
         }
     }
 }

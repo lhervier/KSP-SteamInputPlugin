@@ -89,7 +89,7 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
                 }
                 foreach (var key in toRemove)
                 {
-                    Destroy(this._rows[key]);
+                    Destroy(this._rows[key].gameObject);
                     this._rows.Remove(key);
                 }
 
@@ -99,7 +99,7 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
                     var zone = zones[i];
                     if (!this._rows.TryGetValue(zone.Zone, out ZoneRowBuilder.ZoneRowController row))
                     {
-                        row = this._rowBuilder.Create(zone, (i == 0), (i == zones.Count - 1));
+                        row = this._rowBuilder.Create(zone);
                         row.transform.SetParent(this.transform, false);
                         this._rows[zone.Zone] = row;
                     }

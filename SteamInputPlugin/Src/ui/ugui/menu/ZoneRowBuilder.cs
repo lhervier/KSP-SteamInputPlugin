@@ -24,7 +24,7 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             this._arrowsBuilder = new ArrowsBuilder(viewModel);
         }
 
-        public ZoneRowController Create(UIPhysicalZone zone, bool first, bool last)
+        public ZoneRowController Create(UIPhysicalZone zone)
         {
             var rowGo = new GameObject("Zone." + zone.Zone.Name, typeof(RectTransform));
             var controller = rowGo.AddComponent<ZoneRowController>();
@@ -42,55 +42,50 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
 
             // Controller used to propagate changes from the viewModel into the GameObjects
             
-            var checkboxGo = this._checkBoxBuilder.Create(
+            var checkboxController = this._checkBoxBuilder.Create(
                 zone.Visible,
-                _ => this._viewModel.ToggleZoneVisibility(zone),
-                controller
+                _ => this._viewModel.ToggleZoneVisibility(zone)
             );
-            checkboxGo.transform.SetParent(rowGo.transform, false);
+            checkboxController.transform.SetParent(rowGo.transform, false);
+            controller.InitCheckboxController(checkboxController);
 
-            var labelGo = this._zoneLabelBuilder.Create(
-                zone.Label,
-                controller
-            );
-            labelGo.transform.SetParent(rowGo.transform, false);
+            var labelController = this._zoneLabelBuilder.Create(zone.Label);
+            labelController.transform.SetParent(rowGo.transform, false);
+            controller.InitZoneLabelController(labelController);
 
-            this._arrowsBuilder.Create(
-                () => this._viewModel.MoveZoneUp(zone),
-                () => this._viewModel.MoveZoneDown(zone),
-                first,
-                last
-            )
-            .transform.SetParent(rowGo.transform, false);
+            ArrowsBuilder.ArrowsController arrowsController = this._arrowsBuilder.Create(zone);
+            arrowsController.transform.SetParent(rowGo.transform, false);
+            controller.InitArrowsController(arrowsController);
 
             return controller;
         }
 
         public class ZoneRowController : BaseSteamInputController
         {
-            private GameObject _checkmark;
-            private Text _label;
+            private ArrowsBuilder.ArrowsController _arrowsController;
+            private CheckboxBuilder.CheckboxController _checkboxController;
+            private ZoneLabelBuilder.ZoneLabelController _zoneLabelController;
 
-            public void InitCheckmark(GameObject checkmark)
+            public void InitCheckboxController(CheckboxBuilder.CheckboxController checkboxController)
             {
-                this._checkmark = checkmark;
+                _checkboxController = checkboxController;
+            }
+            
+            public void InitArrowsController(ArrowsBuilder.ArrowsController arrowsController)
+            {
+                _arrowsController = arrowsController;
             }
 
-            public void InitLabel(Text label)
+            public void InitZoneLabelController(ZoneLabelBuilder.ZoneLabelController zoneLabelController)
             {
-                this._label = label;
+                this._zoneLabelController = zoneLabelController;
             }
 
             public void UpdateZone(UIPhysicalZone zone)
             {
-                if (this._checkmark != null)
-                {
-                    this._checkmark.SetActive(zone.Visible);
-                }
-                if (this._label != null)
-                {
-                    this._label.text = zone.Label;
-                }
+                this._arrowsController?.UpdateZone(zone);
+                this._checkboxController?.SetChecked(zone.Visible);
+                this._zoneLabelController?.SetLabel(zone.Label);
             }
         }
     }

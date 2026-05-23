@@ -16,7 +16,7 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             this._viewModel = viewModel;
         }
 
-        public ZoneLabelController Create(string label, ZoneRowBuilder.ZoneRowController zoneRowController)
+        public ZoneLabelController Create(string label)
         {
             var go = new GameObject("Label", typeof(RectTransform));
             ZoneLabelController controller = go.AddComponent<ZoneLabelController>();
@@ -35,14 +35,30 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             text.horizontalOverflow = HorizontalWrapMode.Overflow;
             text.verticalOverflow = VerticalWrapMode.Overflow;
             text.raycastTarget = false;
-
-            zoneRowController.InitLabel(text);
+            controller.InitLabel(text);
 
             return controller;
         }
 
         public class ZoneLabelController : BaseSteamInputController
         {
+            private Text _label;
+
+            public void InitLabel(Text label)
+            {
+                _label = label;
+            }
+
+            public string GetLabel()
+            {
+                if( _label == null ) return string.Empty;
+                return _label.text;
+            }
+
+            public void SetLabel(string label)
+            {
+                _label.text = label ?? string.Empty;
+            }
         }
     }
 }
