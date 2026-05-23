@@ -9,12 +9,12 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
     public class ArrowsBuilder
     {
         private CheatSheetViewModel _viewModel;
-        private ArrowButtonBuilder _arrowBuilder;
+        private ButtonBuilder _buttonBuilder;
 
         public ArrowsBuilder(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
-            this._arrowBuilder = new ArrowButtonBuilder(viewModel);
+            this._buttonBuilder = new ButtonBuilder(viewModel);
         }
 
         public GameObject Create()
@@ -30,9 +30,9 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             layout.childForceExpandWidth = false;
             layout.childForceExpandHeight = false;
 
-            this._arrowBuilder.Create("Up", "▲", () => Debug.Log("[SteamInput] Zone UP"))
+            this._buttonBuilder.Create("Up", "▲", () => Debug.Log("[SteamInput] Zone UP"))
                 .transform.SetParent(go.transform, false);
-            this._arrowBuilder.Create("Down", "▼", () => Debug.Log("[SteamInput] Zone DOWN"))
+            this._buttonBuilder.Create("Down", "▼", () => Debug.Log("[SteamInput] Zone DOWN"))
                 .transform.SetParent(go.transform, false);
 
             return go;

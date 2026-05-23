@@ -14,8 +14,7 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
         private OverlayBuilder _overlayBuilder;
         private ActionGroupLabelBuilder _actionGroupLabelBuilder;
         private GamepadLabelBuilder _gamepadLabelBuilder;
-        private MenuButtonBuilder _menuButtonBuilder;
-        private CloseButtonBuilder _closeButtonBuilder;
+        private ButtonBuilder _buttonBuilder;
 
         public RightColumnBuilder(CheatSheetViewModel viewModel)
         {
@@ -23,8 +22,7 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
             this._overlayBuilder = new OverlayBuilder(viewModel);
             this._actionGroupLabelBuilder = new ActionGroupLabelBuilder(viewModel);
             this._gamepadLabelBuilder = new GamepadLabelBuilder(viewModel);
-            this._closeButtonBuilder = new CloseButtonBuilder(viewModel);
-            this._menuButtonBuilder = new MenuButtonBuilder(viewModel);
+            this._buttonBuilder = new ButtonBuilder(viewModel);
         }
 
         public GameObject Create(Action onMenuToggle)
@@ -46,10 +44,22 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
             var controllerGo = this._gamepadLabelBuilder.Create();
             controllerGo.transform.SetParent(rightRowGo.transform, false);
 
-            var menuGo = this._menuButtonBuilder.Create(onMenuToggle);
+            var menuGo = this._buttonBuilder.Create(
+                "SteamInput.TitleBar.RightColumn.MenuButton",
+                "⋯",
+                onMenuToggle,
+                SteamInputPalette.TitleBarButtonColor,
+                SteamInputPalette.TitleBarButtonHoverColor
+            );
             menuGo.transform.SetParent(rightRowGo.transform, false);
 
-            var closeGo = this._closeButtonBuilder.Create();
+            var closeGo = this._buttonBuilder.Create(
+                "SteamInput.TitleBar.RightColumn.Close",
+                "×",
+                this._viewModel.CloseWindow,
+                SteamInputPalette.TitleBarButtonColor,
+                SteamInputPalette.TitleBarButtonHoverColor
+            );
             closeGo.transform.SetParent(rightRowGo.transform, false);
 
             return rightRowGo;

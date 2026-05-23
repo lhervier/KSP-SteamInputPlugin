@@ -4,22 +4,43 @@ using UnityEngine.EventSystems;
 using com.github.lhervier.ksp.ui.styles;
 using com.github.lhervier.ksp.ui.ugui.styles;
 using UnityEngine.Events;
+using System;
 
-namespace com.github.lhervier.ksp.ui.ugui.titleBar
+namespace com.github.lhervier.ksp.ui.ugui
 {
-    public class CloseButtonBuilder
+    public class ButtonBuilder
     {
         private CheatSheetViewModel _viewModel;
-        public CloseButtonBuilder(CheatSheetViewModel viewModel)
+        public ButtonBuilder(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
         }
 
-        public GameObject Create()
+        public GameObject Create(
+            string objectName, 
+            string buttonLabel,
+            Action onClick
+        )
         {
-            var buttonGo = new GameObject("SteamInput.TitleBar.RightColumn.Close", typeof(RectTransform));
+            return Create(
+                objectName, 
+                buttonLabel,
+                onClick, 
+                SteamInputPalette.DefaultButtonColor, 
+                SteamInputPalette.DefaultButtonHoverColor
+            );
+        }
 
-            // Fixed square size; parent's HorizontalLayoutGroup has childControl* = true so it reads these
+        public GameObject Create(
+            string objectName, 
+            string buttonLabel,
+            Action onClick,
+            Color backgroundColor,
+            Color hoverColor
+        )
+        {
+            var buttonGo = new GameObject(objectName, typeof(RectTransform));
+
             var layoutElement = buttonGo.AddComponent<LayoutElement>();
             layoutElement.preferredWidth = SteamInputPalette.DefaultButtonSize;
             layoutElement.preferredHeight = SteamInputPalette.DefaultButtonSize;
@@ -37,16 +58,16 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
             var button = buttonGo.AddComponent<Button>();
             button.targetGraphic = image;
             var colors = button.colors;
-            colors.normalColor = SteamInputPalette.TitleBarButtonColor;
-            colors.highlightedColor = SteamInputPalette.TitleBarButtonHoverColor;
-            colors.pressedColor = SteamInputPalette.TitleBarButtonColor;
-            colors.selectedColor = SteamInputPalette.TitleBarButtonColor;
+            colors.normalColor = backgroundColor;
+            colors.highlightedColor = hoverColor;
+            colors.pressedColor = backgroundColor;
+            colors.selectedColor = backgroundColor;
             colors.colorMultiplier = 1f;
             colors.fadeDuration = 0.1f;
             button.colors = colors;
-            button.onClick.AddListener(() => this._viewModel.CloseWindow());
+            button.onClick.AddListener(() => onClick());
 
-            // The "X" label, centered in the button
+            // Button label, centered in the button
             var labelGo = new GameObject("Label", typeof(RectTransform));
             labelGo.transform.SetParent(buttonGo.transform, false);
             var labelRect = labelGo.GetComponent<RectTransform>();
@@ -56,7 +77,7 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
             labelRect.offsetMax = Vector2.zero;
 
             var label = labelGo.AddComponent<Text>();
-            label.text = "×";
+            label.text = buttonLabel;
             label.font = HighLogic.UISkin.font;
             label.fontSize = 13;
             label.color = SteamInputPalette.DefaultButtonTextColor;
