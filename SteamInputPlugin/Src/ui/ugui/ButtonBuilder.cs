@@ -67,12 +67,18 @@ namespace com.github.lhervier.ksp.ui.ugui
             colors.highlightedColor = hoverColor;
             colors.pressedColor = backgroundColor;
             colors.selectedColor = backgroundColor;
+            // Suppress Unity's default disabled gray tint; the CanvasGroup below does the fade.
+            colors.disabledColor = backgroundColor;
             colors.colorMultiplier = 1f;
             colors.fadeDuration = 0.1f;
             button.colors = colors;
-            button.interactable = interactable;
             button.onClick.AddListener(() => onClick());
             controller.InitButton(button);
+
+            // CanvasGroup applies a global alpha to the button (background + text + future children),
+            // and also blocks raycasts when disabled — matches the mockup's .ka:disabled { opacity: .25 }.
+            var canvasGroup = buttonGo.AddComponent<CanvasGroup>();
+            controller.InitCanvasGroup(canvasGroup);
 
             // Button label, centered in the button
             var labelGo = new GameObject("Label", typeof(RectTransform));
@@ -87,34 +93,23 @@ namespace com.github.lhervier.ksp.ui.ugui
             label.text = buttonLabel;
             label.font = HighLogic.UISkin.font;
             label.fontSize = 13;
-            if( interactable )
-            {
-                label.color = SteamInputPalette.DefaultButtonTextColor;
-            }
-            else
-            {
-                label.color = SteamInputPalette.DefaultButtonDisabledTextColor;
-            }
-
+            label.color = SteamInputPalette.DefaultButtonTextColor;
             label.alignment = TextAnchor.MiddleCenter;
             label.raycastTarget = false;
             controller.InitLabel(label);
 
-            // Button.colors only tints the targetGraphic (the background); replicate IMGUI's text
-            // color swap (ButtonText → white on hover) via an EventTrigger on the same GameObject.
+            // EventTrigger swaps the label color to white on hover. When disabled, the CanvasGroup
+            // sets blocksRaycasts = false so these never fire — no need for an extra interactable check.
             var trigger = buttonGo.AddComponent<EventTrigger>();
             var enterEntry = new EventTrigger.Entry { eventID = EventTriggerType.PointerEnter };
-            enterEntry.callback.AddListener(_ => {
-                if( !button.interactable ) return;
-                label.color = Color.white;
-            });
+            enterEntry.callback.AddListener(_ => label.color = Color.white);
             trigger.triggers.Add(enterEntry);
             var exitEntry = new EventTrigger.Entry { eventID = EventTriggerType.PointerExit };
-            exitEntry.callback.AddListener(_ => {
-                if( !button.interactable ) return;
-                label.color = SteamInputPalette.DefaultButtonTextColor;
-            });
+            exitEntry.callback.AddListener(_ => label.color = SteamInputPalette.DefaultButtonTextColor);
             trigger.triggers.Add(exitEntry);
+
+            // Apply the initial interactable state via the controller (single source of truth)
+            controller.SetInteractable(interactable);
 
             return controller;
         }
@@ -122,8 +117,11 @@ namespace com.github.lhervier.ksp.ui.ugui
 
     public class ButtonController : BaseSteamInputController
     {
+        private const float DisabledAlpha = 0.25f;
+
         private Text _label;
         private Button _button;
+        private CanvasGroup _canvasGroup;
 
         public void InitLabel(Text label)
         {
@@ -135,22 +133,27 @@ namespace com.github.lhervier.ksp.ui.ugui
             this._button = button;
         }
 
-        public bool IsInteractable()
+        public void InitCanvasGroup(CanvasGroup canvasGroup)
         {
-            return _button.interactable;
+            this._canvasGroup = canvasGroup;
         }
 
-        public void SetInteractable(bool enableState)
+        public bool IsInteractable()
         {
-            _button.interactable = enableState;
-            if( enableState )
+            return _button != null && _button.interactable;
+        }
+
+        public void SetInteractable(bool interactable)
+        {
+            if (_button != null) _button.interactable = interactable;
+            if (_canvasGroup != null)
             {
-                _label.color = SteamInputPalette.DefaultButtonTextColor;
+                _canvasGroup.alpha = interactable ? 1f : DisabledAlpha;
+                _canvasGroup.blocksRaycasts = interactable;
+                _canvasGroup.interactable = interactable;
             }
-            else
-            {
-                _label.color = SteamInputPalette.DefaultButtonDisabledTextColor;
-            }
+            // Reset to default in case the label was left in the "hover white" state when disabled.
+            if (_label != null) _label.color = SteamInputPalette.DefaultButtonTextColor;
         }
     }
 }
