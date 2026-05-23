@@ -47,6 +47,13 @@ namespace com.github.lhervier.ksp.ui.styles
         public static readonly Color WindowBorderColor = new Color(85f / 255f, 85f / 255f, 85f / 255f);
         
         // ===============================================================
+        // Main Content
+        // ===============================================================
+
+        public const float MainScrollbarWidth = 8f;
+        public const float MainPlaceholderHeight = 800f;
+
+        // ===============================================================
         // Title bar
         // ===============================================================
         public const float TitleBarHeight = 28f;

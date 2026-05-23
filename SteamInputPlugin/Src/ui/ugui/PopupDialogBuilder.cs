@@ -19,6 +19,7 @@ namespace com.github.lhervier.ksp.ui.ugui
         private TitleBarBuilder _titleBarBuilder;
         private OverlayBuilder _overlayBuilder;
         private MenuBuilder _menuBuilder;
+        private BodyBuilder _bodyBuilder;
 
         public PopupDialogBuilder(CheatSheetViewModel viewModel)
         {
@@ -26,6 +27,7 @@ namespace com.github.lhervier.ksp.ui.ugui
             this._titleBarBuilder = new TitleBarBuilder(viewModel);
             this._overlayBuilder = new OverlayBuilder(viewModel);
             this._menuBuilder = new MenuBuilder(viewModel);
+            this._bodyBuilder = new BodyBuilder(viewModel);
         }
 
         public PopupDialog CreatePopupDialog()
@@ -118,6 +120,10 @@ namespace com.github.lhervier.ksp.ui.ugui
                 menuController.gameObject.SetActive(false);
                 overlayController.gameObject.SetActive(false);
             };
+
+            // Add the body (scrollable content). First in z-order so the overlay/menu draw above it.
+            BodyBuilder.BodyController bodyController = this._bodyBuilder.Create();
+            bodyController.transform.SetParent(popupDialog.popupWindow.transform, false);
 
             // Add the overlay
             overlayController = _overlayBuilder.Create(closeMenu);
