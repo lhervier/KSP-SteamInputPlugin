@@ -1,4 +1,4 @@
-namespace com.github.lhervier.ksp
+namespace com.github.lhervier.ksp.model
 {
     public class ActionGroupZone
     {

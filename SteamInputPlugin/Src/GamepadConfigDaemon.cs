@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using com.github.lhervier.ksp.model;
 using com.github.lhervier.ksp.Vdf;
 using UnityEngine;
 

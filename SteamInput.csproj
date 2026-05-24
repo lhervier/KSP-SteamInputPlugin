@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="SteamInputPlugin\Src\*.cs" />
     <Compile Include="SteamInputPlugin\Src\ContextDaemons\*.cs" />
+    <Compile Include="SteamInputPlugin\Src\model\*.cs" />
     <Compile Include="SteamInputPlugin\Src\Vdf\*.cs" />
     <Compile Include="SteamInputPlugin\Src\ui\*.cs" />
     <Compile Include="SteamInputPlugin\Src\ui\ugui\*.cs" />

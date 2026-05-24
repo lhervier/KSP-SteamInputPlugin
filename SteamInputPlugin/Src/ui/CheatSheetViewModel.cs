@@ -4,6 +4,7 @@ using com.github.lhervier.ksp;
 using com.github.lhervier.ksp.ui.model;
 using System.Linq;
 using System;
+using com.github.lhervier.ksp.model;
 
 namespace com.github.lhervier.ksp.ui
 {
