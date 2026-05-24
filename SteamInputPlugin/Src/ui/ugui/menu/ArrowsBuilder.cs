@@ -20,7 +20,7 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             this._buttonBuilder = new ButtonBuilder(viewModel);
         }
 
-        public ArrowsController Create(UIPhysicalZone zone)
+        public ArrowsController Create(UIConfigZone zone)
         {
             var go = new GameObject("Arrows", typeof(RectTransform));
             ArrowsController controller = go.AddComponent<ArrowsController>();
@@ -59,11 +59,11 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
 
         public class ArrowsController : BaseSteamInputController
         {
-            private UIPhysicalZone _zone;
+            private UIConfigZone _zone;
             private ButtonController _upButton;
             private ButtonController _downButton;
 
-            public void InitZone(UIPhysicalZone zone)
+            public void InitZone(UIConfigZone zone)
             {
                 _zone = zone;
             }
@@ -88,7 +88,7 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
                 ViewModel?.MoveZoneDown(_zone);
             }
 
-            public void UpdateZone(UIPhysicalZone zone)
+            public void UpdateZone(UIConfigZone zone)
             {
                 _upButton?.SetInteractable(!zone.First);
                 _downButton?.SetInteractable(!zone.Last);

@@ -246,7 +246,7 @@ namespace com.github.lhervier.ksp
         /// </summary>
         /// <param name="orderedGamepadZones">The ordered gamepad zones.</param>
         /// <returns>The update flags.</returns>
-        public static int _SetOrderedGamepadZones(List<GamepadZone> orderedGamepadZones)
+        private static int _SetOrderedGamepadZones(List<GamepadZone> orderedGamepadZones)
         {
             LOGGER.LogDebug($"Setting ordered gamepad zones to {string.Join(GAMEPAD_ZONES_SEPARATOR.ToString(), orderedGamepadZones)}");
             

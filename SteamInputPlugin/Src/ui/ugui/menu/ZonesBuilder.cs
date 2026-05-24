@@ -60,16 +60,16 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
 
             public void Start()
             {
-                this.ViewModel.OnPhysicalZonesChanged.Add(Sync);
-                Sync(this.ViewModel.PhysicalZones);
+                this.ViewModel.OnConfigZonesChanged.Add(Sync);
+                Sync(this.ViewModel.ConfigZones);
             }
 
             public void OnDestroy()
             {
-                this.ViewModel?.OnPhysicalZonesChanged.Remove(Sync);
+                this.ViewModel?.OnConfigZonesChanged.Remove(Sync);
             }
 
-            private void Sync(List<UIPhysicalZone> zones)
+            private void Sync(List<UIConfigZone> zones)
             {
                 // 1. Set of keys present in the new list
                 var newKeys = new HashSet<GamepadZone>();

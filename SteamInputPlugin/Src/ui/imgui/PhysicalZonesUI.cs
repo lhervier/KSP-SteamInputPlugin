@@ -20,28 +20,17 @@ namespace com.github.lhervier.ksp.ui.imgui
 
         public void Draw()
         {
-            List<UIPhysicalZone> zones = viewModel.PhysicalZones;
+            List<UIActionGroupZone> zones = viewModel.ActionGroupZones;
             if (zones == null || zones.Count == 0)
             {
                 return;
             }
 
-            // Filter to the zones the user wants to see; preserves the order from the ViewModel
-            List<UIPhysicalZone> visibleZones = new List<UIPhysicalZone>();
-            foreach (UIPhysicalZone zone in zones)
-            {
-                if (zone.Visible) visibleZones.Add(zone);
-            }
-            if (visibleZones.Count == 0)
-            {
-                return;
-            }
-
             GUILayout.BeginVertical(SteamInputStyles.ZoneListPanel, GUILayout.ExpandWidth(true));
-            for (int i = 0; i < visibleZones.Count; i++)
+            for (int i = 0; i < zones.Count; i++)
             {
-                DrawZone(visibleZones[i]);
-                if (i < visibleZones.Count - 1)
+                DrawZone(zones[i]);
+                if (i < zones.Count - 1)
                 {
                     GUILayout.Box(
                         GUIContent.none,
@@ -52,7 +41,7 @@ namespace com.github.lhervier.ksp.ui.imgui
             GUILayout.EndVertical();
         }
 
-        private static void DrawZone(UIPhysicalZone zone)
+        private static void DrawZone(UIActionGroupZone zone)
         {
             GUILayout.BeginVertical(GUILayout.ExpandWidth(true));
 

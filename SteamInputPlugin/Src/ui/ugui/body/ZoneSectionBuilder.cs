@@ -23,7 +23,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body
             this._viewModel = viewModel;
         }
 
-        public ZoneSectionController Create(UIPhysicalZone zone, bool modeshift)
+        public ZoneSectionController Create(UIActionGroupZone zone, bool modeshift)
         {
             var go = new GameObject("Body", typeof(RectTransform));
             ZoneSectionController controller = go.AddComponent<ZoneSectionController>();
@@ -74,7 +74,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body
 
         public class ZoneSectionController : BaseSteamInputController
         {
-            public void UpdateZone(UIPhysicalZone zone)
+            public void UpdateZone(UIActionGroupZone zone)
             {
                 
             }

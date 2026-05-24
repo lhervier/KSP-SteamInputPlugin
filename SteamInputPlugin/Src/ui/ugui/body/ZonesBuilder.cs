@@ -53,24 +53,29 @@ namespace com.github.lhervier.ksp.ui.ugui.body
 
             public void Start()
             {
-                ViewModel?.OnPhysicalZonesChanged.Add(Sync);
-                Sync(ViewModel?.PhysicalZones ?? null);
+                ViewModel?.OnActionGroupZonesChanged.Add(Sync);
+                Sync(ViewModel?.ActionGroupZones ?? null);
             }
 
             public void OnDestroy()
             {
-                ViewModel?.OnPhysicalZonesChanged.Remove(Sync);
+                ViewModel?.OnActionGroupZonesChanged.Remove(Sync);
             }
 
-            private void Sync(List<UIPhysicalZone> zones)
+            private void Sync(List<UIActionGroupZone> zones)
             {
                 if( zones == null ) return;
 
-                // 1. Set of keys present in the new list
+                // A zone is rendered in the body iff the user has set it visible AND it exists in
+                // the current action group (= has at least a GroupId or a ModeshiftGroupId).
+                // The viewModel now includes ALL zones in _physicalZones (so the menu can configure
+                // them globally), so we have to filter here.
+
+                // 1. Set of keys to render
                 var newKeys = new HashSet<GamepadZone>();
                 for (int i = 0; i < zones.Count; i++)
                 {
-                    if( zones[i].Visible )
+                    if (ShouldRender(zones[i]))
                     {
                         newKeys.Add(zones[i].Zone);
                     }
@@ -91,12 +96,12 @@ namespace com.github.lhervier.ksp.ui.ugui.body
                     this._rows.Remove(key);
                 }
 
-                // 3. Add or update rows for VISIBLE zones only, then apply the new order via SetSiblingIndex.
+                // 3. Add or update rows for renderable zones, then apply the new order via SetSiblingIndex.
                 int visibleIndex = 0;
                 for (int i = 0; i < zones.Count; i++)
                 {
                     var zone = zones[i];
-                    if (!zone.Visible) continue;
+                    if (!ShouldRender(zone)) continue;
 
                     if (!this._rows.TryGetValue(zone.Zone, out ZoneRowBuilder.ZoneRowController row))
                     {
@@ -111,6 +116,12 @@ namespace com.github.lhervier.ksp.ui.ugui.body
                     row.transform.SetSiblingIndex(visibleIndex);
                     visibleIndex++;
                 }
+            }
+
+            private static bool ShouldRender(UIActionGroupZone zone)
+            {
+                // Skip zones that have no group at all (not part of the current action group)
+                return !string.IsNullOrEmpty(zone.GroupId) || !string.IsNullOrEmpty(zone.ModeshiftGroupId);
             }
         }
     }

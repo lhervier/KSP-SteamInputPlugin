@@ -160,7 +160,7 @@ namespace com.github.lhervier.ksp
         /// </summary>
         /// <param name="actionGroup">The action group to get the physical zones for.</param>
         /// <returns>A list of all the physical zones defined for the given action group.</returns>
-        public List<PhysicalZone> GetPhysicalZones(ActionGroup actionGroup)
+        public Dictionary<GamepadZone, ActionGroupZone> GetZones(ActionGroup actionGroup)
         {
             var mappings = GetObject(_root, "controller_mappings");
             List<object> presets = GetList(mappings, "preset");
@@ -174,11 +174,11 @@ namespace com.github.lhervier.ksp
                 }
             }
             if( preset == null ) {
-                return new List<PhysicalZone>();
+                return new Dictionary<GamepadZone, ActionGroupZone>();
             }
             
             Dictionary<string, object> groupSourceBindings = GetObject(preset, "group_source_bindings");
-            Dictionary<GamepadZone, PhysicalZone> physicalZones = new Dictionary<GamepadZone, PhysicalZone>();
+            Dictionary<GamepadZone, ActionGroupZone> physicalZones = new Dictionary<GamepadZone, ActionGroupZone>();
             
             foreach( KeyValuePair<string, object> pair in groupSourceBindings ) {
                 string groupId = pair.Key;
@@ -194,7 +194,7 @@ namespace com.github.lhervier.ksp
                 }
             }
 
-            return new List<PhysicalZone>(physicalZones.Values);
+            return physicalZones;
         }
 
         /// <summary>
@@ -271,13 +271,13 @@ namespace com.github.lhervier.ksp
         /// <param name="groupId">The group id to add.</param>
         /// <param name="modeShift">The mode shift flag to add.</param>
         private void AddPhysicalZone(
-            Dictionary<GamepadZone, PhysicalZone> physicalZones, 
+            Dictionary<GamepadZone, ActionGroupZone> physicalZones, 
             GamepadZone zone, 
             string groupId, 
             bool modeShift
         ) {
             if( !physicalZones.ContainsKey(zone) ) {
-                physicalZones[zone] = new PhysicalZone { 
+                physicalZones[zone] = new ActionGroupZone { 
                     Zone = zone, 
                 };
             }

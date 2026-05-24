@@ -26,7 +26,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body
             this._zoneSectionBuilder = new ZoneSectionBuilder(viewModel);
         }
 
-        public ZoneBodyController Create(UIPhysicalZone zone)
+        public ZoneBodyController Create(UIActionGroupZone zone)
         {
             var go = new GameObject("Body", typeof(RectTransform));
             ZoneBodyController controller = go.AddComponent<ZoneBodyController>();
@@ -86,7 +86,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body
                 _modeshiftSectionController = modeshiftSectionController;
             }
 
-            public void UpdateZone(UIPhysicalZone zone)
+            public void UpdateZone(UIActionGroupZone zone)
             {
                 if( zone.GroupId == null )
                 {

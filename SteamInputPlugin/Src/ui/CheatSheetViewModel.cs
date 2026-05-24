@@ -80,11 +80,18 @@ namespace com.github.lhervier.ksp.ui
         public EventData<List<string>> OnActivatedContextsChanged = new EventData<List<string>>("SteamInput.OnActiveContextsChanged");
         
         // ====================================================
-        // The current physical zones
+        // The gamepad zones for the current action group
         // ====================================================
-        public List<UIPhysicalZone> PhysicalZones => new List<UIPhysicalZone>(_physicalZones);
-        private List<UIPhysicalZone> _physicalZones = new List<UIPhysicalZone>();
-        public EventData<List<UIPhysicalZone>> OnPhysicalZonesChanged = new EventData<List<UIPhysicalZone>>("SteamInput.OnPhysicalZonesChanged");
+        public List<UIActionGroupZone> ActionGroupZones => new List<UIActionGroupZone>(_actionGroupZones);
+        private List<UIActionGroupZone> _actionGroupZones = new List<UIActionGroupZone>();
+        public EventData<List<UIActionGroupZone>> OnActionGroupZonesChanged = new EventData<List<UIActionGroupZone>>("SteamInput.OnActionGroupZonesChanged");
+
+        // ==================================================================
+        // The gamepad zones défined in the current configuration
+        // ==================================================================
+        public List<UIConfigZone> ConfigZones => new List<UIConfigZone>(_configZones);
+        private List<UIConfigZone> _configZones = new List<UIConfigZone>();
+        public EventData<List<UIConfigZone>> OnConfigZonesChanged = new EventData<List<UIConfigZone>>("SteamInput.OnConfigZonesChanged");
 
         // ==============================================================================================
 
@@ -161,7 +168,7 @@ namespace com.github.lhervier.ksp.ui
             LOGGER.LogDebug("OnActionGroupChanged: " + actionGroup.ToString());
             this.RefreshActivatedContexts();
             this.RefreshActionGroupLabel();
-            this.RefreshPhysicalZones();
+            this.RefreshActionGroupZones();
         }
 
         private void _OnGamepadConfigLoaded()
@@ -169,7 +176,8 @@ namespace com.github.lhervier.ksp.ui
             LOGGER.LogDebug("OnConfigLoaded");
             this.RefreshControllerType();
             this.RefreshActionGroupLabel();
-            this.RefreshPhysicalZones();
+            this.RefreshConfigZones();
+            this.RefreshActionGroupZones();
 
             this._lastConfigLoadError = string.Empty;
             this.OnConfigLoadError.Fire(_lastConfigLoadError);
@@ -206,10 +214,12 @@ namespace com.github.lhervier.ksp.ui
                 this.RefreshLogLevel();
             }
             if( (updateFlags & UpdatedConfiguration.ORDERED_GAMEPAD_ZONES) != 0 ) {
-                this.RefreshPhysicalZones();
+                this.RefreshConfigZones();
+                this.RefreshActionGroupZones();
             }
             if( (updateFlags & UpdatedConfiguration.VISIBLE_GAMEPAD_ZONES) != 0 ) {
-                this.RefreshPhysicalZones();
+                this.RefreshConfigZones();
+                this.RefreshActionGroupZones();
             }
         }
 
@@ -226,7 +236,8 @@ namespace com.github.lhervier.ksp.ui
             this.RefreshControllerType();
             this.RefreshActivatedContexts();
             this.RefreshActionGroupLabel();
-            this.RefreshPhysicalZones();
+            this.RefreshConfigZones();
+            this.RefreshActionGroupZones();
         }
 
         private void RefreshShowLoggingIcon()
@@ -293,32 +304,83 @@ namespace com.github.lhervier.ksp.ui
             this.OnActionGroupLabelChanged.Fire(this._actionGroupLabel);
         }
 
-        private void RefreshPhysicalZones()
+        private string GetLabel(GamepadZone zone)
         {
-            this._physicalZones.Clear();
-            ActionGroup currentActionGroup = this._actionGroupDaemon.GetCurrentActionGroup();
-            List<GamepadZone> visibleZones = SteamInputGlobalSettings.GetVisibleGamepadZones();
-            List<PhysicalZone> physicalZones = this._gamepadConfigDaemon.GetPhysicalZones(currentActionGroup);
+            return ModLocalization.GetString("SteamInput_physicalZone_" + zone.Name).ToUpperInvariant();
+        }
+
+        private List<GamepadZone> GetAllZones()
+        {
+            List<GamepadZone> gamepadZones = this._gamepadConfigDaemon.GetGamepadZones();
             List<GamepadZone> orderedZones = SteamInputGlobalSettings.GetOrderedGamepadZones();
-            for( int i=0; i<orderedZones.Count; i++ ) {
-                GamepadZone zone = orderedZones[i];
-                PhysicalZone physicalZone = physicalZones.FirstOrDefault(z => z.Zone == zone);
-                if( physicalZone == null ) {
-                    continue;
+
+            // Add all the unknown gamepad zones as hidden zones (at the end of the list)
+            foreach( GamepadZone zone in gamepadZones )
+            {
+                if( !orderedZones.Contains(zone) )
+                {
+                    orderedZones.Add(zone);
                 }
-                this._physicalZones.Add(
-                    new UIPhysicalZone {
-                        Zone = physicalZone.Zone,
-                        Label = ModLocalization.GetString("SteamInput_physicalZone_" + physicalZone.Zone.Name).ToUpperInvariant(),
-                        GroupId = physicalZone.GroupId,
-                        ModeshiftGroupId = physicalZone.ModeshiftGroupId,
+            }
+            return orderedZones;
+        }
+
+        private void RefreshConfigZones()
+        {
+            this._configZones.Clear();
+
+            List<GamepadZone> orderedZones = GetAllZones();
+            List<GamepadZone> visibleZones = SteamInputGlobalSettings.GetVisibleGamepadZones();
+            for( int i=0; i<orderedZones.Count; i++ )
+            {
+                GamepadZone zone = orderedZones[i];
+                this._configZones.Add(
+                    new UIConfigZone
+                    {
+                        Zone = zone,
+                        Label = GetLabel(zone),
                         Visible = visibleZones.Contains(zone),
                         First = i == 0,
                         Last = i == orderedZones.Count - 1
                     }
                 );
             }
-            OnPhysicalZonesChanged.Fire(this._physicalZones);
+
+            OnConfigZonesChanged.Fire(this._configZones);
+        }
+
+        private void RefreshActionGroupZones()
+        {
+            this._actionGroupZones.Clear();
+            
+            ActionGroup currentActionGroup = this._actionGroupDaemon.GetCurrentActionGroup();
+            
+            List<GamepadZone> orderedZones = GetAllZones();
+            List<GamepadZone> visibleZones = SteamInputGlobalSettings.GetVisibleGamepadZones();
+            Dictionary<GamepadZone, ActionGroupZone> actionGroupZones = this._gamepadConfigDaemon.GetZones(currentActionGroup);
+            for( int i=0; i<orderedZones.Count; i++ )
+            {
+                GamepadZone zone = orderedZones[i];
+                if( !visibleZones.Contains(zone) ) {
+                    continue;
+                }
+                if (!actionGroupZones.TryGetValue(zone, out ActionGroupZone physicalZone))
+                {
+                    continue;
+                }
+                this._actionGroupZones.Add(
+                    new UIActionGroupZone
+                    {
+                        Zone = zone,
+                        Label = GetLabel(zone),
+                        GroupId = physicalZone?.GroupId,
+                        ModeshiftGroupId = physicalZone?.ModeshiftGroupId,
+                        First = i == 0,
+                        Last = i == orderedZones.Count - 1
+                    }
+                );
+            }
+            OnActionGroupZonesChanged.Fire(this._actionGroupZones);
         }
 
         // =======================================================================
@@ -328,7 +390,7 @@ namespace com.github.lhervier.ksp.ui
             this._onClose?.Invoke();
         }
 
-        public void MoveZoneUp(UIPhysicalZone zone)
+        public void MoveZoneUp(UIConfigZone zone)
         {
             List<GamepadZone> zones = SteamInputGlobalSettings.GetOrderedGamepadZones();
             int index = zones.IndexOf(zone.Zone);
@@ -339,7 +401,7 @@ namespace com.github.lhervier.ksp.ui
             SteamInputGlobalSettings.SetOrderedGamepadZones(zones);
         }
 
-        public void MoveZoneDown(UIPhysicalZone zone)
+        public void MoveZoneDown(UIConfigZone zone)
         {
             List<GamepadZone> zones = SteamInputGlobalSettings.GetOrderedGamepadZones();
             int index = zones.IndexOf(zone.Zone);
@@ -350,7 +412,7 @@ namespace com.github.lhervier.ksp.ui
             SteamInputGlobalSettings.SetOrderedGamepadZones(zones);
         }
 
-        public void ToggleZoneVisibility(UIPhysicalZone zone)
+        public void ToggleZoneVisibility(UIConfigZone zone)
         {
             List<GamepadZone> visibleZones = SteamInputGlobalSettings.GetVisibleGamepadZones();
             if( visibleZones.Contains(zone.Zone) )

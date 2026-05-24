@@ -25,7 +25,7 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             this._arrowsBuilder = new ArrowsBuilder(viewModel);
         }
 
-        public ZoneRowController Create(UIPhysicalZone zone)
+        public ZoneRowController Create(UIConfigZone zone)
         {
             var rowGo = new GameObject("Zone." + zone.Zone.Name, typeof(RectTransform));
             var controller = rowGo.AddComponent<ZoneRowController>();
@@ -109,7 +109,7 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
                 this._zoneLabelController = zoneLabelController;
             }
 
-            public void UpdateZone(UIPhysicalZone zone)
+            public void UpdateZone(UIConfigZone zone)
             {
                 this._arrowsController?.UpdateZone(zone);
                 this._checkboxController?.SetChecked(zone.Visible);
