@@ -83,9 +83,9 @@ namespace com.github.lhervier.ksp.ui
         // ====================================================
         // The gamepad zones for the current action group
         // ====================================================
-        public List<UIActionGroupZone> ActionGroupZones => new List<UIActionGroupZone>(_actionGroupZones);
-        private List<UIActionGroupZone> _actionGroupZones = new List<UIActionGroupZone>();
-        public EventData<List<UIActionGroupZone>> OnActionGroupZonesChanged = new EventData<List<UIActionGroupZone>>("SteamInput.OnActionGroupZonesChanged");
+        public List<UIPresetZone> PresetZones => new List<UIPresetZone>(_presetZones);
+        private List<UIPresetZone> _presetZones = new List<UIPresetZone>();
+        public EventData<List<UIPresetZone>> OnPresetZonesChanged = new EventData<List<UIPresetZone>>("SteamInput.OnPresetZonesChanged");
 
         // ==================================================================
         // The gamepad zones défined in the current configuration
@@ -169,7 +169,7 @@ namespace com.github.lhervier.ksp.ui
             LOGGER.LogDebug("OnActionGroupChanged: " + actionGroup.ToString());
             this.RefreshActivatedContexts();
             this.RefreshActionGroupLabel();
-            this.RefreshActionGroupZones();
+            this.RefreshPresetZones();
         }
 
         private void _OnGamepadConfigLoaded()
@@ -178,7 +178,7 @@ namespace com.github.lhervier.ksp.ui
             this.RefreshControllerType();
             this.RefreshActionGroupLabel();
             this.RefreshConfigZones();
-            this.RefreshActionGroupZones();
+            this.RefreshPresetZones();
 
             this._lastConfigLoadError = string.Empty;
             this.OnConfigLoadError.Fire(_lastConfigLoadError);
@@ -216,11 +216,11 @@ namespace com.github.lhervier.ksp.ui
             }
             if( (updateFlags & UpdatedConfiguration.ORDERED_GAMEPAD_ZONES) != 0 ) {
                 this.RefreshConfigZones();
-                this.RefreshActionGroupZones();
+                this.RefreshPresetZones();
             }
             if( (updateFlags & UpdatedConfiguration.VISIBLE_GAMEPAD_ZONES) != 0 ) {
                 this.RefreshConfigZones();
-                this.RefreshActionGroupZones();
+                this.RefreshPresetZones();
             }
         }
 
@@ -238,7 +238,7 @@ namespace com.github.lhervier.ksp.ui
             this.RefreshActivatedContexts();
             this.RefreshActionGroupLabel();
             this.RefreshConfigZones();
-            this.RefreshActionGroupZones();
+            this.RefreshPresetZones();
         }
 
         private void RefreshShowLoggingIcon()
@@ -268,7 +268,7 @@ namespace com.github.lhervier.ksp.ui
         private void RefreshControllerType()
         {
             this._gamepadLabel = GamepadControllerTypes.GetDisplayName(
-                this._gamepadConfigDaemon.GetControllerType()
+                this._gamepadConfigDaemon.GetControllerMappings().ControllerType
             );
             OnGamepadLabelChanged.Fire(this._gamepadLabel);
         }
@@ -292,10 +292,10 @@ namespace com.github.lhervier.ksp.ui
             }
             else
             {
-                Dictionary<string, object> actionData = this._gamepadConfigDaemon.GetAction(currentActionGroup);
-                if( actionData.TryGetValue("title", out object title) && title is string titleString )
+                VdfAction actionData = this._gamepadConfigDaemon.GetAction(currentActionGroup);
+                if( !string.IsNullOrEmpty(actionData.Label) )
                 {
-                    this._actionGroupLabel = titleString.ToUpperInvariant();
+                    this._actionGroupLabel = actionData.Label.ToUpperInvariant();
                 }
                 else
                 {
@@ -305,18 +305,18 @@ namespace com.github.lhervier.ksp.ui
             this.OnActionGroupLabelChanged.Fire(this._actionGroupLabel);
         }
 
-        private string GetLabel(GamepadZone zone)
+        private string GetLabel(VdfGamepadZone zone)
         {
             return ModLocalization.GetString("SteamInput_physicalZone_" + zone.Name).ToUpperInvariant();
         }
 
-        private List<GamepadZone> GetAllZones()
+        private List<VdfGamepadZone> GetAllZones()
         {
-            List<GamepadZone> gamepadZones = this._gamepadConfigDaemon.GetGamepadZones();
-            List<GamepadZone> orderedZones = SteamInputGlobalSettings.GetOrderedGamepadZones();
+            List<VdfGamepadZone> gamepadZones = this._gamepadConfigDaemon.GetGamepadZones();
+            List<VdfGamepadZone> orderedZones = SteamInputGlobalSettings.GetOrderedGamepadZones();
 
             // Add all the unknown gamepad zones as hidden zones (at the end of the list)
-            foreach( GamepadZone zone in gamepadZones )
+            foreach( VdfGamepadZone zone in gamepadZones )
             {
                 if( !orderedZones.Contains(zone) )
                 {
@@ -330,11 +330,11 @@ namespace com.github.lhervier.ksp.ui
         {
             this._configZones.Clear();
 
-            List<GamepadZone> orderedZones = GetAllZones();
-            List<GamepadZone> visibleZones = SteamInputGlobalSettings.GetVisibleGamepadZones();
+            List<VdfGamepadZone> orderedZones = GetAllZones();
+            List<VdfGamepadZone> visibleZones = SteamInputGlobalSettings.GetVisibleGamepadZones();
             for( int i=0; i<orderedZones.Count; i++ )
             {
-                GamepadZone zone = orderedZones[i];
+                VdfGamepadZone zone = orderedZones[i];
                 this._configZones.Add(
                     new UIConfigZone
                     {
@@ -350,38 +350,38 @@ namespace com.github.lhervier.ksp.ui
             OnConfigZonesChanged.Fire(this._configZones);
         }
 
-        private void RefreshActionGroupZones()
+        private void RefreshPresetZones()
         {
-            this._actionGroupZones.Clear();
+            this._presetZones.Clear();
             
             ActionGroup currentActionGroup = this._actionGroupDaemon.GetCurrentActionGroup();
             
-            List<GamepadZone> orderedZones = GetAllZones();
-            List<GamepadZone> visibleZones = SteamInputGlobalSettings.GetVisibleGamepadZones();
-            Dictionary<GamepadZone, ActionGroupZone> actionGroupZones = this._gamepadConfigDaemon.GetZones(currentActionGroup);
+            List<VdfGamepadZone> orderedZones = GetAllZones();
+            List<VdfGamepadZone> visibleZones = SteamInputGlobalSettings.GetVisibleGamepadZones();
+            Dictionary<VdfGamepadZone, VdfPresetZone> presetZones = this._gamepadConfigDaemon.GetPresetZones(currentActionGroup);
             for( int i=0; i<orderedZones.Count; i++ )
             {
-                GamepadZone zone = orderedZones[i];
+                VdfGamepadZone zone = orderedZones[i];
                 if( !visibleZones.Contains(zone) ) {
                     continue;
                 }
-                if (!actionGroupZones.TryGetValue(zone, out ActionGroupZone physicalZone))
+                if (!presetZones.TryGetValue(zone, out VdfPresetZone presetZone))
                 {
                     continue;
                 }
-                this._actionGroupZones.Add(
-                    new UIActionGroupZone
+                this._presetZones.Add(
+                    new UIPresetZone
                     {
                         Zone = zone,
                         Label = GetLabel(zone),
-                        GroupId = physicalZone?.GroupId,
-                        ModeshiftGroupId = physicalZone?.ModeshiftGroupId,
+                        GroupId = presetZone?.GroupId,
+                        ModeshiftGroupId = presetZone?.ModeshiftGroupId,
                         First = i == 0,
                         Last = i == orderedZones.Count - 1
                     }
                 );
             }
-            OnActionGroupZonesChanged.Fire(this._actionGroupZones);
+            OnPresetZonesChanged.Fire(this._presetZones);
         }
 
         // =======================================================================
@@ -393,7 +393,7 @@ namespace com.github.lhervier.ksp.ui
 
         public void MoveZoneUp(UIConfigZone zone)
         {
-            List<GamepadZone> zones = SteamInputGlobalSettings.GetOrderedGamepadZones();
+            List<VdfGamepadZone> zones = SteamInputGlobalSettings.GetOrderedGamepadZones();
             int index = zones.IndexOf(zone.Zone);
             if( index == -1 ) return;
             if( index == 0 ) return;
@@ -404,7 +404,7 @@ namespace com.github.lhervier.ksp.ui
 
         public void MoveZoneDown(UIConfigZone zone)
         {
-            List<GamepadZone> zones = SteamInputGlobalSettings.GetOrderedGamepadZones();
+            List<VdfGamepadZone> zones = SteamInputGlobalSettings.GetOrderedGamepadZones();
             int index = zones.IndexOf(zone.Zone);
             if( index == -1 ) return;
             if( index == zones.Count - 1 ) return;
@@ -415,7 +415,7 @@ namespace com.github.lhervier.ksp.ui
 
         public void ToggleZoneVisibility(UIConfigZone zone)
         {
-            List<GamepadZone> visibleZones = SteamInputGlobalSettings.GetVisibleGamepadZones();
+            List<VdfGamepadZone> visibleZones = SteamInputGlobalSettings.GetVisibleGamepadZones();
             if( visibleZones.Contains(zone.Zone) )
             {
                 visibleZones.Remove(zone.Zone);

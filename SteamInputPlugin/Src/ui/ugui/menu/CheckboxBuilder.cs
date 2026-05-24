@@ -42,7 +42,7 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             // Green inner fill that represents the "checked" state
             var checkmarkGo = new GameObject("Checkmark", typeof(RectTransform));
             checkmarkGo.transform.SetParent(go.transform, false);
-            controller.InitCheckmark(checkmarkGo);
+            controller.BindCheckmark(checkmarkGo);
 
             var checkmarkRect = checkmarkGo.GetComponent<RectTransform>();
             checkmarkRect.anchorMin = Vector2.zero;
@@ -82,7 +82,7 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
         {
             private GameObject _checkMark;
 
-            public void InitCheckmark(GameObject checkmark)
+            public void BindCheckmark(GameObject checkmark)
             {
                 _checkMark = checkmark;
             }

@@ -31,7 +31,7 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
             label.horizontalOverflow = HorizontalWrapMode.Overflow;
             label.verticalOverflow = VerticalWrapMode.Overflow;
             label.raycastTarget = false;
-            controller.InitLabel(label);
+            controller.BindLabel(label);
             
             return controller;
         }
@@ -44,7 +44,7 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
         {
             private Text _label;
 
-            public void InitLabel(Text label)
+            public void BindLabel(Text label)
             {
                 this._label = label;
             }

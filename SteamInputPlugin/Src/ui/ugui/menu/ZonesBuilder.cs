@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using com.github.lhervier.ksp.model;
 using com.github.lhervier.ksp.ui.styles;
 using com.github.lhervier.ksp.ui.ugui.styles;
 using UnityEngine.Events;
@@ -38,7 +39,7 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             layout.childForceExpandWidth = true;
             layout.childForceExpandHeight = false;
 
-            controller.InitRowBuilder(_zoneRowBuilder);
+            controller.BindRowBuilder(_zoneRowBuilder);
 
             return controller;
         }
@@ -51,9 +52,9 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
         public class ZonesController : BaseSteamInputController
         {
             private ZoneRowBuilder _rowBuilder;
-            private Dictionary<GamepadZone, ZoneRowBuilder.ZoneRowController> _rows = new Dictionary<GamepadZone, ZoneRowBuilder.ZoneRowController>();
+            private Dictionary<VdfGamepadZone, ZoneRowBuilder.ZoneRowController> _rows = new Dictionary<VdfGamepadZone, ZoneRowBuilder.ZoneRowController>();
 
-            public void InitRowBuilder(ZoneRowBuilder rowBuilder)
+            public void BindRowBuilder(ZoneRowBuilder rowBuilder)
             {
                 this._rowBuilder = rowBuilder;
             }
@@ -72,14 +73,14 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             private void Sync(List<UIConfigZone> zones)
             {
                 // 1. Set of keys present in the new list
-                var newKeys = new HashSet<GamepadZone>();
+                var newKeys = new HashSet<VdfGamepadZone>();
                 for (int i = 0; i < zones.Count; i++)
                 {
                     newKeys.Add(zones[i].Zone);
                 }
 
                 // 2. Destroy rows whose zones are no longer present
-                var toRemove = new List<GamepadZone>();
+                var toRemove = new List<VdfGamepadZone>();
                 foreach (var pair in this._rows)
                 {
                     if (!newKeys.Contains(pair.Key))

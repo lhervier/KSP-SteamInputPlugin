@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace com.github.lhervier.ksp
@@ -7,20 +6,20 @@ namespace com.github.lhervier.ksp
     /// <summary>
     /// Zone physique Steam Input (nom tel qu'apparaît dans le VDF / la config).
     /// </summary>
-    public sealed class GamepadZone : IEquatable<GamepadZone>
+    public sealed class VdfGamepadZone : IEquatable<VdfGamepadZone>
     {
-        public static readonly GamepadZone ButtonDiamond = new GamepadZone("button_diamond");
-        public static readonly GamepadZone Dpad = new GamepadZone("dpad");
-        public static readonly GamepadZone LeftTrigger = new GamepadZone("left_trigger");
-        public static readonly GamepadZone RightTrigger = new GamepadZone("right_trigger");
-        public static readonly GamepadZone Bumpers = new GamepadZone("bumpers");
-        public static readonly GamepadZone Joystick = new GamepadZone("joystick");
-        public static readonly GamepadZone RightJoystick = new GamepadZone("right_joystick");
-        public static readonly GamepadZone LeftTrackpad = new GamepadZone("left_trackpad");
-        public static readonly GamepadZone RightTrackpad = new GamepadZone("right_trackpad");
-        public static readonly GamepadZone Switch = new GamepadZone("switch");
+        public static readonly VdfGamepadZone ButtonDiamond = new VdfGamepadZone("button_diamond");
+        public static readonly VdfGamepadZone Dpad = new VdfGamepadZone("dpad");
+        public static readonly VdfGamepadZone LeftTrigger = new VdfGamepadZone("left_trigger");
+        public static readonly VdfGamepadZone RightTrigger = new VdfGamepadZone("right_trigger");
+        public static readonly VdfGamepadZone Bumpers = new VdfGamepadZone("bumpers");
+        public static readonly VdfGamepadZone Joystick = new VdfGamepadZone("joystick");
+        public static readonly VdfGamepadZone RightJoystick = new VdfGamepadZone("right_joystick");
+        public static readonly VdfGamepadZone LeftTrackpad = new VdfGamepadZone("left_trackpad");
+        public static readonly VdfGamepadZone RightTrackpad = new VdfGamepadZone("right_trackpad");
+        public static readonly VdfGamepadZone Switch = new VdfGamepadZone("switch");
 
-        private static readonly GamepadZone[] AllZones =
+        private static readonly VdfGamepadZone[] AllZones =
         {
             ButtonDiamond,
             Dpad,
@@ -34,11 +33,11 @@ namespace com.github.lhervier.ksp
             Switch,
         };
 
-        private static readonly ReadOnlyCollection<GamepadZone> AllReadOnly =
-            new ReadOnlyCollection<GamepadZone>(AllZones);
+        private static readonly ReadOnlyCollection<VdfGamepadZone> AllReadOnly =
+            new ReadOnlyCollection<VdfGamepadZone>(AllZones);
 
         /// <summary>Toutes les zones connues, dans l'ordre par défaut de l'aide manette.</summary>
-        public static ReadOnlyCollection<GamepadZone> All
+        public static ReadOnlyCollection<VdfGamepadZone> All
         {
             get { return AllReadOnly; }
         }
@@ -46,7 +45,7 @@ namespace com.github.lhervier.ksp
         /// <summary>Nom de la zone dans les fichiers VDF et la config KSP.</summary>
         public string Name { get; private set; }
 
-        private GamepadZone(string zoneName)
+        private VdfGamepadZone(string zoneName)
         {
             if (string.IsNullOrEmpty(zoneName))
             {
@@ -55,7 +54,7 @@ namespace com.github.lhervier.ksp
             Name = zoneName;
         }
 
-        public static bool TryParse(string zoneName, out GamepadZone zone)
+        public static bool TryParse(string zoneName, out VdfGamepadZone zone)
         {
             zone = null;
             if (string.IsNullOrEmpty(zoneName))
@@ -81,14 +80,14 @@ namespace com.github.lhervier.ksp
             return Name;
         }
 
-        public bool Equals(GamepadZone other)
+        public bool Equals(VdfGamepadZone other)
         {
             return ReferenceEquals(this, other);
         }
 
         public override bool Equals(object obj)
         {
-            return Equals(obj as GamepadZone);
+            return Equals(obj as VdfGamepadZone);
         }
 
         public override int GetHashCode()
@@ -96,12 +95,12 @@ namespace com.github.lhervier.ksp
             return Name.GetHashCode();
         }
 
-        public static bool operator ==(GamepadZone left, GamepadZone right)
+        public static bool operator ==(VdfGamepadZone left, VdfGamepadZone right)
         {
             return ReferenceEquals(left, right);
         }
 
-        public static bool operator !=(GamepadZone left, GamepadZone right)
+        public static bool operator !=(VdfGamepadZone left, VdfGamepadZone right)
         {
             return !ReferenceEquals(left, right);
         }

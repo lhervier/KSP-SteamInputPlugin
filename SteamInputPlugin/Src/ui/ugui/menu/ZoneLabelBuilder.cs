@@ -35,7 +35,7 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             text.horizontalOverflow = HorizontalWrapMode.Overflow;
             text.verticalOverflow = VerticalWrapMode.Overflow;
             text.raycastTarget = false;
-            controller.InitLabel(text);
+            controller.BindLabel(text);
 
             return controller;
         }
@@ -44,7 +44,7 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
         {
             private Text _label;
 
-            public void InitLabel(Text label)
+            public void BindLabel(Text label)
             {
                 _label = label;
             }

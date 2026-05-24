@@ -144,24 +144,35 @@ namespace com.github.lhervier.ksp
 
         // ============================================================================
 
-        public Dictionary<string, object> GetAction(ActionGroup actionGroup)
+        public VdfAction GetAction(ActionGroup actionGroup)
         {
             var mappings = GetObject(_root, "controller_mappings");
             Dictionary<string, object> actions = GetObject(mappings, "actions");
-            return GetObject(actions, actionGroup.ToString());
+            Dictionary<string, object> action = GetObject(actions, actionGroup.ToString());
+            return new VdfAction
+            {
+                Label = GetString(action, "label"),
+                LegacySet = GetString(action, "legacy_set")
+            };
         }
 
-        public string GetControllerType() {
+        public VdfControllerMappings GetControllerMappings()
+        {
             var mappings = GetObject(_root, "controller_mappings");
-            return GetString(mappings, "controller_type");
+            return new VdfControllerMappings
+            {
+                Title = GetString(mappings, "title"),
+                ControllerType = GetString(mappings, "controller_type"),
+                Description = GetString(mappings, "description")
+            };
         }
-
+        
         /// <summary>
         /// Get all the physical zones defined for the given action group.
         /// </summary>
         /// <param name="actionGroup">The action group to get the physical zones for.</param>
         /// <returns>A list of all the physical zones defined for the given action group.</returns>
-        public Dictionary<GamepadZone, ActionGroupZone> GetZones(ActionGroup actionGroup)
+        public Dictionary<VdfGamepadZone, VdfPresetZone> GetPresetZones(ActionGroup actionGroup)
         {
             var mappings = GetObject(_root, "controller_mappings");
             List<object> presets = GetList(mappings, "preset");
@@ -175,38 +186,38 @@ namespace com.github.lhervier.ksp
                 }
             }
             if( preset == null ) {
-                return new Dictionary<GamepadZone, ActionGroupZone>();
+                return new Dictionary<VdfGamepadZone, VdfPresetZone>();
             }
             
             Dictionary<string, object> groupSourceBindings = GetObject(preset, "group_source_bindings");
-            Dictionary<GamepadZone, ActionGroupZone> physicalZones = new Dictionary<GamepadZone, ActionGroupZone>();
+            Dictionary<VdfGamepadZone, VdfPresetZone> presetZones = new Dictionary<VdfGamepadZone, VdfPresetZone>();
             
             foreach( KeyValuePair<string, object> pair in groupSourceBindings ) {
                 string groupId = pair.Key;
                 if( !(pair.Value is string valueString) ) {
                     continue;
                 }
-                if( !ParseGroupBinding(valueString, out GamepadZone zone, out bool modeShift) ) {
+                if( !ParseGroupBinding(valueString, out VdfGamepadZone zone, out bool modeShift) ) {
                     continue;
                 }
-                AddPhysicalZone(physicalZones, zone, groupId, modeShift);
-                if( zone == GamepadZone.Switch ) {
-                    AddPhysicalZone(physicalZones, GamepadZone.Bumpers, groupId, modeShift);
+                AddPresetZone(presetZones, zone, groupId, modeShift);
+                if( zone == VdfGamepadZone.Switch ) {
+                    AddPresetZone(presetZones, VdfGamepadZone.Bumpers, groupId, modeShift);
                 }
             }
 
-            return physicalZones;
+            return presetZones;
         }
 
         /// <summary>
         /// Get all the gamepad zones defined in the VDF.
         /// </summary>
         /// <returns>A list of all the gamepad zones defined in the VDF.</returns>
-        public List<GamepadZone> GetGamepadZones()
+        public List<VdfGamepadZone> GetGamepadZones()
         {
             var mappings = GetObject(_root, "controller_mappings");
             List<object> presets = GetList(mappings, "preset");
-            List<GamepadZone> gamepadZones = new List<GamepadZone>();
+            List<VdfGamepadZone> gamepadZones = new List<VdfGamepadZone>();
             foreach( object presetObject in presets ) {
                 if( presetObject is Dictionary<string, object> presetData ) {
                     var bindings = GetObject(presetData, "group_source_bindings");
@@ -214,7 +225,7 @@ namespace com.github.lhervier.ksp
                         if( !(pair.Value is string valueString) ) {
                             continue;
                         }
-                        if( !ParseGroupBinding(valueString, out GamepadZone zone, out bool _) ) {
+                        if( !ParseGroupBinding(valueString, out VdfGamepadZone zone, out bool _) ) {
                             continue;
                         }
                         if( gamepadZones.Contains(zone) ) {
@@ -238,7 +249,7 @@ namespace com.github.lhervier.ksp
         /// <param name="zone">The parsed gamepad zone.</param>
         /// <param name="modeShift">The mode shift flag.</param>
         /// <returns>True if the group binding string was parsed successfully, false otherwise.</returns>
-        private bool ParseGroupBinding(string groupBinding, out GamepadZone zone, out bool modeShift) {
+        private bool ParseGroupBinding(string groupBinding, out VdfGamepadZone zone, out bool modeShift) {
             List<string> parts = new List<string>(groupBinding.Split(' '));
             zone = null;
             modeShift = false;
@@ -256,7 +267,7 @@ namespace com.github.lhervier.ksp
             }
             string name = parts[0];
 
-            if( GamepadZone.TryParse(name, out GamepadZone z) ) {
+            if( VdfGamepadZone.TryParse(name, out VdfGamepadZone z) ) {
                 zone = z;
             } else {
                 return false;
@@ -271,14 +282,14 @@ namespace com.github.lhervier.ksp
         /// <param name="zone">The gamepad zone to add.</param>
         /// <param name="groupId">The group id to add.</param>
         /// <param name="modeShift">The mode shift flag to add.</param>
-        private void AddPhysicalZone(
-            Dictionary<GamepadZone, ActionGroupZone> physicalZones, 
-            GamepadZone zone, 
+        private void AddPresetZone(
+            Dictionary<VdfGamepadZone, VdfPresetZone> physicalZones, 
+            VdfGamepadZone zone, 
             string groupId, 
             bool modeShift
         ) {
             if( !physicalZones.ContainsKey(zone) ) {
-                physicalZones[zone] = new ActionGroupZone { 
+                physicalZones[zone] = new VdfPresetZone { 
                     Zone = zone, 
                 };
             }

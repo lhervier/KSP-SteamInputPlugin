@@ -1,8 +1,10 @@
+using com.github.lhervier.ksp;
+
 namespace com.github.lhervier.ksp.ui.model
 {
     public class UIConfigZone
     {
-        public GamepadZone Zone { get; set; }
+        public VdfGamepadZone Zone { get; set; }
         public string Label { get; set; }
         public bool Visible { get; set; }
         public bool First { get; set; }

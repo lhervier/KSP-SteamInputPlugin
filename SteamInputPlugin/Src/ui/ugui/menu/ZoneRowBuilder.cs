@@ -75,15 +75,15 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
                 _ => this._viewModel.ToggleZoneVisibility(zone)
             );
             checkboxController.transform.SetParent(rowGo.transform, false);
-            controller.InitCheckboxController(checkboxController);
+            controller.BindCheckboxController(checkboxController);
 
             var labelController = this._zoneLabelBuilder.Create(zone.Label);
             labelController.transform.SetParent(rowGo.transform, false);
-            controller.InitZoneLabelController(labelController);
+            controller.BindZoneLabelController(labelController);
 
             ArrowsBuilder.ArrowsController arrowsController = this._arrowsBuilder.Create(zone);
             arrowsController.transform.SetParent(rowGo.transform, false);
-            controller.InitArrowsController(arrowsController);
+            controller.BindArrowsController(arrowsController);
 
             return controller;
         }
@@ -94,17 +94,17 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             private CheckboxBuilder.CheckboxController _checkboxController;
             private ZoneLabelBuilder.ZoneLabelController _zoneLabelController;
 
-            public void InitCheckboxController(CheckboxBuilder.CheckboxController checkboxController)
+            public void BindCheckboxController(CheckboxBuilder.CheckboxController checkboxController)
             {
                 _checkboxController = checkboxController;
             }
             
-            public void InitArrowsController(ArrowsBuilder.ArrowsController arrowsController)
+            public void BindArrowsController(ArrowsBuilder.ArrowsController arrowsController)
             {
                 _arrowsController = arrowsController;
             }
 
-            public void InitZoneLabelController(ZoneLabelBuilder.ZoneLabelController zoneLabelController)
+            public void BindZoneLabelController(ZoneLabelBuilder.ZoneLabelController zoneLabelController)
             {
                 this._zoneLabelController = zoneLabelController;
             }

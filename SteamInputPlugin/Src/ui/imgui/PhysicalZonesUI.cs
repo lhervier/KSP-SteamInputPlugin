@@ -20,7 +20,7 @@ namespace com.github.lhervier.ksp.ui.imgui
 
         public void Draw()
         {
-            List<UIActionGroupZone> zones = viewModel.ActionGroupZones;
+            List<UIPresetZone> zones = viewModel.PresetZones;
             if (zones == null || zones.Count == 0)
             {
                 return;
@@ -41,7 +41,7 @@ namespace com.github.lhervier.ksp.ui.imgui
             GUILayout.EndVertical();
         }
 
-        private static void DrawZone(UIActionGroupZone zone)
+        private static void DrawZone(UIPresetZone zone)
         {
             GUILayout.BeginVertical(GUILayout.ExpandWidth(true));
 

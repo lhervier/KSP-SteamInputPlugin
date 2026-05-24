@@ -25,7 +25,7 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             var go = new GameObject("Arrows", typeof(RectTransform));
             ArrowsController controller = go.AddComponent<ArrowsController>();
             controller.Initialize(_viewModel);
-            controller.InitZone(zone);
+            controller.BindZone(zone);
 
             var layout = go.AddComponent<HorizontalLayoutGroup>();
             layout.padding = new RectOffset(0, 0, 0, 0);
@@ -43,7 +43,7 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
                 !zone.First
             );
             upButtonController.transform.SetParent(go.transform, false);
-            controller.InitUpButton(upButtonController);
+            controller.BindUpButton(upButtonController);
             
             ButtonController downButtonController = this._buttonBuilder.Create(
                 "Down", 
@@ -52,7 +52,7 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
                 !zone.Last
             );
             downButtonController.transform.SetParent(go.transform, false);
-            controller.InitDownButton(downButtonController);
+            controller.BindDownButton(downButtonController);
 
             return controller;
         }
@@ -63,17 +63,17 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             private ButtonController _upButton;
             private ButtonController _downButton;
 
-            public void InitZone(UIConfigZone zone)
+            public void BindZone(UIConfigZone zone)
             {
                 _zone = zone;
             }
 
-            public void InitUpButton(ButtonController upButton)
+            public void BindUpButton(ButtonController upButton)
             {
                 _upButton = upButton;
             }
 
-            public void InitDownButton(ButtonController downButton)
+            public void BindDownButton(ButtonController downButton)
             {
                 _downButton = downButton;
             }

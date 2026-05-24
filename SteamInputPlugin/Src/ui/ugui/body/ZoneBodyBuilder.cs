@@ -26,7 +26,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body
             this._zoneSectionBuilder = new ZoneSectionBuilder(viewModel);
         }
 
-        public ZoneBodyController Create(UIActionGroupZone zone)
+        public ZoneBodyController Create(UIPresetZone zone)
         {
             var go = new GameObject("Body", typeof(RectTransform));
             ZoneBodyController controller = go.AddComponent<ZoneBodyController>();
@@ -52,14 +52,14 @@ namespace com.github.lhervier.ksp.ui.ugui.body
             {
                 ZoneSectionBuilder.ZoneSectionController normalController =_zoneSectionBuilder.Create(zone, false);
                 normalController.transform.SetParent(go.transform);
-                controller.InitNormalSectionController(normalController);
+                controller.BindNormalSectionController(normalController);
             }
 
             if (!string.IsNullOrEmpty(zone.ModeshiftGroupId))
             {
                 ZoneSectionBuilder.ZoneSectionController modeshiftController =_zoneSectionBuilder.Create(zone, true);
                 modeshiftController.transform.SetParent(go.transform);
-                controller.InitModeshiftSectionController(modeshiftController);
+                controller.BindModeshiftSectionController(modeshiftController);
             }
 
             return controller;
@@ -71,22 +71,22 @@ namespace com.github.lhervier.ksp.ui.ugui.body
             private ZoneSectionBuilder.ZoneSectionController _normalSectionController;
             private ZoneSectionBuilder.ZoneSectionController _modeshiftSectionController;
 
-            public void InitZoneSectionBuilder(ZoneSectionBuilder builder)
+            public void BindZoneSectionBuilder(ZoneSectionBuilder builder)
             {
                 this._zoneSectionBuilder = builder;
             }
 
-            public void InitNormalSectionController(ZoneSectionBuilder.ZoneSectionController normalSectionController)
+            public void BindNormalSectionController(ZoneSectionBuilder.ZoneSectionController normalSectionController)
             {
                 _normalSectionController = normalSectionController;
             }
 
-            public void InitModeshiftSectionController(ZoneSectionBuilder.ZoneSectionController modeshiftSectionController)
+            public void BindModeshiftSectionController(ZoneSectionBuilder.ZoneSectionController modeshiftSectionController)
             {
                 _modeshiftSectionController = modeshiftSectionController;
             }
 
-            public void UpdateZone(UIActionGroupZone zone)
+            public void UpdateZone(UIPresetZone zone)
             {
                 if( zone.GroupId == null )
                 {

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using com.github.lhervier.ksp;
 using com.github.lhervier.ksp.ui.styles;
 using com.github.lhervier.ksp.ui.model;
 using System.Collections.Generic;
@@ -26,7 +27,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body
             var go = new GameObject("PhysicalZones", typeof(RectTransform));
             var controller = go.AddComponent<PhysicalZonesController>();
             controller.Initialize(_viewModel);
-            controller.InitPhysicalZoneBuilder(_zoneRowBuilder);
+            controller.BindPhysicalZoneBuilder(_zoneRowBuilder);
 
             // VLG stacks the zones back-to-back. No spacing — each zone has its own bottom separator.
             var layout = go.AddComponent<VerticalLayoutGroup>();
@@ -44,25 +45,25 @@ namespace com.github.lhervier.ksp.ui.ugui.body
         public class PhysicalZonesController : BaseSteamInputController
         {
             private ZoneRowBuilder _zoneRowBuilder;
-            private Dictionary<GamepadZone, ZoneRowBuilder.ZoneRowController> _rows = new Dictionary<GamepadZone, ZoneRowBuilder.ZoneRowController>();
+            private Dictionary<VdfGamepadZone, ZoneRowBuilder.ZoneRowController> _rows = new Dictionary<VdfGamepadZone, ZoneRowBuilder.ZoneRowController>();
 
-            public void InitPhysicalZoneBuilder(ZoneRowBuilder physicalZoneBuilder)
+            public void BindPhysicalZoneBuilder(ZoneRowBuilder physicalZoneBuilder)
             {
                 this._zoneRowBuilder = physicalZoneBuilder;
             }
 
             public void Start()
             {
-                ViewModel?.OnActionGroupZonesChanged.Add(Sync);
-                Sync(ViewModel?.ActionGroupZones ?? null);
+                ViewModel?.OnPresetZonesChanged.Add(Sync);
+                Sync(ViewModel?.PresetZones ?? null);
             }
 
             public void OnDestroy()
             {
-                ViewModel?.OnActionGroupZonesChanged.Remove(Sync);
+                ViewModel?.OnPresetZonesChanged.Remove(Sync);
             }
 
-            private void Sync(List<UIActionGroupZone> zones)
+            private void Sync(List<UIPresetZone> zones)
             {
                 if( zones == null ) return;
 
@@ -72,7 +73,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body
                 // them globally), so we have to filter here.
 
                 // 1. Set of keys to render
-                var newKeys = new HashSet<GamepadZone>();
+                var newKeys = new HashSet<VdfGamepadZone>();
                 for (int i = 0; i < zones.Count; i++)
                 {
                     if (ShouldRender(zones[i]))
@@ -82,7 +83,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body
                 }
 
                 // 2. Destroy rows whose zones are no longer present
-                var toRemove = new List<GamepadZone>();
+                var toRemove = new List<VdfGamepadZone>();
                 foreach (var pair in this._rows)
                 {
                     if (!newKeys.Contains(pair.Key))
@@ -118,7 +119,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body
                 }
             }
 
-            private static bool ShouldRender(UIActionGroupZone zone)
+            private static bool ShouldRender(UIPresetZone zone)
             {
                 // Skip zones that have no group at all (not part of the current action group)
                 return !string.IsNullOrEmpty(zone.GroupId) || !string.IsNullOrEmpty(zone.ModeshiftGroupId);

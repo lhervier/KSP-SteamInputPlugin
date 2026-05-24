@@ -27,7 +27,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body
             this._viewModel = viewModel;
         }
 
-        public ZoneHeaderController Create(UIActionGroupZone zone)
+        public ZoneHeaderController Create(UIPresetZone zone)
         {
             var go = new GameObject("Header", typeof(RectTransform));
             ZoneHeaderController controller = go.AddComponent<ZoneHeaderController>();
@@ -73,7 +73,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body
             label.horizontalOverflow = HorizontalWrapMode.Overflow;
             label.verticalOverflow = VerticalWrapMode.Overflow;
             label.raycastTarget = false;
-            controller.InitLabel(label);
+            controller.BindLabel(label);
 
             return controller;
         }
@@ -82,12 +82,12 @@ namespace com.github.lhervier.ksp.ui.ugui.body
         {
             private Text _label;
 
-            public void InitLabel(Text label)
+            public void BindLabel(Text label)
             {
                 _label = label;
             }
 
-            public void UpdateZone(UIActionGroupZone zone)
+            public void UpdateZone(UIPresetZone zone)
             {
                 _label.text = zone.Label;
             }
