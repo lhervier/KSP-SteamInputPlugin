@@ -369,13 +369,27 @@ namespace com.github.lhervier.ksp.ui
                 {
                     continue;
                 }
+                // FIXME: Only supporting the first modeshift
+                string msGroupId = null;
+                if( presetZone.ModeshiftGroupIds.Count > 0 )
+                {
+                    msGroupId = presetZone.ModeshiftGroupIds[0];
+                    if( presetZone.ModeshiftGroupIds.Count > 1 )
+                    {
+                        LOGGER.LogWarning(
+                            "Preset " + currentActionGroup.ToString() + ": " + 
+                            "Zone " + presetZone.Zone.Name + " has " + presetZone.ModeshiftGroupIds.Count + " modeshift groups; " + 
+                            "only the first ('" + msGroupId + "') is shown in the UI."
+                        );
+                    }
+                }
                 this._presetZones.Add(
                     new UIPresetZone
                     {
                         Zone = zone,
                         Label = GetLabel(zone),
                         GroupId = presetZone?.GroupId,
-                        ModeshiftGroupId = presetZone?.ModeshiftGroupId,
+                        ModeshiftGroupId = msGroupId,
                         First = i == 0,
                         Last = i == orderedZones.Count - 1
                     }

@@ -238,6 +238,8 @@ namespace com.github.lhervier.ksp
             return gamepadZones;
         }
 
+        
+
         // ============================================================================
         // Helpers
         // ============================================================================
@@ -278,25 +280,25 @@ namespace com.github.lhervier.ksp
         /// <summary>
         /// Add a physical zone to the dictionary.
         /// </summary>
-        /// <param name="physicalZones">The dictionary to add the physical zone to.</param>
+        /// <param name="presetZones">The dictionary to add the physical zone to.</param>
         /// <param name="zone">The gamepad zone to add.</param>
         /// <param name="groupId">The group id to add.</param>
         /// <param name="modeShift">The mode shift flag to add.</param>
         private void AddPresetZone(
-            Dictionary<EGamepadZone, VdfPresetZone> physicalZones, 
+            Dictionary<EGamepadZone, VdfPresetZone> presetZones, 
             EGamepadZone zone, 
             string groupId, 
             bool modeShift
         ) {
-            if( !physicalZones.ContainsKey(zone) ) {
-                physicalZones[zone] = new VdfPresetZone { 
+            if( !presetZones.ContainsKey(zone) ) {
+                presetZones[zone] = new VdfPresetZone { 
                     Zone = zone, 
                 };
             }
             if( modeShift ) {
-                physicalZones[zone].ModeshiftGroupId = groupId;
+                presetZones[zone].ModeshiftGroupIds.Add(groupId);
             } else {
-                physicalZones[zone].GroupId = groupId;
+                presetZones[zone].GroupId = groupId;
             }
         }
 
