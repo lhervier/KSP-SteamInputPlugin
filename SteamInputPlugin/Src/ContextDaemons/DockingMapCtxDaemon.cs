@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using com.github.lhervier.ksp.model;
 
 namespace com.github.lhervier.ksp 
 {
@@ -16,9 +17,9 @@ namespace com.github.lhervier.ksp
     {
         private static readonly SteamInputLogger LOGGER = new SteamInputLogger("DockingMapCtxDaemon");
         
-        public override ActionGroup CorrespondingActionGroup()
+        public override EActionGroup CorrespondingActionGroup()
         {
-            return ActionGroup.MapDockingControls;
+            return EActionGroup.MapDockingControls;
         }
         
         public void Start()

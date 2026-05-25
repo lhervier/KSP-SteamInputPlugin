@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using com.github.lhervier.ksp.model;
 
 namespace com.github.lhervier.ksp 
 {
@@ -38,7 +39,7 @@ namespace com.github.lhervier.ksp
         /// The action group that the daemon will activate
         /// when it detects that the game is in the context
         /// </summary>
-        public abstract ActionGroup CorrespondingActionGroup();
+        public abstract EActionGroup CorrespondingActionGroup();
 
         // =========================================================================================
 

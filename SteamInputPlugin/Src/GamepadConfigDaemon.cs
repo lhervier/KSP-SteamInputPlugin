@@ -144,7 +144,7 @@ namespace com.github.lhervier.ksp
 
         // ============================================================================
 
-        public VdfAction GetAction(ActionGroup actionGroup)
+        public VdfAction GetAction(EActionGroup actionGroup)
         {
             var mappings = GetObject(_root, "controller_mappings");
             Dictionary<string, object> actions = GetObject(mappings, "actions");
@@ -172,7 +172,7 @@ namespace com.github.lhervier.ksp
         /// </summary>
         /// <param name="actionGroup">The action group to get the physical zones for.</param>
         /// <returns>A list of all the physical zones defined for the given action group.</returns>
-        public Dictionary<EGamepadZone, VdfPresetZone> GetPresetZones(ActionGroup actionGroup)
+        public Dictionary<EGamepadZone, VdfPresetZone> GetPresetZones(EActionGroup actionGroup)
         {
             var mappings = GetObject(_root, "controller_mappings");
             List<object> presets = GetList(mappings, "preset");

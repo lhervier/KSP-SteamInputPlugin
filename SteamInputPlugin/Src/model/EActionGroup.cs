@@ -6,9 +6,9 @@ using System.Reflection;
 using System.Linq;
 using UnityEngine.SceneManagement;
 
-namespace com.github.lhervier.ksp 
+namespace com.github.lhervier.ksp.model
 {
-    public enum ActionGroup {
+    public enum EActionGroup {
         None,
         MenuControls,
         TrackingStationControls,

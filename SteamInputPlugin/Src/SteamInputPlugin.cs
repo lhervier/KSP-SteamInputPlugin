@@ -7,6 +7,7 @@ using System.Linq;
 using UnityEngine.SceneManagement;
 using com.github.lhervier.ksp.ui;
 using System.IO;
+using com.github.lhervier.ksp.model;
 
 namespace com.github.lhervier.ksp 
 {
@@ -293,10 +294,10 @@ namespace com.github.lhervier.ksp
         /// Called when the action group has changed
         /// </summary>
         /// <param name="actionGroup">The action group that has changed</param>
-        private void OnActionGroupChanged(ActionGroup actionGroup)
+        private void OnActionGroupChanged(EActionGroup actionGroup)
         {
             LOGGER.LogInfo("Action set changed to : " + actionGroup);
-            if( actionGroup == ActionGroup.None ) {
+            if( actionGroup == EActionGroup.None ) {
                 LOGGER.LogError("Action group is None");
                 return;
             }

@@ -164,7 +164,7 @@ namespace com.github.lhervier.ksp.ui
 
         // =======================================================================
 
-        private void _OnActionGroupChanged(ActionGroup actionGroup)
+        private void _OnActionGroupChanged(EActionGroup actionGroup)
         {
             LOGGER.LogDebug("OnActionGroupChanged: " + actionGroup.ToString());
             this.RefreshActivatedContexts();
@@ -285,8 +285,8 @@ namespace com.github.lhervier.ksp.ui
 
         private void RefreshActionGroupLabel()
         {
-            ActionGroup currentActionGroup = this._actionGroupDaemon.GetCurrentActionGroup();
-            if( currentActionGroup == ActionGroup.None )
+            EActionGroup currentActionGroup = this._actionGroupDaemon.GetCurrentActionGroup();
+            if( currentActionGroup == EActionGroup.None )
             {
                 this._actionGroupLabel = "—";
             }
@@ -354,7 +354,7 @@ namespace com.github.lhervier.ksp.ui
         {
             this._presetZones.Clear();
             
-            ActionGroup currentActionGroup = this._actionGroupDaemon.GetCurrentActionGroup();
+            EActionGroup currentActionGroup = this._actionGroupDaemon.GetCurrentActionGroup();
             
             List<EGamepadZone> orderedZones = GetAllZones();
             List<EGamepadZone> visibleZones = SteamInputGlobalSettings.GetVisibleGamepadZones();

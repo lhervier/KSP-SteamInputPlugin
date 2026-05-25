@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using com.github.lhervier.ksp.model;
 
 namespace com.github.lhervier.ksp 
 {
@@ -15,9 +16,9 @@ namespace com.github.lhervier.ksp
     {
         private static readonly SteamInputLogger LOGGER = new SteamInputLogger("MissionBuilderCtxDaemon");
         
-        public override ActionGroup CorrespondingActionGroup()
+        public override EActionGroup CorrespondingActionGroup()
         {
-            return ActionGroup.MissionBuilderControls;
+            return EActionGroup.MissionBuilderControls;
         }
 
         public void Start()

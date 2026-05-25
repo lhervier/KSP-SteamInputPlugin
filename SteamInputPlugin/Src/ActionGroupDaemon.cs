@@ -7,6 +7,7 @@ using System.Linq;
 using UnityEngine.SceneManagement;
 using com.github.lhervier.ksp.ui;
 using System.IO;
+using com.github.lhervier.ksp.model;
 
 namespace com.github.lhervier.ksp 
 {
@@ -33,7 +34,7 @@ namespace com.github.lhervier.ksp
         // <summary>
         //  The default action group
         // </summary>
-        private static readonly ActionGroup DEFAULT_ACTION_GROUP = ActionGroup.MenuControls;
+        private static readonly EActionGroup DEFAULT_ACTION_GROUP = EActionGroup.MenuControls;
 
         // ==================================================================================
 
@@ -59,7 +60,7 @@ namespace com.github.lhervier.ksp
         // <summary>
         //  Previous action group (so we don't display the message when the value has not changed)
         // </summary>
-        private ActionGroup prevActionGroup;
+        private EActionGroup prevActionGroup;
 
         // <summary>
         //  Delayed Action daemon
@@ -69,12 +70,12 @@ namespace com.github.lhervier.ksp
         // <summary>
         //  The action group to set when triggering a delayed action
         // </summary>
-        private ActionGroup actionGroupToSet;
+        private EActionGroup actionGroupToSet;
 
         /// <summary>
         /// Called when the action set has changed
         /// </summary>
-        public readonly EventData<ActionGroup> OnActionGroupChanged = new EventData<ActionGroup>("ActionGroupDaemon.OnActionGroupChanged");
+        public readonly EventData<EActionGroup> OnActionGroupChanged = new EventData<EActionGroup>("ActionGroupDaemon.OnActionGroupChanged");
 
         // ===============================================================================
         //                      Unity initialization
@@ -101,8 +102,8 @@ namespace com.github.lhervier.ksp
             LOGGER.LogInfo("Creating Delayed Actions Daemon");
             this.delayedActionDaemon = gameObject.AddComponent<DelayedActionDaemon>();
             LOGGER.LogInfo("Delayed Actions Daemon attached");
-            this.actionGroupToSet = ActionGroup.None;
-            this.prevActionGroup = ActionGroup.None;
+            this.actionGroupToSet = EActionGroup.None;
+            this.prevActionGroup = EActionGroup.None;
             
             // Get all the daemons
             LOGGER.LogInfo("Loading Context Daemons");
@@ -247,7 +248,7 @@ namespace com.github.lhervier.ksp
             if( this.activecontexts.Count == 0 ) {
                 this.TriggerActionGroupChange(DEFAULT_ACTION_GROUP);
             } else {
-                ActionGroup last = this.activecontexts[this.activecontexts.Count - 1].CorrespondingActionGroup();
+                EActionGroup last = this.activecontexts[this.activecontexts.Count - 1].CorrespondingActionGroup();
                 this.TriggerActionGroupChange(last);
             }
         }
@@ -258,7 +259,7 @@ namespace com.github.lhervier.ksp
         //  Trigger an action group change
         //  <param name="actionGroup">The action group to apply</param>
         // </summary>
-        private void TriggerActionGroupChange(ActionGroup actionGroup) 
+        private void TriggerActionGroupChange(EActionGroup actionGroup) 
         {
             this.CancelActionGroupChange();
             
@@ -268,12 +269,12 @@ namespace com.github.lhervier.ksp
 
         private void _TriggerActionGroupChange() 
         {
-            if( this.actionGroupToSet == ActionGroup.None ) {
+            if( this.actionGroupToSet == EActionGroup.None ) {
                 LOGGER.LogError("No action group to set");
                 return;
             }
             this._SetActionGroup(this.actionGroupToSet);
-            this.actionGroupToSet = ActionGroup.None;
+            this.actionGroupToSet = EActionGroup.None;
         }
 
         // <summary>
@@ -282,17 +283,17 @@ namespace com.github.lhervier.ksp
         private void CancelActionGroupChange() 
         {
             this.delayedActionDaemon.CancelDelayedAction(this._TriggerActionGroupChange);
-            this.actionGroupToSet = ActionGroup.None;
+            this.actionGroupToSet = EActionGroup.None;
         }
 
-        private void _SetActionGroup(ActionGroup actionGroup) 
+        private void _SetActionGroup(EActionGroup actionGroup) 
         {
-            if( actionGroup == ActionGroup.None ) {
+            if( actionGroup == EActionGroup.None ) {
                 LOGGER.LogError("Action group is None");
                 return;
             }
             
-            if( this.prevActionGroup != ActionGroup.None )
+            if( this.prevActionGroup != EActionGroup.None )
             {
                 if( actionGroup == this.prevActionGroup ) {
                     return;
@@ -308,7 +309,7 @@ namespace com.github.lhervier.ksp
         /// Get the current action set
         /// </summary>
         /// <returns>The current action set</returns>
-        public ActionGroup GetCurrentActionGroup() {
+        public EActionGroup GetCurrentActionGroup() {
             return this.prevActionGroup;
         }
     }

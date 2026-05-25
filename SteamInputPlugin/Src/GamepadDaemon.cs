@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Steamworks;
+using com.github.lhervier.ksp.model;
 
 namespace com.github.lhervier.ksp 
 {
@@ -113,9 +114,9 @@ namespace com.github.lhervier.ksp
 
             // Load the action sets from the enumeration
             LOGGER.LogInfo("Loading action groups");
-            this.actionGroupNames = Enum.GetValues(typeof(ActionGroup))
-                .Cast<ActionGroup>()
-                .Where(actionGroup => actionGroup != ActionGroup.None)
+            this.actionGroupNames = Enum.GetValues(typeof(EActionGroup))
+                .Cast<EActionGroup>()
+                .Where(actionGroup => actionGroup != EActionGroup.None)
                 .Select(actionGroup => actionGroup.ToString())
                 .ToArray();
             LOGGER.LogInfo("Action groups loaded : " + this.actionGroupNames.Length);
@@ -291,13 +292,13 @@ namespace com.github.lhervier.ksp
         // <summary>
         //  Change the current action group
         // </summary>
-        public void ChangeActionGroup(ActionGroup actionGroup) 
+        public void ChangeActionGroup(EActionGroup actionGroup) 
         {
             if( !this.GamepadConnected ) 
             {
                 return;
             }
-            if( actionGroup == ActionGroup.None )
+            if( actionGroup == EActionGroup.None )
             {
                 return;
             }
