@@ -19,11 +19,13 @@ namespace com.github.lhervier.ksp.ui.ugui.body
     {
         private CheatSheetViewModel _viewModel;
         private ZoneSectionBuilder _zoneSectionBuilder;
+        private ModeshiftSectionsBuilder _modeshiftZoneSectionsBuilder;
 
         public ZoneBodyBuilder(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             this._zoneSectionBuilder = new ZoneSectionBuilder(viewModel);
+            this._modeshiftZoneSectionsBuilder = new ModeshiftSectionsBuilder(viewModel);
         }
 
         public ZoneBodyController Create(UIPresetZone zone)
@@ -31,6 +33,8 @@ namespace com.github.lhervier.ksp.ui.ugui.body
             var go = new GameObject("Body", typeof(RectTransform));
             ZoneBodyController controller = go.AddComponent<ZoneBodyController>();
             controller.Initialize(_viewModel);
+            controller.BindZoneSectionBuilder(_zoneSectionBuilder);
+            controller.BindModeshiftSectionsBuilder(_modeshiftZoneSectionsBuilder);
 
             // Horizontal padding (Option A: padding on the container, not per-section)
             // Vertical padding-bottom matches the .kzone body breathing room.
@@ -48,19 +52,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body
             layout.childForceExpandWidth = true;
             layout.childForceExpandHeight = false;
 
-            if (!string.IsNullOrEmpty(zone.GroupId))
-            {
-                ZoneSectionBuilder.ZoneSectionController normalController =_zoneSectionBuilder.Create(zone, false);
-                normalController.transform.SetParent(go.transform);
-                controller.BindNormalSectionController(normalController);
-            }
-
-            if (!string.IsNullOrEmpty(zone.ModeshiftGroupId))
-            {
-                ZoneSectionBuilder.ZoneSectionController modeshiftController =_zoneSectionBuilder.Create(zone, true);
-                modeshiftController.transform.SetParent(go.transform);
-                controller.BindModeshiftSectionController(modeshiftController);
-            }
+            controller.UpdateZone(zone);
 
             return controller;
         }
@@ -68,57 +60,64 @@ namespace com.github.lhervier.ksp.ui.ugui.body
         public class ZoneBodyController : BaseSteamInputController
         {
             private ZoneSectionBuilder _zoneSectionBuilder;
+            private ModeshiftSectionsBuilder _modeshiftSectionsBuilder;
             private ZoneSectionBuilder.ZoneSectionController _normalSectionController;
-            private ZoneSectionBuilder.ZoneSectionController _modeshiftSectionController;
+            private ModeshiftSectionsBuilder.ModeshiftSectionsController _modeshiftSectionsController;
 
             public void BindZoneSectionBuilder(ZoneSectionBuilder builder)
             {
                 this._zoneSectionBuilder = builder;
             }
-
-            public void BindNormalSectionController(ZoneSectionBuilder.ZoneSectionController normalSectionController)
+            public void BindModeshiftSectionsBuilder(ModeshiftSectionsBuilder modeshiftSectionsBuilder)
             {
-                _normalSectionController = normalSectionController;
-            }
-
-            public void BindModeshiftSectionController(ZoneSectionBuilder.ZoneSectionController modeshiftSectionController)
-            {
-                _modeshiftSectionController = modeshiftSectionController;
+                this._modeshiftSectionsBuilder = modeshiftSectionsBuilder;
             }
 
             public void UpdateZone(UIPresetZone zone)
             {
+                this.UpdateNormalSection(zone);
+                this.UpdateModeshiftSections(zone);
+            }
+
+            public void UpdateNormalSection(UIPresetZone zone)
+            {
+                // No normal section
                 if( zone.GroupId == null )
                 {
-                    Destroy(_normalSectionController?.gameObject);
-                }
-                else
-                {
-                    if( _normalSectionController == null )
+                    if( _normalSectionController != null )
                     {
-                        _normalSectionController = _zoneSectionBuilder.Create(zone, false);
+                        Destroy(_normalSectionController.gameObject);
+                        _normalSectionController = null;
                     }
-                    else
-                    {
-                        _normalSectionController.UpdateZone(zone);
-                    }
+                    return;
                 }
 
-                if( zone.ModeshiftGroupId == null )
+                // No existing normal section => Create it
+                if( _normalSectionController == null )
                 {
-                    Destroy(_modeshiftSectionController?.gameObject);
+                    _normalSectionController = this._zoneSectionBuilder.Create(zone.GroupId, false);
+                    _normalSectionController.transform.SetParent(gameObject.transform);
+                    _normalSectionController.transform.SetAsFirstSibling();
+                    return;
                 }
-                else
+
+                // Existing normal section => Update it
+                _normalSectionController.UpdateGroupId(zone.GroupId);
+            }
+
+            public void UpdateModeshiftSections(UIPresetZone zone)
+            {
+                // No existing modeshift sections => Create them
+                if( _modeshiftSectionsController == null )
                 {
-                    if( _modeshiftSectionController == null )
-                    {
-                        _modeshiftSectionController = _zoneSectionBuilder.Create(zone, true);
-                    }
-                    else
-                    {
-                        _modeshiftSectionController.UpdateZone(zone);
-                    }
-                }
+                    _modeshiftSectionsController = this._modeshiftSectionsBuilder.Create(zone);
+                    _modeshiftSectionsController.transform.SetParent(gameObject.transform);
+                    _modeshiftSectionsController.transform.SetAsLastSibling();
+                    return;
+                } 
+
+                // Existing modeshift sections => Update them
+                _modeshiftSectionsController.UpdateZone(zone);
             }
         }
     }

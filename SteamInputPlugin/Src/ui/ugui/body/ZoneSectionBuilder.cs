@@ -23,9 +23,9 @@ namespace com.github.lhervier.ksp.ui.ugui.body
             this._viewModel = viewModel;
         }
 
-        public ZoneSectionController Create(UIPresetZone zone, bool modeshift)
+        public ZoneSectionController Create(String groupId, bool modeshift)
         {
-            var go = new GameObject("Body", typeof(RectTransform));
+            var go = new GameObject("ZoneSection", typeof(RectTransform));
             ZoneSectionController controller = go.AddComponent<ZoneSectionController>();
             controller.Initialize(_viewModel);
 
@@ -69,12 +69,14 @@ namespace com.github.lhervier.ksp.ui.ugui.body
             sectionText.verticalOverflow = VerticalWrapMode.Overflow;
             sectionText.raycastTarget = false;
 
+            controller.UpdateGroupId(groupId);
+
             return controller;
         }
 
         public class ZoneSectionController : BaseSteamInputController
         {
-            public void UpdateZone(UIPresetZone zone)
+            public void UpdateGroupId(string groupId)
             {
                 
             }

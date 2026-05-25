@@ -122,7 +122,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body
             private static bool ShouldRender(UIPresetZone zone)
             {
                 // Skip zones that have no group at all (not part of the current action group)
-                return !string.IsNullOrEmpty(zone.GroupId) || !string.IsNullOrEmpty(zone.ModeshiftGroupId);
+                return !string.IsNullOrEmpty(zone.GroupId) || zone.ModeshiftGroupIds.Count > 0;
             }
         }
     }

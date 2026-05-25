@@ -44,8 +44,13 @@ namespace com.github.lhervier.ksp.ui.ugui.body
             layout.childForceExpandWidth = true;
             layout.childForceExpandHeight = false;
 
-            _zoneHeaderBuilder.Create(zone).transform.SetParent(zoneGo.transform, false);
-            _zoneBodyBuilder.Create(zone).transform.SetParent(zoneGo.transform, false);
+            var headerController = _zoneHeaderBuilder.Create(zone);
+            headerController.transform.SetParent(zoneGo.transform, false);
+            controller.BindZoneHeaderController(headerController);
+
+            var bodyController = _zoneBodyBuilder.Create(zone);
+            bodyController.transform.SetParent(zoneGo.transform, false);
+            controller.BindZoneBodyController(bodyController);
 
             return controller;
         }
