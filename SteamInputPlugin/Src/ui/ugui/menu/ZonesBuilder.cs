@@ -52,7 +52,7 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
         public class ZonesController : BaseSteamInputController
         {
             private ZoneRowBuilder _rowBuilder;
-            private Dictionary<VdfGamepadZone, ZoneRowBuilder.ZoneRowController> _rows = new Dictionary<VdfGamepadZone, ZoneRowBuilder.ZoneRowController>();
+            private Dictionary<EGamepadZone, ZoneRowBuilder.ZoneRowController> _rows = new Dictionary<EGamepadZone, ZoneRowBuilder.ZoneRowController>();
 
             public void BindRowBuilder(ZoneRowBuilder rowBuilder)
             {
@@ -73,14 +73,14 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             private void Sync(List<UIConfigZone> zones)
             {
                 // 1. Set of keys present in the new list
-                var newKeys = new HashSet<VdfGamepadZone>();
+                var newKeys = new HashSet<EGamepadZone>();
                 for (int i = 0; i < zones.Count; i++)
                 {
                     newKeys.Add(zones[i].Zone);
                 }
 
                 // 2. Destroy rows whose zones are no longer present
-                var toRemove = new List<VdfGamepadZone>();
+                var toRemove = new List<EGamepadZone>();
                 foreach (var pair in this._rows)
                 {
                     if (!newKeys.Contains(pair.Key))

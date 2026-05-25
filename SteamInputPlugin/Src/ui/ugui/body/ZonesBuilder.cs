@@ -45,7 +45,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body
         public class PhysicalZonesController : BaseSteamInputController
         {
             private ZoneRowBuilder _zoneRowBuilder;
-            private Dictionary<VdfGamepadZone, ZoneRowBuilder.ZoneRowController> _rows = new Dictionary<VdfGamepadZone, ZoneRowBuilder.ZoneRowController>();
+            private Dictionary<EGamepadZone, ZoneRowBuilder.ZoneRowController> _rows = new Dictionary<EGamepadZone, ZoneRowBuilder.ZoneRowController>();
 
             public void BindPhysicalZoneBuilder(ZoneRowBuilder physicalZoneBuilder)
             {
@@ -73,7 +73,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body
                 // them globally), so we have to filter here.
 
                 // 1. Set of keys to render
-                var newKeys = new HashSet<VdfGamepadZone>();
+                var newKeys = new HashSet<EGamepadZone>();
                 for (int i = 0; i < zones.Count; i++)
                 {
                     if (ShouldRender(zones[i]))
@@ -83,7 +83,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body
                 }
 
                 // 2. Destroy rows whose zones are no longer present
-                var toRemove = new List<VdfGamepadZone>();
+                var toRemove = new List<EGamepadZone>();
                 foreach (var pair in this._rows)
                 {
                     if (!newKeys.Contains(pair.Key))

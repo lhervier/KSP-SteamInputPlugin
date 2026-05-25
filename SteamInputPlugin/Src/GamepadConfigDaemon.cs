@@ -172,7 +172,7 @@ namespace com.github.lhervier.ksp
         /// </summary>
         /// <param name="actionGroup">The action group to get the physical zones for.</param>
         /// <returns>A list of all the physical zones defined for the given action group.</returns>
-        public Dictionary<VdfGamepadZone, VdfPresetZone> GetPresetZones(ActionGroup actionGroup)
+        public Dictionary<EGamepadZone, VdfPresetZone> GetPresetZones(ActionGroup actionGroup)
         {
             var mappings = GetObject(_root, "controller_mappings");
             List<object> presets = GetList(mappings, "preset");
@@ -186,23 +186,23 @@ namespace com.github.lhervier.ksp
                 }
             }
             if( preset == null ) {
-                return new Dictionary<VdfGamepadZone, VdfPresetZone>();
+                return new Dictionary<EGamepadZone, VdfPresetZone>();
             }
             
             Dictionary<string, object> groupSourceBindings = GetObject(preset, "group_source_bindings");
-            Dictionary<VdfGamepadZone, VdfPresetZone> presetZones = new Dictionary<VdfGamepadZone, VdfPresetZone>();
+            Dictionary<EGamepadZone, VdfPresetZone> presetZones = new Dictionary<EGamepadZone, VdfPresetZone>();
             
             foreach( KeyValuePair<string, object> pair in groupSourceBindings ) {
                 string groupId = pair.Key;
                 if( !(pair.Value is string valueString) ) {
                     continue;
                 }
-                if( !ParseGroupBinding(valueString, out VdfGamepadZone zone, out bool modeShift) ) {
+                if( !ParseGroupBinding(valueString, out EGamepadZone zone, out bool modeShift) ) {
                     continue;
                 }
                 AddPresetZone(presetZones, zone, groupId, modeShift);
-                if( zone == VdfGamepadZone.Switch ) {
-                    AddPresetZone(presetZones, VdfGamepadZone.Bumpers, groupId, modeShift);
+                if( zone == EGamepadZone.Switch ) {
+                    AddPresetZone(presetZones, EGamepadZone.Bumpers, groupId, modeShift);
                 }
             }
 
@@ -213,11 +213,11 @@ namespace com.github.lhervier.ksp
         /// Get all the gamepad zones defined in the VDF.
         /// </summary>
         /// <returns>A list of all the gamepad zones defined in the VDF.</returns>
-        public List<VdfGamepadZone> GetGamepadZones()
+        public List<EGamepadZone> GetGamepadZones()
         {
             var mappings = GetObject(_root, "controller_mappings");
             List<object> presets = GetList(mappings, "preset");
-            List<VdfGamepadZone> gamepadZones = new List<VdfGamepadZone>();
+            List<EGamepadZone> gamepadZones = new List<EGamepadZone>();
             foreach( object presetObject in presets ) {
                 if( presetObject is Dictionary<string, object> presetData ) {
                     var bindings = GetObject(presetData, "group_source_bindings");
@@ -225,7 +225,7 @@ namespace com.github.lhervier.ksp
                         if( !(pair.Value is string valueString) ) {
                             continue;
                         }
-                        if( !ParseGroupBinding(valueString, out VdfGamepadZone zone, out bool _) ) {
+                        if( !ParseGroupBinding(valueString, out EGamepadZone zone, out bool _) ) {
                             continue;
                         }
                         if( gamepadZones.Contains(zone) ) {
@@ -249,7 +249,7 @@ namespace com.github.lhervier.ksp
         /// <param name="zone">The parsed gamepad zone.</param>
         /// <param name="modeShift">The mode shift flag.</param>
         /// <returns>True if the group binding string was parsed successfully, false otherwise.</returns>
-        private bool ParseGroupBinding(string groupBinding, out VdfGamepadZone zone, out bool modeShift) {
+        private bool ParseGroupBinding(string groupBinding, out EGamepadZone zone, out bool modeShift) {
             List<string> parts = new List<string>(groupBinding.Split(' '));
             zone = null;
             modeShift = false;
@@ -267,7 +267,7 @@ namespace com.github.lhervier.ksp
             }
             string name = parts[0];
 
-            if( VdfGamepadZone.TryParse(name, out VdfGamepadZone z) ) {
+            if( EGamepadZone.TryParse(name, out EGamepadZone z) ) {
                 zone = z;
             } else {
                 return false;
@@ -283,8 +283,8 @@ namespace com.github.lhervier.ksp
         /// <param name="groupId">The group id to add.</param>
         /// <param name="modeShift">The mode shift flag to add.</param>
         private void AddPresetZone(
-            Dictionary<VdfGamepadZone, VdfPresetZone> physicalZones, 
-            VdfGamepadZone zone, 
+            Dictionary<EGamepadZone, VdfPresetZone> physicalZones, 
+            EGamepadZone zone, 
             string groupId, 
             bool modeShift
         ) {

@@ -32,8 +32,8 @@ namespace com.github.lhervier.ksp
         private static LogLevel _logLevel = LogLevel.Info;
         private static bool _showLoggingIcon = false;
         private static string _controllerConfigName = string.Empty;
-        private static List<VdfGamepadZone> _orderedGamepadZones = new List<VdfGamepadZone>();
-        private static List<VdfGamepadZone> _visibleGamepadZones = new List<VdfGamepadZone>();
+        private static List<EGamepadZone> _orderedGamepadZones = new List<EGamepadZone>();
+        private static List<EGamepadZone> _visibleGamepadZones = new List<EGamepadZone>();
 
         public static EventData<int> OnGlobalSettingsChanged = new EventData<int>("SteamInputGlobalSettings.ConfigurationChanged");
 
@@ -215,7 +215,7 @@ namespace com.github.lhervier.ksp
         {
             string raw = config.GetValue(
                 CONFIG_KEY_ORDERED_GAMEPAD_ZONES,
-                string.Join(GAMEPAD_ZONES_SEPARATOR.ToString(), VdfGamepadZone.All.Select(z => z.ToString()))
+                string.Join(GAMEPAD_ZONES_SEPARATOR.ToString(), EGamepadZone.All.Select(z => z.ToString()))
             );
             return _SetOrderedGamepadZones(
                 ParseGamepadZones(raw)
@@ -237,9 +237,9 @@ namespace com.github.lhervier.ksp
         /// Get the ordered gamepad zones.
         /// </summary>
         /// <returns>The ordered gamepad zones.</returns>
-        public static List<VdfGamepadZone> GetOrderedGamepadZones()
+        public static List<EGamepadZone> GetOrderedGamepadZones()
         {
-            return new List<VdfGamepadZone>(_orderedGamepadZones);
+            return new List<EGamepadZone>(_orderedGamepadZones);
         }
 
         /// <summary>
@@ -247,7 +247,7 @@ namespace com.github.lhervier.ksp
         /// </summary>
         /// <param name="orderedGamepadZones">The ordered gamepad zones.</param>
         /// <returns>The update flags.</returns>
-        private static int _SetOrderedGamepadZones(List<VdfGamepadZone> orderedGamepadZones)
+        private static int _SetOrderedGamepadZones(List<EGamepadZone> orderedGamepadZones)
         {
             LOGGER.LogDebug($"Setting ordered gamepad zones to {string.Join(GAMEPAD_ZONES_SEPARATOR.ToString(), orderedGamepadZones)}");
             
@@ -257,14 +257,14 @@ namespace com.github.lhervier.ksp
 
             // If the list of gamepad zones has changed (indifferent to the order), set all zones as visible
             if( !sameZoneSet ) {
-                _orderedGamepadZones = new List<VdfGamepadZone>(orderedGamepadZones);
-                _visibleGamepadZones = new List<VdfGamepadZone>(orderedGamepadZones);
+                _orderedGamepadZones = new List<EGamepadZone>(orderedGamepadZones);
+                _visibleGamepadZones = new List<EGamepadZone>(orderedGamepadZones);
                 return UpdatedConfiguration.VISIBLE_GAMEPAD_ZONES | UpdatedConfiguration.ORDERED_GAMEPAD_ZONES;
             }
             
             // If the order of the elements has changed, just update the list
             if( !_orderedGamepadZones.SequenceEqual(orderedGamepadZones) ) {
-                _orderedGamepadZones = new List<VdfGamepadZone>(orderedGamepadZones);
+                _orderedGamepadZones = new List<EGamepadZone>(orderedGamepadZones);
                 return UpdatedConfiguration.ORDERED_GAMEPAD_ZONES;
             }
             return 0;
@@ -274,7 +274,7 @@ namespace com.github.lhervier.ksp
         /// Set the ordered gamepad zones.
         /// </summary>
         /// <param name="orderedGamepadZones">The ordered gamepad zones.</param>
-        public static void SetOrderedGamepadZones(List<VdfGamepadZone> orderedGamepadZones)
+        public static void SetOrderedGamepadZones(List<EGamepadZone> orderedGamepadZones)
         {
             OnGlobalSettingsChanged.Fire(
                 _SetOrderedGamepadZones(orderedGamepadZones)
@@ -290,7 +290,7 @@ namespace com.github.lhervier.ksp
         {
             string raw = config.GetValue(
                 CONFIG_KEY_VISIBLE_GAMEPAD_ZONES,
-                string.Join(GAMEPAD_ZONES_SEPARATOR.ToString(), VdfGamepadZone.All.Select(z => z.ToString()))
+                string.Join(GAMEPAD_ZONES_SEPARATOR.ToString(), EGamepadZone.All.Select(z => z.ToString()))
             );
             return _SetVisibleGamepadZones(
                 ParseGamepadZones(raw)
@@ -312,9 +312,9 @@ namespace com.github.lhervier.ksp
         /// Get the visible gamepad zones.
         /// </summary>
         /// <returns>The visible gamepad zones.</returns>
-        public static List<VdfGamepadZone> GetVisibleGamepadZones()
+        public static List<EGamepadZone> GetVisibleGamepadZones()
         {
-            return new List<VdfGamepadZone>(_visibleGamepadZones);
+            return new List<EGamepadZone>(_visibleGamepadZones);
         }
 
         /// <summary>
@@ -322,14 +322,14 @@ namespace com.github.lhervier.ksp
         /// </summary>
         /// <param name="visibleGamepadZones">The visible gamepad zones.</param>
         /// <returns>The update flags.</returns>
-        public static int _SetVisibleGamepadZones(List<VdfGamepadZone> visibleGamepadZones)
+        public static int _SetVisibleGamepadZones(List<EGamepadZone> visibleGamepadZones)
         {
             LOGGER.LogDebug($"Setting visible gamepad zones to {string.Join(GAMEPAD_ZONES_SEPARATOR.ToString(), visibleGamepadZones)}");
             
             if( _visibleGamepadZones.Count == visibleGamepadZones.Count && _visibleGamepadZones.SequenceEqual(visibleGamepadZones) ) {
                 return 0;
             }
-            _visibleGamepadZones = new List<VdfGamepadZone>(visibleGamepadZones);
+            _visibleGamepadZones = new List<EGamepadZone>(visibleGamepadZones);
             return UpdatedConfiguration.VISIBLE_GAMEPAD_ZONES;
         }
 
@@ -337,7 +337,7 @@ namespace com.github.lhervier.ksp
         /// Set the visible gamepad zones.
         /// </summary>
         /// <param name="visibleGamepadZones">The visible gamepad zones.</param>
-        public static void SetVisibleGamepadZones(List<VdfGamepadZone> visibleGamepadZones)
+        public static void SetVisibleGamepadZones(List<EGamepadZone> visibleGamepadZones)
         {
             OnGlobalSettingsChanged.Fire(
                 _SetVisibleGamepadZones(visibleGamepadZones)
@@ -397,12 +397,12 @@ namespace com.github.lhervier.ksp
         /// </summary>
         /// <param name="raw">The string to parse.</param>
         /// <returns>The list of gamepad zones.</returns>
-        private static List<VdfGamepadZone> ParseGamepadZones(string raw)
+        private static List<EGamepadZone> ParseGamepadZones(string raw)
         {
             if( string.IsNullOrEmpty(raw) ) {
-                return new List<VdfGamepadZone>();
+                return new List<EGamepadZone>();
             }
-            List<VdfGamepadZone> gamepadZones = new List<VdfGamepadZone>();
+            List<EGamepadZone> gamepadZones = new List<EGamepadZone>();
             foreach (string part in raw.Split(GAMEPAD_ZONES_SEPARATOR))
             {
                 string zone = part.Trim();
@@ -410,7 +410,7 @@ namespace com.github.lhervier.ksp
                 {
                     continue;
                 }
-                if( VdfGamepadZone.TryParse(zone, out VdfGamepadZone gpZone) ) {
+                if( EGamepadZone.TryParse(zone, out EGamepadZone gpZone) ) {
                     gamepadZones.Add(gpZone);
                 }
             }
