@@ -152,7 +152,7 @@ ls "$KSPDIR/KSP_x64_Data/Managed/Assembly-CSharp.dll"
 Build manually (adjust `KSP_DATA_DIR` if you use `KSP_Data`):
 
 ```bash
-dotnet build SteamInput.csproj -p:KSP_DATA_DIR="$KSPDIR/KSP_x64_Data"
+dotnet build SteamInputPlugin/SteamInput.csproj -p:KSP_DATA_DIR="$KSPDIR/KSP_x64_Data"
 ```
 
 Or use:

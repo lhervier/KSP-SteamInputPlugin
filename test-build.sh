@@ -54,10 +54,10 @@ else
 fi
 
 echo "Vérification du fichier projet..."
-if [ -f "SteamInput.csproj" ]; then
-    echo "✓ Fichier SteamInput.csproj trouvé"
+if [ -f "SteamInputPlugin/SteamInput.csproj" ]; then
+    echo "✓ Fichier SteamInputPlugin/SteamInput.csproj trouvé"
 else
-    echo "✗ Fichier SteamInput.csproj non trouvé"
+    echo "✗ Fichier SteamInputPlugin/SteamInput.csproj non trouvé"
     exit 1
 fi
 

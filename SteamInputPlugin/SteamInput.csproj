@@ -6,8 +6,8 @@
     <AssemblyName>SteamInputPlugin</AssemblyName>
     <RootNamespace>com.github.lhervier.ksp</RootNamespace>
     <OutputType>Library</OutputType>
-    <OutputPath>Output\bin</OutputPath>
-    <IntermediateOutputPath>Output\obj</IntermediateOutputPath>
+    <OutputPath>..\Output\bin</OutputPath>
+    <IntermediateOutputPath>..\Output\obj</IntermediateOutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <DebugType>full</DebugType>
@@ -65,19 +65,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="SteamInputPlugin\Src\*.cs" />
-    <Compile Include="SteamInputPlugin\Src\ContextDaemons\*.cs" />
-    <Compile Include="SteamInputPlugin\Src\model\*.cs" />
-    <Compile Include="SteamInputPlugin\Src\Vdf\*.cs" />
-    <Compile Include="SteamInputPlugin\Src\ui\*.cs" />
-    <Compile Include="SteamInputPlugin\Src\ui\ugui\*.cs" />
-    <Compile Include="SteamInputPlugin\Src\ui\ugui\body\*.cs" />
-    <Compile Include="SteamInputPlugin\Src\ui\ugui\menu\*.cs" />
-    <Compile Include="SteamInputPlugin\Src\ui\ugui\styles\*.cs" />
-    <Compile Include="SteamInputPlugin\Src\ui\ugui\titleBar\*.cs" />
-    <Compile Include="SteamInputPlugin\Src\ui\imgui\*.cs" />
-    <Compile Include="SteamInputPlugin\Src\ui\styles\*.cs" />
-    <Compile Include="SteamInputPlugin\Src\ui\model\*.cs" />
+    <Compile Include="Src\*.cs" />
+    <Compile Include="Src\ContextDaemons\*.cs" />
+    <Compile Include="Src\model\*.cs" />
+    <Compile Include="Src\Vdf\*.cs" />
+    <Compile Include="Src\ui\*.cs" />
+    <Compile Include="Src\ui\ugui\*.cs" />
+    <Compile Include="Src\ui\ugui\body\*.cs" />
+    <Compile Include="Src\ui\ugui\menu\*.cs" />
+    <Compile Include="Src\ui\ugui\styles\*.cs" />
+    <Compile Include="Src\ui\ugui\titleBar\*.cs" />
+    <Compile Include="Src\ui\imgui\*.cs" />
+    <Compile Include="Src\ui\styles\*.cs" />
+    <Compile Include="Src\ui\model\*.cs" />
   </ItemGroup>
 
 </Project>

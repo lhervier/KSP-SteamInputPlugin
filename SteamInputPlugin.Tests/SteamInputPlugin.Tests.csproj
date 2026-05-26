@@ -35,7 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SteamInput.csproj" />
+    <ProjectReference Include="..\SteamInputPlugin\SteamInput.csproj" />
   </ItemGroup>
 
 </Project>

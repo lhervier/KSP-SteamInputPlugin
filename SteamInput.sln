@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SteamInput", "SteamInput.csproj", "{B4F901C1-D874-44F7-A116-1BB2BB5ED365}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SteamInput", "SteamInputPlugin\SteamInput.csproj", "{B4F901C1-D874-44F7-A116-1BB2BB5ED365}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SteamInputPlugin.Tests", "SteamInputPlugin.Tests\SteamInputPlugin.Tests.csproj", "{D7950A1A-A94E-4483-A828-DACC8E1C00DE}"
 EndProject
