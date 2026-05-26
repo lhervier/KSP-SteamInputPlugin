@@ -5,6 +5,7 @@ using com.github.lhervier.ksp.ui.model;
 using System.Linq;
 using System;
 using com.github.lhervier.ksp.model;
+using System.Text.RegularExpressions;
 
 namespace com.github.lhervier.ksp.ui
 {
@@ -12,6 +13,8 @@ namespace com.github.lhervier.ksp.ui
     {
         private static readonly SteamInputLogger LOGGER = new SteamInputLogger("CheatSheetViewModel");
         
+        private readonly DictionaryValueList<string, VdfGroup> _groupsCache = new DictionaryValueList<string, VdfGroup>();
+
         // ===================================================
         // The error when loading a gamepad config
         // ===================================================
@@ -181,6 +184,7 @@ namespace com.github.lhervier.ksp.ui
             this.RefreshPresetZones();
 
             this._lastConfigLoadError = string.Empty;
+            this._groupsCache.Clear();
             this.OnConfigLoadError.Fire(_lastConfigLoadError);
         }
 
@@ -424,6 +428,63 @@ namespace com.github.lhervier.ksp.ui
                 visibleZones.Add(zone.Zone);
             }
             SteamInputGlobalSettings.SetVisibleGamepadZones(visibleZones);
+        }
+
+        public VdfGroup GetGroup(string groupId)
+        {
+            if (!this._groupsCache.TryGetValue(groupId, out VdfGroup group))
+            {
+                group = this._gamepadConfigDaemon.GetGroup(groupId);
+            }
+            return group;
+        }
+
+        public List<UIActivator> GetActivators(string groupId)
+        {
+            List<UIActivator> activators = new List<UIActivator>();
+
+            VdfGroup group = GetGroup(groupId);
+            if( group == null ) return activators;
+
+            foreach( VdfInput vdfInput in group.Inputs )
+            {
+                EInput input = vdfInput.Name;
+                if( input == null ) continue;
+
+                foreach( VdfActivator vdfActivator in vdfInput.Activators )
+                {
+                    bool longPress = vdfActivator.Name == EActivator.LongPress;
+                    bool modeShift = false;
+                    string bindingText = null;
+
+                    if( vdfActivator.Bindings != null )
+                    {
+                        foreach( VdfBinding vdfBinding in vdfActivator.Bindings )
+                        {
+                            if( vdfBinding.ModeShift )
+                            {
+                                modeShift = true;
+                            }
+                            else
+                            {
+                                bindingText = vdfBinding.Label;
+                            }
+                        }
+                    }
+
+                    activators.Add(
+                        new UIActivator
+                        {
+                            Input = input,
+                            LongPress = longPress,
+                            ModeShift = modeShift,
+                            BindingText = bindingText,
+                        }
+                    );
+                }
+            }
+
+            return activators;
         }
     }
 }
