@@ -160,10 +160,14 @@ namespace com.github.lhervier.ksp
         public VdfControllerMappings GetControllerMappings()
         {
             var mappings = GetObject(_root, "controller_mappings");
+            if( !EControllerType.TryParse(GetString(mappings, "controller_type"), out EControllerType controllerType) )
+            {
+                controllerType = null;
+            }
             return new VdfControllerMappings
             {
                 Title = GetString(mappings, "title"),
-                ControllerType = GetString(mappings, "controller_type"),
+                ControllerType = controllerType,
                 Description = GetString(mappings, "description")
             };
         }

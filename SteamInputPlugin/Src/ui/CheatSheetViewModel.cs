@@ -271,9 +271,7 @@ namespace com.github.lhervier.ksp.ui
 
         private void RefreshControllerType()
         {
-            this._gamepadLabel = GamepadControllerTypes.GetDisplayName(
-                this._gamepadConfigDaemon.GetControllerMappings().ControllerType
-            );
+            this._gamepadLabel = this._gamepadConfigDaemon.GetControllerMappings().ControllerType?.GetLabel();
             OnGamepadLabelChanged.Fire(this._gamepadLabel);
         }
 
