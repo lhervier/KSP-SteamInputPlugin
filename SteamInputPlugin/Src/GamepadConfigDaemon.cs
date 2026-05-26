@@ -238,7 +238,128 @@ namespace com.github.lhervier.ksp
             return gamepadZones;
         }
 
-        
+        public VdfGroup GetGroup(string groupId)
+        {
+            var mappings = GetObject(_root, "controller_mappings");
+            var groups = GetList(mappings, "group");
+            Dictionary<string, object> vdfGroup = null;
+            foreach( object groupObject in groups )
+            {
+                if( !(groupObject is Dictionary<string, object> g) ) continue;
+                string gid = GetString(g, "id");
+                if( string.IsNullOrEmpty(gid) ) continue;
+                if( gid == groupId )
+                {
+                    vdfGroup = g;
+                    break;
+                }
+            }
+            if( vdfGroup == null )
+            {
+                return null;
+            }
+
+            VdfGroup group = new VdfGroup
+            {
+                GroupId = groupId,
+                Mode = GetString(vdfGroup, "mode"),
+                Inputs = GetInputs(vdfGroup)
+            };
+            return group;
+        }
+
+        private List<VdfInput> GetInputs(Dictionary<string, object> vdfGroup)
+        {
+            List<VdfInput> inputs = new List<VdfInput>();
+
+            Dictionary<string, object> vdfInputs = GetObject(vdfGroup, "inputs");
+            foreach( string inputName in vdfInputs.Keys )
+            {
+                Dictionary<string, object> vdfInput = GetObject(vdfInputs, inputName);
+                inputs.Add(
+                    new VdfInput
+                    {
+                        Name = inputName,
+                        Activators = GetActivators(vdfInput)
+                    }
+                );
+            }
+            return inputs;
+        }
+
+        private List<VdfActivator> GetActivators(Dictionary<string, object> vdfInput)
+        {
+            List<VdfActivator> activators = new List<VdfActivator>();
+            Dictionary<string, object> vdfActivators = GetObject(vdfInput, "activators");
+            foreach(string activatorName in vdfActivators.Keys )
+            {
+                List<object> vdfActivatorInstances = GetList(vdfActivators, activatorName);
+                foreach( object vdfActivator in vdfActivatorInstances )
+                {
+                    if( vdfActivator is Dictionary<string, object> vdfActivatorDict )
+                    {
+                        activators.Add(
+                            new VdfActivator
+                            {
+                                Name = activatorName,
+                                Binding = GetBinding(vdfActivatorDict)
+                            }
+                        );
+                    }
+                }
+            }
+
+            return activators;
+        }
+
+        private VdfBinding GetBinding(Dictionary<string, object> vdfActivator)
+        {
+            Dictionary<string, object> vdfBindings = GetObject(vdfActivator, "bindings");
+            string bindingString = GetString(vdfBindings, "binding");
+            if( string.IsNullOrEmpty(bindingString) ) return null;
+
+            VdfBinding binding = new VdfBinding();
+            string[] parts = bindingString.Split(' ');
+            if( parts.Length == 0 )
+            {
+                return binding;
+            }
+
+            binding.ModeShift = parts[0] == "mode_shift";
+
+            if( binding.ModeShift )
+            {
+                if( parts.Length > 1 )
+                {
+                    EGamepadZone.TryParse(parts[1], out EGamepadZone zone);
+                    binding.Zone = zone;
+                }
+
+                if( parts.Length > 2 )
+                {
+                    binding.GroupId = parts[2];
+                }
+            }
+            else
+            {
+                binding.EventType = parts[0];
+                if( parts.Length > 1 )
+                {
+                    string right = bindingString.Substring(binding.EventType.Length + 1);
+                    string[] rightParts = right.Split(',');
+
+                    if( rightParts.Length > 0 )
+                    {
+                        binding.Action = rightParts[0];
+                    }
+                    if( rightParts.Length > 1 )
+                    {
+                        binding.Label = rightParts[1].Trim();
+                    }
+                }
+            }
+            return binding;
+        }
 
         // ============================================================================
         // Helpers
