@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using com.github.lhervier.ksp.model;
+using com.github.lhervier.ksp.ui.model;
 using com.github.lhervier.ksp.Vdf;
 using UnityEngine;
 
@@ -276,10 +277,14 @@ namespace com.github.lhervier.ksp
             foreach( string inputName in vdfInputs.Keys )
             {
                 Dictionary<string, object> vdfInput = GetObject(vdfInputs, inputName);
+                if( !EInput.TryParse(inputName, out EInput input) )
+                {
+                    input = null;
+                }
                 inputs.Add(
                     new VdfInput
                     {
-                        Name = inputName,
+                        Name = input,
                         Activators = GetActivators(vdfInput)
                     }
                 );
@@ -291,74 +296,87 @@ namespace com.github.lhervier.ksp
         {
             List<VdfActivator> activators = new List<VdfActivator>();
             Dictionary<string, object> vdfActivators = GetObject(vdfInput, "activators");
-            foreach(string activatorName in vdfActivators.Keys )
+            foreach( string activatorName in vdfActivators.Keys )
             {
+                if( !EActivator.TryParse(activatorName, out EActivator act) )
+                {
+                    continue;
+                }
+
+                List<VdfBinding> bindings = new List<VdfBinding>();
                 List<object> vdfActivatorInstances = GetList(vdfActivators, activatorName);
                 foreach( object vdfActivator in vdfActivatorInstances )
                 {
                     if( vdfActivator is Dictionary<string, object> vdfActivatorDict )
                     {
-                        activators.Add(
-                            new VdfActivator
-                            {
-                                Name = activatorName,
-                                Binding = GetBinding(vdfActivatorDict)
-                            }
-                        );
+                        bindings.AddRange(GetBindings(vdfActivatorDict));
                     }
                 }
+
+                activators.Add(new VdfActivator
+                {
+                    Name = act,
+                    Bindings = bindings
+                });
             }
 
             return activators;
         }
 
-        private VdfBinding GetBinding(Dictionary<string, object> vdfActivator)
+        private List<VdfBinding> GetBindings(Dictionary<string, object> vdfActivator)
         {
+            List<VdfBinding> bindings = new List<VdfBinding>();
             Dictionary<string, object> vdfBindings = GetObject(vdfActivator, "bindings");
-            string bindingString = GetString(vdfBindings, "binding");
-            if( string.IsNullOrEmpty(bindingString) ) return null;
-
-            VdfBinding binding = new VdfBinding();
-            string[] parts = bindingString.Split(' ');
-            if( parts.Length == 0 )
+            List<object> bindingValues = GetList(vdfBindings, "binding");
+            foreach( object bv in bindingValues )
             {
-                return binding;
-            }
+                if( !(bv is string bindingString) ) continue;
+                if( string.IsNullOrEmpty(bindingString) ) continue;
 
-            binding.ModeShift = parts[0] == "mode_shift";
-
-            if( binding.ModeShift )
-            {
-                if( parts.Length > 1 )
+                VdfBinding binding = new VdfBinding();
+                string[] parts = bindingString.Split(' ');
+                if( parts.Length == 0 )
                 {
-                    EGamepadZone.TryParse(parts[1], out EGamepadZone zone);
-                    binding.Zone = zone;
+                    bindings.Add(binding);
+                    continue;
                 }
 
-                if( parts.Length > 2 )
-                {
-                    binding.GroupId = parts[2];
-                }
-            }
-            else
-            {
-                binding.EventType = parts[0];
-                if( parts.Length > 1 )
-                {
-                    string right = bindingString.Substring(binding.EventType.Length + 1);
-                    string[] rightParts = right.Split(',');
+                binding.ModeShift = parts[0] == "mode_shift";
 
-                    if( rightParts.Length > 0 )
+                if( binding.ModeShift )
+                {
+                    if( parts.Length > 1 )
                     {
-                        binding.Action = rightParts[0];
+                        EGamepadZone.TryParse(parts[1], out EGamepadZone zone);
+                        binding.Zone = zone;
                     }
-                    if( rightParts.Length > 1 )
+
+                    if( parts.Length > 2 )
                     {
-                        binding.Label = rightParts[1].Trim();
+                        binding.GroupId = parts[2];
                     }
                 }
+                else
+                {
+                    binding.EventType = parts[0];
+                    if( parts.Length > 1 )
+                    {
+                        string right = bindingString.Substring(binding.EventType.Length + 1);
+                        string[] rightParts = right.Split(',');
+
+                        if( rightParts.Length > 0 )
+                        {
+                            binding.Action = rightParts[0];
+                        }
+                        if( rightParts.Length > 1 )
+                        {
+                            binding.Label = rightParts[1].Trim();
+                        }
+                    }
+                }
+                bindings.Add(binding);
             }
-            return binding;
+            return bindings;
         }
 
         // ============================================================================
