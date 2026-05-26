@@ -33,8 +33,7 @@ namespace com.github.lhervier.ksp
             Switch,
         };
 
-        private static readonly ReadOnlyCollection<EGamepadZone> AllReadOnly =
-            new ReadOnlyCollection<EGamepadZone>(AllZones);
+        private static readonly ReadOnlyCollection<EGamepadZone> AllReadOnly = new ReadOnlyCollection<EGamepadZone>(AllZones);
 
         /// <summary>Toutes les zones connues, dans l'ordre par défaut de l'aide manette.</summary>
         public static ReadOnlyCollection<EGamepadZone> All
