@@ -32,7 +32,11 @@ namespace com.github.lhervier.ksp
 
         /// <summary>Parsed VDF root, or an empty object if unavailable.</summary>
         private VdfObject _root = new VdfObject();
+
+        // <summary>List of configurations</summary>
+        private List<GamepadConfig> _configs = new List<GamepadConfig>();
         
+        public EventVoid OnConfigsAvailable = new EventVoid("GamepadConfigDaemon.OnConfigsAvailable");
         public EventVoid OnConfigLoaded = new EventVoid("GamepadConfigDaemon.OnConfigLoaded");
         public EventData<string> OnConfigLoadError = new EventData<string>("GamepadConfigDaemon.OnConfigLoadError");
 
@@ -52,6 +56,7 @@ namespace com.github.lhervier.ksp
             LOGGER.LogInfo("Start");
             SteamInputGlobalSettings.OnGlobalSettingsChanged.Add(this.UpdateConfiguration);
             this.UpdateConfiguration(UpdatedConfiguration.ALL);
+            this.UpdateConfigList();
             LOGGER.LogInfo("Started");
         }
 
@@ -72,7 +77,7 @@ namespace com.github.lhervier.ksp
         /// if the path has changed or the file has been modified.
         /// </summary>
         /// <param name="updateFlags">The update flags.</param>
-        public void UpdateConfiguration(int updateFlags)
+        private void UpdateConfiguration(int updateFlags)
         {
             if( (updateFlags & UpdatedConfiguration.CONTROLLER_CONFIG_NAME) == 0 ) {
                 return;
@@ -143,35 +148,6 @@ namespace com.github.lhervier.ksp
             LOGGER.LogInfo("Loaded gamepad VDF: " + path);
         }
 
-        // ============================================================================
-
-        public VdfAction GetAction(EActionGroup actionGroup)
-        {
-            VdfObject mappings = _root.GetObject("controller_mappings");
-            VdfObject actions = mappings.GetObject("actions");
-            VdfObject action = actions.GetObject(actionGroup.ToString());
-            return new VdfAction
-            {
-                Title = action.GetString("title"),
-                LegacySet = action.GetString("legacy_set")
-            };
-        }
-
-        public VdfControllerMappings GetControllerMappings()
-        {
-            VdfObject mappings = _root.GetObject("controller_mappings");
-            if( !EControllerType.TryParse(mappings.GetString("controller_type"), out EControllerType controllerType) )
-            {
-                controllerType = null;
-            }
-            return new VdfControllerMappings
-            {
-                Title = mappings.GetString("title"),
-                ControllerType = controllerType,
-                Description = mappings.GetString("description")
-            };
-        }
-
         /// <summary>
         /// List the controller configs available in the Steam config folder. Each entry carries the
         /// controller type, the title declared in the VDF, and the config name (file name without the
@@ -179,11 +155,13 @@ namespace com.github.lhervier.ksp
         /// when several files share a config name, only the highest-index one (the one that would be
         /// loaded) is kept.
         /// </summary>
-        public List<GamepadConfig> GetConfigs()
+        private void UpdateConfigList()
         {
             if( !GamepadConfigPathResolver.TryGetConfigDirectory(out string configDir, out string _) )
             {
-                return new List<GamepadConfig>();
+                _configs = new List<GamepadConfig>();
+                OnConfigsAvailable.Fire();
+                return;
             }
 
             Dictionary<string, int> bestSuffix = new Dictionary<string, int>();
@@ -222,7 +200,54 @@ namespace com.github.lhervier.ksp
                 }
             }
 
-            return new List<GamepadConfig>(configs.Values);
+            _configs = new List<GamepadConfig>(configs.Values);
+            OnConfigsAvailable.Fire();
+        }
+
+        // ============================================================================
+
+        public VdfAction GetAction(EActionGroup actionGroup)
+        {
+            VdfObject mappings = _root.GetObject("controller_mappings");
+            VdfObject actions = mappings.GetObject("actions");
+            VdfObject action = actions.GetObject(actionGroup.ToString());
+            return new VdfAction
+            {
+                Title = action.GetString("title"),
+                LegacySet = action.GetString("legacy_set")
+            };
+        }
+
+        public VdfControllerMappings GetControllerMappings()
+        {
+            VdfObject mappings = _root.GetObject("controller_mappings");
+            if( !EControllerType.TryParse(mappings.GetString("controller_type"), out EControllerType controllerType) )
+            {
+                controllerType = null;
+            }
+            return new VdfControllerMappings
+            {
+                Title = mappings.GetString("title"),
+                ControllerType = controllerType,
+                Description = mappings.GetString("description")
+            };
+        }
+
+        public List<GamepadConfig> GetConfigs()
+        {
+            return new List<GamepadConfig>(this._configs);
+        }
+
+        /// <summary>
+        /// List the controller configs available in the Steam config folder. Each entry carries the
+        /// controller type, the title declared in the VDF, and the config name (file name without the
+        /// trailing _&lt;index&gt; version suffix). Configs targeting an unknown controller are excluded;
+        /// when several files share a config name, only the highest-index one (the one that would be
+        /// loaded) is kept.
+        /// </summary>
+        public void RefreshConfigs()
+        {
+            this.UpdateConfigList();
         }
 
         /// <summary>

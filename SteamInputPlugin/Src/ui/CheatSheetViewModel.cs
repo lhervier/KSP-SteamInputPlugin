@@ -34,6 +34,13 @@ namespace com.github.lhervier.ksp.ui
         public EventData<string> OnGamepadConfigNameChanged = new EventData<string>("SteamInput.OnGamepadConfigNameChanged");
 
         // ===================================================
+        // The configs available in the Steam config folder
+        // ===================================================
+        public List<UIGamepadConfig> Configs => new List<UIGamepadConfig>(_configs);
+        private List<UIGamepadConfig> _configs = new List<UIGamepadConfig>();
+        public EventData<List<UIGamepadConfig>> OnConfigsChanged = new EventData<List<UIGamepadConfig>>("SteamInput.OnConfigsChanged");
+
+        // ===================================================
         // The log level
         // ===================================================
         public LogLevel LogLevel
@@ -124,6 +131,8 @@ namespace com.github.lhervier.ksp.ui
             this._gamepadConfigDaemon.OnConfigLoaded.Add(this._OnGamepadConfigLoaded);
             this._gamepadConfigDaemon.OnConfigLoadError.Add(this._OnGamepadConfigLoadError);
 
+            this._gamepadConfigDaemon.OnConfigsAvailable.Add(this._OnGamepadConfigsAvailable);
+
             this._actionGroupDaemon.OnActionGroupChanged.Add(this._OnActionGroupChanged);
 
             this._gamepadDaemon.OnGamepadConnected.Add(this._OnGamepadConnected);
@@ -143,6 +152,7 @@ namespace com.github.lhervier.ksp.ui
             if( this._gamepadConfigDaemon != null ) {
                 this._gamepadConfigDaemon.OnConfigLoaded.Remove(this._OnGamepadConfigLoaded);
                 this._gamepadConfigDaemon.OnConfigLoadError.Remove(this._OnGamepadConfigLoadError);
+                this._gamepadConfigDaemon.OnConfigsAvailable.Remove(this._OnGamepadConfigsAvailable);
             }
             if( this._actionGroupDaemon != null ) {
                 this._actionGroupDaemon.OnActionGroupChanged.Remove(this._OnActionGroupChanged);
@@ -183,6 +193,12 @@ namespace com.github.lhervier.ksp.ui
             this.OnConfigLoadError.Fire(_lastConfigLoadError);
         }
 
+        private void _OnGamepadConfigsAvailable()
+        {
+            LOGGER.LogDebug("OnGamepadConfigsAvailable");
+            this.RefreshGamepadConfigs();
+        }
+
         private void _OnGamepadConnected()
         {
             LOGGER.LogDebug("OnGamepadConnected");
@@ -221,6 +237,7 @@ namespace com.github.lhervier.ksp.ui
         private void RefreshAll()
         {
             this.RefreshControllerConfigName();
+            this.RefreshGamepadConfigs();
             this.RefreshLogLevel();
             this.RefreshGamepadConnected();
             this.RefreshControllerType();
@@ -234,6 +251,28 @@ namespace com.github.lhervier.ksp.ui
         {
             this._gamepadConfigName = SteamInputGlobalSettings.GetControllerConfigName();
             this.OnGamepadConfigNameChanged.Fire(this._gamepadConfigName);
+        }
+
+        /// <summary>
+        /// Reload the list of configs available in the Steam config folder, sorted by title.
+        /// Public so the config picker's refresh button can trigger a rescan.
+        /// </summary>
+        private void RefreshGamepadConfigs()
+        {
+            this._configs.Clear();
+            foreach( GamepadConfig config in this._gamepadConfigDaemon.GetConfigs()
+                         .OrderBy(c => c.Title, StringComparer.OrdinalIgnoreCase) )
+            {
+                this._configs.Add(
+                    new UIGamepadConfig
+                    {
+                        Name = config.Name,
+                        Title = config.Title,
+                        ControllerLabel = config.ControllerType?.GetLabel()
+                    }
+                );
+            }
+            this.OnConfigsChanged.Fire(this._configs);
         }
 
         private void RefreshLogLevel()
@@ -534,6 +573,15 @@ namespace com.github.lhervier.ksp.ui
 
             return activators;
         }
+
+        public void RefreshConfigs()
+        {
+            this._gamepadConfigDaemon.RefreshConfigs();
+        }
+
+        // =====================================================
+        // Helpers
+        // =====================================================
 
         private static string GetPressText(bool showPress, bool longPress)
         {
