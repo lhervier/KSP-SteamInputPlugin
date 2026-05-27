@@ -1,59 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Runtime.Serialization;
-using com.github.lhervier.ksp;
 using com.github.lhervier.ksp.model;
 using com.github.lhervier.ksp.ui.model;
-using com.github.lhervier.ksp.Vdf;
 using NUnit.Framework;
-using UnityEngine;
 
 namespace com.github.lhervier.ksp.Tests
 {
     [TestFixture]
-    public class GetGroupTests
+    public class GetGroupTests : DaemonTestBase
     {
-        private static readonly FieldInfo RootField = typeof(GamepadConfigDaemon)
-            .GetField("_root", BindingFlags.NonPublic | BindingFlags.Instance);
-
-        /// <summary>
-        /// Build a daemon without invoking the MonoBehaviour ctor and inject a parsed VDF
-        /// as its <c>_root</c>. Allows hitting GetGroup without a Unity runtime.
-        /// </summary>
-        private static GamepadConfigDaemon NewDaemonWithVdf(string vdfContent)
-        {
-            var root = VdfParser.Parse(vdfContent);
-            var daemon = (GamepadConfigDaemon)FormatterServices.GetUninitializedObject(typeof(GamepadConfigDaemon));
-            RootField.SetValue(daemon, root);
-            return daemon;
-        }
-
-        [OneTimeSetUp]
-        public void RedirectUnityLogger()
-        {
-            Debug.unityLogger.logHandler = new TestConsoleLogHandler();
-        }
-
-        private class TestConsoleLogHandler : ILogHandler
-        {
-            public void LogFormat(LogType logType, UnityEngine.Object context, string format, params object[] args)
-            {
-                TestContext.Progress.WriteLine("[" + logType + "] " + string.Format(format, args));
-            }
-
-            public void LogException(Exception exception, UnityEngine.Object context)
-            {
-                TestContext.Progress.WriteLine("[Exception] " + exception);
-            }
-        }
-
-        [SetUp]
-        public void SetUp()
-        {
-            SteamInputGlobalSettings.SetLogLevel(LogLevel.Trace);
-        }
-
         // ===============================================================================================
 
         [Test]
