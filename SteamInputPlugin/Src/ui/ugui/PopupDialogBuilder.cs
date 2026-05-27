@@ -13,9 +13,6 @@ namespace com.github.lhervier.ksp.ui.ugui
     public class PopupDialogBuilder
     {
         private const string DIALOG_ID = "SteamInputCheatSheetUGUI";
-        private const float ScreenX = 428f;
-        private const float ScreenYFromTop = 20f;
-
         private CheatSheetViewModel _viewModel;
         private TitleBarBuilder _titleBarBuilder;
         private OverlayBuilder _overlayBuilder;
@@ -35,8 +32,8 @@ namespace com.github.lhervier.ksp.ui.ugui
         {
             // Creates a ultra minimal MultiOptionDialog. We will not use it.
             var pos = NormalizedWindowPos(
-                ScreenX, 
-                ScreenYFromTop, 
+                SteamInputPalette.WindowInitialPositionX, 
+                SteamInputPalette.WindowInitialPositionY, 
                 SteamInputPalette.WindowWidth,
                 SteamInputPalette.WindowHeight
             );

@@ -39,8 +39,10 @@ namespace com.github.lhervier.ksp.ui.styles
         // ===============================================================
         // Main Window
         // ===============================================================
-        public const float WindowWidth = 400f;
-        public const float WindowHeight = 320f;
+        public const float WindowInitialPositionX = 428f;
+        public const float WindowInitialPositionY = 20f;
+        public const float WindowWidth = 350f;
+        public const float WindowHeight = 400f;
         public const float WindowBorderThickness = 1f;
         
         // Colors
