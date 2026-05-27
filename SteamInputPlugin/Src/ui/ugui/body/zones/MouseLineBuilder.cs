@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using com.github.lhervier.ksp;
 using com.github.lhervier.ksp.ui.styles;
 
-namespace com.github.lhervier.ksp.ui.ugui.body
+namespace com.github.lhervier.ksp.ui.ugui.body.zones
 {
     /// <summary>
     /// Builds the "Mouse — Free movement" banner (mockup .kmouse-line), shown at the start

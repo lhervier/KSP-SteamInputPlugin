@@ -5,7 +5,7 @@ using com.github.lhervier.ksp.ui.styles;
 using com.github.lhervier.ksp.ui.model;
 using System.Collections.Generic;
 
-namespace com.github.lhervier.ksp.ui.ugui.body
+namespace com.github.lhervier.ksp.ui.ugui.body.zones
 {
     /// <summary>
     /// Container that stacks one PhysicalZone per UIPhysicalZone from the ViewModel.

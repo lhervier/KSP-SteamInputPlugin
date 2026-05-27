@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using com.github.lhervier.ksp.ui.styles;
 using com.github.lhervier.ksp.ui.ugui.styles;
+using com.github.lhervier.ksp.ui.ugui.menu;
 
 namespace com.github.lhervier.ksp.ui.ugui.body
 {

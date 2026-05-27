@@ -6,7 +6,7 @@ using com.github.lhervier.ksp.ui.ugui.styles;
 using com.github.lhervier.ksp.ui.model;
 using System;
 
-namespace com.github.lhervier.ksp.ui.ugui.body
+namespace com.github.lhervier.ksp.ui.ugui.body.zones
 {
     /// <summary>
     /// Displays one UIPhysicalZone:

@@ -6,7 +6,7 @@ using com.github.lhervier.ksp.ui.model;
 using System;
 using System.Collections.Generic;
 
-namespace com.github.lhervier.ksp.ui.ugui.body
+namespace com.github.lhervier.ksp.ui.ugui.body.zones
 {
     /// <summary>
     /// Displays one section of a zone body:

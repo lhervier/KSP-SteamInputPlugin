@@ -4,7 +4,7 @@ using com.github.lhervier.ksp.ui.styles;
 using com.github.lhervier.ksp.ui.ugui.styles;
 using com.github.lhervier.ksp.ui.model;
 
-namespace com.github.lhervier.ksp.ui.ugui.body
+namespace com.github.lhervier.ksp.ui.ugui.body.zones
 {
     /// <summary>
     /// Builds one cheat-sheet row (mockup .krow):

@@ -4,7 +4,7 @@ using com.github.lhervier.ksp.ui.styles;
 using com.github.lhervier.ksp.ui.model;
 using System.Collections.Generic;
 
-namespace com.github.lhervier.ksp.ui.ugui.body
+namespace com.github.lhervier.ksp.ui.ugui.body.zones
 {
     /// <summary>
     /// Builds the body of one zone as an ordered list of sections: the normal section first,
