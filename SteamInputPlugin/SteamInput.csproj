@@ -73,6 +73,7 @@
     <Compile Include="Src\ui\ugui\*.cs" />
     <Compile Include="Src\ui\ugui\body\*.cs" />
     <Compile Include="Src\ui\ugui\body\zones\*.cs" />
+    <Compile Include="Src\ui\ugui\body\selector\*.cs" />
     <Compile Include="Src\ui\ugui\menu\*.cs" />
     <Compile Include="Src\ui\ugui\styles\*.cs" />
     <Compile Include="Src\ui\ugui\titleBar\*.cs" />

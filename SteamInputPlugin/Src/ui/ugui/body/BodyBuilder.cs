@@ -2,7 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using com.github.lhervier.ksp.ui.styles;
 using com.github.lhervier.ksp.ui.ugui.styles;
-using com.github.lhervier.ksp.ui.ugui.menu;
+using com.github.lhervier.ksp.ui.ugui.body.zones;
+using com.github.lhervier.ksp.ui.ugui.body.selector;
 
 namespace com.github.lhervier.ksp.ui.ugui.body
 {
@@ -13,11 +14,13 @@ namespace com.github.lhervier.ksp.ui.ugui.body
     public class BodyBuilder
     {
         private CheatSheetViewModel _viewModel;
+        private SelectorBuilder _selectorBuilder;
         private ZonesBuilder _zonesBuilder;
 
         public BodyBuilder(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
+            this._selectorBuilder = new SelectorBuilder(viewModel);
             this._zonesBuilder = new ZonesBuilder(viewModel);
         }
 
@@ -95,7 +98,8 @@ namespace com.github.lhervier.ksp.ui.ugui.body
             contentFitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
             contentFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
 
-            // The actual zones
+            // The config picker, then the zones (VLG stacks them top to bottom).
+            _selectorBuilder.Create().transform.SetParent(contentGo.transform, false);
             _zonesBuilder.Create().transform.SetParent(contentGo.transform, false);
 
             // Scrollbar: vertical bar pinned to the right of the body, full height.

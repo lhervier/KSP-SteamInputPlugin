@@ -158,5 +158,28 @@ namespace com.github.lhervier.ksp.ui.styles
         public const int MouseLineFontSize = 12;
         public const float MouseLineVerticalPadding = 4f;
         public static readonly Color MouseLineColor = new Color(85f / 255f, 85f / 255f, 85f / 255f);
+
+        // ===============================================================
+        // Config selector (ksp_cheatsheet *.html — .kcfg, .kcombo, .kcombo-item)
+        // ===============================================================
+        public const float SelectorVerticalPadding = 6f;     // .kcfg padding-y
+        public const float ComboHeight = 22f;                 // .kcombo-btn height
+        public const float ComboPaddingH = 8f;                // .kcombo-btn padding-x
+        public const float ComboDropdownGap = 2f;             // gap between button and list
+        public const float ComboDropdownMaxHeight = 180f;     // .kcombo-list max-height
+        public const int ComboFontSize = 12;                  // .kcombo-btn
+        public const int ComboCaretFontSize = 10;             // .kcombo-caret
+        public static readonly Color ComboTextColor = TitleText;     // #e8e8e8
+        public static readonly Color ComboCaretColor = Muted;        // #888
+
+        public const float ComboItemPaddingH = 9f;            // .kcombo-item padding-x
+        public const float ComboItemPaddingV = 4f;            // .kcombo-item padding-y
+        public const int ComboItemTitleFontSize = 12;         // .kcombo-title
+        public const int ComboItemTypeFontSize = 10;          // .kcombo-type
+        public static readonly Color ComboItemTitleColor = ZoneName;          // #ddd
+        public static readonly Color ComboItemTitleSelectedColor = Accent;    // #8dbe45
+        public static readonly Color ComboItemTypeColor = new Color(102f / 255f, 102f / 255f, 102f / 255f); // #666
+        public static readonly Color ComboItemNoneColor = Muted;              // #888 (italic ‹none›)
+        public static readonly Color ComboItemHoverColor = FieldBackground;   // #2a2a2a
     }
 }
