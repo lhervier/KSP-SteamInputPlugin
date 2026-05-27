@@ -171,6 +171,79 @@ namespace com.github.lhervier.ksp
                 Description = mappings.GetString("description")
             };
         }
+
+        /// <summary>
+        /// List the controller configs available in the Steam config folder. Each entry carries the
+        /// controller type, the title declared in the VDF, and the config name (file name without the
+        /// trailing _&lt;index&gt; version suffix). Configs targeting an unknown controller are excluded;
+        /// when several files share a config name, only the highest-index one (the one that would be
+        /// loaded) is kept.
+        /// </summary>
+        public List<GamepadConfig> GetConfigs()
+        {
+            if( !GamepadConfigPathResolver.TryGetConfigDirectory(out string configDir, out string _) )
+            {
+                return new List<GamepadConfig>();
+            }
+
+            Dictionary<string, int> bestSuffix = new Dictionary<string, int>();
+            Dictionary<string, GamepadConfig> configs = new Dictionary<string, GamepadConfig>();
+
+            foreach( string file in Directory.GetFiles(configDir, "*.vdf") )
+            {
+                EControllerType controllerType;
+                string title;
+                try
+                {
+                    // Shallow read: only the top scalars of controller_mappings, not the whole tree.
+                    string[] props = VdfParser.ParseProperties(file, "controller_mappings", "title", "controller_type");
+                    if( !EControllerType.TryParse(props[1], out controllerType) )
+                    {
+                        continue;
+                    }
+                    title = props[0] ?? "";
+                }
+                catch( Exception ex )
+                {
+                    LOGGER.LogWarning("Skipping unreadable config '" + file + "': " + ex.Message);
+                    continue;
+                }
+
+                SplitConfigName(file, out string name, out int suffix);
+                if( !bestSuffix.TryGetValue(name, out int currentBest) || suffix > currentBest )
+                {
+                    bestSuffix[name] = suffix;
+                    configs[name] = new GamepadConfig
+                    {
+                        Name = name,
+                        Title = title,
+                        ControllerType = controllerType
+                    };
+                }
+            }
+
+            return new List<GamepadConfig>(configs.Values);
+        }
+
+        /// <summary>
+        /// Split a config file path into its name (without extension) and trailing _&lt;index&gt; suffix.
+        /// A file with no numeric suffix is treated as index 0 (matching GamepadConfigPathResolver).
+        /// </summary>
+        private static void SplitConfigName(string file, out string name, out int suffix)
+        {
+            string baseName = Path.GetFileNameWithoutExtension(file);
+            int separator = baseName.LastIndexOf('_');
+            if( separator > 0 && int.TryParse(baseName.Substring(separator + 1), out int parsed) )
+            {
+                name = baseName.Substring(0, separator);
+                suffix = parsed;
+            }
+            else
+            {
+                name = baseName;
+                suffix = 0;
+            }
+        }
         
         /// <summary>
         /// Get all the physical zones defined for the given action group.

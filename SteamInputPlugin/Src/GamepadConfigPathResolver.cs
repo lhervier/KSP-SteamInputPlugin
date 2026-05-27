@@ -29,32 +29,8 @@ namespace com.github.lhervier.ksp
                 return false;
             }
 
-            if (!SteamEnvironmentDetector.TryGetSteamInstallPath(out string steamRoot))
+            if (!TryGetConfigDirectory(out string configDir, out error))
             {
-                error = "Steam install path not found.";
-                LOGGER.LogError(error);
-                return false;
-            }
-
-            if (!SteamEnvironmentDetector.TryGetSteamAccountId(out uint accountId))
-            {
-                error = "Steam account id not available.";
-                LOGGER.LogError(error);
-                return false;
-            }
-
-            string configDir = Path.Combine(
-                steamRoot,
-                "steamapps",
-                "common",
-                ControllerConfigsFolder,
-                accountId.ToString(),
-                "config",
-                SteamEnvironmentDetector.APP_ID);
-
-            if (!Directory.Exists(configDir))
-            {
-                error = "Controller config directory not found: " + configDir;
                 LOGGER.LogError(error);
                 return false;
             }
@@ -94,6 +70,46 @@ namespace com.github.lhervier.ksp
 
             vdfPath = Path.GetFullPath(bestPath);
             LOGGER.LogDebug("Resolved config \"" + configName + "\" to " + vdfPath);
+            return true;
+        }
+
+        /// <summary>
+        /// Resolves the directory holding the Steam controller configs for this account/app,
+        /// or false (with an error) if Steam, the account, or the directory is unavailable.
+        /// </summary>
+        public static bool TryGetConfigDirectory(out string configDir, out string error)
+        {
+            configDir = null;
+            error = null;
+
+            if (!SteamEnvironmentDetector.TryGetSteamInstallPath(out string steamRoot))
+            {
+                error = "Steam install path not found.";
+                return false;
+            }
+
+            if (!SteamEnvironmentDetector.TryGetSteamAccountId(out uint accountId))
+            {
+                error = "Steam account id not available.";
+                return false;
+            }
+
+            string dir = Path.Combine(
+                steamRoot,
+                "steamapps",
+                "common",
+                ControllerConfigsFolder,
+                accountId.ToString(),
+                "config",
+                SteamEnvironmentDetector.APP_ID);
+
+            if (!Directory.Exists(dir))
+            {
+                error = "Controller config directory not found: " + dir;
+                return false;
+            }
+
+            configDir = dir;
             return true;
         }
 
