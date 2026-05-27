@@ -46,6 +46,24 @@ body{background:#0a0a0a;display:flex;justify-content:center;align-items:flex-sta
 .kmenu-item .ka{background:#2a2a2a;border:1px solid #444;color:#777;font-size:10px;width:16px;height:16px;border-radius:2px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .kmenu-item .ka:hover:not(:disabled){background:#383838;color:#ccc}
 .kmenu-item .ka:disabled{opacity:.25;cursor:default}
+.kcfg{display:flex;align-items:center;gap:6px;padding:6px 8px;background:#141414;border-bottom:1px solid #222}
+.kcombo{position:relative;flex:1}
+.kcombo-btn{width:100%;display:flex;align-items:center;gap:6px;background:#2a2a2a;border:1px solid #555;border-radius:2px;color:#e8e8e8;font-family:'Titillium Web',sans-serif;font-size:12px;padding:3px 8px;cursor:pointer;text-align:left}
+.kcombo-btn:hover{background:#333}
+.kcombo-btn #kcombo-label{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kcombo-caret{color:#888;font-size:10px;flex-shrink:0}
+.kcombo-list{position:absolute;top:26px;left:0;right:0;background:#1e1e1e;border:1px solid #555;border-radius:3px;z-index:100;padding:3px 0;display:none;max-height:180px;overflow-y:auto}
+.kcombo-list.open{display:block}
+.kcombo-item{display:flex;flex-direction:column;gap:1px;padding:4px 9px;cursor:pointer}
+.kcombo-item:hover{background:#2a2a2a}
+.kcombo-item.sel{background:rgba(141,190,69,.08)}
+.kcombo-title{font-size:12px;color:#ddd}
+.kcombo-item.sel .kcombo-title{color:#8dbe45}
+.kcombo-item.none .kcombo-title{color:#888;font-style:italic}
+.kcombo-type{font-size:10px;color:#666;text-transform:uppercase;letter-spacing:.04em}
+.kempty{padding:14px 12px;color:#777;font-size:12px;line-height:1.55}
+.kempty .kempty-title{display:block;color:#aaa;font-weight:600;margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em}
+.kempty strong{color:#8dbe45;font-weight:600}
 </style>
 </head>
 <body>
@@ -63,11 +81,52 @@ body{background:#0a0a0a;display:flex;justify-content:center;align-items:flex-sta
       </div>
     </div>
   </div>
+  <div class="kcfg">
+    <div class="kcombo">
+      <button class="kcombo-btn" onclick="toggleCombo()">
+        <span id="kcombo-label">&lt;aucun&gt;</span>
+        <span class="kcombo-caret">▾</span>
+      </button>
+      <div class="kcombo-list" id="kcombo-list"></div>
+    </div>
+    <button class="kbtn" onclick="refreshConfigs()" title="Recharger la liste">⟳</button>
+  </div>
   <div id="zones-container"></div>
 </div>
 <script>
 const ZONES = [{"id": "joystick", "name": "Stick gauche", "visible": true, "mode": "dpad", "rows": [{"state": "normal", "key": "↑", "action": "Tangage vers le haut"}, {"state": "normal", "key": "↓", "action": "Tangage vers le bas"}, {"state": "normal", "key": "←", "action": "Roulis à gauche"}, {"state": "normal", "key": "→", "action": "Roulis à droite"}, {"state": "normal", "key": "Click", "action": "Touche Mod"}]}, {"id": "dpad", "name": "D-Pad", "visible": true, "mode": "dpad", "rows": [{"state": "normal", "key": "↑", "action": "Zoom avant"}, {"state": "normal", "key": "↓", "action": "Zoom arrière"}, {"state": "normal", "key": "←", "action": "Clic droit"}, {"state": "normal", "key": "→", "action": "Clic gauche"}, {"state": "shift", "key": "←", "action": "Vaisseau précédent"}, {"state": "shift", "key": "→", "action": "Vaisseau suivant"}, {"state": "shift", "key": "↑", "action": "Caméra suivante"}]}, {"id": "rjoy", "name": "Stick droit", "visible": true, "mode": "joystick_mouse", "rows": [{"state": "", "key": "Click", "action": "Modeshift", "note": "(maintenir)", "hi": true}]}, {"id": "diamond", "name": "4 boutons", "visible": true, "mode": "four_buttons", "rows": [{"state": "normal", "key": "×", "action": "Larguer"}, {"state": "normal", "key": "○", "action": "Freins"}, {"state": "normal", "key": "□", "action": "Activer/Désactiver RCS"}, {"state": "normal", "key": "△", "action": "Activer/Désactiver SAS"}, {"state": "shift", "key": "×", "action": "Afficher/Masquer la cible"}, {"state": "shift", "key": "○", "action": "Détacher"}, {"state": "shift", "key": "□", "action": "Réduire l'avance rapide"}, {"state": "shift", "key": "△", "action": "Augmenter l'avance rapide"}]}, {"id": "bumpers", "name": "L1 / R1", "visible": true, "mode": "switches", "rows": [{"state": "normal", "key": "L1", "action": "Lacet vers la gauche"}, {"state": "normal", "key": "R1", "action": "Lacet vers la droite"}]}, {"id": "switch", "name": "Boutons annexes", "visible": true, "mode": "switches", "rows": [{"state": "", "key": "Options", "action": "Pause"}, {"state": "", "key": "Options", "press": "long", "action": "Afficher le clavier"}, {"state": "", "key": "Share", "press": "court", "action": "Afficher la carte"}]}];
 const MOUSE_MODES = ['absolute_mouse','joystick_mouse'];
+
+// Configurations exported in Steam (title from the vdf + controller type). Empty => only ‹aucun›.
+const CONFIGS = [
+  {title: "KSP PS4 Custom Config", controller: "PlayStation 4"},
+  {title: "Manette du salon", controller: "PlayStation 4"},
+  {title: "Config Xbox Elite", controller: "Xbox Elite"}
+];
+let selectedConfig = 0; // -1 = ‹aucun›
+
+function renderCombo() {
+  document.getElementById('kcombo-label').textContent = selectedConfig < 0 ? '<aucun>' : CONFIGS[selectedConfig].title;
+  let html = `<div class="kcombo-item none ${selectedConfig<0?'sel':''}" onclick="selectConfig(-1)"><span class="kcombo-title">&lt;aucun&gt;</span></div>`;
+  CONFIGS.forEach((c, i) => {
+    html += `<div class="kcombo-item ${selectedConfig===i?'sel':''}" onclick="selectConfig(${i})"><span class="kcombo-title">${c.title}</span><span class="kcombo-type">${c.controller}</span></div>`;
+  });
+  document.getElementById('kcombo-list').innerHTML = html;
+}
+
+function renderContent() {
+  const c = document.getElementById('zones-container');
+  if (selectedConfig < 0) {
+    c.innerHTML = `<div class="kempty"><span class="kempty-title">Aucune configuration sélectionnée</span>Pour afficher l'aide, choisissez une configuration dans la liste ci-dessus.<br><br>Si la liste est vide : ouvrez le menu Steam, allez dans la configuration du contrôleur, puis demandez un <strong>export</strong> de votre configuration pour qu'elle apparaisse ici. Cliquez ensuite sur ⟳.</div>`;
+    return;
+  }
+  renderZones();
+}
+
+function selectConfig(i) { selectedConfig = i; closeCombo(); renderCombo(); renderContent(); }
+function toggleCombo() { document.getElementById('kcombo-list').classList.toggle('open'); }
+function closeCombo() { document.getElementById('kcombo-list').classList.remove('open'); }
+function refreshConfigs() { renderCombo(); }
 function zoneBody(z) {
   const isMouse = MOUSE_MODES.includes(z.mode);
   let html = '<div class="kbody">';
@@ -116,8 +175,11 @@ function renderMenu() {
 function toggleZone(i,v){ZONES[i].visible=v;renderZones();renderMenu();}
 function moveZone(i,d){const j=i+d;if(j<0||j>=ZONES.length)return;[ZONES[i],ZONES[j]]=[ZONES[j],ZONES[i]];renderZones();renderMenu();}
 function toggleMenu(){document.getElementById('kmenu').classList.toggle('open');}
-document.addEventListener('click',e=>{if(!e.target.closest('.kmenu-wrap'))document.getElementById('kmenu').classList.remove('open');});
-renderZones();renderMenu();
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.kmenu-wrap'))document.getElementById('kmenu').classList.remove('open');
+  if(!e.target.closest('.kcombo'))closeCombo();
+});
+renderCombo();renderContent();renderMenu();
 </script>
 </body>
 </html>
