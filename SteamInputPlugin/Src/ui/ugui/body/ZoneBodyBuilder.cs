@@ -113,6 +113,9 @@ namespace com.github.lhervier.ksp.ui.ugui.body
                     {
                         controller.UpdateGroupId(section.GroupId);
                     }
+                    // The "NORMAL" subheader is hidden when the normal section stands alone; a
+                    // modeshift subheader is always shown (even when it is the only section).
+                    controller.SetHeaderVisible(section.Modeshift || sections.Count > 1);
                     controller.transform.SetSiblingIndex(i);
                 }
             }

@@ -80,6 +80,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body
             sectionText.verticalOverflow = VerticalWrapMode.Overflow;
             sectionText.raycastTarget = false;
 
+            controller.BindHeaderLabel(labelGo);
             controller.UpdateGroupId(groupId);
 
             return controller;
@@ -90,6 +91,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body
             private ActivatorRowBuilder _activatorRowBuilder;
             private MouseLineBuilder _mouseLineBuilder;
             private MouseLineBuilder.MouseLineController _mouseLineController;
+            private GameObject _headerLabel;
             private readonly List<ActivatorRowBuilder.ActivatorRowController> _rowControllers
                 = new List<ActivatorRowBuilder.ActivatorRowController>();
 
@@ -101,6 +103,20 @@ namespace com.github.lhervier.ksp.ui.ugui.body
             public void BindMouseLineBuilder(MouseLineBuilder builder)
             {
                 this._mouseLineBuilder = builder;
+            }
+
+            public void BindHeaderLabel(GameObject headerLabel)
+            {
+                this._headerLabel = headerLabel;
+            }
+
+            /// <summary>Show/hide the "NORMAL" / "↓ MODESHIFT" subheader (kept at sibling index 0).</summary>
+            public void SetHeaderVisible(bool visible)
+            {
+                if( _headerLabel != null )
+                {
+                    _headerLabel.SetActive(visible);
+                }
             }
 
             public void UpdateGroupId(string groupId)
