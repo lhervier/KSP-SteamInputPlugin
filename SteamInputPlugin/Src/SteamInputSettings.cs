@@ -23,7 +23,6 @@ namespace com.github.lhervier.ksp
         private static readonly SteamInputLogger LOGGER = new SteamInputLogger("GlobalSettings");
 
         private const string CONFIG_KEY_LOG_LEVEL = "SteamInput.LogLevel";
-        private const string CONFIG_KEY_SHOW_LOGGING_ICON = "SteamInput.ShowLoggingIcon";
         private const string CONFIG_KEY_CONTROLLER_CONFIG_NAME = "SteamInput.ControllerConfigName";
         private const string CONFIG_KEY_ORDERED_GAMEPAD_ZONES = "SteamInput.OrderedGamepadZones";
         private const string CONFIG_KEY_VISIBLE_GAMEPAD_ZONES = "SteamInput.VisibleGamepadZones";
@@ -32,7 +31,6 @@ namespace com.github.lhervier.ksp
         private static PluginConfiguration config;
 
         private static LogLevel _logLevel = LogLevel.Info;
-        private static bool _showLoggingIcon = false;
         private static string _controllerConfigName = string.Empty;
         private static List<EGamepadZone> _orderedGamepadZones = new List<EGamepadZone>();
         private static List<EGamepadZone> _visibleGamepadZones = new List<EGamepadZone>();
