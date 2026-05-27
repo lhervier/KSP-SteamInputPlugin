@@ -18,7 +18,7 @@ namespace com.github.lhervier.ksp.ui.ugui.sprites
 
                 var thickness = (int) SteamInputPalette.MenuThickness;
                 var size = 2 * thickness + 1;
-                var tex = SteamInputStyleTextures.MakeBorderTexture(
+                var tex = SteamInputTextures.MakeBorderTexture(
                     SteamInputPalette.MenuBackgroundColor,
                     SteamInputPalette.WindowBorderColor,
                     thickness

@@ -2,30 +2,8 @@ using UnityEngine;
 
 namespace com.github.lhervier.ksp.ui.styles
 {
-    internal sealed class SteamInputStyleTextures
+    internal sealed class SteamInputTextures
     {
-        public Texture2D Body;
-        public Texture2D Header;
-        public Texture2D Border;
-        public Texture2D Button;
-        public Texture2D ButtonHover;
-        public Texture2D MenuBox;
-        public Texture2D MenuSeparator;
-        
-        public static SteamInputStyleTextures Create()
-        {
-            return new SteamInputStyleTextures
-            {
-                Body = MakeTexture(SteamInputPalette.WindowBodyColor),
-                Header = MakeTexture(SteamInputPalette.TitleBarBackgroundColor),
-                Border = MakeTexture(SteamInputPalette.WindowBorderColor),
-                Button = MakeTexture(SteamInputPalette.Button),
-                ButtonHover = MakeTexture(SteamInputPalette.ButtonHover),
-                MenuBox = MakeTexture(SteamInputPalette.MenuBox),
-                MenuSeparator = MakeTexture(SteamInputPalette.DefaultSeparatorColor),
-            };
-        }
-
         public static Texture2D MakeBorderTexture(Color fill, Color border, int thickness)
         {
             var size = 2 * thickness + 1;
@@ -58,16 +36,6 @@ namespace com.github.lhervier.ksp.ui.styles
                 var isBorder = y < thickness || y >= height - thickness;
                 tex.SetPixel(0, y, isBorder ? border : fill);
             }
-            tex.Apply();
-            tex.filterMode = FilterMode.Point;
-            tex.hideFlags = HideFlags.HideAndDontSave;
-            return tex;
-        }
-
-        private static Texture2D MakeTexture(Color color)
-        {
-            var tex = new Texture2D(1, 1, TextureFormat.RGBA32, false);
-            tex.SetPixel(0, 0, color);
             tex.Apply();
             tex.filterMode = FilterMode.Point;
             tex.hideFlags = HideFlags.HideAndDontSave;

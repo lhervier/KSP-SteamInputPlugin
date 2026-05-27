@@ -19,7 +19,7 @@ namespace com.github.lhervier.ksp.ui.ugui.sprites
 
                 var thickness = (int)SteamInputPalette.TitleBarActionGroupBorderThickness;
                 var size = 2 * thickness + 1;
-                var tex = SteamInputStyleTextures.MakeBorderTexture(
+                var tex = SteamInputTextures.MakeBorderTexture(
                     Color.clear,
                     SteamInputPalette.TitleBarActionGroupBorderColor,
                     thickness

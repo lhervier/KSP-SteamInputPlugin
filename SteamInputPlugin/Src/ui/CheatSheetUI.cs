@@ -2,7 +2,6 @@ using UnityEngine;
 using KSP.UI.Screens;
 using System.Collections;
 using com.github.lhervier.ksp.ui.styles;
-using com.github.lhervier.ksp.ui.imgui;
 using com.github.lhervier.ksp.ui.ugui;
 
 namespace com.github.lhervier.ksp.ui
@@ -13,7 +12,6 @@ namespace com.github.lhervier.ksp.ui
 
         private ApplicationLauncherButton button;
         private CheatSheetViewModel viewModel;
-        private CheatSheetIMGUIWindow imguiWindow;
         private CheatSheetUGUIWindow uguiWindow;
 
         // ===============================================================
@@ -34,9 +32,6 @@ namespace com.github.lhervier.ksp.ui
             LOGGER.LogInfo("Start");
             GameEvents.onGUIApplicationLauncherReady.Add(OnGUIAppLauncherReady);
 
-            imguiWindow = new CheatSheetIMGUIWindow();
-            imguiWindow.Initialize(viewModel, () => CloseWindow());
-            
             uguiWindow = new CheatSheetUGUIWindow();
             uguiWindow.Initialize(viewModel);
             
@@ -55,7 +50,6 @@ namespace com.github.lhervier.ksp.ui
             uguiWindow?.OnClosed.Remove(CloseWindow);
             GameEvents.onGUIApplicationLauncherReady.Remove(OnGUIAppLauncherReady);
             uguiWindow?.Destroy();
-            imguiWindow?.Destroy();
             LOGGER.LogInfo("OnDestroy: Destroyed");
         }
 
@@ -122,13 +116,11 @@ namespace com.github.lhervier.ksp.ui
 
         private void HideInternal()
         {
-            imguiWindow?.Hide();
             uguiWindow?.Hide();
         }
 
         private void ShowInternal()
         {
-            imguiWindow?.Show();
             uguiWindow?.Show();
             // Restore the dragged position one frame later: KSP repositions the dialog during
             // the spawn frame, so applying it now would be overwritten.
@@ -141,13 +133,6 @@ namespace com.github.lhervier.ksp.ui
             if( SteamInputGlobalSettings.TryGetWindowPosition(out Vector2 saved) ) {
                 uguiWindow?.SetPosition(saved);
             }
-        }
-
-        // ===============================================================
-
-        void OnGUI()
-        {
-            imguiWindow?.OnGUI();
         }
     }
 }

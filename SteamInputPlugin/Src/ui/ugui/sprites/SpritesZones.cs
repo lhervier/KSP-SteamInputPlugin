@@ -21,7 +21,7 @@ namespace com.github.lhervier.ksp.ui.ugui.sprites
                 }
 
                 var height = 2 * SteamInputPalette.ZoneHeaderBorderThickness + 1;
-                var tex = SteamInputStyleTextures.MakeHorizontalBordersTexture(
+                var tex = SteamInputTextures.MakeHorizontalBordersTexture(
                     SteamInputPalette.ZoneHeaderColor,
                     SteamInputPalette.ZoneSeparatorColor,
                     SteamInputPalette.ZoneHeaderBorderThickness

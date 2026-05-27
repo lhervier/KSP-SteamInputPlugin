@@ -55,7 +55,8 @@ namespace com.github.lhervier.ksp.ui.styles
 
         public const float MainScrollbarWidth = 8f;
         public const float MainPlaceholderHeight = 800f;
-        
+        public static readonly Color ScrollbarColor = new Color(136f / 255f, 136f / 255f, 136f / 255f);
+
         // ================================================================
         // Physical zones on the controller
         // ================================================================
@@ -269,28 +270,5 @@ namespace com.github.lhervier.ksp.ui.styles
         public static readonly Color SettingsLogLevelCycleColor = new Color(136f / 255f, 136f / 255f, 136f / 255f);
         public static readonly Color SettingsLogLevelBgColor = new Color(42f / 255f, 42f / 255f, 42f / 255f);
         public static readonly Color SettingsLogLevelHoverColor = new Color(51f / 255f, 51f / 255f, 51f / 255f);   // #333
-
-
-
-
-
-
-        
-        
-
-
-
-
-
-
-        
-        public static readonly Color Label = new Color(204f / 255f, 204f / 255f, 204f / 255f);
-        public static readonly Color Muted = new Color(136f / 255f, 136f / 255f, 136f / 255f);
-        public static readonly Color Accent = new Color(141f / 255f, 190f / 255f, 69f / 255f);
-        public static readonly Color Warn = new Color(0.95f, 0.82f, 0.23f);
-        public static readonly Color Button = new Color(56f / 255f, 56f / 255f, 56f / 255f);
-        
-        public static readonly Color ButtonHover = new Color(72f / 255f, 72f / 255f, 72f / 255f);
-        public static readonly Color MenuBox = new Color(30f / 255f, 30f / 255f, 30f / 255f);
     }
 }
