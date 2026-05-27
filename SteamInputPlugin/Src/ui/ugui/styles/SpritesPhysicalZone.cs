@@ -41,5 +41,54 @@ namespace com.github.lhervier.ksp.ui.ugui.styles
                 return _headerChromeSprite;
             }
         }
+
+        private static Sprite _keyChipSprite;
+        /// <summary>Sliced sprite for a key chip (.kkbd): fill + 1px border on all sides.</summary>
+        public static Sprite KeyChipSprite
+        {
+            get
+            {
+                if (_keyChipSprite == null)
+                {
+                    _keyChipSprite = MakeChipSprite(
+                        SteamInputPalette.RowKeyBgColor,
+                        SteamInputPalette.RowKeyBorderColor);
+                }
+                return _keyChipSprite;
+            }
+        }
+
+        private static Sprite _pressChipSprite;
+        /// <summary>Sliced sprite for a press chip (.kpress): darker fill + 1px border.</summary>
+        public static Sprite PressChipSprite
+        {
+            get
+            {
+                if (_pressChipSprite == null)
+                {
+                    _pressChipSprite = MakeChipSprite(
+                        SteamInputPalette.RowPressBgColor,
+                        SteamInputPalette.RowPressBorderColor);
+                }
+                return _pressChipSprite;
+            }
+        }
+
+        private static Sprite MakeChipSprite(Color fill, Color border)
+        {
+            int thickness = Mathf.RoundToInt(SteamInputPalette.RowChipBorderThickness);
+            int size = 2 * thickness + 1;
+            var tex = SteamInputStyleTextures.MakeBorderTexture(fill, border, thickness);
+            var sprite = Sprite.Create(
+                tex,
+                new Rect(0f, 0f, size, size),
+                new Vector2(0.5f, 0.5f),
+                100f,
+                0u,
+                SpriteMeshType.FullRect,
+                new Vector4(thickness, thickness, thickness, thickness));
+            sprite.hideFlags = HideFlags.HideAndDontSave;
+            return sprite;
+        }
     }
 }

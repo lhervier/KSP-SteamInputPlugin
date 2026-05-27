@@ -444,10 +444,17 @@ namespace com.github.lhervier.ksp.ui
             VdfGroup group = GetGroup(groupId);
             if( group == null ) return activators;
 
+            string controllerType = this._gamepadConfigDaemon.GetControllerMappings().ControllerType?.Name;
+
             foreach( VdfInput vdfInput in group.Inputs )
             {
                 EInput input = vdfInput.Name;
                 if( input == null ) continue;
+
+                // Show the short/long press chip only when the same input carries several
+                // activators (e.g. Menu = short + long); otherwise it is unambiguous.
+                bool showPress = vdfInput.Activators.Count > 1;
+                string iconText = input.GetLabel(controllerType);
 
                 foreach( VdfActivator vdfActivator in vdfInput.Activators )
                 {
@@ -477,12 +484,41 @@ namespace com.github.lhervier.ksp.ui
                             LongPress = longPress,
                             ModeShift = modeShift,
                             BindingText = bindingText,
+                            IconText = iconText,
+                            PressText = GetPressText(showPress, longPress),
+                            ActionText = GetActionText(modeShift, bindingText),
+                            Highlighted = modeShift && string.IsNullOrEmpty(bindingText),
+                            Note = (modeShift && string.IsNullOrEmpty(bindingText))
+                                ? ModLocalization.GetString("SteamInput_activator_modeshiftHold")
+                                : "",
                         }
                     );
                 }
             }
 
             return activators;
+        }
+
+        private static string GetPressText(bool showPress, bool longPress)
+        {
+            if( !showPress )
+            {
+                return "";
+            }
+            return ModLocalization.GetString(longPress
+                ? "SteamInput_activator_Long_Press"
+                : "SteamInput_activator_Full_Press");
+        }
+
+        private static string GetActionText(bool modeShift, string bindingText)
+        {
+            // A pure mode shift activator (no real binding) shows the "Modeshift" word;
+            // otherwise (incl. a mode shift mixed with a real binding) we show the binding.
+            if( modeShift && string.IsNullOrEmpty(bindingText) )
+            {
+                return ModLocalization.GetString("SteamInput_sectionModeshift");
+            }
+            return bindingText;
         }
     }
 }

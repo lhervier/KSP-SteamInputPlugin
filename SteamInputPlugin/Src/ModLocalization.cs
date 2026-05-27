@@ -16,9 +16,17 @@ namespace com.github.lhervier.ksp
             {
                 return string.Empty;
             }
+            string tag = $"#LOC_{key}";
             try
             {
-                return Localizer.Format($"#LOC_{key}", args);
+                string formatted = Localizer.Format(tag, args);
+                // Localizer.Format returns the tag unchanged when it is not defined.
+                // Treat that as "missing" so callers can fall back (e.g. EInput.GetLabel).
+                if (formatted == tag)
+                {
+                    return string.Empty;
+                }
+                return formatted;
             }
             catch (Exception e)
             {

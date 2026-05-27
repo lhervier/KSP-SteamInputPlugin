@@ -10,7 +10,7 @@ using NUnit.Framework;
 namespace com.github.lhervier.ksp.Tests
 {
     [TestFixture]
-    public class CheatSheetViewModelTests
+    public class CheatSheetViewModelTests : DaemonTestBase
     {
         private static readonly FieldInfo DaemonRootField = typeof(GamepadConfigDaemon)
             .GetField("_root", BindingFlags.NonPublic | BindingFlags.Instance);

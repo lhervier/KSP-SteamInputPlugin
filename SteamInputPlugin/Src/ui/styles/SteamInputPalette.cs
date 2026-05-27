@@ -124,5 +124,34 @@ namespace com.github.lhervier.ksp.ui.styles
         public const float ZoneHeaderHeight = 22f;
         public const float ZoneSectionSpacing = 2f;
         public const float ZoneBodyPaddingBottom = 5f;
+
+        // ===============================================================
+        // Activator rows (ksp_cheatsheet *.html — .krow, .kkbd, .kpress, .ksep, .kaction, .knote)
+        // ===============================================================
+        public const float RowVerticalPadding = 2f;        // .krow padding-y
+        public const float RowKeyMinWidth = 100f;          // .kkey min-width
+        public const float RowKeySpacing = 3f;             // .kkey gap (kkbd <-> kpress)
+        public const float RowChipBorderThickness = 1f;
+        public const float RowChipPaddingH = 5f;           // .kkbd padding-x
+        public const float RowSeparatorPaddingH = 4f;      // .ksep padding-x
+
+        public const int RowKeyFontSize = 11;              // .kkbd
+        public const int RowPressFontSize = 9;             // .kpress
+        public const int RowSeparatorFontSize = 11;        // .ksep
+        public const int RowActionFontSize = 12;           // .kaction
+
+        // .kkbd : text #e8e8e8, fill #2a2a2a (FieldBackground), border #555 (WindowBorderColor)
+        public static readonly Color RowKeyTextColor = new Color(232f / 255f, 232f / 255f, 232f / 255f);
+        public static readonly Color RowKeyBgColor = FieldBackground;
+        public static readonly Color RowKeyBorderColor = WindowBorderColor;
+        // .kpress : text #555, fill #222, border #333
+        public static readonly Color RowPressTextColor = new Color(85f / 255f, 85f / 255f, 85f / 255f);
+        public static readonly Color RowPressBgColor = new Color(34f / 255f, 34f / 255f, 34f / 255f);
+        public static readonly Color RowPressBorderColor = new Color(51f / 255f, 51f / 255f, 51f / 255f);
+        // .ksep #383838, .kaction #aaa, .kaction.hi (Accent), .knote #484848
+        public static readonly Color RowSeparatorColor = new Color(56f / 255f, 56f / 255f, 56f / 255f);
+        public static readonly Color RowActionColor = new Color(170f / 255f, 170f / 255f, 170f / 255f);
+        public static readonly Color RowActionHighlightColor = Accent;
+        public static readonly Color RowNoteColor = new Color(72f / 255f, 72f / 255f, 72f / 255f);
     }
 }
