@@ -203,9 +203,6 @@ namespace com.github.lhervier.ksp
                     continue;
                 }
                 AddPresetZone(presetZones, zone, groupId, modeShift);
-                if( zone == EGamepadZone.Switch ) {
-                    AddPresetZone(presetZones, EGamepadZone.Bumpers, groupId, modeShift);
-                }
             }
 
             return presetZones;

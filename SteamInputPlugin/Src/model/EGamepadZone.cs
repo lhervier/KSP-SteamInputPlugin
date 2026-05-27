@@ -12,7 +12,6 @@ namespace com.github.lhervier.ksp
         public static readonly EGamepadZone Dpad = new EGamepadZone("dpad");
         public static readonly EGamepadZone LeftTrigger = new EGamepadZone("left_trigger");
         public static readonly EGamepadZone RightTrigger = new EGamepadZone("right_trigger");
-        public static readonly EGamepadZone Bumpers = new EGamepadZone("bumpers");
         public static readonly EGamepadZone Joystick = new EGamepadZone("joystick");
         public static readonly EGamepadZone RightJoystick = new EGamepadZone("right_joystick");
         public static readonly EGamepadZone LeftTrackpad = new EGamepadZone("left_trackpad");
@@ -25,7 +24,6 @@ namespace com.github.lhervier.ksp
             Dpad,
             LeftTrigger,
             RightTrigger,
-            Bumpers,
             Joystick,
             RightJoystick,
             LeftTrackpad,

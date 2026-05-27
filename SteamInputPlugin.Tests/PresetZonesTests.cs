@@ -5,9 +5,8 @@ using NUnit.Framework;
 namespace com.github.lhervier.ksp.Tests
 {
     /// <summary>
-    /// Covers the preset / physical-zone reading: GetPresetZones (incl. the
-    /// Switch -> Bumpers expansion and modeshift handling) and GetGamepadZones.
-    /// Both rely on the private ParseGroupBinding ("active [modeshift] &lt;zone&gt;").
+    /// Covers the preset / physical-zone reading: GetPresetZones (incl. modeshift handling)
+    /// and GetGamepadZones. Both rely on the private ParseGroupBinding ("active [modeshift] &lt;zone&gt;").
     /// </summary>
     [TestFixture]
     public class PresetZonesTests : DaemonTestBase
@@ -65,7 +64,7 @@ namespace com.github.lhervier.ksp.Tests
         }
 
         [Test]
-        public void GetPresetZones_ExpandsSwitchToBumpers_WithSameGroupId()
+        public void GetPresetZones_MapsSwitch_WithoutExpandingToOtherZones()
         {
             var daemon = NewDaemonWithVdf(@"
                 ""controller_mappings""
@@ -83,11 +82,9 @@ namespace com.github.lhervier.ksp.Tests
 
             var zones = daemon.GetPresetZones(EActionGroup.FlightControls);
 
-            Assert.That(zones, Has.Count.EqualTo(2));
+            Assert.That(zones, Has.Count.EqualTo(1));
             Assert.That(zones.ContainsKey(EGamepadZone.Switch));
             Assert.That(zones[EGamepadZone.Switch].GroupId, Is.EqualTo("20"));
-            Assert.That(zones.ContainsKey(EGamepadZone.Bumpers));
-            Assert.That(zones[EGamepadZone.Bumpers].GroupId, Is.EqualTo("20"));
         }
 
         [Test]
@@ -230,7 +227,7 @@ namespace com.github.lhervier.ksp.Tests
         }
 
         [Test]
-        public void GetGamepadZones_DoesNotExpandSwitchToBumpers()
+        public void GetGamepadZones_ReturnsSwitchZone_AsIs()
         {
             var daemon = NewDaemonWithVdf(@"
                 ""controller_mappings""
