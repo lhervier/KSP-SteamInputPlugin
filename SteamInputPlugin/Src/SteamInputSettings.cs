@@ -29,8 +29,7 @@ namespace com.github.lhervier.ksp
         private const string CONFIG_KEY_ORDERED_GAMEPAD_ZONES = "SteamInput.OrderedGamepadZones";
         private const string CONFIG_KEY_VISIBLE_GAMEPAD_ZONES = "SteamInput.VisibleGamepadZones";
         private const string CONFIG_KEY_WINDOW_POSITION = "SteamInput.WindowPosition";
-        private const char GAMEPAD_ZONES_SEPARATOR = ',';
-        private const char WINDOW_POSITION_SEPARATOR = ';';
+        private const char SEPARATOR = ';';
         private static PluginConfiguration config;
 
         private static LogLevel _logLevel = LogLevel.Info;
@@ -221,7 +220,7 @@ namespace com.github.lhervier.ksp
         {
             string raw = config.GetValue(
                 CONFIG_KEY_ORDERED_GAMEPAD_ZONES,
-                string.Join(GAMEPAD_ZONES_SEPARATOR.ToString(), EGamepadZone.All.Select(z => z.ToString()))
+                string.Join(SEPARATOR.ToString(), EGamepadZone.All.Select(z => z.ToString()))
             );
             return _SetOrderedGamepadZones(
                 ParseGamepadZones(raw)
@@ -235,7 +234,7 @@ namespace com.github.lhervier.ksp
         {
             config.SetValue(
                 CONFIG_KEY_ORDERED_GAMEPAD_ZONES, 
-                string.Join(GAMEPAD_ZONES_SEPARATOR.ToString(), _orderedGamepadZones)
+                string.Join(SEPARATOR.ToString(), _orderedGamepadZones)
             );
         }
 
@@ -255,7 +254,7 @@ namespace com.github.lhervier.ksp
         /// <returns>The update flags.</returns>
         private static int _SetOrderedGamepadZones(List<EGamepadZone> orderedGamepadZones)
         {
-            LOGGER.LogDebug($"Setting ordered gamepad zones to {string.Join(GAMEPAD_ZONES_SEPARATOR.ToString(), orderedGamepadZones)}");
+            LOGGER.LogDebug($"Setting ordered gamepad zones to {string.Join(SEPARATOR.ToString(), orderedGamepadZones)}");
             
             bool sameZoneSet = _orderedGamepadZones.Count == orderedGamepadZones.Count
                 && !_orderedGamepadZones.Except(orderedGamepadZones).Any()
@@ -296,7 +295,7 @@ namespace com.github.lhervier.ksp
         {
             string raw = config.GetValue(
                 CONFIG_KEY_VISIBLE_GAMEPAD_ZONES,
-                string.Join(GAMEPAD_ZONES_SEPARATOR.ToString(), EGamepadZone.All.Select(z => z.ToString()))
+                string.Join(SEPARATOR.ToString(), EGamepadZone.All.Select(z => z.ToString()))
             );
             return _SetVisibleGamepadZones(
                 ParseGamepadZones(raw)
@@ -310,7 +309,7 @@ namespace com.github.lhervier.ksp
         {
             config.SetValue(
                 CONFIG_KEY_VISIBLE_GAMEPAD_ZONES, 
-                string.Join(GAMEPAD_ZONES_SEPARATOR.ToString(), _visibleGamepadZones)
+                string.Join(SEPARATOR.ToString(), _visibleGamepadZones)
             );
         }
 
@@ -330,7 +329,7 @@ namespace com.github.lhervier.ksp
         /// <returns>The update flags.</returns>
         public static int _SetVisibleGamepadZones(List<EGamepadZone> visibleGamepadZones)
         {
-            LOGGER.LogDebug($"Setting visible gamepad zones to {string.Join(GAMEPAD_ZONES_SEPARATOR.ToString(), visibleGamepadZones)}");
+            LOGGER.LogDebug($"Setting visible gamepad zones to {string.Join(SEPARATOR.ToString(), visibleGamepadZones)}");
             
             if( _visibleGamepadZones.Count == visibleGamepadZones.Count && _visibleGamepadZones.SequenceEqual(visibleGamepadZones) ) {
                 return 0;
@@ -372,7 +371,7 @@ namespace com.github.lhervier.ksp
                 CONFIG_KEY_WINDOW_POSITION,
                 _hasWindowPosition
                     ? _windowPosition.x.ToString(CultureInfo.InvariantCulture)
-                        + WINDOW_POSITION_SEPARATOR
+                        + SEPARATOR
                         + _windowPosition.y.ToString(CultureInfo.InvariantCulture)
                     : string.Empty
             );
@@ -460,7 +459,7 @@ namespace com.github.lhervier.ksp
                 return new List<EGamepadZone>();
             }
             List<EGamepadZone> gamepadZones = new List<EGamepadZone>();
-            foreach (string part in raw.Split(GAMEPAD_ZONES_SEPARATOR))
+            foreach (string part in raw.Split(SEPARATOR))
             {
                 string zone = part.Trim();
                 if (string.IsNullOrEmpty(zone))
@@ -486,7 +485,7 @@ namespace com.github.lhervier.ksp
             if( string.IsNullOrEmpty(raw) ) {
                 return false;
             }
-            string[] parts = raw.Split(WINDOW_POSITION_SEPARATOR);
+            string[] parts = raw.Split(SEPARATOR);
             if( parts.Length != 2 ) {
                 return false;
             }
