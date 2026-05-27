@@ -16,6 +16,8 @@ namespace com.github.lhervier.ksp.ui.ugui.body
     /// </summary>
     public class BodyBuilder
     {
+        public const string BODY_NAME = "SteamInput.Body";
+        
         private CheatSheetViewModel _viewModel;
         private SelectorBuilder _selectorBuilder;
         private ZoneListBuilder _zonesBuilder;
@@ -31,7 +33,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body
 
         public BodyController Create()
         {
-            var bodyGo = new GameObject("SteamInput.Body", typeof(RectTransform));
+            var bodyGo = new GameObject(BODY_NAME, typeof(RectTransform));
             var controller = bodyGo.AddComponent<BodyController>();
             controller.Initialize(_viewModel);
             controller.BindSelectorBuilder(_selectorBuilder);

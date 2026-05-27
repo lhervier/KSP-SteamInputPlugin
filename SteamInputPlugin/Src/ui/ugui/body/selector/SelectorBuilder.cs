@@ -237,7 +237,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body.selector
                 // The popup window is the body's parent; the dropdown/overlay are moved here on open
                 // so they escape the body's scroll mask and draw on top (and die with the popup).
                 Transform t = transform;
-                while (t != null && t.name != "SteamInput.Body")
+                while (t != null && t.name != BodyBuilder.BODY_NAME)
                 {
                     t = t.parent;
                 }
