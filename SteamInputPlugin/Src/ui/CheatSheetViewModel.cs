@@ -23,17 +23,6 @@ namespace com.github.lhervier.ksp.ui
         public EventData<string> OnConfigLoadError = new EventData<string>("SteamInput.OnConfigLoadError");
 
         // ===================================================
-        // Should we display the logging icon
-        // ===================================================
-        public bool ShowLoggingIcon
-        {
-            get => _showLoggingIcon;
-            set => SteamInputGlobalSettings.SetShowLoggingIcon(value);
-        }
-        private bool _showLoggingIcon = false;
-        public EventData<bool> OnShowLoggingIconChanged = new EventData<bool>("SteamInput.OnShowLoggingIconChanged");
-
-        // ===================================================
         // The gamepad config name
         // ===================================================
         public string GamepadConfigName
@@ -209,9 +198,6 @@ namespace com.github.lhervier.ksp.ui
         private void _OnGlobalSettingsChanged(int updateFlags)
         {
             LOGGER.LogDebug("OnGlobalSettingsChanged");
-            if( (updateFlags & UpdatedConfiguration.SHOW_LOGGING_ICON) != 0 ) {
-                this.RefreshShowLoggingIcon();
-            }
             if( (updateFlags & UpdatedConfiguration.CONTROLLER_CONFIG_NAME) != 0 ) {
                 this.RefreshControllerConfigName();
             }
@@ -234,7 +220,6 @@ namespace com.github.lhervier.ksp.ui
 
         private void RefreshAll()
         {
-            this.RefreshShowLoggingIcon();
             this.RefreshControllerConfigName();
             this.RefreshLogLevel();
             this.RefreshGamepadConnected();
@@ -243,12 +228,6 @@ namespace com.github.lhervier.ksp.ui
             this.RefreshActionGroupLabel();
             this.RefreshConfigZones();
             this.RefreshPresetZones();
-        }
-
-        private void RefreshShowLoggingIcon()
-        {
-            this._showLoggingIcon = SteamInputGlobalSettings.GetShowLoggingIcon();
-            this.OnShowLoggingIconChanged.Fire(this._showLoggingIcon);
         }
 
         private void RefreshControllerConfigName()

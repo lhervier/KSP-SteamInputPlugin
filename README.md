@@ -26,9 +26,7 @@ The plugin adds several action groups:
   - **IVA** — interior view
   - **FreeIVA** — [FreeIVA mod](https://github.com/FirstPersonKSP/FreeIva)
 
-A toolbar button lets you change the plugin’s log level for troubleshooting. The default is **Info**; set **Debug** or **Trace** for more detail in `KSP.log`.
-
-In flight, that button is hidden by default. Enable it under **Difficulty** → **Steam Input** (or the equivalent section for your game mode).
+The settings lets you change the plugin’s log level for troubleshooting. The default is **Info**; set **Debug** or **Trace** for more detail in `KSP.log`.
 
 To view logs in near real time, open the debug console (**Alt+F12**), go to **Debug** → **Console**, and enable **Flush logs**
 
@@ -79,9 +77,15 @@ In-game, open the Steam overlay / controller settings. Under **Your configuratio
 
 ## Usage
 
-After installation, the plugin selects the correct action sets from your game context. No extra setup is required.
+After installation, the plugin automatically activates the right action set for your current game context — the controller itself needs no extra setup.
 
-Use the toolbar icon to change the log level (written to `KSP.log`). As above, the icon can be shown from difficulty / **Steam Input** settings.
+To display the cheat sheet, click the toolbar icon. It shows the inputs of the configuration you have selected, so you first need to choose one in the mod settings:
+
+- Open the settings: the configurations available in Steam are listed there. Pick the one you want.
+- If you installed one of the pre-built layouts, you will find it in that list, under the name it was given during installation.
+- If you built your own layout in Steam's controller UI, export it first through the Steam interface so it shows up in the list.
+
+Because KSP ships with an old version of SteamInput, the mod cannot detect which configuration is currently active on your controller — that is why you select it yourself here.
 
 ### Troubleshooting
 

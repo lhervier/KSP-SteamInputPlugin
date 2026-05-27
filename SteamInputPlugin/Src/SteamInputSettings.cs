@@ -11,12 +11,11 @@ namespace com.github.lhervier.ksp
     public static class UpdatedConfiguration
     {
         public static readonly int LOG_LEVEL = 1;
-        public static readonly int SHOW_LOGGING_ICON = 2;
         public static readonly int CONTROLLER_CONFIG_NAME = 4;
         public static readonly int ORDERED_GAMEPAD_ZONES = 8;
         public static readonly int VISIBLE_GAMEPAD_ZONES = 16;
 
-        public static readonly int ALL = LOG_LEVEL | SHOW_LOGGING_ICON | CONTROLLER_CONFIG_NAME | ORDERED_GAMEPAD_ZONES | VISIBLE_GAMEPAD_ZONES;
+        public static readonly int ALL = LOG_LEVEL | CONTROLLER_CONFIG_NAME | ORDERED_GAMEPAD_ZONES | VISIBLE_GAMEPAD_ZONES;
     }
 
     public class SteamInputGlobalSettings
@@ -98,61 +97,6 @@ namespace com.github.lhervier.ksp
         {
             OnGlobalSettingsChanged.Fire(
                 _SetLogLevel(level)
-            );
-        }
-
-        // =======================================================================
-
-        /// <summary>
-        /// Load the show logging icon from the configuration.
-        /// </summary>
-        /// <returns>The update flags.</returns>
-        private static int LoadShowLoggingIcon()
-        {
-            return _SetShowLoggingIcon(
-                config.GetValue(CONFIG_KEY_SHOW_LOGGING_ICON, false)
-            );
-        }
-
-        /// <summary>
-        /// Save the show logging icon to the configuration.
-        /// </summary>
-        private static void SaveShowLoggingIcon()
-        {
-            config.SetValue(CONFIG_KEY_SHOW_LOGGING_ICON, _showLoggingIcon);
-        }
-
-        /// <summary>
-        /// Get the show logging icon.
-        /// </summary>
-        /// <returns>The show logging icon.</returns>
-        public static bool GetShowLoggingIcon()
-        {
-            return _showLoggingIcon;
-        }
-
-        /// <summary>
-        /// Set the show logging icon.
-        /// </summary>
-        /// <param name="show">The show logging icon.</param>
-        public static int _SetShowLoggingIcon(bool show)
-        {
-            if( _showLoggingIcon == show ) {
-                return 0;
-            }
-            LOGGER.LogDebug($"Setting show logging icon to {show}");
-            _showLoggingIcon = show;
-            return UpdatedConfiguration.SHOW_LOGGING_ICON;
-        }
-
-        /// <summary>
-        /// Set the show logging icon.
-        /// </summary>
-        /// <param name="show">The show logging icon.</param>
-        public static void SetShowLoggingIcon(bool show)
-        {
-            OnGlobalSettingsChanged.Fire(
-                _SetShowLoggingIcon(show)
             );
         }
 
@@ -412,7 +356,6 @@ namespace com.github.lhervier.ksp
 
             int updateFlags = 0;
             updateFlags |= LoadLogLevel();
-            updateFlags |= LoadShowLoggingIcon();
             updateFlags |= LoadControllerConfigName();
             updateFlags |= LoadOrderedGamepadZones();
             updateFlags |= LoadVisibleGamepadZones();
@@ -434,7 +377,6 @@ namespace com.github.lhervier.ksp
             }
 
             SaveLogLevel();
-            SaveShowLoggingIcon();
             SaveControllerConfigName();
             SaveOrderedGamepadZones();
             SaveVisibleGamepadZones();

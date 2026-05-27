@@ -87,17 +87,6 @@ namespace com.github.lhervier.ksp.ui.imgui
         {
             GUILayout.Label(ModLocalization.GetString("SteamInput_settings"), SteamInputStyles.MutedLabel);
 
-            bool showIcon = viewModel.ShowLoggingIcon;
-            bool newShowIcon = GUILayout.Toggle(
-                showIcon,
-                ModLocalization.GetString("SteamInput_showLoggingIcon"),
-                SteamInputStyles.Toggle
-            );
-            if (newShowIcon != showIcon)
-            {
-                viewModel.ShowLoggingIcon = newShowIcon;
-            }
-
             GUILayout.Space(4);
             GUILayout.Label(ModLocalization.GetString("SteamInput_controllerConfigName"), SteamInputStyles.Label);
             string newName = GUILayout.TextField(controllerConfigNameBuffer, SteamInputStyles.TextField, GUILayout.ExpandWidth(true));
