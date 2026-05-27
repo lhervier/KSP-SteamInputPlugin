@@ -1,3 +1,4 @@
+using System.IO;
 using System.Linq;
 using com.github.lhervier.ksp.Vdf;
 using NUnit.Framework;
@@ -231,6 +232,93 @@ namespace com.github.lhervier.ksp.Tests
             "));
 
             Assert.That(ex.Message, Does.Contain("mixes string and block values"));
+        }
+
+        // ===============================================================================================
+        // ParseProperties (shallow line-based reader)
+        // ===============================================================================================
+
+        private const string ConfigVdf = @"
+            ""controller_mappings""
+            {
+                ""title""            ""My Config""
+                ""controller_type""  ""controller_ps4""
+                ""actions""
+                {
+                    ""MenuControls""
+                    {
+                        ""title""    ""Menu""
+                    }
+                }
+                ""group""
+                {
+                    ""id""      ""1""
+                    ""mode""    ""dpad""
+                }
+                ""group""
+                {
+                    ""id""      ""2""
+                    ""mode""    ""four_buttons""
+                }
+            }
+        ";
+
+        private static string[] ParseProperties(string vdf, string path, params string[] names)
+        {
+            return VdfParser.ParseProperties(new StringReader(vdf), path, names);
+        }
+
+        [Test]
+        public void ParseProperties_ReadsTopLevelPropertiesInRequestedOrder()
+        {
+            string[] r = ParseProperties(ConfigVdf, "controller_mappings", "title", "controller_type");
+
+            Assert.That(r[0], Is.EqualTo("My Config"));
+            Assert.That(r[1], Is.EqualTo("controller_ps4"));
+        }
+
+        [Test]
+        public void ParseProperties_RespectsRequestedOrder()
+        {
+            string[] r = ParseProperties(ConfigVdf, "controller_mappings", "controller_type", "title");
+
+            Assert.That(r[0], Is.EqualTo("controller_ps4"));
+            Assert.That(r[1], Is.EqualTo("My Config"));
+        }
+
+        [Test]
+        public void ParseProperties_MatchesOnlyAtExactPath_NotNestedObjects()
+        {
+            // "title" also exists deep in actions/MenuControls; only the controller_mappings one counts.
+            string[] r = ParseProperties(ConfigVdf, "controller_mappings", "title");
+
+            Assert.That(r[0], Is.EqualTo("My Config"));
+        }
+
+        [Test]
+        public void ParseProperties_ReturnsNull_ForMissingProperty()
+        {
+            string[] r = ParseProperties(ConfigVdf, "controller_mappings", "title", "does_not_exist");
+
+            Assert.That(r[0], Is.EqualTo("My Config"));
+            Assert.That(r[1], Is.Null);
+        }
+
+        [Test]
+        public void ParseProperties_NestedPath_ReturnsFirstMatchingBlock()
+        {
+            string[] r = ParseProperties(ConfigVdf, "controller_mappings.group", "id", "mode");
+
+            Assert.That(r[0], Is.EqualTo("1"));
+            Assert.That(r[1], Is.EqualTo("dpad"));
+        }
+
+        [Test]
+        public void ParseProperties_ReturnsAllNull_WhenPathNotFound()
+        {
+            string[] r = ParseProperties(ConfigVdf, "controller_mappings.nope", "id");
+
+            Assert.That(r[0], Is.Null);
         }
     }
 }
