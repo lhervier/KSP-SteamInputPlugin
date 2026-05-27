@@ -30,8 +30,8 @@ namespace com.github.lhervier.ksp
         private string _lastError = null;
         public string LastError => _lastError;
 
-        /// <summary>Parsed VDF root, or null if unavailable.</summary>
-        private Dictionary<string, object> _root = new Dictionary<string, object>();
+        /// <summary>Parsed VDF root, or an empty object if unavailable.</summary>
+        private VdfObject _root = new VdfObject();
         
         public EventVoid OnConfigLoaded = new EventVoid("GamepadConfigDaemon.OnConfigLoaded");
         public EventData<string> OnConfigLoadError = new EventData<string>("GamepadConfigDaemon.OnConfigLoadError");
@@ -83,7 +83,7 @@ namespace com.github.lhervier.ksp
             if (string.IsNullOrEmpty(configName))
             {
                 bool hadConfig = _lastPath != "";
-                _root = new Dictionary<string, object>();
+                _root = new VdfObject();
                 _lastError = null;
                 _lastPath = "";
                 _lastWriteTime = DateTime.MinValue;
@@ -147,28 +147,28 @@ namespace com.github.lhervier.ksp
 
         public VdfAction GetAction(EActionGroup actionGroup)
         {
-            var mappings = GetObject(_root, "controller_mappings");
-            Dictionary<string, object> actions = GetObject(mappings, "actions");
-            Dictionary<string, object> action = GetObject(actions, actionGroup.ToString());
+            VdfObject mappings = _root.GetObject("controller_mappings");
+            VdfObject actions = mappings.GetObject("actions");
+            VdfObject action = actions.GetObject(actionGroup.ToString());
             return new VdfAction
             {
-                Label = GetString(action, "label"),
-                LegacySet = GetString(action, "legacy_set")
+                Label = action.GetString("label"),
+                LegacySet = action.GetString("legacy_set")
             };
         }
 
         public VdfControllerMappings GetControllerMappings()
         {
-            var mappings = GetObject(_root, "controller_mappings");
-            if( !EControllerType.TryParse(GetString(mappings, "controller_type"), out EControllerType controllerType) )
+            VdfObject mappings = _root.GetObject("controller_mappings");
+            if( !EControllerType.TryParse(mappings.GetString("controller_type"), out EControllerType controllerType) )
             {
                 controllerType = null;
             }
             return new VdfControllerMappings
             {
-                Title = GetString(mappings, "title"),
+                Title = mappings.GetString("title"),
                 ControllerType = controllerType,
-                Description = GetString(mappings, "description")
+                Description = mappings.GetString("description")
             };
         }
         
@@ -179,27 +179,24 @@ namespace com.github.lhervier.ksp
         /// <returns>A list of all the physical zones defined for the given action group.</returns>
         public Dictionary<EGamepadZone, VdfPresetZone> GetPresetZones(EActionGroup actionGroup)
         {
-            var mappings = GetObject(_root, "controller_mappings");
-            List<object> presets = GetList(mappings, "preset");
-            Dictionary<string, object> preset = null;
-            foreach( object presetObject in presets ) {
-                if( presetObject is Dictionary<string, object> presetData ) {
-                    if( presetData.TryGetValue("name", out object name) && name is string nameString && nameString == actionGroup.ToString() ) {
-                        preset = presetData;
-                        break;
-                    }
+            VdfObject mappings = _root.GetObject("controller_mappings");
+            VdfArray presets = mappings.GetArray("preset");
+            VdfObject preset = null;
+            foreach( VdfObject presetData in presets.Objects() ) {
+                if( presetData.TryGetString("name", out string nameString) && nameString == actionGroup.ToString() ) {
+                    preset = presetData;
+                    break;
                 }
             }
             if( preset == null ) {
                 return new Dictionary<EGamepadZone, VdfPresetZone>();
             }
-            
-            Dictionary<string, object> groupSourceBindings = GetObject(preset, "group_source_bindings");
+
+            VdfObject groupSourceBindings = preset.GetObject("group_source_bindings");
             Dictionary<EGamepadZone, VdfPresetZone> presetZones = new Dictionary<EGamepadZone, VdfPresetZone>();
-            
-            foreach( KeyValuePair<string, object> pair in groupSourceBindings ) {
-                string groupId = pair.Key;
-                if( !(pair.Value is string valueString) ) {
+
+            foreach( string groupId in groupSourceBindings.Keys ) {
+                if( !groupSourceBindings.TryGetString(groupId, out string valueString) ) {
                     continue;
                 }
                 if( !ParseGroupBinding(valueString, out EGamepadZone zone, out bool modeShift) ) {
@@ -220,24 +217,22 @@ namespace com.github.lhervier.ksp
         /// <returns>A list of all the gamepad zones defined in the VDF.</returns>
         public List<EGamepadZone> GetGamepadZones()
         {
-            var mappings = GetObject(_root, "controller_mappings");
-            List<object> presets = GetList(mappings, "preset");
+            VdfObject mappings = _root.GetObject("controller_mappings");
+            VdfArray presets = mappings.GetArray("preset");
             List<EGamepadZone> gamepadZones = new List<EGamepadZone>();
-            foreach( object presetObject in presets ) {
-                if( presetObject is Dictionary<string, object> presetData ) {
-                    var bindings = GetObject(presetData, "group_source_bindings");
-                    foreach( KeyValuePair<string, object> pair in bindings ) {
-                        if( !(pair.Value is string valueString) ) {
-                            continue;
-                        }
-                        if( !ParseGroupBinding(valueString, out EGamepadZone zone, out bool _) ) {
-                            continue;
-                        }
-                        if( gamepadZones.Contains(zone) ) {
-                            continue;
-                        }
-                        gamepadZones.Add(zone);
+            foreach( VdfObject presetData in presets.Objects() ) {
+                VdfObject bindings = presetData.GetObject("group_source_bindings");
+                foreach( string groupId in bindings.Keys ) {
+                    if( !bindings.TryGetString(groupId, out string valueString) ) {
+                        continue;
                     }
+                    if( !ParseGroupBinding(valueString, out EGamepadZone zone, out bool _) ) {
+                        continue;
+                    }
+                    if( gamepadZones.Contains(zone) ) {
+                        continue;
+                    }
+                    gamepadZones.Add(zone);
                 }
             }
             return gamepadZones;
@@ -245,13 +240,12 @@ namespace com.github.lhervier.ksp
 
         public VdfGroup GetGroup(string groupId)
         {
-            var mappings = GetObject(_root, "controller_mappings");
-            var groups = GetList(mappings, "group");
-            Dictionary<string, object> vdfGroup = null;
-            foreach( object groupObject in groups )
+            VdfObject mappings = _root.GetObject("controller_mappings");
+            VdfArray groups = mappings.GetArray("group");
+            VdfObject vdfGroup = null;
+            foreach( VdfObject g in groups.Objects() )
             {
-                if( !(groupObject is Dictionary<string, object> g) ) continue;
-                string gid = GetString(g, "id");
+                string gid = g.GetString("id");
                 if( string.IsNullOrEmpty(gid) ) continue;
                 if( gid == groupId )
                 {
@@ -267,20 +261,20 @@ namespace com.github.lhervier.ksp
             VdfGroup group = new VdfGroup
             {
                 GroupId = groupId,
-                Mode = GetString(vdfGroup, "mode"),
+                Mode = vdfGroup.GetString("mode"),
                 Inputs = GetInputs(vdfGroup)
             };
             return group;
         }
 
-        private List<VdfInput> GetInputs(Dictionary<string, object> vdfGroup)
+        private List<VdfInput> GetInputs(VdfObject vdfGroup)
         {
             List<VdfInput> inputs = new List<VdfInput>();
 
-            Dictionary<string, object> vdfInputs = GetObject(vdfGroup, "inputs");
+            VdfObject vdfInputs = vdfGroup.GetObject("inputs");
             foreach( string inputName in vdfInputs.Keys )
             {
-                Dictionary<string, object> vdfInput = GetObject(vdfInputs, inputName);
+                VdfObject vdfInput = vdfInputs.GetObject(inputName);
                 if( !EInput.TryParse(inputName, out EInput input) )
                 {
                     input = null;
@@ -296,10 +290,10 @@ namespace com.github.lhervier.ksp
             return inputs;
         }
 
-        private List<VdfActivator> GetActivators(Dictionary<string, object> vdfInput)
+        private List<VdfActivator> GetActivators(VdfObject vdfInput)
         {
             List<VdfActivator> activators = new List<VdfActivator>();
-            Dictionary<string, object> vdfActivators = GetObject(vdfInput, "activators");
+            VdfObject vdfActivators = vdfInput.GetObject("activators");
             foreach( string activatorName in vdfActivators.Keys )
             {
                 if( !EActivator.TryParse(activatorName, out EActivator act) )
@@ -308,13 +302,10 @@ namespace com.github.lhervier.ksp
                 }
 
                 List<VdfBinding> bindings = new List<VdfBinding>();
-                List<object> vdfActivatorInstances = GetList(vdfActivators, activatorName);
-                foreach( object vdfActivator in vdfActivatorInstances )
+                VdfArray vdfActivatorInstances = vdfActivators.GetArray(activatorName);
+                foreach( VdfObject vdfActivator in vdfActivatorInstances.Objects() )
                 {
-                    if( vdfActivator is Dictionary<string, object> vdfActivatorDict )
-                    {
-                        bindings.AddRange(GetBindings(vdfActivatorDict));
-                    }
+                    bindings.AddRange(GetBindings(vdfActivator));
                 }
 
                 activators.Add(new VdfActivator
@@ -327,14 +318,13 @@ namespace com.github.lhervier.ksp
             return activators;
         }
 
-        private List<VdfBinding> GetBindings(Dictionary<string, object> vdfActivator)
+        private List<VdfBinding> GetBindings(VdfObject vdfActivator)
         {
             List<VdfBinding> bindings = new List<VdfBinding>();
-            Dictionary<string, object> vdfBindings = GetObject(vdfActivator, "bindings");
-            List<object> bindingValues = GetList(vdfBindings, "binding");
-            foreach( object bv in bindingValues )
+            VdfObject vdfBindings = vdfActivator.GetObject("bindings");
+            VdfArray bindingValues = vdfBindings.GetArray("binding");
+            foreach( string bindingString in bindingValues.Strings() )
             {
-                if( !(bv is string bindingString) ) continue;
                 if( string.IsNullOrEmpty(bindingString) ) continue;
 
                 VdfBinding binding = new VdfBinding();
@@ -445,83 +435,5 @@ namespace com.github.lhervier.ksp
             }
         }
 
-        // ============================================================================
-        // Helpers : VDF parsing
-        // ============================================================================
-
-        /// <summary>
-        /// Get an object from the VDF.
-        /// </summary>
-        /// <param name="parent">The parent object to get the object from.</param>
-        /// <param name="key">The key to get the object from.</param>
-        /// <returns>The object from the VDF.</returns>
-        private static Dictionary<string, object> GetObject(Dictionary<string, object> parent, string key)
-        {
-            if (parent == null)
-            {
-                throw new System.ArgumentNullException("parent");
-            }
-
-            if (!parent.TryGetValue(key, out object value))
-            {
-                return new Dictionary<string, object>();
-            }
-
-            if (value is Dictionary<string, object> block)
-            {
-                return block;
-            }
-
-            throw new System.InvalidOperationException("Expected Dictionnary, got " + value.GetType().Name);
-        }
-
-        /// <summary>
-        /// Get a string from the VDF.
-        /// </summary>
-        /// <param name="parent">The parent object to get the string from.</param>
-        /// <param name="key">The key to get the string from.</param>
-        /// <returns>The string from the VDF.</returns>
-        private static string GetString(Dictionary<string, object> parent, string key)
-        {
-            if (parent == null)
-            {
-                throw new System.ArgumentNullException("parent");
-            }
-
-            if (!parent.TryGetValue(key, out object value))
-            {
-                return "";
-            }
-            if (value is string str)
-            {
-                return str;
-            }
-
-            throw new System.InvalidOperationException("Expected String, got " + value.GetType().Name);
-        }
-
-        /// <summary>
-        /// Get a list from the VDF.
-        /// </summary>
-        /// <param name="parent">The parent object to get the list from.</param>
-        /// <param name="key">The key to get the list from.</param>
-        /// <returns>The list from the VDF.</returns>
-        private static List<object> GetList(Dictionary<string, object> parent, string key)
-        {
-            if (parent == null)
-            {
-                throw new System.ArgumentNullException("parent");
-            }
-            if (!parent.TryGetValue(key, out object value))
-            {
-                return new List<object>();
-            }
-            if (value is List<object> list)
-            {
-                return list;
-            }
-
-            return new List<object> { value };
-        }
     }
 }

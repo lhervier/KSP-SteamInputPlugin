@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -6,14 +5,15 @@ namespace com.github.lhervier.ksp.Vdf
 {
     /// <summary>
     /// Parser for Valve KeyValues text (VDF) files. Reads a single file; does not resolve #ref.
-    /// All leaf values are decoded strings; duplicate keys at the same level become lists.
+    /// All leaf values are decoded strings; a key repeated at the same level becomes a
+    /// <see cref="VdfArray"/>.
     /// </summary>
     public static class VdfParser
     {
-        public static Dictionary<string, object> Parse(string content)
+        public static VdfObject Parse(string content)
         {
             var tokenizer = new VdfTokenizer(content);
-            var root = new Dictionary<string, object>();
+            var root = new VdfObject();
             ParseEntries(tokenizer, root, atRoot: true);
 
             var trailing = tokenizer.Peek();
@@ -25,13 +25,13 @@ namespace com.github.lhervier.ksp.Vdf
             return root;
         }
 
-        public static Dictionary<string, object> ParseFile(string path)
+        public static VdfObject ParseFile(string path)
         {
             var content = File.ReadAllText(path, Encoding.UTF8);
             return Parse(content);
         }
 
-        private static void ParseEntries(VdfTokenizer tokenizer, Dictionary<string, object> dict, bool atRoot = false)
+        private static void ParseEntries(VdfTokenizer tokenizer, VdfObject dict, bool atRoot = false)
         {
             while (true)
             {
@@ -55,7 +55,7 @@ namespace com.github.lhervier.ksp.Vdf
                 object value;
                 if (valueToken.Kind == VdfTokenKind.OpenBrace)
                 {
-                    var block = new Dictionary<string, object>();
+                    var block = new VdfObject();
                     ParseEntries(tokenizer, block, atRoot: false);
                     var close = tokenizer.Next();
                     if (close.Kind != VdfTokenKind.CloseBrace)
@@ -73,27 +73,8 @@ namespace com.github.lhervier.ksp.Vdf
                     throw new VdfParseException("Expected value or '{'", valueToken.Line, valueToken.Column);
                 }
 
-                AddEntry(dict, keyToken.Value, value);
+                dict.Add(keyToken.Value, value);
             }
-        }
-
-        private static void AddEntry(Dictionary<string, object> dict, string key, object value)
-        {
-            object existing;
-            if (!dict.TryGetValue(key, out existing))
-            {
-                dict[key] = value;
-                return;
-            }
-
-            var list = existing as List<object>;
-            if (list != null)
-            {
-                list.Add(value);
-                return;
-            }
-
-            dict[key] = new List<object> { existing, value };
         }
     }
 }

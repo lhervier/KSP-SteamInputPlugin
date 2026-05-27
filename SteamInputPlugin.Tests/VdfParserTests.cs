@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System.Linq;
 using com.github.lhervier.ksp.Vdf;
 using NUnit.Framework;
 
@@ -18,9 +18,9 @@ namespace com.github.lhervier.ksp.Tests
     [TestFixture]
     public class VdfParserTests
     {
-        private static string Leaf(Dictionary<string, object> root, string key)
+        private static string Leaf(VdfObject root, string key)
         {
-            return (string)root[key];
+            return root.GetString(key);
         }
 
         // ===============================================================================================
@@ -152,20 +152,22 @@ namespace com.github.lhervier.ksp.Tests
         }
 
         // ===============================================================================================
-        // Duplicate keys -> sequence (representation-coupled, will migrate to VdfArray tests)
+        // Duplicate keys -> VdfArray (representation-coupled: asserts on VdfObject/VdfArray)
         // ===============================================================================================
 
         [Test]
-        public void SingleOccurrence_IsNotWrappedInAList()
+        public void SingleOccurrence_IsAStringNotAnArray()
         {
             var root = VdfParser.Parse(@"""k""   ""v""");
 
-            Assert.That(root["k"], Is.InstanceOf<string>());
-            Assert.That(root["k"], Is.EqualTo("v"));
+            // GetString returns it; GetArray normalizes it into a one-element array.
+            Assert.That(root.GetString("k"), Is.EqualTo("v"));
+            Assert.That(root.GetArray("k").Count, Is.EqualTo(1));
+            Assert.That(root.GetArray("k").Strings().Single(), Is.EqualTo("v"));
         }
 
         [Test]
-        public void RepeatedStringKey_BecomesListOfStrings_InOrder()
+        public void RepeatedStringKey_BecomesArrayOfStrings_InOrder()
         {
             var root = VdfParser.Parse(@"
                 ""k""   ""v1""
@@ -173,13 +175,13 @@ namespace com.github.lhervier.ksp.Tests
                 ""k""   ""v3""
             ");
 
-            var list = root["k"] as List<object>;
-            Assert.That(list, Is.Not.Null);
-            Assert.That(list, Is.EqualTo(new object[] { "v1", "v2", "v3" }));
+            VdfArray array = root.GetArray("k");
+            Assert.That(array.IsObjectArray, Is.False);
+            Assert.That(array.Strings(), Is.EqualTo(new[] { "v1", "v2", "v3" }));
         }
 
         [Test]
-        public void RepeatedObjectKey_BecomesListOfObjects_InOrder()
+        public void RepeatedObjectKey_BecomesArrayOfObjects_InOrder()
         {
             var root = VdfParser.Parse(@"
                 ""g""
@@ -192,39 +194,43 @@ namespace com.github.lhervier.ksp.Tests
                 }
             ");
 
-            var list = root["g"] as List<object>;
-            Assert.That(list, Is.Not.Null);
-            Assert.That(list, Has.Count.EqualTo(2));
+            VdfArray array = root.GetArray("g");
+            Assert.That(array.IsObjectArray, Is.True);
 
-            var first = list[0] as Dictionary<string, object>;
-            var second = list[1] as Dictionary<string, object>;
-            Assert.That(first, Is.Not.Null);
-            Assert.That(second, Is.Not.Null);
-            Assert.That(first["id"], Is.EqualTo("1"));
-            Assert.That(second["id"], Is.EqualTo("2"));
+            var objects = array.Objects().ToList();
+            Assert.That(objects, Has.Count.EqualTo(2));
+            Assert.That(objects[0].GetString("id"), Is.EqualTo("1"));
+            Assert.That(objects[1].GetString("id"), Is.EqualTo("2"));
         }
 
         [Test]
-        public void RepeatedKey_MixingStringAndObject_BecomesHeterogeneousList()
+        public void RepeatedKey_MixingStringAndObject_IsRejected()
         {
-            // AddEntry appends regardless of value kind, so a key seen first as a
-            // string then as an object yields a list holding both.
-            var root = VdfParser.Parse(@"
+            // Mixing a string and a block under the same repeated key is invalid VDF.
+            var ex = Assert.Throws<VdfParseException>(() => VdfParser.Parse(@"
                 ""x""   ""str""
                 ""x""
                 {
                     ""a""   ""b""
                 }
-            ");
+            "));
 
-            var list = root["x"] as List<object>;
-            Assert.That(list, Is.Not.Null);
-            Assert.That(list, Has.Count.EqualTo(2));
-            Assert.That(list[0], Is.EqualTo("str"));
+            Assert.That(ex.Message, Does.Contain("mixes string and block values"));
+        }
 
-            var obj = list[1] as Dictionary<string, object>;
-            Assert.That(obj, Is.Not.Null);
-            Assert.That(obj["a"], Is.EqualTo("b"));
+        [Test]
+        public void RepeatedKey_MixingObjectThenString_IsRejected()
+        {
+            // Same rejection regardless of which kind appears first.
+            var ex = Assert.Throws<VdfParseException>(() => VdfParser.Parse(@"
+                ""x""
+                {
+                    ""a""   ""b""
+                }
+                ""x""   ""str""
+            "));
+
+            Assert.That(ex.Message, Does.Contain("mixes string and block values"));
         }
     }
 }
