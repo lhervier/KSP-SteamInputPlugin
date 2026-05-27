@@ -289,5 +289,77 @@ namespace com.github.lhervier.ksp.Tests
             Assert.That(longPress.LongPress, Is.True);
             Assert.That(longPress.BindingText, Is.EqualTo("Debug Console"));
         }
+
+        // ===============================================================================================
+        // IsMouseGroup
+        // ===============================================================================================
+
+        [Test]
+        public void IsMouseGroup_True_ForJoystickMouseMode()
+        {
+            var vm = NewViewModelWithVdf(@"
+                ""controller_mappings""
+                {
+                    ""group""
+                    {
+                        ""id""    ""1""
+                        ""mode""  ""joystick_mouse""
+                    }
+                }
+            ");
+
+            Assert.That(vm.IsMouseGroup("1"), Is.True);
+        }
+
+        [Test]
+        public void IsMouseGroup_True_ForAbsoluteMouseMode()
+        {
+            var vm = NewViewModelWithVdf(@"
+                ""controller_mappings""
+                {
+                    ""group""
+                    {
+                        ""id""    ""1""
+                        ""mode""  ""absolute_mouse""
+                    }
+                }
+            ");
+
+            Assert.That(vm.IsMouseGroup("1"), Is.True);
+        }
+
+        [Test]
+        public void IsMouseGroup_False_ForNonMouseMode()
+        {
+            var vm = NewViewModelWithVdf(@"
+                ""controller_mappings""
+                {
+                    ""group""
+                    {
+                        ""id""    ""1""
+                        ""mode""  ""four_buttons""
+                    }
+                }
+            ");
+
+            Assert.That(vm.IsMouseGroup("1"), Is.False);
+        }
+
+        [Test]
+        public void IsMouseGroup_False_WhenGroupDoesNotExist()
+        {
+            var vm = NewViewModelWithVdf(@"
+                ""controller_mappings""
+                {
+                    ""group""
+                    {
+                        ""id""    ""1""
+                        ""mode""  ""joystick_mouse""
+                    }
+                }
+            ");
+
+            Assert.That(vm.IsMouseGroup("does-not-exist"), Is.False);
+        }
     }
 }

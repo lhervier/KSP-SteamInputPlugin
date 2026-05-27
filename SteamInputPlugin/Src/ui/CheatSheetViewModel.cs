@@ -437,6 +437,23 @@ namespace com.github.lhervier.ksp.ui
             return group;
         }
 
+        // Group modes that drive the pointer with free movement (mockup .kmouse-line).
+        private static readonly HashSet<string> MouseModes = new HashSet<string>
+        {
+            "joystick_mouse",
+            "absolute_mouse",
+        };
+
+        /// <summary>
+        /// True if the group behaves as a mouse (free pointer movement). Such a section shows
+        /// a "Mouse — Free movement" banner, on top of any discrete bindings (e.g. a click).
+        /// </summary>
+        public bool IsMouseGroup(string groupId)
+        {
+            VdfGroup group = GetGroup(groupId);
+            return group != null && MouseModes.Contains(group.Mode);
+        }
+
         public List<UIActivator> GetActivators(string groupId)
         {
             List<UIActivator> activators = new List<UIActivator>();

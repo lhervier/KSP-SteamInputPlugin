@@ -153,5 +153,10 @@ namespace com.github.lhervier.ksp.ui.styles
         public static readonly Color RowActionColor = new Color(170f / 255f, 170f / 255f, 170f / 255f);
         public static readonly Color RowActionHighlightColor = Accent;
         public static readonly Color RowNoteColor = new Color(72f / 255f, 72f / 255f, 72f / 255f);
+
+        // .kmouse-line : italic banner for mouse-mode groups, text #555.
+        public const int MouseLineFontSize = 12;
+        public const float MouseLineVerticalPadding = 4f;
+        public static readonly Color MouseLineColor = new Color(85f / 255f, 85f / 255f, 85f / 255f);
     }
 }

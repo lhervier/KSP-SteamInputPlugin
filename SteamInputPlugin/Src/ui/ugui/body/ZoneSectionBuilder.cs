@@ -19,11 +19,13 @@ namespace com.github.lhervier.ksp.ui.ugui.body
 
         private CheatSheetViewModel _viewModel;
         private ActivatorRowBuilder _activatorRowBuilder;
+        private MouseLineBuilder _mouseLineBuilder;
 
         public ZoneSectionBuilder(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             this._activatorRowBuilder = new ActivatorRowBuilder(viewModel);
+            this._mouseLineBuilder = new MouseLineBuilder(viewModel);
         }
 
         public ZoneSectionController Create(String groupId, bool modeshift)
@@ -32,6 +34,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body
             ZoneSectionController controller = go.AddComponent<ZoneSectionController>();
             controller.Initialize(_viewModel);
             controller.BindActivatorRowBuilder(_activatorRowBuilder);
+            controller.BindMouseLineBuilder(_mouseLineBuilder);
 
             // Horizontal padding (Option A: padding on the container, not per-section)
             // Vertical padding-bottom matches the .kzone body breathing room.
@@ -85,6 +88,8 @@ namespace com.github.lhervier.ksp.ui.ugui.body
         public class ZoneSectionController : BaseSteamInputController
         {
             private ActivatorRowBuilder _activatorRowBuilder;
+            private MouseLineBuilder _mouseLineBuilder;
+            private MouseLineBuilder.MouseLineController _mouseLineController;
             private readonly List<ActivatorRowBuilder.ActivatorRowController> _rowControllers
                 = new List<ActivatorRowBuilder.ActivatorRowController>();
 
@@ -93,15 +98,34 @@ namespace com.github.lhervier.ksp.ui.ugui.body
                 this._activatorRowBuilder = builder;
             }
 
+            public void BindMouseLineBuilder(MouseLineBuilder builder)
+            {
+                this._mouseLineBuilder = builder;
+            }
+
             public void UpdateGroupId(string groupId)
             {
-                // Rebuild the rows: the section subheader (first child) is kept.
+                // Rebuild the section content below the subheader (first child).
                 foreach( ActivatorRowBuilder.ActivatorRowController row in _rowControllers )
                 {
                     Destroy(row.gameObject);
                 }
                 _rowControllers.Clear();
+                if( _mouseLineController != null )
+                {
+                    Destroy(_mouseLineController.gameObject);
+                    _mouseLineController = null;
+                }
 
+                // Mouse-mode groups get a banner right after the subheader, above any rows.
+                if( this.ViewModel.IsMouseGroup(groupId) )
+                {
+                    _mouseLineController = _mouseLineBuilder.Create();
+                    _mouseLineController.transform.SetParent(gameObject.transform, false);
+                    _mouseLineController.transform.SetSiblingIndex(1);
+                }
+
+                // Then one row per activator (e.g. a click on the joystick).
                 foreach( UIActivator activator in this.ViewModel.GetActivators(groupId) )
                 {
                     ActivatorRowBuilder.ActivatorRowController row = _activatorRowBuilder.Create(activator);
