@@ -148,9 +148,13 @@ namespace com.github.lhervier.ksp.ui.styles
         public const float MenuPaddingBottom = 4f;
         public const float MenuArrowsSpacing = 2f;
         public const float MenuThickness = 1f;
+        public const float MenuIconSize = 22f;
+        public const string MenuSettingsIconPath = "SteamInput/Textures/settings_icon";
 
         public static readonly Color MenuTitleColor = new Color(85f / 255f, 85f / 255f, 85f / 255f);
         public static readonly Color MenuBackgroundColor = new Color(30f / 255f, 30f / 255f, 30f / 255f);
+        public static readonly Color MenuIconColor = new Color(136f / 255f, 136f / 255f, 136f / 255f);        // #888, like the mockup ⚙
+        public static readonly Color MenuIconHoverColor = new Color(141f / 255f, 190f / 255f, 69f / 255f);   // accent green on hover
         
         
         // ===============================================================

@@ -35,5 +35,40 @@ namespace com.github.lhervier.ksp.ui.ugui.sprites
                 return _chromeSprite;
             }
         }
+
+        private static Sprite _settingsIconSprite;
+        public static Sprite SettingsIconSprite
+        {
+            get
+            {
+                if (_settingsIconSprite != null)
+                {
+                    return _settingsIconSprite;
+                }
+
+                if (GameDatabase.Instance == null)
+                {
+                    return null;
+                }
+
+                var tex = GameDatabase.Instance.GetTexture(
+                    SteamInputPalette.MenuSettingsIconPath,
+                    false
+                );
+                if (tex == null)
+                {
+                    return null;
+                }
+
+                _settingsIconSprite = Sprite.Create(
+                    tex,
+                    new Rect(0f, 0f, tex.width, tex.height),
+                    new Vector2(0.5f, 0.5f),
+                    100f
+                );
+                _settingsIconSprite.hideFlags = HideFlags.HideAndDontSave;
+                return _settingsIconSprite;
+            }
+        }
     }
 }

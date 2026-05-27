@@ -14,6 +14,7 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
         private TitleBuilder _titleBuilder;
         private SeparatorBuilder _separatorBuilder;
         private ZonesBuilder _zonesBuilder;
+        private SettingsItemBuilder _settingsItemBuilder;
 
         public MenuBuilder(CheatSheetViewModel viewModel)
         {
@@ -21,6 +22,7 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             this._titleBuilder = new TitleBuilder(viewModel);
             this._separatorBuilder = new SeparatorBuilder(viewModel);
             this._zonesBuilder = new ZonesBuilder(viewModel);
+            this._settingsItemBuilder = new SettingsItemBuilder(viewModel);
         }
 
         public MenuController Create()
@@ -79,9 +81,12 @@ namespace com.github.lhervier.ksp.ui.ugui.menu
             fitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
             fitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
 
+            // Title / separator / zone rows, then a separator and the "Settings" entry.
             _titleBuilder.Create().transform.SetParent(menuGo.transform, false);
             _separatorBuilder.Create().transform.SetParent(menuGo.transform, false);
             _zonesBuilder.Create().transform.SetParent(menuGo.transform, false);
+            _separatorBuilder.Create().transform.SetParent(menuGo.transform, false);
+            _settingsItemBuilder.Create().transform.SetParent(menuGo.transform, false);
 
             return controller;
         }

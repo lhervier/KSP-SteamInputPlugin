@@ -409,6 +409,14 @@ namespace com.github.lhervier.ksp.ui
             this._onClose?.Invoke();
         }
 
+        /// <summary>
+        /// Open the settings view. Not wired yet: only logs for now.
+        /// </summary>
+        public void OpenSettings()
+        {
+            LOGGER.LogDebug("OpenSettings");
+        }
+
         public void MoveZoneUp(UIConfigZone zone)
         {
             List<EGamepadZone> zones = SteamInputGlobalSettings.GetOrderedGamepadZones();
