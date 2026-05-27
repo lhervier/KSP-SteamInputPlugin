@@ -4,6 +4,9 @@ using com.github.lhervier.ksp.ui.styles;
 using com.github.lhervier.ksp.ui.ugui.sprites;
 using com.github.lhervier.ksp.ui.ugui.body.zones;
 using com.github.lhervier.ksp.ui.ugui.body.selector;
+using com.github.lhervier.ksp.ui.ugui.body.settings;
+using System.IO;
+using System;
 
 namespace com.github.lhervier.ksp.ui.ugui.body
 {
@@ -16,12 +19,14 @@ namespace com.github.lhervier.ksp.ui.ugui.body
         private CheatSheetViewModel _viewModel;
         private SelectorBuilder _selectorBuilder;
         private ZoneListBuilder _zonesBuilder;
+        private SettingsBuilder _settingsBuilder;
 
         public BodyBuilder(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             this._selectorBuilder = new SelectorBuilder(viewModel);
             this._zonesBuilder = new ZoneListBuilder(viewModel);
+            this._settingsBuilder = new SettingsBuilder(viewModel);
         }
 
         public BodyController Create()
@@ -29,6 +34,9 @@ namespace com.github.lhervier.ksp.ui.ugui.body
             var bodyGo = new GameObject("SteamInput.Body", typeof(RectTransform));
             var controller = bodyGo.AddComponent<BodyController>();
             controller.Initialize(_viewModel);
+            controller.BindSelectorBuilder(_selectorBuilder);
+            controller.BindZoneListBuilder(_zonesBuilder);
+            controller.BindSettingsBuilder(_settingsBuilder);
 
             // Escape KSP's VerticalLayoutGroup on popupWindow
             var layoutElement = bodyGo.AddComponent<LayoutElement>();
@@ -74,6 +82,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body
             // by the ContentSizeFitter below, based on the sum of children's preferred heights.
             var contentGo = new GameObject("Content", typeof(RectTransform));
             contentGo.transform.SetParent(viewportGo.transform, false);
+            controller.BindContent(contentGo);
 
             var contentRect = contentGo.GetComponent<RectTransform>();
             contentRect.anchorMin = new Vector2(0f, 1f);
@@ -97,10 +106,6 @@ namespace com.github.lhervier.ksp.ui.ugui.body
             var contentFitter = contentGo.AddComponent<ContentSizeFitter>();
             contentFitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
             contentFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-
-            // The config picker, then the zones (VLG stacks them top to bottom).
-            _selectorBuilder.Create().transform.SetParent(contentGo.transform, false);
-            _zonesBuilder.Create().transform.SetParent(contentGo.transform, false);
 
             // Scrollbar: vertical bar pinned to the right of the body, full height.
             var scrollbarGo = new GameObject("Scrollbar", typeof(RectTransform));
@@ -164,11 +169,85 @@ namespace com.github.lhervier.ksp.ui.ugui.body
 
             scrollRect.verticalScrollbar = scrollbar;
 
+            // The config picker, then the zones (VLG stacks them top to bottom).
+            
             return controller;
         }
 
         public class BodyController : BaseSteamInputController
         {
+            private GameObject _content;
+            private SelectorBuilder _selectorBuilder;
+            private ZoneListBuilder _zoneListBuilder;
+            private SettingsBuilder _settingsBuilder;
+
+            private SelectorBuilder.SelectorController _selectorController;
+            private ZoneListBuilder.ZoneListController _zoneListController;
+            private SettingsBuilder.SettingsController _settingsController;
+
+            public void BindContent(GameObject content)
+            {
+                this._content = content;
+            }
+
+            public void BindSelectorBuilder(SelectorBuilder builder)
+            {
+                this._selectorBuilder = builder;
+            }
+
+            public void BindZoneListBuilder(ZoneListBuilder builder)
+            {
+                this._zoneListBuilder = builder;
+            }
+
+            public void BindSettingsBuilder(SettingsBuilder builder)
+            {
+                this._settingsBuilder = builder;
+            }
+
+            public void Start()
+            {
+                ViewModel?.OnShowSettings.Add(OnShowSettings);
+                if( ViewModel != null )
+                {
+                    OnShowSettings(ViewModel.SettingsDisplayed);
+                }
+            }
+
+            public void OnDestroy()
+            {
+                ViewModel?.OnShowSettings.Remove(OnShowSettings);
+            }
+
+            private void OnShowSettings(bool show)
+            {
+                if( _selectorBuilder == null || _zoneListBuilder == null || _settingsBuilder == null )
+                {
+                    throw new ArgumentException("Builders not binded");
+                }
+
+                if( _selectorController == null )
+                {
+                    _selectorController = _selectorBuilder.Create();
+                    _selectorController.transform.SetParent(_content.transform, false);
+                }
+
+                if( _zoneListController == null )
+                {
+                    _zoneListController = _zoneListBuilder.Create();
+                    _zoneListController.transform.SetParent(_content.transform, false);
+                }
+
+                if( _settingsController == null )
+                {
+                    _settingsController = _settingsBuilder.Create();
+                    _settingsController.transform.SetParent(_content.transform, false);
+                }
+
+                _settingsController.gameObject.SetActive(show);
+                _zoneListController.gameObject.SetActive(!show);
+                _selectorController.gameObject.SetActive(!show);
+            }
         }
     }
 }

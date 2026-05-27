@@ -15,6 +15,13 @@ namespace com.github.lhervier.ksp.ui
         
         private readonly DictionaryValueList<string, VdfGroup> _groupsCache = new DictionaryValueList<string, VdfGroup>();
 
+        // Group modes that drive the pointer with free movement (mockup .kmouse-line).
+        private static readonly HashSet<string> MouseModes = new HashSet<string>
+        {
+            "joystick_mouse",
+            "absolute_mouse",
+        };
+
         // ===================================================
         // The error when loading a gamepad config
         // ===================================================
@@ -92,6 +99,20 @@ namespace com.github.lhervier.ksp.ui
         public List<UIConfigZone> ConfigZones => new List<UIConfigZone>(_configZones);
         private List<UIConfigZone> _configZones = new List<UIConfigZone>();
         public EventData<List<UIConfigZone>> OnConfigZonesChanged = new EventData<List<UIConfigZone>>("SteamInput.OnConfigZonesChanged");
+
+        // ==================================================================
+        // Is the menu actually displayed ?
+        // ==================================================================
+        public bool MenuDisplayed => _menuDisplayed;
+        private bool _menuDisplayed = false;
+        public EventData<bool> OnShowMenu = new EventData<bool>("SteamInput.OnShowMenu");
+
+        // ==================================================================
+        // Are the settings actually displayed ?
+        // ==================================================================
+        public bool SettingsDisplayed => _settingsDisplayed;
+        private bool _settingsDisplayed = false;
+        public EventData<bool> OnShowSettings = new EventData<bool>("SteamInput.OnShowSettings");
 
         // ==============================================================================================
 
@@ -409,12 +430,45 @@ namespace com.github.lhervier.ksp.ui
             this._onClose?.Invoke();
         }
 
-        /// <summary>
-        /// Open the settings view. Not wired yet: only logs for now.
-        /// </summary>
         public void OpenSettings()
         {
             LOGGER.LogDebug("OpenSettings");
+            _settingsDisplayed = true;
+            OnShowSettings.Fire(true);
+            CloseMenu();
+        }
+
+        public void CloseSettings()
+        {
+            LOGGER.LogDebug("CloseSettings");
+            _settingsDisplayed = false;
+            OnShowSettings.Fire(false);
+        }
+
+        public void OpenMenu()
+        {
+            LOGGER.LogDebug("OpenMenu");
+            _menuDisplayed = true;
+            OnShowMenu.Fire(true);
+        }
+
+        public void CloseMenu()
+        {
+            LOGGER.LogDebug("CloseMenu");
+            _menuDisplayed = false;
+            OnShowMenu.Fire(false);
+        }
+
+        public void ToggleMenu()
+        {
+            if( _menuDisplayed )
+            {
+                CloseMenu();
+            }
+            else
+            {
+                OpenMenu();
+            }
         }
 
         public void MoveZoneUp(UIConfigZone zone)
@@ -460,13 +514,6 @@ namespace com.github.lhervier.ksp.ui
             }
             return group;
         }
-
-        // Group modes that drive the pointer with free movement (mockup .kmouse-line).
-        private static readonly HashSet<string> MouseModes = new HashSet<string>
-        {
-            "joystick_mouse",
-            "absolute_mouse",
-        };
 
         /// <summary>
         /// True if the group behaves as a mouse (free pointer movement). Such a section shows

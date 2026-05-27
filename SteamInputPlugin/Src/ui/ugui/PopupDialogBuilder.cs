@@ -62,6 +62,10 @@ namespace com.github.lhervier.ksp.ui.ugui
             {
                 return null;
             }
+            PopupDialogController controller = popupDialog.popupWindow.AddComponent<PopupDialogController>();
+            controller.Initialize(_viewModel);
+            controller.BindOverlayBuilder(_overlayBuilder);
+            controller.BindMenuBuilder(_menuBuilder);
 
             // Remove KSP default title
             var title = popupDialog.popupWindow.transform.Find("Title");
@@ -103,39 +107,13 @@ namespace com.github.lhervier.ksp.ui.ugui
                 image.color = SteamInputPalette.WindowBodyColor;
             }
 
-            // Create the menu and the overlay events
-            OverlayBuilder.OverlayController overlayController = null;
-            MenuBuilder.MenuController menuController = null;
-            Action toggleMenu = () => {
-                if( menuController == null || overlayController == null )  return;
-                bool willOpen = !menuController.gameObject.activeSelf;
-                menuController.gameObject.SetActive(willOpen);
-                overlayController.gameObject.SetActive(willOpen);
-            };
-
-            Action closeMenu = () => {
-                if( menuController == null || overlayController == null )  return;
-                menuController.gameObject.SetActive(false);
-                overlayController.gameObject.SetActive(false);
-            };
-
             // Add the body (scrollable content). First in z-order so the overlay/menu draw above it.
             BodyBuilder.BodyController bodyController = this._bodyBuilder.Create();
             bodyController.transform.SetParent(popupDialog.popupWindow.transform, false);
 
-            // Add the overlay
-            overlayController = _overlayBuilder.Create(closeMenu);
-            overlayController.transform.SetParent(popupDialog.popupWindow.transform, false);
-            overlayController.gameObject.SetActive(false);
-
             // Add the title bar
-            TitleBarBuilder.TitleBarController titleBarController = this._titleBarBuilder.Create(toggleMenu);
+            TitleBarBuilder.TitleBarController titleBarController = this._titleBarBuilder.Create();
             titleBarController.transform.SetParent(popupDialog.popupWindow.transform, false);
-
-            // Add the menu
-            menuController = this._menuBuilder.Create();
-            menuController.transform.SetParent(popupDialog.popupWindow.transform, false);
-            menuController.gameObject.SetActive(false);
 
             return popupDialog;
         }
@@ -148,6 +126,57 @@ namespace com.github.lhervier.ksp.ui.ugui
             var centerX = screenX + width * 0.5f;
             var centerY = Screen.height - screenYFromTop - height * 0.5f;
             return new Rect(centerX / Screen.width, centerY / Screen.height, width, height);
+        }
+
+        public class PopupDialogController : BaseSteamInputController
+        {
+            private OverlayBuilder _overlayBuilder;
+            private MenuBuilder _menuBuilder;
+
+            private OverlayBuilder.OverlayController _overlayController = null;
+            private MenuBuilder.MenuController _menuController = null;
+
+            public void BindOverlayBuilder(OverlayBuilder builder)
+            {
+                this._overlayBuilder = builder;
+            }
+
+            public void BindMenuBuilder(MenuBuilder builder)
+            {
+                this._menuBuilder = builder;
+            }
+
+            public void Start()
+            {
+                ViewModel?.OnShowMenu.Add(OnShowMenu);
+                if( ViewModel != null )
+                {
+                    OnShowMenu(ViewModel.MenuDisplayed);
+                }
+            }
+
+            public void OnDestroy()
+            {
+                ViewModel?.OnShowMenu.Remove(OnShowMenu);
+            }
+
+            private void OnShowMenu(bool show)
+            {
+                if( _overlayController == null )
+                {
+                    _overlayController = _overlayBuilder.Create(() => ViewModel.CloseMenu());
+                    _overlayController.transform.SetParent(gameObject.transform, false);
+                }
+
+                if( _menuController == null )
+                {
+                    _menuController = _menuBuilder.Create();
+                    _menuController.transform.SetParent(gameObject.transform, false);
+                }
+
+                _overlayController.gameObject.SetActive(show);
+                _menuController.gameObject.SetActive(show);
+            }
         }
     }
 }

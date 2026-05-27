@@ -21,7 +21,7 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
             this._rightColumnBuiler = new RightColumnBuilder(viewModel);
         }
 
-        public RootController Create(Action onMenuToggle)
+        public RootController Create()
         {
             var rootGo = new GameObject("SteamInput.TitleBar.Root", typeof(RectTransform));
             RootController controller = rootGo.AddComponent<RootController>();
@@ -54,7 +54,7 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
             var leftRow = this._leftColumnBuilder.Create();
             leftRow.transform.SetParent(rootGo.transform, false);
 
-            var rightRow = this._rightColumnBuiler.Create(onMenuToggle);
+            var rightRow = this._rightColumnBuiler.Create();
             rightRow.transform.SetParent(rootGo.transform, false);
 
             return controller;

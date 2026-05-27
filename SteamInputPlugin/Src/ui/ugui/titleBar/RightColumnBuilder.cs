@@ -25,7 +25,7 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
             this._buttonBuilder = new ButtonBuilder(viewModel);
         }
 
-        public RightColumnController Create(Action onMenuToggle)
+        public RightColumnController Create()
         {
             var rightRowGo = new GameObject("SteamInput.TitleBar.RightColumn", typeof(RectTransform));
             RightColumnController controller = rightRowGo.AddComponent<RightColumnController>();
@@ -49,7 +49,7 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
             var menuButtonController = this._buttonBuilder.Create(
                 "SteamInput.TitleBar.RightColumn.MenuButton",
                 "⋯",
-                onMenuToggle,
+                () => _viewModel.ToggleMenu(),
                 true,
                 SteamInputPalette.TitleBarButtonColor,
                 SteamInputPalette.TitleBarButtonHoverColor

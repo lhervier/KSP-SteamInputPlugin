@@ -17,7 +17,7 @@ namespace com.github.lhervier.ksp.ui.ugui
             this._viewModel = viewModel;
         }
 
-        public OverlayController Create(Action onClick)
+        public OverlayController Create(Action onClose)
         {
             var overlayGo = new GameObject("SteamInput.Overlay", typeof(RectTransform));
             OverlayController controller = overlayGo.AddComponent<OverlayController>();
@@ -55,7 +55,7 @@ namespace com.github.lhervier.ksp.ui.ugui
             colors.colorMultiplier = 1f;
             colors.fadeDuration = 0f;
             button.colors = colors;
-            button.onClick.AddListener(() => onClick());
+            button.onClick.AddListener(() => onClose());
 
             return controller;
         }
