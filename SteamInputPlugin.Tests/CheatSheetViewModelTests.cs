@@ -290,6 +290,54 @@ namespace com.github.lhervier.ksp.Tests
             Assert.That(longPress.BindingText, Is.EqualTo("Debug Console"));
         }
 
+        [Test]
+        public void IgnoresHoldLayerBinding_KeepingRealActionLabel()
+        {
+            // dpad_west (PS4): a "Clic droit" mouse binding, plus a "hold_layer" layer activation
+            // on a second Full_Press (both collapse into one activator). The layer binding has no
+            // user-facing action and must be ignored, leaving "Clic droit".
+            var vm = NewViewModelWithVdf(@"
+                ""controller_mappings""
+                {
+                    ""group""
+                    {
+                        ""id""    ""1""
+                        ""mode""  ""dpad""
+                        ""inputs""
+                        {
+                            ""dpad_west""
+                            {
+                                ""activators""
+                                {
+                                    ""Full_Press""
+                                    {
+                                        ""bindings""
+                                        {
+                                            ""binding""    ""mouse_button RIGHT, Clic droit, ""
+                                        }
+                                    }
+                                    ""Full_Press""
+                                    {
+                                        ""bindings""
+                                        {
+                                            ""binding""    ""controller_action hold_layer 13 0 0, , ""
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            ");
+
+            List<UIActivator> result = vm.GetActivators("1");
+
+            Assert.That(result, Has.Count.EqualTo(1));
+            Assert.That(result[0].Input, Is.EqualTo(EInput.DpadWest));
+            Assert.That(result[0].BindingText, Is.EqualTo("Clic droit"));
+            Assert.That(result[0].ActionText, Is.EqualTo("Clic droit"));
+        }
+
         // ===============================================================================================
         // IsMouseGroup
         // ===============================================================================================

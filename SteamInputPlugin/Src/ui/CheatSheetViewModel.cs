@@ -517,6 +517,12 @@ namespace com.github.lhervier.ksp.ui
                     {
                         foreach( VdfBinding vdfBinding in vdfActivator.Bindings )
                         {
+                            if( IsLayerBinding(vdfBinding) )
+                            {
+                                // Layer activations (controller_action hold_layer ...) are an
+                                // internal mechanism with no user-facing action: ignore them.
+                                continue;
+                            }
                             if( vdfBinding.ModeShift )
                             {
                                 modeShift = true;
@@ -559,6 +565,13 @@ namespace com.github.lhervier.ksp.ui
             return ModLocalization.GetString(longPress
                 ? "SteamInput_activator_Long_Press"
                 : "SteamInput_activator_Full_Press");
+        }
+
+        private static bool IsLayerBinding(VdfBinding binding)
+        {
+            return binding.EventType == "controller_action"
+                && binding.Action != null
+                && binding.Action.StartsWith("hold_layer");
         }
 
         private static string GetActionText(bool modeShift, string bindingText)
