@@ -295,9 +295,9 @@ namespace com.github.lhervier.ksp.ui
             else
             {
                 VdfAction actionData = this._gamepadConfigDaemon.GetAction(currentActionGroup);
-                if( !string.IsNullOrEmpty(actionData.Label) )
+                if( !string.IsNullOrEmpty(actionData.Title) )
                 {
-                    this._actionGroupLabel = actionData.Label.ToUpperInvariant();
+                    this._actionGroupLabel = actionData.Title.ToUpperInvariant();
                 }
                 else
                 {

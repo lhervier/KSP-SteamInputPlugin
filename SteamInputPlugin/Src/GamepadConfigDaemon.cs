@@ -152,7 +152,7 @@ namespace com.github.lhervier.ksp
             VdfObject action = actions.GetObject(actionGroup.ToString());
             return new VdfAction
             {
-                Label = action.GetString("label"),
+                Title = action.GetString("title"),
                 LegacySet = action.GetString("legacy_set")
             };
         }
@@ -274,45 +274,51 @@ namespace com.github.lhervier.ksp
             VdfObject vdfInputs = vdfGroup.GetObject("inputs");
             foreach( string inputName in vdfInputs.Keys )
             {
-                VdfObject vdfInput = vdfInputs.GetObject(inputName);
                 if( !EInput.TryParse(inputName, out EInput input) )
                 {
                     input = null;
                 }
+                // The same input may be declared several times (one block per activator type);
+                // GetArray returns all the declarations so their activators can be merged.
                 inputs.Add(
                     new VdfInput
                     {
                         Name = input,
-                        Activators = GetActivators(vdfInput)
+                        Activators = GetActivators(vdfInputs.GetArray(inputName))
                     }
                 );
             }
             return inputs;
         }
 
-        private List<VdfActivator> GetActivators(VdfObject vdfInput)
+        private List<VdfActivator> GetActivators(VdfArray vdfInputs)
         {
             List<VdfActivator> activators = new List<VdfActivator>();
-            VdfObject vdfActivators = vdfInput.GetObject("activators");
-            foreach( string activatorName in vdfActivators.Keys )
+            Dictionary<EActivator, VdfActivator> byName = new Dictionary<EActivator, VdfActivator>();
+
+            foreach( VdfObject vdfInput in vdfInputs.Objects() )
             {
-                if( !EActivator.TryParse(activatorName, out EActivator act) )
+                VdfObject vdfActivators = vdfInput.GetObject("activators");
+                foreach( string activatorName in vdfActivators.Keys )
                 {
-                    continue;
-                }
+                    if( !EActivator.TryParse(activatorName, out EActivator act) )
+                    {
+                        continue;
+                    }
 
-                List<VdfBinding> bindings = new List<VdfBinding>();
-                VdfArray vdfActivatorInstances = vdfActivators.GetArray(activatorName);
-                foreach( VdfObject vdfActivator in vdfActivatorInstances.Objects() )
-                {
-                    bindings.AddRange(GetBindings(vdfActivator));
-                }
+                    // Merge bindings of the same activator across every declaration of the input.
+                    if( !byName.TryGetValue(act, out VdfActivator activator) )
+                    {
+                        activator = new VdfActivator { Name = act, Bindings = new List<VdfBinding>() };
+                        byName[act] = activator;
+                        activators.Add(activator);
+                    }
 
-                activators.Add(new VdfActivator
-                {
-                    Name = act,
-                    Bindings = bindings
-                });
+                    foreach( VdfObject vdfActivator in vdfActivators.GetArray(activatorName).Objects() )
+                    {
+                        activator.Bindings.AddRange(GetBindings(vdfActivator));
+                    }
+                }
             }
 
             return activators;

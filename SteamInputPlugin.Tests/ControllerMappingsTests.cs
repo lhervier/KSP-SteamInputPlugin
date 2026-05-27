@@ -56,7 +56,7 @@ namespace com.github.lhervier.ksp.Tests
         // ===============================================================================================
 
         [Test]
-        public void GetAction_ReadsLabelAndLegacySet()
+        public void GetAction_ReadsTitleAndLegacySet()
         {
             var daemon = NewDaemonWithVdf(@"
                 ""controller_mappings""
@@ -65,7 +65,7 @@ namespace com.github.lhervier.ksp.Tests
                     {
                         ""FlightControls""
                         {
-                            ""label""       ""#Flight""
+                            ""title""       ""Vol""
                             ""legacy_set""  ""1""
                         }
                     }
@@ -74,7 +74,7 @@ namespace com.github.lhervier.ksp.Tests
 
             VdfAction action = daemon.GetAction(EActionGroup.FlightControls);
 
-            Assert.That(action.Label, Is.EqualTo("#Flight"));
+            Assert.That(action.Title, Is.EqualTo("Vol"));
             Assert.That(action.LegacySet, Is.EqualTo("1"));
         }
 
@@ -88,7 +88,7 @@ namespace com.github.lhervier.ksp.Tests
                     {
                         ""EditorControls""
                         {
-                            ""label""       ""#Editor""
+                            ""title""       ""Éditeur""
                             ""legacy_set""  ""2""
                         }
                     }
@@ -97,7 +97,7 @@ namespace com.github.lhervier.ksp.Tests
 
             VdfAction action = daemon.GetAction(EActionGroup.FlightControls);
 
-            Assert.That(action.Label, Is.EqualTo(""));
+            Assert.That(action.Title, Is.EqualTo(""));
             Assert.That(action.LegacySet, Is.EqualTo(""));
         }
     }

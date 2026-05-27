@@ -71,6 +71,64 @@ namespace com.github.lhervier.ksp.Tests
         }
 
         [Test]
+        public void MergesActivators_WhenSameInputDeclaredTwice()
+        {
+            // SteamController V2 (dpadZone/vessel-camera): dpad_north is declared twice in the same
+            // group — once with Full_Press, once with Long_Press. They must merge into one input.
+            var daemon = NewDaemonWithVdf(@"
+                ""controller_mappings""
+                {
+                    ""group""
+                    {
+                        ""id""    ""1""
+                        ""mode""  ""dpad""
+                        ""inputs""
+                        {
+                            ""dpad_north""
+                            {
+                                ""activators""
+                                {
+                                    ""Full_Press""
+                                    {
+                                        ""bindings""
+                                        {
+                                            ""binding""    ""key_press C, Vue de la caméra, , ""
+                                        }
+                                    }
+                                }
+                            }
+                            ""dpad_north""
+                            {
+                                ""activators""
+                                {
+                                    ""Long_Press""
+                                    {
+                                        ""bindings""
+                                        {
+                                            ""binding""    ""key_press V, Caméra suivante, , ""
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            ");
+
+            VdfGroup group = daemon.GetGroup("1");
+
+            Assert.That(group.Inputs, Has.Count.EqualTo(1));
+            VdfInput input = group.Inputs[0];
+            Assert.That(input.Name, Is.EqualTo(EInput.DpadNorth));
+            Assert.That(input.Activators, Has.Count.EqualTo(2));
+
+            Assert.That(input.Activators[0].Name, Is.EqualTo(EActivator.FullPress));
+            Assert.That(input.Activators[0].Bindings[0].Label, Is.EqualTo("Vue de la caméra"));
+            Assert.That(input.Activators[1].Name, Is.EqualTo(EActivator.LongPress));
+            Assert.That(input.Activators[1].Bindings[0].Label, Is.EqualTo("Caméra suivante"));
+        }
+
+        [Test]
         public void ParsesInputsAndActivators()
         {
             var daemon = NewDaemonWithVdf(@"
