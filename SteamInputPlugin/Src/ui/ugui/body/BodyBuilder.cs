@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using com.github.lhervier.ksp.ui.styles;
-using com.github.lhervier.ksp.ui.ugui.styles;
+using com.github.lhervier.ksp.ui.ugui.sprites;
 using com.github.lhervier.ksp.ui.ugui.body.zones;
 using com.github.lhervier.ksp.ui.ugui.body.selector;
 
@@ -15,13 +15,13 @@ namespace com.github.lhervier.ksp.ui.ugui.body
     {
         private CheatSheetViewModel _viewModel;
         private SelectorBuilder _selectorBuilder;
-        private ZonesBuilder _zonesBuilder;
+        private ZoneListBuilder _zonesBuilder;
 
         public BodyBuilder(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             this._selectorBuilder = new SelectorBuilder(viewModel);
-            this._zonesBuilder = new ZonesBuilder(viewModel);
+            this._zonesBuilder = new ZoneListBuilder(viewModel);
         }
 
         public BodyController Create()

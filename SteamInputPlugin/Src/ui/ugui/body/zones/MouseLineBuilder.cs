@@ -29,8 +29,8 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
             var layout = go.AddComponent<HorizontalLayoutGroup>();
             layout.padding = new RectOffset(
                 0, 0,
-                Mathf.RoundToInt(SteamInputPalette.MouseLineVerticalPadding),
-                Mathf.RoundToInt(SteamInputPalette.MouseLineVerticalPadding));
+                Mathf.RoundToInt(SteamInputPalette.MouseLinePaddingV),
+                Mathf.RoundToInt(SteamInputPalette.MouseLinePaddingV));
             layout.childAlignment = TextAnchor.MiddleLeft;
             layout.childControlWidth = true;
             layout.childControlHeight = true;

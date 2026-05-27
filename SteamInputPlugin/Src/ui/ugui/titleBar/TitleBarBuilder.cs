@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using com.github.lhervier.ksp.ui.styles;
-using com.github.lhervier.ksp.ui.ugui.styles;
+using com.github.lhervier.ksp.ui.ugui.sprites;
 using UnityEngine.Events;
 using System;
 
@@ -44,7 +44,7 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
             var headerImage = titleBarGo.AddComponent<Image>();
             headerImage.sprite = SpritesGlobal.FillSprite;
             headerImage.type = Image.Type.Simple;
-            headerImage.color = SteamInputPalette.Header;
+            headerImage.color = SteamInputPalette.TitleBarBackgroundColor;
             headerImage.raycastTarget = false;
 
             // The main part of the title with all the elements

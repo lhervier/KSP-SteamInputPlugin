@@ -11,10 +11,7 @@ namespace com.github.lhervier.ksp.ui.imgui
         private bool showWindow = false;
         private Rect windowRect = new Rect(20, 20, SteamInputPalette.WindowWidth, 320);
         private bool showLogLevelMenu = false;
-        private string controllerConfigNameBuffer = string.Empty;
         private CheatSheetViewModel viewModel;
-        private TitleUI titleUI;
-        private PhysicalZonesUI physicalZonesUI;
         
         public void Initialize(
             CheatSheetViewModel viewModel,
@@ -22,10 +19,6 @@ namespace com.github.lhervier.ksp.ui.imgui
         )
         {
             this.viewModel = viewModel;
-            titleUI = new TitleUI(viewModel, onWindowClosedFromUI);
-            physicalZonesUI = new PhysicalZonesUI(viewModel);
-
-            controllerConfigNameBuffer = viewModel.GamepadConfigName;
         }
 
         public void Destroy()
@@ -41,7 +34,6 @@ namespace com.github.lhervier.ksp.ui.imgui
         {
             showWindow = false;
             showLogLevelMenu = false;
-            titleUI?.ZonesMenu.Close();
         }
 
         public void OnGUI()
@@ -62,52 +54,14 @@ namespace com.github.lhervier.ksp.ui.imgui
 
         private void DrawWindow(int windowID)
         {
-            titleUI.ZonesMenu.HandleOutsideClick(windowRect);
-            titleUI.DrawTitle();
-            physicalZonesUI.Draw();
-
             GUILayout.BeginVertical(SteamInputStyles.Body);
-            DrawSettings();
-            GUILayout.Space(6);
-            DrawCurrentActionSet();
-            GUILayout.Space(6);
             DrawControllerConnected();
             GUILayout.Space(6);
             DrawActivatedContexts();
             GUILayout.Space(6);
             DrawLogLevel();
             GUILayout.EndVertical();
-
-            titleUI.ZonesMenu.DrawOverlay(windowRect.width);
-
             GUI.DragWindow(new Rect(0f, 0f, windowRect.width, SteamInputPalette.TitleBarHeight));
-        }
-
-        private void DrawSettings()
-        {
-            GUILayout.Label(ModLocalization.GetString("SteamInput_settings"), SteamInputStyles.MutedLabel);
-
-            GUILayout.Space(4);
-            GUILayout.Label(ModLocalization.GetString("SteamInput_controllerConfigName"), SteamInputStyles.Label);
-            string newName = GUILayout.TextField(controllerConfigNameBuffer, SteamInputStyles.TextField, GUILayout.ExpandWidth(true));
-            if (newName != controllerConfigNameBuffer)
-            {
-                controllerConfigNameBuffer = newName;
-                viewModel.GamepadConfigName = newName;
-            }
-
-            var vdfError = viewModel.LastConfigError;
-            if (!string.IsNullOrEmpty(vdfError))
-            {
-                GUILayout.Label(vdfError, SteamInputStyles.ErrorLabel);
-            }
-        }
-
-        private void DrawCurrentActionSet()
-        {
-            GUILayout.Label(ModLocalization.GetString("SteamInput_currentActionSet"), SteamInputStyles.Label);
-            var actionGroupLabel = viewModel.ActionGroupLabel;
-            GUILayout.Label(actionGroupLabel, SteamInputStyles.AccentLabel);
         }
 
         private void DrawControllerConnected() 

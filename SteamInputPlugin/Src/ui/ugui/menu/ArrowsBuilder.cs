@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using com.github.lhervier.ksp.ui.styles;
-using com.github.lhervier.ksp.ui.ugui.styles;
+using com.github.lhervier.ksp.ui.ugui.sprites;
 using System;
 using com.github.lhervier.ksp.ui.model;
 using System.Security.Policy;

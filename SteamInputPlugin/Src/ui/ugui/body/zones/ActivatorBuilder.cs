@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using com.github.lhervier.ksp.ui.styles;
-using com.github.lhervier.ksp.ui.ugui.styles;
+using com.github.lhervier.ksp.ui.ugui.sprites;
 using com.github.lhervier.ksp.ui.model;
 
 namespace com.github.lhervier.ksp.ui.ugui.body.zones
@@ -11,34 +11,34 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
     ///   [ .kkbd icon ] [ .kpress short/long ]   —   action label  (note)
     /// The data is already display-ready in the <see cref="UIActivator"/>.
     /// </summary>
-    public class ActivatorRowBuilder
+    public class ActivatorBuilder
     {
         private CheatSheetViewModel _viewModel;
 
-        public ActivatorRowBuilder(CheatSheetViewModel viewModel)
+        public ActivatorBuilder(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
         }
 
-        public ActivatorRowController Create(UIActivator activator)
+        public ActivatorController Create(UIActivator activator)
         {
-            var go = new GameObject("ActivatorRow", typeof(RectTransform));
-            ActivatorRowController controller = go.AddComponent<ActivatorRowController>();
+            var go = new GameObject("Activator", typeof(RectTransform));
+            ActivatorController controller = go.AddComponent<ActivatorController>();
             controller.Initialize(_viewModel);
 
             var layout = go.AddComponent<HorizontalLayoutGroup>();
             layout.padding = new RectOffset(
                 0, 0,
-                Mathf.RoundToInt(SteamInputPalette.RowVerticalPadding),
-                Mathf.RoundToInt(SteamInputPalette.RowVerticalPadding));
-            layout.spacing = SteamInputPalette.RowSeparatorPaddingH;
+                Mathf.RoundToInt(SteamInputPalette.ActivatorPaddingV),
+                Mathf.RoundToInt(SteamInputPalette.ActivatorPaddingV));
+            layout.spacing = SteamInputPalette.ActivatorSeparatorPaddingH;
             layout.childAlignment = TextAnchor.MiddleLeft;
             layout.childControlWidth = true;
             layout.childControlHeight = true;
             layout.childForceExpandWidth = false;
             layout.childForceExpandHeight = false;
 
-            BuildKeyColumn(go.transform, activator);
+            BuildInputColumn(go.transform, activator);
             BuildSeparator(go.transform);
             BuildAction(go.transform, activator);
 
@@ -46,14 +46,14 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
         }
 
         // .kkey : fixed-width left column holding the key chip and the optional press chip.
-        private void BuildKeyColumn(Transform parent, UIActivator activator)
+        private void BuildInputColumn(Transform parent, UIActivator activator)
         {
-            var go = new GameObject("Key", typeof(RectTransform));
+            var go = new GameObject("Input", typeof(RectTransform));
             go.transform.SetParent(parent, false);
 
             var layout = go.AddComponent<HorizontalLayoutGroup>();
             layout.padding = new RectOffset(0, 0, 0, 0);
-            layout.spacing = SteamInputPalette.RowKeySpacing;
+            layout.spacing = SteamInputPalette.ActivatorInputSpacing;
             layout.childAlignment = TextAnchor.MiddleLeft;
             layout.childControlWidth = true;
             layout.childControlHeight = true;
@@ -61,30 +61,29 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
             layout.childForceExpandHeight = false;
 
             var layoutElement = go.AddComponent<LayoutElement>();
-            layoutElement.minWidth = SteamInputPalette.RowKeyMinWidth;
+            layoutElement.minWidth = SteamInputPalette.ActivatorInputMinWidth;
             layoutElement.flexibleWidth = 0f;
 
             BuildChip(
                 go.transform,
                 "Kbd",
-                SpritesPhysicalZone.KeyChipSprite,
+                SpritesActivators.ActivatorInputSprite,
                 activator.IconText,
-                SteamInputPalette.RowKeyTextColor,
-                SteamInputPalette.RowKeyFontSize);
+                SteamInputPalette.ActivatorInputTextColor,
+                SteamInputPalette.ActivatorInputFontSize);
 
             if (!string.IsNullOrEmpty(activator.PressText))
             {
                 BuildChip(
                     go.transform,
                     "Press",
-                    SpritesPhysicalZone.PressChipSprite,
+                    SpritesActivators.ActivatorPressSprite,
                     activator.PressText,
-                    SteamInputPalette.RowPressTextColor,
-                    SteamInputPalette.RowPressFontSize);
+                    SteamInputPalette.ActivatorPressTextColor,
+                    SteamInputPalette.ActivatorPressFontSize);
             }
         }
 
-        // .kkbd / .kpress : a bordered chip sized to its text.
         private void BuildChip(Transform parent, string name, Sprite sprite, string text, Color textColor, int fontSize)
         {
             var go = new GameObject(name, typeof(RectTransform));
@@ -98,8 +97,8 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
 
             var layout = go.AddComponent<HorizontalLayoutGroup>();
             layout.padding = new RectOffset(
-                Mathf.RoundToInt(SteamInputPalette.RowChipPaddingH),
-                Mathf.RoundToInt(SteamInputPalette.RowChipPaddingH),
+                Mathf.RoundToInt(SteamInputPalette.ActivatorInputPaddingH),
+                Mathf.RoundToInt(SteamInputPalette.ActivatorInputPaddingH),
                 0, 0);
             layout.childAlignment = TextAnchor.MiddleCenter;
             layout.childControlWidth = true;
@@ -124,21 +123,20 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
         // .ksep : the "—" between the key and the action.
         private void BuildSeparator(Transform parent)
         {
-            var go = new GameObject("Sep", typeof(RectTransform));
+            var go = new GameObject("Separator", typeof(RectTransform));
             go.transform.SetParent(parent, false);
 
             var sep = go.AddComponent<Text>();
             sep.text = "—";
             sep.font = HighLogic.UISkin.font;
-            sep.fontSize = SteamInputPalette.RowSeparatorFontSize;
-            sep.color = SteamInputPalette.RowSeparatorColor;
+            sep.fontSize = SteamInputPalette.ActivatorSeparatorFontSize;
+            sep.color = SteamInputPalette.ActivatorSeparatorColor;
             sep.alignment = TextAnchor.MiddleCenter;
             sep.horizontalOverflow = HorizontalWrapMode.Overflow;
             sep.verticalOverflow = VerticalWrapMode.Overflow;
             sep.raycastTarget = false;
         }
 
-        // .kaction (+ .knote) : the action label, highlighted with a trailing note for a mode shift.
         private void BuildAction(Transform parent, UIActivator activator)
         {
             var go = new GameObject("Action", typeof(RectTransform));
@@ -151,10 +149,10 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
             action.text = BuildActionText(activator);
             action.supportRichText = true;
             action.font = HighLogic.UISkin.font;
-            action.fontSize = SteamInputPalette.RowActionFontSize;
+            action.fontSize = SteamInputPalette.ActivatorActionFontSize;
             action.color = activator.Highlighted
-                ? SteamInputPalette.RowActionHighlightColor
-                : SteamInputPalette.RowActionColor;
+                ? SteamInputPalette.ActivatorActionHighlightColor
+                : SteamInputPalette.ActivatorActionColor;
             action.alignment = TextAnchor.MiddleLeft;
             action.horizontalOverflow = HorizontalWrapMode.Wrap;
             action.verticalOverflow = VerticalWrapMode.Overflow;
@@ -168,11 +166,11 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
             {
                 return text;
             }
-            string noteHex = ColorUtility.ToHtmlStringRGB(SteamInputPalette.RowNoteColor);
+            string noteHex = ColorUtility.ToHtmlStringRGB(SteamInputPalette.ActivatorNoteColor);
             return text + " <color=#" + noteHex + ">" + activator.Note + "</color>";
         }
 
-        public class ActivatorRowController : BaseSteamInputController
+        public class ActivatorController : BaseSteamInputController
         {
         }
     }

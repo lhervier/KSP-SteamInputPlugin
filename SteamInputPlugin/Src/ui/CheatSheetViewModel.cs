@@ -396,8 +396,6 @@ namespace com.github.lhervier.ksp.ui
                         Label = GetLabel(zone),
                         GroupId = presetZone.GroupId,
                         ModeshiftGroupIds = new List<string>(presetZone.ModeshiftGroupIds),
-                        First = i == 0,
-                        Last = i == orderedZones.Count - 1
                     }
                 );
             }

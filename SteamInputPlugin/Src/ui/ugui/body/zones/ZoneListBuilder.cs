@@ -11,21 +11,21 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
     /// Container that stacks one PhysicalZone per UIPhysicalZone from the ViewModel.
     /// Only visible zones are rendered (Visible flag from the toggle menu).
     /// </summary>
-    public class ZonesBuilder
+    public class ZoneListBuilder
     {
         private CheatSheetViewModel _viewModel;
-        private ZoneRowBuilder _zoneRowBuilder;
+        private ZoneBuilder _zoneRowBuilder;
 
-        public ZonesBuilder(CheatSheetViewModel viewModel)
+        public ZoneListBuilder(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
-            this._zoneRowBuilder = new ZoneRowBuilder(viewModel);
+            this._zoneRowBuilder = new ZoneBuilder(viewModel);
         }
 
-        public PhysicalZonesController Create()
+        public ZoneListController Create()
         {
             var go = new GameObject("PhysicalZones", typeof(RectTransform));
-            var controller = go.AddComponent<PhysicalZonesController>();
+            var controller = go.AddComponent<ZoneListController>();
             controller.Initialize(_viewModel);
             controller.BindPhysicalZoneBuilder(_zoneRowBuilder);
 
@@ -42,14 +42,14 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
             return controller;
         }
 
-        public class PhysicalZonesController : BaseSteamInputController
+        public class ZoneListController : BaseSteamInputController
         {
-            private ZoneRowBuilder _zoneRowBuilder;
-            private Dictionary<EGamepadZone, ZoneRowBuilder.ZoneRowController> _rows = new Dictionary<EGamepadZone, ZoneRowBuilder.ZoneRowController>();
+            private ZoneBuilder _zoneRowBuilder;
+            private Dictionary<EGamepadZone, ZoneBuilder.ZoneController> _rows = new Dictionary<EGamepadZone, ZoneBuilder.ZoneController>();
 
-            public void BindPhysicalZoneBuilder(ZoneRowBuilder physicalZoneBuilder)
+            public void BindPhysicalZoneBuilder(ZoneBuilder zoneRowBuilder)
             {
-                this._zoneRowBuilder = physicalZoneBuilder;
+                this._zoneRowBuilder = zoneRowBuilder;
             }
 
             public void Start()
@@ -103,7 +103,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
                     var zone = zones[i];
                     if (!ShouldRender(zone)) continue;
 
-                    if (!this._rows.TryGetValue(zone.Zone, out ZoneRowBuilder.ZoneRowController row))
+                    if (!this._rows.TryGetValue(zone.Zone, out ZoneBuilder.ZoneController row))
                     {
                         row = this._zoneRowBuilder.Create(zone);
                         row.transform.SetParent(this.transform, false);

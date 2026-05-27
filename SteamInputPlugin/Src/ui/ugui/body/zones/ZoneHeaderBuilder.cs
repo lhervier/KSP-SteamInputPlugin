@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using com.github.lhervier.ksp;
 using com.github.lhervier.ksp.ui.styles;
-using com.github.lhervier.ksp.ui.ugui.styles;
+using com.github.lhervier.ksp.ui.ugui.sprites;
 using com.github.lhervier.ksp.ui.model;
 using System;
 
@@ -17,9 +17,6 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
     /// </summary>
     public class ZoneHeaderBuilder
     {
-        private const int BodyPaddingHorizontal = 8;
-        private const float ZoneSeparatorHeight = 1f;
-
         private CheatSheetViewModel _viewModel;
 
         public ZoneHeaderBuilder(CheatSheetViewModel viewModel)
@@ -35,13 +32,13 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
 
             // Fixed header height (matches .kzh from the mockup)
             var layoutElement = go.AddComponent<LayoutElement>();
-            layoutElement.minHeight = SteamInputPalette.MainZoneHeaderHeight;
-            layoutElement.preferredHeight = SteamInputPalette.MainZoneHeaderHeight;
+            layoutElement.minHeight = SteamInputPalette.ZoneHeaderHeight;
+            layoutElement.preferredHeight = SteamInputPalette.ZoneHeaderHeight;
 
             // Sliced chrome: dark fill with 1px lines at top and bottom (no left/right borders).
             // The colors are baked into the sprite, so the Image's color stays white.
             var bgImage = go.AddComponent<Image>();
-            bgImage.sprite = SpritesPhysicalZone.HeaderChromeSprite;
+            bgImage.sprite = SpritesZones.ZoneHeaderChromeSprite;
             bgImage.type = Image.Type.Sliced;
             bgImage.color = Color.white;
             bgImage.raycastTarget = false;
@@ -68,7 +65,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
             label.font = HighLogic.UISkin.font;
             label.fontSize = 12;
             label.fontStyle = FontStyle.Bold;
-            label.color = SteamInputPalette.ZoneName;
+            label.color = SteamInputPalette.ZoneNameColor;
             label.alignment = TextAnchor.MiddleLeft;
             label.horizontalOverflow = HorizontalWrapMode.Overflow;
             label.verticalOverflow = VerticalWrapMode.Overflow;

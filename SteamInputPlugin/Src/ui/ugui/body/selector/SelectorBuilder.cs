@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using com.github.lhervier.ksp.ui.model;
 using com.github.lhervier.ksp.ui.styles;
-using com.github.lhervier.ksp.ui.ugui.styles;
+using com.github.lhervier.ksp.ui.ugui.sprites;
 
 namespace com.github.lhervier.ksp.ui.ugui.body.selector
 {
@@ -38,8 +38,8 @@ namespace com.github.lhervier.ksp.ui.ugui.body.selector
             layout.padding = new RectOffset(
                 Mathf.RoundToInt(SteamInputPalette.DefaultPaddingLeft),
                 Mathf.RoundToInt(SteamInputPalette.DefaultPaddingRight),
-                Mathf.RoundToInt(SteamInputPalette.SelectorVerticalPadding),
-                Mathf.RoundToInt(SteamInputPalette.SelectorVerticalPadding));
+                Mathf.RoundToInt(SteamInputPalette.ComboPaddingV),
+                Mathf.RoundToInt(SteamInputPalette.ComboPaddingV));
             layout.spacing = SteamInputPalette.DefaultSpacing;
             layout.childAlignment = TextAnchor.MiddleLeft;
             layout.childControlWidth = true;
@@ -71,7 +71,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body.selector
             comboElement.preferredHeight = SteamInputPalette.ComboHeight;
 
             var comboImage = comboGo.AddComponent<Image>();
-            comboImage.sprite = SpritesPhysicalZone.KeyChipSprite; // field fill + 1px border
+            comboImage.sprite = SpritesZones.ComboSprite; // field fill + 1px border
             comboImage.type = Image.Type.Sliced;
             comboImage.color = Color.white;
             comboImage.raycastTarget = true;

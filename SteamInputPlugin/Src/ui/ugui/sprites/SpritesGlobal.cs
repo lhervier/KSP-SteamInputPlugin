@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using com.github.lhervier.ksp.ui.styles;
 
-namespace com.github.lhervier.ksp.ui.ugui.styles
+namespace com.github.lhervier.ksp.ui.ugui.sprites
 {
     /// <summary>Applies ksp_cheatsheet mockup colors to a KSP PopupDialog shell.</summary>
     internal static class SpritesGlobal
@@ -26,6 +26,22 @@ namespace com.github.lhervier.ksp.ui.ugui.styles
                 _fillSprite.hideFlags = HideFlags.HideAndDontSave;
                 return _fillSprite;
             }
+        }
+
+        public static Sprite MakeChipSprite(Color fill, Color border, int thickness)
+        {
+            int size = 2 * thickness + 1;
+            var tex = SteamInputStyleTextures.MakeBorderTexture(fill, border, thickness);
+            var sprite = Sprite.Create(
+                tex,
+                new Rect(0f, 0f, size, size),
+                new Vector2(0.5f, 0.5f),
+                100f,
+                0u,
+                SpriteMeshType.FullRect,
+                new Vector4(thickness, thickness, thickness, thickness));
+            sprite.hideFlags = HideFlags.HideAndDontSave;
+            return sprite;
         }
     }
 }

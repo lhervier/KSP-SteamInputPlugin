@@ -13,25 +13,23 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
     ///   - A "NORMAL" / "↓ MODESHIFT" subheader (mockup .kstate)
     ///   - One activator row (mockup .krow) per binding of the section's group
     /// </summary>
-    public class ZoneSectionBuilder
+    public class ModeBuilder
     {
-        private const int SectionLabelFontSize = 10;
-
         private CheatSheetViewModel _viewModel;
-        private ActivatorRowBuilder _activatorRowBuilder;
+        private ActivatorBuilder _activatorRowBuilder;
         private MouseLineBuilder _mouseLineBuilder;
 
-        public ZoneSectionBuilder(CheatSheetViewModel viewModel)
+        public ModeBuilder(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
-            this._activatorRowBuilder = new ActivatorRowBuilder(viewModel);
+            this._activatorRowBuilder = new ActivatorBuilder(viewModel);
             this._mouseLineBuilder = new MouseLineBuilder(viewModel);
         }
 
-        public ZoneSectionController Create(String groupId, bool modeshift)
+        public ModeController Create(String groupId, bool modeshift)
         {
-            var go = new GameObject("ZoneSection", typeof(RectTransform));
-            ZoneSectionController controller = go.AddComponent<ZoneSectionController>();
+            var go = new GameObject("Mode", typeof(RectTransform));
+            ModeController controller = go.AddComponent<ModeController>();
             controller.Initialize(_viewModel);
             controller.BindActivatorRowBuilder(_activatorRowBuilder);
             controller.BindMouseLineBuilder(_mouseLineBuilder);
@@ -45,7 +43,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
                 0,
                 (int)SteamInputPalette.DefaultPaddingBottom
             );
-            layout.spacing = SteamInputPalette.MainSectionSpacing;
+            layout.spacing = SteamInputPalette.ModeSpacing;
             layout.childAlignment = TextAnchor.UpperLeft;
             layout.childControlWidth = true;
             layout.childControlHeight = true;
@@ -57,12 +55,12 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
             if( modeshift )
             {
                 label = "↓ " + ModLocalization.GetString("SteamInput_sectionModeshift").ToUpperInvariant();
-                textColor = SteamInputPalette.SectionModeshift;
+                textColor = SteamInputPalette.ModeShiftColor;
             }
             else
             {
                 label = ModLocalization.GetString("SteamInput_sectionNormal").ToUpperInvariant();
-                textColor = SteamInputPalette.SectionNormal;
+                textColor = SteamInputPalette.ModeNormalColor;
             }
 
             // .kstate subheader as a child so activator rows can be stacked below it.
@@ -72,7 +70,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
             var sectionText = labelGo.AddComponent<Text>();
             sectionText.text = label;
             sectionText.font = HighLogic.UISkin.font;
-            sectionText.fontSize = SectionLabelFontSize;
+            sectionText.fontSize = SteamInputPalette.ModeLabelFontSize;
             sectionText.fontStyle = FontStyle.Bold;
             sectionText.color = textColor;
             sectionText.alignment = TextAnchor.MiddleLeft;
@@ -86,16 +84,17 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
             return controller;
         }
 
-        public class ZoneSectionController : BaseSteamInputController
+        public class ModeController : BaseSteamInputController
         {
-            private ActivatorRowBuilder _activatorRowBuilder;
+            private ActivatorBuilder _activatorRowBuilder;
             private MouseLineBuilder _mouseLineBuilder;
-            private MouseLineBuilder.MouseLineController _mouseLineController;
             private GameObject _headerLabel;
-            private readonly List<ActivatorRowBuilder.ActivatorRowController> _rowControllers
-                = new List<ActivatorRowBuilder.ActivatorRowController>();
+            
+            private MouseLineBuilder.MouseLineController _mouseLineController;
+            private readonly List<ActivatorBuilder.ActivatorController> _rowControllers
+                = new List<ActivatorBuilder.ActivatorController>();
 
-            public void BindActivatorRowBuilder(ActivatorRowBuilder builder)
+            public void BindActivatorRowBuilder(ActivatorBuilder builder)
             {
                 this._activatorRowBuilder = builder;
             }
@@ -122,7 +121,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
             public void UpdateGroupId(string groupId)
             {
                 // Rebuild the section content below the subheader (first child).
-                foreach( ActivatorRowBuilder.ActivatorRowController row in _rowControllers )
+                foreach( ActivatorBuilder.ActivatorController row in _rowControllers )
                 {
                     Destroy(row.gameObject);
                 }
@@ -144,7 +143,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
                 // Then one row per activator (e.g. a click on the joystick).
                 foreach( UIActivator activator in this.ViewModel.GetActivators(groupId) )
                 {
-                    ActivatorRowBuilder.ActivatorRowController row = _activatorRowBuilder.Create(activator);
+                    ActivatorBuilder.ActivatorController row = _activatorRowBuilder.Create(activator);
                     row.transform.SetParent(gameObject.transform, false);
                     row.transform.SetAsLastSibling();
                     _rowControllers.Add(row);

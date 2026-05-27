@@ -42,23 +42,80 @@ namespace com.github.lhervier.ksp.ui.styles
         public const float WindowWidth = 400f;
         public const float WindowHeight = 320f;
         public const float WindowBorderThickness = 1f;
+        
         // Colors
         public static readonly Color WindowBodyColor = new Color(20f / 255f, 20f / 255f, 20f / 255f);
         public static readonly Color WindowBorderColor = new Color(85f / 255f, 85f / 255f, 85f / 255f);
         
         // ===============================================================
-        // Main Content
+        // Main content
         // ===============================================================
 
         public const float MainScrollbarWidth = 8f;
         public const float MainPlaceholderHeight = 800f;
         
-        // Header of each zone
-        public const float MainZoneHeaderHeight = 22f;
-        public static readonly Color MainZoneHeaderColor = new Color(26f / 255f, 26f / 255f, 26f / 255f);
+        // ================================================================
+        // Physical zones on the controller
+        // ================================================================
+        
+        // Zone header
+        public const float ZoneHeaderHeight = 22f;
+        public const int ZoneHeaderBorderThickness = 1;
+        
+        public static readonly Color ZoneHeaderColor = new Color(26f / 255f, 26f / 255f, 26f / 255f);
+        public static readonly Color ZoneSeparatorColor = new Color(34f / 255f, 34f / 255f, 34f / 255f);
+        public static readonly Color ZoneNameColor = new Color(221f / 255f, 221f / 255f, 221f / 255f);
+        
+        // Zone body
+        public const float ZoneBodySpacing = 2f;
+        
+        // ================================================================
+        // Modes on an zone (= modes : normal or modeshift)
+        // ================================================================
+        public const float ModeSpacing = 2f;
+        public const int ModeLabelFontSize = 10;
 
-        // Sections
-        public const float MainSectionSpacing = 2f;
+        public static readonly Color ModeShiftColor = new Color(176f / 255f, 115f / 255f, 24f / 255f);
+        public static readonly Color ModeNormalColor = new Color(72f / 255f, 72f / 255f, 72f / 255f);
+        
+        // ===============================================================
+        // Activator = Button A, dpad north, click, ...
+        // ===============================================================
+
+        public const float ActivatorPaddingV = 2f;
+        public const float ActivatorSeparatorPaddingH = 4f;
+        
+        // Input icon
+        public const float ActivatorInputSpacing = 3f;
+        public const float ActivatorInputMinWidth = 100f;
+        public const int ActivatorInputFontSize = 11;
+        public const float ActivatorInputPaddingH = 5f;
+        public const int ActivatorInputBorderThickness = 1;
+            
+                
+        public static readonly Color ActivatorInputTextColor = new Color(232f / 255f, 232f / 255f, 232f / 255f);
+        public static readonly Color ActivatorInputBgColor = new Color(42f / 255f, 42f / 255f, 42f / 255f);
+        public static readonly Color ActivatorInputBorderColor = new Color(85f / 255f, 85f / 255f, 85f / 255f);
+
+        // Long press chip
+        public const int ActivatorPressFontSize = 9;
+        public const int ActivatorPressBorderThickness = 1;
+        
+        public static readonly Color ActivatorPressBgColor = new Color(34f / 255f, 34f / 255f, 34f / 255f);
+        public static readonly Color ActivatorPressTextColor = new Color(85f / 255f, 85f / 255f, 85f / 255f);
+        public static readonly Color ActivatorPressBorderColor = new Color(51f / 255f, 51f / 255f, 51f / 255f);
+
+        // Separator
+        public const int ActivatorSeparatorFontSize = 11;
+        
+        public static readonly Color ActivatorSeparatorColor = new Color(56f / 255f, 56f / 255f, 56f / 255f);
+        
+        // Action text
+        public const int ActivatorActionFontSize = 12;
+        
+        public static readonly Color ActivatorActionColor = new Color(170f / 255f, 170f / 255f, 170f / 255f);
+        public static readonly Color ActivatorActionHighlightColor = new Color(141f / 255f, 190f / 255f, 69f / 255f);
+        public static readonly Color ActivatorNoteColor = new Color(72f / 255f, 72f / 255f, 72f / 255f);
 
         // ===============================================================
         // Title bar
@@ -69,6 +126,7 @@ namespace com.github.lhervier.ksp.ui.styles
         public const float TitleBarActionGroupBorderThickness = 1f;
         
         // Colors
+        public static readonly Color TitleBarBackgroundColor = new Color(46f / 255f, 46f / 255f, 46f / 255f);
         public static readonly Color TitleBarLabelColor = new Color(232f / 255f, 232f / 255f, 232f / 255f);
         public static readonly Color TitleBarSeparatorColor = new Color(68f / 255f, 68f / 255f, 68f / 255f);
         public static readonly Color TitleBarActionGroupBorderColor = new Color(74f / 255f, 110f / 255f, 32f / 255f);
@@ -87,99 +145,69 @@ namespace com.github.lhervier.ksp.ui.styles
         public const float MenuPaddingTop = 4f;
         public const float MenuPaddingBottom = 4f;
         public const float MenuArrowsSpacing = 2f;
+        public const float MenuThickness = 1f;
 
         public static readonly Color MenuTitleColor = new Color(85f / 255f, 85f / 255f, 85f / 255f);
+        public static readonly Color MenuBackgroundColor = new Color(30f / 255f, 30f / 255f, 30f / 255f);
         
-
-
-
         
-        public const float IconTitleGap = 6f;
-        public static readonly Color Header = new Color(46f / 255f, 46f / 255f, 46f / 255f);
-        public static readonly Color TitleText = new Color(232f / 255f, 232f / 255f, 232f / 255f);
-        public static readonly Color Label = new Color(204f / 255f, 204f / 255f, 204f / 255f);
-        public static readonly Color Muted = new Color(136f / 255f, 136f / 255f, 136f / 255f);
-        public static readonly Color ControllerName = new Color(85f / 255f, 85f / 255f, 85f / 255f);
-        public static readonly Color Accent = new Color(141f / 255f, 190f / 255f, 69f / 255f);
-        public static readonly Color BadgeBorder = new Color(74f / 255f, 110f / 255f, 32f / 255f);
-        public const float BadgeBorderThickness = 1f;
-        public static readonly Color Warn = new Color(0.95f, 0.82f, 0.23f);
-        public static readonly Color Button = new Color(56f / 255f, 56f / 255f, 56f / 255f);
-        
-        public static readonly Color FieldBackground = new Color(42f / 255f, 42f / 255f, 42f / 255f);
-        public static readonly Color ButtonHover = new Color(72f / 255f, 72f / 255f, 72f / 255f);
-        /// <summary>.kmenu background (#1e1e1e) — lighter than window body (#141414).</summary>
-        public static readonly Color ZonesMenuBackground = new Color(30f / 255f, 30f / 255f, 30f / 255f);
-        public static readonly Color MenuBox = ZonesMenuBackground;
-        
-        /// <summary>.kmenu-sep (#2a2a2a).</summary>
-        
-
-        // Physical zones (ksp_cheatsheet *.html — .kzone, .kzh, .kstate)
-        public static readonly Color ZoneHeaderBg = new Color(26f / 255f, 26f / 255f, 26f / 255f);
-        public static readonly Color ZoneSeparator = new Color(34f / 255f, 34f / 255f, 34f / 255f);
-        public static readonly Color ZoneName = new Color(221f / 255f, 221f / 255f, 221f / 255f);
-        public static readonly Color SectionNormal = new Color(72f / 255f, 72f / 255f, 72f / 255f);
-        public static readonly Color SectionModeshift = new Color(176f / 255f, 115f / 255f, 24f / 255f);
-        public const float ZoneHeaderHeight = 22f;
-        public const float ZoneSectionSpacing = 2f;
-        public const float ZoneBodyPaddingBottom = 5f;
-
         // ===============================================================
-        // Activator rows (ksp_cheatsheet *.html — .krow, .kkbd, .kpress, .ksep, .kaction, .knote)
+        // Rows for mouse
         // ===============================================================
-        public const float RowVerticalPadding = 2f;        // .krow padding-y
-        public const float RowKeyMinWidth = 100f;          // .kkey min-width
-        public const float RowKeySpacing = 3f;             // .kkey gap (kkbd <-> kpress)
-        public const float RowChipBorderThickness = 1f;
-        public const float RowChipPaddingH = 5f;           // .kkbd padding-x
-        public const float RowSeparatorPaddingH = 4f;      // .ksep padding-x
 
-        public const int RowKeyFontSize = 11;              // .kkbd
-        public const int RowPressFontSize = 9;             // .kpress
-        public const int RowSeparatorFontSize = 11;        // .ksep
-        public const int RowActionFontSize = 12;           // .kaction
-
-        // .kkbd : text #e8e8e8, fill #2a2a2a (FieldBackground), border #555 (WindowBorderColor)
-        public static readonly Color RowKeyTextColor = new Color(232f / 255f, 232f / 255f, 232f / 255f);
-        public static readonly Color RowKeyBgColor = FieldBackground;
-        public static readonly Color RowKeyBorderColor = WindowBorderColor;
-        // .kpress : text #555, fill #222, border #333
-        public static readonly Color RowPressTextColor = new Color(85f / 255f, 85f / 255f, 85f / 255f);
-        public static readonly Color RowPressBgColor = new Color(34f / 255f, 34f / 255f, 34f / 255f);
-        public static readonly Color RowPressBorderColor = new Color(51f / 255f, 51f / 255f, 51f / 255f);
-        // .ksep #383838, .kaction #aaa, .kaction.hi (Accent), .knote #484848
-        public static readonly Color RowSeparatorColor = new Color(56f / 255f, 56f / 255f, 56f / 255f);
-        public static readonly Color RowActionColor = new Color(170f / 255f, 170f / 255f, 170f / 255f);
-        public static readonly Color RowActionHighlightColor = Accent;
-        public static readonly Color RowNoteColor = new Color(72f / 255f, 72f / 255f, 72f / 255f);
-
-        // .kmouse-line : italic banner for mouse-mode groups, text #555.
         public const int MouseLineFontSize = 12;
-        public const float MouseLineVerticalPadding = 4f;
+        public const float MouseLinePaddingV = 4f;
+        
         public static readonly Color MouseLineColor = new Color(85f / 255f, 85f / 255f, 85f / 255f);
 
         // ===============================================================
-        // Config selector (ksp_cheatsheet *.html — .kcfg, .kcombo, .kcombo-item)
+        // Combo box for contgroller config selection
         // ===============================================================
-        public const float SelectorVerticalPadding = 6f;     // .kcfg padding-y
-        public const float ComboHeight = 22f;                 // .kcombo-btn height
-        public const float ComboPaddingH = 8f;                // .kcombo-btn padding-x
-        public const float ComboDropdownGap = 2f;             // gap between button and list
-        public const float ComboDropdownMaxHeight = 180f;     // .kcombo-list max-height
-        public const int ComboFontSize = 12;                  // .kcombo-btn
-        public const int ComboCaretFontSize = 10;             // .kcombo-caret
-        public static readonly Color ComboTextColor = TitleText;     // #e8e8e8
-        public static readonly Color ComboCaretColor = Muted;        // #888
+        
+        // Combo itself
+        public const int ComboFontSize = 12;
+        public const int ComboCaretFontSize = 10;
+        public const float ComboHeight = 22f;
+        public const float ComboPaddingH = 8f;
+        public const float ComboPaddingV = 6f;
+        public const float ComboDropdownMaxHeight = 180f;
+        
+        public static readonly Color ComboTextColor = new Color(232f / 255f, 232f / 255f, 232f / 255f);
+        public static readonly Color ComboCaretColor = new Color(136f / 255f, 136f / 255f, 136f / 255f);
 
-        public const float ComboItemPaddingH = 9f;            // .kcombo-item padding-x
-        public const float ComboItemPaddingV = 4f;            // .kcombo-item padding-y
-        public const int ComboItemTitleFontSize = 12;         // .kcombo-title
-        public const int ComboItemTypeFontSize = 10;          // .kcombo-type
-        public static readonly Color ComboItemTitleColor = ZoneName;          // #ddd
-        public static readonly Color ComboItemTitleSelectedColor = Accent;    // #8dbe45
+        // Combo item
+        public const int ComboItemTitleFontSize = 12;
+        public const int ComboItemTypeFontSize = 10;
+        public const float ComboItemPaddingH = 9f;
+        public const float ComboItemPaddingV = 4f;
+        
+        public static readonly Color ComboItemTitleColor = new Color(221f / 255f, 221f / 255f, 221f / 255f);
+        public static readonly Color ComboItemTitleSelectedColor = new Color(141f / 255f, 190f / 255f, 69f / 255f);
         public static readonly Color ComboItemTypeColor = new Color(102f / 255f, 102f / 255f, 102f / 255f); // #666
-        public static readonly Color ComboItemNoneColor = Muted;              // #888 (italic ‹none›)
-        public static readonly Color ComboItemHoverColor = FieldBackground;   // #2a2a2a
+        public static readonly Color ComboItemNoneColor = new Color(136f / 255f, 136f / 255f, 136f / 255f);
+        public static readonly Color ComboItemHoverColor = new Color(42f / 255f, 42f / 255f, 42f / 255f);
+
+
+
+
+
+
+        
+        
+
+
+
+
+
+
+        
+        public static readonly Color Label = new Color(204f / 255f, 204f / 255f, 204f / 255f);
+        public static readonly Color Muted = new Color(136f / 255f, 136f / 255f, 136f / 255f);
+        public static readonly Color Accent = new Color(141f / 255f, 190f / 255f, 69f / 255f);
+        public static readonly Color Warn = new Color(0.95f, 0.82f, 0.23f);
+        public static readonly Color Button = new Color(56f / 255f, 56f / 255f, 56f / 255f);
+        
+        public static readonly Color ButtonHover = new Color(72f / 255f, 72f / 255f, 72f / 255f);
+        public static readonly Color MenuBox = new Color(30f / 255f, 30f / 255f, 30f / 255f);
     }
 }

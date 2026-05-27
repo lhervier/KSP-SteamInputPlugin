@@ -1,7 +1,7 @@
 using UnityEngine;
 using com.github.lhervier.ksp.ui.styles;
 
-namespace com.github.lhervier.ksp.ui.ugui.styles
+namespace com.github.lhervier.ksp.ui.ugui.sprites
 {
     /// <summary>Sprites for the zones menu (the dropdown opened from the title bar's "..." button).</summary>
     internal static class SpritesZonesMenu
@@ -16,10 +16,10 @@ namespace com.github.lhervier.ksp.ui.ugui.styles
                     return _chromeSprite;
                 }
 
-                var thickness = (int)ZonesMenuStyles.PanelBorder;
+                var thickness = (int) SteamInputPalette.MenuThickness;
                 var size = 2 * thickness + 1;
                 var tex = SteamInputStyleTextures.MakeBorderTexture(
-                    SteamInputPalette.ZonesMenuBackground,
+                    SteamInputPalette.MenuBackgroundColor,
                     SteamInputPalette.WindowBorderColor,
                     thickness
                 );

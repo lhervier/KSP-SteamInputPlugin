@@ -8,31 +8,21 @@ namespace com.github.lhervier.ksp.ui.styles
         public Texture2D Header;
         public Texture2D Border;
         public Texture2D Button;
-        public Texture2D FieldBackground;
         public Texture2D ButtonHover;
         public Texture2D MenuBox;
-        public Texture2D ZonesMenuBackground;
         public Texture2D MenuSeparator;
-        public Texture2D ZoneHeaderBackground;
-        public Texture2D ZoneHeaderBottomLine;
-        public Texture2D ZoneSeparatorLine;
-
+        
         public static SteamInputStyleTextures Create()
         {
             return new SteamInputStyleTextures
             {
                 Body = MakeTexture(SteamInputPalette.WindowBodyColor),
-                Header = MakeTexture(SteamInputPalette.Header),
+                Header = MakeTexture(SteamInputPalette.TitleBarBackgroundColor),
                 Border = MakeTexture(SteamInputPalette.WindowBorderColor),
                 Button = MakeTexture(SteamInputPalette.Button),
-                FieldBackground = MakeTexture(SteamInputPalette.FieldBackground),
                 ButtonHover = MakeTexture(SteamInputPalette.ButtonHover),
                 MenuBox = MakeTexture(SteamInputPalette.MenuBox),
-                ZonesMenuBackground = MakeTexture(SteamInputPalette.ZonesMenuBackground),
                 MenuSeparator = MakeTexture(SteamInputPalette.DefaultSeparatorColor),
-                ZoneHeaderBackground = MakeTexture(SteamInputPalette.ZoneHeaderBg),
-                ZoneHeaderBottomLine = MakeTexture(SteamInputPalette.ZoneSeparator),
-                ZoneSeparatorLine = MakeTexture(SteamInputPalette.ZoneSeparator),
             };
         }
 
