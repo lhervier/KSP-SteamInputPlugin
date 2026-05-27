@@ -361,5 +361,98 @@ namespace com.github.lhervier.ksp.Tests
 
             Assert.That(vm.IsMouseGroup("does-not-exist"), Is.False);
         }
+
+        // ===============================================================================================
+        // IsSectionEmpty / HasNonEmptySection
+        // ===============================================================================================
+
+        private const string TwoGroupsVdf = @"
+            ""controller_mappings""
+            {
+                ""group""
+                {
+                    ""id""    ""empty""
+                    ""mode""  ""four_buttons""
+                }
+                ""group""
+                {
+                    ""id""    ""withBinding""
+                    ""mode""  ""four_buttons""
+                    ""inputs""
+                    {
+                        ""button_a""
+                        {
+                            ""activators""
+                            {
+                                ""Full_Press""
+                                {
+                                    ""bindings""
+                                    {
+                                        ""binding""    ""key_press SPACE, Stage, , ""
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                ""group""
+                {
+                    ""id""    ""mouse""
+                    ""mode""  ""joystick_mouse""
+                }
+            }
+        ";
+
+        [Test]
+        public void IsSectionEmpty_True_WhenGroupHasNoBinding()
+        {
+            Assert.That(NewViewModelWithVdf(TwoGroupsVdf).IsSectionEmpty("empty"), Is.True);
+        }
+
+        [Test]
+        public void IsSectionEmpty_False_WhenGroupHasBinding()
+        {
+            Assert.That(NewViewModelWithVdf(TwoGroupsVdf).IsSectionEmpty("withBinding"), Is.False);
+        }
+
+        [Test]
+        public void IsSectionEmpty_False_WhenMouseGroup_EvenWithoutBinding()
+        {
+            Assert.That(NewViewModelWithVdf(TwoGroupsVdf).IsSectionEmpty("mouse"), Is.False);
+        }
+
+        [Test]
+        public void IsSectionEmpty_True_WhenGroupIdNullOrMissing()
+        {
+            var vm = NewViewModelWithVdf(TwoGroupsVdf);
+            Assert.That(vm.IsSectionEmpty(null), Is.True);
+            Assert.That(vm.IsSectionEmpty("does-not-exist"), Is.True);
+        }
+
+        [Test]
+        public void HasNonEmptySection_False_WhenAllSectionsEmpty()
+        {
+            var vm = NewViewModelWithVdf(TwoGroupsVdf);
+            var zone = new UIPresetZone
+            {
+                GroupId = "empty",
+                ModeshiftGroupIds = new List<string> { "does-not-exist" },
+            };
+
+            Assert.That(vm.HasNonEmptySection(zone), Is.False);
+        }
+
+        [Test]
+        public void HasNonEmptySection_True_WhenOnlyModeshiftIsNonEmpty()
+        {
+            var vm = NewViewModelWithVdf(TwoGroupsVdf);
+            var zone = new UIPresetZone
+            {
+                GroupId = "empty",
+                ModeshiftGroupIds = new List<string> { "withBinding" },
+            };
+
+            Assert.That(vm.HasNonEmptySection(zone), Is.True);
+        }
     }
 }

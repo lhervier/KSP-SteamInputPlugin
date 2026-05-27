@@ -1,31 +1,26 @@
 using UnityEngine;
 using UnityEngine.UI;
-using com.github.lhervier.ksp;
 using com.github.lhervier.ksp.ui.styles;
-using com.github.lhervier.ksp.ui.ugui.styles;
 using com.github.lhervier.ksp.ui.model;
-using System;
+using System.Collections.Generic;
 
 namespace com.github.lhervier.ksp.ui.ugui.body
 {
     /// <summary>
-    /// Displays one UIPhysicalZone:
-    ///   - Header row with the zone label (e.g. "STICK GAUCHE")
-    ///   - "NORMAL" section if the zone has a GroupId
-    ///   - "↓ MODESHIFT" section if the zone has a ModeshiftGroupId
-    /// Styled to match the mockup .kzone / .kzh / .kstate rules.
+    /// Builds the body of one zone as an ordered list of sections: the normal section first,
+    /// then one per modeshift group. Empty sections are skipped, so normal and modeshift are
+    /// handled the same way (a section is empty when its group is not a mouse group and has no
+    /// binding — see <see cref="CheatSheetViewModel.IsSectionEmpty"/>).
     /// </summary>
     public class ZoneBodyBuilder
     {
         private CheatSheetViewModel _viewModel;
         private ZoneSectionBuilder _zoneSectionBuilder;
-        private ModeshiftSectionsBuilder _modeshiftZoneSectionsBuilder;
 
         public ZoneBodyBuilder(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             this._zoneSectionBuilder = new ZoneSectionBuilder(viewModel);
-            this._modeshiftZoneSectionsBuilder = new ModeshiftSectionsBuilder(viewModel);
         }
 
         public ZoneBodyController Create(UIPresetZone zone)
@@ -34,7 +29,6 @@ namespace com.github.lhervier.ksp.ui.ugui.body
             ZoneBodyController controller = go.AddComponent<ZoneBodyController>();
             controller.Initialize(_viewModel);
             controller.BindZoneSectionBuilder(_zoneSectionBuilder);
-            controller.BindModeshiftSectionsBuilder(_modeshiftZoneSectionsBuilder);
 
             // Horizontal padding (Option A: padding on the container, not per-section)
             // Vertical padding-bottom matches the .kzone body breathing room.
@@ -60,64 +54,79 @@ namespace com.github.lhervier.ksp.ui.ugui.body
         public class ZoneBodyController : BaseSteamInputController
         {
             private ZoneSectionBuilder _zoneSectionBuilder;
-            private ModeshiftSectionsBuilder _modeshiftSectionsBuilder;
-            private ZoneSectionBuilder.ZoneSectionController _normalSectionController;
-            private ModeshiftSectionsBuilder.ModeshiftSectionsController _modeshiftSectionsController;
+            private readonly Dictionary<string, ZoneSectionBuilder.ZoneSectionController> _sections
+                = new Dictionary<string, ZoneSectionBuilder.ZoneSectionController>();
 
             public void BindZoneSectionBuilder(ZoneSectionBuilder builder)
             {
                 this._zoneSectionBuilder = builder;
             }
-            public void BindModeshiftSectionsBuilder(ModeshiftSectionsBuilder modeshiftSectionsBuilder)
-            {
-                this._modeshiftSectionsBuilder = modeshiftSectionsBuilder;
-            }
 
             public void UpdateZone(UIPresetZone zone)
             {
-                this.UpdateNormalSection(zone);
-                this.UpdateModeshiftSections(zone);
-            }
-
-            public void UpdateNormalSection(UIPresetZone zone)
-            {
-                // No normal section
-                if( zone.GroupId == null )
+                // The desired sections in display order: normal group first, then each modeshift
+                // group, keeping only the non-empty ones.
+                List<SectionKey> sections = new List<SectionKey>();
+                if( !ViewModel.IsSectionEmpty(zone.GroupId) )
                 {
-                    if( _normalSectionController != null )
+                    sections.Add(new SectionKey(zone.GroupId, false));
+                }
+                foreach( string modeshiftGroupId in zone.ModeshiftGroupIds )
+                {
+                    if( !ViewModel.IsSectionEmpty(modeshiftGroupId) )
                     {
-                        Destroy(_normalSectionController.gameObject);
-                        _normalSectionController = null;
+                        sections.Add(new SectionKey(modeshiftGroupId, true));
                     }
-                    return;
                 }
 
-                // No existing normal section => Create it
-                if( _normalSectionController == null )
+                // Destroy sections that are no longer present.
+                HashSet<string> desiredIds = new HashSet<string>();
+                foreach( SectionKey section in sections )
                 {
-                    _normalSectionController = this._zoneSectionBuilder.Create(zone.GroupId, false);
-                    _normalSectionController.transform.SetParent(gameObject.transform);
-                    _normalSectionController.transform.SetAsFirstSibling();
-                    return;
+                    desiredIds.Add(section.GroupId);
+                }
+                List<string> toRemove = new List<string>();
+                foreach( string groupId in _sections.Keys )
+                {
+                    if( !desiredIds.Contains(groupId) )
+                    {
+                        toRemove.Add(groupId);
+                    }
+                }
+                foreach( string groupId in toRemove )
+                {
+                    Destroy(_sections[groupId].gameObject);
+                    _sections.Remove(groupId);
                 }
 
-                // Existing normal section => Update it
-                _normalSectionController.UpdateGroupId(zone.GroupId);
+                // Create or update sections, then impose the visual order via SetSiblingIndex.
+                for( int i = 0; i < sections.Count; i++ )
+                {
+                    SectionKey section = sections[i];
+                    if( !_sections.TryGetValue(section.GroupId, out ZoneSectionBuilder.ZoneSectionController controller) )
+                    {
+                        controller = _zoneSectionBuilder.Create(section.GroupId, section.Modeshift);
+                        controller.transform.SetParent(gameObject.transform, false);
+                        _sections[section.GroupId] = controller;
+                    }
+                    else
+                    {
+                        controller.UpdateGroupId(section.GroupId);
+                    }
+                    controller.transform.SetSiblingIndex(i);
+                }
             }
 
-            public void UpdateModeshiftSections(UIPresetZone zone)
+            private struct SectionKey
             {
-                // No existing modeshift sections => Create them
-                if( _modeshiftSectionsController == null )
-                {
-                    _modeshiftSectionsController = this._modeshiftSectionsBuilder.Create(zone);
-                    _modeshiftSectionsController.transform.SetParent(gameObject.transform);
-                    _modeshiftSectionsController.transform.SetAsLastSibling();
-                    return;
-                } 
+                public readonly string GroupId;
+                public readonly bool Modeshift;
 
-                // Existing modeshift sections => Update them
-                _modeshiftSectionsController.UpdateZone(zone);
+                public SectionKey(string groupId, bool modeshift)
+                {
+                    GroupId = groupId;
+                    Modeshift = modeshift;
+                }
             }
         }
     }

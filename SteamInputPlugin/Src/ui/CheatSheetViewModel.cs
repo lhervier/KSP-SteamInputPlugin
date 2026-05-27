@@ -454,6 +454,40 @@ namespace com.github.lhervier.ksp.ui
             return group != null && MouseModes.Contains(group.Mode);
         }
 
+        /// <summary>
+        /// A section is empty when its group is not a mouse group and carries no binding.
+        /// Empty sections (normal or modeshift) are hidden; see <see cref="HasNonEmptySection"/>.
+        /// </summary>
+        public bool IsSectionEmpty(string groupId)
+        {
+            if( string.IsNullOrEmpty(groupId) )
+            {
+                return true;
+            }
+            if( IsMouseGroup(groupId) )
+            {
+                return false;
+            }
+            return GetActivators(groupId).Count == 0;
+        }
+
+        /// <summary>True if the zone has at least one non-empty section (normal or modeshift).</summary>
+        public bool HasNonEmptySection(UIPresetZone zone)
+        {
+            if( !IsSectionEmpty(zone.GroupId) )
+            {
+                return true;
+            }
+            foreach( string modeshiftGroupId in zone.ModeshiftGroupIds )
+            {
+                if( !IsSectionEmpty(modeshiftGroupId) )
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public List<UIActivator> GetActivators(string groupId)
         {
             List<UIActivator> activators = new List<UIActivator>();

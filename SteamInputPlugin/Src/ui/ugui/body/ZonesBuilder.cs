@@ -67,10 +67,9 @@ namespace com.github.lhervier.ksp.ui.ugui.body
             {
                 if( zones == null ) return;
 
-                // A zone is rendered in the body iff the user has set it visible AND it exists in
-                // the current action group (= has at least a GroupId or a ModeshiftGroupId).
-                // The viewModel now includes ALL zones in _physicalZones (so the menu can configure
-                // them globally), so we have to filter here.
+                // A zone is rendered in the body iff the user has set it visible AND it has at least
+                // one non-empty section in the current action group. The viewModel includes ALL
+                // zones in _physicalZones (so the menu can configure them globally), so we filter here.
 
                 // 1. Set of keys to render
                 var newKeys = new HashSet<EGamepadZone>();
@@ -119,10 +118,10 @@ namespace com.github.lhervier.ksp.ui.ugui.body
                 }
             }
 
-            private static bool ShouldRender(UIPresetZone zone)
+            private bool ShouldRender(UIPresetZone zone)
             {
-                // Skip zones that have no group at all (not part of the current action group)
-                return !string.IsNullOrEmpty(zone.GroupId) || zone.ModeshiftGroupIds.Count > 0;
+                // Skip zones whose sections are all empty (incl. zones with no group at all).
+                return ViewModel.HasNonEmptySection(zone);
             }
         }
     }
