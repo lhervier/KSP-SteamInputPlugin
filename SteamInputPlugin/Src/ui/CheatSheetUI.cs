@@ -1,6 +1,6 @@
 using UnityEngine;
 using KSP.UI.Screens;
-using System;
+using System.Collections;
 using com.github.lhervier.ksp.ui.styles;
 using com.github.lhervier.ksp.ui.imgui;
 using com.github.lhervier.ksp.ui.ugui;
@@ -39,6 +39,11 @@ namespace com.github.lhervier.ksp.ui
             
             uguiWindow = new CheatSheetUGUIWindow();
             uguiWindow.Initialize(viewModel);
+            
+            // When KSP dismisses the popup itself (Escape opens the pause menu and closes it),
+            // resync as if the user had closed it: hide the rest and reset the toolbar toggle.
+            uguiWindow.OnClosed.Add(CloseWindow);
+            uguiWindow.OnPositionCaptured.Add(OnWindowPositionCaptured);
 
             LOGGER.LogInfo("Start: Started");
         }
@@ -46,6 +51,8 @@ namespace com.github.lhervier.ksp.ui
         public void OnDestroy()
         {
             LOGGER.LogInfo("OnDestroy");
+            uguiWindow?.OnPositionCaptured.Remove(OnWindowPositionCaptured);
+            uguiWindow?.OnClosed.Remove(CloseWindow);
             GameEvents.onGUIApplicationLauncherReady.Remove(OnGUIAppLauncherReady);
             uguiWindow?.Destroy();
             imguiWindow?.Destroy();
@@ -106,6 +113,11 @@ namespace com.github.lhervier.ksp.ui
             }
         }
 
+        public void OnWindowPositionCaptured(Vector2 position)
+        {
+            SteamInputGlobalSettings.SetWindowPosition(position);
+        }
+
         // ===============================================================
 
         private void HideInternal()
@@ -118,6 +130,17 @@ namespace com.github.lhervier.ksp.ui
         {
             imguiWindow?.Show();
             uguiWindow?.Show();
+            // Restore the dragged position one frame later: KSP repositions the dialog during
+            // the spawn frame, so applying it now would be overwritten.
+            StartCoroutine(ApplyUguiPositionAfterLayout());
+        }
+
+        private IEnumerator ApplyUguiPositionAfterLayout()
+        {
+            yield return null;
+            if( SteamInputGlobalSettings.TryGetWindowPosition(out Vector2 saved) ) {
+                uguiWindow?.SetPosition(saved);
+            }
         }
 
         // ===============================================================
