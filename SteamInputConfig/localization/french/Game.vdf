@@ -3,7 +3,7 @@
     {{! Camera }}
     "Game_Camera_cameraDown"		        "Caméra vers le bas"
     "Game_Camera_cameraLeft"		        "Caméra vers la gauche"
-    "Game_Camera_cameraView"		        "Vue de la caméra"
+    "Game_Camera_cameraView"		        "Vue intérieure/extérieure"
     "Game_Camera_cameraRight"	            "Caméra vers la droite"
     "Game_Camera_cameraUp"		            "Caméra vers le haut"
     "Game_Camera_mouseView"		            "Vue souris"

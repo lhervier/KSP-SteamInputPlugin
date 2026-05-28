@@ -3,7 +3,7 @@
     {{! Camera }}
     "Game_Camera_cameraDown"		        "Camera Down"
     "Game_Camera_cameraLeft"		        "Camera Left"
-    "Game_Camera_cameraView"		        "Camera View"
+    "Game_Camera_cameraView"		        "Internal/External view"
     "Game_Camera_cameraRight"	            "Camera Right"
     "Game_Camera_cameraUp"		            "Camera Up"
     "Game_Camera_mouseView"		            "Mouse View"
