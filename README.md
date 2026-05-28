@@ -125,7 +125,7 @@ If something goes wrong:
 
 Separate VDF files are provided per language even though VDF can carry localization; getting Steam’s localization path to work reliably is still **TODO** — contributions welcome.
 
-On Linux, non–US English keyboard layouts (e.g. non-QWERTY) may cause issues; see [this Bazzite report](https://github.com/ublue-os/bazzite/issues/3464).
+On Linux, non–US English keyboard layouts (e.g. non-QWERTY) may cause issues; see [this report](https://github.com/ValveSoftware/steam-for-linux/issues/13220).
 
 ## Support
 
