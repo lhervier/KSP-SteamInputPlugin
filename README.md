@@ -66,8 +66,8 @@ You can either:
 
 - Launch the game and bind everything in Steam’s controller UI, or  
 - Use one of the pre-built layouts shipped with the mod:
-  - `ksp_steaminput_steamcontroller_[language].vdf` — Steam Controller v1
-  - `ksp_steaminput_steamcontroller_v2_[language].vdf` — Steam Controller v2
+  - `ksp_steaminput_steamcontroller_[language].vdf` — Legacy Steam Controller
+  - `ksp_steaminput_steamcontroller_v2_[language].vdf` — Steam Controller
   - `ksp_steaminput_hori_[language].vdf` — HORIPAD for Steam
   - `ksp_steaminput_ps4_[language].vdf` — PlayStation-style pads (see requirements above)
   - `ksp_steaminput_xboxelite_[language].vdf` — Xbox Elite (see requirements above)
