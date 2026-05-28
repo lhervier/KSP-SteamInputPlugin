@@ -30,11 +30,11 @@
     "Vessel_System_fullThrottle"		    "Poussée maximale"
 	"Vessel_System_landingGears"		    "Trains d'atterrissage"
 	"Vessel_System_lights"				    "Eclairage"
-    "Vessel_System_nextActionGroup"	        "Ensemble d'actions suivant"
-    "Vessel_System_precisionControls"	    "Activer/Désactiver les contrôles précis"
-    "Vessel_System_prevActionGroup"	        "Ensemble d'actions précédent"
-	"Vessel_System_RCS"				        "Activer/Désactiver RCS"
-	"Vessel_System_SAS"				        "Activer/Désactiver SAS"
+    "Vessel_System_nextActionGroup"	        "Ensemble d'actions suiv."
+    "Vessel_System_precisionControls"	    "Act./Désact. ctrls précis"
+    "Vessel_System_prevActionGroup"	        "Ensemble d'actions préc."
+	"Vessel_System_RCS"				        "Act./Désact. RCS"
+	"Vessel_System_SAS"				        "Act./Désact. SAS"
 	"Vessel_System_throttleCutoff"		    "Couper de la poussée"
 	
     {{! Wheels }}

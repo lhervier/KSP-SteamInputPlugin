@@ -4,7 +4,7 @@
     "FreeIva_crouch"					"S'accroupir"
     "FreeIva_goToEVA"					"Partir en EVA"
     "FreeIva_changeKerbal"				"Changer de Kerbal"
-    "FreeIva_unbuckle"					"Détacher"
+    "FreeIva_unbuckle"					"Détacher (FreeIVA)"
     
     {{! Move }}
     "FreeIva_Move_backward"	            "Arrière"

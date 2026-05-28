@@ -4,7 +4,7 @@
     "FreeIva_crouch"					"Crouch"
     "FreeIva_goToEVA"					"Go to EVA"
     "FreeIva_changeKerbal"				"Change Kerbal"
-    "FreeIva_unbuckle"					"Unbuckle"
+    "FreeIva_unbuckle"					"Unbuckle (FreeIVA)"
     
     {{! Move }}
     "FreeIva_Move_backward"	            "Backward"

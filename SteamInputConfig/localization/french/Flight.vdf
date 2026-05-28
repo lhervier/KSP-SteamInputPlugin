@@ -3,7 +3,7 @@
     {{! Other }}
     "Flight_Other_staging"						"Larguer"
     "Flight_Other_translateRotate"				"Translater/Tourner"
-    "Flight_Other_translationMode"				"Activer/Désactiver la translation"
+    "Flight_Other_translationMode"				"Act./Désact. translation"
 
     {{! Rotate }}
     "Flight_Rotate_pitchDown"					"Tangage vers le bas"
