@@ -41,8 +41,8 @@ To view logs in near real time, open the debug console (**Alt+F12**), go to **De
 - Steam client installed and running
 - Kerbal Space Program 1.12 (Steam build)
 - A Steam Input–compatible controller with **back buttons** (or equivalent), for the bundled layouts:
-  - Steam Controller (v1)
-  - Steam Controller (v2)
+  - Steam Controller
+  - Legacy Steam Controller
   - HORIPAD for Steam
   - Xbox Elite controller — use the default profile so Steam can use the paddles; install **Xbox enhanced feature support** from Steam (see **Settings** → **Controller**).
   - DualShock 4 / DualSense — only with extra rear inputs mapped (e.g. to stick clicks), or a model with back buttons; see **Troubleshooting** below.
