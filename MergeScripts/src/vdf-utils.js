@@ -307,7 +307,6 @@ function _processRefs(obj, vdfPath, hbsContext, configRoot) {
  * @throws {Error} If the file cannot be loaded or parsed
  */
 function _loadVdfFile(configRoot, vdfPath, hbsContext) {
-    console.log('Loading VDF file:', vdfPath);
     if( !vdfPath.startsWith('/') ) {
         throw new Error(`VDF path must start with "/", got ${vdfPath}`);
     }
