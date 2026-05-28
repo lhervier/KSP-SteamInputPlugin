@@ -7,10 +7,10 @@
     "Set_MapFlight"				"Map (Flight)"
     "Set_Docking"				"Docking"
     "Set_MapDocking"			"Map (Docking)"
-    "Set_Eva"					"Extra Vehicular Activity"
-    "Set_MapEva"				"Map (Extra Vehicular Activity)"
+    "Set_Eva"					"EVA"
+    "Set_MapEva"				"Map (EVA)"
     "Set_EvaConstructionMode"	"EVA Construction Mode"
-    "Set_Iva"					"Intra Vehicular Activity"
+    "Set_Iva"					"IVA"
     "Set_FreeIva"				"Free IVA"
     "Set_MissionBuilder"		"Mission Builder"
 }

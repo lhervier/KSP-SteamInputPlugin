@@ -8,8 +8,10 @@
 			{{! Left Joystick }}
 			{{#if (true backButtons)}}
 				"/groups/joystick/eva-move.vdf"							"joystick active"
+				"/groups/joystick/eva-run.vdf"							"joystick active modeshift"
 			{{else}}
 				"/groups/joystick/eva-move.vdf?with-mod"				"joystick active"
+				"/groups/joystick/eva-run.vdf?with-mod"					"joystick active modeshift"
 			{{/if}}
 			
 			{{! Right Joystick }}

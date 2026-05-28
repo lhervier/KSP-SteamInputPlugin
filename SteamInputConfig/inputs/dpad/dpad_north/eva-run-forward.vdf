@@ -1,0 +1,17 @@
+"ref"
+{
+    "dpad_north"
+    {
+        "activators"
+        {
+            "Full_Press"
+            {
+                "#ref"				"/bindings/Kerbals/CharacterControls/forward.vdf"
+            }
+            "Full_Press"
+            {
+                "#ref"				"/bindings/Kerbals/CharacterControls/run-forward.vdf"
+            }
+        }
+    }
+}

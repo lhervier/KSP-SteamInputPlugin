@@ -1,0 +1,17 @@
+"ref"
+{
+    "dpad_east"
+    {
+        "activators"
+        {
+            "Full_Press"
+            {
+                "#ref"				"/bindings/Kerbals/CharacterControls/goto-right.vdf"
+            }
+            "Full_Press"
+            {
+                "#ref"				"/bindings/Kerbals/CharacterControls/run-right.vdf"
+            }
+        }
+    }
+}

@@ -1,7 +1,0 @@
-"ref"
-{
-    "bindings"
-    {
-        "binding"		"key_press {{key 'LEFT_SHIFT'}}, #Kerbals_CharacterControls_run, , "
-    }
-}
