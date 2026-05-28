@@ -29,7 +29,6 @@ The plugin adds several action groups:
   - **Tracking Station** — tracking station interface
   - **Mission Builder** — mission editor
   - **Construction Mode** — EVA construction with engineers
-  - **IVA** — interior view
   - **FreeIVA** — [FreeIVA mod](https://github.com/FirstPersonKSP/FreeIva)
 
 The settings lets you change the plugin’s log level for troubleshooting. The default is **Info**; set **Debug** or **Trace** for more detail in `KSP.log`.
