@@ -49,12 +49,19 @@ namespace com.github.lhervier.ksp.ui.ugui.body.selector
 
             BuildCombo(go.transform, controller);
 
-            // Refresh button: triggers a rescan of the Steam config folder.
+            // Refresh button: triggers a rescan of the Steam config folder. Sized to match the
+            // combo height so the ↻ glyph reads at a glance instead of getting lost in a tiny chip.
             ButtonController refresh = _buttonBuilder.Create(
                 "Refresh",
                 RefreshGlyph,
                 () => _viewModel.RefreshConfigs());
             refresh.transform.SetParent(go.transform, false);
+
+            var refreshLayout = refresh.GetComponent<LayoutElement>();
+            refreshLayout.minWidth = SteamInputPalette.ComboHeight;
+            refreshLayout.minHeight = SteamInputPalette.ComboHeight;
+            refreshLayout.preferredWidth = SteamInputPalette.ComboHeight;
+            refreshLayout.preferredHeight = SteamInputPalette.ComboHeight;
 
             return controller;
         }
