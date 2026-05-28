@@ -1,0 +1,15 @@
+"ref"
+{
+    "group"
+	{
+		"mode"		"dpad"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"#ref"		"/inputs/dpad/dpad_south/editor/placement-mode.vdf"
+			"#ref"		"/inputs/dpad/dpad_east/editor/offset-mode.vdf"
+			"#ref"		"/inputs/dpad/dpad_west/editor/rotate-mode.vdf"
+		}
+	}
+}

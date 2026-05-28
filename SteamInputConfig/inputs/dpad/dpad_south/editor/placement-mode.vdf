@@ -1,12 +1,12 @@
 "ref"
 {
-    "button_x"
+    "dpad_south"
     {
         "activators"
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Game/Editor/rotate-mode.vdf"
+                "#ref"				"/bindings/Game/Editor/placement-mode.vdf"
             }
         }
     }

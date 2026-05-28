@@ -1,6 +1,6 @@
 "controller_mappings"
 {
-	"title"				"KSP SteamController V2 Custom Config for SteamInput Mod"
+	"title"				"Steam Controller Config"
 	"controller_type"	"controller_triton"
 	
 	"#ref"				"_controller_mappings.vdf"

@@ -1,6 +1,6 @@
 "controller_mappings"
 {
-	"title"				"KSP SteamController Custom Config for SteamInput Mod"
+	"title"				"Legacy Steam Controller Config"
 	"controller_type"	"controller_steamcontroller_gordon"
 	
 	"#ref"				"_controller_mappings.vdf"

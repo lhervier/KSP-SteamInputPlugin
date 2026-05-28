@@ -1,6 +1,6 @@
 "controller_mappings"
 {
-	"title"				"KSP PS4 Custom Config for SteamInput Mod"
+	"title"				"PS4 Config"
 	"controller_type"	"controller_ps4"
 	
 	"#ref"				"_controller_mappings.vdf"

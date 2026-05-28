@@ -1,7 +1,7 @@
 "controller_mappings"
 {
-	"title"		"KSP Hori Steam Controller Custom Config for SteamInput Mod"
+	"title"					"Horipad Steam Config"
 	"controller_type"		"controller_hori_steam"
 	
-	"#ref"				"_controller_mappings.vdf"
+	"#ref"					"_controller_mappings.vdf"
 }
