@@ -259,7 +259,7 @@ namespace com.github.lhervier.ksp.ui.styles
         public static readonly Color SettingsContextBorderColor = new Color(34f / 255f, 34f / 255f, 34f / 255f);
         public static readonly Color SettingsContextRowColor = new Color(169f / 255f, 138f / 255f, 74f / 255f);
         public static readonly Color SettingsContextEmptyColor = new Color(102f / 255f, 102f / 255f, 102f / 255f); // #666
-
+        
         // Log level rotating button (replaces the mockup's combobox)
         public const int SettingsLogLevelFontSize = 12;
         public const float SettingsLogLevelHeight = 22f;
@@ -270,5 +270,20 @@ namespace com.github.lhervier.ksp.ui.styles
         public static readonly Color SettingsLogLevelCycleColor = new Color(136f / 255f, 136f / 255f, 136f / 255f);
         public static readonly Color SettingsLogLevelBgColor = new Color(42f / 255f, 42f / 255f, 42f / 255f);
         public static readonly Color SettingsLogLevelHoverColor = new Color(51f / 255f, 51f / 255f, 51f / 255f);   // #333
+
+        // ===============================================================
+        // Empty placeholder (shown when no config is selected)
+        // ===============================================================
+
+        // .kempty: padded container with the title above and the wrapped body text below.
+        public const int EmptyPaddingH = 12;
+        public const int EmptyPaddingV = 14;
+        public const float EmptyTitleSpacing = 6f;
+        public const int EmptyTitleFontSize = 12;
+        public const int EmptyBodyFontSize = 12;
+
+        public static readonly Color EmptyTitleColor = new Color(170f / 255f, 170f / 255f, 170f / 255f); // #aaa
+        public static readonly Color EmptyBodyColor = new Color(119f / 255f, 119f / 255f, 119f / 255f);  // #777
+        public static readonly Color EmptyHighlightColor = new Color(141f / 255f, 190f / 255f, 69f / 255f); // accent
     }
 }
