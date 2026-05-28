@@ -202,6 +202,9 @@ namespace com.github.lhervier.ksp
 
             _configs = new List<GamepadConfig>(configs.Values);
             OnConfigsAvailable.Fire();
+            
+            // Force the reloading of the current configuration
+            UpdateConfiguration(UpdatedConfiguration.CONTROLLER_CONFIG_NAME);
         }
 
         // ============================================================================
