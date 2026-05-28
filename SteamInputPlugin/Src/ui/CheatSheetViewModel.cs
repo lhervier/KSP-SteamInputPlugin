@@ -218,6 +218,7 @@ namespace com.github.lhervier.ksp.ui
         {
             LOGGER.LogDebug("OnGamepadConfigsAvailable");
             this.RefreshGamepadConfigs();
+            this.RefreshControllerConfigName();
         }
 
         private void _OnGamepadConnected()
