@@ -6,6 +6,8 @@
 
 ![EVA Mode](doc/EVA.png)
 
+![Steam Input Config](doc/Steam5.png)
+
 This plugin extends Kerbal Space Program’s native Steam Input support by adding extra action sets and fixing maneuver mode detection, which broke in KSP 1.6. For background on the original issue, see [KSP Issue #22165](https://bugs.kerbalspaceprogram.com/issues/22165).
 
 It also restores joystick (HID game controller) support, which stopped working reliably in the Steam build because of Squad’s built-in Steam Controller plugin. This mod disables that plugin and ships a replacement.
