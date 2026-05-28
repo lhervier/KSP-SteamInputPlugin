@@ -20,14 +20,14 @@ namespace com.github.lhervier.ksp.ui.ugui.body
         
         private CheatSheetViewModel _viewModel;
         private SelectorBuilder _selectorBuilder;
-        private ZoneListBuilder _zonesBuilder;
+        private ZoneListBuilder _zoneListBuilder;
         private SettingsBuilder _settingsBuilder;
 
         public BodyBuilder(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             this._selectorBuilder = new SelectorBuilder(viewModel);
-            this._zonesBuilder = new ZoneListBuilder(viewModel);
+            this._zoneListBuilder = new ZoneListBuilder(viewModel);
             this._settingsBuilder = new SettingsBuilder(viewModel);
         }
 
@@ -37,7 +37,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body
             var controller = bodyGo.AddComponent<BodyController>();
             controller.Initialize(_viewModel);
             controller.BindSelectorBuilder(_selectorBuilder);
-            controller.BindZoneListBuilder(_zonesBuilder);
+            controller.BindZoneListBuilder(_zoneListBuilder);
             controller.BindSettingsBuilder(_settingsBuilder);
 
             // Escape KSP's VerticalLayoutGroup on popupWindow

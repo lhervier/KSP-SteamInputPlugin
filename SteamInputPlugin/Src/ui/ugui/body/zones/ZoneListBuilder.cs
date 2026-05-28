@@ -14,12 +14,14 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
     public class ZoneListBuilder
     {
         private CheatSheetViewModel _viewModel;
-        private ZoneBuilder _zoneRowBuilder;
+        private ZoneBuilder _zoneBuilder;
+        private EmptyConfigBuilder _emptyConfigBuilder;
 
         public ZoneListBuilder(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
-            this._zoneRowBuilder = new ZoneBuilder(viewModel);
+            this._zoneBuilder = new ZoneBuilder(viewModel);
+            this._emptyConfigBuilder = new EmptyConfigBuilder(viewModel);
         }
 
         public ZoneListController Create()
@@ -27,7 +29,8 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
             var go = new GameObject("PhysicalZones", typeof(RectTransform));
             var controller = go.AddComponent<ZoneListController>();
             controller.Initialize(_viewModel);
-            controller.BindPhysicalZoneBuilder(_zoneRowBuilder);
+            controller.BindZoneBuilder(_zoneBuilder);
+            controller.BindEmptyConfigBuilder(_emptyConfigBuilder);
 
             // VLG stacks the zones back-to-back. No spacing — each zone has its own bottom separator.
             var layout = go.AddComponent<VerticalLayoutGroup>();
@@ -44,26 +47,57 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
 
         public class ZoneListController : BaseSteamInputController
         {
-            private ZoneBuilder _zoneRowBuilder;
-            private Dictionary<EGamepadZone, ZoneBuilder.ZoneController> _rows = new Dictionary<EGamepadZone, ZoneBuilder.ZoneController>();
+            private ZoneBuilder _zoneBuilder;
+            private EmptyConfigBuilder _emptyConfigBuilder;
 
-            public void BindPhysicalZoneBuilder(ZoneBuilder zoneRowBuilder)
+            private Dictionary<EGamepadZone, ZoneBuilder.ZoneController> _zoneControllers = new Dictionary<EGamepadZone, ZoneBuilder.ZoneController>();
+            private EmptyConfigBuilder.EmptyConfigController _emptyConfigController;
+
+            public void BindZoneBuilder(ZoneBuilder zoneRowBuilder)
             {
-                this._zoneRowBuilder = zoneRowBuilder;
+                this._zoneBuilder = zoneRowBuilder;
+            }
+
+            public void BindEmptyConfigBuilder(EmptyConfigBuilder builder)
+            {
+                this._emptyConfigBuilder = builder;
             }
 
             public void Start()
             {
-                ViewModel?.OnPresetZonesChanged.Add(Sync);
-                Sync(ViewModel?.PresetZones ?? null);
+                ViewModel?.OnGamepadConfigNameChanged.Add(OnGamepadConfigNameChanged);
+                OnGamepadConfigNameChanged(ViewModel?.GamepadConfigName ?? string.Empty);
+                
+                ViewModel?.OnPresetZonesChanged.Add(OnPresetZonesChanged);
+                OnPresetZonesChanged(ViewModel?.PresetZones ?? null);
             }
 
             public void OnDestroy()
             {
-                ViewModel?.OnPresetZonesChanged.Remove(Sync);
+                ViewModel?.OnPresetZonesChanged.Remove(OnPresetZonesChanged);
+                ViewModel?.OnGamepadConfigNameChanged.Remove(OnGamepadConfigNameChanged);
             }
 
-            private void Sync(List<UIPresetZone> zones)
+            private void OnGamepadConfigNameChanged(string config)
+            {
+                if( _emptyConfigController == null )
+                {
+                    _emptyConfigController = _emptyConfigBuilder.Create();
+                    _emptyConfigController.transform.SetParent(gameObject.transform);
+                }
+
+                bool showEmpty = string.IsNullOrEmpty(config);
+                _emptyConfigController.gameObject.SetActive(showEmpty);
+                if( _zoneControllers != null )
+                {
+                    foreach(ZoneBuilder.ZoneController zoneController in _zoneControllers.Values )
+                    {
+                        zoneController.gameObject.SetActive(!showEmpty);
+                    }
+                }
+            }
+
+            private void OnPresetZonesChanged(List<UIPresetZone> zones)
             {
                 if( zones == null ) return;
 
@@ -83,7 +117,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
 
                 // 2. Destroy rows whose zones are no longer present
                 var toRemove = new List<EGamepadZone>();
-                foreach (var pair in this._rows)
+                foreach (var pair in this._zoneControllers)
                 {
                     if (!newKeys.Contains(pair.Key))
                     {
@@ -92,8 +126,8 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
                 }
                 foreach (var key in toRemove)
                 {
-                    Destroy(this._rows[key].gameObject);
-                    this._rows.Remove(key);
+                    Destroy(this._zoneControllers[key].gameObject);
+                    this._zoneControllers.Remove(key);
                 }
 
                 // 3. Add or update rows for renderable zones, then apply the new order via SetSiblingIndex.
@@ -103,17 +137,19 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
                     var zone = zones[i];
                     if (!ShouldRender(zone)) continue;
 
-                    if (!this._rows.TryGetValue(zone.Zone, out ZoneBuilder.ZoneController row))
+                    if (!this._zoneControllers.TryGetValue(zone.Zone, out ZoneBuilder.ZoneController zoneController))
                     {
-                        row = this._zoneRowBuilder.Create(zone);
-                        row.transform.SetParent(this.transform, false);
-                        this._rows[zone.Zone] = row;
+                        zoneController = this._zoneBuilder.Create(zone);
+                        zoneController.transform.SetParent(this.transform, false);
+                        zoneController.gameObject.SetActive(!string.IsNullOrEmpty(SteamInputGlobalSettings.GetControllerConfigName()));
+                        this._zoneControllers[zone.Zone] = zoneController;
                     }
                     else
                     {
-                        row.UpdateZone(zone);
+                        zoneController.UpdateZone(zone);
+                        zoneController.gameObject.SetActive(!string.IsNullOrEmpty(SteamInputGlobalSettings.GetControllerConfigName()));
                     }
-                    row.transform.SetSiblingIndex(visibleIndex);
+                    zoneController.transform.SetSiblingIndex(visibleIndex);
                     visibleIndex++;
                 }
             }
