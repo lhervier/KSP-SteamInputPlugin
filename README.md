@@ -56,9 +56,13 @@ To view logs in near real time, open the debug console (**Alt+F12**), go to **De
    - A `controller_base` folder may already exist there; **do not modify it**.
 2. Copy `game_actions_220200_[your language].vdf` into `controller_config` and rename it to `game_actions_220200.vdf`.
 
+![game_actions folder](doc/game_actions.png)
+
 ### 2. Install the plugin
 
 Extract the plugin into `GameData/SteamInput` inside your KSP install.
+
+![plugin files](doc/plugin.png)
 
 ### 3. Deploy the Steam VDF layout (optional)
 
@@ -72,21 +76,24 @@ You can either:
   - `ksp_steaminput_ps4_[language].vdf` — PlayStation-style pads (see requirements above)
   - `ksp_steaminput_xboxelite_[language].vdf` — Xbox Elite (see requirements above)
 
-Place custom layouts in:
+Check that steam is **NOT** running, and place custom layouts in:
 
 ```
 ${SteamDir}/steamapps/common/Steam Controller Configs/[your SteamID]/config/220200/
 ```
 
-In-game, open the Steam overlay / controller settings. Under **Your configurations**, you should see the layout you added.
+![Vdf files](doc/vdf.png)
+
+Then, start Steam, and go to the controller settings of Kerbal Space Program. Under **Your configurations**, you should see the layouts you just added.
+
+![your configurations](doc/your-configs.png)
 
 ## Usage
 
 After installation, the plugin automatically activates the right action set for your current game context — the controller itself needs no extra setup.
 
-To display the cheat sheet, click the toolbar icon. It shows the inputs of the configuration you have selected, so you first need to choose one in the mod settings:
+To display the cheat sheet, click the toolbar icon. It shows the inputs of the configuration you have selected, so you first need to choose one in the main combo box:
 
-- Open the settings: the configurations available in Steam are listed there. Pick the one you want.
 - If you installed one of the pre-built layouts, you will find it in that list, under the name it was given during installation.
 - If you built your own layout in Steam's controller UI, export it first through the Steam interface so it shows up in the list.
 
