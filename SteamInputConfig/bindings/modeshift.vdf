@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		    "mode_shift {{zone}}"
+        "binding"		    "mode_shift {{zone}} {{id}}"
     }
 }

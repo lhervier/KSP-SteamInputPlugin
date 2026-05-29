@@ -17,7 +17,7 @@
 			
 			{{! dpadZone }}
 			"/groups/dpadZone/click-zoom.vdf"							"{{dpadZone}} active"
-			"/groups/dpadZone/select-kerbal.vdf"						"{{dpadZone}} active modeshift"
+			"main:/groups/dpadZone/select-kerbal.vdf"					"{{dpadZone}} active modeshift"
 			
 			{{! Right Trackpad }}
 			{{#if (equals mouseZone "right_trackpad")}}
@@ -26,7 +26,7 @@
 			
 			{{! Button diamond }}
 			"/groups/button_diamond/jump-crouch.vdf"					"button_diamond active"
-			"/groups/button_diamond/timewarp-eva-iva.vdf"				"button_diamond active modeshift"
+			"main:/groups/button_diamond/timewarp-eva-iva.vdf"			"button_diamond active modeshift"
 			
 			{{! Left Trigger }}
 			"/groups/left_trigger/eva/down.vdf"							"left_trigger active"

@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { getVersion } = require('./src/version-utils');
 const { saveVdfFile, loadVdfFile } = require('./src/vdf-utils');
-const { resolvePresets } = require('./src/preset-utils');
+const { resolvePresets, cleanupPresetGroupKeys } = require('./src/preset-utils');
 const { resolveGroupBindings } = require('./src/group-bindings-utils');
 const { resolveLayerBindings } = require('./src/layer-bindings-utils');
 const { translateVdf } = require('./src/translate-utils');
@@ -55,6 +55,7 @@ for (const controller of controllersToBuild) {
         // Resolve the presets, group bindings and layer bindings
         resolvePresets(merged, configDir, controller.context || {});
         resolveGroupBindings(merged);
+        cleanupPresetGroupKeys(merged);
         resolveLayerBindings(merged);
 
         // Update the Timestamp property (set in epoch milliseconds)

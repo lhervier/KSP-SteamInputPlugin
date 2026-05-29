@@ -25,13 +25,13 @@
 
 			{{! Button diamond }}
 			"/groups/button_diamond/rcs-sas.vdf"					"button_diamond active"
-			"/groups/button_diamond/timewarp.vdf"					"button_diamond active modeshift"
+			"main:/groups/button_diamond/timewarp.vdf"				"button_diamond active modeshift"
 			
 			{{! Left Trigger }}
-			"/groups/left_trigger/eva/down.vdf"							"left_trigger active"
+			"/groups/left_trigger/eva/down.vdf"						"left_trigger active"
 			
 			{{! Right Trigger }}
-			"/groups/right_trigger/eva/up.vdf"							"right_trigger active"
+			"/groups/right_trigger/eva/up.vdf"						"right_trigger active"
 			
 			{{! Switch }}
 			"/groups/switches/mapeva.vdf"							"switch active"

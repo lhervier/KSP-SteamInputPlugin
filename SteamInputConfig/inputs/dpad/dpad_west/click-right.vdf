@@ -11,7 +11,7 @@
             {{#if (equals mouseZone "right_joystick")}}
                 "Full_Press"
                 {
-                    "#ref"              "/bindings/Layer/right-click-layer.vdf"
+                    "#ref"          "/bindings/modeshift.vdf?zone=right_joystick&id=right_click"
                 }
             {{/if}}
         }

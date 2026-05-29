@@ -2,10 +2,12 @@
 {
     {{#if (equals mouseZone "right_joystick")}}
         {{#if (true backButtons)}}
-            "/groups/right_joystick/slow-mouse.vdf"							"right_joystick active modeshift"
+            "main:/groups/right_joystick/slow-mouse.vdf"					"right_joystick active modeshift"
+            "right_click:/groups/right_joystick/camera.vdf"					"right_joystick active modeshift"
             "/groups/right_joystick/mouse.vdf"								"right_joystick active"
         {{else}}
             "/groups/right_joystick/mouse-modeshift.vdf?preset={{preset}}"	"right_joystick active"
+            "right_click:/groups/right_joystick/camera.vdf"					"right_joystick active modeshift"
         {{/if}}
     {{else}}
         "/groups/right_joystick/{{group}}.vdf"                 				"right_joystick active"

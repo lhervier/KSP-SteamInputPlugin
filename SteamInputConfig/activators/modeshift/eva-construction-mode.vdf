@@ -9,11 +9,11 @@
         }
         "Full_Press"
         {
-            "#ref"                  "/bindings/modeshift.vdf?zone=button_diamond"
+            "#ref"                  "/bindings/modeshift.vdf?zone=button_diamond&id=main"
         }
         "Full_Press"
         {
-            "#ref"                  "/bindings/modeshift.vdf?zone={{dpadZone}}"
+            "#ref"                  "/bindings/modeshift.vdf?zone={{dpadZone}}&id=main"
         }
     }
 }

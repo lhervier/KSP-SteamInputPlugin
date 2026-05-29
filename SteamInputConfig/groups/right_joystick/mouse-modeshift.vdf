@@ -5,7 +5,7 @@
         "mode"		"joystick_mouse"
         "inputs"
         {
-            "#ref"				"/inputs/joystick_mouse/click/modeshift.vdf?preset={{preset}}"
+            "#ref"				"/inputs/joystick_mouse/click/modeshift.vdf?preset={{preset}}&id=main"
         }
         "settings"
 		{

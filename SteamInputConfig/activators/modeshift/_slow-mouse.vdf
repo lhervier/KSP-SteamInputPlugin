@@ -10,7 +10,7 @@
         {{#unless (equals mouseZone "right_trackpad")}}
             "Full_Press"
             {
-                "#ref"			    "/bindings/modeshift.vdf?zone=right_joystick"
+                "#ref"			    "/bindings/modeshift.vdf?zone=right_joystick&id=main"
             }
         {{/unless}}
     {{/if}}

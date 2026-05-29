@@ -5,7 +5,7 @@
         "#ref"                      "_slow-mouse.vdf"
         "Full_Press"
         {
-            "#ref"                  "/bindings/modeshift.vdf?zone=button_diamond"
+            "#ref"                  "/bindings/modeshift.vdf?zone=button_diamond&id=main"
         }
     }
 }

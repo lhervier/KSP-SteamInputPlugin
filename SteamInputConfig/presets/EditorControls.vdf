@@ -17,7 +17,7 @@
 			
 			{{! dpadZone }}
 			"/groups/dpadZone/click-scroll.vdf"										"{{dpadZone}} active"
-			"/groups/dpadZone/editor/sym-frame.vdf"									"{{dpadZone}} active modeshift"
+			"main:/groups/dpadZone/editor/sym-frame.vdf"							"{{dpadZone}} active modeshift"
 
 			{{! Right Trackpad }}
 			{{#if (equals mouseZone "right_trackpad")}}
@@ -26,13 +26,13 @@
 			
 			{{! Button diamond }}
 			"/groups/button_diamond/editor/reset_rot-delete-sym_cycle-snap.vdf"		"button_diamond active"
-			"/groups/button_diamond/editor/place-offset-rotate-root.vdf"			"button_diamond active modeshift"
+			"main:/groups/button_diamond/editor/place-offset-rotate-root.vdf"		"button_diamond active modeshift"
 			
 			{{! Left Trigger }}
 			"/groups/left_trigger/editor/right-click-slew.vdf"						"left_trigger active"
 			
 			{{! Right Trigger }}
-			"/groups/right_trigger/left-click.vdf"										"right_trigger active"
+			"/groups/right_trigger/left-click.vdf"									"right_trigger active"
 			
 			{{! Switch }}
 			"/groups/switches/editor.vdf"											"switch active"

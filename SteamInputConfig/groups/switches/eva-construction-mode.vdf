@@ -8,7 +8,7 @@
 		"inputs"
 		{
 			{{#if (true backButtons)}}
-				"#ref"				"/inputs/switches/button_back_right/modeshift.vdf?preset=eva-construction-mode"
+				"#ref"				"/inputs/switches/button_back_right/modeshift.vdf?preset=eva-construction-mode&id=main"
 				"#ref"				"/inputs/switches/button_back_left/mod-key.vdf"
 			{{/if}}
 			"#ref"				"/inputs/switches/button_escape/menu-debug.vdf"

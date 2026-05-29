@@ -5,24 +5,24 @@
         "#ref"                      "_slow-mouse.vdf"
         "Full_Press"
         {
-            "#ref"                  "/bindings/modeshift.vdf?zone=button_diamond"
+            "#ref"                  "/bindings/modeshift.vdf?zone=button_diamond&id=main"
         }
         "Full_Press"
         {
-            "#ref"                  "/bindings/modeshift.vdf?zone=joystick"
+            "#ref"                  "/bindings/modeshift.vdf?zone=joystick&id=main"
         }
         "Full_Press"
         {
-            "#ref"                  "/bindings/modeshift.vdf?zone={{dpadZone}}"
+            "#ref"                  "/bindings/modeshift.vdf?zone={{dpadZone}}&id=main"
         }
         {{#unless (true triggersClick)}}
             "Full_Press"
             {
-                "#ref"                  "/bindings/modeshift.vdf?zone=left_trigger"
+                "#ref"                  "/bindings/modeshift.vdf?zone=left_trigger&id=main"
             }
             "Full_Press"
             {
-                "#ref"                  "/bindings/modeshift.vdf?zone=right_trigger"
+                "#ref"                  "/bindings/modeshift.vdf?zone=right_trigger&id=main"
             }
         {{/unless}}
     }

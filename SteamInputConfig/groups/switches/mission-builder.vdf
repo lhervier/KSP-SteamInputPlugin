@@ -9,7 +9,7 @@
 		{
 			{{#if (true backButtons)}}
 				"#ref"				"/inputs/switches/button_back_left/mod-key.vdf"
-				"#ref"				"/inputs/switches/button_back_right/modeshift.vdf?preset=mission-builder"
+				"#ref"				"/inputs/switches/button_back_right/modeshift.vdf?preset=mission-builder&id=main"
 			{{/if}}
 			"#ref"				"/inputs/switches/button_escape/redo.vdf"
 			"#ref"				"/inputs/switches/button_menu/undo-keyboard.vdf"
