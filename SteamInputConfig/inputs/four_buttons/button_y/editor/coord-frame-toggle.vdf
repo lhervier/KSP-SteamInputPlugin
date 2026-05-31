@@ -1,12 +1,12 @@
 "ref"
 {
-    "dpad_south"
+    "button_y"
     {
         "activators"
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Game/Editor/symmetry-mode-toggle.vdf"
+                "#ref"				"/bindings/Game/Editor/coord-frame-toggle.vdf"
             }
         }
     }

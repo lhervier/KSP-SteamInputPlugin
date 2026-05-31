@@ -1,0 +1,14 @@
+"ref"
+{
+    "group"
+	{
+		"mode"		"four_buttons"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"#ref"			"/inputs/four_buttons/button_y/editor/coord-frame-toggle.vdf"
+			"#ref"			"/inputs/four_buttons/button_a/editor/symmetry-mode-toggle.vdf"
+		}
+	}
+}

@@ -1,12 +1,12 @@
 "ref"
 {
-    "button_b"
+    "dpad_north"
     {
         "activators"
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Game/Editor/offset-mode.vdf"
+                "#ref"				"/bindings/Game/Editor/root-mode.vdf"
             }
         }
     }
