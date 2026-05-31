@@ -11,13 +11,13 @@
 			{{else}}
 				"/groups/joystick/editor/rotate-part.vdf?with-mod"					"joystick active"
 			{{/if}}
+			"/groups/dpadZone/editor/sym-frame.vdf"									"joystick active modeshift"
 			
 			{{! Right Joystick }}
 			"#ref"																	"_right-joystick.vdf?preset=editor&group=camera"
 			
 			{{! dpadZone }}
 			"/groups/dpadZone/click-scroll.vdf"										"{{dpadZone}} active"
-			"/groups/dpadZone/editor/sym-frame.vdf"									"{{dpadZone}} active modeshift"
 
 			{{! Right Trackpad }}
 			{{#if (equals mouseZone "right_trackpad")}}
@@ -32,7 +32,7 @@
 			"/groups/left_trigger/editor/right-click-slew.vdf"						"left_trigger active"
 			
 			{{! Right Trigger }}
-			"/groups/right_trigger/left-click.vdf"										"right_trigger active"
+			"/groups/right_trigger/left-click.vdf"									"right_trigger active"
 			
 			{{! Switch }}
 			"/groups/switches/editor.vdf"											"switch active"

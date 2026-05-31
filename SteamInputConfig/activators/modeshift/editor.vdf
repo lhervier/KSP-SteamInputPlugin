@@ -13,7 +13,7 @@
         }
         "Full_Press"
         {
-            "#ref"                  "/bindings/modeshift.vdf?zone={{dpadZone}}"
+            "#ref"                  "/bindings/modeshift.vdf?zone=joystick"
         }
     }
 }
