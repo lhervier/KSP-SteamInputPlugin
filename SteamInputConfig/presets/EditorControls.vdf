@@ -11,7 +11,7 @@
 			{{else}}
 				"/groups/joystick/editor/rotate-part.vdf?with-mod"					"joystick active"
 			{{/if}}
-			"/groups/dpadZone/editor/sym-frame.vdf"									"joystick active modeshift"
+			"/groups/joystick/editor/sym-frame.vdf"									"joystick active modeshift"
 			
 			{{! Right Joystick }}
 			"#ref"																	"_right-joystick.vdf?preset=editor&group=camera"
