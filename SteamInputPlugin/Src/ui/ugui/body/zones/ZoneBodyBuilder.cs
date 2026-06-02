@@ -15,12 +15,12 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
     public class ZoneBodyBuilder
     {
         private CheatSheetViewModel _viewModel;
-        private ModeBuilder _modeBuilder;
+        private SectionBuilder _modeBuilder;
 
         public ZoneBodyBuilder(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
-            this._modeBuilder = new ModeBuilder(viewModel);
+            this._modeBuilder = new SectionBuilder(viewModel);
         }
 
         public ZoneBodyController Create(UIPhysicalZone zone)
@@ -53,13 +53,13 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
 
         public class ZoneBodyController : BaseSteamInputController
         {
-            private ModeBuilder _modeBuilder;
-            private readonly Dictionary<string, ModeBuilder.ModeController> _modes
-                = new Dictionary<string, ModeBuilder.ModeController>();
+            private SectionBuilder _sectionBuilder;
+            private readonly Dictionary<string, SectionBuilder.SectionController> _sections
+                = new Dictionary<string, SectionBuilder.SectionController>();
 
-            public void BindModeBuilder(ModeBuilder builder)
+            public void BindModeBuilder(SectionBuilder builder)
             {
-                this._modeBuilder = builder;
+                this._sectionBuilder = builder;
             }
 
             public void UpdateZone(UIPhysicalZone zone)
@@ -71,7 +71,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
                     desiredIds.Add(section.GroupId);
                 }
                 List<string> toRemove = new List<string>();
-                foreach( string groupId in _modes.Keys )
+                foreach( string groupId in _sections.Keys )
                 {
                     if( !desiredIds.Contains(groupId) )
                     {
@@ -80,19 +80,19 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
                 }
                 foreach( string groupId in toRemove )
                 {
-                    Destroy(_modes[groupId].gameObject);
-                    _modes.Remove(groupId);
+                    Destroy(_sections[groupId].gameObject);
+                    _sections.Remove(groupId);
                 }
 
                 // Create or update sections, then impose the visual order via SetSiblingIndex.
                 for( int i = 0; i < zone.Sections.Count; i++ )
                 {
                     UISection section = zone.Sections[i];
-                    if( !_modes.TryGetValue(section.GroupId, out ModeBuilder.ModeController controller) )
+                    if( !_sections.TryGetValue(section.GroupId, out SectionBuilder.SectionController controller) )
                     {
-                        controller = _modeBuilder.Create(section.GroupId, section.Modeshift);
+                        controller = _sectionBuilder.Create(section);
                         controller.transform.SetParent(gameObject.transform, false);
-                        _modes[section.GroupId] = controller;
+                        _sections[section.GroupId] = controller;
                     }
                     else
                     {

@@ -394,52 +394,89 @@ namespace com.github.lhervier.ksp.ui
         private void RefreshPhysicalZones()
         {
             this._physicalZones.Clear();
-            
+
             EActionGroup currentActionGroup = this._actionGroupDaemon.GetCurrentActionGroup();
-            
+
             List<EGamepadZone> orderedZones = GetAllZones();
             List<EGamepadZone> visibleZones = SteamInputGlobalSettings.GetVisibleGamepadZones();
+
+            // The base preset, then the layers that superimpose on top of it. A zone is rendered as
+            // soon as the base OR any layer defines a section for it (union base ∪ layers). The layer
+            // zones are resolved once here, since GetActionLayerZones rescans the preset list.
             Dictionary<EGamepadZone, VdfPresetZone> actionGroupZones = this._gamepadConfigDaemon.GetActionGroupZones(currentActionGroup);
+            var layerZones = new List<(string Title, Dictionary<EGamepadZone, VdfPresetZone> Zones)>();
+            foreach( VdfLayer layer in this._gamepadConfigDaemon.GetActionLayers(currentActionGroup) )
+            {
+                layerZones.Add((layer.Title, this._gamepadConfigDaemon.GetActionLayerZones(currentActionGroup, layer.Title)));
+            }
+
             for( int i=0; i<orderedZones.Count; i++ )
             {
                 EGamepadZone zone = orderedZones[i];
                 if( !visibleZones.Contains(zone) ) {
                     continue;
                 }
-                if (!actionGroupZones.TryGetValue(zone, out VdfPresetZone presetZone))
-                {
-                    continue;
-                }
+
                 UIPhysicalZone z = new UIPhysicalZone
                 {
                     Zone = zone,
                     Label = GetLabel(zone),
                 };
-                
-                if( presetZone.GroupId != null )
+
+                // Base preset sections first (no layer title)...
+                if( actionGroupZones.TryGetValue(zone, out VdfPresetZone presetZone) )
                 {
-                    z.Sections.Add(
-                        new UISection
-                        {
-                            GroupId = presetZone.GroupId, 
-                            Modeshift = false,
-                        }
-                    );
+                    AddSections(z, presetZone, null);
                 }
-                foreach( string groupId in presetZone.ModeshiftGroupIds )
+                // ...then the sections each layer adds on top of it.
+                foreach( var lz in layerZones )
                 {
-                    z.Sections.Add(
-                        new UISection
-                        {
-                            GroupId = groupId, 
-                            Modeshift = true
-                        }
-                    );
+                    if( lz.Zones.TryGetValue(zone, out VdfPresetZone layerZone) )
+                    {
+                        AddSections(z, layerZone, lz.Title);
+                    }
+                }
+
+                // Skip zones neither the base preset nor any layer touches.
+                if( z.Sections.Count == 0 )
+                {
+                    continue;
                 }
 
                 this._physicalZones.Add(z);
             }
             OnPhysicalZonesChanged.Fire(this._physicalZones);
+        }
+
+        /// <summary>
+        /// Append the sections of a preset zone to a physical zone: its normal group first, then one
+        /// section per modeshift group. <paramref name="layerTitle"/> is null/empty for the base preset,
+        /// or the title of the layer these sections belong to (shown in the section header).
+        /// </summary>
+        private static void AddSections(UIPhysicalZone zone, VdfPresetZone presetZone, string layerTitle)
+        {
+            if( presetZone.GroupId != null )
+            {
+                zone.Sections.Add(
+                    new UISection
+                    {
+                        GroupId = presetZone.GroupId,
+                        Modeshift = false,
+                        LayerTitle = layerTitle,
+                    }
+                );
+            }
+            foreach( string groupId in presetZone.ModeshiftGroupIds )
+            {
+                zone.Sections.Add(
+                    new UISection
+                    {
+                        GroupId = groupId,
+                        Modeshift = true,
+                        LayerTitle = layerTitle,
+                    }
+                );
+            }
         }
 
         // =======================================================================

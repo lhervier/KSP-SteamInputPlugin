@@ -6,5 +6,6 @@ namespace com.github.lhervier.ksp.ui.model
     {
         public string GroupId { get; set; }
         public bool Modeshift { get; set; }
+        public string LayerTitle { get; set; }
     }
 }

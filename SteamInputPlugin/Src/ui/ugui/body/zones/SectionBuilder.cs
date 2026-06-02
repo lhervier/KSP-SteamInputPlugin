@@ -13,23 +13,23 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
     ///   - A "NORMAL" / "↓ MODESHIFT" subheader (mockup .kstate)
     ///   - One activator row (mockup .krow) per binding of the section's group
     /// </summary>
-    public class ModeBuilder
+    public class SectionBuilder
     {
         private CheatSheetViewModel _viewModel;
         private ActivatorBuilder _activatorRowBuilder;
         private MouseLineBuilder _mouseLineBuilder;
 
-        public ModeBuilder(CheatSheetViewModel viewModel)
+        public SectionBuilder(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             this._activatorRowBuilder = new ActivatorBuilder(viewModel);
             this._mouseLineBuilder = new MouseLineBuilder(viewModel);
         }
 
-        public ModeController Create(String groupId, bool modeshift)
+        public SectionController Create(UISection section)
         {
             var go = new GameObject("Mode", typeof(RectTransform));
-            ModeController controller = go.AddComponent<ModeController>();
+            SectionController controller = go.AddComponent<SectionController>();
             controller.Initialize(_viewModel);
             controller.BindActivatorRowBuilder(_activatorRowBuilder);
             controller.BindMouseLineBuilder(_mouseLineBuilder);
@@ -52,7 +52,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
 
             string label;
             Color textColor;
-            if( modeshift )
+            if( section.Modeshift )
             {
                 label = "↓ " + ModLocalization.GetString("SteamInput_sectionModeshift").ToUpperInvariant();
                 textColor = SteamInputPalette.ModeShiftColor;
@@ -61,6 +61,13 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
             {
                 label = ModLocalization.GetString("SteamInput_sectionNormal").ToUpperInvariant();
                 textColor = SteamInputPalette.ModeNormalColor;
+            }
+
+            // A layer section keeps its state color but is tagged with the layer title,
+            // e.g. "NORMAL (RIGHTCLICK)" / "↓ MODESHIFT (RIGHTCLICK)".
+            if( !string.IsNullOrEmpty(section.LayerTitle) )
+            {
+                label += " " + ModLocalization.GetString("SteamInput_sectionLayerSuffix", section.LayerTitle).ToUpperInvariant();
             }
 
             // .kstate subheader as a child so activator rows can be stacked below it.
@@ -79,12 +86,12 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
             sectionText.raycastTarget = false;
 
             controller.BindHeaderLabel(labelGo);
-            controller.UpdateGroupId(groupId);
+            controller.UpdateGroupId(section.GroupId);
 
             return controller;
         }
 
-        public class ModeController : BaseSteamInputController
+        public class SectionController : BaseSteamInputController
         {
             private ActivatorBuilder _activatorRowBuilder;
             private MouseLineBuilder _mouseLineBuilder;
