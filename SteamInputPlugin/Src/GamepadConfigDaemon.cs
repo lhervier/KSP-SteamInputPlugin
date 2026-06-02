@@ -209,33 +209,6 @@ namespace com.github.lhervier.ksp
 
         // ============================================================================
 
-        public VdfAction GetAction(EActionGroup actionGroup)
-        {
-            VdfObject mappings = _root.GetObject("controller_mappings");
-            VdfObject actions = mappings.GetObject("actions");
-            VdfObject action = actions.GetObject(actionGroup.ToString());
-            return new VdfAction
-            {
-                Title = action.GetString("title"),
-                LegacySet = action.GetString("legacy_set")
-            };
-        }
-
-        public VdfControllerMappings GetControllerMappings()
-        {
-            VdfObject mappings = _root.GetObject("controller_mappings");
-            if( !EControllerType.TryParse(mappings.GetString("controller_type"), out EControllerType controllerType) )
-            {
-                controllerType = null;
-            }
-            return new VdfControllerMappings
-            {
-                Title = mappings.GetString("title"),
-                ControllerType = controllerType,
-                Description = mappings.GetString("description")
-            };
-        }
-
         public List<GamepadConfig> GetConfigs()
         {
             return new List<GamepadConfig>(this._configs);
@@ -253,60 +226,21 @@ namespace com.github.lhervier.ksp
             this.UpdateConfigList();
         }
 
-        /// <summary>
-        /// Split a config file path into its name (without extension) and trailing _&lt;index&gt; suffix.
-        /// A file with no numeric suffix is treated as index 0 (matching GamepadConfigPathResolver).
-        /// </summary>
-        private static void SplitConfigName(string file, out string name, out int suffix)
-        {
-            string baseName = Path.GetFileNameWithoutExtension(file);
-            int separator = baseName.LastIndexOf('_');
-            if( separator > 0 && int.TryParse(baseName.Substring(separator + 1), out int parsed) )
-            {
-                name = baseName.Substring(0, separator);
-                suffix = parsed;
-            }
-            else
-            {
-                name = baseName;
-                suffix = 0;
-            }
-        }
+        // ===============================================================================
         
-        /// <summary>
-        /// Get all the physical zones defined for the given action group.
-        /// </summary>
-        /// <param name="actionGroup">The action group to get the physical zones for.</param>
-        /// <returns>A list of all the physical zones defined for the given action group.</returns>
-        public Dictionary<EGamepadZone, VdfPresetZone> GetPresetZones(EActionGroup actionGroup)
+        public VdfControllerMappings GetControllerMappings()
         {
             VdfObject mappings = _root.GetObject("controller_mappings");
-            VdfArray presets = mappings.GetArray("preset");
-            VdfObject preset = null;
-            foreach( VdfObject presetData in presets.Objects() ) {
-                if( presetData.TryGetString("name", out string nameString) && nameString == actionGroup.ToString() ) {
-                    preset = presetData;
-                    break;
-                }
+            if( !EControllerType.TryParse(mappings.GetString("controller_type"), out EControllerType controllerType) )
+            {
+                controllerType = null;
             }
-            if( preset == null ) {
-                return new Dictionary<EGamepadZone, VdfPresetZone>();
-            }
-
-            VdfObject groupSourceBindings = preset.GetObject("group_source_bindings");
-            Dictionary<EGamepadZone, VdfPresetZone> presetZones = new Dictionary<EGamepadZone, VdfPresetZone>();
-
-            foreach( string groupId in groupSourceBindings.Keys ) {
-                if( !groupSourceBindings.TryGetString(groupId, out string valueString) ) {
-                    continue;
-                }
-                if( !ParseGroupBinding(valueString, out EGamepadZone zone, out bool modeShift) ) {
-                    continue;
-                }
-                AddPresetZone(presetZones, zone, groupId, modeShift);
-            }
-
-            return presetZones;
+            return new VdfControllerMappings
+            {
+                Title = mappings.GetString("title"),
+                ControllerType = controllerType,
+                Description = mappings.GetString("description")
+            };
         }
 
         /// <summary>
@@ -336,6 +270,108 @@ namespace com.github.lhervier.ksp
             return gamepadZones;
         }
 
+        public VdfAction GetAction(EActionGroup actionGroup)
+        {
+            VdfObject mappings = _root.GetObject("controller_mappings");
+            VdfObject actions = mappings.GetObject("actions");
+            VdfObject action = actions.GetObject(actionGroup.ToString());
+            return new VdfAction
+            {
+                Title = action.GetString("title"),
+                LegacySet = action.GetString("legacy_set")
+            };
+        }
+
+        public VdfLayer GetActionLayer(EActionGroup actionGroup, string layer)
+        {
+            List<VdfLayer> actionLayers = GetActionLayers(actionGroup);
+            foreach( VdfLayer actionLayer in actionLayers )
+            {
+                if( actionLayer.Title == layer )
+                {
+                    return actionLayer;
+                }
+            }
+            return null;
+        }
+
+        public List<VdfLayer> GetActionLayers(EActionGroup actionGroup)
+        {
+            VdfObject mappings = _root.GetObject("controller_mappings");
+            VdfObject actionLayers = mappings.GetObject("action_layers");
+            List<VdfLayer> layers = new List<VdfLayer>();
+            foreach( string actionLayerName in actionLayers.Keys )
+            {
+                VdfObject actionLayerObject = actionLayers.GetObject(actionLayerName);
+                string parentSetName = actionLayerObject.GetString("parent_set_name");
+                if( parentSetName == actionGroup.ToString())
+                {
+                    layers.Add(
+                        new VdfLayer
+                        {
+                            Name = actionLayerName,
+                            Title = actionLayerObject.GetString("title"),
+                            LegacySet = actionLayerObject.GetString("legacy_set"),
+                            SetLayer = actionLayerObject.GetString("set_layer"),
+                            ParentSetName = parentSetName,
+                        }
+                    );
+                }
+            }
+            return layers;
+        }
+
+        /// <summary>
+        /// Get all the physical zones defined for the given action group.
+        /// </summary>
+        /// <param name="actionGroup">The action group to get the physical zones for.</param>
+        /// <returns>A list of all the physical zones defined for the given action group.</returns>
+        public Dictionary<EGamepadZone, VdfPresetZone> GetActionGroupZones(EActionGroup actionGroup)
+        {
+            return GetPresetZones(actionGroup.ToString());
+        }
+
+        public Dictionary<EGamepadZone, VdfPresetZone> GetActionLayerZones(EActionGroup actionGroup, string layer)
+        {
+            VdfLayer actionLayer = GetActionLayer(actionGroup, layer);
+            if( actionLayer == null )
+            {
+                return new Dictionary<EGamepadZone, VdfPresetZone>();
+            }
+            return GetPresetZones(actionLayer.Name);
+        }
+
+        private Dictionary<EGamepadZone, VdfPresetZone> GetPresetZones(string presetName)
+        {
+            VdfObject mappings = _root.GetObject("controller_mappings");
+            VdfArray presets = mappings.GetArray("preset");
+            VdfObject preset = null;
+            foreach( VdfObject presetData in presets.Objects() ) {
+                if( presetData.TryGetString("name", out string nameString) && nameString == presetName ) {
+                    preset = presetData;
+                    break;
+                }
+            }
+            if( preset == null ) {
+                return new Dictionary<EGamepadZone, VdfPresetZone>();
+            }
+
+            VdfObject groupSourceBindings = preset.GetObject("group_source_bindings");
+            Dictionary<EGamepadZone, VdfPresetZone> presetZones = new Dictionary<EGamepadZone, VdfPresetZone>();
+
+            foreach( string groupId in groupSourceBindings.Keys ) {
+                if( !groupSourceBindings.TryGetString(groupId, out string valueString) ) {
+                    continue;
+                }
+                if( !ParseGroupBinding(valueString, out EGamepadZone zone, out bool modeShift) ) {
+                    continue;
+                }
+                AddPresetZone(presetZones, zone, groupId, modeShift);
+            }
+
+            return presetZones;
+        }
+        
         public VdfGroup GetGroup(string groupId)
         {
             VdfObject mappings = _root.GetObject("controller_mappings");
@@ -539,5 +575,24 @@ namespace com.github.lhervier.ksp
             }
         }
 
+        /// <summary>
+        /// Split a config file path into its name (without extension) and trailing _&lt;index&gt; suffix.
+        /// A file with no numeric suffix is treated as index 0 (matching GamepadConfigPathResolver).
+        /// </summary>
+        private static void SplitConfigName(string file, out string name, out int suffix)
+        {
+            string baseName = Path.GetFileNameWithoutExtension(file);
+            int separator = baseName.LastIndexOf('_');
+            if( separator > 0 && int.TryParse(baseName.Substring(separator + 1), out int parsed) )
+            {
+                name = baseName.Substring(0, separator);
+                suffix = parsed;
+            }
+            else
+            {
+                name = baseName;
+                suffix = 0;
+            }
+        }
     }
 }

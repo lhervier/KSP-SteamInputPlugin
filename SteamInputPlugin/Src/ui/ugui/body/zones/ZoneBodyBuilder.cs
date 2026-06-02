@@ -66,22 +66,11 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
             {
                 // The desired sections in display order: normal group first, then each modeshift
                 // group, keeping only the non-empty ones.
-                List<ModeKey> sections = new List<ModeKey>();
-                if( !ViewModel.IsSectionEmpty(zone.GroupId) )
-                {
-                    sections.Add(new ModeKey(zone.GroupId, false));
-                }
-                foreach( string modeshiftGroupId in zone.ModeshiftGroupIds )
-                {
-                    if( !ViewModel.IsSectionEmpty(modeshiftGroupId) )
-                    {
-                        sections.Add(new ModeKey(modeshiftGroupId, true));
-                    }
-                }
+                List<UISection> sections = ViewModel.GetSections(zone);
 
                 // Destroy sections that are no longer present.
                 HashSet<string> desiredIds = new HashSet<string>();
-                foreach( ModeKey section in sections )
+                foreach( UISection section in sections )
                 {
                     desiredIds.Add(section.GroupId);
                 }
@@ -102,7 +91,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
                 // Create or update sections, then impose the visual order via SetSiblingIndex.
                 for( int i = 0; i < sections.Count; i++ )
                 {
-                    ModeKey section = sections[i];
+                    UISection section = sections[i];
                     if( !_modes.TryGetValue(section.GroupId, out ModeBuilder.ModeController controller) )
                     {
                         controller = _modeBuilder.Create(section.GroupId, section.Modeshift);
@@ -117,18 +106,6 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
                     // modeshift subheader is always shown (even when it is the only section).
                     controller.SetHeaderVisible(section.Modeshift || sections.Count > 1);
                     controller.transform.SetSiblingIndex(i);
-                }
-            }
-
-            private readonly struct ModeKey
-            {
-                public readonly string GroupId;
-                public readonly bool Modeshift;
-
-                public ModeKey(string groupId, bool modeshift)
-                {
-                    GroupId = groupId;
-                    Modeshift = modeshift;
                 }
             }
         }

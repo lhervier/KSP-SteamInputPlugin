@@ -399,14 +399,14 @@ namespace com.github.lhervier.ksp.ui
             
             List<EGamepadZone> orderedZones = GetAllZones();
             List<EGamepadZone> visibleZones = SteamInputGlobalSettings.GetVisibleGamepadZones();
-            Dictionary<EGamepadZone, VdfPresetZone> presetZones = this._gamepadConfigDaemon.GetPresetZones(currentActionGroup);
+            Dictionary<EGamepadZone, VdfPresetZone> actionGroupZones = this._gamepadConfigDaemon.GetActionGroupZones(currentActionGroup);
             for( int i=0; i<orderedZones.Count; i++ )
             {
                 EGamepadZone zone = orderedZones[i];
                 if( !visibleZones.Contains(zone) ) {
                     continue;
                 }
-                if (!presetZones.TryGetValue(zone, out VdfPresetZone presetZone))
+                if (!actionGroupZones.TryGetValue(zone, out VdfPresetZone presetZone))
                 {
                     continue;
                 }
@@ -557,6 +557,23 @@ namespace com.github.lhervier.ksp.ui
                 }
             }
             return false;
+        }
+
+        public List<UISection> GetSections(UIPresetZone zone)
+        {
+            List<UISection> sections = new List<UISection>();
+            if( !IsSectionEmpty(zone.GroupId) )
+            {
+                sections.Add(new UISection(zone.GroupId, false));
+            }
+            foreach( string modeshiftGroupId in zone.ModeshiftGroupIds )
+            {
+                if( !IsSectionEmpty(modeshiftGroupId) )
+                {
+                    sections.Add(new UISection(modeshiftGroupId, true));
+                }
+            }
+            return sections;
         }
 
         public List<UIActivator> GetActivators(string groupId)

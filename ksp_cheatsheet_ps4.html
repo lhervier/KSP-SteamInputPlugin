@@ -151,7 +151,7 @@ body{background:#0a0a0a;display:flex;justify-content:center;align-items:flex-sta
   </div>
 </div>
 <script>
-const ZONES = [{"id": "joystick", "name": "Stick gauche", "visible": true, "mode": "dpad", "rows": [{"state": "normal", "key": "↑", "action": "Tangage vers le haut"}, {"state": "normal", "key": "↓", "action": "Tangage vers le bas"}, {"state": "normal", "key": "←", "action": "Roulis à gauche"}, {"state": "normal", "key": "→", "action": "Roulis à droite"}, {"state": "normal", "key": "Click", "action": "Touche Mod"}]}, {"id": "dpad", "name": "D-Pad", "visible": true, "mode": "dpad", "rows": [{"state": "normal", "key": "↑", "action": "Zoom avant"}, {"state": "normal", "key": "↓", "action": "Zoom arrière"}, {"state": "normal", "key": "←", "action": "Clic droit"}, {"state": "normal", "key": "→", "action": "Clic gauche"}, {"state": "shift", "key": "←", "action": "Vaisseau précédent"}, {"state": "shift", "key": "→", "action": "Vaisseau suivant"}, {"state": "shift", "key": "↑", "action": "Caméra suivante"}]}, {"id": "rjoy", "name": "Stick droit", "visible": true, "mode": "joystick_mouse", "rows": [{"state": "", "key": "Click", "action": "Modeshift", "note": "(maintenir)", "hi": true}]}, {"id": "diamond", "name": "4 boutons", "visible": true, "mode": "four_buttons", "rows": [{"state": "normal", "key": "×", "action": "Larguer"}, {"state": "normal", "key": "○", "action": "Freins"}, {"state": "normal", "key": "□", "action": "Activer/Désactiver RCS"}, {"state": "normal", "key": "△", "action": "Activer/Désactiver SAS"}, {"state": "shift", "key": "×", "action": "Afficher/Masquer la cible"}, {"state": "shift", "key": "○", "action": "Détacher"}, {"state": "shift", "key": "□", "action": "Réduire l'avance rapide"}, {"state": "shift", "key": "△", "action": "Augmenter l'avance rapide"}]}, {"id": "bumpers", "name": "L1 / R1", "visible": true, "mode": "switches", "rows": [{"state": "normal", "key": "L1", "action": "Lacet vers la gauche"}, {"state": "normal", "key": "R1", "action": "Lacet vers la droite"}]}, {"id": "switch", "name": "Boutons annexes", "visible": true, "mode": "switches", "rows": [{"state": "", "key": "Options", "action": "Pause"}, {"state": "", "key": "Options", "press": "long", "action": "Afficher le clavier"}, {"state": "", "key": "Share", "press": "court", "action": "Afficher la carte"}]}];
+const ZONES = [{"id": "joystick", "name": "Stick gauche", "visible": true, "mode": "dpad", "rows": [{"state": "normal", "key": "↑", "action": "Tangage vers le haut"}, {"state": "normal", "key": "↓", "action": "Tangage vers le bas"}, {"state": "normal", "key": "←", "action": "Roulis à gauche"}, {"state": "normal", "key": "→", "action": "Roulis à droite"}, {"state": "normal", "key": "Click", "action": "Touche Mod"}]}, {"id": "dpad", "name": "D-Pad", "visible": true, "mode": "dpad", "rows": [{"state": "normal", "key": "↑", "action": "Zoom avant"}, {"state": "normal", "key": "↓", "action": "Zoom arrière"}, {"state": "normal", "key": "←", "action": "Clic droit"}, {"state": "normal", "key": "←", "action": "Calque", "note": "(RightClick)", "hi": true}, {"state": "normal", "key": "→", "action": "Clic gauche"}, {"state": "shift", "key": "←", "action": "Vaisseau précédent"}, {"state": "shift", "key": "→", "action": "Vaisseau suivant"}, {"state": "shift", "key": "↑", "action": "Caméra suivante"}]}, {"id": "rjoy", "name": "Stick droit", "visible": true, "mode": "joystick_mouse", "rows": [{"state": "", "key": "Click", "action": "Modeshift", "note": "(maintenir)", "hi": true}, {"state": "normal", "layer": "RightClick", "key": "↑", "action": "Caméra vers le bas"}, {"state": "normal", "layer": "RightClick", "key": "↓", "action": "Caméra vers le haut"}, {"state": "normal", "layer": "RightClick", "key": "←", "action": "Caméra vers la droite"}, {"state": "normal", "layer": "RightClick", "key": "→", "action": "Caméra vers la gauche"}]}, {"id": "diamond", "name": "4 boutons", "visible": true, "mode": "four_buttons", "rows": [{"state": "normal", "key": "×", "action": "Larguer"}, {"state": "normal", "key": "○", "action": "Freins"}, {"state": "normal", "key": "□", "action": "Activer/Désactiver RCS"}, {"state": "normal", "key": "△", "action": "Activer/Désactiver SAS"}, {"state": "shift", "key": "×", "action": "Afficher/Masquer la cible"}, {"state": "shift", "key": "○", "action": "Détacher"}, {"state": "shift", "key": "□", "action": "Réduire l'avance rapide"}, {"state": "shift", "key": "△", "action": "Augmenter l'avance rapide"}]}, {"id": "bumpers", "name": "L1 / R1", "visible": true, "mode": "switches", "rows": [{"state": "normal", "key": "L1", "action": "Lacet vers la gauche"}, {"state": "normal", "key": "R1", "action": "Lacet vers la droite"}]}, {"id": "switch", "name": "Boutons annexes", "visible": true, "mode": "switches", "rows": [{"state": "", "key": "Options", "action": "Pause"}, {"state": "", "key": "Options", "press": "long", "action": "Afficher le clavier"}, {"state": "", "key": "Share", "press": "court", "action": "Afficher la carte"}]}];
 const MOUSE_MODES = ['absolute_mouse','joystick_mouse'];
 
 // Configurations exported in Steam (title from the vdf + controller type). Empty => only ‹aucun›.
@@ -192,12 +192,18 @@ function zoneBody(z) {
   return html + '</div>';
 }
 function renderRows(rows) {
-  let html = '', lastState = null;
+  let html = '', lastSection = null;
   rows.forEach(r => {
-    if (r.state !== '' && r.state !== lastState) {
-      html += `<div class="kstate${r.state==='shift'?' shift':''}">${r.state==='shift'?'Modeshift':'Normal'}</div>`;
-      lastState = r.state;
-    } else if (r.state === '' && lastState !== '') { lastState = ''; }
+    // A section is identified by its state (normal/modeshift) AND its layer, if any.
+    // Layer sections repeat the same state headers, suffixed with the layer name.
+    const layer = r.layer || '';
+    const section = r.state + '|' + layer;
+    if (r.state !== '' && section !== lastSection) {
+      const base = r.state === 'shift' ? 'Modeshift' : 'Normal';
+      const label = layer ? `${base} (${layer})` : base;
+      html += `<div class="kstate${r.state==='shift'?' shift':''}">${label}</div>`;
+      lastSection = section;
+    } else if (r.state === '') { lastSection = null; }
     const press = r.press ? `<span class="kpress">${r.press}</span>` : '';
     const action = r.hi
       ? `<span class="kaction hi">${r.action} <span class="knote">${r.note||''}</span></span>`

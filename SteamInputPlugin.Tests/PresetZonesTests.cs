@@ -32,7 +32,7 @@ namespace com.github.lhervier.ksp.Tests
                 }
             ");
 
-            Assert.That(daemon.GetPresetZones(EActionGroup.FlightControls), Is.Empty);
+            Assert.That(daemon.GetActionGroupZones(EActionGroup.FlightControls), Is.Empty);
         }
 
         [Test]
@@ -53,7 +53,7 @@ namespace com.github.lhervier.ksp.Tests
                 }
             ");
 
-            var zones = daemon.GetPresetZones(EActionGroup.FlightControls);
+            var zones = daemon.GetActionGroupZones(EActionGroup.FlightControls);
 
             Assert.That(zones, Has.Count.EqualTo(2));
             Assert.That(zones.ContainsKey(EGamepadZone.ButtonDiamond));
@@ -80,7 +80,7 @@ namespace com.github.lhervier.ksp.Tests
                 }
             ");
 
-            var zones = daemon.GetPresetZones(EActionGroup.FlightControls);
+            var zones = daemon.GetActionGroupZones(EActionGroup.FlightControls);
 
             Assert.That(zones, Has.Count.EqualTo(1));
             Assert.That(zones.ContainsKey(EGamepadZone.Switch));
@@ -105,7 +105,7 @@ namespace com.github.lhervier.ksp.Tests
                 }
             ");
 
-            var zones = daemon.GetPresetZones(EActionGroup.FlightControls);
+            var zones = daemon.GetActionGroupZones(EActionGroup.FlightControls);
 
             Assert.That(zones, Has.Count.EqualTo(1));
             VdfPresetZone diamond = zones[EGamepadZone.ButtonDiamond];
@@ -130,7 +130,7 @@ namespace com.github.lhervier.ksp.Tests
                 }
             ");
 
-            Assert.That(daemon.GetPresetZones(EActionGroup.FlightControls), Is.Empty);
+            Assert.That(daemon.GetActionGroupZones(EActionGroup.FlightControls), Is.Empty);
         }
 
         [Test]
@@ -150,7 +150,7 @@ namespace com.github.lhervier.ksp.Tests
                 }
             ");
 
-            Assert.That(daemon.GetPresetZones(EActionGroup.FlightControls), Is.Empty);
+            Assert.That(daemon.GetActionGroupZones(EActionGroup.FlightControls), Is.Empty);
         }
 
         [Test]
@@ -178,7 +178,7 @@ namespace com.github.lhervier.ksp.Tests
                 }
             ");
 
-            var zones = daemon.GetPresetZones(EActionGroup.FlightControls);
+            var zones = daemon.GetActionGroupZones(EActionGroup.FlightControls);
 
             Assert.That(zones, Has.Count.EqualTo(1));
             Assert.That(zones.ContainsKey(EGamepadZone.Joystick));
