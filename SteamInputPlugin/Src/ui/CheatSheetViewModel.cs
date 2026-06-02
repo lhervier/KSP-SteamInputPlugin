@@ -640,6 +640,7 @@ namespace com.github.lhervier.ksp.ui
                     bool longPress = vdfActivator.Name == EActivator.LongPress;
                     bool modeShift = false;
                     string bindingText = null;
+                    List<string> layerTitles = new List<string>();
 
                     if( vdfActivator.Bindings != null )
                     {
@@ -647,8 +648,14 @@ namespace com.github.lhervier.ksp.ui
                         {
                             if( IsLayerBinding(vdfBinding) )
                             {
-                                // Layer activations (controller_action hold_layer ...) are an
-                                // internal mechanism with no user-facing action: ignore them.
+                                // A layer activation (controller_action hold_layer N ...) gets its
+                                // own highlighted row, like a mode shift but tagged with the layer
+                                // name. Drop it when the layer cannot be resolved (unknown position).
+                                string layerTitle = GetLayerTitle(vdfBinding);
+                                if( !string.IsNullOrEmpty(layerTitle) )
+                                {
+                                    layerTitles.Add(layerTitle);
+                                }
                                 continue;
                             }
                             if( vdfBinding.ModeShift )
@@ -662,22 +669,46 @@ namespace com.github.lhervier.ksp.ui
                         }
                     }
 
-                    activators.Add(
-                        new UIActivator
-                        {
-                            Input = input,
-                            LongPress = longPress,
-                            ModeShift = modeShift,
-                            BindingText = bindingText,
-                            IconText = iconText,
-                            PressText = GetPressText(showPress, longPress),
-                            ActionText = GetActionText(modeShift, bindingText),
-                            Highlighted = modeShift && string.IsNullOrEmpty(bindingText),
-                            Note = (modeShift && string.IsNullOrEmpty(bindingText))
-                                ? ModLocalization.GetString("SteamInput_activator_modeshiftHold")
-                                : "",
-                        }
-                    );
+                    // The main row carries the real action and/or the mode shift. It is skipped when
+                    // the activator only holds a layer, which would otherwise render as a blank row.
+                    if( modeShift || !string.IsNullOrEmpty(bindingText) )
+                    {
+                        activators.Add(
+                            new UIActivator
+                            {
+                                Input = input,
+                                LongPress = longPress,
+                                ModeShift = modeShift,
+                                BindingText = bindingText,
+                                IconText = iconText,
+                                PressText = GetPressText(showPress, longPress),
+                                ActionText = GetActionText(modeShift, bindingText),
+                                Highlighted = modeShift && string.IsNullOrEmpty(bindingText),
+                                Note = (modeShift && string.IsNullOrEmpty(bindingText))
+                                    ? ModLocalization.GetString("SteamInput_activator_modeshiftHold")
+                                    : "",
+                            }
+                        );
+                    }
+
+                    // One highlighted row per layer this activator activates: "Layer (RightClick)".
+                    foreach( string layerTitle in layerTitles )
+                    {
+                        activators.Add(
+                            new UIActivator
+                            {
+                                Input = input,
+                                LongPress = longPress,
+                                ModeShift = false,
+                                BindingText = null,
+                                IconText = iconText,
+                                PressText = GetPressText(showPress, longPress),
+                                ActionText = ModLocalization.GetString("SteamInput_activator_layer"),
+                                Highlighted = true,
+                                Note = ModLocalization.GetString("SteamInput_sectionLayerSuffix", layerTitle),
+                            }
+                        );
+                    }
                 }
             }
 
@@ -709,6 +740,21 @@ namespace com.github.lhervier.ksp.ui
             return binding.EventType == "controller_action"
                 && binding.Action != null
                 && binding.Action.StartsWith("hold_layer");
+        }
+
+        /// <summary>
+        /// Title of the layer a <c>hold_layer</c> binding activates, or null when it cannot be
+        /// resolved. The action reads "hold_layer N ...", where N is the layer's 1-based position
+        /// in the preset list (see <see cref="GamepadConfigDaemon.GetLayerByPosition"/>).
+        /// </summary>
+        private string GetLayerTitle(VdfBinding binding)
+        {
+            string[] parts = binding.Action.Split(' ');
+            if( parts.Length < 2 || !int.TryParse(parts[1], out int position) )
+            {
+                return null;
+            }
+            return this._gamepadConfigDaemon.GetLayerByPosition(position)?.Title;
         }
 
         private static string GetActionText(bool modeShift, string bindingText)

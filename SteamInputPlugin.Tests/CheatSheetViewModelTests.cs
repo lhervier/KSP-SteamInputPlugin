@@ -291,11 +291,11 @@ namespace com.github.lhervier.ksp.Tests
         }
 
         [Test]
-        public void IgnoresHoldLayerBinding_KeepingRealActionLabel()
+        public void DropsHoldLayerBinding_WhenLayerCannotBeResolved()
         {
-            // dpad_west (PS4): a "Clic droit" mouse binding, plus a "hold_layer" layer activation
-            // on a second Full_Press (both collapse into one activator). The layer binding has no
-            // user-facing action and must be ignored, leaving "Clic droit".
+            // dpad_west: a "Clic droit" mouse binding plus a "hold_layer" pointing at position 13.
+            // No preset exists at that position, so the layer cannot be resolved: no extra row is
+            // emitted and only "Clic droit" remains.
             var vm = NewViewModelWithVdf(@"
                 ""controller_mappings""
                 {
@@ -336,6 +336,134 @@ namespace com.github.lhervier.ksp.Tests
             Assert.That(result[0].Input, Is.EqualTo(EInput.DpadWest));
             Assert.That(result[0].BindingText, Is.EqualTo("Clic droit"));
             Assert.That(result[0].ActionText, Is.EqualTo("Clic droit"));
+        }
+
+        [Test]
+        public void SurfacesHoldLayerBinding_AsExtraHighlightedRow()
+        {
+            // Same dpad_west, but now the hold_layer points at a real layer (position 2). The real
+            // action "Clic droit" keeps its own row, and the layer activation gets a second,
+            // highlighted row (carrying no real binding). The layer title resolution itself is
+            // covered in ActionLayersTests; here we only assert the extra row is surfaced.
+            var vm = NewViewModelWithVdf(@"
+                ""controller_mappings""
+                {
+                    ""action_layers""
+                    {
+                        ""FlightRightClickControls""
+                        {
+                            ""title""             ""RightClick""
+                            ""parent_set_name""   ""FlightControls""
+                        }
+                    }
+                    ""preset""
+                    {
+                        ""name""    ""FlightControls""
+                    }
+                    ""preset""
+                    {
+                        ""name""    ""FlightRightClickControls""
+                    }
+                    ""group""
+                    {
+                        ""id""    ""1""
+                        ""mode""  ""dpad""
+                        ""inputs""
+                        {
+                            ""dpad_west""
+                            {
+                                ""activators""
+                                {
+                                    ""Full_Press""
+                                    {
+                                        ""bindings""
+                                        {
+                                            ""binding""    ""mouse_button RIGHT, Clic droit, ""
+                                        }
+                                    }
+                                    ""Full_Press""
+                                    {
+                                        ""bindings""
+                                        {
+                                            ""binding""    ""controller_action hold_layer 2 0 0, , ""
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            ");
+
+            List<UIActivator> result = vm.GetActivators("1");
+
+            Assert.That(result, Has.Count.EqualTo(2));
+
+            UIActivator real = result[0];
+            Assert.That(real.Input, Is.EqualTo(EInput.DpadWest));
+            Assert.That(real.BindingText, Is.EqualTo("Clic droit"));
+            Assert.That(real.Highlighted, Is.False);
+
+            UIActivator layer = result[1];
+            Assert.That(layer.Input, Is.EqualTo(EInput.DpadWest));
+            Assert.That(layer.BindingText, Is.Null);
+            Assert.That(layer.ModeShift, Is.False);
+            Assert.That(layer.Highlighted, Is.True);
+        }
+
+        [Test]
+        public void OmitsMainRow_WhenActivatorOnlyHoldsALayer()
+        {
+            // An input whose only binding is a hold_layer must not produce a blank main row:
+            // it yields exactly one row, the highlighted layer row.
+            var vm = NewViewModelWithVdf(@"
+                ""controller_mappings""
+                {
+                    ""action_layers""
+                    {
+                        ""FlightRightClickControls""
+                        {
+                            ""title""             ""RightClick""
+                            ""parent_set_name""   ""FlightControls""
+                        }
+                    }
+                    ""preset""
+                    {
+                        ""name""    ""FlightControls""
+                    }
+                    ""preset""
+                    {
+                        ""name""    ""FlightRightClickControls""
+                    }
+                    ""group""
+                    {
+                        ""id""    ""1""
+                        ""mode""  ""dpad""
+                        ""inputs""
+                        {
+                            ""dpad_west""
+                            {
+                                ""activators""
+                                {
+                                    ""Full_Press""
+                                    {
+                                        ""bindings""
+                                        {
+                                            ""binding""    ""controller_action hold_layer 2 0 0, , ""
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            ");
+
+            List<UIActivator> result = vm.GetActivators("1");
+
+            Assert.That(result, Has.Count.EqualTo(1));
+            Assert.That(result[0].Highlighted, Is.True);
+            Assert.That(result[0].BindingText, Is.Null);
         }
 
         // ===============================================================================================
