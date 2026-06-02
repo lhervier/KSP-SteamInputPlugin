@@ -23,7 +23,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
             this._modeBuilder = new ModeBuilder(viewModel);
         }
 
-        public ZoneBodyController Create(UIPresetZone zone)
+        public ZoneBodyController Create(UIPhysicalZone zone)
         {
             var go = new GameObject("Body", typeof(RectTransform));
             ZoneBodyController controller = go.AddComponent<ZoneBodyController>();
@@ -62,7 +62,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
                 this._modeBuilder = builder;
             }
 
-            public void UpdateZone(UIPresetZone zone)
+            public void UpdateZone(UIPhysicalZone zone)
             {
                 // The desired sections in display order: normal group first, then each modeshift
                 // group, keeping only the non-empty ones.

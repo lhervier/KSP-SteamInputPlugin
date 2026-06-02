@@ -28,7 +28,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
             this._zoneBodyBuilder = new ZoneBodyBuilder(viewModel);
         }
 
-        public ZoneController Create(UIPresetZone zone)
+        public ZoneController Create(UIPhysicalZone zone)
         {
             var zoneGo = new GameObject("PhysicalZone." + zone.Zone.Name, typeof(RectTransform));
             var controller = zoneGo.AddComponent<ZoneController>();
@@ -70,7 +70,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
                 _zoneBodyController = zoneBodyController;
             }
 
-            public void UpdateZone(UIPresetZone zone)
+            public void UpdateZone(UIPhysicalZone zone)
             {
                 _zoneHeaderController?.UpdateZone(zone);
                 _zoneBodyController?.UpdateZone(zone);

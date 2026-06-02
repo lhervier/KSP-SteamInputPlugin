@@ -24,7 +24,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
             this._viewModel = viewModel;
         }
 
-        public ZoneHeaderController Create(UIPresetZone zone)
+        public ZoneHeaderController Create(UIPhysicalZone zone)
         {
             var go = new GameObject("Header", typeof(RectTransform));
             ZoneHeaderController controller = go.AddComponent<ZoneHeaderController>();
@@ -84,7 +84,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
                 _label = label;
             }
 
-            public void UpdateZone(UIPresetZone zone)
+            public void UpdateZone(UIPhysicalZone zone)
             {
                 _label.text = zone.Label;
             }

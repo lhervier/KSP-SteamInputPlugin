@@ -68,13 +68,13 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
                 ViewModel?.OnGamepadConfigNameChanged.Add(OnGamepadConfigNameChanged);
                 OnGamepadConfigNameChanged(ViewModel?.GamepadConfigName ?? string.Empty);
                 
-                ViewModel?.OnPresetZonesChanged.Add(OnPresetZonesChanged);
-                OnPresetZonesChanged(ViewModel?.PresetZones ?? null);
+                ViewModel?.OnPhysicalZonesChanged.Add(OnPresetZonesChanged);
+                OnPresetZonesChanged(ViewModel?.PhysicalZones ?? null);
             }
 
             public void OnDestroy()
             {
-                ViewModel?.OnPresetZonesChanged.Remove(OnPresetZonesChanged);
+                ViewModel?.OnPhysicalZonesChanged.Remove(OnPresetZonesChanged);
                 ViewModel?.OnGamepadConfigNameChanged.Remove(OnGamepadConfigNameChanged);
             }
 
@@ -97,7 +97,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
                 }
             }
 
-            private void OnPresetZonesChanged(List<UIPresetZone> zones)
+            private void OnPresetZonesChanged(List<UIPhysicalZone> zones)
             {
                 if( zones == null ) return;
 
@@ -154,7 +154,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
                 }
             }
 
-            private bool ShouldRender(UIPresetZone zone)
+            private bool ShouldRender(UIPhysicalZone zone)
             {
                 // Skip zones whose sections are all empty (incl. zones with no group at all).
                 return ViewModel.HasNonEmptySection(zone);

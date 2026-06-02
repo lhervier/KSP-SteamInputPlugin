@@ -89,9 +89,9 @@ namespace com.github.lhervier.ksp.ui
         // ====================================================
         // The gamepad zones for the current action group
         // ====================================================
-        public List<UIPresetZone> PresetZones => new List<UIPresetZone>(_presetZones);
-        private List<UIPresetZone> _presetZones = new List<UIPresetZone>();
-        public EventData<List<UIPresetZone>> OnPresetZonesChanged = new EventData<List<UIPresetZone>>("SteamInput.OnPresetZonesChanged");
+        public List<UIPhysicalZone> PhysicalZones => new List<UIPhysicalZone>(_physicalZones);
+        private List<UIPhysicalZone> _physicalZones = new List<UIPhysicalZone>();
+        public EventData<List<UIPhysicalZone>> OnPhysicalZonesChanged = new EventData<List<UIPhysicalZone>>("SteamInput.OnPresetZonesChanged");
 
         // ==================================================================
         // The gamepad zones défined in the current configuration
@@ -192,7 +192,7 @@ namespace com.github.lhervier.ksp.ui
             LOGGER.LogDebug("OnActionGroupChanged: " + actionGroup.ToString());
             this.RefreshActivatedContexts();
             this.RefreshActionGroupLabel();
-            this.RefreshPresetZones();
+            this.RefreshPhysicalZones();
         }
 
         private void _OnGamepadConfigLoaded()
@@ -201,7 +201,7 @@ namespace com.github.lhervier.ksp.ui
             this.RefreshControllerType();
             this.RefreshActionGroupLabel();
             this.RefreshConfigZones();
-            this.RefreshPresetZones();
+            this.RefreshPhysicalZones();
 
             this._lastConfigLoadError = string.Empty;
             this._groupsCache.Clear();
@@ -243,11 +243,11 @@ namespace com.github.lhervier.ksp.ui
             }
             if( (updateFlags & UpdatedConfiguration.ORDERED_GAMEPAD_ZONES) != 0 ) {
                 this.RefreshConfigZones();
-                this.RefreshPresetZones();
+                this.RefreshPhysicalZones();
             }
             if( (updateFlags & UpdatedConfiguration.VISIBLE_GAMEPAD_ZONES) != 0 ) {
                 this.RefreshConfigZones();
-                this.RefreshPresetZones();
+                this.RefreshPhysicalZones();
             }
         }
 
@@ -265,7 +265,7 @@ namespace com.github.lhervier.ksp.ui
             this.RefreshActivatedContexts();
             this.RefreshActionGroupLabel();
             this.RefreshConfigZones();
-            this.RefreshPresetZones();
+            this.RefreshPhysicalZones();
         }
 
         private void RefreshControllerConfigName()
@@ -391,9 +391,9 @@ namespace com.github.lhervier.ksp.ui
             OnConfigZonesChanged.Fire(this._configZones);
         }
 
-        private void RefreshPresetZones()
+        private void RefreshPhysicalZones()
         {
-            this._presetZones.Clear();
+            this._physicalZones.Clear();
             
             EActionGroup currentActionGroup = this._actionGroupDaemon.GetCurrentActionGroup();
             
@@ -410,8 +410,8 @@ namespace com.github.lhervier.ksp.ui
                 {
                     continue;
                 }
-                this._presetZones.Add(
-                    new UIPresetZone
+                this._physicalZones.Add(
+                    new UIPhysicalZone
                     {
                         Zone = zone,
                         Label = GetLabel(zone),
@@ -420,7 +420,7 @@ namespace com.github.lhervier.ksp.ui
                     }
                 );
             }
-            OnPresetZonesChanged.Fire(this._presetZones);
+            OnPhysicalZonesChanged.Fire(this._physicalZones);
         }
 
         // =======================================================================
@@ -543,7 +543,7 @@ namespace com.github.lhervier.ksp.ui
         }
 
         /// <summary>True if the zone has at least one non-empty section (normal or modeshift).</summary>
-        public bool HasNonEmptySection(UIPresetZone zone)
+        public bool HasNonEmptySection(UIPhysicalZone zone)
         {
             if( !IsSectionEmpty(zone.GroupId) )
             {
@@ -559,7 +559,7 @@ namespace com.github.lhervier.ksp.ui
             return false;
         }
 
-        public List<UISection> GetSections(UIPresetZone zone)
+        public List<UISection> GetSections(UIPhysicalZone zone)
         {
             List<UISection> sections = new List<UISection>();
             if( !IsSectionEmpty(zone.GroupId) )

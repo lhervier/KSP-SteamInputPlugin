@@ -481,7 +481,7 @@ namespace com.github.lhervier.ksp.Tests
         public void HasNonEmptySection_False_WhenAllSectionsEmpty()
         {
             var vm = NewViewModelWithVdf(TwoGroupsVdf);
-            var zone = new UIPresetZone
+            var zone = new UIPhysicalZone
             {
                 GroupId = "empty",
                 ModeshiftGroupIds = new List<string> { "does-not-exist" },
@@ -494,7 +494,7 @@ namespace com.github.lhervier.ksp.Tests
         public void HasNonEmptySection_True_WhenOnlyModeshiftIsNonEmpty()
         {
             var vm = NewViewModelWithVdf(TwoGroupsVdf);
-            var zone = new UIPresetZone
+            var zone = new UIPhysicalZone
             {
                 GroupId = "empty",
                 ModeshiftGroupIds = new List<string> { "withBinding" },
