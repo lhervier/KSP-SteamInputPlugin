@@ -7,7 +7,6 @@ namespace com.github.lhervier.ksp.ui.model
     {
         public EGamepadZone Zone { get; set; }
         public string Label { get; set; }
-        public string GroupId { get; set; }
-        public List<string> ModeshiftGroupIds { get; set; } = new List<string>();
+        public List<UISection> Sections { get; set; } = new List<UISection>();
     }
 }

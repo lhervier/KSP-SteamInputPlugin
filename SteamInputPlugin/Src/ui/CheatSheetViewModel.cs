@@ -410,15 +410,22 @@ namespace com.github.lhervier.ksp.ui
                 {
                     continue;
                 }
-                this._physicalZones.Add(
-                    new UIPhysicalZone
-                    {
-                        Zone = zone,
-                        Label = GetLabel(zone),
-                        GroupId = presetZone.GroupId,
-                        ModeshiftGroupIds = new List<string>(presetZone.ModeshiftGroupIds),
-                    }
-                );
+                UIPhysicalZone z = new UIPhysicalZone
+                {
+                    Zone = zone,
+                    Label = GetLabel(zone),
+                };
+                
+                if( presetZone.GroupId != null )
+                {
+                    z.Sections.Add(new UISection(presetZone.GroupId, false));
+                }
+                foreach( string groupId in presetZone.ModeshiftGroupIds )
+                {
+                    z.Sections.Add(new UISection(groupId, true));
+                }
+
+                this._physicalZones.Add(z);
             }
             OnPhysicalZonesChanged.Fire(this._physicalZones);
         }
@@ -542,38 +549,22 @@ namespace com.github.lhervier.ksp.ui
             return GetActivators(groupId).Count == 0;
         }
 
+        public bool IsSectionEmpty(UISection section)
+        {
+            return IsSectionEmpty(section.GroupId);
+        }
+
         /// <summary>True if the zone has at least one non-empty section (normal or modeshift).</summary>
         public bool HasNonEmptySection(UIPhysicalZone zone)
         {
-            if( !IsSectionEmpty(zone.GroupId) )
+            foreach( UISection section in zone.Sections )
             {
-                return true;
-            }
-            foreach( string modeshiftGroupId in zone.ModeshiftGroupIds )
-            {
-                if( !IsSectionEmpty(modeshiftGroupId) )
+                if( !IsSectionEmpty(section) )
                 {
                     return true;
                 }
             }
             return false;
-        }
-
-        public List<UISection> GetSections(UIPhysicalZone zone)
-        {
-            List<UISection> sections = new List<UISection>();
-            if( !IsSectionEmpty(zone.GroupId) )
-            {
-                sections.Add(new UISection(zone.GroupId, false));
-            }
-            foreach( string modeshiftGroupId in zone.ModeshiftGroupIds )
-            {
-                if( !IsSectionEmpty(modeshiftGroupId) )
-                {
-                    sections.Add(new UISection(modeshiftGroupId, true));
-                }
-            }
-            return sections;
         }
 
         public List<UIActivator> GetActivators(string groupId)

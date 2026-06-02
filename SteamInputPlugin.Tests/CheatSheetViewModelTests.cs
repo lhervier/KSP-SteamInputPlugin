@@ -481,12 +481,10 @@ namespace com.github.lhervier.ksp.Tests
         public void HasNonEmptySection_False_WhenAllSectionsEmpty()
         {
             var vm = NewViewModelWithVdf(TwoGroupsVdf);
-            var zone = new UIPhysicalZone
-            {
-                GroupId = "empty",
-                ModeshiftGroupIds = new List<string> { "does-not-exist" },
-            };
-
+            var zone = new UIPhysicalZone();
+            zone.Sections.Add(new UISection("empty", false));
+            zone.Sections.Add(new UISection("does-not-exist", true));
+            
             Assert.That(vm.HasNonEmptySection(zone), Is.False);
         }
 
@@ -494,12 +492,10 @@ namespace com.github.lhervier.ksp.Tests
         public void HasNonEmptySection_True_WhenOnlyModeshiftIsNonEmpty()
         {
             var vm = NewViewModelWithVdf(TwoGroupsVdf);
-            var zone = new UIPhysicalZone
-            {
-                GroupId = "empty",
-                ModeshiftGroupIds = new List<string> { "withBinding" },
-            };
-
+            var zone = new UIPhysicalZone();
+            zone.Sections.Add(new UISection("empty", false));
+            zone.Sections.Add(new UISection("withBinding", true));
+            
             Assert.That(vm.HasNonEmptySection(zone), Is.True);
         }
     }

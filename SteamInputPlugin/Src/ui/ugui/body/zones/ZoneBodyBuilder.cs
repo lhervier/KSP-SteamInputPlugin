@@ -64,13 +64,9 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
 
             public void UpdateZone(UIPhysicalZone zone)
             {
-                // The desired sections in display order: normal group first, then each modeshift
-                // group, keeping only the non-empty ones.
-                List<UISection> sections = ViewModel.GetSections(zone);
-
                 // Destroy sections that are no longer present.
                 HashSet<string> desiredIds = new HashSet<string>();
-                foreach( UISection section in sections )
+                foreach( UISection section in zone.Sections )
                 {
                     desiredIds.Add(section.GroupId);
                 }
@@ -89,9 +85,9 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
                 }
 
                 // Create or update sections, then impose the visual order via SetSiblingIndex.
-                for( int i = 0; i < sections.Count; i++ )
+                for( int i = 0; i < zone.Sections.Count; i++ )
                 {
-                    UISection section = sections[i];
+                    UISection section = zone.Sections[i];
                     if( !_modes.TryGetValue(section.GroupId, out ModeBuilder.ModeController controller) )
                     {
                         controller = _modeBuilder.Create(section.GroupId, section.Modeshift);
@@ -104,7 +100,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
                     }
                     // The "NORMAL" subheader is hidden when the normal section stands alone; a
                     // modeshift subheader is always shown (even when it is the only section).
-                    controller.SetHeaderVisible(section.Modeshift || sections.Count > 1);
+                    controller.SetHeaderVisible(section.Modeshift || zone.Sections.Count > 1);
                     controller.transform.SetSiblingIndex(i);
                 }
             }
