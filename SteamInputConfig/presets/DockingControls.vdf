@@ -5,22 +5,27 @@
 		"name"		"DockingControls"
 		"group_source_bindings"
 		{
-			{{! Left Joystick }}
-			"/groups/joystick/translate.vdf"										"joystick active"
-			"/groups/joystick/actiongroups.vdf"										"joystick active modeshift"
-
 			{{! Right Joystick }}
-			"#ref"																	"_right-joystick.vdf?group=camera"
-			
-			{{! dpadZone }}
-			"/groups/dpadZone/click-zoom.vdf"										"{{dpadZone}} active"
-			"/groups/dpadZone/vessel-camera.vdf"									"{{dpadZone}} active modeshift"
+			{{#if (equals mouseZone "right_joystick")}}
+				"/groups/right_joystick/mouse.vdf"									"right_joystick active"
+				"/groups/right_joystick/slow-mouse.vdf"								"right_joystick active modeshift"
+			{{else}}
+				"/groups/right_joystick/camera.vdf"             					"right_joystick active"
+			{{/if}}
 			
 			{{! Right Trackpad }}
 			{{#if (equals mouseZone "right_trackpad")}}
 				"/groups/right_trackpad/mouse.vdf"									"right_trackpad active"
 			{{/if}}
 	
+			{{! Left Joystick }}
+			"/groups/joystick/translate.vdf"										"joystick active"
+			"/groups/joystick/actiongroups.vdf"										"joystick active modeshift"
+
+			{{! dpadZone }}
+			"/groups/dpadZone/click-zoom.vdf"										"{{dpadZone}} active"
+			"/groups/dpadZone/vessel-camera.vdf"									"{{dpadZone}} active modeshift"
+			
 			{{! Button diamond }}
 			"/groups/button_diamond/tr_rot-brakes-rcs-sas.vdf"						"button_diamond active"
 			"/groups/button_diamond/timewarp-precision-target-unbuckle.vdf"			"button_diamond active modeshift"

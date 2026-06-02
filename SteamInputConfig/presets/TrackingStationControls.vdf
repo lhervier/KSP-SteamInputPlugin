@@ -5,27 +5,30 @@
 		"name"		"TrackingStationControls"
 		"group_source_bindings"
 		{
-			{{! Left Joystick }}
-			
 			{{! Right Joystick }}
-			"#ref"													"_right-joystick.vdf?group=empty"
-			
-			{{! dpadZone }}
-			"/groups/dpadZone/click-zoom.vdf"						"{{dpadZone}} active"
+			{{#if (equals mouseZone "right_joystick")}}
+				"/groups/right_joystick/mouse.vdf"					"right_joystick active"
+				"/groups/right_joystick/slow-mouse.vdf"				"right_joystick active modeshift"
+			{{/if}}
 			
 			{{! Right Trackpad }}
 			{{#if (equals mouseZone "right_trackpad")}}
 				"/groups/right_trackpad/mouse.vdf"					"right_trackpad active"
 			{{/if}}
 
+			{{! Left Joystick }}
+			
+			{{! dpadZone }}
+			"/groups/dpadZone/click-zoom.vdf"						"{{dpadZone}} active"
+			
 			{{! Button diamond }}
 			"/groups/button_diamond/timewarp.vdf"					"button_diamond active modeshift"
 			
 			{{! Left Trigger }}
-			"/groups/left_trigger/right-click.vdf"						"left_trigger active"
+			"/groups/left_trigger/right-click.vdf"					"left_trigger active"
 			
 			{{! Right Trigger }}
-			"/groups/right_trigger/left-click.vdf"						"right_trigger active"
+			"/groups/right_trigger/left-click.vdf"					"right_trigger active"
 			
 			{{! Switch }}
 			"/groups/switches/tracking-station.vdf"					"switch active"		

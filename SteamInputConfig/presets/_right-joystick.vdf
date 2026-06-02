@@ -1,9 +1,0 @@
-"ref"
-{
-    {{#if (equals mouseZone "right_joystick")}}
-        "/groups/right_joystick/slow-mouse.vdf"							"right_joystick active modeshift"
-        "/groups/right_joystick/mouse.vdf"								"right_joystick active"
-    {{else}}
-        "/groups/right_joystick/{{group}}.vdf"             				"right_joystick active"
-    {{/if}}
-}

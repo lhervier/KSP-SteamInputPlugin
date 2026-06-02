@@ -5,21 +5,26 @@
 		"name"		"EditorControls"
 		"group_source_bindings"
 		{
-			{{! Left Joystick }}
-			"/groups/joystick/editor/rotate-part.vdf"								"joystick active"
-			"/groups/joystick/editor/place-offset-rotate-root.vdf"					"joystick active modeshift"
-			
 			{{! Right Joystick }}
-			"#ref"																	"_right-joystick.vdf?group=camera"
+			{{#if (equals mouseZone "right_joystick")}}
+				"/groups/right_joystick/mouse.vdf"									"right_joystick active"
+				"/groups/right_joystick/slow-mouse.vdf"								"right_joystick active modeshift"
+			{{else}}
+				"/groups/right_joystick/camera.vdf"		             				"right_joystick active"
+			{{/if}}
 			
-			{{! dpadZone }}
-			"/groups/dpadZone/click-scroll.vdf"										"{{dpadZone}} active"
-
 			{{! Right Trackpad }}
 			{{#if (equals mouseZone "right_trackpad")}}
 				"/groups/right_trackpad/mouse.vdf"									"right_trackpad active"
 			{{/if}}
 			
+			{{! Left Joystick }}
+			"/groups/joystick/editor/rotate-part.vdf"								"joystick active"
+			"/groups/joystick/editor/place-offset-rotate-root.vdf"					"joystick active modeshift"
+			
+			{{! dpadZone }}
+			"/groups/dpadZone/click-scroll.vdf"										"{{dpadZone}} active"
+
 			{{! Button diamond }}
 			"/groups/button_diamond/editor/reset_rot-delete-sym_cycle-snap.vdf"		"button_diamond active"
 			"/groups/button_diamond/editor/sym-frame.vdf"							"button_diamond active modeshift"

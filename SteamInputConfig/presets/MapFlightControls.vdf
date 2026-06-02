@@ -5,21 +5,26 @@
 		"name"		"MapFlightControls"
 		"group_source_bindings"
 		{
-			{{! Left Joystick }}
-			"/groups/joystick/yaw-pitch.vdf"							"joystick active"
-			"/groups/joystick/actiongroups.vdf"							"joystick active modeshift"
-
 			{{! Right Joystick }}
-			"#ref"														"_right-joystick.vdf?group=camera"
-			
-			{{! dpadZone }}
-			"/groups/dpadZone/click-zoom.vdf"							"{{dpadZone}} active"
+			{{#if (equals mouseZone "right_joystick")}}
+				"/groups/right_joystick/mouse.vdf"						"right_joystick active"
+				"/groups/right_joystick/slow-mouse.vdf"					"right_joystick active modeshift"
+			{{else}}
+				"/groups/right_joystick/camera.vdf"             		"right_joystick active"
+			{{/if}}
 			
 			{{! Right Trackpad }}
 			{{#if (equals mouseZone "right_trackpad")}}
 				"/groups/right_trackpad/mouse.vdf"						"right_trackpad active"
 			{{/if}}
 
+			{{! Left Joystick }}
+			"/groups/joystick/yaw-pitch.vdf"							"joystick active"
+			"/groups/joystick/actiongroups.vdf"							"joystick active modeshift"
+
+			{{! dpadZone }}
+			"/groups/dpadZone/click-zoom.vdf"							"{{dpadZone}} active"
+			
 			{{! Button diamond }}
 			"/groups/button_diamond/staging-brakes-rcs-sas.vdf"			"button_diamond active"
 			"/groups/button_diamond/precision-timewarp.vdf"				"button_diamond active modeshift"
