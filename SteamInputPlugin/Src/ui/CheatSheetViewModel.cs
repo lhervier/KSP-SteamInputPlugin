@@ -418,11 +418,23 @@ namespace com.github.lhervier.ksp.ui
                 
                 if( presetZone.GroupId != null )
                 {
-                    z.Sections.Add(new UISection(presetZone.GroupId, false));
+                    z.Sections.Add(
+                        new UISection
+                        {
+                            GroupId = presetZone.GroupId, 
+                            Modeshift = false,
+                        }
+                    );
                 }
                 foreach( string groupId in presetZone.ModeshiftGroupIds )
                 {
-                    z.Sections.Add(new UISection(groupId, true));
+                    z.Sections.Add(
+                        new UISection
+                        {
+                            GroupId = groupId, 
+                            Modeshift = true
+                        }
+                    );
                 }
 
                 this._physicalZones.Add(z);

@@ -473,7 +473,7 @@ namespace com.github.lhervier.ksp.Tests
         public void IsSectionEmpty_True_WhenGroupIdNullOrMissing()
         {
             var vm = NewViewModelWithVdf(TwoGroupsVdf);
-            Assert.That(vm.IsSectionEmpty(null), Is.True);
+            Assert.That(vm.IsSectionEmpty((string) null), Is.True);
             Assert.That(vm.IsSectionEmpty("does-not-exist"), Is.True);
         }
 
@@ -482,8 +482,19 @@ namespace com.github.lhervier.ksp.Tests
         {
             var vm = NewViewModelWithVdf(TwoGroupsVdf);
             var zone = new UIPhysicalZone();
-            zone.Sections.Add(new UISection("empty", false));
-            zone.Sections.Add(new UISection("does-not-exist", true));
+            zone.Sections.Add(
+                new UISection{
+                    GroupId = "empty", 
+                    Modeshift = false,
+                }
+            );
+            zone.Sections.Add(
+                new UISection
+                {
+                    GroupId = "does-not-exist", 
+                    Modeshift = true,
+                }
+            );
             
             Assert.That(vm.HasNonEmptySection(zone), Is.False);
         }
@@ -493,8 +504,19 @@ namespace com.github.lhervier.ksp.Tests
         {
             var vm = NewViewModelWithVdf(TwoGroupsVdf);
             var zone = new UIPhysicalZone();
-            zone.Sections.Add(new UISection("empty", false));
-            zone.Sections.Add(new UISection("withBinding", true));
+            zone.Sections.Add(
+                new UISection{
+                    GroupId = "empty", 
+                    Modeshift = false,
+                }
+            );
+            zone.Sections.Add(
+                new UISection
+                {
+                    GroupId = "withBinding", 
+                    Modeshift = true,
+                }
+            );
             
             Assert.That(vm.HasNonEmptySection(zone), Is.True);
         }
