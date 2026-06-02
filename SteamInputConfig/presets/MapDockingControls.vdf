@@ -6,15 +6,11 @@
 		"group_source_bindings"
 		{
 			{{! Left Joystick }}
-			{{#if (true backButtons)}}
-				"/groups/joystick/translate.vdf"						"joystick active"
-			{{else}}
-				"/groups/joystick/translate.vdf?with-mod"				"joystick active"
-			{{/if}}
+			"/groups/joystick/translate.vdf"							"joystick active"
 			"/groups/joystick/actiongroups.vdf"							"joystick active modeshift"
 	
 			{{! Right Joystick }}
-			"#ref"														"_right-joystick.vdf?preset=mapdocking&group=camera"
+			"#ref"														"_right-joystick.vdf?group=camera"
 			
 			{{! dpadZone }}
 			"/groups/dpadZone/click-zoom.vdf"							"{{dpadZone}} active"

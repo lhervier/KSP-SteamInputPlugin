@@ -7,10 +7,8 @@
 		"description"		""
 		"inputs"
 		{
-			{{#if (true backButtons)}}
-				"#ref"				"/inputs/switches/button_back_right/modeshift.vdf?preset=docking"
-				"#ref"				"/inputs/switches/button_back_left/mod-key.vdf"
-			{{/if}}
+			"#ref"				"/inputs/switches/button_back_right/modeshift.vdf?preset=docking"
+			"#ref"				"/inputs/switches/button_back_left/mod-key.vdf"
 			"#ref"				"/inputs/switches/button_escape/menu-debug.vdf"
 			"#ref"				"/inputs/switches/button_menu/map-keyboard.vdf"
 			"#ref"				"/inputs/switches/left_bumper/roll-left.vdf"

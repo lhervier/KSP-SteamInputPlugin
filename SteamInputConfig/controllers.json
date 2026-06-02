@@ -9,7 +9,8 @@
       "rootVdfPath": "/ksp_steaminput_steamcontroller.vdf",
       "context": {
         "haptic": true,
-        "backButtons": true,
+        "button_back_right": "button_back_right",
+        "button_back_left": "button_back_left",
         "triggersClick": true,
         "mouseZone": "right_trackpad",
         "dpadZone": "left_trackpad"
@@ -20,7 +21,8 @@
       "rootVdfPath": "/ksp_steaminput_steamcontroller_v2.vdf",
       "context": {
         "haptic": true,
-        "backButtons": true,
+        "button_back_right": "button_back_right",
+        "button_back_left": "button_back_left",
         "triggersClick": false,
         "mouseZone": "right_trackpad",
         "dpadZone": "dpad"
@@ -31,7 +33,8 @@
       "rootVdfPath": "/ksp_steaminput_hori_steam.vdf",
       "context": {
         "haptic": false,
-        "backButtons": true,
+        "button_back_right": "button_back_right",
+        "button_back_left": "button_back_left",
         "triggersClick": false,
         "mouseZone": "right_joystick",
         "dpadZone": "dpad"
@@ -42,7 +45,8 @@
       "rootVdfPath": "/ksp_steaminput_xboxelite.vdf",
       "context": {
         "haptic": false,
-        "backButtons": true,
+        "button_back_right": "button_back_right",
+        "button_back_left": "button_back_left",
         "triggersClick": false,
         "mouseZone": "right_joystick",
         "dpadZone": "dpad"
@@ -53,7 +57,8 @@
       "rootVdfPath": "/ksp_steaminput_ps4.vdf",
       "context": {
         "haptic": false,
-        "backButtons": false,
+        "button_back_right": "right_stick_click",
+        "button_back_left": "left_stick_click",
         "triggersClick": false,
         "mouseZone": "right_joystick",
         "dpadZone": "dpad"

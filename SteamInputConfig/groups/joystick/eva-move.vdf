@@ -11,9 +11,6 @@
 			"#ref"				"/inputs/dpad/dpad_north/eva-move-forward.vdf"
 			"#ref"				"/inputs/dpad/dpad_south/eva-move-backward.vdf"
 			"#ref"				"/inputs/dpad/dpad_west/eva-move-left.vdf"
-			{{#if (defined with-mod)}}
-				"#ref"			"/inputs/dpad/click/mod-key.vdf"
-			{{/if}}
 		}
 	}
 }

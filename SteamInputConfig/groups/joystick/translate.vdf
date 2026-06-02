@@ -11,9 +11,6 @@
 			"#ref"				"/inputs/dpad/dpad_north/translate-down.vdf"
 			"#ref"				"/inputs/dpad/dpad_south/translate-up.vdf"
 			"#ref"				"/inputs/dpad/dpad_west/translate-left.vdf"
-			{{#if (defined with-mod)}}
-				"#ref"			"/inputs/dpad/click/mod-key.vdf"
-			{{/if}}
 		}
 	}
 }

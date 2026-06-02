@@ -6,12 +6,9 @@
 		"group_source_bindings"
 		{
 			{{! Left Joystick }}
-			{{#unless (true backButtons)}}
-				"/groups/joystick/mod-only.vdf"						"joystick active"
-			{{/unless}}
 			
 			{{! Right Joystick }}
-			"#ref"													"_right-joystick.vdf?preset=menu&group=empty"
+			"#ref"													"_right-joystick.vdf?group=empty"
 			
 			{{! dpadZone }}
 			"/groups/dpadZone/click-zoom.vdf"						"{{dpadZone}} active"

@@ -6,15 +6,11 @@
 		"group_source_bindings"
 		{
 			{{! Left Joystick }}
-			{{#if (true backButtons)}}
-				"/groups/joystick/yaw-pitch.vdf"										"joystick active"
-			{{else}}
-				"/groups/joystick/yaw-pitch.vdf?with-mod"								"joystick active"
-			{{/if}}
+			"/groups/joystick/yaw-pitch.vdf"											"joystick active"
 			"/groups/joystick/actiongroups.vdf"											"joystick active modeshift"
 
 			{{! Right Joystick }}
-			"#ref"																		"_right-joystick.vdf?preset=flight&group=camera"
+			"#ref"																		"_right-joystick.vdf?group=camera"
 			
 			{{! dpadZone }}
 			"/groups/dpadZone/click-zoom.vdf"											"{{dpadZone}} active"

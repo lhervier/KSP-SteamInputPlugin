@@ -11,9 +11,6 @@
 			"#ref"					"/inputs/dpad/dpad_north/editor/pitch-part-down.vdf"
 			"#ref"					"/inputs/dpad/dpad_south/editor/pitch-part-up.vdf"
 			"#ref"					"/inputs/dpad/dpad_west/editor/yaw-part-left.vdf"
-			{{#if (defined with-mod)}}
-				"#ref"				"/inputs/dpad/click/mod-key.vdf"
-			{{/if}}
 		}
 	}
 }

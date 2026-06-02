@@ -6,15 +6,11 @@
 		"group_source_bindings"
 		{
 			{{! Left Joystick }}
-			{{#if (true backButtons)}}
-				"/groups/joystick/editor/rotate-part.vdf"							"joystick active"
-			{{else}}
-				"/groups/joystick/editor/rotate-part.vdf?with-mod"					"joystick active"
-			{{/if}}
+			"/groups/joystick/editor/rotate-part.vdf"								"joystick active"
 			"/groups/joystick/editor/place-offset-rotate-root.vdf"					"joystick active modeshift"
 			
 			{{! Right Joystick }}
-			"#ref"																	"_right-joystick.vdf?preset=editor&group=camera"
+			"#ref"																	"_right-joystick.vdf?group=camera"
 			
 			{{! dpadZone }}
 			"/groups/dpadZone/click-scroll.vdf"										"{{dpadZone}} active"

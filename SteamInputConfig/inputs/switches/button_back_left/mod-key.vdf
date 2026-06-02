@@ -1,9 +1,7 @@
 "ref"
 {
-    {{#if (true backButtons)}}
-        "button_back_left"
-        {
-            "#ref"			"/activators/mod-key.vdf"
-        }
-    {{/if}}
+    "{{button_back_left}}"
+    {
+        "#ref"			"/activators/mod-key.vdf"
+    }
 }

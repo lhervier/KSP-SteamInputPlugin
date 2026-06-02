@@ -6,14 +6,10 @@
 		"group_source_bindings"
 		{
 			{{! Left Joystick }}
-			{{#if (true backButtons)}}
-				"/groups/joystick/eva-move.vdf"						"joystick active"
-			{{else}}
-				"/groups/joystick/eva-move.vdf?with-mod"			"joystick active"
-			{{/if}}
+			"/groups/joystick/eva-move.vdf"							"joystick active"
 			
 			{{! Right Joystick }}
-			"#ref"													"_right-joystick.vdf?preset=mapeva&group=camera"
+			"#ref"													"_right-joystick.vdf?group=camera"
 			
 			{{! dpadZone }}
 			"/groups/dpadZone/click-zoom.vdf"						"{{dpadZone}} active"
