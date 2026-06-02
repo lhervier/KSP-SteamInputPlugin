@@ -303,22 +303,56 @@ namespace com.github.lhervier.ksp
             foreach( string actionLayerName in actionLayers.Keys )
             {
                 VdfObject actionLayerObject = actionLayers.GetObject(actionLayerName);
-                string parentSetName = actionLayerObject.GetString("parent_set_name");
-                if( parentSetName == actionGroup.ToString())
+                if( actionLayerObject.GetString("parent_set_name") == actionGroup.ToString() )
                 {
-                    layers.Add(
-                        new VdfLayer
-                        {
-                            Name = actionLayerName,
-                            Title = actionLayerObject.GetString("title"),
-                            LegacySet = actionLayerObject.GetString("legacy_set"),
-                            SetLayer = actionLayerObject.GetString("set_layer"),
-                            ParentSetName = parentSetName,
-                        }
-                    );
+                    layers.Add(BuildLayer(actionLayerName, actionLayerObject));
                 }
             }
             return layers;
+        }
+
+        /// <summary>
+        /// Resolve a layer from its position in the preset list, i.e. the <c>N</c> in a
+        /// "controller_action hold_layer N ..." binding. That position is 1-based (the base set
+        /// being layer 0), so it differs by one from the preset <c>id</c>. Returns null when the
+        /// position is out of range or points to a preset that is not a declared action layer.
+        /// </summary>
+        public VdfLayer GetLayerByPosition(int position)
+        {
+            VdfObject mappings = _root.GetObject("controller_mappings");
+            List<VdfObject> presets = new List<VdfObject>(mappings.GetArray("preset").Objects());
+
+            int index = position - 1;
+            if( index < 0 || index >= presets.Count )
+            {
+                return null;
+            }
+
+            // A layer is itself a preset; its action_layers entry is keyed by the preset name.
+            string presetName = presets[index].GetString("name");
+            if( string.IsNullOrEmpty(presetName) )
+            {
+                return null;
+            }
+
+            VdfObject actionLayers = mappings.GetObject("action_layers");
+            if( !actionLayers.Keys.Contains(presetName) )
+            {
+                return null;
+            }
+            return BuildLayer(presetName, actionLayers.GetObject(presetName));
+        }
+
+        private static VdfLayer BuildLayer(string name, VdfObject actionLayerObject)
+        {
+            return new VdfLayer
+            {
+                Name = name,
+                Title = actionLayerObject.GetString("title"),
+                LegacySet = actionLayerObject.GetString("legacy_set"),
+                SetLayer = actionLayerObject.GetString("set_layer"),
+                ParentSetName = actionLayerObject.GetString("parent_set_name"),
+            };
         }
 
         /// <summary>

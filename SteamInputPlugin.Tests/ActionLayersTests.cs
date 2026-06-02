@@ -124,5 +124,60 @@ namespace com.github.lhervier.ksp.Tests
 
             Assert.That(zones, Is.Empty);
         }
+
+        // ===============================================================================================
+        // GetLayerByPosition
+        // ===============================================================================================
+
+        // Two presets (positions 1 and 2), the second one being the layer "FlightRightClickControls".
+        private const string PositionVdf = @"
+            ""controller_mappings""
+            {
+                ""action_layers""
+                {
+                    ""FlightRightClickControls""
+                    {
+                        ""title""             ""RightClick""
+                        ""parent_set_name""   ""FlightControls""
+                    }
+                }
+                ""preset""
+                {
+                    ""id""      ""0""
+                    ""name""    ""FlightControls""
+                }
+                ""preset""
+                {
+                    ""id""      ""1""
+                    ""name""    ""FlightRightClickControls""
+                }
+            }
+        ";
+
+        [Test]
+        public void GetLayerByPosition_ResolvesTheLayerAtThe1BasedPosition()
+        {
+            // Position 2 = the 2nd preset = the layer (whose preset id is 1).
+            VdfLayer layer = NewDaemonWithVdf(PositionVdf).GetLayerByPosition(2);
+
+            Assert.That(layer, Is.Not.Null);
+            Assert.That(layer.Name, Is.EqualTo("FlightRightClickControls"));
+            Assert.That(layer.Title, Is.EqualTo("RightClick"));
+        }
+
+        [Test]
+        public void GetLayerByPosition_ReturnsNull_WhenPresetIsNotALayer()
+        {
+            // Position 1 = the base set, which has no action_layers entry.
+            Assert.That(NewDaemonWithVdf(PositionVdf).GetLayerByPosition(1), Is.Null);
+        }
+
+        [Test]
+        public void GetLayerByPosition_ReturnsNull_WhenPositionOutOfRange()
+        {
+            var daemon = NewDaemonWithVdf(PositionVdf);
+            Assert.That(daemon.GetLayerByPosition(0), Is.Null);
+            Assert.That(daemon.GetLayerByPosition(99), Is.Null);
+        }
     }
 }
