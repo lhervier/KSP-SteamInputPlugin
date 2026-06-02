@@ -4,7 +4,7 @@ const { getVersion } = require('./src/version-utils');
 const { saveVdfFile, loadVdfFile } = require('./src/vdf-utils');
 const { resolvePresets } = require('./src/preset-utils');
 const { resolveGroupBindings } = require('./src/group-bindings-utils');
-const { resolveLayerBindings } = require('./src/layer-bindings-utils');
+const { buildLayerPosMap } = require('./src/layer-bindings-utils');
 const { translateVdf } = require('./src/translate-utils');
 const { orderControllerProperties } = require('./src/controller-utils');
 
@@ -50,12 +50,15 @@ for (const controller of controllersToBuild) {
         hbContext.keyboard = keyboardJson;
 
         // Load the root controller file, resolving #ref (leading "/" is relative to this VDF's directory)
-        merged = loadVdfFile(configDir, rootVdfPath, controller.context || {});
+        merged = loadVdfFile(configDir, rootVdfPath, hbContext);
 
-        // Resolve the presets, group bindings and layer bindings
-        resolvePresets(merged, configDir, controller.context || {});
+        // Build the preset position map so the layerPos Handlebars helper can resolve
+        // action-layer names to their hold_layer index while the groups are loaded.
+        hbContext.layerPosMap = buildLayerPosMap(merged);
+
+        // Resolve the presets and group bindings
+        resolvePresets(merged, configDir, hbContext);
         resolveGroupBindings(merged);
-        resolveLayerBindings(merged);
 
         // Update the Timestamp property (set in epoch milliseconds)
         merged.controller_mappings.Timestamp = Date.now().toString();

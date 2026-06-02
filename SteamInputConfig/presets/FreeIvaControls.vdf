@@ -22,7 +22,7 @@
 			"/groups/joystick/freeiva-move.vdf"							"joystick active"
 			
 			{{! dpadZone }}
-			"/groups/dpadZone/click-zoom.vdf"							"{{dpadZone}} active"
+			"/groups/dpadZone/click-zoom.vdf?preset=FreeIva"			"{{dpadZone}} active"
 			"/groups/dpadZone/select-kerbal.vdf"						"{{dpadZone}} active modeshift"
 			
 			{{! Button diamond }}

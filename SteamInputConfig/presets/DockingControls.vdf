@@ -23,7 +23,7 @@
 			"/groups/joystick/actiongroups.vdf"										"joystick active modeshift"
 
 			{{! dpadZone }}
-			"/groups/dpadZone/click-zoom.vdf"										"{{dpadZone}} active"
+			"/groups/dpadZone/click-zoom.vdf?preset=Docking"						"{{dpadZone}} active"
 			"/groups/dpadZone/vessel-camera.vdf"									"{{dpadZone}} active modeshift"
 			
 			{{! Button diamond }}

@@ -23,17 +23,17 @@
 			"/groups/joystick/actiongroups.vdf"							"joystick active modeshift"
 	
 			{{! dpadZone }}
-			"/groups/dpadZone/click-zoom.vdf"							"{{dpadZone}} active"
+			"/groups/dpadZone/click-zoom.vdf?preset=MapDocking"			"{{dpadZone}} active"
 			
 			{{! Button diamond }}
 			"/groups/button_diamond/tr_rot-brakes-rcs-sas.vdf"			"button_diamond active"
 			"/groups/button_diamond/precision-timewarp.vdf"				"button_diamond active modeshift"
 			
 			{{! Left Trigger }}
-			"/groups/left_trigger/backward.vdf"								"left_trigger active"
+			"/groups/left_trigger/backward.vdf"							"left_trigger active"
 			
 			{{! Right Trigger }}
-			"/groups/right_trigger/forward.vdf"								"right_trigger active"
+			"/groups/right_trigger/forward.vdf"							"right_trigger active"
 			
 			{{! Switch }}
 			"/groups/switches/mapdocking.vdf"							"switch active"

@@ -46,6 +46,23 @@ Handlebars.registerHelper('defined', function (variable) {
 });
 
 /**
+ * Resolve an action-layer (preset) name to its 1-based position in the preset
+ * list, as expected by the controller_action hold_layer binding.
+ * @param {string} name - The preset name of the action layer
+ * @returns {number} The 1-based position of the preset
+ */
+Handlebars.registerHelper('layerPos', function (name) {
+    if (!this.layerPosMap) {
+        throw new Error('layerPos helper: layerPosMap is missing from context');
+    }
+    const pos = this.layerPosMap[name];
+    if (pos === undefined) {
+        throw new Error(`layerPos helper: unknown preset name "${name}"`);
+    }
+    return pos;
+});
+
+/**
  * Get a value from the keyboard context
  * @param {string} key - The key to get
  * @returns {string} The value of the key

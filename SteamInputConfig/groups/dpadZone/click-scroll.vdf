@@ -8,7 +8,7 @@
 		"inputs"
 		{
 			"#ref"				"/inputs/dpad/dpad_east/click-left.vdf"
-			"#ref"				"/inputs/dpad/dpad_west/click-right.vdf"
+			"#ref"				"/inputs/dpad/dpad_west/click-right.vdf?preset={{preset}}"
 			"#ref"				"/inputs/dpad/dpad_north/scroll-up.vdf"
 			"#ref"				"/inputs/dpad/dpad_south/scroll-down.vdf"
 		}

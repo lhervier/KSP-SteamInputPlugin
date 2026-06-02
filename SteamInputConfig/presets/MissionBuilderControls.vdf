@@ -20,7 +20,7 @@
 			"/groups/joystick/mission-builder/d-w-s-a.vdf"					"joystick active"
 			
 			{{! dpadZone }}
-			"/groups/dpadZone/click-scroll.vdf"								"{{dpadZone}} active"
+			"/groups/dpadZone/click-scroll.vdf?preset=MissionBuilder"		"{{dpadZone}} active"
 			
 			{{! Button diamond }}
 			"/groups/button_diamond/mission-builder/space-delete-x-c.vdf"	"button_diamond active"

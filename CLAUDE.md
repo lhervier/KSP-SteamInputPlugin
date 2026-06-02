@@ -97,7 +97,39 @@ Pour déclarer qu'un modeshift est possible, il y a deux conditions :
 
 ## Les layers
 
-TBC
+Un "layer" (couche d'action) est un preset particulier qui se **superpose** au preset actuellement actif, au lieu de le remplacer. Là où le passage d'un preset à un autre change tout le comportement de la manette, l'activation d'un layer ne redéfinit que les zones qu'il déclare ; toutes les autres zones continuent de se comporter comme dans le preset de base.
+
+C'est ici une différence majeure avec les presets : le changement de preset est piloté par le mod (le code), alors que l'activation d'un layer est déclenchée par un **binding** (`hold_layer`...). Le mod n'a donc rien à voir avec les layers : ce sont des bindings comme les autres, que l'utilisateur peut tout à fait visualiser et gérer lui même via l'interface Steam.
+
+Il ne faut pas confondre layer et "mode shift" :
+
+- Un mode shift change le groupe d'**une seule zone** tant qu'un déclencheur est maintenu, à l'intérieur du preset courant.
+- Un layer peut redéfinir **plusieurs zones** à la fois, en se superposant au preset actif.
+
+### Déclaration d'un layer
+
+Un layer est déclaré à deux endroits :
+
+- Dans la liste `action_layers` du VDF (voir actions_layers/), où on définit un objet portant le nom du layer, avec les propriétés `set_layer "1"` (c'est un layer et pas un preset normal) et `parent_set_name` qui pointe vers le **nom** du preset de base auquel le layer se superpose.
+- Et dans la liste des presets (voir presets/), car un layer EST un preset : il déclare ses propres `group_source_bindings` qui mappent des zones physiques vers des groupes, exactement comme un preset normal.
+
+### Activation d'un layer
+
+On active un layer grâce à un binding `controller_action hold_layer N 0 0, , `, où `N` est la **position** du preset-layer dans la liste des presets. Tant que l'input qui porte ce binding est maintenu, le layer est actif ; dès qu'on relâche, il est désactivé.
+
+Attention : `N` est la position **1-based** du layer dans la liste des presets (la couche 0 étant le set de base), et **non** la valeur du champ `id` du preset (qui, lui, est numéroté à partir de 0). Les deux diffèrent donc de 1, et il ne faut surtout pas les confondre.
+
+### La résolution de la position du layer
+
+Le nom du layer est connu (par exemple "FlightRightClickControls"), mais sa position dans la liste des presets ne l'est qu'au moment de la fusion. Pour faire le lien, on utilise le helper Handlebars `layerPos` :
+
+    "binding"   "controller_action hold_layer {{layerPos 'FlightRightClickControl'}} 0 0, , "
+
+sera donc traduit par 
+
+    "binding"   "controller_action hold_layer 42 0 0, , "
+
+du moment que le preset "FlightRightClickControl" est le 42ème preset de la liste (avec un id probablement à 41).
 
 ## La description de la configuration des controlleurs
 
@@ -195,6 +227,9 @@ Plusieurs helpers Handlebar ont été ajoutés
 - "defined" pour savoir si une valeur est définie dans le context : {{#if (defined variable)}}...
 - "equals" pour savoir si une valeur est égale à une autre : {{#if (equals "1" "2")}}... Ici, "1" et "2" sont des valeurs statiques, mais vous pouvez faire référence à des variables du contexte aussi
 - "true" pour savoir si une variable booléenne est définie ET égale à true. {{#if (true backButtons)}}
+- "or" pour un OU logique entre plusieurs valeurs : {{#if (or steamcontroller hori xboxelite)}}...
+- "key" pour récupérer une touche depuis le contexte clavier (dépendant de la langue) : {{key "staging"}}
+- "layerPos" pour récupérer la position (1-based) d'un layer dans la liste des presets, à partir de son nom (voir la section "Les layers") : {{layerPos "FlightRightClickControls"}}
 
 ### La génération de plusieurs controlleurs
 

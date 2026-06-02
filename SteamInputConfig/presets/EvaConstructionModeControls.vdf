@@ -23,7 +23,7 @@
 			"/groups/joystick/editor/place-offset-rotate.vdf"			"joystick active modeshift"
 			
 			{{! dpadZone }}
-			"/groups/dpadZone/click-zoom.vdf"							"{{dpadZone}} active"
+			"/groups/dpadZone/click-zoom.vdf?preset=EvaConstructionMode"	"{{dpadZone}} active"
 		
 			{{! Button diamond }}
 			"/groups/button_diamond/jump-grab-rcs-sas.vdf"				"button_diamond active"

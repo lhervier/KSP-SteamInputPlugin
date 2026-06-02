@@ -23,7 +23,7 @@
 			"/groups/joystick/editor/place-offset-rotate-root.vdf"					"joystick active modeshift"
 			
 			{{! dpadZone }}
-			"/groups/dpadZone/click-scroll.vdf"										"{{dpadZone}} active"
+			"/groups/dpadZone/click-scroll.vdf?preset=Editor"										"{{dpadZone}} active"
 
 			{{! Button diamond }}
 			"/groups/button_diamond/editor/reset_rot-delete-sym_cycle-snap.vdf"		"button_diamond active"

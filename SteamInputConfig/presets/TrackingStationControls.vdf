@@ -19,7 +19,7 @@
 			{{! Left Joystick }}
 			
 			{{! dpadZone }}
-			"/groups/dpadZone/click-zoom.vdf"						"{{dpadZone}} active"
+			"/groups/dpadZone/click-zoom.vdf?preset=TrackingStation"	"{{dpadZone}} active"
 			
 			{{! Button diamond }}
 			"/groups/button_diamond/timewarp.vdf"					"button_diamond active modeshift"

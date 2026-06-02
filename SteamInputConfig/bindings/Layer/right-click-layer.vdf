@@ -2,6 +2,6 @@
 {
     "bindings"
     {
-        "binding"		"controller_action hold_layer %layer_index:RightClick% 0 0, , "
+        "binding"		"controller_action hold_layer {{layerPos layer}} 0 0, , "
     }
 }
