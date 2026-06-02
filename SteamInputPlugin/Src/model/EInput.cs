@@ -47,6 +47,8 @@ namespace com.github.lhervier.ksp.ui.model
         public static readonly EInput ButtonMenu = new EInput("button_menu");
         public static readonly EInput LeftBumper = new EInput("left_bumper");
         public static readonly EInput RightBumper = new EInput("right_bumper");
+        public static readonly EInput RightStickClick = new EInput("right_stick_click");
+        public static readonly EInput LeftStickClick = new EInput("left_stick_click");
 
         // TRIGGERS
         public static readonly EInput Edge = new EInput("edge");
@@ -84,6 +86,8 @@ namespace com.github.lhervier.ksp.ui.model
             ButtonMenu,
             LeftBumper,
             RightBumper,
+            RightStickClick,
+            LeftStickClick,
         };
         
         private static readonly ReadOnlyCollection<EInput> AllReadOnly = new ReadOnlyCollection<EInput>(AllInputs);
