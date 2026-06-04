@@ -32,18 +32,13 @@ namespace com.github.lhervier.ksp.ui
             LOGGER.LogInfo("Start");
             GameEvents.onGUIApplicationLauncherReady.Add(OnGUIAppLauncherReady);
 
-            uguiWindow = new CheatSheetUGUIWindow();
+            uguiWindow = this.gameObject.AddComponent<CheatSheetUGUIWindow>();
             uguiWindow.Initialize(viewModel);
             
             // When KSP dismisses the popup itself (Escape opens the pause menu and closes it),
             // resync as if the user had closed it: hide the rest and reset the toolbar toggle.
             uguiWindow.OnClosed.Add(CloseWindow);
             uguiWindow.OnPositionCaptured.Add(OnWindowPositionCaptured);
-
-            // Our window persists across scenes. KSP fails to restore its interactivity after a
-            // scene change if a modal dialog was up beforehand (see RestoreInteractivity), so we
-            // re-assert it once the new scene has loaded.
-            GameEvents.onLevelWasLoaded.Add(OnLevelWasLoaded);
 
             LOGGER.LogInfo("Start: Started");
         }
@@ -54,20 +49,8 @@ namespace com.github.lhervier.ksp.ui
             uguiWindow?.OnPositionCaptured.Remove(OnWindowPositionCaptured);
             uguiWindow?.OnClosed.Remove(CloseWindow);
             GameEvents.onGUIApplicationLauncherReady.Remove(OnGUIAppLauncherReady);
-            GameEvents.onLevelWasLoaded.Remove(OnLevelWasLoaded);
-            uguiWindow?.Destroy();
+            uguiWindow?.Dismiss();
             LOGGER.LogInfo("OnDestroy: Destroyed");
-        }
-
-        // ===============================================================
-
-        /// <summary>
-        /// Re-assert the window interactivity after a scene change (no-op if it is not open),
-        /// to work around KSP leaving a surviving non-modal dialog with blocksRaycasts stuck false.
-        /// </summary>
-        private void OnLevelWasLoaded(GameScenes scene)
-        {
-            uguiWindow?.RestoreInteractivity();
         }
 
         // ===============================================================

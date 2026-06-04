@@ -8,16 +8,42 @@ namespace com.github.lhervier.ksp.ui.ugui
     /// <summary>
     /// uGUI test shell via KSP PopupDialog (same approach as Trajectories MainGUI).
     /// </summary>
-    internal sealed class CheatSheetUGUIWindow
+    internal sealed class CheatSheetUGUIWindow : MonoBehaviour
     {
         private PopupDialogBuilder _popupDialogBuilder;
         private PopupDialogBuilder.PopupDialogController _popupDialogController = null;
         public EventVoid OnClosed = new EventVoid("SteamInput.CheatSheetUGUIWindow.OnClosed");
         public EventData<Vector2> OnPositionCaptured = new EventData<Vector2>("SteamInput.CheatSheetUGUIWindow.OnMoved");
 
+        // ===============================================================
+        // Life Cycle
+        // ===============================================================
+        
         public void Initialize(CheatSheetViewModel viewModel)
         {
             this._popupDialogBuilder = new PopupDialogBuilder(viewModel);
+        }
+
+        public void Start()
+        {
+            // Our window persists across scenes. KSP fails to restore its interactivity after a
+            // scene change if a modal dialog was up beforehand (see RestoreInteractivity), so we
+            // re-assert it once the new scene has loaded.
+            GameEvents.onLevelWasLoaded.Add(OnLevelWasLoaded);
+        }
+
+        public void OnDestroy()
+        {
+            GameEvents.onLevelWasLoaded.Remove(OnLevelWasLoaded);
+        }
+
+        /// <summary>
+        /// Re-assert the window interactivity after a scene change (no-op if it is not open),
+        /// to work around KSP leaving a surviving non-modal dialog with blocksRaycasts stuck false.
+        /// </summary>
+        private void OnLevelWasLoaded(GameScenes scene)
+        {
+            this.RestoreInteractivity();
         }
 
         // ===============================================================
@@ -71,7 +97,7 @@ namespace com.github.lhervier.ksp.ui.ugui
             _popupDialogController.GetPopupDialog()?.gameObject.SetActive(false);
         }
 
-        public void Destroy()
+        public void Dismiss()
         {
             CaptureWindowPosition();
             if (_popupDialogController == null) return;
