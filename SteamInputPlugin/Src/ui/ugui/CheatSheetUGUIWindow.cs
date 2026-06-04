@@ -11,7 +11,7 @@ namespace com.github.lhervier.ksp.ui.ugui
     internal sealed class CheatSheetUGUIWindow
     {
         private PopupDialogBuilder _popupDialogBuilder;
-        private PopupDialog _popupDialog = null;
+        private PopupDialogBuilder.PopupDialogController _popupDialogController = null;
         private CheatSheetViewModel _viewModel;
         public EventVoid OnClosed = new EventVoid("SteamInput.CheatSheetUGUIWindow.OnClosed");
         public EventData<Vector2> OnPositionCaptured = new EventData<Vector2>("SteamInput.CheatSheetUGUIWindow.OnMoved");
@@ -28,36 +28,50 @@ namespace com.github.lhervier.ksp.ui.ugui
 
         public void Show()
         {
-            if (_popupDialog == null)
+            if (_popupDialogController == null)
             {
-                _popupDialog = this._popupDialogBuilder.CreatePopupDialog();
-                _popupDialog?.onDestroy.AddListener(OnPopupDestroyed);
+                _popupDialogController = this._popupDialogBuilder.Create();
+                if (_popupDialogController == null) return;    // Spawn failed
+                _popupDialogController.GetPopupDialog()?.onDestroy.AddListener(OnPopupDestroyed);
             }
 
-            _popupDialog?.gameObject.SetActive(true);
+            _popupDialogController.GetPopupDialog()?.gameObject.SetActive(true);
         }
 
         public void SetPosition(Vector2 position)
         {
-            if (_popupDialog == null ) return;
-            if( _popupDialog.RTrf == null ) return;
-            Vector3 lp = _popupDialog.RTrf.localPosition;
-            _popupDialog.RTrf.localPosition = new Vector3(position.x, position.y, lp.z);
+            if (_popupDialogController == null ) return;
+            PopupDialog popupDialog = _popupDialogController.GetPopupDialog();
+            if( popupDialog.RTrf == null ) return;
+            Vector3 lp = popupDialog.RTrf.localPosition;
+            popupDialog.RTrf.localPosition = new Vector3(position.x, position.y, lp.z);
 
+        }
+
+        /// <summary>
+        /// Make the window visible once it has been positioned (see <see cref="PopupDialogBuilder.PopupDialogController.Reveal"/>).
+        /// </summary>
+        public void Reveal()
+        {
+            if (_popupDialogController == null) return;
+            _popupDialogController.Reveal();
         }
 
         public void Hide()
         {
             CaptureWindowPosition();
-            _popupDialog?.gameObject.SetActive(false);
+            if (_popupDialogController == null) return;
+            _popupDialogController.GetPopupDialog()?.gameObject.SetActive(false);
         }
 
         public void Destroy()
         {
             CaptureWindowPosition();
-            _popupDialog?.onDestroy.RemoveListener(OnPopupDestroyed);
-            _popupDialog?.Dismiss();
-            _popupDialog = null;
+            if (_popupDialogController == null) return;
+            PopupDialog popupDialog = _popupDialogController.GetPopupDialog();
+            popupDialog?.onDestroy.RemoveListener(OnPopupDestroyed);
+            popupDialog?.Dismiss();
+            _popupDialogController = null;
         }
 
         public void OnPopupDestroyed()
@@ -65,7 +79,7 @@ namespace com.github.lhervier.ksp.ui.ugui
             // Dismissed by KSP (e.g. Escape) without going through Hide(): grab the position first,
             // then let the owner resync (toolbar toggle, other windows).
             CaptureWindowPosition();
-            _popupDialog = null;
+            _popupDialogController = null;
             OnClosed.Fire();
         }
 
@@ -77,9 +91,11 @@ namespace com.github.lhervier.ksp.ui.ugui
         /// </summary>
         private void CaptureWindowPosition()
         {
-            if (_popupDialog != null && _popupDialog.RTrf != null)
+            if (_popupDialogController == null) return;
+            PopupDialog popupDialog = _popupDialogController.GetPopupDialog();
+            if (popupDialog != null && popupDialog.RTrf != null)
             {
-                OnPositionCaptured.Fire(_popupDialog.RTrf.localPosition);
+                OnPositionCaptured.Fire(popupDialog.RTrf.localPosition);
             }
         }
     }

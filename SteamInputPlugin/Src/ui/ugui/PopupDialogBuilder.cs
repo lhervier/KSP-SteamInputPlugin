@@ -28,7 +28,7 @@ namespace com.github.lhervier.ksp.ui.ugui
             this._bodyBuilder = new BodyBuilder(viewModel);
         }
 
-        public PopupDialog CreatePopupDialog()
+        public PopupDialogController Create()
         {
             // Creates a ultra minimal MultiOptionDialog. We will not use it.
             var pos = NormalizedWindowPos(
@@ -64,9 +64,10 @@ namespace com.github.lhervier.ksp.ui.ugui
             }
             PopupDialogController controller = popupDialog.popupWindow.AddComponent<PopupDialogController>();
             controller.Initialize(_viewModel);
+            controller.BindPopupDialog(popupDialog);
             controller.BindOverlayBuilder(_overlayBuilder);
             controller.BindMenuBuilder(_menuBuilder);
-
+            
             // Remove KSP default title
             var title = popupDialog.popupWindow.transform.Find("Title");
             if (title != null)
@@ -74,11 +75,15 @@ namespace com.github.lhervier.ksp.ui.ugui
                 title.gameObject.SetActive(false);
             }
 
-            // Set background color as non-transparent
+            // Keep the window hidden until it has been positioned. KSP re-applies the initial
+            // spawn position on every layout pass, so the window would otherwise flicker at the
+            // default position before being moved to the saved one. The owner reveals it (alpha 1)
+            // once the layout has settled and the position has been applied.
             var canvasGroup = popupDialog.GetComponent<CanvasGroup>();
             if (canvasGroup != null)
             {
-                canvasGroup.alpha = 1f;
+                canvasGroup.alpha = 0f;
+                controller.BindCanvasGroup(canvasGroup);
             }
 
             // Set windows border color 
@@ -115,7 +120,7 @@ namespace com.github.lhervier.ksp.ui.ugui
             TitleBarBuilder.TitleBarController titleBarController = this._titleBarBuilder.Create();
             titleBarController.transform.SetParent(popupDialog.popupWindow.transform, false);
 
-            return popupDialog;
+            return controller;
         }
 
         /// <summary>
@@ -136,6 +141,9 @@ namespace com.github.lhervier.ksp.ui.ugui
             private OverlayBuilder.OverlayController _overlayController = null;
             private MenuBuilder.MenuController _menuController = null;
 
+            private CanvasGroup _canvasGroup;
+            private PopupDialog _popupDialog;
+
             public void BindOverlayBuilder(OverlayBuilder builder)
             {
                 this._overlayBuilder = builder;
@@ -144,6 +152,16 @@ namespace com.github.lhervier.ksp.ui.ugui
             public void BindMenuBuilder(MenuBuilder builder)
             {
                 this._menuBuilder = builder;
+            }
+
+            public void BindPopupDialog(PopupDialog popupDialog)
+            {
+                this._popupDialog = popupDialog;
+            }
+
+            public void BindCanvasGroup(CanvasGroup canvasGroup)
+            {
+                this._canvasGroup = canvasGroup;
             }
 
             public void Start()
@@ -176,6 +194,24 @@ namespace com.github.lhervier.ksp.ui.ugui
 
                 _overlayController.gameObject.SetActive(show);
                 _menuController.gameObject.SetActive(show);
+            }
+
+            public PopupDialog GetPopupDialog()
+            {
+                return this._popupDialog;
+            }
+
+            /// <summary>
+            /// Make the window visible. It is spawned hidden (alpha 0) to avoid a one-frame flicker
+            /// at the default spawn position; the owner calls this once the layout has settled and
+            /// the saved position has been applied.
+            /// </summary>
+            public void Reveal()
+            {
+                if (_canvasGroup != null)
+                {
+                    _canvasGroup.alpha = 1f;
+                }
             }
         }
     }

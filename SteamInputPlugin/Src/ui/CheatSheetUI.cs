@@ -133,6 +133,9 @@ namespace com.github.lhervier.ksp.ui
             if( SteamInputGlobalSettings.TryGetWindowPosition(out Vector2 saved) ) {
                 uguiWindow?.SetPosition(saved);
             }
+            // Now that the layout has settled and the window sits at its final position, reveal it.
+            // It was spawned hidden (alpha 0) to avoid flickering at the default spawn position.
+            uguiWindow?.Reveal();
         }
     }
 }
