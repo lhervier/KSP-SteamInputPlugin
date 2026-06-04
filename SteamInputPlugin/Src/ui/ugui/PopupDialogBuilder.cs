@@ -213,6 +213,22 @@ namespace com.github.lhervier.ksp.ui.ugui
                     _canvasGroup.alpha = 1f;
                 }
             }
+
+            /// <summary>
+            /// Re-enable pointer interaction on the window. Works around a KSP bug: on a scene
+            /// change, UIMasterController.OnSceneChange clears the modal stack via
+            /// UnregisterModalDialogs() WITHOUT restoring blocksRaycasts on the surviving non-modal
+            /// dialogs. Our window persists across scenes, so if a modal dialog was showing before
+            /// the transition (e.g. the KSC "exit to main menu" confirmation), it stays visible but
+            /// non-interactive. We re-assert the resting state of a non-modal dialog (true).
+            /// </summary>
+            public void RestoreInteractivity()
+            {
+                if (_canvasGroup != null)
+                {
+                    _canvasGroup.blocksRaycasts = true;
+                }
+            }
         }
     }
 }

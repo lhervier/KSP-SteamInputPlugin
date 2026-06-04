@@ -57,6 +57,15 @@ namespace com.github.lhervier.ksp.ui.ugui
             _popupDialogController.Reveal();
         }
 
+        /// <summary>
+        /// Re-enable pointer interaction on the window (see <see cref="PopupDialogBuilder.PopupDialogController.RestoreInteractivity"/>).
+        /// </summary>
+        public void RestoreInteractivity()
+        {
+            if (_popupDialogController == null) return;
+            _popupDialogController.RestoreInteractivity();
+        }
+
         public void Hide()
         {
             CaptureWindowPosition();
