@@ -12,13 +12,11 @@ namespace com.github.lhervier.ksp.ui.ugui
     {
         private PopupDialogBuilder _popupDialogBuilder;
         private PopupDialogBuilder.PopupDialogController _popupDialogController = null;
-        private CheatSheetViewModel _viewModel;
         public EventVoid OnClosed = new EventVoid("SteamInput.CheatSheetUGUIWindow.OnClosed");
         public EventData<Vector2> OnPositionCaptured = new EventData<Vector2>("SteamInput.CheatSheetUGUIWindow.OnMoved");
 
         public void Initialize(CheatSheetViewModel viewModel)
         {
-            _viewModel = viewModel;
             this._popupDialogBuilder = new PopupDialogBuilder(viewModel);
         }
 
