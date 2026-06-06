@@ -54,7 +54,7 @@ namespace com.github.lhervier.ksp
         public void Start() 
         {
             LOGGER.LogInfo("Start");
-            SteamInputGlobalSettings.OnGlobalSettingsChanged.Add(this.UpdateConfiguration);
+            SteamInputSettings.OnGlobalSettingsChanged.Add(this.UpdateConfiguration);
             this.UpdateConfiguration(UpdatedConfiguration.ALL);
             this.UpdateConfigList();
             LOGGER.LogInfo("Started");
@@ -63,7 +63,7 @@ namespace com.github.lhervier.ksp
         public void OnDestroy() 
         {
             LOGGER.LogInfo("OnDestroy");
-            SteamInputGlobalSettings.OnGlobalSettingsChanged.Remove(this.UpdateConfiguration);
+            SteamInputSettings.OnGlobalSettingsChanged.Remove(this.UpdateConfiguration);
             _instance = null;
             LOGGER.LogInfo("Destroyed");
         }
@@ -82,7 +82,7 @@ namespace com.github.lhervier.ksp
             if( (updateFlags & UpdatedConfiguration.CONTROLLER_CONFIG_NAME) == 0 ) {
                 return;
             }
-            var configName = SteamInputGlobalSettings.GetControllerConfigName();
+            var configName = SteamInputSettings.GetControllerConfigName();
 
             // Empty path is not an error, just an empty config
             if (string.IsNullOrEmpty(configName))

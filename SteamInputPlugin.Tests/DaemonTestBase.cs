@@ -39,7 +39,7 @@ namespace com.github.lhervier.ksp.Tests
         [SetUp]
         public void SetUp()
         {
-            SteamInputGlobalSettings.SetLogLevel(LogLevel.Trace);
+            SteamInputSettings.SetLogLevel(LogLevel.Trace);
         }
 
         private class TestConsoleLogHandler : ILogHandler

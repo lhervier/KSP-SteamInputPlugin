@@ -27,7 +27,7 @@ namespace com.github.lhervier.ksp
 
         public void Log(string message, LogLevel level) 
         {
-            if (level <= SteamInputGlobalSettings.GetLogLevel())
+            if (level <= SteamInputSettings.GetLogLevel())
             {
                 string levelPrefix;
                 switch (level)

@@ -101,7 +101,7 @@ namespace com.github.lhervier.ksp
             LOGGER.LogInfo("Steam ready");
             
             // Load the global settings
-            SteamInputGlobalSettings.Load();
+            SteamInputSettings.Load();
 
             // Create the action set daemon
             LOGGER.LogInfo("Creating Action Set Daemon");
@@ -189,7 +189,7 @@ namespace com.github.lhervier.ksp
         // </summary>
         public void OnDestroy() 
         {
-            SteamInputGlobalSettings.Save();
+            SteamInputSettings.Save();
             
             if( this.initializePluginCoroutine != null ) {
                 StopCoroutine(this.initializePluginCoroutine);

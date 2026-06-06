@@ -109,7 +109,7 @@ namespace com.github.lhervier.ksp.ui
 
         public void OnWindowPositionCaptured(Vector2 position)
         {
-            SteamInputGlobalSettings.SetWindowPosition(position);
+            SteamInputSettings.SetWindowPosition(position);
         }
 
         // ===============================================================
@@ -130,7 +130,7 @@ namespace com.github.lhervier.ksp.ui
         private IEnumerator ApplyUguiPositionAfterLayout()
         {
             yield return null;
-            if( SteamInputGlobalSettings.TryGetWindowPosition(out Vector2 saved) ) {
+            if( SteamInputSettings.TryGetWindowPosition(out Vector2 saved) ) {
                 uguiWindow?.SetPosition(saved);
             }
             // Now that the layout has settled and the window sits at its final position, reveal it.

@@ -141,13 +141,13 @@ namespace com.github.lhervier.ksp.ui.ugui.body.zones
                     {
                         zoneController = this._zoneBuilder.Create(zone);
                         zoneController.transform.SetParent(this.transform, false);
-                        zoneController.gameObject.SetActive(!string.IsNullOrEmpty(SteamInputGlobalSettings.GetControllerConfigName()));
+                        zoneController.gameObject.SetActive(!string.IsNullOrEmpty(SteamInputSettings.GetControllerConfigName()));
                         this._zoneControllers[zone.Zone] = zoneController;
                     }
                     else
                     {
                         zoneController.UpdateZone(zone);
-                        zoneController.gameObject.SetActive(!string.IsNullOrEmpty(SteamInputGlobalSettings.GetControllerConfigName()));
+                        zoneController.gameObject.SetActive(!string.IsNullOrEmpty(SteamInputSettings.GetControllerConfigName()));
                     }
                     zoneController.transform.SetSiblingIndex(visibleIndex);
                     visibleIndex++;

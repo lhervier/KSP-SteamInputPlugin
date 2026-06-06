@@ -35,7 +35,7 @@ namespace com.github.lhervier.ksp.ui
         public string GamepadConfigName
         {
             get => _gamepadConfigName;
-            set => SteamInputGlobalSettings.SetControllerConfigName(value);
+            set => SteamInputSettings.SetControllerConfigName(value);
         }
         private string _gamepadConfigName = "";
         public EventData<string> OnGamepadConfigNameChanged = new EventData<string>("SteamInput.OnGamepadConfigNameChanged");
@@ -53,7 +53,7 @@ namespace com.github.lhervier.ksp.ui
         public LogLevel LogLevel
         {
             get => _logLevel;
-            set => SteamInputGlobalSettings.SetLogLevel(value);
+            set => SteamInputSettings.SetLogLevel(value);
         }
         private LogLevel _logLevel = LogLevel.Info;
         public EventData<LogLevel> OnLogLevelChanged = new EventData<LogLevel>("SteamInput.OnLogLevelChanged");
@@ -159,7 +159,7 @@ namespace com.github.lhervier.ksp.ui
             this._gamepadDaemon.OnGamepadConnected.Add(this._OnGamepadConnected);
             this._gamepadDaemon.OnGamepadDisconnected.Add(this._OnGamepadDisconnected);
 
-            SteamInputGlobalSettings.OnGlobalSettingsChanged.Add(this._OnGlobalSettingsChanged);
+            SteamInputSettings.OnGlobalSettingsChanged.Add(this._OnGlobalSettingsChanged);
 
             this.RefreshAll();
 
@@ -169,7 +169,7 @@ namespace com.github.lhervier.ksp.ui
         public void OnDestroy()
         {
             LOGGER.LogInfo("OnDestroy");
-            SteamInputGlobalSettings.OnGlobalSettingsChanged.Remove(this._OnGlobalSettingsChanged);
+            SteamInputSettings.OnGlobalSettingsChanged.Remove(this._OnGlobalSettingsChanged);
             if( this._gamepadConfigDaemon != null ) {
                 this._gamepadConfigDaemon.OnConfigLoaded.Remove(this._OnGamepadConfigLoaded);
                 this._gamepadConfigDaemon.OnConfigLoadError.Remove(this._OnGamepadConfigLoadError);
@@ -270,7 +270,7 @@ namespace com.github.lhervier.ksp.ui
 
         private void RefreshControllerConfigName()
         {
-            this._gamepadConfigName = SteamInputGlobalSettings.GetControllerConfigName();
+            this._gamepadConfigName = SteamInputSettings.GetControllerConfigName();
             this.OnGamepadConfigNameChanged.Fire(this._gamepadConfigName);
         }
 
@@ -298,7 +298,7 @@ namespace com.github.lhervier.ksp.ui
 
         private void RefreshLogLevel()
         {
-            this._logLevel = SteamInputGlobalSettings.GetLogLevel();
+            this._logLevel = SteamInputSettings.GetLogLevel();
             OnLogLevelChanged.Fire(this._logLevel);
         }
 
@@ -354,7 +354,7 @@ namespace com.github.lhervier.ksp.ui
         private List<EGamepadZone> GetAllZones()
         {
             List<EGamepadZone> gamepadZones = this._gamepadConfigDaemon.GetGamepadZones();
-            List<EGamepadZone> orderedZones = SteamInputGlobalSettings.GetOrderedGamepadZones();
+            List<EGamepadZone> orderedZones = SteamInputSettings.GetOrderedGamepadZones();
 
             // Add all the unknown gamepad zones as hidden zones (at the end of the list)
             foreach( EGamepadZone zone in gamepadZones )
@@ -372,7 +372,7 @@ namespace com.github.lhervier.ksp.ui
             this._configZones.Clear();
 
             List<EGamepadZone> orderedZones = GetAllZones();
-            List<EGamepadZone> visibleZones = SteamInputGlobalSettings.GetVisibleGamepadZones();
+            List<EGamepadZone> visibleZones = SteamInputSettings.GetVisibleGamepadZones();
             for( int i=0; i<orderedZones.Count; i++ )
             {
                 EGamepadZone zone = orderedZones[i];
@@ -398,7 +398,7 @@ namespace com.github.lhervier.ksp.ui
             EActionGroup currentActionGroup = this._actionGroupDaemon.GetCurrentActionGroup();
 
             List<EGamepadZone> orderedZones = GetAllZones();
-            List<EGamepadZone> visibleZones = SteamInputGlobalSettings.GetVisibleGamepadZones();
+            List<EGamepadZone> visibleZones = SteamInputSettings.GetVisibleGamepadZones();
 
             // The base preset, then the layers that superimpose on top of it. A zone is rendered as
             // soon as the base OR any layer defines a section for it (union base ∪ layers). The layer
@@ -529,29 +529,29 @@ namespace com.github.lhervier.ksp.ui
 
         public void MoveZoneUp(UIConfigZone zone)
         {
-            List<EGamepadZone> zones = SteamInputGlobalSettings.GetOrderedGamepadZones();
+            List<EGamepadZone> zones = SteamInputSettings.GetOrderedGamepadZones();
             int index = zones.IndexOf(zone.Zone);
             if( index == -1 ) return;
             if( index == 0 ) return;
             
             (zones[index - 1], zones[index]) = (zones[index], zones[index - 1]);
-            SteamInputGlobalSettings.SetOrderedGamepadZones(zones);
+            SteamInputSettings.SetOrderedGamepadZones(zones);
         }
 
         public void MoveZoneDown(UIConfigZone zone)
         {
-            List<EGamepadZone> zones = SteamInputGlobalSettings.GetOrderedGamepadZones();
+            List<EGamepadZone> zones = SteamInputSettings.GetOrderedGamepadZones();
             int index = zones.IndexOf(zone.Zone);
             if( index == -1 ) return;
             if( index == zones.Count - 1 ) return;
             
             (zones[index], zones[index + 1]) = (zones[index + 1], zones[index]);
-            SteamInputGlobalSettings.SetOrderedGamepadZones(zones);
+            SteamInputSettings.SetOrderedGamepadZones(zones);
         }
 
         public void ToggleZoneVisibility(UIConfigZone zone)
         {
-            List<EGamepadZone> visibleZones = SteamInputGlobalSettings.GetVisibleGamepadZones();
+            List<EGamepadZone> visibleZones = SteamInputSettings.GetVisibleGamepadZones();
             if( visibleZones.Contains(zone.Zone) )
             {
                 visibleZones.Remove(zone.Zone);
@@ -559,7 +559,7 @@ namespace com.github.lhervier.ksp.ui
             {
                 visibleZones.Add(zone.Zone);
             }
-            SteamInputGlobalSettings.SetVisibleGamepadZones(visibleZones);
+            SteamInputSettings.SetVisibleGamepadZones(visibleZones);
         }
 
         public VdfGroup GetGroup(string groupId)

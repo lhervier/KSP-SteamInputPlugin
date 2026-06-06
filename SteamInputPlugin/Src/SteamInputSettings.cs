@@ -18,7 +18,7 @@ namespace com.github.lhervier.ksp
         public static readonly int ALL = LOG_LEVEL | CONTROLLER_CONFIG_NAME | ORDERED_GAMEPAD_ZONES | VISIBLE_GAMEPAD_ZONES;
     }
 
-    public class SteamInputGlobalSettings
+    public class SteamInputSettings
     {
         private static readonly SteamInputLogger LOGGER = new SteamInputLogger("GlobalSettings");
 
@@ -349,7 +349,7 @@ namespace com.github.lhervier.ksp
         {
             LOGGER.LogDebug("Loading global settings");
 
-            config = PluginConfiguration.CreateForType<SteamInputGlobalSettings>();
+            config = PluginConfiguration.CreateForType<SteamInputSettings>();
             config.load();
 
             int updateFlags = 0;
@@ -371,7 +371,7 @@ namespace com.github.lhervier.ksp
             LOGGER.LogDebug("Saving global settings");
             if (config == null)
             {
-                config = PluginConfiguration.CreateForType<SteamInputGlobalSettings>();
+                config = PluginConfiguration.CreateForType<SteamInputSettings>();
             }
 
             SaveLogLevel();
