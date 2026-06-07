@@ -144,6 +144,9 @@ namespace com.github.lhervier.ksp.ui.ugui
             private CanvasGroup _canvasGroup;
             private PopupDialog _popupDialog;
 
+            public EventData<Vector2> OnPositionCaptured = new EventData<Vector2>("SteamInput.CheatSheetUGUIWindow.OnMoved");
+            public EventVoid OnClosed = new EventVoid("SteamInput.CheatSheetUGUIWindow.OnClosed");
+
             public void BindOverlayBuilder(OverlayBuilder builder)
             {
                 this._overlayBuilder = builder;
@@ -171,11 +174,30 @@ namespace com.github.lhervier.ksp.ui.ugui
                 {
                     OnShowMenu(ViewModel.MenuDisplayed);
                 }
+                _popupDialog?.onDestroy.AddListener(OnPopupDestroyed);
             }
 
             public void OnDestroy()
             {
                 ViewModel?.OnShowMenu.Remove(OnShowMenu);
+                _popupDialog?.onDestroy.RemoveListener(OnPopupDestroyed);
+            }
+
+            public void Dismiss()
+            {
+                _popupDialog?.onDestroy.RemoveListener(OnPopupDestroyed);
+                _popupDialog?.Dismiss();
+            }
+
+            public void Show()
+            {
+                _popupDialog?.gameObject.SetActive(true);
+            }
+
+            public void Hide()
+            {
+                CaptureWindowPosition();
+                _popupDialog?.gameObject.SetActive(false);
             }
 
             public void SetPosition(Vector2 position)
@@ -236,6 +258,22 @@ namespace com.github.lhervier.ksp.ui.ugui
                 {
                     _canvasGroup.blocksRaycasts = true;
                 }
+            }
+
+            private void CaptureWindowPosition()
+            {
+                if (_popupDialog != null && _popupDialog.RTrf != null)
+                {
+                    OnPositionCaptured.Fire(_popupDialog.RTrf.localPosition);
+                }
+            }
+
+            private void OnPopupDestroyed()
+            {
+                // Dismissed by KSP (e.g. Escape) without going through Hide(): grab the position first,
+                // then let the owner resync (toolbar toggle, other windows).
+                CaptureWindowPosition();
+                OnClosed.Fire();
             }
         }
     }

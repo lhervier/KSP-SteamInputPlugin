@@ -56,10 +56,20 @@ namespace com.github.lhervier.ksp.ui.ugui
             {
                 _popupDialogController = this._popupDialogBuilder.Create();
                 if (_popupDialogController == null) return;    // Spawn failed
-                _popupDialogController.GetPopupDialog()?.onDestroy.AddListener(OnPopupDestroyed);
+                _popupDialogController.OnClosed.Add(_OnClosed);
+                _popupDialogController.OnPositionCaptured.Add(_OnPositionCaptured);
             }
+            _popupDialogController.Show();
+        }
 
-            _popupDialogController.GetPopupDialog()?.gameObject.SetActive(true);
+        private void _OnClosed()
+        {
+            this.OnClosed.Fire();
+        }
+
+        private void _OnPositionCaptured(Vector2 position)
+        {
+            this.OnPositionCaptured.Fire(position);
         }
 
         public void SetPosition(Vector2 position)
@@ -88,44 +98,17 @@ namespace com.github.lhervier.ksp.ui.ugui
 
         public void Hide()
         {
-            CaptureWindowPosition();
             if (_popupDialogController == null) return;
-            _popupDialogController.GetPopupDialog()?.gameObject.SetActive(false);
+            _popupDialogController.Hide();
         }
 
         public void Dismiss()
         {
-            CaptureWindowPosition();
             if (_popupDialogController == null) return;
-            PopupDialog popupDialog = _popupDialogController.GetPopupDialog();
-            popupDialog?.onDestroy.RemoveListener(OnPopupDestroyed);
-            popupDialog?.Dismiss();
+            _popupDialogController.OnClosed.Remove(_OnClosed);
+            _popupDialogController.OnPositionCaptured.Remove(_OnPositionCaptured);
+            _popupDialogController.Dismiss();
             _popupDialogController = null;
-        }
-
-        public void OnPopupDestroyed()
-        {
-            // Dismissed by KSP (e.g. Escape) without going through Hide(): grab the position first,
-            // then let the owner resync (toolbar toggle, other windows).
-            CaptureWindowPosition();
-            _popupDialogController = null;
-            OnClosed.Fire();
-        }
-
-        // ===============================================================
-
-        /// <summary>
-        /// Remember where the user dragged the window (the draggable handler's localPosition),
-        /// so it can be restored when the window is recreated or the game restarts.
-        /// </summary>
-        private void CaptureWindowPosition()
-        {
-            if (_popupDialogController == null) return;
-            PopupDialog popupDialog = _popupDialogController.GetPopupDialog();
-            if (popupDialog != null && popupDialog.RTrf != null)
-            {
-                OnPositionCaptured.Fire(popupDialog.RTrf.localPosition);
-            }
         }
     }
 }
