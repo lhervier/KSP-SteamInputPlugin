@@ -24,28 +24,6 @@ namespace com.github.lhervier.ksp.ui.ugui
             this._popupDialogBuilder = new PopupDialogBuilder(viewModel);
         }
 
-        public void Start()
-        {
-            // Our window persists across scenes. KSP fails to restore its interactivity after a
-            // scene change if a modal dialog was up beforehand (see RestoreInteractivity), so we
-            // re-assert it once the new scene has loaded.
-            GameEvents.onLevelWasLoaded.Add(OnLevelWasLoaded);
-        }
-
-        public void OnDestroy()
-        {
-            GameEvents.onLevelWasLoaded.Remove(OnLevelWasLoaded);
-        }
-
-        /// <summary>
-        /// Re-assert the window interactivity after a scene change (no-op if it is not open),
-        /// to work around KSP leaving a surviving non-modal dialog with blocksRaycasts stuck false.
-        /// </summary>
-        private void OnLevelWasLoaded(GameScenes scene)
-        {
-            this.RestoreInteractivity();
-        }
-
         // ===============================================================
         // Public API
         // ===============================================================
@@ -85,15 +63,6 @@ namespace com.github.lhervier.ksp.ui.ugui
         {
             if (_popupDialogController == null) return;
             _popupDialogController.Reveal();
-        }
-
-        /// <summary>
-        /// Re-enable pointer interaction on the window (see <see cref="PopupDialogBuilder.PopupDialogController.RestoreInteractivity"/>).
-        /// </summary>
-        public void RestoreInteractivity()
-        {
-            if (_popupDialogController == null) return;
-            _popupDialogController.RestoreInteractivity();
         }
 
         public void Hide()

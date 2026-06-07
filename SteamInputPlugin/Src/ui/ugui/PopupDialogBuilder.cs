@@ -174,12 +174,16 @@ namespace com.github.lhervier.ksp.ui.ugui
                 {
                     OnShowMenu(ViewModel.MenuDisplayed);
                 }
+                
                 _popupDialog?.onDestroy.AddListener(OnPopupDestroyed);
+                GameEvents.onLevelWasLoaded.Add(OnLevelWasLoaded);
             }
 
             public void OnDestroy()
             {
                 ViewModel?.OnShowMenu.Remove(OnShowMenu);
+
+                GameEvents.onLevelWasLoaded.Remove(OnLevelWasLoaded);
                 _popupDialog?.onDestroy.RemoveListener(OnPopupDestroyed);
             }
 
@@ -252,7 +256,7 @@ namespace com.github.lhervier.ksp.ui.ugui
             /// the transition (e.g. the KSC "exit to main menu" confirmation), it stays visible but
             /// non-interactive. We re-assert the resting state of a non-modal dialog (true).
             /// </summary>
-            public void RestoreInteractivity()
+            private void RestoreInteractivity()
             {
                 if (_canvasGroup != null)
                 {
@@ -274,6 +278,11 @@ namespace com.github.lhervier.ksp.ui.ugui
                 // then let the owner resync (toolbar toggle, other windows).
                 CaptureWindowPosition();
                 OnClosed.Fire();
+            }
+
+            private void OnLevelWasLoaded(GameScenes scene)
+            {
+                this.RestoreInteractivity();
             }
         }
     }
