@@ -1,7 +1,6 @@
 using UnityEngine;
 using KSP.UI.Screens;
 using System.Collections;
-using com.github.lhervier.ksp.ui.styles;
 using com.github.lhervier.ksp.ui.ugui;
 
 namespace com.github.lhervier.ksp.ui
@@ -12,7 +11,10 @@ namespace com.github.lhervier.ksp.ui
 
         private ApplicationLauncherButton button;
         private CheatSheetViewModel viewModel;
-        private CheatSheetUGUIWindow uguiWindow;
+
+        // The popup is spawned on demand: the controller only exists while the window is open.
+        private PopupDialogBuilder popupDialogBuilder;
+        private PopupDialogBuilder.PopupDialogController popupDialogController = null;
 
         // ===============================================================
 
@@ -27,29 +29,19 @@ namespace com.github.lhervier.ksp.ui
             DontDestroyOnLoad(this);
         }
 
-        public void Start() 
+        public void Start()
         {
             LOGGER.LogInfo("Start");
             GameEvents.onGUIApplicationLauncherReady.Add(OnGUIAppLauncherReady);
-
-            uguiWindow = this.gameObject.AddComponent<CheatSheetUGUIWindow>();
-            uguiWindow.Initialize(viewModel);
-            
-            // When KSP dismisses the popup itself (Escape opens the pause menu and closes it),
-            // resync as if the user had closed it: hide the rest and reset the toolbar toggle.
-            uguiWindow.OnClosed.Add(CloseWindow);
-            uguiWindow.OnPositionCaptured.Add(OnWindowPositionCaptured);
-
+            popupDialogBuilder = new PopupDialogBuilder(viewModel);
             LOGGER.LogInfo("Start: Started");
         }
 
         public void OnDestroy()
         {
             LOGGER.LogInfo("OnDestroy");
-            uguiWindow?.OnPositionCaptured.Remove(OnWindowPositionCaptured);
-            uguiWindow?.OnClosed.Remove(CloseWindow);
             GameEvents.onGUIApplicationLauncherReady.Remove(OnGUIAppLauncherReady);
-            uguiWindow?.Dismiss();
+            Dismiss();
             LOGGER.LogInfo("OnDestroy: Destroyed");
         }
 
@@ -79,7 +71,7 @@ namespace com.github.lhervier.ksp.ui
                 GameDatabase
                     .Instance
                     .GetTexture(
-                        "SteamInput/Textures/logging_icon", 
+                        "SteamInput/Textures/logging_icon",
                         false
                     )
             );
@@ -114,28 +106,48 @@ namespace com.github.lhervier.ksp.ui
 
         // ===============================================================
 
-        private void HideInternal()
-        {
-            uguiWindow?.Hide();
-        }
-
         private void ShowInternal()
         {
-            uguiWindow?.Show();
+            if (popupDialogController == null)
+            {
+                popupDialogController = popupDialogBuilder.Create();
+                if (popupDialogController == null) return;    // Spawn failed
+                // When KSP dismisses the popup itself (Escape opens the pause menu and closes it),
+                // resync as if the user had closed it: hide the rest and reset the toolbar toggle.
+                popupDialogController.OnClosed.Add(CloseWindow);
+                popupDialogController.OnPositionCaptured.Add(OnWindowPositionCaptured);
+            }
+            popupDialogController.Show();
             // Restore the dragged position one frame later: KSP repositions the dialog during
             // the spawn frame, so applying it now would be overwritten.
             StartCoroutine(ApplyUguiPositionAfterLayout());
         }
 
+        private void HideInternal()
+        {
+            if (popupDialogController == null) return;
+            popupDialogController.Hide();
+        }
+
+        private void Dismiss()
+        {
+            if (popupDialogController == null) return;
+            popupDialogController.OnClosed.Remove(CloseWindow);
+            popupDialogController.OnPositionCaptured.Remove(OnWindowPositionCaptured);
+            popupDialogController.Dismiss();
+            popupDialogController = null;
+        }
+
         private IEnumerator ApplyUguiPositionAfterLayout()
         {
             yield return null;
+            if (popupDialogController == null) yield break;
             if( SteamInputSettings.TryGetWindowPosition(out Vector2 saved) ) {
-                uguiWindow?.SetPosition(saved);
+                popupDialogController.SetPosition(saved);
             }
             // Now that the layout has settled and the window sits at its final position, reveal it.
             // It was spawned hidden (alpha 0) to avoid flickering at the default spawn position.
-            uguiWindow?.Reveal();
+            popupDialogController.Reveal();
         }
     }
 }
