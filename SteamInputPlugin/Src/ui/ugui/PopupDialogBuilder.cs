@@ -178,6 +178,14 @@ namespace com.github.lhervier.ksp.ui.ugui
                 ViewModel?.OnShowMenu.Remove(OnShowMenu);
             }
 
+            public void SetPosition(Vector2 position)
+            {
+                if( _popupDialog.RTrf == null ) return;
+                Vector3 lp = _popupDialog.RTrf.localPosition;
+                _popupDialog.RTrf.localPosition = new Vector3(position.x, position.y, lp.z);
+            }
+
+            
             private void OnShowMenu(bool show)
             {
                 if( _overlayController == null )

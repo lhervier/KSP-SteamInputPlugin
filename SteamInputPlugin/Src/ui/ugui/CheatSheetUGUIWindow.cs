@@ -65,11 +65,7 @@ namespace com.github.lhervier.ksp.ui.ugui
         public void SetPosition(Vector2 position)
         {
             if (_popupDialogController == null ) return;
-            PopupDialog popupDialog = _popupDialogController.GetPopupDialog();
-            if( popupDialog.RTrf == null ) return;
-            Vector3 lp = popupDialog.RTrf.localPosition;
-            popupDialog.RTrf.localPosition = new Vector3(position.x, position.y, lp.z);
-
+            _popupDialogController.SetPosition(position);
         }
 
         /// <summary>
