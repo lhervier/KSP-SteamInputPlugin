@@ -65,22 +65,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="Src\*.cs" />
-    <Compile Include="Src\ContextDaemons\*.cs" />
-    <Compile Include="Src\model\*.cs" />
-    <Compile Include="Src\Vdf\*.cs" />
-    <Compile Include="Src\ui\*.cs" />
-    <Compile Include="Src\ui\ugui\*.cs" />
-    <Compile Include="Src\ui\ugui\body\*.cs" />
-    <Compile Include="Src\ui\ugui\body\zones\*.cs" />
-    <Compile Include="Src\ui\ugui\body\selector\*.cs" />
-    <Compile Include="Src\ui\ugui\body\settings\*.cs" />
-    <Compile Include="Src\ui\ugui\menu\*.cs" />
-    <Compile Include="Src\ui\ugui\sprites\*.cs" />
-    <Compile Include="Src\ui\ugui\titleBar\*.cs" />
-    <Compile Include="Src\ui\imgui\*.cs" />
-    <Compile Include="Src\ui\styles\*.cs" />
-    <Compile Include="Src\ui\model\*.cs" />
+    <Compile Include="Src\**\*.cs" />
   </ItemGroup>
 
 </Project>
