@@ -15,6 +15,8 @@ namespace com.github.lhervier.ksp.ui.ugui
     {
         private const string DIALOG_ID = "SteamInputCheatSheetUGUI";
         private CheatSheetViewModel _viewModel;
+        private bool _hasPosition = false;
+        private Vector2 _initialPosition;
         private TitleBarBuilder _titleBarBuilder;
         private OverlayBuilder _overlayBuilder;
         private MenuBuilder _menuBuilder;
@@ -27,6 +29,15 @@ namespace com.github.lhervier.ksp.ui.ugui
             this._overlayBuilder = new OverlayBuilder(viewModel);
             this._menuBuilder = new MenuBuilder(viewModel);
             this._bodyBuilder = new BodyBuilder(viewModel);
+        }
+
+        public PopupDialogBuilder(
+            CheatSheetViewModel viewModel,
+            Vector2 initialPosition
+        ) : this(viewModel)
+        {
+            this._initialPosition = initialPosition;
+            this._hasPosition = true;
         }
 
         /// <summary>
@@ -72,7 +83,11 @@ namespace com.github.lhervier.ksp.ui.ugui
             controller.BindPopupDialog(popupDialog);
             controller.BindOverlayBuilder(_overlayBuilder);
             controller.BindMenuBuilder(_menuBuilder);
-            
+            if (_hasPosition)
+            {
+                controller.InitializePosition(_initialPosition);
+            }
+
             // Remove KSP default title
             var title = popupDialog.popupWindow.transform.Find("Title");
             if (title != null)
@@ -153,6 +168,8 @@ namespace com.github.lhervier.ksp.ui.ugui
             private CanvasGroup _canvasGroup;
             private PopupDialog _popupDialog;
 
+            private bool _hasPosition = false;
+            private Vector2 _position;
             public EventData<Vector2> OnPositionCaptured = new EventData<Vector2>("SteamInput.CheatSheetUGUIWindow.OnMoved");
             public EventVoid OnClosed = new EventVoid("SteamInput.CheatSheetUGUIWindow.OnClosed");
 
@@ -184,6 +201,12 @@ namespace com.github.lhervier.ksp.ui.ugui
             public void BindCanvasGroup(CanvasGroup canvasGroup)
             {
                 this._canvasGroup = canvasGroup;
+            }
+
+            public void InitializePosition(Vector2 pos)
+            {
+                this._position = pos;
+                this._hasPosition = true;
             }
 
             /// <summary>
@@ -269,8 +292,9 @@ namespace com.github.lhervier.ksp.ui.ugui
             {
                 // Wait one frame so KSP's layout pass (which re-applies the spawn position) has settled.
                 yield return null;
-                if( SteamInputSettings.TryGetWindowPosition(out Vector2 saved) ) {
-                    SetPosition(saved);
+                if( _hasPosition )
+                {
+                    SetPosition(_position);
                 }
                 Reveal();
             }
@@ -325,7 +349,9 @@ namespace com.github.lhervier.ksp.ui.ugui
             {
                 if (_popupDialog != null && _popupDialog.RTrf != null)
                 {
-                    OnPositionCaptured.Fire(_popupDialog.RTrf.localPosition);
+                    _position = _popupDialog.RTrf.localPosition;
+                    _hasPosition = true;
+                    OnPositionCaptured.Fire(_position);
                 }
             }
 
