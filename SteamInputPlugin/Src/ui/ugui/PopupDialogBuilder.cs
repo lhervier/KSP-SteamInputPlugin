@@ -29,6 +29,10 @@ namespace com.github.lhervier.ksp.ui.ugui
             this._bodyBuilder = new BodyBuilder(viewModel);
         }
 
+        /// <summary>
+        /// Spawn the cheat-sheet popup window and return its controller, or null if KSP failed to spawn
+        /// it. The caller drives the window through the returned controller.
+        /// </summary>
         public PopupDialogController Create()
         {
             // Creates a ultra minimal MultiOptionDialog. We will not use it.
@@ -78,8 +82,8 @@ namespace com.github.lhervier.ksp.ui.ugui
 
             // Keep the window hidden until it has been positioned. KSP re-applies the initial
             // spawn position on every layout pass, so the window would otherwise flicker at the
-            // default position before being moved to the saved one. The owner reveals it (alpha 1)
-            // once the layout has settled and the position has been applied.
+            // default position before being moved to the saved one. The controller reveals it
+            // (alpha 1) from Show(), once the layout has settled and the position has been applied.
             var canvasGroup = popupDialog.GetComponent<CanvasGroup>();
             if (canvasGroup != null)
             {
@@ -134,6 +138,10 @@ namespace com.github.lhervier.ksp.ui.ugui
             return new Rect(centerX / Screen.width, centerY / Screen.height, width, height);
         }
 
+        // ==============================================================
+        // Controller
+        // ==============================================================
+
         public class PopupDialogController : BaseSteamInputController
         {
             private OverlayBuilder _overlayBuilder;
@@ -148,26 +156,39 @@ namespace com.github.lhervier.ksp.ui.ugui
             public EventData<Vector2> OnPositionCaptured = new EventData<Vector2>("SteamInput.CheatSheetUGUIWindow.OnMoved");
             public EventVoid OnClosed = new EventVoid("SteamInput.CheatSheetUGUIWindow.OnClosed");
 
+            // =========================
+            // Life cycle
+            // =========================
+
+            // Dependencies injected by the builder right after AddComponent, before Start() runs.
+
+            /// <summary>Inject the overlay builder.</summary>
             public void BindOverlayBuilder(OverlayBuilder builder)
             {
                 this._overlayBuilder = builder;
             }
 
+            /// <summary>Inject the menu builder.</summary>
             public void BindMenuBuilder(MenuBuilder builder)
             {
                 this._menuBuilder = builder;
             }
 
+            /// <summary>Inject the KSP popup this controller drives.</summary>
             public void BindPopupDialog(PopupDialog popupDialog)
             {
                 this._popupDialog = popupDialog;
             }
 
+            /// <summary>Inject the popup's canvas group.</summary>
             public void BindCanvasGroup(CanvasGroup canvasGroup)
             {
                 this._canvasGroup = canvasGroup;
             }
 
+            /// <summary>
+            /// Unity callback. Sets up the controller; its counterpart is <see cref="OnDestroy"/>.
+            /// </summary>
             public void Start()
             {
                 ViewModel?.OnShowMenu.Add(OnShowMenu);
@@ -175,50 +196,100 @@ namespace com.github.lhervier.ksp.ui.ugui
                 {
                     OnShowMenu(ViewModel.MenuDisplayed);
                 }
-                
+
                 _popupDialog?.onDestroy.AddListener(OnPopupDestroyed);
                 GameEvents.onLevelWasLoaded.Add(OnLevelWasLoaded);
             }
 
+            /// <summary>
+            /// Unity callback. Tears down what <see cref="Start"/> set up.
+            /// </summary>
             public void OnDestroy()
             {
+                // Pure cleanup: do NOT dismiss the dialog here. This runs on both teardown paths (the
+                // owner-driven Dismiss and KSP destroying the popup itself), and in both the popup is
+                // already being destroyed — dismissing again here would re-enter the teardown.
                 ViewModel?.OnShowMenu.Remove(OnShowMenu);
-
                 GameEvents.onLevelWasLoaded.Remove(OnLevelWasLoaded);
                 _popupDialog?.onDestroy.RemoveListener(OnPopupDestroyed);
             }
 
+            /// <summary>
+            /// Close the window on the owner's request. The controller is destroyed as a result, so the
+            /// owner must drop its reference afterwards.
+            /// </summary>
             public void Dismiss()
             {
+                // Unhook our KSP listener first: dismissing triggers the destruction, and we must not
+                // re-enter OnPopupDestroyed to notify the owner of a close it requested itself.
                 _popupDialog?.onDestroy.RemoveListener(OnPopupDestroyed);
                 _popupDialog?.Dismiss();
             }
 
+            /// <summary>
+            /// Called when KSP destroys the popup on its own (e.g. the user presses Escape) — a close not
+            /// initiated through <see cref="Hide"/> or <see cref="Dismiss"/>.
+            /// </summary>
+            private void OnPopupDestroyed()
+            {
+                // Grab the position while the transform is still alive, then let the owner resync
+                // (reset the toolbar toggle, close the rest of the UI).
+                CaptureWindowPosition();
+                OnClosed.Fire();
+            }
+
+            /// <summary>
+            /// Re-asserts the window's interactivity after a KSP scene change (no-op if it is closed).
+            /// </summary>
+            private void OnLevelWasLoaded(GameScenes scene)
+            {
+                this.RestoreInteractivity();
+            }
+
+            // =====================
+            // Public API
+            // =====================
+
+            /// <summary>
+            /// Show the window at its last saved position. Also used to re-open it after a
+            /// <see cref="Hide"/>.
+            /// </summary>
             public void Show()
             {
                 _popupDialog?.gameObject.SetActive(true);
-                // Restore the dragged position one frame later: KSP repositions the dialog during
-                // the spawn frame, so applying it now would be overwritten.
-                StartCoroutine(ApplyUguiPositionAfterLayout());
+                // Restore the dragged position one frame later: KSP re-applies the spawn position on the
+                // layout pass that follows activation, so applying it now would be overwritten.
+                StartCoroutine(_ApplyUguiPositionAfterLayout());
             }
 
-            private IEnumerator ApplyUguiPositionAfterLayout()
+            /// <summary>
+            /// Apply the saved window position and reveal the window.
+            /// </summary>
+            private IEnumerator _ApplyUguiPositionAfterLayout()
             {
+                // Wait one frame so KSP's layout pass (which re-applies the spawn position) has settled.
                 yield return null;
                 if( SteamInputSettings.TryGetWindowPosition(out Vector2 saved) ) {
                     SetPosition(saved);
                 }
-                // Now that the layout has settled and the window sits at its final position, reveal it.
-                // It was spawned hidden (alpha 0) to avoid flickering at the default spawn position.
                 Reveal();
             }
 
+            /// <summary>
+            /// Hide the window, saving its position. The controller stays alive so the window can be
+            /// shown again later.
+            /// </summary>
             public void Hide()
             {
                 CaptureWindowPosition();
                 _popupDialog?.gameObject.SetActive(false);
             }
 
+            // =====================
+            // Internal API
+            // =====================
+            
+            /// <summary>Move the window to the given position, preserving its current z.</summary>
             private void SetPosition(Vector2 position)
             {
                 if( _popupDialog.RTrf == null ) return;
@@ -226,7 +297,39 @@ namespace com.github.lhervier.ksp.ui.ugui
                 _popupDialog.RTrf.localPosition = new Vector3(position.x, position.y, lp.z);
             }
 
-            
+            /// <summary>Make the window visible.</summary>
+            private void Reveal()
+            {
+                if (_canvasGroup != null)
+                {
+                    _canvasGroup.alpha = 1f;
+                }
+            }
+
+            /// <summary>Re-enable pointer interaction on the window.</summary>
+            private void RestoreInteractivity()
+            {
+                // KSP bug: on a scene change, UIMasterController.OnSceneChange clears the modal stack via
+                // UnregisterModalDialogs() WITHOUT restoring blocksRaycasts on the surviving non-modal
+                // dialogs. Our window persists across scenes, so if a modal dialog was up before the
+                // transition (e.g. the KSC "exit to main menu" confirmation), the window stays visible
+                // but non-interactive. We re-assert the resting state of a non-modal dialog.
+                if (_canvasGroup != null)
+                {
+                    _canvasGroup.blocksRaycasts = true;
+                }
+            }
+
+            /// <summary>Report the window's current position so the owner can persist it.</summary>
+            private void CaptureWindowPosition()
+            {
+                if (_popupDialog != null && _popupDialog.RTrf != null)
+                {
+                    OnPositionCaptured.Fire(_popupDialog.RTrf.localPosition);
+                }
+            }
+
+            /// <summary>Show or hide the menu and its overlay.</summary>
             private void OnShowMenu(bool show)
             {
                 if( _overlayController == null )
@@ -243,56 +346,6 @@ namespace com.github.lhervier.ksp.ui.ugui
 
                 _overlayController.gameObject.SetActive(show);
                 _menuController.gameObject.SetActive(show);
-            }
-
-            /// <summary>
-            /// Make the window visible. It is spawned hidden (alpha 0) to avoid a one-frame flicker
-            /// at the default spawn position; the owner calls this once the layout has settled and
-            /// the saved position has been applied.
-            /// </summary>
-            private void Reveal()
-            {
-                if (_canvasGroup != null)
-                {
-                    _canvasGroup.alpha = 1f;
-                }
-            }
-
-            /// <summary>
-            /// Re-enable pointer interaction on the window. Works around a KSP bug: on a scene
-            /// change, UIMasterController.OnSceneChange clears the modal stack via
-            /// UnregisterModalDialogs() WITHOUT restoring blocksRaycasts on the surviving non-modal
-            /// dialogs. Our window persists across scenes, so if a modal dialog was showing before
-            /// the transition (e.g. the KSC "exit to main menu" confirmation), it stays visible but
-            /// non-interactive. We re-assert the resting state of a non-modal dialog (true).
-            /// </summary>
-            private void RestoreInteractivity()
-            {
-                if (_canvasGroup != null)
-                {
-                    _canvasGroup.blocksRaycasts = true;
-                }
-            }
-
-            private void CaptureWindowPosition()
-            {
-                if (_popupDialog != null && _popupDialog.RTrf != null)
-                {
-                    OnPositionCaptured.Fire(_popupDialog.RTrf.localPosition);
-                }
-            }
-
-            private void OnPopupDestroyed()
-            {
-                // Dismissed by KSP (e.g. Escape) without going through Hide(): grab the position first,
-                // then let the owner resync (toolbar toggle, other windows).
-                CaptureWindowPosition();
-                OnClosed.Fire();
-            }
-
-            private void OnLevelWasLoaded(GameScenes scene)
-            {
-                this.RestoreInteractivity();
             }
         }
     }
