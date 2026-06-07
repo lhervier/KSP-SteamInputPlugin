@@ -1,6 +1,5 @@
 using UnityEngine;
 using KSP.UI.Screens;
-using System.Collections;
 using com.github.lhervier.ksp.ui.ugui;
 
 namespace com.github.lhervier.ksp.ui
@@ -118,9 +117,6 @@ namespace com.github.lhervier.ksp.ui
                 popupDialogController.OnPositionCaptured.Add(OnWindowPositionCaptured);
             }
             popupDialogController.Show();
-            // Restore the dragged position one frame later: KSP repositions the dialog during
-            // the spawn frame, so applying it now would be overwritten.
-            StartCoroutine(ApplyUguiPositionAfterLayout());
         }
 
         private void HideInternal()
@@ -136,18 +132,6 @@ namespace com.github.lhervier.ksp.ui
             popupDialogController.OnPositionCaptured.Remove(OnWindowPositionCaptured);
             popupDialogController.Dismiss();
             popupDialogController = null;
-        }
-
-        private IEnumerator ApplyUguiPositionAfterLayout()
-        {
-            yield return null;
-            if (popupDialogController == null) yield break;
-            if( SteamInputSettings.TryGetWindowPosition(out Vector2 saved) ) {
-                popupDialogController.SetPosition(saved);
-            }
-            // Now that the layout has settled and the window sits at its final position, reveal it.
-            // It was spawned hidden (alpha 0) to avoid flickering at the default spawn position.
-            popupDialogController.Reveal();
         }
     }
 }

@@ -7,6 +7,7 @@ using com.github.lhervier.ksp.ui.ugui.titleBar;
 using System;
 using com.github.lhervier.ksp.ui.ugui.menu;
 using com.github.lhervier.ksp.ui.ugui.body;
+using System.Collections;
 
 namespace com.github.lhervier.ksp.ui.ugui
 {
@@ -196,6 +197,20 @@ namespace com.github.lhervier.ksp.ui.ugui
             public void Show()
             {
                 _popupDialog?.gameObject.SetActive(true);
+                // Restore the dragged position one frame later: KSP repositions the dialog during
+                // the spawn frame, so applying it now would be overwritten.
+                StartCoroutine(ApplyUguiPositionAfterLayout());
+            }
+
+            private IEnumerator ApplyUguiPositionAfterLayout()
+            {
+                yield return null;
+                if( SteamInputSettings.TryGetWindowPosition(out Vector2 saved) ) {
+                    SetPosition(saved);
+                }
+                // Now that the layout has settled and the window sits at its final position, reveal it.
+                // It was spawned hidden (alpha 0) to avoid flickering at the default spawn position.
+                Reveal();
             }
 
             public void Hide()
@@ -204,7 +219,7 @@ namespace com.github.lhervier.ksp.ui.ugui
                 _popupDialog?.gameObject.SetActive(false);
             }
 
-            public void SetPosition(Vector2 position)
+            private void SetPosition(Vector2 position)
             {
                 if( _popupDialog.RTrf == null ) return;
                 Vector3 lp = _popupDialog.RTrf.localPosition;
@@ -230,17 +245,12 @@ namespace com.github.lhervier.ksp.ui.ugui
                 _menuController.gameObject.SetActive(show);
             }
 
-            public PopupDialog GetPopupDialog()
-            {
-                return this._popupDialog;
-            }
-
             /// <summary>
             /// Make the window visible. It is spawned hidden (alpha 0) to avoid a one-frame flicker
             /// at the default spawn position; the owner calls this once the layout has settled and
             /// the saved position has been applied.
             /// </summary>
-            public void Reveal()
+            private void Reveal()
             {
                 if (_canvasGroup != null)
                 {
