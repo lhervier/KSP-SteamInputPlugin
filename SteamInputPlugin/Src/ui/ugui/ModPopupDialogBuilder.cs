@@ -11,7 +11,7 @@ using System.Collections;
 
 namespace com.github.lhervier.ksp.ui.ugui
 {
-    public class PopupDialogBuilder
+    public class ModPopupDialogBuilder
     {
         private const string DIALOG_ID = "SteamInputCheatSheetUGUI";
         private CheatSheetViewModel _viewModel;
@@ -22,7 +22,7 @@ namespace com.github.lhervier.ksp.ui.ugui
         private MenuBuilder _menuBuilder;
         private BodyBuilder _bodyBuilder;
 
-        public PopupDialogBuilder(CheatSheetViewModel viewModel)
+        public ModPopupDialogBuilder(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             this._titleBarBuilder = new TitleBarBuilder(viewModel);
@@ -31,7 +31,7 @@ namespace com.github.lhervier.ksp.ui.ugui
             this._bodyBuilder = new BodyBuilder(viewModel);
         }
 
-        public PopupDialogBuilder(
+        public ModPopupDialogBuilder(
             CheatSheetViewModel viewModel,
             Vector2 initialPosition
         ) : this(viewModel)
@@ -44,7 +44,7 @@ namespace com.github.lhervier.ksp.ui.ugui
         /// Spawn the cheat-sheet popup window and return its controller, or null if KSP failed to spawn
         /// it. The caller drives the window through the returned controller.
         /// </summary>
-        public PopupDialogController Create()
+        public ModPopupDialogController Create()
         {
             // Creates a ultra minimal MultiOptionDialog. We will not use it.
             var pos = NormalizedWindowPos(
@@ -78,7 +78,7 @@ namespace com.github.lhervier.ksp.ui.ugui
             {
                 return null;
             }
-            PopupDialogController controller = popupDialog.popupWindow.AddComponent<PopupDialogController>();
+            ModPopupDialogController controller = popupDialog.popupWindow.AddComponent<ModPopupDialogController>();
             controller.Initialize(_viewModel);
             controller.BindPopupDialog(popupDialog);
             controller.BindOverlayBuilder(_overlayBuilder);
@@ -157,7 +157,7 @@ namespace com.github.lhervier.ksp.ui.ugui
         // Controller
         // ==============================================================
 
-        public class PopupDialogController : BaseSteamInputController
+        public class ModPopupDialogController : BaseSteamInputController
         {
             private OverlayBuilder _overlayBuilder;
             private MenuBuilder _menuBuilder;
