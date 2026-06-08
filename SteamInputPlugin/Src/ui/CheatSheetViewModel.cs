@@ -119,19 +119,16 @@ namespace com.github.lhervier.ksp.steaminput.ui
         private GamepadConfigDaemon _gamepadConfigDaemon;
         private ActionGroupDaemon _actionGroupDaemon;
         private GamepadDaemon _gamepadDaemon;
-        private Action _onClose;
 
         public void Initialize(
             GamepadConfigDaemon gamepadConfigDaemon, 
             ActionGroupDaemon actionGroupDaemon,
-            GamepadDaemon gamepadDaemon,
-            Action onClose
+            GamepadDaemon gamepadDaemon
         )
         {
             this._gamepadConfigDaemon = gamepadConfigDaemon;
             this._actionGroupDaemon = actionGroupDaemon;
             this._gamepadDaemon = gamepadDaemon;
-            this._onClose = onClose;
         }
 
         public void Awake()
@@ -480,11 +477,6 @@ namespace com.github.lhervier.ksp.steaminput.ui
         }
 
         // =======================================================================
-
-        public void CloseWindow()
-        {
-            this._onClose?.Invoke();
-        }
 
         public void OpenSettings()
         {

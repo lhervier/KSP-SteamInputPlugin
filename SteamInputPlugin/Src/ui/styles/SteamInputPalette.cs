@@ -73,7 +73,6 @@ namespace com.github.lhervier.ksp.steaminput.ui.styles
         public const string TitleBarGamepadIconPath = "SteamInput/Textures/gamepad_icon";
         
         // Colors
-        public static readonly Color TitleBarLabelColor = new Color(232f / 255f, 232f / 255f, 232f / 255f);
         public static readonly Color TitleBarActionGroupBorderColor = new Color(74f / 255f, 110f / 255f, 32f / 255f);
         public static readonly Color TitleBarControllerNameColor = new Color(85f / 255f, 85f / 255f, 85f / 255f);
         

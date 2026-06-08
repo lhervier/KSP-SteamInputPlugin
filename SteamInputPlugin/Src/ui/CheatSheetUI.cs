@@ -95,16 +95,18 @@ namespace com.github.lhervier.ksp.steaminput.ui
         private void OnToggleOff()
         {
             LOGGER.LogDebug("Hiding window (from toolbar)");
-            HideInternal();
+            if (popupDialogController != null)
+            {
+                popupDialogController.Hide();
+            }
         }
 
-        public void CloseWindow()
+        public void WindowClosed()
         {
-            LOGGER.LogDebug("Hiding window (from UI)");
-            HideInternal();
+            LOGGER.LogDebug("Window hidden from UI");
             if (button != null)
             {
-                button.SetFalse();
+                button.SetFalse(false);
             }
         }
 
@@ -121,24 +123,18 @@ namespace com.github.lhervier.ksp.steaminput.ui
             {
                 popupDialogController = popupDialogBuilder.Create();
                 if (popupDialogController == null) return;    // Spawn failed
+                popupDialogController.OnClosed.Add(WindowClosed);
                 // When KSP dismisses the popup itself (Escape opens the pause menu and closes it),
                 // resync as if the user had closed it: hide the rest and reset the toolbar toggle.
-                popupDialogController.OnClosed.Add(CloseWindow);
                 popupDialogController.OnPositionCaptured.Add(OnWindowPositionCaptured);
             }
             popupDialogController.Show();
         }
 
-        private void HideInternal()
-        {
-            if (popupDialogController == null) return;
-            popupDialogController.Hide();
-        }
-
         private void Dismiss()
         {
             if (popupDialogController == null) return;
-            popupDialogController.OnClosed.Remove(CloseWindow);
+            popupDialogController.OnClosed.Remove(WindowClosed);
             popupDialogController.OnPositionCaptured.Remove(OnWindowPositionCaptured);
             popupDialogController.Dismiss();
             popupDialogController = null;

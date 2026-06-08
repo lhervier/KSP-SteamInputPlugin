@@ -17,7 +17,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
         public ArrowsBuilder(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
-            this._buttonBuilder = new ButtonBuilder(viewModel);
+            this._buttonBuilder = new ButtonBuilder();
         }
 
         public ArrowsController Create(UIConfigZone zone)

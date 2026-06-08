@@ -5,6 +5,7 @@ using com.github.lhervier.ksp.steaminput.ui.ugui.body;
 using com.github.lhervier.ksp.ugui.shared;
 using com.github.lhervier.ksp.ugui.shared.popup;
 using static com.github.lhervier.ksp.steaminput.ui.ugui.ModPopupDialogBuilder;
+using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui
 {
@@ -25,6 +26,8 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
             Init(viewModel);
             this._popupBuilder = new PopupBuilder<TitleBarController, BodyController>(
                 DIALOG_ID,
+                ModLocalization.GetString("SteamInput_titleHelp"),
+                SpritesTitleBar.GamepadIconSprite,
                 _titleBarBuilder,
                 _bodyBuilder
             );
@@ -39,6 +42,8 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
             this._popupBuilder = new PopupBuilder<TitleBarController, BodyController>(
                 initialPosition,
                 DIALOG_ID,
+                ModLocalization.GetString("SteamInput_titleHelp"),
+                SpritesTitleBar.GamepadIconSprite,
                 _titleBarBuilder,
                 _bodyBuilder
             );

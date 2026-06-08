@@ -133,8 +133,7 @@ namespace com.github.lhervier.ksp.steaminput
             this.viewModel.Initialize(
                 this.gamepadConfigDaemon, 
                 this.actionGroupDaemon, 
-                this.gamepadDaemon,
-                () => this.loggingUI.CloseWindow()
+                this.gamepadDaemon
             );
 
             // Start the GUI

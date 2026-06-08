@@ -133,6 +133,7 @@ namespace com.github.lhervier.ksp.ugui.shared.popup
         {
             CaptureWindowPosition();
             _popupDialog?.gameObject.SetActive(false);
+            this.OnClosed.Fire();
         }
 
         // =====================

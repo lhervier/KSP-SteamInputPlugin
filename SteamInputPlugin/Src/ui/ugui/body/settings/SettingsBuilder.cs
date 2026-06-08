@@ -24,7 +24,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
         public SettingsBuilder(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
-            this._buttonBuilder = new ButtonBuilder(viewModel);
+            this._buttonBuilder = new ButtonBuilder();
             this._logLevelButtonBuilder = new LogLevelButtonBuilder(viewModel);
             this._diagnosticBuilder = new DiagnosticBuilder(viewModel);
         }

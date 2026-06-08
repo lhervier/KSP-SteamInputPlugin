@@ -9,12 +9,6 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
 {
     public class ButtonBuilder
     {
-        private CheatSheetViewModel _viewModel;
-        public ButtonBuilder(CheatSheetViewModel viewModel)
-        {
-            this._viewModel = viewModel;
-        }
-
         public ButtonController Create(
             string objectName, 
             string buttonLabel,
@@ -43,7 +37,6 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
         {
             var buttonGo = new GameObject(objectName, typeof(RectTransform));
             ButtonController controller = buttonGo.AddComponent<ButtonController>();
-            controller.Initialize(_viewModel);
 
             var layoutElement = buttonGo.AddComponent<LayoutElement>();
             layoutElement.preferredWidth = DefaultPalette.ButtonSize;
@@ -114,7 +107,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
         }
     }
 
-    public class ButtonController : BaseSteamInputController
+    public class ButtonController : MonoBehaviour
     {
         private const float DisabledAlpha = 0.25f;
 

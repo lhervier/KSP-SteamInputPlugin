@@ -26,7 +26,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
         public SelectorBuilder(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
-            this._buttonBuilder = new ButtonBuilder(viewModel);
+            this._buttonBuilder = new ButtonBuilder();
             this._overlayBuilder = new OverlayBuilder(viewModel);
         }
 
