@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 using com.github.lhervier.ksp.steaminput.ui.model;
 using com.github.lhervier.ksp.shared.ugui.styles;
 using com.github.lhervier.ksp.shared.ugui.sprites;
+using com.github.lhervier.ksp.shared.ugui.checkbox;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
 {
@@ -18,7 +19,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
         public ZoneRowBuilder(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
-            this._checkBoxBuilder = new CheckboxBuilder(viewModel);
+            this._checkBoxBuilder = new CheckboxBuilder();
             this._zoneLabelBuilder = new ZoneLabelBuilder(viewModel);
             this._arrowsBuilder = new ArrowsBuilder(viewModel);
         }
@@ -89,10 +90,10 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
         public class ZoneRowController : BaseSteamInputController
         {
             private ArrowsBuilder.ArrowsController _arrowsController;
-            private CheckboxBuilder.CheckboxController _checkboxController;
+            private CheckboxController _checkboxController;
             private ZoneLabelBuilder.ZoneLabelController _zoneLabelController;
 
-            public void BindCheckboxController(CheckboxBuilder.CheckboxController checkboxController)
+            public void BindCheckboxController(CheckboxController checkboxController)
             {
                 _checkboxController = checkboxController;
             }

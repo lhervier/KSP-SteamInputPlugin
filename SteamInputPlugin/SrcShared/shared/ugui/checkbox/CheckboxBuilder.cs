@@ -4,25 +4,17 @@ using System;
 using com.github.lhervier.ksp.shared.ugui.styles;
 using com.github.lhervier.ksp.shared.ugui.sprites;
 
-namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
+namespace com.github.lhervier.ksp.shared.ugui.checkbox
 {
     public class CheckboxBuilder
     {
-        private CheatSheetViewModel _viewModel;
-
-        public CheckboxBuilder(CheatSheetViewModel viewModel)
-        {
-            this._viewModel = viewModel;
-        }
-
         public CheckboxController Create(
-            bool initialChecked, 
+            bool initialChecked,
             Action<bool> onToggle
         )
         {
             var go = new GameObject("Checkbox", typeof(RectTransform));
             CheckboxController controller = go.AddComponent<CheckboxController>();
-            controller.Initialize(_viewModel);
 
             // Fixed 12x12 square
             var layoutElement = go.AddComponent<LayoutElement>();
@@ -75,27 +67,6 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
             button.onClick.AddListener(() => onToggle(!checkmarkGo.activeSelf));
 
             return controller;
-        }
-
-        public class CheckboxController : BaseSteamInputController
-        {
-            private GameObject _checkMark;
-
-            public void BindCheckmark(GameObject checkmark)
-            {
-                _checkMark = checkmark;
-            }
-
-            public bool IsChecked()
-            {
-                if( _checkMark == null ) return false;
-                return _checkMark.activeInHierarchy;
-            }
-
-            public void SetChecked(bool isChecked)
-            {
-                _checkMark.SetActive(isChecked);
-            }
         }
     }
 }
