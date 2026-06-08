@@ -1,14 +1,9 @@
 using UnityEngine;
-using UnityEngine.UI;
-using com.github.lhervier.ksp.ui.styles;
-using com.github.lhervier.ksp.ui.ugui.sprites;
 using com.github.lhervier.ksp.ui.ugui.body.zones;
 using com.github.lhervier.ksp.ui.ugui.body.selector;
 using com.github.lhervier.ksp.ui.ugui.body.settings;
-using System.IO;
 using System;
-using com.github.lhervier.ksp.ugui.shared;
-using static com.github.lhervier.ksp.ui.ugui.body.BodyBuilder;
+using com.github.lhervier.ksp.ugui.shared.popup;
 
 namespace com.github.lhervier.ksp.ui.ugui.body
 {

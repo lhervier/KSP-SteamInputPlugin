@@ -2,9 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using com.github.lhervier.ksp.ui.styles;
 using com.github.lhervier.ksp.ui.ugui.sprites;
-using System.Collections;
 
-namespace com.github.lhervier.ksp.ugui.shared
+namespace com.github.lhervier.ksp.ugui.shared.popup
 {
     public class PopupBuilder<T, C> : IUGUIBuilder<PopupController> 
         where T : PopupTitleBarController

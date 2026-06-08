@@ -1,14 +1,9 @@
-using com.github.lhervier.ksp.ugui.shared;
 using UnityEngine;
-using UnityEngine.UI;
-using com.github.lhervier.ksp.ui.styles;
-using UnityEngine.Events;
-using com.github.lhervier.ksp.ui.ugui.sprites;
 using com.github.lhervier.ksp.ui.ugui.titleBar;
-using System;
 using com.github.lhervier.ksp.ui.ugui.menu;
 using com.github.lhervier.ksp.ui.ugui.body;
-using System.Collections;
+using com.github.lhervier.ksp.ugui.shared;
+using com.github.lhervier.ksp.ugui.shared.popup;
 using static com.github.lhervier.ksp.ui.ugui.ModPopupDialogBuilder;
 
 namespace com.github.lhervier.ksp.ui.ugui
