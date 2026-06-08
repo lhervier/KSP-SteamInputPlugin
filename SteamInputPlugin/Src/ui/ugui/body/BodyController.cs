@@ -3,7 +3,7 @@ using com.github.lhervier.ksp.steaminput.ui.ugui.body.zones;
 using com.github.lhervier.ksp.steaminput.ui.ugui.body.selector;
 using com.github.lhervier.ksp.steaminput.ui.ugui.body.settings;
 using System;
-using com.github.lhervier.ksp.ugui.shared.popup;
+using com.github.lhervier.ksp.shared.ugui.popup;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.body
 {

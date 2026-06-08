@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
-using com.github.lhervier.ksp.ugui.shared;
-using com.github.lhervier.ksp.ugui.shared.styles;
-using com.github.lhervier.ksp.ugui.shared.button;
+using com.github.lhervier.ksp.shared.ugui;
+using com.github.lhervier.ksp.shared.ugui.styles;
+using com.github.lhervier.ksp.shared.ugui.button;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
 {

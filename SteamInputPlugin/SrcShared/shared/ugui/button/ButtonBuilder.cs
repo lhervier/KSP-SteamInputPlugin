@@ -2,10 +2,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
-using com.github.lhervier.ksp.ugui.shared.styles;
-using com.github.lhervier.ksp.ugui.shared.sprites;
+using com.github.lhervier.ksp.shared.ugui.styles;
+using com.github.lhervier.ksp.shared.ugui.sprites;
 
-namespace com.github.lhervier.ksp.ugui.shared.button
+namespace com.github.lhervier.ksp.shared.ugui.button
 {
     public class ButtonBuilder
     {

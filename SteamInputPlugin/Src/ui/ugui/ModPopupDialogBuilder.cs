@@ -2,8 +2,8 @@ using UnityEngine;
 using com.github.lhervier.ksp.steaminput.ui.ugui.titleBar;
 using com.github.lhervier.ksp.steaminput.ui.ugui.menu;
 using com.github.lhervier.ksp.steaminput.ui.ugui.body;
-using com.github.lhervier.ksp.ugui.shared;
-using com.github.lhervier.ksp.ugui.shared.popup;
+using com.github.lhervier.ksp.shared.ugui;
+using com.github.lhervier.ksp.shared.ugui.popup;
 using static com.github.lhervier.ksp.steaminput.ui.ugui.ModPopupDialogBuilder;
 using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
 

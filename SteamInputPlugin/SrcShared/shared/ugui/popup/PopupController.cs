@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-namespace com.github.lhervier.ksp.ugui.shared.popup
+namespace com.github.lhervier.ksp.shared.ugui.popup
 {
     public class PopupController : MonoBehaviour
     {

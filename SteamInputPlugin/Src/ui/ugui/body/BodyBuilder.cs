@@ -3,9 +3,9 @@ using UnityEngine.UI;
 using com.github.lhervier.ksp.steaminput.ui.ugui.body.zones;
 using com.github.lhervier.ksp.steaminput.ui.ugui.body.selector;
 using com.github.lhervier.ksp.steaminput.ui.ugui.body.settings;
-using com.github.lhervier.ksp.ugui.shared;
-using com.github.lhervier.ksp.ugui.shared.styles;
-using com.github.lhervier.ksp.ugui.shared.sprites;
+using com.github.lhervier.ksp.shared.ugui;
+using com.github.lhervier.ksp.shared.ugui.styles;
+using com.github.lhervier.ksp.shared.ugui.sprites;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.body
 {

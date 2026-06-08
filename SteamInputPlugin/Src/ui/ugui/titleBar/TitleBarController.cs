@@ -1,4 +1,4 @@
-using com.github.lhervier.ksp.ugui.shared.popup;
+using com.github.lhervier.ksp.shared.ugui.popup;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
 {

@@ -6,7 +6,7 @@ using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
 using System;
 using com.github.lhervier.ksp.steaminput.ui.model;
 using System.Security.Policy;
-using com.github.lhervier.ksp.ugui.shared.button;
+using com.github.lhervier.ksp.shared.ugui.button;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
 {
