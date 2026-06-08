@@ -55,7 +55,7 @@ namespace com.github.lhervier.ksp.ui.styles
 
         public const float MainScrollbarWidth = 8f;
         public const float MainPlaceholderHeight = 800f;
-        public static readonly Color ScrollbarColor = new Color(136f / 255f, 136f / 255f, 136f / 255f);
+        public static readonly Color MainScrollbarColor = new Color(136f / 255f, 136f / 255f, 136f / 255f);
 
         // ================================================================
         // Physical zones on the controller

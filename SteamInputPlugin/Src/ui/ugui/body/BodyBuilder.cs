@@ -160,8 +160,8 @@ namespace com.github.lhervier.ksp.ui.ugui.body
             // Visible handle on dark scrollbar background, with subtle hover/press feedback
             var scrollbarColors = scrollbar.colors;
             scrollbarColors.normalColor = SteamInputPalette.WindowBorderColor;
-            scrollbarColors.highlightedColor = SteamInputPalette.ScrollbarColor;
-            scrollbarColors.pressedColor = SteamInputPalette.ScrollbarColor;
+            scrollbarColors.highlightedColor = SteamInputPalette.MainScrollbarColor;
+            scrollbarColors.pressedColor = SteamInputPalette.MainScrollbarColor;
             scrollbarColors.selectedColor = SteamInputPalette.WindowBorderColor;
             scrollbarColors.disabledColor = SteamInputPalette.WindowBorderColor;
             scrollbarColors.colorMultiplier = 1f;
