@@ -1,7 +1,7 @@
 using UnityEngine;
-using com.github.lhervier.ksp.ui.styles;
+using com.github.lhervier.ksp.steaminput.ui.styles;
 
-namespace com.github.lhervier.ksp.ui.ugui.sprites
+namespace com.github.lhervier.ksp.steaminput.ui.ugui.sprites
 {
     /// <summary>Sprites for the zones menu (the dropdown opened from the title bar's "..." button).</summary>
     internal static class SpritesZonesMenu

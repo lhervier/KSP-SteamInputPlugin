@@ -1,13 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
-using com.github.lhervier.ksp.ui.styles;
-using com.github.lhervier.ksp.ui.ugui.sprites;
-using com.github.lhervier.ksp.ui.ugui.body.zones;
-using com.github.lhervier.ksp.ui.ugui.body.selector;
-using com.github.lhervier.ksp.ui.ugui.body.settings;
+using com.github.lhervier.ksp.steaminput.ui.styles;
+using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
+using com.github.lhervier.ksp.steaminput.ui.ugui.body.zones;
+using com.github.lhervier.ksp.steaminput.ui.ugui.body.selector;
+using com.github.lhervier.ksp.steaminput.ui.ugui.body.settings;
 using com.github.lhervier.ksp.ugui.shared;
 
-namespace com.github.lhervier.ksp.ui.ugui.body
+namespace com.github.lhervier.ksp.steaminput.ui.ugui.body
 {
     /// <summary>
     /// Scrollable body of the popup (below the title bar). Content larger than the viewport

@@ -3,10 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using com.github.lhervier.ksp.model;
+using com.github.lhervier.ksp.steaminput.model;
 using UnityEngine;
 
-namespace com.github.lhervier.ksp
+namespace com.github.lhervier.ksp.steaminput
 {
     public static class UpdatedConfiguration
     {

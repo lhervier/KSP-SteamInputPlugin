@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace com.github.lhervier.ksp.ui.styles
+namespace com.github.lhervier.ksp.steaminput.ui.styles
 {
     /// <summary>Layout metrics and colors from ksp_cheatsheet mockup.</summary>
     public static class SteamInputPalette

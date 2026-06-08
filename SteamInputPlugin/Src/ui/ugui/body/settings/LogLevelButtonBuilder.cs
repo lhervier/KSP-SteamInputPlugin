@@ -1,11 +1,11 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
-using com.github.lhervier.ksp;
-using com.github.lhervier.ksp.ui.styles;
-using com.github.lhervier.ksp.ui.ugui.sprites;
+using com.github.lhervier.ksp.steaminput;
+using com.github.lhervier.ksp.steaminput.ui.styles;
+using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
 
-namespace com.github.lhervier.ksp.ui.ugui.body.settings
+namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
 {
     /// <summary>
     /// The log level control. A "rotating" button (replaces the mockup's combobox): its label is the

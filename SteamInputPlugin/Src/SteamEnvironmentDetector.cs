@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using Microsoft.Win32;
 using Steamworks;
 
-namespace com.github.lhervier.ksp
+namespace com.github.lhervier.ksp.steaminput
 {
     /// <summary>
     /// Detects Steam client install path and current user account id (SteamID3 folder name in userdata / controller configs).

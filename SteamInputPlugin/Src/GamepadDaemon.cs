@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Steamworks;
-using com.github.lhervier.ksp.model;
+using com.github.lhervier.ksp.steaminput.model;
 
-namespace com.github.lhervier.ksp 
+namespace com.github.lhervier.ksp.steaminput 
 {
     /// <summary>
     /// Daemon in charge of listening to controller connection/disconnection

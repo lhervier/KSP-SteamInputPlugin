@@ -1,4 +1,4 @@
-namespace com.github.lhervier.ksp.model
+namespace com.github.lhervier.ksp.steaminput.model
 {
     public class VdfLayer
     {

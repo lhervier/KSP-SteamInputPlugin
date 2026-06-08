@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using com.github.lhervier.ksp.ui.model;
-using com.github.lhervier.ksp.ui.styles;
-using com.github.lhervier.ksp.ui.ugui.sprites;
+using com.github.lhervier.ksp.steaminput.ui.model;
+using com.github.lhervier.ksp.steaminput.ui.styles;
+using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
 
-namespace com.github.lhervier.ksp.ui.ugui.body.selector
+namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
 {
     /// <summary>
     /// Config picker shown at the top of the body: a combobox listing the available configs

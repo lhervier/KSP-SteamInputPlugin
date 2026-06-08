@@ -1,11 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
-using com.github.lhervier.ksp;
-using com.github.lhervier.ksp.ui.styles;
-using com.github.lhervier.ksp.ui.model;
+using com.github.lhervier.ksp.steaminput;
+using com.github.lhervier.ksp.steaminput.ui.styles;
+using com.github.lhervier.ksp.steaminput.ui.model;
 using System.Collections.Generic;
 
-namespace com.github.lhervier.ksp.ui.ugui.body.zones
+namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
 {
     /// <summary>
     /// Container that stacks one PhysicalZone per UIPhysicalZone from the ViewModel.

@@ -1,12 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using com.github.lhervier.ksp.ui.styles;
-using com.github.lhervier.ksp.ui.ugui.sprites;
+using com.github.lhervier.ksp.steaminput.ui.styles;
+using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
 using UnityEngine.Events;
 using System;
 
-namespace com.github.lhervier.ksp.ui.ugui
+namespace com.github.lhervier.ksp.steaminput.ui.ugui
 {
     public class ButtonBuilder
     {

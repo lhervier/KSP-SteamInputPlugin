@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
-using com.github.lhervier.ksp.ui.styles;
-using com.github.lhervier.ksp.ui.ugui.sprites;
+using com.github.lhervier.ksp.steaminput.ui.styles;
+using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
 using System.Collections;
 
 namespace com.github.lhervier.ksp.ugui.shared.popup

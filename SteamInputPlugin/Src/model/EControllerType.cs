@@ -3,9 +3,9 @@ using System.CodeDom;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using com.github.lhervier.ksp;
+using com.github.lhervier.ksp.steaminput;
 
-namespace com.github.lhervier.ksp.model
+namespace com.github.lhervier.ksp.steaminput.model
 {
     public sealed class EControllerType : IEquatable<EControllerType>
     {

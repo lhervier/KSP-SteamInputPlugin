@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace com.github.lhervier.ksp.model
+namespace com.github.lhervier.ksp.steaminput.model
 {
     public class VdfPresetZone
     {

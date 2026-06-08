@@ -1,12 +1,12 @@
 using UnityEngine;
-using com.github.lhervier.ksp.ui.ugui.titleBar;
-using com.github.lhervier.ksp.ui.ugui.menu;
-using com.github.lhervier.ksp.ui.ugui.body;
+using com.github.lhervier.ksp.steaminput.ui.ugui.titleBar;
+using com.github.lhervier.ksp.steaminput.ui.ugui.menu;
+using com.github.lhervier.ksp.steaminput.ui.ugui.body;
 using com.github.lhervier.ksp.ugui.shared;
 using com.github.lhervier.ksp.ugui.shared.popup;
-using static com.github.lhervier.ksp.ui.ugui.ModPopupDialogBuilder;
+using static com.github.lhervier.ksp.steaminput.ui.ugui.ModPopupDialogBuilder;
 
-namespace com.github.lhervier.ksp.ui.ugui
+namespace com.github.lhervier.ksp.steaminput.ui.ugui
 {
     public class ModPopupDialogBuilder : IUGUIBuilder<ModPopupDialogController>
     {

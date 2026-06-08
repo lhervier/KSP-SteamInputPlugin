@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
-using com.github.lhervier.ksp.ui.styles;
+using com.github.lhervier.ksp.steaminput.ui.styles;
 
-namespace com.github.lhervier.ksp.ui.ugui.body.zones
+namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
 {
     /// <summary>
     /// Placeholder shown in place of the zones list when no controller config is selected.

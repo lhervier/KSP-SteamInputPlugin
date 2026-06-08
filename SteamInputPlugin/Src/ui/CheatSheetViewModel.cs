@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
-using com.github.lhervier.ksp;
-using com.github.lhervier.ksp.ui.model;
+using com.github.lhervier.ksp.steaminput;
+using com.github.lhervier.ksp.steaminput.ui.model;
 using System.Linq;
 using System;
-using com.github.lhervier.ksp.model;
+using com.github.lhervier.ksp.steaminput.model;
 using System.Text.RegularExpressions;
 
-namespace com.github.lhervier.ksp.ui
+namespace com.github.lhervier.ksp.steaminput.ui
 {
     public class CheatSheetViewModel: MonoBehaviour
     {

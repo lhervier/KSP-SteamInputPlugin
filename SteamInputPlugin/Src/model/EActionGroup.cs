@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Linq;
 using UnityEngine.SceneManagement;
 
-namespace com.github.lhervier.ksp.model
+namespace com.github.lhervier.ksp.steaminput.model
 {
     public enum EActionGroup {
         None,

@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
 using UnityEngine.SceneManagement;
-using com.github.lhervier.ksp.model;
+using com.github.lhervier.ksp.steaminput.model;
 
-namespace com.github.lhervier.ksp 
+namespace com.github.lhervier.ksp.steaminput 
 {
     // <summary>
     //  This class is a context daemon that detects when the game is in docking mode

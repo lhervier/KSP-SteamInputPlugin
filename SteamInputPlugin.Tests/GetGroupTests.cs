@@ -1,8 +1,8 @@
-using com.github.lhervier.ksp.model;
-using com.github.lhervier.ksp.ui.model;
+using com.github.lhervier.ksp.steaminput.model;
+using com.github.lhervier.ksp.steaminput.ui.model;
 using NUnit.Framework;
 
-namespace com.github.lhervier.ksp.Tests
+namespace com.github.lhervier.ksp.steaminput.Tests
 {
     [TestFixture]
     public class GetGroupTests : DaemonTestBase

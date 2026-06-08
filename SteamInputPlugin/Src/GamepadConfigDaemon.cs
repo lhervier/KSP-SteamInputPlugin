@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using com.github.lhervier.ksp.model;
-using com.github.lhervier.ksp.ui.model;
-using com.github.lhervier.ksp.Vdf;
+using com.github.lhervier.ksp.steaminput.model;
+using com.github.lhervier.ksp.steaminput.ui.model;
+using com.github.lhervier.ksp.steaminput.Vdf;
 using UnityEngine;
 
-namespace com.github.lhervier.ksp
+namespace com.github.lhervier.ksp.steaminput
 {
     /// <summary>
     /// Loads and caches the controller VDF for the config name set in game settings.

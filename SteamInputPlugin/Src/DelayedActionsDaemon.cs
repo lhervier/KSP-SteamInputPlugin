@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace com.github.lhervier.ksp 
+namespace com.github.lhervier.ksp.steaminput 
 {
 
     // <summary>

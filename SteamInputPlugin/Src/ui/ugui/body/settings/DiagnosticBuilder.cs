@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using com.github.lhervier.ksp;
-using com.github.lhervier.ksp.ui.styles;
-using com.github.lhervier.ksp.ui.ugui.sprites;
+using com.github.lhervier.ksp.steaminput;
+using com.github.lhervier.ksp.steaminput.ui.styles;
+using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
 
-namespace com.github.lhervier.ksp.ui.ugui.body.settings
+namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
 {
     /// <summary>
     /// "Diagnostic" section, mockup .kset-note / .kset-kv / .kset-ctx. Read-only info aimed at the

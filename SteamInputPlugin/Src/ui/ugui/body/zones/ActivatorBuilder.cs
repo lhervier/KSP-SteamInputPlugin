@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
-using com.github.lhervier.ksp.ui.styles;
-using com.github.lhervier.ksp.ui.ugui.sprites;
-using com.github.lhervier.ksp.ui.model;
+using com.github.lhervier.ksp.steaminput.ui.styles;
+using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
+using com.github.lhervier.ksp.steaminput.ui.model;
 
-namespace com.github.lhervier.ksp.ui.ugui.body.zones
+namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
 {
     /// <summary>
     /// Builds one cheat-sheet row (mockup .krow):

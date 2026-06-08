@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace com.github.lhervier.ksp.ui.styles
+namespace com.github.lhervier.ksp.steaminput.ui.styles
 {
     internal sealed class SteamInputTextures
     {

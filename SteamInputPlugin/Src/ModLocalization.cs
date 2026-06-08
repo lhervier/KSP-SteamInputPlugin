@@ -1,7 +1,7 @@
 using System;
 using KSP.Localization;
 
-namespace com.github.lhervier.ksp
+namespace com.github.lhervier.ksp.steaminput
 {
     /// <summary>
     /// Localization for the Steam Input mod (KSP Localizer).

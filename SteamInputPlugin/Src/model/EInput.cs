@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-namespace com.github.lhervier.ksp.ui.model
+namespace com.github.lhervier.ksp.steaminput.ui.model
 {
     public sealed class EInput : IEquatable<EInput>
     {

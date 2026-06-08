@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
-using com.github.lhervier.ksp.ui.styles;
+using com.github.lhervier.ksp.steaminput.ui.styles;
 
-namespace com.github.lhervier.ksp.ui.ugui.sprites
+namespace com.github.lhervier.ksp.steaminput.ui.ugui.sprites
 {
     /// <summary>Applies ksp_cheatsheet mockup colors to a KSP PopupDialog shell.</summary>
     internal static class SpritesGlobal

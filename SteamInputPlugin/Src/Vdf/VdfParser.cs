@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace com.github.lhervier.ksp.Vdf
+namespace com.github.lhervier.ksp.steaminput.Vdf
 {
     /// <summary>
     /// Parser for Valve KeyValues text (VDF) files. Reads a single file; does not resolve #ref.

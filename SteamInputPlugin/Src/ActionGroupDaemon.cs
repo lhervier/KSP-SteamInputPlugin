@@ -5,11 +5,11 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
 using UnityEngine.SceneManagement;
-using com.github.lhervier.ksp.ui;
+using com.github.lhervier.ksp.steaminput.ui;
 using System.IO;
-using com.github.lhervier.ksp.model;
+using com.github.lhervier.ksp.steaminput.model;
 
-namespace com.github.lhervier.ksp 
+namespace com.github.lhervier.ksp.steaminput 
 {
     public class ActionGroupDaemon : MonoBehaviour 
     {

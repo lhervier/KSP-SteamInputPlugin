@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.Serialization;
-using com.github.lhervier.ksp.model;
-using com.github.lhervier.ksp.ui;
-using com.github.lhervier.ksp.ui.model;
-using com.github.lhervier.ksp.Vdf;
+using com.github.lhervier.ksp.steaminput.model;
+using com.github.lhervier.ksp.steaminput.ui;
+using com.github.lhervier.ksp.steaminput.ui.model;
+using com.github.lhervier.ksp.steaminput.Vdf;
 using NUnit.Framework;
 
-namespace com.github.lhervier.ksp.Tests
+namespace com.github.lhervier.ksp.steaminput.Tests
 {
     [TestFixture]
     public class CheatSheetViewModelTests : DaemonTestBase

@@ -1,15 +1,15 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using com.github.lhervier.ksp.model;
-using com.github.lhervier.ksp.ui.styles;
-using com.github.lhervier.ksp.ui.ugui.sprites;
+using com.github.lhervier.ksp.steaminput.model;
+using com.github.lhervier.ksp.steaminput.ui.styles;
+using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
 using UnityEngine.Events;
 using System;
 using System.Collections.Generic;
-using com.github.lhervier.ksp.ui.model;
+using com.github.lhervier.ksp.steaminput.ui.model;
 
-namespace com.github.lhervier.ksp.ui.ugui.menu
+namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
 {
     public class ZonesBuilder
     {

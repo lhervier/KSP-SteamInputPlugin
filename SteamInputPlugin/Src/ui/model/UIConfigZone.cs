@@ -1,6 +1,6 @@
-using com.github.lhervier.ksp;
+using com.github.lhervier.ksp.steaminput;
 
-namespace com.github.lhervier.ksp.ui.model
+namespace com.github.lhervier.ksp.steaminput.ui.model
 {
     public class UIConfigZone
     {

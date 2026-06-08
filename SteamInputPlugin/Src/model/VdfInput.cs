@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using com.github.lhervier.ksp.ui.model;
+using com.github.lhervier.ksp.steaminput.ui.model;
 
-namespace com.github.lhervier.ksp.model
+namespace com.github.lhervier.ksp.steaminput.model
 {
     public class VdfInput
     {

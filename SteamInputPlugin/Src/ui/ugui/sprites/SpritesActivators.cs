@@ -1,7 +1,7 @@
 using UnityEngine;
-using com.github.lhervier.ksp.ui.styles;
+using com.github.lhervier.ksp.steaminput.ui.styles;
 
-namespace com.github.lhervier.ksp.ui.ugui.sprites
+namespace com.github.lhervier.ksp.steaminput.ui.ugui.sprites
 {
     /// <summary>Sprites for the physical zones list rendered in the main body.</summary>
     internal static class SpritesActivators

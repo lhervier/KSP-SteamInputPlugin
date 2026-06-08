@@ -1,8 +1,8 @@
 using UnityEngine;
 using KSP.UI.Screens;
-using com.github.lhervier.ksp.ui.ugui;
+using com.github.lhervier.ksp.steaminput.ui.ugui;
 
-namespace com.github.lhervier.ksp.ui
+namespace com.github.lhervier.ksp.steaminput.ui
 {
     public class CheatSheetUI : MonoBehaviour
     {

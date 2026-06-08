@@ -1,11 +1,11 @@
 using UnityEngine;
-using com.github.lhervier.ksp.ui.ugui.body.zones;
-using com.github.lhervier.ksp.ui.ugui.body.selector;
-using com.github.lhervier.ksp.ui.ugui.body.settings;
+using com.github.lhervier.ksp.steaminput.ui.ugui.body.zones;
+using com.github.lhervier.ksp.steaminput.ui.ugui.body.selector;
+using com.github.lhervier.ksp.steaminput.ui.ugui.body.settings;
 using System;
 using com.github.lhervier.ksp.ugui.shared.popup;
 
-namespace com.github.lhervier.ksp.ui.ugui.body
+namespace com.github.lhervier.ksp.steaminput.ui.ugui.body
 {
     public class BodyController : PopupContentController
     {

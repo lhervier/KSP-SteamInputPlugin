@@ -2,12 +2,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
-using com.github.lhervier.ksp.ui.styles;
-using com.github.lhervier.ksp.ui.ugui.sprites;
-using com.github.lhervier.ksp.ui.model;
+using com.github.lhervier.ksp.steaminput.ui.styles;
+using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
+using com.github.lhervier.ksp.steaminput.ui.model;
 using System;
 
-namespace com.github.lhervier.ksp.ui.ugui.menu
+namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
 {
     public class ZoneRowBuilder
     {
