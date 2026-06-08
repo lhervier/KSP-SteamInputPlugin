@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace com.github.lhervier.ksp.steaminput.ui.styles
+namespace com.github.lhervier.ksp.uigui.shared.styles
 {
     public static class DefaultPalette
     {

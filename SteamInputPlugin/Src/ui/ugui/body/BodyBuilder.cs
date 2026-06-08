@@ -6,6 +6,7 @@ using com.github.lhervier.ksp.steaminput.ui.ugui.body.zones;
 using com.github.lhervier.ksp.steaminput.ui.ugui.body.selector;
 using com.github.lhervier.ksp.steaminput.ui.ugui.body.settings;
 using com.github.lhervier.ksp.ugui.shared;
+using com.github.lhervier.ksp.uigui.shared.styles;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.body
 {

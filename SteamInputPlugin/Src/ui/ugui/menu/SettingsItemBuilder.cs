@@ -3,8 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using com.github.lhervier.ksp.steaminput.ui.styles;
 using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
-using UnityEngine.Events;
-using System;
+using com.github.lhervier.ksp.uigui.shared.styles;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
 {
