@@ -1,6 +1,7 @@
 using UnityEngine;
 using com.github.lhervier.ksp.steaminput.ui.styles;
 using com.github.lhervier.ksp.ugui.shared.sprites;
+using com.github.lhervier.ksp.ugui.shared.styles;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.sprites
 {
