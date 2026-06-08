@@ -23,34 +23,6 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
 
         public ModPopupDialogBuilder(CheatSheetViewModel viewModel)
         {
-            Init(viewModel);
-            this._popupBuilder = new PopupBuilder<TitleBarController, BodyController>(
-                DIALOG_ID,
-                ModLocalization.GetString("SteamInput_titleHelp"),
-                SpritesTitleBar.GamepadIconSprite,
-                _titleBarBuilder,
-                _bodyBuilder
-            );
-        }
-
-        public ModPopupDialogBuilder(
-            CheatSheetViewModel viewModel,
-            Vector2 initialPosition
-        )
-        {
-            Init(viewModel);
-            this._popupBuilder = new PopupBuilder<TitleBarController, BodyController>(
-                initialPosition,
-                DIALOG_ID,
-                ModLocalization.GetString("SteamInput_titleHelp"),
-                SpritesTitleBar.GamepadIconSprite,
-                _titleBarBuilder,
-                _bodyBuilder
-            );
-        }
-
-        private void Init(CheatSheetViewModel viewModel)
-        {
             this._viewModel = viewModel;
             
             this._titleBarBuilder = new TitleBarBuilder(viewModel);
@@ -58,6 +30,18 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
 
             this._overlayBuilder = new OverlayBuilder(viewModel);
             this._menuBuilder = new MenuBuilder(viewModel);
+
+            this._popupBuilder = new PopupBuilder<TitleBarController, BodyController>();
+            this._popupBuilder.SetPopupID(DIALOG_ID);
+            this._popupBuilder.SetTitle(ModLocalization.GetString("SteamInput_titleHelp"));
+            this._popupBuilder.SetIcon(SpritesTitleBar.GamepadIconSprite);
+            this._popupBuilder.SetTitleBarBuilder(_titleBarBuilder);
+            this._popupBuilder.SetContentBuilder(_bodyBuilder);
+        }
+
+        public ModPopupDialogBuilder(CheatSheetViewModel viewModel, Vector2 initialPosition) : this(viewModel)
+        {
+            this._popupBuilder.SetPosition(initialPosition);
         }
 
         /// <summary>

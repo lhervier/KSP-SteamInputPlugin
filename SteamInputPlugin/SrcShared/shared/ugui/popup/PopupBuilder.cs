@@ -10,43 +10,50 @@ namespace com.github.lhervier.ksp.shared.ugui.popup
         where T : PopupTitleBarController
         where C : PopupContentController
     {
-        private string _popupID;
+        private string _popupID = "Popup";
         private IUGUIBuilder<T> _titleBarBuilder;
         private IUGUIBuilder<C> _contentBuilder;
-        private ButtonBuilder _buttonBuilder;
+        private ButtonBuilder _buttonBuilder = new ButtonBuilder();
 
         private bool _hasPosition = false;
         private Vector2 _initialPosition;
-        private Sprite _icon;
-        private string _label;
+        private Sprite _icon = null;
+        private string _label = string.Empty;
         
-        public PopupBuilder(
-            string popupID,
-            string label,
-            Sprite icon,
-            IUGUIBuilder<T> titleBarBuilder,
-            IUGUIBuilder<C> contentBuilder
-        )
+        public void SetPopupID(string id)
         {
-            this._popupID = popupID;
-            this._label = label;
-            this._icon = icon;
-            this._titleBarBuilder = titleBarBuilder;
-            this._contentBuilder = contentBuilder;
-            this._buttonBuilder = new ButtonBuilder();
+            this._popupID = id;
         }
 
-        public PopupBuilder(
-            Vector2 initialPosition,
-            string popupID,
-            string label,
-            Sprite icon,
-            IUGUIBuilder<T> titleBarBuilder,
-            IUGUIBuilder<C> contentBuilder
-        ) : this(popupID, label, icon, titleBarBuilder, contentBuilder)
+        public void SetTitle(string title)
         {
-            this._initialPosition = initialPosition;
+            this._label = title;
+        }
+
+        public void SetIcon(Sprite icon)
+        {
+            this._icon = icon;
+        }
+
+        public void SetTitleBarBuilder(IUGUIBuilder<T> titleBarBuilder)
+        {
+            this._titleBarBuilder = titleBarBuilder;
+        }
+
+        public void SetContentBuilder(IUGUIBuilder<C> contentBuilder)
+        {
+            this._contentBuilder = contentBuilder;
+        }
+
+        public void SetPosition(Vector2 position)
+        {
+            this._initialPosition = position;
             this._hasPosition = true;
+        }
+
+        public void DeletePosition()
+        {
+            this._hasPosition = false;
         }
 
         /// <summary>
