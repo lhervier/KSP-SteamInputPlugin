@@ -46,10 +46,10 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             // Inner HLG carries the horizontal/vertical padding around the title text
             var hlg = go.AddComponent<HorizontalLayoutGroup>();
             hlg.padding = new RectOffset(
-                Mathf.RoundToInt(SteamInputPalette.DefaultPaddingLeft),
-                Mathf.RoundToInt(SteamInputPalette.DefaultPaddingRight),
-                Mathf.RoundToInt(SteamInputPalette.DefaultPaddingTop),
-                Mathf.RoundToInt(SteamInputPalette.DefaultPaddingBottom)
+                Mathf.RoundToInt(DefaultPalette.PaddingLeft),
+                Mathf.RoundToInt(DefaultPalette.PaddingRight),
+                Mathf.RoundToInt(DefaultPalette.PaddingTop),
+                Mathf.RoundToInt(DefaultPalette.PaddingBottom)
             );
             hlg.childAlignment = TextAnchor.MiddleLeft;
             hlg.childControlWidth = true;

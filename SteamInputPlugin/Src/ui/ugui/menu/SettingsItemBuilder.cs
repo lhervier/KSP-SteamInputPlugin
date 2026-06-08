@@ -29,7 +29,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
 
             // Match the zone rows' height so the entry lines up with them.
             var layoutElement = go.AddComponent<LayoutElement>();
-            layoutElement.minHeight = SteamInputPalette.DefaultButtonSize;
+            layoutElement.minHeight = DefaultPalette.ButtonSize;
 
             // Background image: transparent normally, FieldBackground (#2a2a2a) on hover.
             // raycastTarget = true so pointer events fire on the whole row.
@@ -42,7 +42,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
             // Horizontal: gear icon + label (greedy) + chevron pushed to the right
             var layout = go.AddComponent<HorizontalLayoutGroup>();
             layout.padding = new RectOffset(0, 0, 0, 0);
-            layout.spacing = SteamInputPalette.DefaultSpacing;
+            layout.spacing = DefaultPalette.Spacing;
             layout.childAlignment = TextAnchor.MiddleLeft;
             layout.childControlWidth = true;
             layout.childControlHeight = true;
@@ -74,7 +74,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
 
             var enterEntry = new EventTrigger.Entry { eventID = EventTriggerType.PointerEnter };
             enterEntry.callback.AddListener(_ => {
-                bgImage.color = SteamInputPalette.DefaultFieldBackgroundColor;
+                bgImage.color = DefaultPalette.FieldBackgroundColor;
                 iconImage.color = SteamInputPalette.MenuIconHoverColor;
             });
             trigger.triggers.Add(enterEntry);
@@ -102,7 +102,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
             label.text = ModLocalization.GetString("SteamInput_settings");
             label.font = HighLogic.UISkin.font;
             label.fontSize = 12;
-            label.color = SteamInputPalette.DefaultLabelColor;
+            label.color = DefaultPalette.LabelColor;
             label.alignment = TextAnchor.MiddleLeft;
             label.horizontalOverflow = HorizontalWrapMode.Overflow;
             label.verticalOverflow = VerticalWrapMode.Overflow;
@@ -115,8 +115,8 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
             chevronGo.transform.SetParent(go.transform, false);
 
             var chevronLayout = chevronGo.AddComponent<LayoutElement>();
-            chevronLayout.preferredWidth = SteamInputPalette.DefaultButtonSize;
-            chevronLayout.minWidth = SteamInputPalette.DefaultButtonSize;
+            chevronLayout.preferredWidth = DefaultPalette.ButtonSize;
+            chevronLayout.minWidth = DefaultPalette.ButtonSize;
 
             var chevron = chevronGo.AddComponent<Text>();
             chevron.text = "›";

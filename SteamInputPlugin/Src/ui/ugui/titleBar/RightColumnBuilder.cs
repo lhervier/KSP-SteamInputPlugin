@@ -33,7 +33,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
 
             // Horizontal layout containing the right-side placeholders, sized to their text content
             var rightRowLayout = rightRowGo.AddComponent<HorizontalLayoutGroup>();
-            rightRowLayout.spacing = SteamInputPalette.DefaultSpacing;
+            rightRowLayout.spacing = DefaultPalette.Spacing;
             rightRowLayout.childAlignment = TextAnchor.MiddleLeft;
             rightRowLayout.childControlWidth = true;
             rightRowLayout.childControlHeight = true;

@@ -46,7 +46,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
             var label = labelGo.AddComponent<Text>();
             label.font = HighLogic.UISkin.font;
             label.fontSize = 10;
-            label.color = SteamInputPalette.DefaultAccentColor;
+            label.color = DefaultPalette.AccentColor;
             label.alignment = TextAnchor.MiddleCenter;
             label.horizontalOverflow = HorizontalWrapMode.Overflow;
             label.verticalOverflow = VerticalWrapMode.Overflow;

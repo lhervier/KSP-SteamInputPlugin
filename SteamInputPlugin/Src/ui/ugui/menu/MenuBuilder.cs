@@ -48,8 +48,8 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
             rect.pivot = new Vector2(1f, 1f);
             rect.sizeDelta = new Vector2(SteamInputPalette.MenuWidth, 0f);
             rect.anchoredPosition = new Vector2(
-                -(SteamInputPalette.WindowBorderThickness + SteamInputPalette.DefaultPaddingRight),
-                -(SteamInputPalette.WindowBorderThickness + SteamInputPalette.TitleBarHeight - SteamInputPalette.DefaultPaddingBottom)
+                -(SteamInputPalette.WindowBorderThickness + DefaultPalette.PaddingRight),
+                -(SteamInputPalette.WindowBorderThickness + SteamInputPalette.TitleBarHeight - DefaultPalette.PaddingBottom)
             );
 
             // Sliced chrome: dark background with a 1px border

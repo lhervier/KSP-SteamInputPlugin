@@ -44,7 +44,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
             var trigger = rowGo.AddComponent<EventTrigger>();
 
             var enterEntry = new EventTrigger.Entry { eventID = EventTriggerType.PointerEnter };
-            enterEntry.callback.AddListener(_ => bgImage.color = SteamInputPalette.DefaultFieldBackgroundColor);
+            enterEntry.callback.AddListener(_ => bgImage.color = DefaultPalette.FieldBackgroundColor);
             trigger.triggers.Add(enterEntry);
             
             var exitEntry = new EventTrigger.Entry { eventID = EventTriggerType.PointerExit };
@@ -61,7 +61,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
             // Horizontal: checkbox + label (greedy) + arrows
             var layout = rowGo.AddComponent<HorizontalLayoutGroup>();
             layout.padding = new RectOffset(0, 0, 0, 0);
-            layout.spacing = SteamInputPalette.DefaultSpacing;
+            layout.spacing = DefaultPalette.Spacing;
             layout.childAlignment = TextAnchor.MiddleLeft;
             layout.childControlWidth = true;
             layout.childControlHeight = true;

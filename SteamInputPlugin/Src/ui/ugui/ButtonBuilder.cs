@@ -28,8 +28,8 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
                 buttonLabel,
                 onClick, 
                 interactable,
-                SteamInputPalette.DefaultButtonColor, 
-                SteamInputPalette.DefaultButtonHoverColor
+                DefaultPalette.ButtonColor, 
+                DefaultPalette.ButtonHoverColor
             );
         }
 
@@ -47,10 +47,10 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
             controller.Initialize(_viewModel);
 
             var layoutElement = buttonGo.AddComponent<LayoutElement>();
-            layoutElement.preferredWidth = SteamInputPalette.DefaultButtonSize;
-            layoutElement.preferredHeight = SteamInputPalette.DefaultButtonSize;
-            layoutElement.minWidth = SteamInputPalette.DefaultButtonSize;
-            layoutElement.minHeight = SteamInputPalette.DefaultButtonSize;
+            layoutElement.preferredWidth = DefaultPalette.ButtonSize;
+            layoutElement.preferredHeight = DefaultPalette.ButtonSize;
+            layoutElement.minWidth = DefaultPalette.ButtonSize;
+            layoutElement.minHeight = DefaultPalette.ButtonSize;
 
             // White background fill so the Button's color tint applies as-is (no multiplication)
             var image = buttonGo.AddComponent<Image>();
@@ -93,7 +93,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
             label.text = buttonLabel;
             label.font = HighLogic.UISkin.font;
             label.fontSize = 13;
-            label.color = SteamInputPalette.DefaultButtonTextColor;
+            label.color = DefaultPalette.ButtonTextColor;
             label.alignment = TextAnchor.MiddleCenter;
             label.raycastTarget = false;
             controller.InitLabel(label);
@@ -105,7 +105,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
             enterEntry.callback.AddListener(_ => label.color = Color.white);
             trigger.triggers.Add(enterEntry);
             var exitEntry = new EventTrigger.Entry { eventID = EventTriggerType.PointerExit };
-            exitEntry.callback.AddListener(_ => label.color = SteamInputPalette.DefaultButtonTextColor);
+            exitEntry.callback.AddListener(_ => label.color = DefaultPalette.ButtonTextColor);
             trigger.triggers.Add(exitEntry);
 
             // Apply the initial interactable state via the controller (single source of truth)
@@ -153,7 +153,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
                 _canvasGroup.interactable = interactable;
             }
             // Reset to default in case the label was left in the "hover white" state when disabled.
-            if (_label != null) _label.color = SteamInputPalette.DefaultButtonTextColor;
+            if (_label != null) _label.color = DefaultPalette.ButtonTextColor;
         }
     }
 }

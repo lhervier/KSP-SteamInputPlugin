@@ -30,7 +30,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
             text.text = label;
             text.font = HighLogic.UISkin.font;
             text.fontSize = 12;
-            text.color = SteamInputPalette.DefaultLabelColor;
+            text.color = DefaultPalette.LabelColor;
             text.alignment = TextAnchor.MiddleLeft;
             text.horizontalOverflow = HorizontalWrapMode.Overflow;
             text.verticalOverflow = VerticalWrapMode.Overflow;

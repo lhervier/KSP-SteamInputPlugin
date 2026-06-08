@@ -36,11 +36,11 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
 
             var layout = go.AddComponent<HorizontalLayoutGroup>();
             layout.padding = new RectOffset(
-                Mathf.RoundToInt(SteamInputPalette.DefaultPaddingLeft),
-                Mathf.RoundToInt(SteamInputPalette.DefaultPaddingRight),
+                Mathf.RoundToInt(DefaultPalette.PaddingLeft),
+                Mathf.RoundToInt(DefaultPalette.PaddingRight),
                 Mathf.RoundToInt(SteamInputPalette.ComboPaddingV),
                 Mathf.RoundToInt(SteamInputPalette.ComboPaddingV));
-            layout.spacing = SteamInputPalette.DefaultSpacing;
+            layout.spacing = DefaultPalette.Spacing;
             layout.childAlignment = TextAnchor.MiddleLeft;
             layout.childControlWidth = true;
             layout.childControlHeight = true;
@@ -93,7 +93,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
                 Mathf.RoundToInt(SteamInputPalette.ComboPaddingH),
                 Mathf.RoundToInt(SteamInputPalette.ComboPaddingH),
                 0, 0);
-            comboLayout.spacing = SteamInputPalette.DefaultSpacing;
+            comboLayout.spacing = DefaultPalette.Spacing;
             comboLayout.childAlignment = TextAnchor.MiddleLeft;
             comboLayout.childControlWidth = true;
             comboLayout.childControlHeight = true;

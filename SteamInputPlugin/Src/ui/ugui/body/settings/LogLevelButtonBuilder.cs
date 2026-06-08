@@ -60,7 +60,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
                 Mathf.RoundToInt(SteamInputPalette.SettingsLogLevelPaddingH),
                 Mathf.RoundToInt(SteamInputPalette.SettingsLogLevelPaddingH),
                 0, 0);
-            layout.spacing = SteamInputPalette.DefaultSpacing;
+            layout.spacing = DefaultPalette.Spacing;
             layout.childAlignment = TextAnchor.MiddleLeft;
             layout.childControlWidth = true;
             layout.childControlHeight = true;

@@ -121,7 +121,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body
             var scrollbarBg = scrollbarGo.AddComponent<Image>();
             scrollbarBg.sprite = SpritesGlobal.FillSprite;
             scrollbarBg.type = Image.Type.Simple;
-            scrollbarBg.color = SteamInputPalette.DefaultFieldBackgroundColor;
+            scrollbarBg.color = DefaultPalette.FieldBackgroundColor;
             scrollbarBg.raycastTarget = true;
 
             var scrollbar = scrollbarGo.AddComponent<Scrollbar>();

@@ -37,10 +37,10 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
             // Horizontal layout splitting the title bar in two cells (left + right)
             var rootLayout = rootGo.AddComponent<HorizontalLayoutGroup>();
             rootLayout.padding = new RectOffset(
-                Mathf.RoundToInt(SteamInputPalette.DefaultPaddingLeft),
-                Mathf.RoundToInt(SteamInputPalette.DefaultPaddingRight),
-                Mathf.RoundToInt(SteamInputPalette.DefaultPaddingTop),
-                Mathf.RoundToInt(SteamInputPalette.DefaultPaddingBottom)
+                Mathf.RoundToInt(DefaultPalette.PaddingLeft),
+                Mathf.RoundToInt(DefaultPalette.PaddingRight),
+                Mathf.RoundToInt(DefaultPalette.PaddingTop),
+                Mathf.RoundToInt(DefaultPalette.PaddingBottom)
             );
             rootLayout.spacing = 0f;
             rootLayout.childAlignment = TextAnchor.MiddleLeft;

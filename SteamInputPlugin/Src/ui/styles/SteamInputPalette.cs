@@ -2,40 +2,8 @@ using UnityEngine;
 
 namespace com.github.lhervier.ksp.steaminput.ui.styles
 {
-    /// <summary>Layout metrics and colors from ksp_cheatsheet mockup.</summary>
     public static class SteamInputPalette
     {
-        // ==============================================================
-        // Default settings
-        // ==============================================================
-        
-        // Default values
-        public const float DefaultPaddingLeft = 8f;
-        public const float DefaultPaddingRight = 8f;
-        public const float DefaultPaddingTop = 5f;
-        public const float DefaultPaddingBottom = 5f;
-        public const float DefaultSpacing = 6f;
-        
-        // Default colors
-        public static readonly Color DefaultAccentColor = new Color(141f / 255f, 190f / 255f, 69f / 255f);
-        public static readonly Color DefaultLabelColor = new Color(187f / 255f, 187f / 255f, 187f / 255f);
-        public static readonly Color DefaultFieldBackgroundColor = new Color(42f / 255f, 42f / 255f, 42f / 255f);
-        public static readonly Color DefaultSeparatorColor = new Color(42f / 255f, 42f / 255f, 42f / 255f);
-
-        // Icons
-        public const int DefaultIconSize = 18;
-        
-        // Buttons
-        public const float DefaultButtonSize = 18f;
-        public static readonly Color DefaultButtonColor = new Color(42f / 255f, 42f / 255f, 42f / 255f);
-        public static readonly Color DefaultButtonHoverColor = new Color(56f / 255f, 56f / 255f, 56f / 255f);
-        public static readonly Color DefaultButtonTextColor = new Color(187f / 255f, 187f / 255f, 187f / 255f);
-        public static readonly Color DefaultButtonDisabledTextColor = new Color(187f / 255f, 187f / 255f, 187f / 255f, 0.25f);
-        
-        // Checkbox
-        public const float DefaultCheckboxSize = 12f;
-        public const float DefaultCheckmarkInset = 2f;
-                
         // ===============================================================
         // Main Window
         // ===============================================================

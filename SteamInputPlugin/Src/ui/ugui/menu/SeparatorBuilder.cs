@@ -30,7 +30,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
             var image = go.AddComponent<Image>();
             image.sprite = SpritesGlobal.FillSprite;
             image.type = Image.Type.Simple;
-            image.color = SteamInputPalette.DefaultSeparatorColor;
+            image.color = DefaultPalette.SeparatorColor;
             image.raycastTarget = false;
 
             return controller;

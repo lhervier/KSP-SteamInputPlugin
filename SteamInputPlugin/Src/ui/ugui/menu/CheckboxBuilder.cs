@@ -27,16 +27,16 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
 
             // Fixed 12x12 square
             var layoutElement = go.AddComponent<LayoutElement>();
-            layoutElement.preferredWidth = SteamInputPalette.DefaultCheckboxSize;
-            layoutElement.preferredHeight = SteamInputPalette.DefaultCheckboxSize;
-            layoutElement.minWidth = SteamInputPalette.DefaultCheckboxSize;
-            layoutElement.minHeight = SteamInputPalette.DefaultCheckboxSize;
+            layoutElement.preferredWidth = DefaultPalette.CheckboxSize;
+            layoutElement.preferredHeight = DefaultPalette.CheckboxSize;
+            layoutElement.minWidth = DefaultPalette.CheckboxSize;
+            layoutElement.minHeight = DefaultPalette.CheckboxSize;
 
             // Dark background
             var bgImage = go.AddComponent<Image>();
             bgImage.sprite = SpritesGlobal.FillSprite;
             bgImage.type = Image.Type.Simple;
-            bgImage.color = SteamInputPalette.DefaultFieldBackgroundColor;
+            bgImage.color = DefaultPalette.FieldBackgroundColor;
             bgImage.raycastTarget = true;
 
             // Green inner fill that represents the "checked" state
@@ -47,13 +47,13 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
             var checkmarkRect = checkmarkGo.GetComponent<RectTransform>();
             checkmarkRect.anchorMin = Vector2.zero;
             checkmarkRect.anchorMax = Vector2.one;
-            checkmarkRect.offsetMin = new Vector2(SteamInputPalette.DefaultCheckmarkInset, SteamInputPalette.DefaultCheckmarkInset);
-            checkmarkRect.offsetMax = new Vector2(-SteamInputPalette.DefaultCheckmarkInset, -SteamInputPalette.DefaultCheckmarkInset);
+            checkmarkRect.offsetMin = new Vector2(DefaultPalette.CheckmarkInset, DefaultPalette.CheckmarkInset);
+            checkmarkRect.offsetMax = new Vector2(-DefaultPalette.CheckmarkInset, -DefaultPalette.CheckmarkInset);
 
             var checkmarkImage = checkmarkGo.AddComponent<Image>();
             checkmarkImage.sprite = SpritesGlobal.FillSprite;
             checkmarkImage.type = Image.Type.Simple;
-            checkmarkImage.color = SteamInputPalette.DefaultAccentColor;
+            checkmarkImage.color = DefaultPalette.AccentColor;
             checkmarkImage.raycastTarget = false;
 
             // Initial visibility from the parameter; checkmarkGo.activeSelf is the source of truth

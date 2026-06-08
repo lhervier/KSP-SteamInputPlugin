@@ -38,10 +38,10 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             // Vertical padding-bottom matches the .kzone body breathing room.
             var layout = go.AddComponent<VerticalLayoutGroup>();
             layout.padding = new RectOffset(
-                Mathf.RoundToInt(SteamInputPalette.DefaultPaddingLeft),
-                Mathf.RoundToInt(SteamInputPalette.DefaultPaddingRight),
+                Mathf.RoundToInt(DefaultPalette.PaddingLeft),
+                Mathf.RoundToInt(DefaultPalette.PaddingRight),
                 0,
-                (int)SteamInputPalette.DefaultPaddingBottom
+                (int)DefaultPalette.PaddingBottom
             );
             layout.spacing = SteamInputPalette.ModeSpacing;
             layout.childAlignment = TextAnchor.UpperLeft;

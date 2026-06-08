@@ -32,7 +32,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
 
             // Horizontal layout containing icon + label
             var leftColumnLayout = leftColumnGo.AddComponent<HorizontalLayoutGroup>();
-            leftColumnLayout.spacing = SteamInputPalette.DefaultSpacing;
+            leftColumnLayout.spacing = DefaultPalette.Spacing;
             leftColumnLayout.childAlignment = TextAnchor.MiddleLeft;
             leftColumnLayout.childControlWidth = false;
             leftColumnLayout.childControlHeight = false;

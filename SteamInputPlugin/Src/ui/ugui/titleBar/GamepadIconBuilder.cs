@@ -35,8 +35,8 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
             {
                 var iconRect = iconGo.GetComponent<RectTransform>();
                 iconRect.sizeDelta = new Vector2(
-                    SteamInputPalette.DefaultIconSize,
-                    SteamInputPalette.DefaultIconSize
+                    DefaultPalette.IconSize,
+                    DefaultPalette.IconSize
                 );
             }
             return controller;
