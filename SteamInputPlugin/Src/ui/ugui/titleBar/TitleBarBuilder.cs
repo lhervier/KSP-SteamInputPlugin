@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
-using com.github.lhervier.ksp.steaminput.ui.styles;
 using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
 using com.github.lhervier.ksp.ugui.shared;
+using com.github.lhervier.ksp.ugui.shared.styles;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
 {
@@ -34,14 +34,14 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
             titleBarRect.anchorMin = new Vector2(0f, 1f);
             titleBarRect.anchorMax = new Vector2(1f, 1f);
             titleBarRect.pivot = new Vector2(0.5f, 1f);
-            titleBarRect.sizeDelta = new Vector2(-2f * SteamInputPalette.WindowBorderThickness, SteamInputPalette.TitleBarHeight);
-            titleBarRect.anchoredPosition = new Vector2(0f, -SteamInputPalette.WindowBorderThickness);
+            titleBarRect.sizeDelta = new Vector2(-2f * PopupPalette.WindowBorderThickness, PopupPalette.TitleBarHeight);
+            titleBarRect.anchoredPosition = new Vector2(0f, -PopupPalette.WindowBorderThickness);
 
             // Image for the backgroup of the title bar
             var headerImage = titleBarGo.AddComponent<Image>();
             headerImage.sprite = SpritesGlobal.FillSprite;
             headerImage.type = Image.Type.Simple;
-            headerImage.color = SteamInputPalette.TitleBarBackgroundColor;
+            headerImage.color = PopupPalette.TitleBarBackgroundColor;
             headerImage.raycastTarget = false;
 
             // The main part of the title with all the elements

@@ -1,9 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
-using com.github.lhervier.ksp.steaminput.ui.styles;
 using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
-using UnityEngine.Events;
+using com.github.lhervier.ksp.ugui.shared.styles;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
 {
@@ -27,14 +25,14 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
             separatorRect.anchorMin = new Vector2(0f, 0f);
             separatorRect.anchorMax = new Vector2(1f, 0f);
             separatorRect.pivot = new Vector2(0.5f, 0f);
-            separatorRect.sizeDelta = new Vector2(0f, SteamInputPalette.TitleBarSeparatorHeight);
+            separatorRect.sizeDelta = new Vector2(0f, PopupPalette.TitleBarSeparatorHeight);
             separatorRect.anchoredPosition = Vector2.zero;
             
             // The separator
             var separatorImage = separatorGo.AddComponent<Image>();
             separatorImage.sprite = SpritesGlobal.FillSprite;
             separatorImage.type = Image.Type.Simple;
-            separatorImage.color = SteamInputPalette.TitleBarSeparatorColor;
+            separatorImage.color = PopupPalette.TitleBarSeparatorColor;
             separatorImage.raycastTarget = false;
 
             return controller;

@@ -1,6 +1,6 @@
 using UnityEngine;
-using UnityEngine.UI;
 using com.github.lhervier.ksp.steaminput.ui.styles;
+using com.github.lhervier.ksp.ugui.shared.styles;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.sprites
 {
@@ -17,11 +17,11 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.sprites
                     return _windowChromeSprite;
                 }
 
-                var thickness = (int)SteamInputPalette.WindowBorderThickness;
+                var thickness = (int) PopupPalette.WindowBorderThickness;
                 var size = 2 * thickness + 1;
                 var tex = SteamInputTextures.MakeBorderTexture(
-                    SteamInputPalette.WindowBodyColor,
-                    SteamInputPalette.WindowBorderColor,
+                    PopupPalette.WindowBodyColor,
+                    PopupPalette.WindowBorderColor,
                     thickness
                 );
                 _windowChromeSprite = Sprite.Create(

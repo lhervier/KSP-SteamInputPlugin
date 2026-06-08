@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using com.github.lhervier.ksp.steaminput.ui.styles;
 using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
-using com.github.lhervier.ksp.uigui.shared.styles;
+using com.github.lhervier.ksp.ugui.shared.styles;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
 {

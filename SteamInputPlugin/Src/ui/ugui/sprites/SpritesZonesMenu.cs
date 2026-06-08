@@ -1,5 +1,6 @@
 using UnityEngine;
 using com.github.lhervier.ksp.steaminput.ui.styles;
+using com.github.lhervier.ksp.ugui.shared.styles;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.sprites
 {
@@ -20,7 +21,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.sprites
                 var size = 2 * thickness + 1;
                 var tex = SteamInputTextures.MakeBorderTexture(
                     SteamInputPalette.MenuBackgroundColor,
-                    SteamInputPalette.WindowBorderColor,
+                    PopupPalette.WindowBorderColor,
                     thickness
                 );
                 _chromeSprite = Sprite.Create(

@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-using com.github.lhervier.ksp.steaminput.ui.styles;
-using com.github.lhervier.ksp.uigui.shared.styles;
+using com.github.lhervier.ksp.ugui.shared.styles;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
 {
@@ -48,8 +47,8 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
                 "⋯",
                 () => _viewModel.ToggleMenu(),
                 true,
-                SteamInputPalette.TitleBarButtonColor,
-                SteamInputPalette.TitleBarButtonHoverColor
+                PopupPalette.TitleBarButtonColor,
+                PopupPalette.TitleBarButtonHoverColor
             );
             menuButtonController.transform.SetParent(rightRowGo.transform, false);
 
@@ -58,8 +57,8 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
                 "×",
                 this._viewModel.CloseWindow,
                 true,
-                SteamInputPalette.TitleBarButtonColor,
-                SteamInputPalette.TitleBarButtonHoverColor
+                PopupPalette.TitleBarButtonColor,
+                PopupPalette.TitleBarButtonHoverColor
             );
             closeButtonController.transform.SetParent(rightRowGo.transform, false);
 

@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-using com.github.lhervier.ksp.steaminput.ui.styles;
-using com.github.lhervier.ksp.uigui.shared.styles;
+using com.github.lhervier.ksp.ugui.shared.styles;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
 {
@@ -28,7 +27,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
             var rootRect = rootGo.GetComponent<RectTransform>();
             rootRect.anchorMin = Vector2.zero;
             rootRect.anchorMax = Vector2.one;
-            rootRect.offsetMin = new Vector2(0f, SteamInputPalette.TitleBarSeparatorHeight);
+            rootRect.offsetMin = new Vector2(0f, PopupPalette.TitleBarSeparatorHeight);
             rootRect.offsetMax = Vector2.zero;
 
             // Horizontal layout splitting the title bar in two cells (left + right)

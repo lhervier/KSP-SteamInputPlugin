@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
-using com.github.lhervier.ksp.steaminput.ui.styles;
 using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
+using com.github.lhervier.ksp.ugui.shared.styles;
 
 namespace com.github.lhervier.ksp.ugui.shared.popup
 {
@@ -45,10 +45,10 @@ namespace com.github.lhervier.ksp.ugui.shared.popup
         {
             // Creates a ultra minimal MultiOptionDialog. We will not use it.
             var pos = NormalizedWindowPos(
-                SteamInputPalette.WindowInitialPositionX, 
-                SteamInputPalette.WindowInitialPositionY, 
-                SteamInputPalette.WindowWidth,
-                SteamInputPalette.WindowHeight
+                PopupPalette.WindowInitialPositionX, 
+                PopupPalette.WindowInitialPositionY, 
+                PopupPalette.WindowWidth,
+                PopupPalette.WindowHeight
             );
             var content = new DialogGUIVerticalLayout();
             MultiOptionDialog multiOptionDialog = new MultiOptionDialog(
@@ -121,7 +121,7 @@ namespace com.github.lhervier.ksp.ugui.shared.popup
 
                 image.sprite = SpritesGlobal.FillSprite;
                 image.type = Image.Type.Simple;
-                image.color = SteamInputPalette.WindowBodyColor;
+                image.color = PopupPalette.WindowBodyColor;
             }
 
             // Add the body (scrollable content). First in z-order so the overlay/menu draw above it.

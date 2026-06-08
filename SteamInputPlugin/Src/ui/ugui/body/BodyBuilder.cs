@@ -1,12 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
-using com.github.lhervier.ksp.steaminput.ui.styles;
 using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
 using com.github.lhervier.ksp.steaminput.ui.ugui.body.zones;
 using com.github.lhervier.ksp.steaminput.ui.ugui.body.selector;
 using com.github.lhervier.ksp.steaminput.ui.ugui.body.settings;
 using com.github.lhervier.ksp.ugui.shared;
-using com.github.lhervier.ksp.uigui.shared.styles;
+using com.github.lhervier.ksp.ugui.shared.styles;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.body
 {
@@ -48,10 +47,10 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body
             var rect = bodyGo.GetComponent<RectTransform>();
             rect.anchorMin = Vector2.zero;
             rect.anchorMax = Vector2.one;
-            rect.offsetMin = new Vector2(SteamInputPalette.WindowBorderThickness, SteamInputPalette.WindowBorderThickness);
+            rect.offsetMin = new Vector2(PopupPalette.WindowBorderThickness, PopupPalette.WindowBorderThickness);
             rect.offsetMax = new Vector2(
-                -SteamInputPalette.WindowBorderThickness,
-                -(SteamInputPalette.WindowBorderThickness + SteamInputPalette.TitleBarHeight)
+                -PopupPalette.WindowBorderThickness,
+                -(PopupPalette.WindowBorderThickness + PopupPalette.TitleBarHeight)
             );
 
             // ScrollRect drives the scrolling. It links viewport (clip) + content (scrolled) + scrollbar.
@@ -69,7 +68,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body
             viewportRect.anchorMin = Vector2.zero;
             viewportRect.anchorMax = Vector2.one;
             viewportRect.offsetMin = Vector2.zero;
-            viewportRect.offsetMax = new Vector2(-SteamInputPalette.MainScrollbarWidth, 0f);
+            viewportRect.offsetMax = new Vector2(-PopupPalette.MainScrollbarWidth, 0f);
             viewportGo.AddComponent<RectMask2D>();
 
             // Image with raycastTarget=true so mouse-wheel scroll has a target
@@ -117,7 +116,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body
             scrollbarRect.anchorMin = new Vector2(1f, 0f);
             scrollbarRect.anchorMax = new Vector2(1f, 1f);
             scrollbarRect.pivot = new Vector2(1f, 0.5f);
-            scrollbarRect.sizeDelta = new Vector2(SteamInputPalette.MainScrollbarWidth, 0f);
+            scrollbarRect.sizeDelta = new Vector2(PopupPalette.MainScrollbarWidth, 0f);
 
             var scrollbarBg = scrollbarGo.AddComponent<Image>();
             scrollbarBg.sprite = SpritesGlobal.FillSprite;
@@ -160,11 +159,11 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body
 
             // Visible handle on dark scrollbar background, with subtle hover/press feedback
             var scrollbarColors = scrollbar.colors;
-            scrollbarColors.normalColor = SteamInputPalette.WindowBorderColor;
-            scrollbarColors.highlightedColor = SteamInputPalette.MainScrollbarColor;
-            scrollbarColors.pressedColor = SteamInputPalette.MainScrollbarColor;
-            scrollbarColors.selectedColor = SteamInputPalette.WindowBorderColor;
-            scrollbarColors.disabledColor = SteamInputPalette.WindowBorderColor;
+            scrollbarColors.normalColor = PopupPalette.WindowBorderColor;
+            scrollbarColors.highlightedColor = PopupPalette.MainScrollbarColor;
+            scrollbarColors.pressedColor = PopupPalette.MainScrollbarColor;
+            scrollbarColors.selectedColor = PopupPalette.WindowBorderColor;
+            scrollbarColors.disabledColor = PopupPalette.WindowBorderColor;
             scrollbarColors.colorMultiplier = 1f;
             scrollbarColors.fadeDuration = 0.1f;
             scrollbar.colors = scrollbarColors;
