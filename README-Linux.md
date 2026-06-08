@@ -73,20 +73,35 @@ npm --version
 
 ### Build
 
-1. **Set `KSPDIR`** (game install root). `setup-env.sh` searches common Steam paths and appends `KSPDIR` to `~/.bashrc`:
+1. **Clone the repository with its submodules.** The shared UI code lives in the
+   [`KSP-Shared`](https://github.com/lhervier/KSP-Shared) submodule and is compiled
+   directly into the plugin, so its sources must be present before building. Either clone
+   recursively:
+
+   ```bash
+   git clone --recurse-submodules https://github.com/lhervier/KSP-SteamInputPlugin.git
+   ```
+
+   …or, if you already cloned without `--recurse-submodules`, initialize them afterwards:
+
+   ```bash
+   git submodule update --init --recursive
+   ```
+
+2. **Set `KSPDIR`** (game install root). `setup-env.sh` searches common Steam paths and appends `KSPDIR` to `~/.bashrc`:
 
    ```bash
    ./setup-env.sh
    source ~/.bashrc
    ```
 
-2. **Build everything** (plugin + VDF configs):
+3. **Build everything** (plugin + VDF configs):
 
    ```bash
    ./build.sh
    ```
 
-3. **Install** into KSP and Steam config locations:
+4. **Install** into KSP and Steam config locations:
 
    ```bash
    ./install.sh

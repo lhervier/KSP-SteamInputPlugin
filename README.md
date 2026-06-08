@@ -133,6 +133,22 @@ Issues, feature requests, and contributions: [GitHub repository](https://github.
 
 ## Building from source
 
+### Clone with submodules
+
+The shared UI code lives in the [`KSP-Shared`](https://github.com/lhervier/KSP-Shared) submodule and is compiled directly into the plugin, so its sources must be present before building. Clone recursively:
+
+```bash
+git clone --recurse-submodules https://github.com/lhervier/KSP-SteamInputPlugin.git
+```
+
+If you already cloned without `--recurse-submodules`, initialize the submodules afterwards:
+
+```bash
+git submodule update --init --recursive
+```
+
+### Build
+
 **TODO**
 
 - Windows / Linux

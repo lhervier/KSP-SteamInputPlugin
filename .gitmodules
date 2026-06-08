@@ -1,0 +1,3 @@
+[submodule "SteamInputPlugin/KSP-Shared"]
+	path = SteamInputPlugin/KSP-Shared
+	url = https://github.com/lhervier/KSP-Shared.git
