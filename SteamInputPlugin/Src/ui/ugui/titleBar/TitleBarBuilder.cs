@@ -8,13 +8,11 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
 {
     public class TitleBarBuilder : IUGUIBuilder<TitleBarController>
     {
-        private CheatSheetViewModel _viewModel;
         private SeparatorBuilder _separatorBuilder;
         private RootBuilder _rootBuilder;
 
         public TitleBarBuilder(CheatSheetViewModel viewModel)
         {
-            this._viewModel = viewModel;
             this._separatorBuilder = new SeparatorBuilder(viewModel);
             this._rootBuilder = new RootBuilder(viewModel);
         }
