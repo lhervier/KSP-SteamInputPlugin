@@ -1,14 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using com.github.lhervier.ksp.ui.styles;
 using com.github.lhervier.ksp.ui.ugui.sprites;
-using UnityEngine.Events;
-using System;
+using com.github.lhervier.ksp.ugui.shared;
 
 namespace com.github.lhervier.ksp.ui.ugui.titleBar
 {
-    public class TitleBarBuilder
+    public class TitleBarBuilder : IUGUIBuilder<TitleBarController>
     {
         private CheatSheetViewModel _viewModel;
         private SeparatorBuilder _separatorBuilder;
@@ -25,7 +23,6 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
         {
             var titleBarGo = new GameObject("SteamInput.TitleBar", typeof(RectTransform));
             TitleBarController controller = titleBarGo.AddComponent<TitleBarController>();
-            controller.Initialize(_viewModel);
 
             // If the parent has a layout (and that's the case), forget about me, I will position elements myself.
             var titleBarLayout = titleBarGo.AddComponent<LayoutElement>();
@@ -56,10 +53,6 @@ namespace com.github.lhervier.ksp.ui.ugui.titleBar
             separatorGo.transform.SetParent(titleBarGo.transform, false);
 
             return controller;
-        }
-
-        public class TitleBarController : BaseSteamInputController
-        {
-        }
+        }   
     }
 }

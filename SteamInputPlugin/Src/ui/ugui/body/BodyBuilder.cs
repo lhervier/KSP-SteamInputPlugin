@@ -5,8 +5,7 @@ using com.github.lhervier.ksp.ui.ugui.sprites;
 using com.github.lhervier.ksp.ui.ugui.body.zones;
 using com.github.lhervier.ksp.ui.ugui.body.selector;
 using com.github.lhervier.ksp.ui.ugui.body.settings;
-using System.IO;
-using System;
+using com.github.lhervier.ksp.ugui.shared;
 
 namespace com.github.lhervier.ksp.ui.ugui.body
 {
@@ -14,7 +13,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body
     /// Scrollable body of the popup (below the title bar). Content larger than the viewport
     /// produces a vertical scrollbar on the right.
     /// </summary>
-    public class BodyBuilder
+    public class BodyBuilder : IUGUIBuilder<BodyController>
     {
         public const string BODY_NAME = "SteamInput.Body";
         
@@ -35,7 +34,7 @@ namespace com.github.lhervier.ksp.ui.ugui.body
         {
             var bodyGo = new GameObject(BODY_NAME, typeof(RectTransform));
             var controller = bodyGo.AddComponent<BodyController>();
-            controller.Initialize(_viewModel);
+            controller.BindViewModel(_viewModel);
             controller.BindSelectorBuilder(_selectorBuilder);
             controller.BindZoneListBuilder(_zoneListBuilder);
             controller.BindSettingsBuilder(_settingsBuilder);
@@ -174,82 +173,6 @@ namespace com.github.lhervier.ksp.ui.ugui.body
             // The config picker, then the zones (VLG stacks them top to bottom).
             
             return controller;
-        }
-
-        public class BodyController : BaseSteamInputController
-        {
-            private GameObject _content;
-            private SelectorBuilder _selectorBuilder;
-            private ZoneListBuilder _zoneListBuilder;
-            private SettingsBuilder _settingsBuilder;
-
-            private SelectorBuilder.SelectorController _selectorController;
-            private ZoneListBuilder.ZoneListController _zoneListController;
-            private SettingsBuilder.SettingsController _settingsController;
-
-            public void BindContent(GameObject content)
-            {
-                this._content = content;
-            }
-
-            public void BindSelectorBuilder(SelectorBuilder builder)
-            {
-                this._selectorBuilder = builder;
-            }
-
-            public void BindZoneListBuilder(ZoneListBuilder builder)
-            {
-                this._zoneListBuilder = builder;
-            }
-
-            public void BindSettingsBuilder(SettingsBuilder builder)
-            {
-                this._settingsBuilder = builder;
-            }
-
-            public void Start()
-            {
-                ViewModel?.OnShowSettings.Add(OnShowSettings);
-                if( ViewModel != null )
-                {
-                    OnShowSettings(ViewModel.SettingsDisplayed);
-                }
-            }
-
-            public void OnDestroy()
-            {
-                ViewModel?.OnShowSettings.Remove(OnShowSettings);
-            }
-
-            private void OnShowSettings(bool show)
-            {
-                if( _selectorBuilder == null || _zoneListBuilder == null || _settingsBuilder == null )
-                {
-                    throw new ArgumentException("Builders not binded");
-                }
-
-                if( _selectorController == null )
-                {
-                    _selectorController = _selectorBuilder.Create();
-                    _selectorController.transform.SetParent(_content.transform, false);
-                }
-
-                if( _zoneListController == null )
-                {
-                    _zoneListController = _zoneListBuilder.Create();
-                    _zoneListController.transform.SetParent(_content.transform, false);
-                }
-
-                if( _settingsController == null )
-                {
-                    _settingsController = _settingsBuilder.Create();
-                    _settingsController.transform.SetParent(_content.transform, false);
-                }
-
-                _settingsController.gameObject.SetActive(show);
-                _zoneListController.gameObject.SetActive(!show);
-                _selectorController.gameObject.SetActive(!show);
-            }
         }
     }
 }

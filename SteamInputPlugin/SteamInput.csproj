@@ -66,6 +66,7 @@
 
   <ItemGroup>
     <Compile Include="Src\**\*.cs" />
+    <Compile Include="SrcShared\**\*.cs" />
   </ItemGroup>
 
 </Project>
