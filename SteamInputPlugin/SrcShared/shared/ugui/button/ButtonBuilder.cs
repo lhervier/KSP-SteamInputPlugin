@@ -6,32 +6,42 @@ using com.github.lhervier.ksp.shared.ugui.sprites;
 
 namespace com.github.lhervier.ksp.shared.ugui.button
 {
-    public class ButtonBuilder
+    public class ButtonBuilder : IUGUIBuilder<ButtonController>
     {
-        public ButtonController Create(
-            string objectName, 
-            string buttonLabel,
-            bool interactable = true
-        )
+        private string _objectName = "Button";
+        private string _buttonLabel = string.Empty;
+        private bool _interactable = true;
+        private Color _backgroundColor = DefaultPalette.ButtonColor;
+        private Color _hoverColor = DefaultPalette.ButtonHoverColor;
+
+        public void SetObjectName(string objectName)
         {
-            return Create(
-                objectName, 
-                buttonLabel,
-                interactable,
-                DefaultPalette.ButtonColor, 
-                DefaultPalette.ButtonHoverColor
-            );
+            this._objectName = objectName;
         }
 
-        public ButtonController Create(
-            string objectName, 
-            string buttonLabel,
-            bool interactable,
-            Color backgroundColor,
-            Color hoverColor
-        )
+        public void SetLabel(string label)
         {
-            var buttonGo = new GameObject(objectName, typeof(RectTransform));
+            this._buttonLabel = label;
+        }
+
+        public void SetInteractable(bool interactable)
+        {
+            this._interactable = interactable;
+        }
+
+        public void SetBackgroundColor(Color backgroundColor)
+        {
+            this._backgroundColor = backgroundColor;
+        }
+
+        public void SetHoverColor(Color hoverColor)
+        {
+            this._hoverColor = hoverColor;
+        }
+
+        public ButtonController Build()
+        {
+            var buttonGo = new GameObject(_objectName, typeof(RectTransform));
             ButtonController controller = buttonGo.AddComponent<ButtonController>();
 
             var layoutElement = buttonGo.AddComponent<LayoutElement>();
@@ -51,12 +61,12 @@ namespace com.github.lhervier.ksp.shared.ugui.button
             var button = buttonGo.AddComponent<Button>();
             button.targetGraphic = image;
             var colors = button.colors;
-            colors.normalColor = backgroundColor;
-            colors.highlightedColor = hoverColor;
-            colors.pressedColor = backgroundColor;
-            colors.selectedColor = backgroundColor;
+            colors.normalColor = _backgroundColor;
+            colors.highlightedColor = _hoverColor;
+            colors.pressedColor = _backgroundColor;
+            colors.selectedColor = _backgroundColor;
             // Suppress Unity's default disabled gray tint; the CanvasGroup below does the fade.
-            colors.disabledColor = backgroundColor;
+            colors.disabledColor = _backgroundColor;
             colors.colorMultiplier = 1f;
             colors.fadeDuration = 0.1f;
             button.colors = colors;
@@ -78,7 +88,7 @@ namespace com.github.lhervier.ksp.shared.ugui.button
             labelRect.offsetMax = Vector2.zero;
 
             var label = labelGo.AddComponent<Text>();
-            label.text = buttonLabel;
+            label.text = _buttonLabel;
             label.font = HighLogic.UISkin.font;
             label.fontSize = 13;
             label.color = DefaultPalette.ButtonTextColor;
@@ -97,7 +107,7 @@ namespace com.github.lhervier.ksp.shared.ugui.button
             trigger.triggers.Add(exitEntry);
 
             // Apply the initial interactable state via the controller (single source of truth)
-            controller.SetInteractable(interactable);
+            controller.SetInteractable(_interactable);
 
             return controller;
         }

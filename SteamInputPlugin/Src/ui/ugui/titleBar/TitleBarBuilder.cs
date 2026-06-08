@@ -21,7 +21,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
             this._buttonBuilder = new ButtonBuilder();
         }
 
-        public TitleBarController Create()
+        public TitleBarController Build()
         {
             var rightRowGo = new GameObject("SteamInput.TitleBar.RightColumn", typeof(RectTransform));
             TitleBarController controller = rightRowGo.AddComponent<TitleBarController>();
@@ -42,13 +42,12 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
             var controllerGo = this._gamepadLabelBuilder.Create();
             controllerGo.transform.SetParent(rightRowGo.transform, false);
 
-            var menuButtonController = this._buttonBuilder.Create(
-                "SteamInput.TitleBar.RightColumn.MenuButton",
-                "⋯",
-                true,
-                PopupPalette.TitleBarButtonColor,
-                PopupPalette.TitleBarButtonHoverColor
-            );
+            _buttonBuilder.SetObjectName("SteamInput.TitleBar.MenuButton");
+            _buttonBuilder.SetLabel("⋯");
+            _buttonBuilder.SetInteractable(true);
+            _buttonBuilder.SetBackgroundColor(PopupPalette.TitleBarButtonColor);
+            _buttonBuilder.SetHoverColor(PopupPalette.TitleBarButtonHoverColor);
+            var menuButtonController = this._buttonBuilder.Build();
             menuButtonController.transform.SetParent(rightRowGo.transform, false);
             controller.BindMenuButtonController(menuButtonController);
 

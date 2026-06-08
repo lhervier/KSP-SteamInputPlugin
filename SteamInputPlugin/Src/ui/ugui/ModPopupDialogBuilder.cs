@@ -64,9 +64,9 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
         /// Spawn the cheat-sheet popup window and return its controller, or null if KSP failed to spawn
         /// it. The caller drives the window through the returned controller.
         /// </summary>
-        public ModPopupDialogController Create()
+        public ModPopupDialogController Build()
         {
-            PopupController dialogController = _popupBuilder.Create();
+            PopupController dialogController = _popupBuilder.Build();
             if( dialogController == null ) return null;
 
             ModPopupDialogController controller = dialogController.GetGameObject().AddComponent<ModPopupDialogController>();

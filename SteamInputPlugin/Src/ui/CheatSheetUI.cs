@@ -121,7 +121,7 @@ namespace com.github.lhervier.ksp.steaminput.ui
         {
             if (popupDialogController == null)
             {
-                popupDialogController = popupDialogBuilder.Create();
+                popupDialogController = popupDialogBuilder.Build();
                 if (popupDialogController == null) return;    // Spawn failed
                 popupDialogController.OnClosed.Add(WindowClosed);
                 // When KSP dismisses the popup itself (Escape opens the pause menu and closes it),

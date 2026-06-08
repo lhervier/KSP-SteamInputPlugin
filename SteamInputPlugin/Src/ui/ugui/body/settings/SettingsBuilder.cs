@@ -83,10 +83,9 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
             layout.childForceExpandWidth = false;
             layout.childForceExpandHeight = false;
 
-            ButtonController back = _buttonBuilder.Create(
-                "Back",
-                BackGlyph
-            );
+            _buttonBuilder.SetObjectName("Back");
+            _buttonBuilder.SetLabel(BackGlyph);
+            ButtonController back = _buttonBuilder.Build();
             back.transform.SetParent(go.transform, false);
             controller.BindBackButtonController(back);
 

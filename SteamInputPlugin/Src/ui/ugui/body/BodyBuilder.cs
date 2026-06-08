@@ -30,7 +30,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body
             this._settingsBuilder = new SettingsBuilder(viewModel);
         }
 
-        public BodyController Create()
+        public BodyController Build()
         {
             var bodyGo = new GameObject(BODY_NAME, typeof(RectTransform));
             var controller = bodyGo.AddComponent<BodyController>();

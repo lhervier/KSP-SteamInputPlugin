@@ -53,7 +53,7 @@ namespace com.github.lhervier.ksp.shared.ugui.popup
         /// Spawn the cheat-sheet popup window and return its controller, or null if KSP failed to spawn
         /// it. The caller drives the window through the returned controller.
         /// </summary>
-        public PopupController Create()
+        public PopupController Build()
         {
             // Creates a ultra minimal MultiOptionDialog. We will not use it.
             var pos = NormalizedWindowPos(
@@ -137,7 +137,7 @@ namespace com.github.lhervier.ksp.shared.ugui.popup
             }
 
             // Add the body (scrollable content). First in z-order so the overlay/menu draw above it.
-            MonoBehaviour bodyController = this._contentBuilder.Create();
+            MonoBehaviour bodyController = this._contentBuilder.Build();
             bodyController.transform.SetParent(popupDialog.popupWindow.transform, false);
 
             // Add the title bar
@@ -315,16 +315,15 @@ namespace com.github.lhervier.ksp.shared.ugui.popup
             rightRowLayout.childForceExpandWidth = false;
             rightRowLayout.childForceExpandHeight = false;
 
-            var actionGroupLabelController = this._titleBarBuilder.Create();
+            var actionGroupLabelController = this._titleBarBuilder.Build();
             actionGroupLabelController.transform.SetParent(rightRowGo.transform, false);
 
-            var closeButtonController = this._buttonBuilder.Create(
-                "Popup.TitleBar.RightColumn.CloseButton",
-                "×",
-                true,
-                PopupPalette.TitleBarButtonColor,
-                PopupPalette.TitleBarButtonHoverColor
-            );
+            _buttonBuilder.SetObjectName("Popup.TitleBar.RightColumn.CloseButton");
+            _buttonBuilder.SetLabel("×");
+            _buttonBuilder.SetInteractable(true);
+            _buttonBuilder.SetBackgroundColor(PopupPalette.TitleBarButtonColor);
+            _buttonBuilder.SetHoverColor(PopupPalette.TitleBarButtonHoverColor);
+            var closeButtonController = this._buttonBuilder.Build();
             closeButtonController.transform.SetParent(rightRowGo.transform, false);
             controller.BindCloseButton(closeButtonController);
 
