@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using com.github.lhervier.ksp.steaminput.ui.styles;
 using com.github.lhervier.ksp.ugui.shared.sprites;
+using com.github.lhervier.ksp.ugui.shared.button;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
 {

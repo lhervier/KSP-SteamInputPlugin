@@ -2,8 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using com.github.lhervier.ksp.ugui.shared.styles;
 using com.github.lhervier.ksp.ugui.shared.sprites;
-using com.github.lhervier.ksp.steaminput.ui.ugui;
-using System;
+using com.github.lhervier.ksp.ugui.shared.button;
 
 namespace com.github.lhervier.ksp.ugui.shared.popup
 {
