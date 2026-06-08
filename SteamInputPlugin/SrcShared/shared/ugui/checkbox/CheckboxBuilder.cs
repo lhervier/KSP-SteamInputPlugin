@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System;
 using com.github.lhervier.ksp.shared.ugui.styles;
 using com.github.lhervier.ksp.shared.ugui.sprites;
 
@@ -8,10 +7,7 @@ namespace com.github.lhervier.ksp.shared.ugui.checkbox
 {
     public class CheckboxBuilder
     {
-        public CheckboxController Create(
-            bool initialChecked,
-            Action<bool> onToggle
-        )
+        public CheckboxController Create(bool initialChecked)
         {
             var go = new GameObject("Checkbox", typeof(RectTransform));
             CheckboxController controller = go.AddComponent<CheckboxController>();
@@ -61,10 +57,7 @@ namespace com.github.lhervier.ksp.shared.ugui.checkbox
             colors.colorMultiplier = 1f;
             colors.fadeDuration = 0f;
             button.colors = colors;
-            // checkmarkGo.activeSelf is the current (pre-click) visual state, so the new desired
-            // state is its negation. The callee decides whether to apply it (e.g., by reading
-            // the model's state, calling a toggle method, etc.).
-            button.onClick.AddListener(() => onToggle(!checkmarkGo.activeSelf));
+            controller.BindButton(button);
 
             return controller;
         }

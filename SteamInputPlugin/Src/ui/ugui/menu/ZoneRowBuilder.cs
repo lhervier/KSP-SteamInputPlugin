@@ -29,6 +29,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
             var rowGo = new GameObject("Zone." + zone.Zone.Name, typeof(RectTransform));
             var controller = rowGo.AddComponent<ZoneRowController>();
             controller.Initialize(_viewModel);
+            controller.BindZone(zone);
 
             // Background image: transparent normally, FieldBackground (#2a2a2a) on hover.
             // raycastTarget = true so pointer events fire on the row (including its empty area).
@@ -69,10 +70,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
 
             // Controller used to propagate changes from the viewModel into the GameObjects
             
-            var checkboxController = this._checkBoxBuilder.Create(
-                zone.Visible,
-                _ => this._viewModel.ToggleZoneVisibility(zone)
-            );
+            var checkboxController = this._checkBoxBuilder.Create(zone.Visible);
             checkboxController.transform.SetParent(rowGo.transform, false);
             controller.BindCheckboxController(checkboxController);
 
@@ -89,9 +87,15 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
 
         public class ZoneRowController : BaseSteamInputController
         {
+            private UIConfigZone _zone;
             private ArrowsBuilder.ArrowsController _arrowsController;
             private CheckboxController _checkboxController;
             private ZoneLabelBuilder.ZoneLabelController _zoneLabelController;
+
+            public void BindZone(UIConfigZone zone)
+            {
+                _zone = zone;
+            }
 
             public void BindCheckboxController(CheckboxController checkboxController)
             {
@@ -106,6 +110,27 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
             public void BindZoneLabelController(ZoneLabelBuilder.ZoneLabelController zoneLabelController)
             {
                 this._zoneLabelController = zoneLabelController;
+            }
+
+            public void Start()
+            {
+                if( this._checkboxController != null )
+                {
+                    this._checkboxController.OnToggled.Add(OnToggled);
+                }
+            }
+
+            public void OnDestroy()
+            {
+                if( this._checkboxController != null )
+                {
+                    this._checkboxController.OnToggled.Remove(OnToggled);
+                }
+            }
+
+            private void OnToggled(bool isChecked)
+            {
+                ViewModel.SetZoneVisibility(_zone, isChecked);
             }
 
             public void UpdateZone(UIConfigZone zone)

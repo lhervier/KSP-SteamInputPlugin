@@ -1,11 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
-using com.github.lhervier.ksp.steaminput;
 using com.github.lhervier.ksp.steaminput.ui.model;
 using System.Linq;
 using System;
 using com.github.lhervier.ksp.steaminput.model;
-using System.Text.RegularExpressions;
 
 namespace com.github.lhervier.ksp.steaminput.ui
 {
@@ -541,17 +539,30 @@ namespace com.github.lhervier.ksp.steaminput.ui
             SteamInputSettings.SetOrderedGamepadZones(zones);
         }
 
-        public void ToggleZoneVisibility(UIConfigZone zone)
+        public void SetZoneVisibility(UIConfigZone zone, bool visible)
         {
             List<EGamepadZone> visibleZones = SteamInputSettings.GetVisibleGamepadZones();
-            if( visibleZones.Contains(zone.Zone) )
-            {
-                visibleZones.Remove(zone.Zone);
-            } else
+            if( visibleZones.Contains(zone.Zone) == visible ) return;
+            if( visible )
             {
                 visibleZones.Add(zone.Zone);
             }
+            else
+            {
+                visibleZones.Remove(zone.Zone);
+            }
             SteamInputSettings.SetVisibleGamepadZones(visibleZones);
+        }
+
+        public bool IsZoneVisible(UIConfigZone zone)
+        {
+            List<EGamepadZone> visibleZones = SteamInputSettings.GetVisibleGamepadZones();
+            return visibleZones.Contains(zone.Zone);
+        }
+
+        public void ToggleZoneVisibility(UIConfigZone zone)
+        {
+            SetZoneVisibility(zone, !IsZoneVisible(zone));
         }
 
         public VdfGroup GetGroup(string groupId)
