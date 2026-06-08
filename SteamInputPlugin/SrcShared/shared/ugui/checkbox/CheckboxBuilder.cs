@@ -5,9 +5,16 @@ using com.github.lhervier.ksp.shared.ugui.sprites;
 
 namespace com.github.lhervier.ksp.shared.ugui.checkbox
 {
-    public class CheckboxBuilder
+    public class CheckboxBuilder : IUGUIBuilder<CheckboxController>
     {
-        public CheckboxController Create(bool initialChecked)
+        private bool _isChecked = false;
+
+        public void SetChecked(bool isChecked)
+        {
+            this._isChecked = isChecked;
+        }
+
+        public CheckboxController Build()
         {
             var go = new GameObject("Checkbox", typeof(RectTransform));
             CheckboxController controller = go.AddComponent<CheckboxController>();
@@ -45,7 +52,7 @@ namespace com.github.lhervier.ksp.shared.ugui.checkbox
 
             // Initial visibility from the parameter; checkmarkGo.activeSelf is the source of truth
             // (so external updates via SetActive stay consistent with what the click handler reads).
-            checkmarkGo.SetActive(initialChecked);
+            checkmarkGo.SetActive(_isChecked);
 
             var button = go.AddComponent<Button>();
             button.targetGraphic = bgImage;
