@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using System;
 using com.github.lhervier.ksp.shared.ugui.styles;
 using com.github.lhervier.ksp.shared.ugui.sprites;
 
@@ -12,14 +11,12 @@ namespace com.github.lhervier.ksp.shared.ugui.button
         public ButtonController Create(
             string objectName, 
             string buttonLabel,
-            Action onClick,
             bool interactable = true
         )
         {
             return Create(
                 objectName, 
                 buttonLabel,
-                onClick, 
                 interactable,
                 DefaultPalette.ButtonColor, 
                 DefaultPalette.ButtonHoverColor
@@ -29,7 +26,6 @@ namespace com.github.lhervier.ksp.shared.ugui.button
         public ButtonController Create(
             string objectName, 
             string buttonLabel,
-            Action onClick,
             bool interactable,
             Color backgroundColor,
             Color hoverColor
@@ -64,7 +60,7 @@ namespace com.github.lhervier.ksp.shared.ugui.button
             colors.colorMultiplier = 1f;
             colors.fadeDuration = 0.1f;
             button.colors = colors;
-            button.onClick.AddListener(() => onClick());
+            button.onClick.AddListener(() => controller.OnClick.Fire());
             controller.InitButton(button);
 
             // CanvasGroup applies a global alpha to the button (background + text + future children),

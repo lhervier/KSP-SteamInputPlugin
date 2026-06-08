@@ -25,6 +25,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
         {
             var rightRowGo = new GameObject("SteamInput.TitleBar.RightColumn", typeof(RectTransform));
             TitleBarController controller = rightRowGo.AddComponent<TitleBarController>();
+            controller.BindViewModel(_viewModel);
 
             // Horizontal layout containing the right-side placeholders, sized to their text content
             var rightRowLayout = rightRowGo.AddComponent<HorizontalLayoutGroup>();
@@ -44,12 +45,12 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
             var menuButtonController = this._buttonBuilder.Create(
                 "SteamInput.TitleBar.RightColumn.MenuButton",
                 "⋯",
-                () => _viewModel.ToggleMenu(),
                 true,
                 PopupPalette.TitleBarButtonColor,
                 PopupPalette.TitleBarButtonHoverColor
             );
             menuButtonController.transform.SetParent(rightRowGo.transform, false);
+            controller.BindMenuButtonController(menuButtonController);
 
             return controller;
         }

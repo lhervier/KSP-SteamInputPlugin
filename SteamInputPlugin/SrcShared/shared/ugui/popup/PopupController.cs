@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using com.github.lhervier.ksp.shared.ugui.button;
 
 namespace com.github.lhervier.ksp.shared.ugui.popup
 {
@@ -7,6 +8,7 @@ namespace com.github.lhervier.ksp.shared.ugui.popup
     {
         private CanvasGroup _canvasGroup;
         private PopupDialog _popupDialog;
+        private ButtonController _closeButtonController;
 
         private bool _hasPosition = false;
         private Vector2 _position;
@@ -31,6 +33,11 @@ namespace com.github.lhervier.ksp.shared.ugui.popup
             this._canvasGroup = canvasGroup;
         }
 
+        public void BindCloseButton(ButtonController closeButtonController)
+        {
+            this._closeButtonController = closeButtonController;
+        }
+
         public void InitializePosition(Vector2 pos)
         {
             this._position = pos;
@@ -44,6 +51,11 @@ namespace com.github.lhervier.ksp.shared.ugui.popup
         {
             _popupDialog?.onDestroy.AddListener(OnPopupDestroyed);
             GameEvents.onLevelWasLoaded.Add(OnLevelWasLoaded);
+
+            if( this._closeButtonController != null )
+            {
+                this._closeButtonController.OnClick.Add(Hide);
+            }
         }
 
         /// <summary>
@@ -51,6 +63,11 @@ namespace com.github.lhervier.ksp.shared.ugui.popup
         /// </summary>
         public void OnDestroy()
         {
+            if( this._closeButtonController != null )
+            {
+                this._closeButtonController.OnClick.Remove(Hide);
+            }
+
             // Pure cleanup: do NOT dismiss the dialog here. This runs on both teardown paths (the
             // owner-driven Dismiss and KSP destroying the popup itself), and in both the popup is
             // already being destroyed — dismissing again here would re-enter the teardown.

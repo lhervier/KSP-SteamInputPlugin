@@ -56,9 +56,10 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
             // combo height so the ↻ glyph reads at a glance instead of getting lost in a tiny chip.
             ButtonController refresh = _buttonBuilder.Create(
                 "Refresh",
-                RefreshGlyph,
-                () => _viewModel.RefreshConfigs());
+                RefreshGlyph
+            );
             refresh.transform.SetParent(go.transform, false);
+            controller.BindRefreshButton(refresh);
 
             var refreshLayout = refresh.GetComponent<LayoutElement>();
             refreshLayout.minWidth = SteamInputPalette.ComboHeight;
@@ -126,6 +127,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
             label.horizontalOverflow = HorizontalWrapMode.Overflow; // clipped by the RectMask2D above
             label.verticalOverflow = VerticalWrapMode.Overflow;
             label.raycastTarget = false;
+            controller.BindLabel(label);
 
             // Caret
             var caretGo = new GameObject("Caret", typeof(RectTransform));
@@ -144,11 +146,13 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
             // positioned under the combo when opened (see SelectorController.OpenDropdown).
             GameObject overlay = _overlayBuilder.Create(() => controller.CloseDropdown()).gameObject;
             overlay.SetActive(false);
+            controller.BindOverlay(overlay);
 
-            RectTransform content;
-            GameObject dropdown = BuildDropdown(out content);
+            GameObject dropdown = BuildDropdown(out RectTransform content);
+            controller.BindContent(content);
+            controller.BindDropdown(dropdown);
 
-            controller.Bind(label, comboGo.GetComponent<RectTransform>(), dropdown, content, overlay);
+            controller.BindComboRect(comboGo.GetComponent<RectTransform>());
         }
 
         // Scrollable dropdown panel. Built detached and hidden; positioned/parented on open.
@@ -228,18 +232,40 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
             private RectTransform _dropdownRect;
             private RectTransform _content;
             private GameObject _overlay;
+            private ButtonController _buttonController;
             private Transform _popupWindow;
             private readonly List<GameObject> _items = new List<GameObject>();
             private List<UIGamepadConfig> _configs = new List<UIGamepadConfig>();
 
-            public void Bind(Text label, RectTransform comboRect, GameObject dropdown, RectTransform content, GameObject overlay)
+            public void BindLabel(Text label)
             {
                 this._label = label;
+            }
+
+            public void BindComboRect(RectTransform comboRect)
+            {
                 this._comboRect = comboRect;
+            }
+
+            public void BindDropdown(GameObject dropdown)
+            {
                 this._dropdown = dropdown;
                 this._dropdownRect = dropdown.GetComponent<RectTransform>();
+            }
+
+            public void BindContent(RectTransform content)
+            {
                 this._content = content;
+            }
+
+            public void BindOverlay(GameObject overlay)
+            {
                 this._overlay = overlay;
+            }
+
+            public void BindRefreshButton(ButtonController buttonController)
+            {
+                this._buttonController = buttonController;
             }
 
             public void Start()
@@ -256,10 +282,19 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
                 this.ViewModel.OnConfigsChanged.Add(OnConfigsChanged);
                 this.ViewModel.OnGamepadConfigNameChanged.Add(OnConfigNameChanged);
                 OnConfigsChanged(this.ViewModel.Configs);
+
+                if( this._buttonController != null )
+                {
+                    this._buttonController.OnClick.Add(ViewModel.RefreshConfigs);
+                }
             }
 
             public void OnDestroy()
             {
+                if( this._buttonController != null )
+                {
+                    this._buttonController.OnClick.Remove(ViewModel.RefreshConfigs);
+                }
                 this.ViewModel?.OnConfigsChanged.Remove(OnConfigsChanged);
                 this.ViewModel?.OnGamepadConfigNameChanged.Remove(OnConfigNameChanged);
             }

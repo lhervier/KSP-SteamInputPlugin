@@ -46,7 +46,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
             layout.childForceExpandWidth = true;
             layout.childForceExpandHeight = false;
 
-            BuildHead(go.transform);
+            BuildHead(controller, go.transform);
             BuildSeparator(go.transform);
 
             BuildLoggingSection(go.transform);
@@ -59,7 +59,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
         }
 
         // Head: back button (returns to the cheat sheet) + the "Settings" title. Mockup .kset-head.
-        private void BuildHead(Transform parent)
+        private void BuildHead(SettingsController controller, Transform parent)
         {
             var go = new GameObject("Head", typeof(RectTransform));
             go.transform.SetParent(parent, false);
@@ -85,9 +85,10 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
 
             ButtonController back = _buttonBuilder.Create(
                 "Back",
-                BackGlyph,
-                () => _viewModel.CloseSettings());
+                BackGlyph
+            );
             back.transform.SetParent(go.transform, false);
+            controller.BindBackButtonController(back);
 
             var titleGo = new GameObject("Title", typeof(RectTransform));
             titleGo.transform.SetParent(go.transform, false);
@@ -227,6 +228,28 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
 
         public class SettingsController : BaseSteamInputController
         {
+            private ButtonController _backButtonController;
+
+            public void BindBackButtonController(ButtonController backButtonController)
+            {
+                this._backButtonController = backButtonController;
+            }
+
+            public void Start()
+            {
+                if( this._backButtonController != null )
+                {
+                    this._backButtonController.OnClick.Add(ViewModel.CloseSettings);
+                }
+            }
+
+            public void OnDestroy()
+            {
+                if( this._backButtonController != null )
+                {
+                    this._backButtonController.OnClick.Remove(ViewModel.CloseSettings);
+                }
+            }
         }
     }
 }

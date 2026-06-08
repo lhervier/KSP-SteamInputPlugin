@@ -40,7 +40,6 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
             ButtonController upButtonController = this._buttonBuilder.Create(
                 "Up", 
                 "▲", 
-                controller.MoveUp,
                 !zone.First
             );
             upButtonController.transform.SetParent(go.transform, false);
@@ -49,7 +48,6 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
             ButtonController downButtonController = this._buttonBuilder.Create(
                 "Down", 
                 "▼", 
-                controller.MoveDown,
                 !zone.Last
             );
             downButtonController.transform.SetParent(go.transform, false);
@@ -79,12 +77,36 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
                 _downButton = downButton;
             }
 
-            public void MoveUp()
+            public void Start()
+            {
+                if( _upButton != null )
+                {
+                    _upButton.OnClick.Add(MoveUp);
+                }
+                if( _downButton != null )
+                {
+                    _downButton.OnClick.Add(MoveDown);
+                }
+            }
+
+            public void OnDestroy()
+            {
+                if( _upButton != null )
+                {
+                    _upButton.OnClick.Remove(MoveUp);
+                }
+                if( _downButton != null )
+                {
+                    _downButton.OnClick.Remove(MoveDown);
+                }
+            }
+
+            private void MoveUp()
             {
                 ViewModel?.MoveZoneUp(_zone);
             }
 
-            public void MoveDown()
+            private void MoveDown()
             {
                 ViewModel?.MoveZoneDown(_zone);
             }

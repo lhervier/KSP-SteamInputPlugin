@@ -321,12 +321,12 @@ namespace com.github.lhervier.ksp.shared.ugui.popup
             var closeButtonController = this._buttonBuilder.Create(
                 "Popup.TitleBar.RightColumn.CloseButton",
                 "×",
-                controller.Hide,
                 true,
                 PopupPalette.TitleBarButtonColor,
                 PopupPalette.TitleBarButtonHoverColor
             );
             closeButtonController.transform.SetParent(rightRowGo.transform, false);
+            controller.BindCloseButton(closeButtonController);
 
             return rightRowGo;
         }

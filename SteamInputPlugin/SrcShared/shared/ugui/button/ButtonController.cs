@@ -11,6 +11,7 @@ namespace com.github.lhervier.ksp.shared.ugui.button
         private Text _label;
         private Button _button;
         private CanvasGroup _canvasGroup;
+        public EventVoid OnClick = new EventVoid("KSPShared.UGUI.Button.OnClick");
 
         public void InitLabel(Text label)
         {
