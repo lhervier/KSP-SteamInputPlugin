@@ -27,7 +27,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body
             var controller = bodyGo.AddComponent<BodyController>();
 
             // Scrollable cheat-sheet view; ScrollableView's default styling matches the popup palette.
-            var cheatSheetController = new ScrollableViewBuilder<CheatSheetBuilder.CheatSheetController>()
+            var cheatSheetController = new ScrollableViewBuilder<CheatSheetController>()
                 .ObjectName("SteamInput.Body.CheatSheet")
                 .ContentBuilder(
                     new CheatSheetBuilder().ViewModel(_viewModel)

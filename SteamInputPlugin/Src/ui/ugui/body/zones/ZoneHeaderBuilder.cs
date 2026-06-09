@@ -15,7 +15,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
     ///   - "↓ MODESHIFT" section if the zone has a ModeshiftGroupId
     /// Styled to match the mockup .kzone / .kzh / .kstate rules.
     /// </summary>
-    public class ZoneHeaderBuilder : IUGUIBuilder<ZoneHeaderBuilder.ZoneHeaderController>
+    public class ZoneHeaderBuilder : IUGUIBuilder<ZoneHeaderController>
     {
         // =====================================
         // Builder Parameters
@@ -87,29 +87,6 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             return go
                 .AddComponent<ZoneHeaderController>()
                 .Label(label);
-        }
-
-        public class ZoneHeaderController : MonoBehaviour
-        {
-            // =====================================
-            // Controller parameters
-            // =====================================
-
-            private Text _label;
-            public ZoneHeaderController Label(Text label)
-            {
-                _label = label;
-                return this;
-            }
-
-            // ====================================
-            // Public API
-            // ====================================
-
-            public void UpdateZone(UIPhysicalZone zone)
-            {
-                _label.text = zone.Label;
-            }
         }
     }
 }

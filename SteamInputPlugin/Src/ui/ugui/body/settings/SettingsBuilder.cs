@@ -12,7 +12,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
     /// Mirrors the mockup's #view-settings: a head with a back button, a "Logging" section (the
     /// log level rotating button + a hint), and a "Diagnostic" section. Stacked top to bottom.
     /// </summary>
-    public class SettingsBuilder : IUGUIBuilder<SettingsBuilder.SettingsController>
+    public class SettingsBuilder : IUGUIBuilder<SettingsController>
     {
         private const string BackGlyph = "‹"; // ‹ (U+2039)
         private static Sprite _hintSprite;
@@ -53,10 +53,10 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
             BuildLoggingSection(go.transform);
             BuildSeparator(go.transform);
 
-            DiagnosticBuilder.DiagnosticController diagnostic = new DiagnosticBuilder()
+            DiagnosticController diagnosticController = new DiagnosticBuilder()
                 .ViewModel(_viewModel)
                 .Build();
-            diagnostic.transform.SetParent(go.transform, false);
+            diagnosticController.transform.SetParent(go.transform, false);
 
             return go
                 .AddComponent<SettingsController>()
@@ -119,7 +119,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
 
             BuildSectionLabel(section, ModLocalization.GetString("SteamInput_settings_logging"));
 
-            LogLevelButtonBuilder.LogLevelButtonController logLevel = new LogLevelButtonBuilder().ViewModel(_viewModel).Build();
+            LogLevelButtonController logLevel = new LogLevelButtonBuilder().ViewModel(_viewModel).Build();
             logLevel.transform.SetParent(section, false);
 
             BuildHint(section, ModLocalization.GetString("SteamInput_settings_loggingHint"));
@@ -229,43 +229,6 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
             image.type = Image.Type.Simple;
             image.color = SteamInputPalette.SettingsSeparatorColor;
             image.raycastTarget = false;
-        }
-
-        public class SettingsController : MonoBehaviour
-        {
-            // ===================================
-            // Life cycle
-            // ===================================
-
-            private CheatSheetViewModel _viewModel;
-            public SettingsController ViewModel(CheatSheetViewModel viewModel)
-            {
-                this._viewModel = viewModel;
-                return this;
-            }
-
-            private ButtonController _backButtonController;
-            public SettingsController BackButtonController(ButtonController backButtonController)
-            {
-                this._backButtonController = backButtonController;
-                return this;
-            }
-
-            public void Start()
-            {
-                if( this._backButtonController != null )
-                {
-                    this._backButtonController.OnClick.Add(_viewModel.CloseSettings);
-                }
-            }
-
-            public void OnDestroy()
-            {
-                if( this._backButtonController != null )
-                {
-                    this._backButtonController.OnClick.Remove(_viewModel.CloseSettings);
-                }
-            }
         }
     }
 }

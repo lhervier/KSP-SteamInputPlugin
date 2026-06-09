@@ -11,7 +11,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.cheatsheet
     /// physical zones below it. Both scroll together. This is one of the body's two views (the other
     /// being the settings screen).
     /// </summary>
-    public class CheatSheetBuilder : IUGUIBuilder<CheatSheetBuilder.CheatSheetController>
+    public class CheatSheetBuilder : IUGUIBuilder<CheatSheetController>
     {
         private CheatSheetViewModel _viewModel;
         public CheatSheetBuilder ViewModel(CheatSheetViewModel viewModel)
@@ -42,10 +42,6 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.cheatsheet
             zoneList.transform.SetParent(go.transform, false);
 
             return controller;
-        }
-
-        public class CheatSheetController : MonoBehaviour
-        {
         }
     }
 }

@@ -14,7 +14,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body
     {
         private CheatSheetViewModel _viewModel;
         private ScrollableViewController _cheatSheet;
-        private SettingsBuilder.SettingsController _settings;
+        private SettingsController _settings;
 
         // ==================================
         // Life cycle
@@ -34,7 +34,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body
             return this;
         }
 
-        public BodyController SettingsController(SettingsBuilder.SettingsController settings)
+        public BodyController SettingsController(SettingsController settings)
         {
             this._settings = settings;
             return this;
