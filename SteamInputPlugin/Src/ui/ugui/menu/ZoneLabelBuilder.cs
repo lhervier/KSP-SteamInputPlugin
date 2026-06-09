@@ -18,7 +18,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
         {
             var go = new GameObject("Label", typeof(RectTransform));
             ZoneLabelController controller = go.AddComponent<ZoneLabelController>();
-            controller.BindViewModel(_viewModel);
+            controller.ViewModel(_viewModel);
 
             // Greedy on width: consumes the leftover space and pushes the arrows to the right
             var layoutElement = go.AddComponent<LayoutElement>();

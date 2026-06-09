@@ -18,7 +18,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
         {
             var badgeGo = new GameObject("SteamInput.TitleBar.RightColumn.ActionGroup", typeof(RectTransform));
             var controller = badgeGo.AddComponent<ActionGroupLabelController>();
-            controller.BindViewModel(this._viewModel);
+            controller.ViewModel(this._viewModel);
             
             // Sliced sprite: transparent fill with a green border
             var image = badgeGo.AddComponent<Image>();

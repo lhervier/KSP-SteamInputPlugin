@@ -32,7 +32,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
         {
             var zoneGo = new GameObject("PhysicalZone." + zone.Zone.Name, typeof(RectTransform));
             var controller = zoneGo.AddComponent<ZoneController>();
-            controller.BindViewModel(_viewModel);
+            controller.ViewModel(_viewModel);
 
             // Stack: header, body, bottom separator
             var layout = zoneGo.AddComponent<VerticalLayoutGroup>();

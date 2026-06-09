@@ -25,7 +25,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
         {
             var go = new GameObject("SettingsItem", typeof(RectTransform));
             SettingsItemController controller = go.AddComponent<SettingsItemController>();
-            controller.BindViewModel(_viewModel);
+            controller.ViewModel(_viewModel);
 
             // Match the zone rows' height so the entry lines up with them.
             var layoutElement = go.AddComponent<LayoutElement>();

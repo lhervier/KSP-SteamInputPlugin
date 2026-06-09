@@ -28,7 +28,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
         {
             var rowGo = new GameObject("Zone." + zone.Zone.Name, typeof(RectTransform));
             var controller = rowGo.AddComponent<ZoneRowController>();
-            controller.BindViewModel(_viewModel);
+            controller.ViewModel(_viewModel);
             controller.BindZone(zone);
 
             // Background image: transparent normally, FieldBackground (#2a2a2a) on hover.

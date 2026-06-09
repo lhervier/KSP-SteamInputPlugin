@@ -82,7 +82,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
             return dialogController
                 .GetGameObject()
                 .AddComponent<ModPopupDialogController>()
-                .BindViewModel(_viewModel)
+                .ViewModel(_viewModel)
                 .BindPopupController(dialogController)
                 .BindOverlayBuilder(_overlayBuilder)
                 .BindMenuBuilder(_menuBuilder);

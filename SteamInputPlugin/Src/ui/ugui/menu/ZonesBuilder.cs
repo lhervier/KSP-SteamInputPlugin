@@ -26,7 +26,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
         {
             var go = new GameObject("Zones", typeof(RectTransform));
             ZonesController controller = go.AddComponent<ZonesController>();
-            controller.BindViewModel(_viewModel);
+            controller.ViewModel(_viewModel);
             
             // VLG stacks the zone rows. spacing matches the outer menu so rows breathe like
             // title/separator above. The ZonesBinder calls SetSiblingIndex on rows to apply order.

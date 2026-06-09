@@ -17,7 +17,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
         {
             var go = new GameObject("Separator", typeof(RectTransform));
             SeparatorController controller = go.AddComponent<SeparatorController>();
-            controller.BindViewModel(_viewModel);
+            controller.ViewModel(_viewModel);
 
             // 1px tall, full width (the parent VLG stretches it via childForceExpandWidth = true)
             var layoutElement = go.AddComponent<LayoutElement>();

@@ -27,7 +27,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
         {
             var menuGo = new GameObject("SteamInput.TitleBar.Menu", typeof(RectTransform));
             MenuController controller = menuGo.AddComponent<MenuController>();
-            controller.BindViewModel(_viewModel);
+            controller.ViewModel(_viewModel);
 
             // popupWindow has a VerticalLayoutGroup that would otherwise place us in its flow.
             // Tell it to ignore us so our anchors take effect.

@@ -20,7 +20,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
         {
             var go = new GameObject("SteamInput.TitleBar.RightColumn.GamepadName", typeof(RectTransform));
             var controller = go.AddComponent<GamepadLabelController>();
-            controller.BindViewModel(this._viewModel);
+            controller.ViewModel(this._viewModel);
             
             var label = go.AddComponent<Text>();
             label.text = "<gamepad>";

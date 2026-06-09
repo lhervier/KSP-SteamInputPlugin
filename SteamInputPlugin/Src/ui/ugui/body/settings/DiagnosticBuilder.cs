@@ -32,7 +32,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
         {
             var go = new GameObject("Diagnostic", typeof(RectTransform));
             DiagnosticController controller = go.AddComponent<DiagnosticController>();
-            controller.BindViewModel(_viewModel);
+            controller.ViewModel(_viewModel);
 
             var layout = go.AddComponent<VerticalLayoutGroup>();
             layout.padding = new RectOffset(

@@ -22,7 +22,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
         {
             var go = new GameObject("MouseLine", typeof(RectTransform));
             MouseLineController controller = go.AddComponent<MouseLineController>();
-            controller.BindViewModel(_viewModel);
+            controller.ViewModel(_viewModel);
 
             // Horizontal inset is provided by the section container; only the vertical
             // breathing room (.kmouse-line padding-y) is carried here.

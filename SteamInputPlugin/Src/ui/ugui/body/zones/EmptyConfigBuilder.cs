@@ -22,7 +22,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
         {
             var go = new GameObject("EmptyConfig", typeof(RectTransform));
             var controller = go.AddComponent<EmptyConfigController>();
-            controller.BindViewModel(_viewModel);
+            controller.ViewModel(_viewModel);
 
             // .kempty: padded VLG stacking the title and the body paragraphs.
             var layout = go.AddComponent<VerticalLayoutGroup>();
