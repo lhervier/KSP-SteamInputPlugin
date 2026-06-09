@@ -70,8 +70,9 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
 
             // Controller used to propagate changes from the viewModel into the GameObjects
             
-            _checkBoxBuilder.SetChecked(zone.Visible);
-            var checkboxController = this._checkBoxBuilder.Build();
+            var checkboxController = this._checkBoxBuilder
+                .Checked(zone.Visible)
+                .Build();
             checkboxController.transform.SetParent(rowGo.transform, false);
             controller.BindCheckboxController(checkboxController);
 
