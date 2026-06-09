@@ -3,15 +3,15 @@ set -e
 
 echo ""
 echo "-------------------------------------------"
-echo "Mise à jour du sous-module KSP-Shared"
+echo "Updating the KSP-Shared submodule"
 echo "-------------------------------------------"
 
-# Récupère les derniers commits de la branche suivie (main) du sous-module,
-# au lieu de rester sur le SHA figé par le dépôt parent.
+# Fetch the latest commits from the submodule's tracked branch (main),
+# instead of staying on the SHA pinned by the parent repository.
 git submodule update --remote --merge SteamInputPlugin/KSP-Shared
 
 echo ""
-echo "Sous-module KSP-Shared mis à jour avec succès"
+echo "KSP-Shared submodule updated successfully"
 echo ""
-echo "Si la librairie a changé, pensez à committer le nouveau pointeur :"
+echo "If the library changed, remember to commit the new pointer:"
 echo "  git add SteamInputPlugin/KSP-Shared && git commit -m \"Bump KSP-Shared\""

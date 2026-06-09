@@ -3,11 +3,11 @@ setlocal
 
 echo.
 echo -------------------------------------------
-echo Mise a jour du sous-module KSP-Shared
+echo Updating the KSP-Shared submodule
 echo -------------------------------------------
 
-REM Récupère les derniers commits de la branche suivie (main) du sous-module,
-REM au lieu de rester sur le SHA figé par le dépôt parent.
+REM Fetch the latest commits from the submodule's tracked branch (main),
+REM instead of staying on the SHA pinned by the parent repository.
 git submodule update --remote --merge SteamInputPlugin/KSP-Shared
 if errorlevel 1 (
     echo ERROR: Failed to update KSP-Shared submodule
@@ -15,7 +15,7 @@ if errorlevel 1 (
 )
 
 echo.
-echo Sous-module KSP-Shared mis a jour avec succes
+echo KSP-Shared submodule updated successfully
 echo.
-echo Si la librairie a change, pensez a committer le nouveau pointeur :
+echo If the library changed, remember to commit the new pointer:
 echo   git add SteamInputPlugin/KSP-Shared ^&^& git commit -m "Bump KSP-Shared"
