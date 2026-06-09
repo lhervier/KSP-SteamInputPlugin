@@ -13,14 +13,12 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
 
         private CheatSheetViewModel _viewModel;
         private CheckboxBuilder _checkBoxBuilder;
-        private ZoneLabelBuilder _zoneLabelBuilder;
         private ArrowsBuilder _arrowsBuilder;
 
         public ZoneRowBuilder(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             this._checkBoxBuilder = new CheckboxBuilder();
-            this._zoneLabelBuilder = new ZoneLabelBuilder(viewModel);
             this._arrowsBuilder = new ArrowsBuilder(viewModel);
         }
 
@@ -39,26 +37,20 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
             bgImage.color = Color.clear;
             bgImage.raycastTarget = true;
 
-            // PointerEnter/Exit on the row itself. Hovering a child (button/checkbox) does NOT
-            // unhighlight the row, because in uGUI a child is part of its parent's pointer chain.
+            // PointerEnter/Exit on the row itself. Hovering a child (checkbox/arrows) does NOT
+            // unhighlight the row, because in uGUI enter/exit propagate to the ancestors too.
+            // The click-to-toggle is handled by the (greedy) checkbox below, not here.
             var trigger = rowGo.AddComponent<EventTrigger>();
 
             var enterEntry = new EventTrigger.Entry { eventID = EventTriggerType.PointerEnter };
             enterEntry.callback.AddListener(_ => bgImage.color = DefaultPalette.FieldBackgroundColor);
             trigger.triggers.Add(enterEntry);
-            
+
             var exitEntry = new EventTrigger.Entry { eventID = EventTriggerType.PointerExit };
             exitEntry.callback.AddListener(_ => bgImage.color = Color.clear);
             trigger.triggers.Add(exitEntry);
-            
-            // Click on the row (anywhere not handled by a child) toggles the checkbox.
-            // Clicks on the checkbox/arrows are consumed by their own Button components
-            // (IPointerClickHandler stops at the first handler in the chain) so they don't reach here.
-            var clickEntry = new EventTrigger.Entry { eventID = EventTriggerType.PointerClick };
-            clickEntry.callback.AddListener(_ => this._viewModel.ToggleZoneVisibility(zone));
-            trigger.triggers.Add(clickEntry);
 
-            // Horizontal: checkbox + label (greedy) + arrows
+            // Horizontal: checkbox (greedy: box + label fill the row) + arrows pushed to the right
             var layout = rowGo.AddComponent<HorizontalLayoutGroup>();
             layout.padding = new RectOffset(0, 0, 0, 0);
             layout.spacing = DefaultPalette.Spacing;
@@ -68,17 +60,14 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
             layout.childForceExpandWidth = false;
             layout.childForceExpandHeight = false;
 
-            // Controller used to propagate changes from the viewModel into the GameObjects
-            
+            // Greedy checkbox: owns the label and the click-to-toggle over the whole row width.
             var checkboxController = this._checkBoxBuilder
                 .Checked(zone.Visible)
+                .Label(zone.Label)
+                .Greedy(true)
                 .Build();
             checkboxController.transform.SetParent(rowGo.transform, false);
             controller.BindCheckboxController(checkboxController);
-
-            var labelController = this._zoneLabelBuilder.Create(zone.Label);
-            labelController.transform.SetParent(rowGo.transform, false);
-            controller.BindZoneLabelController(labelController);
 
             ArrowsBuilder.ArrowsController arrowsController = this._arrowsBuilder.Create(zone);
             arrowsController.transform.SetParent(rowGo.transform, false);
@@ -92,7 +81,6 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
             private UIConfigZone _zone;
             private ArrowsBuilder.ArrowsController _arrowsController;
             private CheckboxController _checkboxController;
-            private ZoneLabelBuilder.ZoneLabelController _zoneLabelController;
 
             public void BindZone(UIConfigZone zone)
             {
@@ -103,15 +91,10 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
             {
                 _checkboxController = checkboxController;
             }
-            
+
             public void BindArrowsController(ArrowsBuilder.ArrowsController arrowsController)
             {
                 _arrowsController = arrowsController;
-            }
-
-            public void BindZoneLabelController(ZoneLabelBuilder.ZoneLabelController zoneLabelController)
-            {
-                this._zoneLabelController = zoneLabelController;
             }
 
             public void Start()
@@ -139,7 +122,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
             {
                 this._arrowsController?.UpdateZone(zone);
                 this._checkboxController?.SetChecked(zone.Visible);
-                this._zoneLabelController?.SetLabel(zone.Label);
+                this._checkboxController?.SetLabel(zone.Label);
             }
         }
     }
