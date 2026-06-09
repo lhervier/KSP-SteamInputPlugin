@@ -29,7 +29,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
         {
             var go = new GameObject("Mode", typeof(RectTransform));
             SectionController controller = go.AddComponent<SectionController>();
-            controller.Initialize(_viewModel);
+            controller.BindViewModel(_viewModel);
             controller.BindActivatorRowBuilder(_activatorRowBuilder);
             controller.BindMouseLineBuilder(_mouseLineBuilder);
 

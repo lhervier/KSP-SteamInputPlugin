@@ -25,7 +25,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
         {
             var go = new GameObject("Arrows", typeof(RectTransform));
             ArrowsController controller = go.AddComponent<ArrowsController>();
-            controller.Initialize(_viewModel);
+            controller.BindViewModel(_viewModel);
             controller.BindZone(zone);
 
             var layout = go.AddComponent<HorizontalLayoutGroup>();

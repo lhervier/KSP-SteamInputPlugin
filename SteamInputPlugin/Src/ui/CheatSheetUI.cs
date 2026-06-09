@@ -32,16 +32,10 @@ namespace com.github.lhervier.ksp.steaminput.ui
         {
             LOGGER.LogInfo("Start");
             GameEvents.onGUIApplicationLauncherReady.Add(OnGUIAppLauncherReady);
+            popupDialogBuilder = new ModPopupDialogBuilder(viewModel);
             if( SteamInputSettings.TryGetWindowPosition(out Vector2 saved) )
             {
-                popupDialogBuilder = new ModPopupDialogBuilder(
-                    viewModel,
-                    saved
-                );
-            }
-            else
-            {
-                popupDialogBuilder = new ModPopupDialogBuilder(viewModel);
+                popupDialogBuilder = popupDialogBuilder.Position(saved);
             }
             LOGGER.LogInfo("Start: Started");
         }

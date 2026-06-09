@@ -28,7 +28,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
         {
             var go = new GameObject("PhysicalZones", typeof(RectTransform));
             var controller = go.AddComponent<ZoneListController>();
-            controller.Initialize(_viewModel);
+            controller.BindViewModel(_viewModel);
             controller.BindZoneBuilder(_zoneBuilder);
             controller.BindEmptyConfigBuilder(_emptyConfigBuilder);
 

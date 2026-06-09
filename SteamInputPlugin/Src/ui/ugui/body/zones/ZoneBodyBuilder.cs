@@ -28,7 +28,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
         {
             var go = new GameObject("Body", typeof(RectTransform));
             ZoneBodyController controller = go.AddComponent<ZoneBodyController>();
-            controller.Initialize(_viewModel);
+            controller.BindViewModel(_viewModel);
             controller.BindModeBuilder(_modeBuilder);
 
             // Horizontal padding (Option A: padding on the container, not per-section)

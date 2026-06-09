@@ -34,7 +34,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
         {
             var go = new GameObject("SteamInput.Body.Settings", typeof(RectTransform));
             var controller = go.AddComponent<SettingsController>();
-            controller.Initialize(_viewModel);
+            controller.BindViewModel(_viewModel);
 
             // Stacks the head and the sections back-to-back; each section sizes to its content.
             var layout = go.AddComponent<VerticalLayoutGroup>();

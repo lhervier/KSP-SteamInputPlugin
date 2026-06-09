@@ -35,7 +35,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
         {
             var go = new GameObject("SteamInput.Body.Selector", typeof(RectTransform));
             SelectorController controller = go.AddComponent<SelectorController>();
-            controller.Initialize(_viewModel);
+            controller.BindViewModel(_viewModel);
 
             var layout = go.AddComponent<HorizontalLayoutGroup>();
             layout.padding = new RectOffset(

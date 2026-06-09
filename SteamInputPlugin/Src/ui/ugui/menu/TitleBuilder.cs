@@ -21,7 +21,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
         {
             var go = new GameObject("Title", typeof(RectTransform));
             TitleController controller = go.AddComponent<TitleController>();
-            controller.Initialize(_viewModel);
+            controller.BindViewModel(_viewModel);
 
             var text = go.AddComponent<Text>();
             text.text = ModLocalization.GetString("SteamInput_zonesMenuTitle").ToUpperInvariant();

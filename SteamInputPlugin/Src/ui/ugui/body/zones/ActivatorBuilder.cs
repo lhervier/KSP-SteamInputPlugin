@@ -24,7 +24,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
         {
             var go = new GameObject("Activator", typeof(RectTransform));
             ActivatorController controller = go.AddComponent<ActivatorController>();
-            controller.Initialize(_viewModel);
+            controller.BindViewModel(_viewModel);
 
             var layout = go.AddComponent<HorizontalLayoutGroup>();
             layout.padding = new RectOffset(

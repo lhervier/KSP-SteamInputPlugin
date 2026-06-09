@@ -27,7 +27,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
         {
             var go = new GameObject("Header", typeof(RectTransform));
             ZoneHeaderController controller = go.AddComponent<ZoneHeaderController>();
-            controller.Initialize(_viewModel);
+            controller.BindViewModel(_viewModel);
 
             // Fixed header height (matches .kzh from the mockup)
             var layoutElement = go.AddComponent<LayoutElement>();

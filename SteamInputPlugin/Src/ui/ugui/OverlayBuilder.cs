@@ -18,7 +18,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
         {
             var overlayGo = new GameObject("SteamInput.Overlay", typeof(RectTransform));
             OverlayController controller = overlayGo.AddComponent<OverlayController>();
-            controller.Initialize(_viewModel);
+            controller.BindViewModel(_viewModel);
 
             // popupWindow has a VerticalLayoutGroup that would otherwise place us in its flow.
             // Tell it to ignore us so our anchors take effect.

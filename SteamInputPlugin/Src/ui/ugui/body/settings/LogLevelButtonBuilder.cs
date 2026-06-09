@@ -28,7 +28,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
         {
             var go = new GameObject("LogLevelButton", typeof(RectTransform));
             LogLevelButtonController controller = go.AddComponent<LogLevelButtonController>();
-            controller.Initialize(_viewModel);
+            controller.BindViewModel(_viewModel);
 
             var layoutElement = go.AddComponent<LayoutElement>();
             layoutElement.minHeight = SteamInputPalette.SettingsLogLevelHeight;

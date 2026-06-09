@@ -17,6 +17,8 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
         private OverlayBuilder _overlayBuilder;
         private MenuBuilder _menuBuilder;
         
+        private Vector2 _position;
+        private bool _hasPosition = false;
         private TitleBarBuilder _titleBarBuilder;
         private BodyBuilder _bodyBuilder;
         private PopupBuilder<TitleBarController, BodyController> _popupBuilder;
@@ -32,17 +34,28 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
             this._menuBuilder = new MenuBuilder(viewModel);
 
             this._popupBuilder = new PopupBuilder<TitleBarController, BodyController>();
-            this._popupBuilder.SetPopupID(DIALOG_ID);
-            this._popupBuilder.SetTitle(ModLocalization.GetString("SteamInput_titleHelp"));
-            this._popupBuilder.SetIcon(SpritesTitleBar.GamepadIconSprite);
-            this._popupBuilder.SetTitleBarBuilder(_titleBarBuilder);
-            this._popupBuilder.SetContentBuilder(_bodyBuilder);
         }
 
-        public ModPopupDialogBuilder(CheatSheetViewModel viewModel, Vector2 initialPosition) : this(viewModel)
+        // =============================================
+        // Build parameters
+        // =============================================
+
+        public ModPopupDialogBuilder Position(Vector2 position)
         {
-            this._popupBuilder.SetPosition(initialPosition);
+            this._position = position;
+            this._hasPosition = true;
+            return this;
         }
+
+        public ModPopupDialogBuilder DeletePosition()
+        {
+            this._hasPosition = false;
+            return this;
+        }
+
+        // =============================================
+        // Builder
+        // =============================================
 
         /// <summary>
         /// Spawn the cheat-sheet popup window and return its controller, or null if KSP failed to spawn
@@ -50,16 +63,26 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
         /// </summary>
         public ModPopupDialogController Build()
         {
-            PopupController dialogController = _popupBuilder.Build();
+            var builder = _popupBuilder
+                .PopupID(DIALOG_ID)
+                .Title(ModLocalization.GetString("SteamInput_titleHelp"))
+                .Icon(SpritesTitleBar.GamepadIconSprite)
+                .TitleBarBuilder(_titleBarBuilder)
+                .ContentBuilder(_bodyBuilder);
+            if( _hasPosition )
+            {
+                builder = builder.Position(this._position);
+            }
+            PopupController dialogController = builder.Build();
             if( dialogController == null ) return null;
 
-            ModPopupDialogController controller = dialogController.GetGameObject().AddComponent<ModPopupDialogController>();
-            controller.Initialize(_viewModel);
-            controller.BindPopupController(dialogController);
-            controller.BindOverlayBuilder(_overlayBuilder);
-            controller.BindMenuBuilder(_menuBuilder);
-            
-            return controller;
+            return dialogController
+                .GetGameObject()
+                .AddComponent<ModPopupDialogController>()
+                .BindViewModel(_viewModel)
+                .BindPopupController(dialogController)
+                .BindOverlayBuilder(_overlayBuilder)
+                .BindMenuBuilder(_menuBuilder);
         }
 
         // ==============================================================
@@ -85,21 +108,24 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
             // Dependencies injected by the builder right after AddComponent, before Start() runs.
 
             /// <summary>Inject the popup controller.</summary>
-            public void BindPopupController(PopupController controller)
+            public ModPopupDialogController BindPopupController(PopupController controller)
             {
                 this._popupController = controller;
+                return this;
             }
 
             /// <summary>Inject the overlay builder.</summary>
-            public void BindOverlayBuilder(OverlayBuilder builder)
+            public ModPopupDialogController BindOverlayBuilder(OverlayBuilder builder)
             {
                 this._overlayBuilder = builder;
+                return this;
             }
 
             /// <summary>Inject the menu builder.</summary>
-            public void BindMenuBuilder(MenuBuilder builder)
+            public ModPopupDialogController BindMenuBuilder(MenuBuilder builder)
             {
                 this._menuBuilder = builder;
+                return this;
             }
 
             /// <summary>
