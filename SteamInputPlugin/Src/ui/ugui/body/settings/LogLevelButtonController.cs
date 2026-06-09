@@ -13,6 +13,10 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
         // Levels in declaration order; the button cycles through them and wraps around.
         private static readonly LogLevel[] Levels = (LogLevel[]) Enum.GetValues(typeof(LogLevel));
 
+        // =======================================
+        // Life cycle
+        // =======================================
+
         private CheatSheetViewModel _viewModel;
         public LogLevelButtonController ViewModel(CheatSheetViewModel viewModel)
         {
@@ -21,9 +25,10 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
         }
 
         private Text _label;
-        public void Bind(Text label)
+        public LogLevelButtonController Label(Text label)
         {
             this._label = label;
+            return this;
         }
 
         public void Start()
@@ -40,6 +45,22 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
             _viewModel?.OnLogLevelChanged.Remove(OnLogLevelChanged);
         }
 
+        // ===================================================
+        // Methods bound to events
+        // ===================================================
+
+        private void OnLogLevelChanged(LogLevel level)
+        {
+            if (_label != null)
+            {
+                _label.text = GetLogLevelLabel(level);
+            }
+        }
+
+        // ======================================
+        // Public API
+        // ======================================
+
         /// <summary>Advance to the next level, wrapping back to the first one after the last.</summary>
         public void CycleLogLevel()
         {
@@ -53,13 +74,9 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
             _viewModel.LogLevel = next;
         }
 
-        private void OnLogLevelChanged(LogLevel level)
-        {
-            if (_label != null)
-            {
-                _label.text = GetLogLevelLabel(level);
-            }
-        }
+        // ======================================
+        // Helpers
+        // ======================================
 
         /// <summary>Localized level name, falling back to the enum name if no translation exists.</summary>
         private static string GetLogLevelLabel(LogLevel level)

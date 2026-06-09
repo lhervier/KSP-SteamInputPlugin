@@ -97,7 +97,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
             cycle.verticalOverflow = VerticalWrapMode.Overflow;
             cycle.raycastTarget = false;
 
-            controller.Bind(label);
+            controller.Label(label);
 
             return controller;
         }
