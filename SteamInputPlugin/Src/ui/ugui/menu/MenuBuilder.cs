@@ -3,32 +3,24 @@ using UnityEngine.UI;
 using com.github.lhervier.ksp.steaminput.ui.styles;
 using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
 using com.github.lhervier.ksp.shared.ugui.styles;
+using com.github.lhervier.ksp.shared.ugui;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
 {
-    public class MenuBuilder
+    public class MenuBuilder : IUGUIBuilder<MenuBuilder.MenuController>
     {
         private CheatSheetViewModel _viewModel;
-        private TitleBuilder _titleBuilder;
-        private SeparatorBuilder _separatorBuilder;
-        private ZonesBuilder _zonesBuilder;
-        private SettingsItemBuilder _settingsItemBuilder;
 
-        public MenuBuilder(CheatSheetViewModel viewModel)
+        public MenuBuilder ViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
-            this._titleBuilder = new TitleBuilder(viewModel);
-            this._separatorBuilder = new SeparatorBuilder(viewModel);
-            this._zonesBuilder = new ZonesBuilder(viewModel);
-            this._settingsItemBuilder = new SettingsItemBuilder(viewModel);
+            return this;
         }
 
-        public MenuController Create()
+        public MenuController Build()
         {
             var menuGo = new GameObject("SteamInput.TitleBar.Menu", typeof(RectTransform));
-            MenuController controller = menuGo.AddComponent<MenuController>();
-            controller.ViewModel(_viewModel);
-
+            
             // popupWindow has a VerticalLayoutGroup that would otherwise place us in its flow.
             // Tell it to ignore us so our anchors take effect.
             var layoutElement = menuGo.AddComponent<LayoutElement>();
@@ -80,16 +72,33 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
             fitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
 
             // Title / separator / zone rows, then a separator and the "Settings" entry.
-            _titleBuilder.Create().transform.SetParent(menuGo.transform, false);
-            _separatorBuilder.Create().transform.SetParent(menuGo.transform, false);
-            _zonesBuilder.Create().transform.SetParent(menuGo.transform, false);
-            _separatorBuilder.Create().transform.SetParent(menuGo.transform, false);
-            _settingsItemBuilder.Create().transform.SetParent(menuGo.transform, false);
+            new TitleBuilder()
+                .Build()
+                .transform
+                .SetParent(menuGo.transform, false);
+            new SeparatorBuilder()
+                .Build()
+                .transform
+                .SetParent(menuGo.transform, false);
+            new ZonesBuilder()
+                .ViewModel(_viewModel)
+                .Build()
+                .transform
+                .SetParent(menuGo.transform, false);
+            new SeparatorBuilder()
+                .Build()
+                .transform
+                .SetParent(menuGo.transform, false);
+            new SettingsItemBuilder()
+                .ViewModel(_viewModel)
+                .Build()
+                .transform
+                .SetParent(menuGo.transform, false);
 
-            return controller;
+            return menuGo.AddComponent<MenuController>();
         }
 
-        public class MenuController : BaseSteamInputController
+        public class MenuController : MonoBehaviour
         {
         }
     }

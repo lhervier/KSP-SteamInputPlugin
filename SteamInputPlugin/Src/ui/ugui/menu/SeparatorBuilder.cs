@@ -2,23 +2,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using com.github.lhervier.ksp.shared.ugui.styles;
 using com.github.lhervier.ksp.shared.ugui.sprites;
+using com.github.lhervier.ksp.shared.ugui;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
 {
-    public class SeparatorBuilder
+    public class SeparatorBuilder : IUGUIBuilder<SeparatorBuilder.SeparatorController>
     {
-        private CheatSheetViewModel _viewModel;
-        
-        public SeparatorBuilder(CheatSheetViewModel viewModel)
-        {
-            this._viewModel = viewModel;
-        }
-        public SeparatorController Create()
+        public SeparatorController Build()
         {
             var go = new GameObject("Separator", typeof(RectTransform));
-            SeparatorController controller = go.AddComponent<SeparatorController>();
-            controller.ViewModel(_viewModel);
-
+            
             // 1px tall, full width (the parent VLG stretches it via childForceExpandWidth = true)
             var layoutElement = go.AddComponent<LayoutElement>();
             layoutElement.preferredHeight = 1f;
@@ -30,10 +23,10 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
             image.color = DefaultPalette.SeparatorColor;
             image.raycastTarget = false;
 
-            return controller;
+            return go.AddComponent<SeparatorController>();
         }
 
-        public class SeparatorController : BaseSteamInputController
+        public class SeparatorController : MonoBehaviour
         {
         }
     }

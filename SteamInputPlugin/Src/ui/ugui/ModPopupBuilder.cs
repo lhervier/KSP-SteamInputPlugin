@@ -59,11 +59,14 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
                 .Build();
             if( popupController == null ) return null;
 
-            OverlayController overlayController = new OverlayBuilder().Build();
+            OverlayController overlayController = new OverlayBuilder()
+                .Build();
             overlayController.transform.SetParent(popupController.GetGameObject().transform, false);
             overlayController.gameObject.SetActive(false);
 
-            MenuBuilder.MenuController menuController = new MenuBuilder(_viewModel).Create();
+            MenuBuilder.MenuController menuController = new MenuBuilder()
+                .ViewModel(_viewModel)
+                .Build();
             menuController.transform.SetParent(popupController.GetGameObject().transform, false);
             menuController.gameObject.SetActive(false);
             

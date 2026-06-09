@@ -7,27 +7,39 @@ using System;
 using com.github.lhervier.ksp.steaminput.ui.model;
 using System.Security.Policy;
 using com.github.lhervier.ksp.shared.ugui.button;
+using com.github.lhervier.ksp.shared.ugui;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
 {
-    public class ArrowsBuilder
+    public class ArrowsBuilder : IUGUIBuilder<ArrowsController>
     {
+        // ===============================================
+        // Builder parameters
+        // ===============================================
+
         private CheatSheetViewModel _viewModel;
-        private ButtonBuilder _buttonBuilder;
-        
-        public ArrowsBuilder(CheatSheetViewModel viewModel)
+        public ArrowsBuilder ViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
-            this._buttonBuilder = new ButtonBuilder();
+            return this;
         }
 
-        public ArrowsController Create(UIConfigZone zone)
+        private UIConfigZone _zone;
+        public ArrowsBuilder Zone(UIConfigZone zone)
+        {
+            this._zone = zone;
+            return this;
+        }
+
+        
+        // =========================================
+        // Build
+        // =========================================
+
+        public ArrowsController Build()
         {
             var go = new GameObject("Arrows", typeof(RectTransform));
-            ArrowsController controller = go.AddComponent<ArrowsController>();
-            controller.ViewModel(_viewModel);
-            controller.BindZone(zone);
-
+            
             var layout = go.AddComponent<HorizontalLayoutGroup>();
             layout.padding = new RectOffset(0, 0, 0, 0);
             layout.spacing = SteamInputPalette.MenuArrowsSpacing;
@@ -37,85 +49,26 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
             layout.childForceExpandWidth = false;
             layout.childForceExpandHeight = false;
 
-            ButtonController upButtonController = _buttonBuilder
+            ButtonController upButtonController = new ButtonBuilder()
                 .ObjectName("Up")
                 .Label("▲")
-                .Interactable(!zone.First)
+                .Interactable(!_zone.First)
                 .Build();
             upButtonController.transform.SetParent(go.transform, false);
-            controller.BindUpButton(upButtonController);
             
-            ButtonController downButtonController = _buttonBuilder
+            ButtonController downButtonController = new ButtonBuilder()
                 .ObjectName("Down")
                 .Label("▼")
-                .Interactable(!zone.Last)
+                .Interactable(!_zone.Last)
                 .Build();
             downButtonController.transform.SetParent(go.transform, false);
-            controller.BindDownButton(downButtonController);
 
-            return controller;
-        }
-
-        public class ArrowsController : BaseSteamInputController
-        {
-            private UIConfigZone _zone;
-            private ButtonController _upButton;
-            private ButtonController _downButton;
-
-            public void BindZone(UIConfigZone zone)
-            {
-                _zone = zone;
-            }
-
-            public void BindUpButton(ButtonController upButton)
-            {
-                _upButton = upButton;
-            }
-
-            public void BindDownButton(ButtonController downButton)
-            {
-                _downButton = downButton;
-            }
-
-            public void Start()
-            {
-                if( _upButton != null )
-                {
-                    _upButton.OnClick.Add(MoveUp);
-                }
-                if( _downButton != null )
-                {
-                    _downButton.OnClick.Add(MoveDown);
-                }
-            }
-
-            public void OnDestroy()
-            {
-                if( _upButton != null )
-                {
-                    _upButton.OnClick.Remove(MoveUp);
-                }
-                if( _downButton != null )
-                {
-                    _downButton.OnClick.Remove(MoveDown);
-                }
-            }
-
-            private void MoveUp()
-            {
-                ViewModel?.MoveZoneUp(_zone);
-            }
-
-            private void MoveDown()
-            {
-                ViewModel?.MoveZoneDown(_zone);
-            }
-
-            public void UpdateZone(UIConfigZone zone)
-            {
-                _upButton?.SetInteractable(!zone.First);
-                _downButton?.SetInteractable(!zone.Last);
-            }
+            return go
+                .AddComponent<ArrowsController>()
+                .ViewModel(_viewModel)
+                .Zone(_zone)
+                .UpButton(upButtonController)
+                .DownButton(downButtonController);
         }
     }
 }

@@ -5,6 +5,7 @@ using com.github.lhervier.ksp.steaminput.ui.styles;
 using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
 using com.github.lhervier.ksp.shared.ugui.styles;
 using com.github.lhervier.ksp.shared.ugui.sprites;
+using com.github.lhervier.ksp.shared.ugui;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
 {
@@ -12,16 +13,23 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
     /// The "Settings" entry at the bottom of the zones menu. A clickable row (label + chevron)
     /// that opens the settings view. Hover/click behave like the zone rows.
     /// </summary>
-    public class SettingsItemBuilder
+    public class SettingsItemBuilder : IUGUIBuilder<SettingsItemController>
     {
+        // ====================================================
+        // Builder parameters
+        // ====================================================
         private CheatSheetViewModel _viewModel;
-
-        public SettingsItemBuilder(CheatSheetViewModel viewModel)
+        public SettingsItemBuilder ViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
+            return this;
         }
 
-        public SettingsItemController Create()
+        // ============================================
+        // Build
+        // ============================================
+
+        public SettingsItemController Build()
         {
             var go = new GameObject("SettingsItem", typeof(RectTransform));
             SettingsItemController controller = go.AddComponent<SettingsItemController>();
@@ -129,14 +137,6 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
             chevron.raycastTarget = false;
 
             return controller;
-        }
-
-        public class SettingsItemController : BaseSteamInputController
-        {
-            public void OpenSettings()
-            {
-                ViewModel?.OpenSettings();
-            }
         }
     }
 }

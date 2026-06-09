@@ -5,30 +5,37 @@ using com.github.lhervier.ksp.steaminput.ui.model;
 using com.github.lhervier.ksp.shared.ugui.styles;
 using com.github.lhervier.ksp.shared.ugui.sprites;
 using com.github.lhervier.ksp.shared.ugui.checkbox;
+using com.github.lhervier.ksp.shared.ugui;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
 {
-    public class ZoneRowBuilder
+    public class ZoneRowBuilder : IUGUIBuilder<ZoneRowController>
     {
-
+        // ==============================================
+        // Builder parameters
+        // ==============================================
         private CheatSheetViewModel _viewModel;
-        private CheckboxBuilder _checkBoxBuilder;
-        private ArrowsBuilder _arrowsBuilder;
-
-        public ZoneRowBuilder(CheatSheetViewModel viewModel)
+        public ZoneRowBuilder ViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
-            this._checkBoxBuilder = new CheckboxBuilder();
-            this._arrowsBuilder = new ArrowsBuilder(viewModel);
+            return this;
         }
 
-        public ZoneRowController Create(UIConfigZone zone)
+        private UIConfigZone _zone;
+        public ZoneRowBuilder Zone(UIConfigZone zone)
         {
-            var rowGo = new GameObject("Zone." + zone.Zone.Name, typeof(RectTransform));
-            var controller = rowGo.AddComponent<ZoneRowController>();
-            controller.ViewModel(_viewModel);
-            controller.BindZone(zone);
+            this._zone = zone;
+            return this;
+        }
 
+        // ========================================
+        // Build
+        // ========================================
+
+        public ZoneRowController Build()
+        {
+            var rowGo = new GameObject("Zone." + _zone.Zone.Name, typeof(RectTransform));
+            
             // Background image: transparent normally, FieldBackground (#2a2a2a) on hover.
             // raycastTarget = true so pointer events fire on the row (including its empty area).
             var bgImage = rowGo.AddComponent<Image>();
@@ -61,69 +68,25 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
             layout.childForceExpandHeight = false;
 
             // Greedy checkbox: owns the label and the click-to-toggle over the whole row width.
-            var checkboxController = this._checkBoxBuilder
-                .Checked(zone.Visible)
-                .Label(zone.Label)
+            var checkboxController = new CheckboxBuilder()
+                .Checked(_zone.Visible)
+                .Label(_zone.Label)
                 .Greedy(true)
                 .Build();
             checkboxController.transform.SetParent(rowGo.transform, false);
-            controller.BindCheckboxController(checkboxController);
-
-            ArrowsBuilder.ArrowsController arrowsController = this._arrowsBuilder.Create(zone);
+            
+            ArrowsController arrowsController = new ArrowsBuilder()
+                .ViewModel(_viewModel)
+                .Zone(_zone)
+                .Build();
             arrowsController.transform.SetParent(rowGo.transform, false);
-            controller.BindArrowsController(arrowsController);
-
-            return controller;
-        }
-
-        public class ZoneRowController : BaseSteamInputController
-        {
-            private UIConfigZone _zone;
-            private ArrowsBuilder.ArrowsController _arrowsController;
-            private CheckboxController _checkboxController;
-
-            public void BindZone(UIConfigZone zone)
-            {
-                _zone = zone;
-            }
-
-            public void BindCheckboxController(CheckboxController checkboxController)
-            {
-                _checkboxController = checkboxController;
-            }
-
-            public void BindArrowsController(ArrowsBuilder.ArrowsController arrowsController)
-            {
-                _arrowsController = arrowsController;
-            }
-
-            public void Start()
-            {
-                if( this._checkboxController != null )
-                {
-                    this._checkboxController.OnToggled.Add(OnToggled);
-                }
-            }
-
-            public void OnDestroy()
-            {
-                if( this._checkboxController != null )
-                {
-                    this._checkboxController.OnToggled.Remove(OnToggled);
-                }
-            }
-
-            private void OnToggled(bool isChecked)
-            {
-                ViewModel.SetZoneVisibility(_zone, isChecked);
-            }
-
-            public void UpdateZone(UIConfigZone zone)
-            {
-                this._arrowsController?.UpdateZone(zone);
-                this._checkboxController?.SetChecked(zone.Visible);
-                this._checkboxController?.SetLabel(zone.Label);
-            }
+            
+            return rowGo
+                .AddComponent<ZoneRowController>()
+                .ViewModel(_viewModel)
+                .Zone(_zone)
+                .CheckboxController(checkboxController)
+                .ArrowsController(arrowsController);
         }
     }
 }

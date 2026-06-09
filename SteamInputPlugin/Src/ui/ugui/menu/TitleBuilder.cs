@@ -5,24 +5,20 @@ using com.github.lhervier.ksp.steaminput.ui.styles;
 using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
 using UnityEngine.Events;
 using System;
+using com.github.lhervier.ksp.shared.ugui;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
 {
-    public class TitleBuilder
+    public class TitleBuilder : IUGUIBuilder<TitleBuilder.TitleController>
     {
-        private CheatSheetViewModel _viewModel;
-        
-        public TitleBuilder(CheatSheetViewModel viewModel)
-        {
-            this._viewModel = viewModel;
-        }
+        // ======================================
+        // Build
+        // ======================================
 
-        public TitleController Create()
+        public TitleController Build()
         {
             var go = new GameObject("Title", typeof(RectTransform));
-            TitleController controller = go.AddComponent<TitleController>();
-            controller.ViewModel(_viewModel);
-
+            
             var text = go.AddComponent<Text>();
             text.text = ModLocalization.GetString("SteamInput_zonesMenuTitle").ToUpperInvariant();
             text.font = HighLogic.UISkin.font;
@@ -34,10 +30,10 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
             text.verticalOverflow = VerticalWrapMode.Overflow;
             text.raycastTarget = false;
 
-            return controller;
+            return go.AddComponent<TitleController>();
         }
 
-        public class TitleController : BaseSteamInputController
+        public class TitleController : MonoBehaviour
         {
         }
     }
