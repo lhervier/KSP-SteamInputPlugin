@@ -54,9 +54,10 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
 
             // Refresh button: triggers a rescan of the Steam config folder. Sized to match the
             // combo height so the ↻ glyph reads at a glance instead of getting lost in a tiny chip.
-            _buttonBuilder.SetObjectName("Refresh");
-            _buttonBuilder.SetLabel(RefreshGlyph);
-            ButtonController refresh = _buttonBuilder.Build();
+            ButtonController refresh = _buttonBuilder
+                .ObjectName("Refresh")
+                .Label(RefreshGlyph)
+                .Build();
             refresh.transform.SetParent(go.transform, false);
             controller.BindRefreshButton(refresh);
 

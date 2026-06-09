@@ -37,17 +37,19 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
             layout.childForceExpandWidth = false;
             layout.childForceExpandHeight = false;
 
-            _buttonBuilder.SetObjectName("Up");
-            _buttonBuilder.SetLabel("▲");
-            _buttonBuilder.SetInteractable(!zone.First);
-            ButtonController upButtonController = this._buttonBuilder.Build();
+            ButtonController upButtonController = _buttonBuilder
+                .ObjectName("Up")
+                .Label("▲")
+                .Interactable(!zone.First)
+                .Build();
             upButtonController.transform.SetParent(go.transform, false);
             controller.BindUpButton(upButtonController);
             
-            _buttonBuilder.SetObjectName("Down");
-            _buttonBuilder.SetLabel("▼");
-            _buttonBuilder.SetInteractable(!zone.Last);
-            ButtonController downButtonController = this._buttonBuilder.Build();
+            ButtonController downButtonController = _buttonBuilder
+                .ObjectName("Down")
+                .Label("▼")
+                .Interactable(!zone.Last)
+                .Build();
             downButtonController.transform.SetParent(go.transform, false);
             controller.BindDownButton(downButtonController);
 

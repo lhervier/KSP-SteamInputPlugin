@@ -42,12 +42,13 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
             var controllerGo = this._gamepadLabelBuilder.Create();
             controllerGo.transform.SetParent(rightRowGo.transform, false);
 
-            _buttonBuilder.SetObjectName("SteamInput.TitleBar.MenuButton");
-            _buttonBuilder.SetLabel("⋯");
-            _buttonBuilder.SetInteractable(true);
-            _buttonBuilder.SetBackgroundColor(PopupPalette.TitleBarButtonColor);
-            _buttonBuilder.SetHoverColor(PopupPalette.TitleBarButtonHoverColor);
-            var menuButtonController = this._buttonBuilder.Build();
+            var menuButtonController = _buttonBuilder
+                .ObjectName("SteamInput.TitleBar.MenuButton")
+                .Label("⋯")
+                .Interactable(true)
+                .BackgroundColor(PopupPalette.TitleBarButtonColor)
+                .HoverColor(PopupPalette.TitleBarButtonHoverColor)
+                .Build();
             menuButtonController.transform.SetParent(rightRowGo.transform, false);
             controller.BindMenuButtonController(menuButtonController);
 
