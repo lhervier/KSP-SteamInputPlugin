@@ -39,19 +39,8 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body
             controller.BindZoneListBuilder(_zoneListBuilder);
             controller.BindSettingsBuilder(_settingsBuilder);
 
-            // Escape KSP's VerticalLayoutGroup on popupWindow
-            var layoutElement = bodyGo.AddComponent<LayoutElement>();
-            layoutElement.ignoreLayout = true;
-
-            // Fills the popup interior minus chrome (1px on left/right/bottom) and the title bar at the top
-            var rect = bodyGo.GetComponent<RectTransform>();
-            rect.anchorMin = Vector2.zero;
-            rect.anchorMax = Vector2.one;
-            rect.offsetMin = new Vector2(PopupPalette.PopupBorderThickness, PopupPalette.PopupBorderThickness);
-            rect.offsetMax = new Vector2(
-                -PopupPalette.PopupBorderThickness,
-                -(PopupPalette.PopupBorderThickness + PopupPalette.TitleBarHeight)
-            );
+            // Placement (anchors, framing within the popup) is owned by PopupBuilder's content host:
+            // the body just fills the rect it is given.
 
             // ScrollRect drives the scrolling. It links viewport (clip) + content (scrolled) + scrollbar.
             var scrollRect = bodyGo.AddComponent<ScrollRect>();

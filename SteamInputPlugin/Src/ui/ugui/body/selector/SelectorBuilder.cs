@@ -7,6 +7,7 @@ using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
 using com.github.lhervier.ksp.shared.ugui.styles;
 using com.github.lhervier.ksp.shared.ugui.sprites;
 using com.github.lhervier.ksp.shared.ugui.button;
+using com.github.lhervier.ksp.shared.ugui.popup;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
 {
@@ -270,14 +271,11 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
 
             public void Start()
             {
-                // The popup window is the body's parent; the dropdown/overlay are moved here on open
-                // so they escape the body's scroll mask and draw on top (and die with the popup).
-                Transform t = transform;
-                while (t != null && t.name != BodyBuilder.BODY_NAME)
-                {
-                    t = t.parent;
-                }
-                _popupWindow = (t != null) ? t.parent : null;
+                // The dropdown/overlay are moved to the popup window on open, so they escape the body's
+                // scroll mask and draw on top of everything (and die with the popup). The window carries
+                // the PopupController, so we resolve it by component rather than by walking names.
+                var popupController = GetComponentInParent<PopupController>();
+                _popupWindow = (popupController != null) ? popupController.transform : null;
 
                 this.ViewModel.OnConfigsChanged.Add(OnConfigsChanged);
                 this.ViewModel.OnGamepadConfigNameChanged.Add(OnConfigNameChanged);
