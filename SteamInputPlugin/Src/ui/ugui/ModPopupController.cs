@@ -1,6 +1,7 @@
 using UnityEngine;
 using com.github.lhervier.ksp.steaminput.ui.ugui.menu;
 using com.github.lhervier.ksp.shared.ugui.popup;
+using com.github.lhervier.ksp.shared.ugui.overlay;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui
 {

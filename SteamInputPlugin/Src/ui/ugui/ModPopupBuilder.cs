@@ -4,6 +4,7 @@ using com.github.lhervier.ksp.steaminput.ui.ugui.menu;
 using com.github.lhervier.ksp.steaminput.ui.ugui.body;
 using com.github.lhervier.ksp.shared.ugui;
 using com.github.lhervier.ksp.shared.ugui.popup;
+using com.github.lhervier.ksp.shared.ugui.overlay;
 using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
 using com.github.lhervier.ksp.steaminput.ui.styles;
 
