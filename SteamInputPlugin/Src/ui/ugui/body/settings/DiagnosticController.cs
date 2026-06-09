@@ -31,17 +31,19 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
         }
 
         private Transform _contextsBox;
-        public void BindContextsBox(Transform contextsBox)
+        public DiagnosticController ContextsBox(Transform contextsBox)
         {
             this._contextsBox = contextsBox;
+            return this;
         }
 
-        public void BindBadge(Image image, Text text, Sprite okSprite, Sprite noSprite)
+        public DiagnosticController Badge(Image image, Text text, Sprite okSprite, Sprite noSprite)
         {
             this._badgeImage = image;
             this._badgeText = text;
             this._badgeOkSprite = okSprite;
             this._badgeNoSprite = noSprite;
+            return this;
         }
 
         public void Start()

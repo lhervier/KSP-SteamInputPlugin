@@ -211,7 +211,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
             badgeText.verticalOverflow = VerticalWrapMode.Overflow;
             badgeText.raycastTarget = false;
 
-            controller.BindBadge(badgeImage, badgeText, _badgeOkSprite, _badgeNoSprite);
+            controller.Badge(badgeImage, badgeText, _badgeOkSprite, _badgeNoSprite);
         }
 
         // ".kset-sub": small uppercase grey sub-header above the contexts box.
@@ -268,7 +268,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
             fitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
             fitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
 
-            controller.BindContextsBox(go.transform);
+            controller.ContextsBox(go.transform);
         }
     }
 }
