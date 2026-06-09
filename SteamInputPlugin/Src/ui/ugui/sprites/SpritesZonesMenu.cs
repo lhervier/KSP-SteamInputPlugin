@@ -22,7 +22,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.sprites
                 var size = 2 * thickness + 1;
                 var tex = TextureUtils.MakeBorderTexture(
                     SteamInputPalette.MenuBackgroundColor,
-                    PopupPalette.WindowBorderColor,
+                    PopupPalette.PopupBorderColor,
                     thickness
                 );
                 _chromeSprite = Sprite.Create(

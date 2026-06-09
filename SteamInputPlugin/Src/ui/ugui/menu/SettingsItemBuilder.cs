@@ -29,7 +29,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
 
             // Match the zone rows' height so the entry lines up with them.
             var layoutElement = go.AddComponent<LayoutElement>();
-            layoutElement.minHeight = DefaultPalette.ButtonSize;
+            layoutElement.minHeight = ButtonPalette.ButtonSize;
 
             // Background image: transparent normally, FieldBackground (#2a2a2a) on hover.
             // raycastTarget = true so pointer events fire on the whole row.
@@ -115,8 +115,8 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
             chevronGo.transform.SetParent(go.transform, false);
 
             var chevronLayout = chevronGo.AddComponent<LayoutElement>();
-            chevronLayout.preferredWidth = DefaultPalette.ButtonSize;
-            chevronLayout.minWidth = DefaultPalette.ButtonSize;
+            chevronLayout.preferredWidth = ButtonPalette.ButtonSize;
+            chevronLayout.minWidth = ButtonPalette.ButtonSize;
 
             var chevron = chevronGo.AddComponent<Text>();
             chevron.text = "›";
