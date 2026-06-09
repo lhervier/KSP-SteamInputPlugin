@@ -4,14 +4,14 @@ using com.github.lhervier.ksp.steaminput.ui.ugui.menu;
 using com.github.lhervier.ksp.steaminput.ui.ugui.body;
 using com.github.lhervier.ksp.shared.ugui;
 using com.github.lhervier.ksp.shared.ugui.popup;
-using static com.github.lhervier.ksp.steaminput.ui.ugui.ModPopupDialogBuilder;
+using static com.github.lhervier.ksp.steaminput.ui.ugui.ModPopupBuilder;
 using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
 using com.github.lhervier.ksp.shared.ugui.styles;
 using com.github.lhervier.ksp.steaminput.ui.styles;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui
 {
-    public class ModPopupDialogBuilder : IUGUIBuilder<ModPopupDialogController>
+    public class ModPopupBuilder : IUGUIBuilder<ModPopupDialogController>
     {
         private const string DIALOG_ID = "SteamInputCheatSheetUGUI";
         
@@ -25,7 +25,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
         private BodyBuilder _bodyBuilder;
         private PopupBuilder<TitleBarController, BodyController> _popupBuilder;
 
-        public ModPopupDialogBuilder(CheatSheetViewModel viewModel)
+        public ModPopupBuilder(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             
@@ -42,14 +42,14 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
         // Build parameters
         // =============================================
 
-        public ModPopupDialogBuilder Position(Vector2 position)
+        public ModPopupBuilder Position(Vector2 position)
         {
             this._position = position;
             this._hasPosition = true;
             return this;
         }
 
-        public ModPopupDialogBuilder DeletePosition()
+        public ModPopupBuilder DeletePosition()
         {
             this._hasPosition = false;
             return this;

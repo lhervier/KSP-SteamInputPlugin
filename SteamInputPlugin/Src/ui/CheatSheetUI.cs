@@ -12,8 +12,8 @@ namespace com.github.lhervier.ksp.steaminput.ui
         private CheatSheetViewModel viewModel;
 
         // The popup is spawned on demand: the controller only exists while the window is open.
-        private ModPopupDialogBuilder popupDialogBuilder;
-        private ModPopupDialogBuilder.ModPopupDialogController popupDialogController = null;
+        private ModPopupBuilder popupDialogBuilder;
+        private ModPopupBuilder.ModPopupDialogController popupDialogController = null;
 
         // ===============================================================
         // Life cycle
@@ -35,7 +35,7 @@ namespace com.github.lhervier.ksp.steaminput.ui
         {
             LOGGER.LogInfo("Start");
             GameEvents.onGUIApplicationLauncherReady.Add(OnGUIAppLauncherReady);
-            popupDialogBuilder = new ModPopupDialogBuilder(viewModel);
+            popupDialogBuilder = new ModPopupBuilder(viewModel);
             if( SteamInputSettings.TryGetWindowPosition(out Vector2 saved) )
             {
                 popupDialogBuilder = popupDialogBuilder.Position(saved);
