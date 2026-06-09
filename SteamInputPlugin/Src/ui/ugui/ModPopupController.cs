@@ -1,25 +1,11 @@
 using UnityEngine;
-using com.github.lhervier.ksp.steaminput.ui.ugui.titleBar;
 using com.github.lhervier.ksp.steaminput.ui.ugui.menu;
-using com.github.lhervier.ksp.steaminput.ui.ugui.body;
-using com.github.lhervier.ksp.shared.ugui;
 using com.github.lhervier.ksp.shared.ugui.popup;
-using static com.github.lhervier.ksp.steaminput.ui.ugui.ModPopupBuilder;
-using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
-using com.github.lhervier.ksp.shared.ugui.styles;
-using com.github.lhervier.ksp.steaminput.ui.styles;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui
 {
     public class ModPopupDialogController : BaseSteamInputController
     {
-        private OverlayBuilder _overlayBuilder;
-        private MenuBuilder _menuBuilder;
-
-        private OverlayBuilder.OverlayController _overlayController = null;
-        private MenuBuilder.MenuController _menuController = null;
-        private PopupController _popupController = null;
-        
         public EventVoid OnClosed => _popupController.OnClosed;
         public EventData<Vector2> OnPositionCaptured => _popupController.OnPositionCaptured;
         
@@ -29,24 +15,24 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
 
         // Dependencies injected by the builder right after AddComponent, before Start() runs.
 
-        /// <summary>Inject the popup controller.</summary>
+        private PopupController _popupController = null;
         public ModPopupDialogController PopupController(PopupController controller)
         {
             this._popupController = controller;
             return this;
         }
 
-        /// <summary>Inject the overlay builder.</summary>
-        public ModPopupDialogController OverlayBuilder(OverlayBuilder builder)
+        private OverlayController _overlayController = null;
+        public ModPopupDialogController OverlayController(OverlayController overlayController)
         {
-            this._overlayBuilder = builder;
+            this._overlayController = overlayController;
             return this;
         }
 
-        /// <summary>Inject the menu builder.</summary>
-        public ModPopupDialogController MenuBuilder(MenuBuilder builder)
+        private MenuBuilder.MenuController _menuController = null;
+        public ModPopupDialogController MenuController(MenuBuilder.MenuController menuController)
         {
-            this._menuBuilder = builder;
+            this._menuController = menuController;
             return this;
         }
 
@@ -55,9 +41,13 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
         /// </summary>
         public void Start()
         {
-            ViewModel?.OnShowMenu.Add(OnShowMenu);
+            if( _overlayController != null )
+            {
+                _overlayController.OnClose.Add(ViewModel.CloseMenu);
+            }
             if( ViewModel != null )
             {
+                ViewModel.OnShowMenu.Add(OnShowMenu);
                 OnShowMenu(ViewModel.MenuDisplayed);
             }
         }
@@ -67,24 +57,23 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
         /// </summary>
         public void OnDestroy()
         {
-            ViewModel?.OnShowMenu.Remove(OnShowMenu);
+            if( ViewModel != null )
+            {
+                ViewModel.OnShowMenu.Remove(OnShowMenu);
+            }
+            if( _overlayController != null )
+            {
+                _overlayController.OnClose.Remove(ViewModel.CloseMenu);
+            }
         }
+
+        // =====================================
+        // Methods bound to events
+        // =====================================
 
         /// <summary>Show or hide the menu and its overlay.</summary>
         private void OnShowMenu(bool show)
         {
-            if( _overlayController == null )
-            {
-                _overlayController = _overlayBuilder.Build(() => ViewModel.CloseMenu());
-                _overlayController.transform.SetParent(gameObject.transform, false);
-            }
-
-            if( _menuController == null )
-            {
-                _menuController = _menuBuilder.Create();
-                _menuController.transform.SetParent(gameObject.transform, false);
-            }
-
             _overlayController.gameObject.SetActive(show);
             _menuController.gameObject.SetActive(show);
         }

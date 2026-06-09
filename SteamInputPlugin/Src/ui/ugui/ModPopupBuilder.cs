@@ -4,9 +4,7 @@ using com.github.lhervier.ksp.steaminput.ui.ugui.menu;
 using com.github.lhervier.ksp.steaminput.ui.ugui.body;
 using com.github.lhervier.ksp.shared.ugui;
 using com.github.lhervier.ksp.shared.ugui.popup;
-using static com.github.lhervier.ksp.steaminput.ui.ugui.ModPopupBuilder;
 using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
-using com.github.lhervier.ksp.shared.ugui.styles;
 using com.github.lhervier.ksp.steaminput.ui.styles;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui
@@ -45,7 +43,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
         /// </summary>
         public ModPopupDialogController Build()
         {
-            var popupBuilder = new PopupBuilder<TitleBarController, BodyController>()
+            var popupController = new PopupBuilder<TitleBarController, BodyController>()
                 .PopupID(DIALOG_ID)
                 .Title(ModLocalization.GetString("SteamInput_titleHelp"))
                 .Icon(SpritesTitleBar.GamepadIconSprite)
@@ -56,22 +54,25 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
                     new BodyBuilder().ViewModel(_viewModel)
                 )
                 .Size(new Vector2(SteamInputPalette.WindowWidth, SteamInputPalette.WindowHeight))
-                .Position(this._position);
-
-            PopupController popupController = popupBuilder.Build();
+                .Position(this._position)
+                .Build();
             if( popupController == null ) return null;
 
+            OverlayController overlayController = new OverlayBuilder().Build();
+            overlayController.transform.SetParent(popupController.GetGameObject().transform, false);
+            overlayController.gameObject.SetActive(false);
+
+            MenuBuilder.MenuController menuController = new MenuBuilder(_viewModel).Create();
+            menuController.transform.SetParent(popupController.GetGameObject().transform, false);
+            menuController.gameObject.SetActive(false);
+            
             return popupController
                 .GetGameObject()
                 .AddComponent<ModPopupDialogController>()
                 .ViewModel(_viewModel)
                 .PopupController(popupController)
-                .OverlayBuilder(
-                    new OverlayBuilder()
-                )
-                .MenuBuilder(
-                    new MenuBuilder(_viewModel)
-                )
+                .OverlayController(overlayController)
+                .MenuController(menuController)
                 .Build();
         }
     }

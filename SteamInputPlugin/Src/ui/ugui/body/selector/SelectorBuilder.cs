@@ -65,7 +65,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
                 .Label(RefreshGlyph)
                 .Build();
             refresh.transform.SetParent(go.transform, false);
-            controller.BindRefreshButton(refresh);
+            controller.RefreshButton(refresh);
 
             var refreshLayout = refresh.GetComponent<LayoutElement>();
             refreshLayout.minWidth = SteamInputPalette.ComboHeight;
@@ -133,7 +133,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
             label.horizontalOverflow = HorizontalWrapMode.Overflow; // clipped by the RectMask2D above
             label.verticalOverflow = VerticalWrapMode.Overflow;
             label.raycastTarget = false;
-            controller.BindLabel(label);
+            controller.Label(label);
 
             // Caret
             var caretGo = new GameObject("Caret", typeof(RectTransform));
@@ -150,16 +150,15 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
 
             // The overlay and dropdown are built detached; they are moved next to the popup root and
             // positioned under the combo when opened (see SelectorController.OpenDropdown).
-            GameObject overlay = new OverlayBuilder()
-                .Build(() => controller.CloseDropdown()).gameObject;
-            overlay.SetActive(false);
-            controller.BindOverlay(overlay);
+            OverlayController overlayController = new OverlayBuilder().Build();
+            overlayController.gameObject.SetActive(false);
+            controller.OverlayController(overlayController);
 
             GameObject dropdown = BuildDropdown(out RectTransform content);
-            controller.BindContent(content);
-            controller.BindDropdown(dropdown);
+            controller.Content(content);
+            controller.Dropdown(dropdown);
 
-            controller.BindComboRect(comboGo.GetComponent<RectTransform>());
+            controller.ComboRect(comboGo.GetComponent<RectTransform>());
         }
 
         // Scrollable dropdown panel. Built detached and hidden; positioned/parented on open.
@@ -233,46 +232,56 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
 
         public class SelectorController : BaseSteamInputController
         {
-            private Text _label;
-            private RectTransform _comboRect;
-            private GameObject _dropdown;
-            private RectTransform _dropdownRect;
-            private RectTransform _content;
-            private GameObject _overlay;
-            private ButtonController _buttonController;
             private Transform _popupWindow;
             private readonly List<GameObject> _items = new List<GameObject>();
             private List<UIGamepadConfig> _configs = new List<UIGamepadConfig>();
 
-            public void BindLabel(Text label)
+            // ===================================
+            // Life Cycle
+            // ===================================
+            
+            private Text _label;
+            public SelectorController Label(Text label)
             {
                 this._label = label;
+                return this;
             }
 
-            public void BindComboRect(RectTransform comboRect)
+            private RectTransform _comboRect;
+            public SelectorController ComboRect(RectTransform comboRect)
             {
                 this._comboRect = comboRect;
+                return this;
             }
 
-            public void BindDropdown(GameObject dropdown)
+            private GameObject _dropdown;
+            private RectTransform _dropdownRect;
+            public SelectorController Dropdown(GameObject dropdown)
             {
                 this._dropdown = dropdown;
                 this._dropdownRect = dropdown.GetComponent<RectTransform>();
+                return this;
             }
 
-            public void BindContent(RectTransform content)
+            private RectTransform _content;
+            public SelectorController Content(RectTransform content)
             {
                 this._content = content;
+                return this;
             }
 
-            public void BindOverlay(GameObject overlay)
+            private OverlayController _overlayController;
+            public SelectorController OverlayController(OverlayController overlayController)
             {
-                this._overlay = overlay;
+                this._overlayController = overlayController;
+                return this;
             }
 
-            public void BindRefreshButton(ButtonController buttonController)
+            private ButtonController _buttonController;
+            public SelectorController RefreshButton(ButtonController buttonController)
             {
                 this._buttonController = buttonController;
+                return this;
             }
 
             public void Start()
@@ -291,10 +300,19 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
                 {
                     this._buttonController.OnClick.Add(ViewModel.RefreshConfigs);
                 }
+
+                if( this._overlayController != null )
+                {
+                    this._overlayController.OnClose.Add(CloseDropdown);
+                }
             }
 
             public void OnDestroy()
             {
+                if( this._overlayController != null )
+                {
+                    this._overlayController.OnClose.Remove(CloseDropdown);
+                }
                 if( this._buttonController != null )
                 {
                     this._buttonController.OnClick.Remove(ViewModel.RefreshConfigs);
@@ -324,13 +342,13 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
                 // Move under the popup root (out of the body's scroll mask), overlay below the dropdown.
                 if (_popupWindow != null)
                 {
-                    _overlay.transform.SetParent(_popupWindow, false);
+                    _overlayController.gameObject.transform.SetParent(_popupWindow, false);
                     _dropdown.transform.SetParent(_popupWindow, false);
-                    _overlay.transform.SetAsLastSibling();
+                    _overlayController.gameObject.transform.SetAsLastSibling();
                     _dropdown.transform.SetAsLastSibling();
                 }
 
-                _overlay.SetActive(true);
+                _overlayController.gameObject.SetActive(true);
                 _dropdown.SetActive(true);
 
                 // Size to the content, capped so a long list scrolls instead of overflowing.
@@ -350,7 +368,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
             public void CloseDropdown()
             {
                 if (_dropdown != null) _dropdown.SetActive(false);
-                if (_overlay != null) _overlay.SetActive(false);
+                if (_overlayController?.gameObject != null) _overlayController.gameObject.SetActive(false);
             }
 
             private void OnConfigsChanged(List<UIGamepadConfig> configs)
