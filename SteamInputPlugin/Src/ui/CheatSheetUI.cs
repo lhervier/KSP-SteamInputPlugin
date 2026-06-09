@@ -16,10 +16,13 @@ namespace com.github.lhervier.ksp.steaminput.ui
         private ModPopupDialogBuilder.ModPopupDialogController popupDialogController = null;
 
         // ===============================================================
-
-        public void Initialize(CheatSheetViewModel viewModel)
+        // Life cycle
+        // ===============================================================
+        
+        public CheatSheetUI ViewModel(CheatSheetViewModel viewModel)
         {
             this.viewModel = viewModel;
+            return this;
         }
 
         public void Awake()
@@ -48,6 +51,8 @@ namespace com.github.lhervier.ksp.steaminput.ui
             LOGGER.LogInfo("OnDestroy: Destroyed");
         }
 
+        // ===============================================================
+        // Methods bounds to events
         // ===============================================================
 
         private void OnGUIAppLauncherReady()
@@ -109,6 +114,8 @@ namespace com.github.lhervier.ksp.steaminput.ui
             SteamInputSettings.SetWindowPosition(position);
         }
 
+        // ===============================================================
+        // Internal helpers
         // ===============================================================
 
         private void ShowInternal()

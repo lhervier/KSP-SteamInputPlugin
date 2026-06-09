@@ -52,7 +52,7 @@ namespace com.github.lhervier.ksp.steaminput
         //  The GUI
         // </summary>
         private CheatSheetViewModel viewModel;
-        private CheatSheetUI loggingUI;
+        private CheatSheetUI cheatSheetUI;
 
         // <summary>
         //  Coroutine to initialize the plugin
@@ -138,8 +138,9 @@ namespace com.github.lhervier.ksp.steaminput
 
             // Start the GUI
             LOGGER.LogInfo("Starting Logging UI");
-            this.loggingUI = gameObject.AddComponent<CheatSheetUI>();
-            this.loggingUI.Initialize(this.viewModel);
+            this.cheatSheetUI = gameObject
+                .AddComponent<CheatSheetUI>()
+                .ViewModel(this.viewModel);
             LOGGER.LogInfo("Logging UI started");
 
             // Log the detected steam environment
@@ -195,9 +196,9 @@ namespace com.github.lhervier.ksp.steaminput
                 this.initializePluginCoroutine = null;
             }
             
-            if( this.loggingUI != null ) {
-                Destroy(this.loggingUI);
-                this.loggingUI = null;
+            if( this.cheatSheetUI != null ) {
+                Destroy(this.cheatSheetUI);
+                this.cheatSheetUI = null;
             }
 
             if( this.viewModel != null ) {
