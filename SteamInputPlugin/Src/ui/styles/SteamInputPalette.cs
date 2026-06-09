@@ -4,6 +4,9 @@ namespace com.github.lhervier.ksp.steaminput.ui.styles
 {
     public static class SteamInputPalette
     {
+        public const float WindowWidth = 350f;
+        public const float WindowHeight = 400f;
+        
         // ================================================================
         // Physical zones on the controller
         // ================================================================

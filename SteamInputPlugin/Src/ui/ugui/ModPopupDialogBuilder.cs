@@ -6,6 +6,8 @@ using com.github.lhervier.ksp.shared.ugui;
 using com.github.lhervier.ksp.shared.ugui.popup;
 using static com.github.lhervier.ksp.steaminput.ui.ugui.ModPopupDialogBuilder;
 using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
+using com.github.lhervier.ksp.shared.ugui.styles;
+using com.github.lhervier.ksp.steaminput.ui.styles;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui
 {
@@ -68,7 +70,8 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
                 .Title(ModLocalization.GetString("SteamInput_titleHelp"))
                 .Icon(SpritesTitleBar.GamepadIconSprite)
                 .TitleBarBuilder(_titleBarBuilder)
-                .ContentBuilder(_bodyBuilder);
+                .ContentBuilder(_bodyBuilder)
+                .Size(new Vector2(SteamInputPalette.WindowWidth, SteamInputPalette.WindowHeight));
             if( _hasPosition )
             {
                 builder = builder.Position(this._position);
