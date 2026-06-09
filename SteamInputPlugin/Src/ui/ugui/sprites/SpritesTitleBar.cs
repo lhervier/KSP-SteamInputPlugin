@@ -1,5 +1,6 @@
 using UnityEngine;
 using com.github.lhervier.ksp.steaminput.ui.styles;
+using com.github.lhervier.ksp.shared.ugui;
 using com.github.lhervier.ksp.shared.ugui.styles;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.sprites
@@ -19,7 +20,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.sprites
 
                 var thickness = (int) PopupPalette.TitleBarActionGroupBorderThickness;
                 var size = 2 * thickness + 1;
-                var tex = SteamInputTextures.MakeBorderTexture(
+                var tex = TextureUtils.MakeBorderTexture(
                     Color.clear,
                     SteamInputPalette.TitleBarActionGroupBorderColor,
                     thickness

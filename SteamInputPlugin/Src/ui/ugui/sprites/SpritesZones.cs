@@ -1,7 +1,7 @@
 using UnityEngine;
 using com.github.lhervier.ksp.steaminput.ui.styles;
+using com.github.lhervier.ksp.shared.ugui;
 using com.github.lhervier.ksp.shared.ugui.sprites;
-using com.github.lhervier.ksp.shared.ugui.styles;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.sprites
 {
@@ -23,7 +23,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.sprites
                 }
 
                 var height = 2 * SteamInputPalette.ZoneHeaderBorderThickness + 1;
-                var tex = SteamInputTextures.MakeHorizontalBordersTexture(
+                var tex = TextureUtils.MakeHorizontalBordersTexture(
                     SteamInputPalette.ZoneHeaderColor,
                     SteamInputPalette.ZoneSeparatorColor,
                     SteamInputPalette.ZoneHeaderBorderThickness
