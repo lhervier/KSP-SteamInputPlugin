@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using com.github.lhervier.ksp.steaminput.ui.styles;
 using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
 using com.github.lhervier.ksp.steaminput.ui.model;
+using com.github.lhervier.ksp.shared.ugui;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
 {
@@ -11,20 +12,33 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
     ///   [ .kkbd icon ] [ .kpress short/long ]   —   action label  (note)
     /// The data is already display-ready in the <see cref="UIActivator"/>.
     /// </summary>
-    public class ActivatorBuilder
+    public class ActivatorBuilder : IUGUIBuilder<ActivatorBuilder.ActivatorController>
     {
-        private CheatSheetViewModel _viewModel;
+        // ================================================
+        // Builder parameters
+        // ================================================
 
-        public ActivatorBuilder(CheatSheetViewModel viewModel)
+        private CheatSheetViewModel _viewModel;
+        public ActivatorBuilder ViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
+            return this;
         }
 
-        public ActivatorController Create(UIActivator activator)
+        private UIActivator _activator;
+        public ActivatorBuilder Activator(UIActivator activator)
+        {
+            this._activator = activator;
+            return this;
+        }
+
+        // =========================================
+        // Build
+        // =========================================
+
+        public ActivatorController Build()
         {
             var go = new GameObject("Activator", typeof(RectTransform));
-            ActivatorController controller = go.AddComponent<ActivatorController>();
-            controller.ViewModel(_viewModel);
 
             var layout = go.AddComponent<HorizontalLayoutGroup>();
             layout.padding = new RectOffset(
@@ -38,11 +52,11 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             layout.childForceExpandWidth = false;
             layout.childForceExpandHeight = false;
 
-            BuildInputColumn(go.transform, activator);
+            BuildInputColumn(go.transform, _activator);
             BuildSeparator(go.transform);
-            BuildAction(go.transform, activator);
+            BuildAction(go.transform, _activator);
 
-            return controller;
+            return go.AddComponent<ActivatorController>();
         }
 
         // .kkey : fixed-width left column holding the key chip and the optional press chip.
@@ -170,7 +184,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             return text + " <color=#" + noteHex + ">" + activator.Note + "</color>";
         }
 
-        public class ActivatorController : BaseSteamInputController
+        public class ActivatorController : MonoBehaviour
         {
         }
     }

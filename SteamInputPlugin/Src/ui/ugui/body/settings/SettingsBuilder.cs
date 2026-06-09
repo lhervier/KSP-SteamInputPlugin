@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using com.github.lhervier.ksp.steaminput.ui.styles;
 using com.github.lhervier.ksp.shared.ugui.sprites;
 using com.github.lhervier.ksp.shared.ugui.button;
+using com.github.lhervier.ksp.shared.ugui;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
 {
@@ -11,31 +12,30 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
     /// Mirrors the mockup's #view-settings: a head with a back button, a "Logging" section (the
     /// log level rotating button + a hint), and a "Diagnostic" section. Stacked top to bottom.
     /// </summary>
-    public class SettingsBuilder
+    public class SettingsBuilder : IUGUIBuilder<SettingsBuilder.SettingsController>
     {
         private const string BackGlyph = "‹"; // ‹ (U+2039)
-
-        private CheatSheetViewModel _viewModel;
-        private ButtonBuilder _buttonBuilder;
-        private LogLevelButtonBuilder _logLevelButtonBuilder;
-        private DiagnosticBuilder _diagnosticBuilder;
-
         private static Sprite _hintSprite;
 
-        public SettingsBuilder(CheatSheetViewModel viewModel)
+        // ======================================
+        // Builder parameters
+        // ======================================
+
+        private CheatSheetViewModel _viewModel;
+        public SettingsBuilder ViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
-            this._buttonBuilder = new ButtonBuilder();
-            this._logLevelButtonBuilder = new LogLevelButtonBuilder(viewModel);
-            this._diagnosticBuilder = new DiagnosticBuilder(viewModel);
+            return this;
         }
 
-        public SettingsController Create()
+        // ================================
+        // Build
+        // ================================
+
+        public SettingsController Build()
         {
             var go = new GameObject("SteamInput.Body.Settings", typeof(RectTransform));
-            var controller = go.AddComponent<SettingsController>();
-            controller.ViewModel(_viewModel);
-
+            
             // Stacks the head and the sections back-to-back; each section sizes to its content.
             var layout = go.AddComponent<VerticalLayoutGroup>();
             layout.padding = new RectOffset(0, 0, 0, 0);
@@ -46,20 +46,26 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
             layout.childForceExpandWidth = true;
             layout.childForceExpandHeight = false;
 
-            BuildHead(controller, go.transform);
+            BuildHead(go.transform, out ButtonController backButtonController);
+            
             BuildSeparator(go.transform);
-
+            
             BuildLoggingSection(go.transform);
             BuildSeparator(go.transform);
 
-            DiagnosticBuilder.DiagnosticController diagnostic = _diagnosticBuilder.Create();
+            DiagnosticBuilder.DiagnosticController diagnostic = new DiagnosticBuilder()
+                .ViewModel(_viewModel)
+                .Build();
             diagnostic.transform.SetParent(go.transform, false);
 
-            return controller;
+            return go
+                .AddComponent<SettingsController>()
+                .ViewModel(_viewModel)
+                .BackButtonController(backButtonController);
         }
 
         // Head: back button (returns to the cheat sheet) + the "Settings" title. Mockup .kset-head.
-        private void BuildHead(SettingsController controller, Transform parent)
+        private void BuildHead(Transform parent, out ButtonController buttonController)
         {
             var go = new GameObject("Head", typeof(RectTransform));
             go.transform.SetParent(parent, false);
@@ -83,12 +89,11 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
             layout.childForceExpandWidth = false;
             layout.childForceExpandHeight = false;
 
-            ButtonController back = _buttonBuilder
+            buttonController = new ButtonBuilder()
                 .ObjectName("Back")
                 .Label(BackGlyph)
                 .Build();
-            back.transform.SetParent(go.transform, false);
-            controller.BindBackButtonController(back);
+            buttonController.transform.SetParent(go.transform, false);
 
             var titleGo = new GameObject("Title", typeof(RectTransform));
             titleGo.transform.SetParent(go.transform, false);
@@ -114,7 +119,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
 
             BuildSectionLabel(section, ModLocalization.GetString("SteamInput_settings_logging"));
 
-            LogLevelButtonBuilder.LogLevelButtonController logLevel = _logLevelButtonBuilder.Create();
+            LogLevelButtonBuilder.LogLevelButtonController logLevel = new LogLevelButtonBuilder().ViewModel(_viewModel).Build();
             logLevel.transform.SetParent(section, false);
 
             BuildHint(section, ModLocalization.GetString("SteamInput_settings_loggingHint"));
@@ -226,20 +231,31 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
             image.raycastTarget = false;
         }
 
-        public class SettingsController : BaseSteamInputController
+        public class SettingsController : MonoBehaviour
         {
-            private ButtonController _backButtonController;
+            // ===================================
+            // Life cycle
+            // ===================================
 
-            public void BindBackButtonController(ButtonController backButtonController)
+            private CheatSheetViewModel _viewModel;
+            public SettingsController ViewModel(CheatSheetViewModel viewModel)
+            {
+                this._viewModel = viewModel;
+                return this;
+            }
+
+            private ButtonController _backButtonController;
+            public SettingsController BackButtonController(ButtonController backButtonController)
             {
                 this._backButtonController = backButtonController;
+                return this;
             }
 
             public void Start()
             {
                 if( this._backButtonController != null )
                 {
-                    this._backButtonController.OnClick.Add(ViewModel.CloseSettings);
+                    this._backButtonController.OnClick.Add(_viewModel.CloseSettings);
                 }
             }
 
@@ -247,7 +263,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
             {
                 if( this._backButtonController != null )
                 {
-                    this._backButtonController.OnClick.Remove(ViewModel.CloseSettings);
+                    this._backButtonController.OnClick.Remove(_viewModel.CloseSettings);
                 }
             }
         }

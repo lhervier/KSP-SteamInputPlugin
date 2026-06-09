@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using com.github.lhervier.ksp.steaminput.ui.styles;
 using com.github.lhervier.ksp.shared.ugui.styles;
 using com.github.lhervier.ksp.shared.ugui.sprites;
+using com.github.lhervier.ksp.shared.ugui;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
 {
@@ -12,7 +13,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
     /// mod maintainers: an amber note, the controller-connected badge, and the list of activated
     /// contexts. Mirrors what the legacy IMGUI window showed (controller connected + contexts).
     /// </summary>
-    public class DiagnosticBuilder
+    public class DiagnosticBuilder : IUGUIBuilder<DiagnosticBuilder.DiagnosticController>
     {
         private const string CtxDaemonSuffix = "CtxDaemon";
 
@@ -21,18 +22,27 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
         private static Sprite _badgeOkSprite;
         private static Sprite _badgeNoSprite;
 
-        private CheatSheetViewModel _viewModel;
+        // ====================================
+        // Builder parameters
+        // ====================================
 
-        public DiagnosticBuilder(CheatSheetViewModel viewModel)
+        private CheatSheetViewModel _viewModel;
+        public DiagnosticBuilder ViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
+            return this;
         }
 
-        public DiagnosticController Create()
+        // =========================
+        // Build
+        // =========================
+
+        public DiagnosticController Build()
         {
             var go = new GameObject("Diagnostic", typeof(RectTransform));
-            DiagnosticController controller = go.AddComponent<DiagnosticController>();
-            controller.ViewModel(_viewModel);
+            DiagnosticController controller = go
+                .AddComponent<DiagnosticController>()
+                .ViewModel(_viewModel);
 
             var layout = go.AddComponent<VerticalLayoutGroup>();
             layout.padding = new RectOffset(
@@ -263,15 +273,31 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
             controller.BindContextsBox(go.transform);
         }
 
-        public class DiagnosticController : BaseSteamInputController
+        public class DiagnosticController : MonoBehaviour
         {
             private Image _badgeImage;
             private Text _badgeText;
             private Sprite _badgeOkSprite;
             private Sprite _badgeNoSprite;
 
-            private Transform _contextsBox;
             private readonly List<GameObject> _contextRows = new List<GameObject>();
+
+            // ===================================
+            // Life cycle
+            // ===================================
+
+            private CheatSheetViewModel _viewModel;
+            public DiagnosticController ViewModel(CheatSheetViewModel viewModel)
+            {
+                this._viewModel = viewModel;
+                return this;
+            }
+
+            private Transform _contextsBox;
+            public void BindContextsBox(Transform contextsBox)
+            {
+                this._contextsBox = contextsBox;
+            }
 
             public void BindBadge(Image image, Text text, Sprite okSprite, Sprite noSprite)
             {
@@ -281,32 +307,31 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
                 this._badgeNoSprite = noSprite;
             }
 
-            public void BindContextsBox(Transform contextsBox)
-            {
-                this._contextsBox = contextsBox;
-            }
-
             public void Start()
             {
-                if (ViewModel == null)
+                if (_viewModel == null)
                 {
                     return;
                 }
-                ViewModel.OnGamepadConnected.Add(OnGamepadConnected);
-                ViewModel.OnActivatedContextsChanged.Add(OnActivatedContextsChanged);
-                OnGamepadConnected(ViewModel.GamepadConnected);
-                OnActivatedContextsChanged(ViewModel.ActivatedContexts);
+                _viewModel.OnGamepadConnected.Add(OnGamepadConnected);
+                _viewModel.OnActivatedContextsChanged.Add(OnActivatedContextsChanged);
+                OnGamepadConnected(_viewModel.GamepadConnected);
+                OnActivatedContextsChanged(_viewModel.ActivatedContexts);
             }
 
             public void OnDestroy()
             {
-                if (ViewModel == null)
+                if (_viewModel == null)
                 {
                     return;
                 }
-                ViewModel.OnGamepadConnected.Remove(OnGamepadConnected);
-                ViewModel.OnActivatedContextsChanged.Remove(OnActivatedContextsChanged);
+                _viewModel.OnGamepadConnected.Remove(OnGamepadConnected);
+                _viewModel.OnActivatedContextsChanged.Remove(OnActivatedContextsChanged);
             }
+
+            // =============================================
+            // Methods bound to events
+            // =============================================
 
             private void OnGamepadConnected(bool connected)
             {
@@ -344,6 +369,10 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
                     _contextRows.Add(BuildContextRow(StripDaemonSuffix(context)));
                 }
             }
+
+            // ============================================
+            // Helpers
+            // ============================================
 
             private GameObject BuildContextRow(string text)
             {

@@ -10,12 +10,21 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
 {
     public class GamepadLabelBuilder : IUGUIBuilder<GamepadLabelController>
     {
+        // ========================================
+        // Builder parameters
+        // ========================================
+
         private CheatSheetViewModel _viewModel;
         
-        public GamepadLabelBuilder(CheatSheetViewModel viewModel)
+        public GamepadLabelBuilder ViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
+            return this;
         }
+
+        // ===================================
+        // Build
+        // ===================================
 
         public GamepadLabelController Build()
         {

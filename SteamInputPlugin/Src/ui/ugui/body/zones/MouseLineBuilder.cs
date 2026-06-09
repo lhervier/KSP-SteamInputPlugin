@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using com.github.lhervier.ksp.steaminput;
 using com.github.lhervier.ksp.steaminput.ui.styles;
+using com.github.lhervier.ksp.shared.ugui;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
 {
@@ -9,20 +10,15 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
     /// Builds the "Mouse — Free movement" banner (mockup .kmouse-line), shown at the start
     /// of a section whose group uses a mouse mode (joystick_mouse / absolute_mouse).
     /// </summary>
-    public class MouseLineBuilder
+    public class MouseLineBuilder : IUGUIBuilder<MouseLineBuilder.MouseLineController>
     {
-        private CheatSheetViewModel _viewModel;
+        // ===================================
+        // Build
+        // ===================================
 
-        public MouseLineBuilder(CheatSheetViewModel viewModel)
-        {
-            this._viewModel = viewModel;
-        }
-
-        public MouseLineController Create()
+        public MouseLineController Build()
         {
             var go = new GameObject("MouseLine", typeof(RectTransform));
-            MouseLineController controller = go.AddComponent<MouseLineController>();
-            controller.ViewModel(_viewModel);
 
             // Horizontal inset is provided by the section container; only the vertical
             // breathing room (.kmouse-line padding-y) is carried here.
@@ -51,10 +47,10 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             label.verticalOverflow = VerticalWrapMode.Overflow;
             label.raycastTarget = false;
 
-            return controller;
+            return go.AddComponent<MouseLineController>();
         }
 
-        public class MouseLineController : BaseSteamInputController
+        public class MouseLineController : MonoBehaviour
         {
         }
     }

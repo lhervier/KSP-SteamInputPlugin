@@ -2,23 +2,25 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using com.github.lhervier.ksp.shared.ugui.sprites;
+using com.github.lhervier.ksp.shared.ugui;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui
 {
     public class OverlayBuilder
     {
-        private CheatSheetViewModel _viewModel;
-        
-        public OverlayBuilder(CheatSheetViewModel viewModel)
-        {
-            this._viewModel = viewModel;
-        }
+        // ================================
+        // Builder Parameters
+        // ================================
 
-        public OverlayController Create(Action onClose)
+        
+        // =========================================
+        // Build
+        // =========================================
+
+        public OverlayController Build(Action onClose)
         {
             var overlayGo = new GameObject("SteamInput.Overlay", typeof(RectTransform));
             OverlayController controller = overlayGo.AddComponent<OverlayController>();
-            controller.ViewModel(_viewModel);
 
             // popupWindow has a VerticalLayoutGroup that would otherwise place us in its flow.
             // Tell it to ignore us so our anchors take effect.
@@ -57,7 +59,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
             return controller;
         }
 
-        public class OverlayController : BaseSteamInputController
+        public class OverlayController : MonoBehaviour
         {
         }
     }

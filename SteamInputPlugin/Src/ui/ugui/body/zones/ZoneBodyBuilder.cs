@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using com.github.lhervier.ksp.steaminput.ui.styles;
 using com.github.lhervier.ksp.steaminput.ui.model;
 using com.github.lhervier.ksp.shared.ugui.styles;
+using com.github.lhervier.ksp.shared.ugui;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
 {
@@ -13,23 +14,36 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
     /// handled the same way (a section is empty when its group is not a mouse group and has no
     /// binding — see <see cref="CheatSheetViewModel.IsSectionEmpty"/>).
     /// </summary>
-    public class ZoneBodyBuilder
+    public class ZoneBodyBuilder : IUGUIBuilder<ZoneBodyBuilder.ZoneBodyController>
     {
-        private CheatSheetViewModel _viewModel;
-        private SectionBuilder _modeBuilder;
+        // =======================================
+        // Builder parameters
+        // =======================================
 
-        public ZoneBodyBuilder(CheatSheetViewModel viewModel)
+        private CheatSheetViewModel _viewModel;
+        public ZoneBodyBuilder ViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
-            this._modeBuilder = new SectionBuilder(viewModel);
+            return this;
         }
 
-        public ZoneBodyController Create(UIPhysicalZone zone)
+        private UIPhysicalZone _zone;
+        public ZoneBodyBuilder Zone(UIPhysicalZone zone)
+        {
+            this._zone = zone;
+            return this;
+        }
+
+        // ===================================
+        // Build
+        // ===================================
+
+        public ZoneBodyController Build()
         {
             var go = new GameObject("Body", typeof(RectTransform));
-            ZoneBodyController controller = go.AddComponent<ZoneBodyController>();
-            controller.ViewModel(_viewModel);
-            controller.BindModeBuilder(_modeBuilder);
+            ZoneBodyController controller = go
+                .AddComponent<ZoneBodyController>()
+                .ViewModel(_viewModel);
 
             // Horizontal padding (Option A: padding on the container, not per-section)
             // Vertical padding-bottom matches the .kzone body breathing room.
@@ -47,24 +61,52 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             layout.childForceExpandWidth = true;
             layout.childForceExpandHeight = false;
 
-            controller.UpdateZone(zone);
-
-            return controller;
+            return go
+                .AddComponent<ZoneBodyController>()
+                .ViewModel(_viewModel)
+                .Zone(_zone);
         }
 
-        public class ZoneBodyController : BaseSteamInputController
+        public class ZoneBodyController : MonoBehaviour
         {
-            private SectionBuilder _sectionBuilder;
             private readonly Dictionary<string, SectionBuilder.SectionController> _sections
                 = new Dictionary<string, SectionBuilder.SectionController>();
 
-            public void BindModeBuilder(SectionBuilder builder)
+            // ==========================================
+            // Life cycle
+            // ==========================================
+            
+            private CheatSheetViewModel _viewModel;
+            public ZoneBodyController ViewModel(CheatSheetViewModel viewModel)
             {
-                this._sectionBuilder = builder;
+                this._viewModel = viewModel;
+                return this;
             }
+
+            private UIPhysicalZone _zone;
+            public ZoneBodyController Zone(UIPhysicalZone zone)
+            {
+                _zone = zone;
+                return this;
+            }
+
+            public void Start()
+            {
+                this.UpdateZone(_zone);
+            }
+
+            public void OnDestroy()
+            {
+            }
+
+            // ========================================
+            // Public API
+            // ========================================
 
             public void UpdateZone(UIPhysicalZone zone)
             {
+                _zone = zone;
+
                 // Destroy sections that are no longer present.
                 HashSet<string> desiredIds = new HashSet<string>();
                 foreach( UISection section in zone.Sections )
@@ -91,7 +133,10 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
                     UISection section = zone.Sections[i];
                     if( !_sections.TryGetValue(section.GroupId, out SectionBuilder.SectionController controller) )
                     {
-                        controller = _sectionBuilder.Create(section);
+                        controller = new SectionBuilder()
+                            .ViewModel(_viewModel)
+                            .Section(section)
+                            .Build();
                         controller.transform.SetParent(gameObject.transform, false);
                         _sections[section.GroupId] = controller;
                     }

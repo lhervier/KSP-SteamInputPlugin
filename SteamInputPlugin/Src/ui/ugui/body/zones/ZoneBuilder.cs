@@ -5,6 +5,7 @@ using com.github.lhervier.ksp.steaminput.ui.styles;
 using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
 using com.github.lhervier.ksp.steaminput.ui.model;
 using System;
+using com.github.lhervier.ksp.shared.ugui;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
 {
@@ -15,22 +16,33 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
     ///   - "↓ MODESHIFT" section if the zone has a ModeshiftGroupId
     /// Styled to match the mockup .kzone / .kzh / .kstate rules.
     /// </summary>
-    public class ZoneBuilder
+    public class ZoneBuilder : IUGUIBuilder<ZoneBuilder.ZoneController>
     {
-        private CheatSheetViewModel _viewModel;
-        private ZoneHeaderBuilder _zoneHeaderBuilder;
-        private ZoneBodyBuilder _zoneBodyBuilder;
+        // =====================================
+        // Builder parameters
+        // =====================================
 
-        public ZoneBuilder(CheatSheetViewModel viewModel)
+        private CheatSheetViewModel _viewModel;
+        public ZoneBuilder ViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
-            this._zoneHeaderBuilder = new ZoneHeaderBuilder(viewModel);
-            this._zoneBodyBuilder = new ZoneBodyBuilder(viewModel);
+            return this;
         }
 
-        public ZoneController Create(UIPhysicalZone zone)
+        private UIPhysicalZone _zone;
+        public ZoneBuilder Zone(UIPhysicalZone zone)
         {
-            var zoneGo = new GameObject("PhysicalZone." + zone.Zone.Name, typeof(RectTransform));
+            this._zone = zone;
+            return this;
+        }
+
+        // ====================================
+        // Build
+        // ====================================
+
+        public ZoneController Build()
+        {
+            var zoneGo = new GameObject("PhysicalZone." + _zone.Zone.Name, typeof(RectTransform));
             var controller = zoneGo.AddComponent<ZoneController>();
             controller.ViewModel(_viewModel);
 
@@ -44,11 +56,17 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             layout.childForceExpandWidth = true;
             layout.childForceExpandHeight = false;
 
-            var headerController = _zoneHeaderBuilder.Create(zone);
+            var headerController = new ZoneHeaderBuilder()
+                .ViewModel(_viewModel)
+                .Zone(_zone)
+                .Build();
             headerController.transform.SetParent(zoneGo.transform, false);
             controller.BindZoneHeaderController(headerController);
 
-            var bodyController = _zoneBodyBuilder.Create(zone);
+            var bodyController = new ZoneBodyBuilder()
+                .ViewModel(_viewModel)
+                .Zone(_zone)
+                .Build();
             bodyController.transform.SetParent(zoneGo.transform, false);
             controller.BindZoneBodyController(bodyController);
 

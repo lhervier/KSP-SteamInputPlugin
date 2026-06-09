@@ -14,14 +14,11 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body
     public class BodyBuilder : IUGUIBuilder<BodyController>
     {
         private CheatSheetViewModel _viewModel;
-        private CheatSheetBuilder _cheatSheetBuilder;
-        private SettingsBuilder _settingsBuilder;
 
-        public BodyBuilder(CheatSheetViewModel viewModel)
+        public BodyBuilder ViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
-            this._cheatSheetBuilder = new CheatSheetBuilder(viewModel);
-            this._settingsBuilder = new SettingsBuilder(viewModel);
+            return this;
         }
 
         public BodyController Build()
@@ -32,12 +29,16 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body
             // Scrollable cheat-sheet view; ScrollableView's default styling matches the popup palette.
             var cheatSheetController = new ScrollableViewBuilder<CheatSheetBuilder.CheatSheetController>()
                 .ObjectName("SteamInput.Body.CheatSheet")
-                .ContentBuilder(_cheatSheetBuilder)
+                .ContentBuilder(
+                    new CheatSheetBuilder().ViewModel(_viewModel)
+                )
                 .Build();
             FillParent(cheatSheetController.gameObject, bodyGo.transform);
 
             // Settings view, not scrollable.
-            var settingsController = _settingsBuilder.Create();
+            var settingsController = new SettingsBuilder()
+                .ViewModel(_viewModel)
+                .Build();
             FillParent(settingsController.gameObject, bodyGo.transform);
 
             return controller

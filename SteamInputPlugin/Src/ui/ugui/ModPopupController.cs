@@ -75,7 +75,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
         {
             if( _overlayController == null )
             {
-                _overlayController = _overlayBuilder.Create(() => ViewModel.CloseMenu());
+                _overlayController = _overlayBuilder.Build(() => ViewModel.CloseMenu());
                 _overlayController.transform.SetParent(gameObject.transform, false);
             }
 

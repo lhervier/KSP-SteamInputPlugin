@@ -4,6 +4,7 @@ using com.github.lhervier.ksp.steaminput.ui.styles;
 using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
 using com.github.lhervier.ksp.steaminput.ui.model;
 using com.github.lhervier.ksp.shared.ugui.styles;
+using com.github.lhervier.ksp.shared.ugui;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
 {
@@ -14,21 +15,34 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
     ///   - "↓ MODESHIFT" section if the zone has a ModeshiftGroupId
     /// Styled to match the mockup .kzone / .kzh / .kstate rules.
     /// </summary>
-    public class ZoneHeaderBuilder
+    public class ZoneHeaderBuilder : IUGUIBuilder<ZoneHeaderBuilder.ZoneHeaderController>
     {
-        private CheatSheetViewModel _viewModel;
+        // =====================================
+        // Builder Parameters
+        // =====================================
 
-        public ZoneHeaderBuilder(CheatSheetViewModel viewModel)
+        private CheatSheetViewModel _viewModel;
+        public ZoneHeaderBuilder ViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
+            return this;
         }
 
-        public ZoneHeaderController Create(UIPhysicalZone zone)
+        private UIPhysicalZone _zone;
+        public ZoneHeaderBuilder Zone(UIPhysicalZone zone)
+        {
+            this._zone = zone;
+            return this;
+        }
+
+        // =========================================
+        // Build
+        // =========================================
+
+        public ZoneHeaderController Build()
         {
             var go = new GameObject("Header", typeof(RectTransform));
-            ZoneHeaderController controller = go.AddComponent<ZoneHeaderController>();
-            controller.ViewModel(_viewModel);
-
+            
             // Fixed header height (matches .kzh from the mockup)
             var layoutElement = go.AddComponent<LayoutElement>();
             layoutElement.minHeight = SteamInputPalette.ZoneHeaderHeight;
@@ -60,7 +74,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             titleGo.transform.SetParent(go.transform, false);
 
             var label = titleGo.AddComponent<Text>();
-            label.text = zone.Label;
+            label.text = _zone.Label;
             label.font = HighLogic.UISkin.font;
             label.fontSize = 12;
             label.fontStyle = FontStyle.Bold;
@@ -69,19 +83,28 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             label.horizontalOverflow = HorizontalWrapMode.Overflow;
             label.verticalOverflow = VerticalWrapMode.Overflow;
             label.raycastTarget = false;
-            controller.BindLabel(label);
-
-            return controller;
+            
+            return go
+                .AddComponent<ZoneHeaderController>()
+                .Label(label);
         }
 
-        public class ZoneHeaderController : BaseSteamInputController
+        public class ZoneHeaderController : MonoBehaviour
         {
-            private Text _label;
+            // =====================================
+            // Controller parameters
+            // =====================================
 
-            public void BindLabel(Text label)
+            private Text _label;
+            public ZoneHeaderController Label(Text label)
             {
                 _label = label;
+                return this;
             }
+
+            // ====================================
+            // Public API
+            // ====================================
 
             public void UpdateZone(UIPhysicalZone zone)
             {

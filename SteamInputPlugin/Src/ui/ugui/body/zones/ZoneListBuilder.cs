@@ -4,6 +4,7 @@ using com.github.lhervier.ksp.steaminput;
 using com.github.lhervier.ksp.steaminput.ui.styles;
 using com.github.lhervier.ksp.steaminput.ui.model;
 using System.Collections.Generic;
+using com.github.lhervier.ksp.shared.ugui;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
 {
@@ -11,27 +12,27 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
     /// Container that stacks one PhysicalZone per UIPhysicalZone from the ViewModel.
     /// Only visible zones are rendered (Visible flag from the toggle menu).
     /// </summary>
-    public class ZoneListBuilder
+    public class ZoneListBuilder : IUGUIBuilder<ZoneListBuilder.ZoneListController>
     {
-        private CheatSheetViewModel _viewModel;
-        private ZoneBuilder _zoneBuilder;
-        private EmptyConfigBuilder _emptyConfigBuilder;
+        // ============================================
+        // Builder parameters
+        // ============================================
 
-        public ZoneListBuilder(CheatSheetViewModel viewModel)
+        private CheatSheetViewModel _viewModel;
+        public ZoneListBuilder ViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
-            this._zoneBuilder = new ZoneBuilder(viewModel);
-            this._emptyConfigBuilder = new EmptyConfigBuilder(viewModel);
+            return this;
         }
 
-        public ZoneListController Create()
+        // =======================================
+        // Build
+        // =======================================
+
+        public ZoneListController Build()
         {
             var go = new GameObject("PhysicalZones", typeof(RectTransform));
-            var controller = go.AddComponent<ZoneListController>();
-            controller.ViewModel(_viewModel);
-            controller.BindZoneBuilder(_zoneBuilder);
-            controller.BindEmptyConfigBuilder(_emptyConfigBuilder);
-
+            
             // VLG stacks the zones back-to-back. No spacing — each zone has its own bottom separator.
             var layout = go.AddComponent<VerticalLayoutGroup>();
             layout.padding = new RectOffset(0, 0, 0, 0);
@@ -42,47 +43,43 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             layout.childForceExpandWidth = true;
             layout.childForceExpandHeight = false;
 
-            return controller;
+            return go
+                .AddComponent<ZoneListController>()
+                .ViewModel(_viewModel);;
         }
 
-        public class ZoneListController : BaseSteamInputController
+        public class ZoneListController : MonoBehaviour
         {
-            private ZoneBuilder _zoneBuilder;
-            private EmptyConfigBuilder _emptyConfigBuilder;
-
             private Dictionary<EGamepadZone, ZoneBuilder.ZoneController> _zoneControllers = new Dictionary<EGamepadZone, ZoneBuilder.ZoneController>();
             private EmptyConfigBuilder.EmptyConfigController _emptyConfigController;
 
-            public void BindZoneBuilder(ZoneBuilder zoneRowBuilder)
+            private CheatSheetViewModel _viewModel;
+            public ZoneListController ViewModel(CheatSheetViewModel viewModel)
             {
-                this._zoneBuilder = zoneRowBuilder;
-            }
-
-            public void BindEmptyConfigBuilder(EmptyConfigBuilder builder)
-            {
-                this._emptyConfigBuilder = builder;
+                this._viewModel = viewModel;
+                return this;
             }
 
             public void Start()
             {
-                ViewModel?.OnGamepadConfigNameChanged.Add(OnGamepadConfigNameChanged);
-                OnGamepadConfigNameChanged(ViewModel?.GamepadConfigName ?? string.Empty);
+                _viewModel?.OnGamepadConfigNameChanged.Add(OnGamepadConfigNameChanged);
+                OnGamepadConfigNameChanged(_viewModel?.GamepadConfigName ?? string.Empty);
                 
-                ViewModel?.OnPhysicalZonesChanged.Add(OnPresetZonesChanged);
-                OnPresetZonesChanged(ViewModel?.PhysicalZones ?? null);
+                _viewModel?.OnPhysicalZonesChanged.Add(OnPresetZonesChanged);
+                OnPresetZonesChanged(_viewModel?.PhysicalZones ?? null);
             }
 
             public void OnDestroy()
             {
-                ViewModel?.OnPhysicalZonesChanged.Remove(OnPresetZonesChanged);
-                ViewModel?.OnGamepadConfigNameChanged.Remove(OnGamepadConfigNameChanged);
+                _viewModel?.OnPhysicalZonesChanged.Remove(OnPresetZonesChanged);
+                _viewModel?.OnGamepadConfigNameChanged.Remove(OnGamepadConfigNameChanged);
             }
 
             private void OnGamepadConfigNameChanged(string config)
             {
                 if( _emptyConfigController == null )
                 {
-                    _emptyConfigController = _emptyConfigBuilder.Create();
+                    _emptyConfigController = new EmptyConfigBuilder().Build();
                     _emptyConfigController.transform.SetParent(gameObject.transform);
                 }
 
@@ -139,7 +136,10 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
 
                     if (!this._zoneControllers.TryGetValue(zone.Zone, out ZoneBuilder.ZoneController zoneController))
                     {
-                        zoneController = this._zoneBuilder.Create(zone);
+                        zoneController = new ZoneBuilder()
+                            .ViewModel(_viewModel)
+                            .Zone(zone)
+                            .Build();
                         zoneController.transform.SetParent(this.transform, false);
                         zoneController.gameObject.SetActive(!string.IsNullOrEmpty(SteamInputSettings.GetControllerConfigName()));
                         this._zoneControllers[zone.Zone] = zoneController;
@@ -157,7 +157,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             private bool ShouldRender(UIPhysicalZone zone)
             {
                 // Skip zones whose sections are all empty (incl. zones with no group at all).
-                return ViewModel.HasNonEmptySection(zone);
+                return _viewModel.HasNonEmptySection(zone);
             }
         }
     }

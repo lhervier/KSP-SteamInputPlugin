@@ -8,13 +8,22 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
 {
     public class ActionGroupLabelBuilder : IUGUIBuilder<ActionGroupLabelController>
     {
+        // ========================================
+        // Builder parameters
+        // ========================================
+
         private CheatSheetViewModel _viewModel;
         
-        public ActionGroupLabelBuilder(CheatSheetViewModel viewModel)
+        public ActionGroupLabelBuilder ViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
+            return this;
         }
 
+        // ================================
+        // Build
+        // ================================
+        
         public ActionGroupLabelController Build()
         {
             var badgeGo = new GameObject("SteamInput.TitleBar.RightColumn.ActionGroup", typeof(RectTransform));

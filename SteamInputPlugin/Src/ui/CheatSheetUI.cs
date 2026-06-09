@@ -9,16 +9,14 @@ namespace com.github.lhervier.ksp.steaminput.ui
         private static readonly SteamInputLogger LOGGER = new SteamInputLogger("SteamInputSettingsUI");
 
         private ApplicationLauncherButton button;
-        private CheatSheetViewModel viewModel;
 
-        // The popup is spawned on demand: the controller only exists while the window is open.
-        private ModPopupBuilder popupDialogBuilder;
         private ModPopupDialogController popupDialogController = null;
 
         // ===============================================================
         // Life cycle
         // ===============================================================
         
+        private CheatSheetViewModel viewModel;
         public CheatSheetUI ViewModel(CheatSheetViewModel viewModel)
         {
             this.viewModel = viewModel;
@@ -35,11 +33,6 @@ namespace com.github.lhervier.ksp.steaminput.ui
         {
             LOGGER.LogInfo("Start");
             GameEvents.onGUIApplicationLauncherReady.Add(OnGUIAppLauncherReady);
-            popupDialogBuilder = new ModPopupBuilder(viewModel);
-            if( SteamInputSettings.TryGetWindowPosition(out Vector2 saved) )
-            {
-                popupDialogBuilder = popupDialogBuilder.Position(saved);
-            }
             LOGGER.LogInfo("Start: Started");
         }
 
@@ -122,7 +115,13 @@ namespace com.github.lhervier.ksp.steaminput.ui
         {
             if (popupDialogController == null)
             {
-                popupDialogController = popupDialogBuilder.Build();
+                ModPopupBuilder popupBuilder = new ModPopupBuilder()
+                    .ViewModel(viewModel);
+                if( SteamInputSettings.TryGetWindowPosition(out Vector2 saved) )
+                {
+                    popupBuilder = popupBuilder.Position(saved);
+                }
+                popupDialogController = popupBuilder.Build();
                 if (popupDialogController == null) return;    // Spawn failed
                 popupDialogController.OnClosed.Add(WindowClosed);
                 // When KSP dismisses the popup itself (Escape opens the pause menu and closes it),

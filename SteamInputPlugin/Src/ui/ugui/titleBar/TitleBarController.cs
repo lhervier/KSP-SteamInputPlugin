@@ -5,19 +5,18 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
 {
     public class TitleBarController : MonoBehaviour
     {
-        private ButtonController _menuButtonController;
-        private CheatSheetViewModel _viewModel;
-
         // ================================================
         // Life cycle
         // ================================================
 
+        private CheatSheetViewModel _viewModel;
         public TitleBarController ViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             return this;
         }
 
+        private ButtonController _menuButtonController;
         public TitleBarController MenuButtonController(ButtonController menuButtonController)
         {
             this._menuButtonController = menuButtonController;

@@ -11,12 +11,11 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
     /// </summary>
     public class ActionGroupLabelController : BaseSteamInputController
     {
-        private Text _label;
-
         // ============================
         // Life cycle
         // ============================
 
+        private Text _label;
         public ActionGroupLabelController Label(Text label)
         {
             this._label = label;

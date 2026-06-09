@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using com.github.lhervier.ksp.steaminput.ui.styles;
+using com.github.lhervier.ksp.shared.ugui;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
 {
@@ -9,21 +10,12 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
     /// Mirrors the mockup's .kempty: uppercase title above two help paragraphs, with the
     /// "export" word highlighted in the accent color.
     /// </summary>
-    public class EmptyConfigBuilder
+    public class EmptyConfigBuilder : IUGUIBuilder<EmptyConfigBuilder.EmptyConfigController>
     {
-        private CheatSheetViewModel _viewModel;
-
-        public EmptyConfigBuilder(CheatSheetViewModel viewModel)
-        {
-            this._viewModel = viewModel;
-        }
-
-        public EmptyConfigController Create()
+        public EmptyConfigController Build()
         {
             var go = new GameObject("EmptyConfig", typeof(RectTransform));
-            var controller = go.AddComponent<EmptyConfigController>();
-            controller.ViewModel(_viewModel);
-
+            
             // .kempty: padded VLG stacking the title and the body paragraphs.
             var layout = go.AddComponent<VerticalLayoutGroup>();
             layout.padding = new RectOffset(
@@ -41,7 +33,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             BuildTitle(go.transform);
             BuildBody(go.transform);
 
-            return controller;
+            return go.AddComponent<EmptyConfigController>();;
         }
 
         // .kempty-title: bold uppercase title above the body text.
@@ -91,7 +83,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             fitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
         }
 
-        public class EmptyConfigController : BaseSteamInputController
+        public class EmptyConfigController : MonoBehaviour
         {
         }
     }

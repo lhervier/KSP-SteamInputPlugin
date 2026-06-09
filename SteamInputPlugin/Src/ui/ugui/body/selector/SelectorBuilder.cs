@@ -8,6 +8,7 @@ using com.github.lhervier.ksp.shared.ugui.styles;
 using com.github.lhervier.ksp.shared.ugui.sprites;
 using com.github.lhervier.ksp.shared.ugui.button;
 using com.github.lhervier.ksp.shared.ugui.popup;
+using com.github.lhervier.ksp.shared.ugui;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
 {
@@ -16,23 +17,27 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
     /// (title + controller type, plus a "none" entry) and a refresh button to rescan the folder.
     /// The list comes from the ViewModel; selecting an entry sets the controller config name.
     /// </summary>
-    public class SelectorBuilder
+    public class SelectorBuilder : IUGUIBuilder<SelectorBuilder.SelectorController>
     {
         private const string CaretGlyph = "▼";    // ▼ (U+25BC, renders like the menu order arrows)
         private const string RefreshGlyph = "↻";  // ↻ (U+21BB)
 
-        private CheatSheetViewModel _viewModel;
-        private ButtonBuilder _buttonBuilder;
-        private OverlayBuilder _overlayBuilder;
+        // ==================================
+        // Builder parameters
+        // ==================================
 
-        public SelectorBuilder(CheatSheetViewModel viewModel)
+        private CheatSheetViewModel _viewModel;
+        public SelectorBuilder ViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
-            this._buttonBuilder = new ButtonBuilder();
-            this._overlayBuilder = new OverlayBuilder(viewModel);
+            return this;
         }
 
-        public SelectorController Create()
+        // =================================
+        // Build
+        // =================================
+
+        public SelectorController Build()
         {
             var go = new GameObject("SteamInput.Body.Selector", typeof(RectTransform));
             SelectorController controller = go.AddComponent<SelectorController>();
@@ -55,7 +60,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
 
             // Refresh button: triggers a rescan of the Steam config folder. Sized to match the
             // combo height so the ↻ glyph reads at a glance instead of getting lost in a tiny chip.
-            ButtonController refresh = _buttonBuilder
+            ButtonController refresh = new ButtonBuilder()
                 .ObjectName("Refresh")
                 .Label(RefreshGlyph)
                 .Build();
@@ -145,7 +150,8 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
 
             // The overlay and dropdown are built detached; they are moved next to the popup root and
             // positioned under the combo when opened (see SelectorController.OpenDropdown).
-            GameObject overlay = _overlayBuilder.Create(() => controller.CloseDropdown()).gameObject;
+            GameObject overlay = new OverlayBuilder()
+                .Build(() => controller.CloseDropdown()).gameObject;
             overlay.SetActive(false);
             controller.BindOverlay(overlay);
 

@@ -4,6 +4,7 @@ using com.github.lhervier.ksp.steaminput.ui.styles;
 using com.github.lhervier.ksp.steaminput.ui.model;
 using System.Collections.Generic;
 using com.github.lhervier.ksp.shared.ugui.styles;
+using com.github.lhervier.ksp.shared.ugui;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
 {
@@ -12,27 +13,34 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
     ///   - A "NORMAL" / "↓ MODESHIFT" subheader (mockup .kstate)
     ///   - One activator row (mockup .krow) per binding of the section's group
     /// </summary>
-    public class SectionBuilder
+    public class SectionBuilder : IUGUIBuilder<SectionBuilder.SectionController>
     {
-        private CheatSheetViewModel _viewModel;
-        private ActivatorBuilder _activatorRowBuilder;
-        private MouseLineBuilder _mouseLineBuilder;
+        // =====================================
+        // Build parameters
+        // =====================================
 
-        public SectionBuilder(CheatSheetViewModel viewModel)
+        private CheatSheetViewModel _viewModel;
+        public SectionBuilder ViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
-            this._activatorRowBuilder = new ActivatorBuilder(viewModel);
-            this._mouseLineBuilder = new MouseLineBuilder(viewModel);
+            return this;
         }
 
-        public SectionController Create(UISection section)
+        private UISection _section;
+        public SectionBuilder Section(UISection section)
+        {
+            this._section = section;
+            return this;
+        }
+
+        // ==================================
+        // Build
+        // ==================================
+
+        public SectionController Build()
         {
             var go = new GameObject("Mode", typeof(RectTransform));
-            SectionController controller = go.AddComponent<SectionController>();
-            controller.ViewModel(_viewModel);
-            controller.BindActivatorRowBuilder(_activatorRowBuilder);
-            controller.BindMouseLineBuilder(_mouseLineBuilder);
-
+            
             // Horizontal padding (Option A: padding on the container, not per-section)
             // Vertical padding-bottom matches the .kzone body breathing room.
             var layout = go.AddComponent<VerticalLayoutGroup>();
@@ -51,7 +59,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
 
             string label;
             Color textColor;
-            if( section.Modeshift )
+            if( _section.Modeshift )
             {
                 label = "↓ " + ModLocalization.GetString("SteamInput_sectionModeshift").ToUpperInvariant();
                 textColor = SteamInputPalette.ModeShiftColor;
@@ -64,9 +72,9 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
 
             // A layer section keeps its state color but is tagged with the layer title,
             // e.g. "NORMAL (RIGHTCLICK)" / "↓ MODESHIFT (RIGHTCLICK)".
-            if( !string.IsNullOrEmpty(section.LayerTitle) )
+            if( !string.IsNullOrEmpty(_section.LayerTitle) )
             {
-                label += " " + ModLocalization.GetString("SteamInput_sectionLayerSuffix", section.LayerTitle).ToUpperInvariant();
+                label += " " + ModLocalization.GetString("SteamInput_sectionLayerSuffix", _section.LayerTitle).ToUpperInvariant();
             }
 
             // .kstate subheader as a child so activator rows can be stacked below it.
@@ -84,36 +92,53 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             sectionText.verticalOverflow = VerticalWrapMode.Overflow;
             sectionText.raycastTarget = false;
 
-            controller.BindHeaderLabel(labelGo);
-            controller.UpdateGroupId(section.GroupId);
-
-            return controller;
+            return go
+                .AddComponent<SectionController>()
+                .ViewModel(_viewModel)
+                .HeaderLabel(labelGo)
+                .GroupId(_section.GroupId);
         }
 
-        public class SectionController : BaseSteamInputController
+        public class SectionController : MonoBehaviour
         {
-            private ActivatorBuilder _activatorRowBuilder;
-            private MouseLineBuilder _mouseLineBuilder;
-            private GameObject _headerLabel;
             
             private MouseLineBuilder.MouseLineController _mouseLineController;
             private readonly List<ActivatorBuilder.ActivatorController> _rowControllers
                 = new List<ActivatorBuilder.ActivatorController>();
 
-            public void BindActivatorRowBuilder(ActivatorBuilder builder)
+            // =========================================
+            // Life cycle
+            // =========================================
+
+            private CheatSheetViewModel _viewModel;
+            public SectionController ViewModel(CheatSheetViewModel viewModel)
             {
-                this._activatorRowBuilder = builder;
+                this._viewModel = viewModel;
+                return this;
             }
 
-            public void BindMouseLineBuilder(MouseLineBuilder builder)
-            {
-                this._mouseLineBuilder = builder;
-            }
-
-            public void BindHeaderLabel(GameObject headerLabel)
+            private GameObject _headerLabel;
+            public SectionController HeaderLabel(GameObject headerLabel)
             {
                 this._headerLabel = headerLabel;
+                return this;
             }
+
+            private string _groupId;
+            public SectionController GroupId(string groupId)
+            {
+                this._groupId = groupId;
+                return this;
+            }
+
+            public void Start()
+            {
+                this.UpdateGroupId(this._groupId);
+            }
+
+            // ==========================================
+            // Public API
+            // ==========================================
 
             /// <summary>Show/hide the "NORMAL" / "↓ MODESHIFT" subheader (kept at sibling index 0).</summary>
             public void SetHeaderVisible(bool visible)
@@ -126,6 +151,8 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
 
             public void UpdateGroupId(string groupId)
             {
+                _groupId = groupId;
+                
                 // Rebuild the section content below the subheader (first child).
                 foreach( ActivatorBuilder.ActivatorController row in _rowControllers )
                 {
@@ -139,17 +166,20 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
                 }
 
                 // Mouse-mode groups get a banner right after the subheader, above any rows.
-                if( this.ViewModel.IsMouseGroup(groupId) )
+                if( _viewModel.IsMouseGroup(groupId) )
                 {
-                    _mouseLineController = _mouseLineBuilder.Create();
+                    _mouseLineController = new MouseLineBuilder().Build();
                     _mouseLineController.transform.SetParent(gameObject.transform, false);
                     _mouseLineController.transform.SetSiblingIndex(1);
                 }
 
                 // Then one row per activator (e.g. a click on the joystick).
-                foreach( UIActivator activator in this.ViewModel.GetActivators(groupId) )
+                foreach( UIActivator activator in _viewModel.GetActivators(groupId) )
                 {
-                    ActivatorBuilder.ActivatorController row = _activatorRowBuilder.Create(activator);
+                    ActivatorBuilder.ActivatorController row = new ActivatorBuilder()
+                        .ViewModel(_viewModel)
+                        .Activator(activator)
+                        .Build();
                     row.transform.SetParent(gameObject.transform, false);
                     row.transform.SetAsLastSibling();
                     _rowControllers.Add(row);

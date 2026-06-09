@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using com.github.lhervier.ksp.steaminput.ui.styles;
 using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
 using com.github.lhervier.ksp.shared.ugui.styles;
+using com.github.lhervier.ksp.shared.ugui;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
 {
@@ -13,22 +14,23 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
     /// The label is driven by the ViewModel's OnLogLevelChanged event, so it stays the single source
     /// of truth — the click only asks the ViewModel to switch level.
     /// </summary>
-    public class LogLevelButtonBuilder
+    public class LogLevelButtonBuilder : IUGUIBuilder<LogLevelButtonBuilder.LogLevelButtonController>
     {
         private const string CycleGlyph = "↻"; // ↻ (U+21BB), hints that the button rotates
 
         private CheatSheetViewModel _viewModel;
-
-        public LogLevelButtonBuilder(CheatSheetViewModel viewModel)
+        public LogLevelButtonBuilder ViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
+            return this;
         }
 
-        public LogLevelButtonController Create()
+        public LogLevelButtonController Build()
         {
             var go = new GameObject("LogLevelButton", typeof(RectTransform));
-            LogLevelButtonController controller = go.AddComponent<LogLevelButtonController>();
-            controller.ViewModel(_viewModel);
+            LogLevelButtonController controller = go
+                .AddComponent<LogLevelButtonController>()
+                .ViewModel(_viewModel);
 
             var layoutElement = go.AddComponent<LayoutElement>();
             layoutElement.minHeight = SteamInputPalette.SettingsLogLevelHeight;
@@ -100,13 +102,19 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
             return controller;
         }
 
-        public class LogLevelButtonController : BaseSteamInputController
+        public class LogLevelButtonController : MonoBehaviour
         {
             // Levels in declaration order; the button cycles through them and wraps around.
             private static readonly LogLevel[] Levels = (LogLevel[]) Enum.GetValues(typeof(LogLevel));
 
-            private Text _label;
+            private CheatSheetViewModel _viewModel;
+            public LogLevelButtonController ViewModel(CheatSheetViewModel viewModel)
+            {
+                this._viewModel = viewModel;
+                return this;
+            }
 
+            private Text _label;
             public void Bind(Text label)
             {
                 this._label = label;
@@ -114,29 +122,29 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
 
             public void Start()
             {
-                ViewModel?.OnLogLevelChanged.Add(OnLogLevelChanged);
-                if (ViewModel != null)
+                _viewModel?.OnLogLevelChanged.Add(OnLogLevelChanged);
+                if (_viewModel != null)
                 {
-                    OnLogLevelChanged(ViewModel.LogLevel);
+                    OnLogLevelChanged(_viewModel.LogLevel);
                 }
             }
 
             public void OnDestroy()
             {
-                ViewModel?.OnLogLevelChanged.Remove(OnLogLevelChanged);
+                _viewModel?.OnLogLevelChanged.Remove(OnLogLevelChanged);
             }
 
             /// <summary>Advance to the next level, wrapping back to the first one after the last.</summary>
             public void CycleLogLevel()
             {
-                if (ViewModel == null)
+                if (_viewModel == null)
                 {
                     return;
                 }
-                int index = Array.IndexOf(Levels, ViewModel.LogLevel);
+                int index = Array.IndexOf(Levels, _viewModel.LogLevel);
                 LogLevel next = Levels[(index + 1) % Levels.Length];
                 // Goes through SteamInputGlobalSettings, which fires OnLogLevelChanged back to us.
-                ViewModel.LogLevel = next;
+                _viewModel.LogLevel = next;
             }
 
             private void OnLogLevelChanged(LogLevel level)

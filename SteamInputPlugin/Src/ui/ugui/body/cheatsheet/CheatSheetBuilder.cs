@@ -13,13 +13,11 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.cheatsheet
     /// </summary>
     public class CheatSheetBuilder : IUGUIBuilder<CheatSheetBuilder.CheatSheetController>
     {
-        private SelectorBuilder _selectorBuilder;
-        private ZoneListBuilder _zoneListBuilder;
-
-        public CheatSheetBuilder(CheatSheetViewModel viewModel)
+        private CheatSheetViewModel _viewModel;
+        public CheatSheetBuilder ViewModel(CheatSheetViewModel viewModel)
         {
-            this._selectorBuilder = new SelectorBuilder(viewModel);
-            this._zoneListBuilder = new ZoneListBuilder(viewModel);
+            _viewModel = viewModel;
+            return this;
         }
 
         public CheatSheetController Build()
@@ -37,10 +35,10 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.cheatsheet
             layout.childForceExpandWidth = true;
             layout.childForceExpandHeight = false;
 
-            var selector = _selectorBuilder.Create();
+            var selector = new SelectorBuilder().ViewModel(_viewModel).Build();
             selector.transform.SetParent(go.transform, false);
 
-            var zoneList = _zoneListBuilder.Create();
+            var zoneList = new ZoneListBuilder().ViewModel(_viewModel).Build();
             zoneList.transform.SetParent(go.transform, false);
 
             return controller;

@@ -9,12 +9,11 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
 {
     public class GamepadLabelController : BaseSteamInputController
     {
-        private Text _label;
-
         // =========================
         // Life cycle
         // =========================
 
+        private Text _label;
         public GamepadLabelController Label(Text label)
         {
             this._label = label;

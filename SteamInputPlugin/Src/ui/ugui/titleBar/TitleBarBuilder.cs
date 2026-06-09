@@ -3,23 +3,25 @@ using UnityEngine.UI;
 using com.github.lhervier.ksp.shared.ugui;
 using com.github.lhervier.ksp.shared.ugui.styles;
 using com.github.lhervier.ksp.shared.ugui.button;
+using System.Data;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
 {
     public class TitleBarBuilder : IUGUIBuilder<TitleBarController>
     {
+        // ==============================================
+        // Builder parameters
+        // ==============================================
         private CheatSheetViewModel _viewModel;
-        private ActionGroupLabelBuilder _actionGroupLabelBuilder;
-        private GamepadLabelBuilder _gamepadLabelBuilder;
-        private ButtonBuilder _buttonBuilder;
-
-        public TitleBarBuilder(CheatSheetViewModel viewModel)
+        public TitleBarBuilder ViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
-            this._actionGroupLabelBuilder = new ActionGroupLabelBuilder(viewModel);
-            this._gamepadLabelBuilder = new GamepadLabelBuilder(viewModel);
-            this._buttonBuilder = new ButtonBuilder();
+            return this;
         }
+
+        // ======================================
+        // Build
+        // ======================================
 
         public TitleBarController Build()
         {
@@ -34,13 +36,13 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
             rightRowLayout.childForceExpandWidth = false;
             rightRowLayout.childForceExpandHeight = false;
 
-            var actionGroupLabelController = this._actionGroupLabelBuilder.Build();
+            var actionGroupLabelController = new ActionGroupLabelBuilder().ViewModel(_viewModel).Build();
             actionGroupLabelController.transform.SetParent(rightRowGo.transform, false);
 
-            var controllerGo = this._gamepadLabelBuilder.Build();
+            var controllerGo = new GamepadLabelBuilder().ViewModel(_viewModel).Build();
             controllerGo.transform.SetParent(rightRowGo.transform, false);
 
-            var menuButtonController = _buttonBuilder
+            var menuButtonController = new ButtonBuilder()
                 .ObjectName("SteamInput.TitleBar.MenuButton")
                 .Label("⋯")
                 .Interactable(true)
