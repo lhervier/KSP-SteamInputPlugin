@@ -1,46 +1,43 @@
-using UnityEngine;
-using com.github.lhervier.ksp.steaminput.ui.ugui.body.zones;
-using com.github.lhervier.ksp.steaminput.ui.ugui.body.selector;
+using com.github.lhervier.ksp.shared.ugui.scrollableview;
+using com.github.lhervier.ksp.steaminput.ui.ugui.body.cheatsheet;
 using com.github.lhervier.ksp.steaminput.ui.ugui.body.settings;
-using System;
+using UnityEngine;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.body
 {
+    /// <summary>
+    /// Drives the body's two views: shows the settings screen or the scrollable cheat sheet depending on
+    /// the view model's settings toggle. Both views are built up-front and fill the body; only one is
+    /// active at a time.
+    /// </summary>
     public class BodyController : MonoBehaviour
     {
         private CheatSheetViewModel _viewModel;
-        private GameObject _content;
-        private SelectorBuilder _selectorBuilder;
-        private ZoneListBuilder _zoneListBuilder;
-        private SettingsBuilder _settingsBuilder;
+        private ScrollableViewController _cheatSheet;
+        private SettingsBuilder.SettingsController _settings;
 
-        private SelectorBuilder.SelectorController _selectorController;
-        private ZoneListBuilder.ZoneListController _zoneListController;
-        private SettingsBuilder.SettingsController _settingsController;
+        // ==================================
+        // Life cycle
+        // ==================================
 
-        public void BindViewModel(CheatSheetViewModel viewModel)
+        // Dependencies injected by the builder right after AddComponent, before Start() runs.
+
+        public BodyController ViewModel(CheatSheetViewModel viewModel)
         {
-            _viewModel = viewModel;
+            this._viewModel = viewModel;
+            return this;
         }
 
-        public void BindContent(GameObject content)
+        public BodyController CheatSheetController(ScrollableViewController cheatSheet)
         {
-            this._content = content;
+            this._cheatSheet = cheatSheet;
+            return this;
         }
 
-        public void BindSelectorBuilder(SelectorBuilder builder)
+        public BodyController SettingsController(SettingsBuilder.SettingsController settings)
         {
-            this._selectorBuilder = builder;
-        }
-
-        public void BindZoneListBuilder(ZoneListBuilder builder)
-        {
-            this._zoneListBuilder = builder;
-        }
-
-        public void BindSettingsBuilder(SettingsBuilder builder)
-        {
-            this._settingsBuilder = builder;
+            this._settings = settings;
+            return this;
         }
 
         public void Start()
@@ -57,34 +54,15 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body
             _viewModel?.OnShowSettings.Remove(OnShowSettings);
         }
 
+        // =========================================
+        // Methods bound to events
+        // =========================================
+
+        // Show the settings screen or the cheat sheet, never both.
         private void OnShowSettings(bool show)
         {
-            if( _selectorBuilder == null || _zoneListBuilder == null || _settingsBuilder == null )
-            {
-                throw new ArgumentException("Builders not binded");
-            }
-
-            if( _selectorController == null )
-            {
-                _selectorController = _selectorBuilder.Create();
-                _selectorController.transform.SetParent(_content.transform, false);
-            }
-
-            if( _zoneListController == null )
-            {
-                _zoneListController = _zoneListBuilder.Create();
-                _zoneListController.transform.SetParent(_content.transform, false);
-            }
-
-            if( _settingsController == null )
-            {
-                _settingsController = _settingsBuilder.Create();
-                _settingsController.transform.SetParent(_content.transform, false);
-            }
-
-            _settingsController.gameObject.SetActive(show);
-            _zoneListController.gameObject.SetActive(!show);
-            _selectorController.gameObject.SetActive(!show);
+            _settings?.gameObject.SetActive(show);
+            _cheatSheet?.gameObject.SetActive(!show);
         }
     }
 }
