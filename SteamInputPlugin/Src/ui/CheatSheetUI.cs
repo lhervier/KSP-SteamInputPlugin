@@ -13,7 +13,7 @@ namespace com.github.lhervier.ksp.steaminput.ui
 
         // The popup is spawned on demand: the controller only exists while the window is open.
         private ModPopupBuilder popupDialogBuilder;
-        private ModPopupBuilder.ModPopupDialogController popupDialogController = null;
+        private ModPopupDialogController popupDialogController = null;
 
         // ===============================================================
         // Life cycle

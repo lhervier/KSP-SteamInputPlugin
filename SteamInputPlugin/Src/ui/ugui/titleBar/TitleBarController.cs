@@ -8,14 +8,20 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
         private ButtonController _menuButtonController;
         private CheatSheetViewModel _viewModel;
 
-        public void BindViewModel(CheatSheetViewModel viewModel)
+        // ================================================
+        // Life cycle
+        // ================================================
+
+        public TitleBarController ViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
+            return this;
         }
 
-        public void BindMenuButtonController(ButtonController menuButtonController)
+        public TitleBarController MenuButtonController(ButtonController menuButtonController)
         {
             this._menuButtonController = menuButtonController;
+            return this;
         }
 
         public void Start()

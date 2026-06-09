@@ -28,6 +28,18 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
             controller.SetViewModel(vm);
             return controller;
         }
+
+        /// <summary>
+        /// Totaly useless... But nice syntax...
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="controller"></param>
+        /// <returns></returns>
+        public static T Build<T>(this T controller)
+            where T : BaseSteamInputController
+        {
+            return controller;
+        }
     }
 
 }
