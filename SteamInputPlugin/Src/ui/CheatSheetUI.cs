@@ -1,12 +1,13 @@
 using UnityEngine;
 using KSP.UI.Screens;
 using com.github.lhervier.ksp.steaminput.ui.ugui;
+using com.github.lhervier.ksp.shared;
 
 namespace com.github.lhervier.ksp.steaminput.ui
 {
     public class CheatSheetUI : MonoBehaviour
     {
-        private static readonly SteamInputLogger LOGGER = new SteamInputLogger("SteamInputSettingsUI");
+        private static readonly ModLogger LOGGER = new ModLogger("SteamInputSettingsUI");
 
         private ApplicationLauncherButton _toolbarButton;
 

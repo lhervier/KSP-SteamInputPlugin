@@ -1,9 +1,9 @@
+using com.github.lhervier.ksp.shared;
 using KSP.IO;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using com.github.lhervier.ksp.steaminput.model;
 using UnityEngine;
 
 namespace com.github.lhervier.ksp.steaminput
@@ -20,7 +20,7 @@ namespace com.github.lhervier.ksp.steaminput
 
     public class SteamInputSettings
     {
-        private static readonly SteamInputLogger LOGGER = new SteamInputLogger("GlobalSettings");
+        private static readonly ModLogger LOGGER = new ModLogger("GlobalSettings");
 
         private const string CONFIG_KEY_LOG_LEVEL = "SteamInput.LogLevel";
         private const string CONFIG_KEY_CONTROLLER_CONFIG_NAME = "SteamInput.ControllerConfigName";

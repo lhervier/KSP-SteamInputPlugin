@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 using System.Runtime.Serialization;
-using com.github.lhervier.ksp.steaminput;
+using com.github.lhervier.ksp.shared;
 using com.github.lhervier.ksp.steaminput.Vdf;
 using NUnit.Framework;
 using UnityEngine;
@@ -39,7 +39,7 @@ namespace com.github.lhervier.ksp.steaminput.Tests
         [SetUp]
         public void SetUp()
         {
-            SteamInputSettings.SetLogLevel(LogLevel.Trace);
+            ModLogger.SetLogLevel(LogLevel.Trace);
         }
 
         private class TestConsoleLogHandler : ILogHandler

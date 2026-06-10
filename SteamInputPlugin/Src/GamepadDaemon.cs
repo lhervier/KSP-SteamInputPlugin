@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using Steamworks;
 using com.github.lhervier.ksp.steaminput.model;
+using com.github.lhervier.ksp.shared;
 
 namespace com.github.lhervier.ksp.steaminput 
 {
@@ -22,7 +23,7 @@ namespace com.github.lhervier.ksp.steaminput
         /// <summary>
         /// Logger object
         /// </summary>
-        private static readonly SteamInputLogger LOGGER = new SteamInputLogger("GamepadDaemon");
+        private static readonly ModLogger LOGGER = new ModLogger("GamepadDaemon");
 
         private static GamepadDaemon _instance;
         public static GamepadDaemon Instance {

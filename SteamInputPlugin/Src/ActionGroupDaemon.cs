@@ -1,13 +1,11 @@
 using UnityEngine;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
 using UnityEngine.SceneManagement;
-using com.github.lhervier.ksp.steaminput.ui;
-using System.IO;
 using com.github.lhervier.ksp.steaminput.model;
+using com.github.lhervier.ksp.shared;
 
 namespace com.github.lhervier.ksp.steaminput 
 {
@@ -17,8 +15,8 @@ namespace com.github.lhervier.ksp.steaminput
         // <summary>
         //  Logger
         // </summary>
-        private static readonly SteamInputLogger LOGGER = new SteamInputLogger("ActionSetDaemon");
-        private static readonly SteamInputLogger LOGGER_CONTEXT = new SteamInputLogger("Contexts");
+        private static readonly ModLogger LOGGER = new ModLogger("ActionSetDaemon");
+        private static readonly ModLogger LOGGER_CONTEXT = new ModLogger("Contexts");
         private static ActionGroupDaemon _instance;
         public static ActionGroupDaemon Instance {
             get {

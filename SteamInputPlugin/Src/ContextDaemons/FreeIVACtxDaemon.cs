@@ -1,11 +1,8 @@
-using UnityEngine;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Linq;
 using UnityEngine.SceneManagement;
 using com.github.lhervier.ksp.steaminput.model;
+using com.github.lhervier.ksp.shared;
 
 namespace com.github.lhervier.ksp.steaminput 
 {
@@ -14,7 +11,7 @@ namespace com.github.lhervier.ksp.steaminput
     // </summary>
     public class FreeIVACtxDaemon : BaseContextDaemon
     {
-        private static readonly SteamInputLogger LOGGER = new SteamInputLogger("FreeIVACtxDaemon");
+        private static readonly ModLogger LOGGER = new ModLogger("FreeIVACtxDaemon");
         private static FreeIVACtxDaemon _instance;
         public static FreeIVACtxDaemon Instance {
             get {

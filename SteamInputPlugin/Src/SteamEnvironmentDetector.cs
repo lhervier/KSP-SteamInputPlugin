@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
+using com.github.lhervier.ksp.shared;
 using Microsoft.Win32;
 using Steamworks;
 
@@ -12,7 +13,7 @@ namespace com.github.lhervier.ksp.steaminput
     /// </summary>
     public static class SteamEnvironmentDetector
     {
-        private static readonly SteamInputLogger LOGGER = new SteamInputLogger("SteamEnvironmentDetector");
+        private static readonly ModLogger LOGGER = new ModLogger("SteamEnvironmentDetector");
         public const string APP_ID = "220200"; // KSP app id
         private const uint AppInstallDirBufferSize = 4096;
         

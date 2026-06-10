@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using com.github.lhervier.ksp.shared;
 
 namespace com.github.lhervier.ksp.steaminput
 {
@@ -9,7 +10,7 @@ namespace com.github.lhervier.ksp.steaminput
     /// </summary>
     public static class GamepadConfigPathResolver
     {
-        private static readonly SteamInputLogger LOGGER = new SteamInputLogger("GamepadConfigPathResolver");
+        private static readonly ModLogger LOGGER = new ModLogger("GamepadConfigPathResolver");
 
         private const string ControllerConfigsFolder = "Steam Controller Configs";
 

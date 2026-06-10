@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using com.github.lhervier.ksp.shared;
 using com.github.lhervier.ksp.steaminput.model;
 using com.github.lhervier.ksp.steaminput.ui.model;
 using com.github.lhervier.ksp.steaminput.Vdf;
@@ -13,7 +14,7 @@ namespace com.github.lhervier.ksp.steaminput
     /// </summary>
     public class GamepadConfigDaemon : MonoBehaviour
     {
-        private static readonly SteamInputLogger LOGGER = new SteamInputLogger("GamepadConfigDaemon");
+        private static readonly ModLogger LOGGER = new ModLogger("GamepadConfigDaemon");
 
         private static GamepadConfigDaemon _instance;
         public static GamepadConfigDaemon Instance {

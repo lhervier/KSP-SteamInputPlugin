@@ -4,12 +4,13 @@ using com.github.lhervier.ksp.steaminput.ui.model;
 using System.Linq;
 using System;
 using com.github.lhervier.ksp.steaminput.model;
+using com.github.lhervier.ksp.shared;
 
 namespace com.github.lhervier.ksp.steaminput.ui
 {
     public class CheatSheetViewModel: MonoBehaviour
     {
-        private static readonly SteamInputLogger LOGGER = new SteamInputLogger("CheatSheetViewModel");
+        private static readonly ModLogger LOGGER = new ModLogger("CheatSheetViewModel");
         
         private readonly DictionaryValueList<string, VdfGroup> _groupsCache = new DictionaryValueList<string, VdfGroup>();
 

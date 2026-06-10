@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 using com.github.lhervier.ksp.steaminput.ui;
 using System.IO;
 using com.github.lhervier.ksp.steaminput.model;
+using com.github.lhervier.ksp.shared;
 
 namespace com.github.lhervier.ksp.steaminput 
 {
@@ -18,7 +19,7 @@ namespace com.github.lhervier.ksp.steaminput
         // <summary>
         //  Logger
         // </summary>
-        private static readonly SteamInputLogger LOGGER = new SteamInputLogger();
+        private static readonly ModLogger LOGGER = new ModLogger();
         private static Mod _instance;
         public static Mod Instance {
             get {
@@ -87,6 +88,10 @@ namespace com.github.lhervier.ksp.steaminput
 
         private IEnumerator InitializePlugin()
         {
+            // Load the global settings
+            SteamInputSettings.OnGlobalSettingsChanged.Add(OnLogLevelChanged);
+            SteamInputSettings.Load();
+            
             // Wait for the KSPSteamController to be handled
             LOGGER.LogInfo("Waiting for Squad KSPSteamController plugin");
             yield return StartCoroutine(HandleKSPSteamController());
@@ -100,9 +105,6 @@ namespace com.github.lhervier.ksp.steaminput
             }
             LOGGER.LogInfo("Steam ready");
             
-            // Load the global settings
-            SteamInputSettings.Load();
-
             // Create the action set daemon
             LOGGER.LogInfo("Creating Action Set Daemon");
             this.actionGroupDaemon = gameObject.AddComponent<ActionGroupDaemon>();
@@ -224,6 +226,8 @@ namespace com.github.lhervier.ksp.steaminput
                 this.actionGroupDaemon = null;
             }
 
+            SteamInputSettings.OnGlobalSettingsChanged.Remove(OnLogLevelChanged);
+
             _instance = null;
             LOGGER.LogInfo("Destroyed");
         }
@@ -306,6 +310,14 @@ namespace com.github.lhervier.ksp.steaminput
             ScreenMessages.PostScreenMessage(this.screenMessage);
 
             this.gamepadDaemon.ChangeActionGroup(actionGroup);
+        }
+
+        private void OnLogLevelChanged(int flags)
+        {
+            if( (flags & UpdatedConfiguration.LOG_LEVEL) != 0)
+            {
+                ModLogger.SetLogLevel(SteamInputSettings.GetLogLevel());
+            }
         }
 
         // ==============================================================================

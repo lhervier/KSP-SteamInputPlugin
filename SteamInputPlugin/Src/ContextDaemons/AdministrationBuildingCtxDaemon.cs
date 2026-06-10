@@ -1,11 +1,6 @@
-using UnityEngine;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Linq;
 using UnityEngine.SceneManagement;
 using com.github.lhervier.ksp.steaminput.model;
+using com.github.lhervier.ksp.shared;
 
 namespace com.github.lhervier.ksp.steaminput 
 {
@@ -14,7 +9,7 @@ namespace com.github.lhervier.ksp.steaminput
     // </summary>
     public class AdministrationBuildingCtxDaemon : BaseContextDaemon
     {
-        private static readonly SteamInputLogger LOGGER = new SteamInputLogger("AdministrationBuildingCtxDaemon");
+        private static readonly ModLogger LOGGER = new ModLogger("AdministrationBuildingCtxDaemon");
         
         public override EActionGroup CorrespondingActionGroup()
         {

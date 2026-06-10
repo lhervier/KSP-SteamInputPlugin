@@ -1,4 +1,5 @@
 using System;
+using com.github.lhervier.ksp.shared;
 using KSP.Localization;
 
 namespace com.github.lhervier.ksp.steaminput
@@ -8,7 +9,7 @@ namespace com.github.lhervier.ksp.steaminput
     /// </summary>
     public static class ModLocalization
     {
-        private static readonly SteamInputLogger LOGGER = new SteamInputLogger("ModLocalization");
+        private static readonly ModLogger LOGGER = new ModLogger("ModLocalization");
 
         public static string GetString(string key, params object[] args)
         {

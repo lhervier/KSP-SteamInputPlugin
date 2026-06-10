@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using com.github.lhervier.ksp.shared;
 using UnityEngine;
 
 namespace com.github.lhervier.ksp.steaminput 
@@ -16,7 +17,7 @@ namespace com.github.lhervier.ksp.steaminput
         // <summary>
         //  Logger
         // </summary>
-        private static SteamInputLogger LOGGER = new SteamInputLogger("DelayedActionDaemon");
+        private static ModLogger LOGGER = new ModLogger("DelayedActionDaemon");
 
         // ===============================================
 
