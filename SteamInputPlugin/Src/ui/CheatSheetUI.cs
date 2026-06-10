@@ -8,9 +8,9 @@ namespace com.github.lhervier.ksp.steaminput.ui
     {
         private static readonly SteamInputLogger LOGGER = new SteamInputLogger("SteamInputSettingsUI");
 
-        private ApplicationLauncherButton button;
+        private ApplicationLauncherButton _toolbarButton;
 
-        private ModPopupController popupDialogController = null;
+        private ModPopupController _popupController = null;
 
         // ===============================================================
         // Life cycle
@@ -56,12 +56,12 @@ namespace com.github.lhervier.ksp.steaminput.ui
                 LOGGER.LogDebug("ApplicationLauncher not Ready");
                 return;
             }
-            if (button != null) {
+            if (_toolbarButton != null) {
                 LOGGER.LogDebug("Button already added to ApplicationLauncher");
                 return;
             }
 
-            button = ApplicationLauncher.Instance.AddModApplication(
+            _toolbarButton = ApplicationLauncher.Instance.AddModApplication(
                 OnToggleOn,
                 OnToggleOff,
                 null,
@@ -87,18 +87,18 @@ namespace com.github.lhervier.ksp.steaminput.ui
         private void OnToggleOff()
         {
             LOGGER.LogDebug("Hiding window (from toolbar)");
-            if (popupDialogController != null)
+            if (_popupController != null)
             {
-                popupDialogController.Hide();
+                _popupController.Hide();
             }
         }
 
         public void WindowClosed()
         {
             LOGGER.LogDebug("Window hidden from UI");
-            if (button != null)
+            if (_toolbarButton != null)
             {
-                button.SetFalse(false);
+                _toolbarButton.SetFalse(false);
             }
         }
 
@@ -113,7 +113,7 @@ namespace com.github.lhervier.ksp.steaminput.ui
 
         private void ShowInternal()
         {
-            if (popupDialogController == null)
+            if (_popupController == null)
             {
                 ModPopupBuilder popupBuilder = new ModPopupBuilder()
                     .ViewModel(viewModel);
@@ -121,23 +121,23 @@ namespace com.github.lhervier.ksp.steaminput.ui
                 {
                     popupBuilder = popupBuilder.Position(saved);
                 }
-                popupDialogController = popupBuilder.Build();
-                if (popupDialogController == null) return;    // Spawn failed
-                popupDialogController.OnClosed.Add(WindowClosed);
+                _popupController = popupBuilder.Build();
+                if (_popupController == null) return;    // Spawn failed
+                _popupController.OnClosed.Add(WindowClosed);
                 // When KSP dismisses the popup itself (Escape opens the pause menu and closes it),
                 // resync as if the user had closed it: hide the rest and reset the toolbar toggle.
-                popupDialogController.OnPositionCaptured.Add(OnWindowPositionCaptured);
+                _popupController.OnPositionCaptured.Add(OnWindowPositionCaptured);
             }
-            popupDialogController.Show();
+            _popupController.Show();
         }
 
         private void Dismiss()
         {
-            if (popupDialogController == null) return;
-            popupDialogController.OnClosed.Remove(WindowClosed);
-            popupDialogController.OnPositionCaptured.Remove(OnWindowPositionCaptured);
-            popupDialogController.Dismiss();
-            popupDialogController = null;
+            if (_popupController == null) return;
+            _popupController.OnClosed.Remove(WindowClosed);
+            _popupController.OnPositionCaptured.Remove(OnWindowPositionCaptured);
+            _popupController.Dismiss();
+            _popupController = null;
         }
     }
 }
