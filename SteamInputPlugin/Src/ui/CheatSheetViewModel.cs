@@ -116,18 +116,24 @@ namespace com.github.lhervier.ksp.steaminput.ui
         // ==============================================================================================
 
         private GamepadConfigDaemon _gamepadConfigDaemon;
-        private ActionGroupDaemon _actionGroupDaemon;
-        private GamepadDaemon _gamepadDaemon;
-
-        public void Initialize(
-            GamepadConfigDaemon gamepadConfigDaemon, 
-            ActionGroupDaemon actionGroupDaemon,
-            GamepadDaemon gamepadDaemon
-        )
+        public CheatSheetViewModel GamepadConfigDaemon(GamepadConfigDaemon gamepadConfigDaemon)
         {
             this._gamepadConfigDaemon = gamepadConfigDaemon;
+            return this;
+        }
+
+        private ActionGroupDaemon _actionGroupDaemon;
+        public CheatSheetViewModel ActionGroupDaemon(ActionGroupDaemon actionGroupDaemon)
+        {
             this._actionGroupDaemon = actionGroupDaemon;
+            return this;
+        }
+
+        private GamepadDaemon _gamepadDaemon;
+        public CheatSheetViewModel GamepadDaemon(GamepadDaemon gamepadDaemon)
+        {
             this._gamepadDaemon = gamepadDaemon;
+            return this;
         }
 
         public void Awake()

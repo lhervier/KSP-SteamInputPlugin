@@ -123,13 +123,12 @@ namespace com.github.lhervier.ksp.steaminput
 
             // Create the view model
             LOGGER.LogInfo("Creating View Model");
-            this._viewModel = gameObject.AddComponent<CheatSheetViewModel>();
-            this._viewModel.Initialize(
-                this._gamepadConfigDaemon, 
-                this._actionGroupDaemon, 
-                this._gamepadDaemon
-            );
-
+            this._viewModel = gameObject
+                .AddComponent<CheatSheetViewModel>()
+                .GamepadConfigDaemon(_gamepadConfigDaemon)
+                .ActionGroupDaemon(_actionGroupDaemon)
+                .GamepadDaemon(_gamepadDaemon);
+            
             // Start the GUI
             LOGGER.LogInfo("Starting Logging UI");
             this._cheatSheetUI = gameObject
