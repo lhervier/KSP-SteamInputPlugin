@@ -20,13 +20,7 @@ namespace com.github.lhervier.ksp.steaminput
         //  Logger
         // </summary>
         private static readonly ModLogger LOGGER = new ModLogger();
-        private static Mod _instance;
-        public static Mod Instance {
-            get {
-                return _instance;
-            }
-        }
-
+        
         // ==================================================================================
 
         // <summary>
@@ -82,7 +76,6 @@ namespace com.github.lhervier.ksp.steaminput
             LOGGER.LogInfo("Start");
             this.initializePluginCoroutine = InitializePlugin();
             StartCoroutine(this.initializePluginCoroutine);
-            _instance = this;
             LOGGER.LogDebug("Started");
         }
 
@@ -228,7 +221,6 @@ namespace com.github.lhervier.ksp.steaminput
 
             SteamInputSettings.OnGlobalSettingsChanged.Remove(OnLogLevelChanged);
 
-            _instance = null;
             LOGGER.LogInfo("Destroyed");
         }
 
