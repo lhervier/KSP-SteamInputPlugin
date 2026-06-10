@@ -15,7 +15,6 @@ namespace com.github.lhervier.ksp.steaminput
     [KSPAddon(KSPAddon.Startup.PSystemSpawn, true)]
     public class Mod : MonoBehaviour 
     {
-        
         // <summary>
         //  Logger
         // </summary>
@@ -26,33 +25,33 @@ namespace com.github.lhervier.ksp.steaminput
         // <summary>
         //  Message indicating when on Steam Controller action set changes
         // </summary>
-        private ScreenMessage screenMessage;
+        private ScreenMessage _screenMessage;
 
         // <summary>
         //  Connection Daemon to the steam controller
         // </summary>
-        private GamepadDaemon gamepadDaemon;
+        private GamepadDaemon _gamepadDaemon;
 
         // <summary>
         //  Action Set Daemon
         // </summary>
-        private ActionGroupDaemon actionGroupDaemon;
+        private ActionGroupDaemon _actionGroupDaemon;
 
         // <summary>
         //  Gamepad Config Daemon
         // </summary>
-        private GamepadConfigDaemon gamepadConfigDaemon;
+        private GamepadConfigDaemon _gamepadConfigDaemon;
         
         // <summary>
         //  The GUI
         // </summary>
-        private CheatSheetViewModel viewModel;
-        private CheatSheetUI cheatSheetUI;
+        private CheatSheetViewModel _viewModel;
+        private CheatSheetUI _cheatSheetUI;
 
         // <summary>
         //  Coroutine to initialize the plugin
         // </summary>
-        private IEnumerator initializePluginCoroutine;
+        private IEnumerator _initializePluginCoroutine;
 
         // ===============================================================================
         //                      Unity initialization
@@ -74,8 +73,8 @@ namespace com.github.lhervier.ksp.steaminput
         protected void Start() 
         {   
             LOGGER.LogInfo("Start");
-            this.initializePluginCoroutine = InitializePlugin();
-            StartCoroutine(this.initializePluginCoroutine);
+            this._initializePluginCoroutine = InitializePlugin();
+            StartCoroutine(this._initializePluginCoroutine);
             LOGGER.LogDebug("Started");
         }
 
@@ -100,22 +99,22 @@ namespace com.github.lhervier.ksp.steaminput
             
             // Create the action set daemon
             LOGGER.LogInfo("Creating Action Set Daemon");
-            this.actionGroupDaemon = gameObject.AddComponent<ActionGroupDaemon>();
-            this.actionGroupDaemon.OnActionGroupChanged.Add(this.OnActionGroupChanged);
+            this._actionGroupDaemon = gameObject.AddComponent<ActionGroupDaemon>();
+            this._actionGroupDaemon.OnActionGroupChanged.Add(this.OnActionGroupChanged);
             
             // Create the controller daemon
             LOGGER.LogInfo("Creating SteamInput Daemon");
-            this.gamepadDaemon = gameObject.AddComponent<GamepadDaemon>();
-            this.gamepadDaemon.OnGamepadConnected.Add(this.OnControllerConnected);
-            this.gamepadDaemon.OnGamepadConnectedWithError.Add(this.OnControllerConnectedWithError);
+            this._gamepadDaemon = gameObject.AddComponent<GamepadDaemon>();
+            this._gamepadDaemon.OnGamepadConnected.Add(this.OnControllerConnected);
+            this._gamepadDaemon.OnGamepadConnectedWithError.Add(this.OnControllerConnectedWithError);
             
             // Create the gamepad config daemon
             LOGGER.LogInfo("Creating Gamepad Config Daemon");
-            this.gamepadConfigDaemon = gameObject.AddComponent<GamepadConfigDaemon>();
+            this._gamepadConfigDaemon = gameObject.AddComponent<GamepadConfigDaemon>();
             
             // Prepare screen message
             LOGGER.LogInfo("Creating Status Message");
-            this.screenMessage = new ScreenMessage(
+            this._screenMessage = new ScreenMessage(
                 string.Empty, 
                 5f, 
                 ScreenMessageStyle.UPPER_RIGHT
@@ -124,18 +123,18 @@ namespace com.github.lhervier.ksp.steaminput
 
             // Create the view model
             LOGGER.LogInfo("Creating View Model");
-            this.viewModel = gameObject.AddComponent<CheatSheetViewModel>();
-            this.viewModel.Initialize(
-                this.gamepadConfigDaemon, 
-                this.actionGroupDaemon, 
-                this.gamepadDaemon
+            this._viewModel = gameObject.AddComponent<CheatSheetViewModel>();
+            this._viewModel.Initialize(
+                this._gamepadConfigDaemon, 
+                this._actionGroupDaemon, 
+                this._gamepadDaemon
             );
 
             // Start the GUI
             LOGGER.LogInfo("Starting Logging UI");
-            this.cheatSheetUI = gameObject
+            this._cheatSheetUI = gameObject
                 .AddComponent<CheatSheetUI>()
-                .ViewModel(this.viewModel);
+                .ViewModel(this._viewModel);
             LOGGER.LogInfo("Logging UI started");
 
             // Log the detected steam environment
@@ -186,37 +185,37 @@ namespace com.github.lhervier.ksp.steaminput
         {
             SteamInputSettings.Save();
             
-            if( this.initializePluginCoroutine != null ) {
-                StopCoroutine(this.initializePluginCoroutine);
-                this.initializePluginCoroutine = null;
+            if( this._initializePluginCoroutine != null ) {
+                StopCoroutine(this._initializePluginCoroutine);
+                this._initializePluginCoroutine = null;
             }
             
-            if( this.cheatSheetUI != null ) {
-                Destroy(this.cheatSheetUI);
-                this.cheatSheetUI = null;
+            if( this._cheatSheetUI != null ) {
+                Destroy(this._cheatSheetUI);
+                this._cheatSheetUI = null;
             }
 
-            if( this.viewModel != null ) {
-                Destroy(this.viewModel);
-                this.viewModel = null;
+            if( this._viewModel != null ) {
+                Destroy(this._viewModel);
+                this._viewModel = null;
             }
             
-            if( this.gamepadConfigDaemon != null ) {
-                Destroy(this.gamepadConfigDaemon);
-                this.gamepadConfigDaemon = null;
+            if( this._gamepadConfigDaemon != null ) {
+                Destroy(this._gamepadConfigDaemon);
+                this._gamepadConfigDaemon = null;
             }
             
-            if( this.gamepadDaemon != null ) {
-                this.gamepadDaemon.OnGamepadConnected.Remove(OnControllerConnected);
-                this.gamepadDaemon.OnGamepadConnectedWithError.Remove(OnControllerConnectedWithError);
-                Destroy(this.gamepadDaemon);
-                this.gamepadDaemon = null;
+            if( this._gamepadDaemon != null ) {
+                this._gamepadDaemon.OnGamepadConnected.Remove(OnControllerConnected);
+                this._gamepadDaemon.OnGamepadConnectedWithError.Remove(OnControllerConnectedWithError);
+                Destroy(this._gamepadDaemon);
+                this._gamepadDaemon = null;
             }
 
-            if( this.actionGroupDaemon != null ) {
-                this.actionGroupDaemon.OnActionGroupChanged.Remove(OnActionGroupChanged);
-                Destroy(this.actionGroupDaemon);
-                this.actionGroupDaemon = null;
+            if( this._actionGroupDaemon != null ) {
+                this._actionGroupDaemon.OnActionGroupChanged.Remove(OnActionGroupChanged);
+                Destroy(this._actionGroupDaemon);
+                this._actionGroupDaemon = null;
             }
 
             SteamInputSettings.OnGlobalSettingsChanged.Remove(OnLogLevelChanged);
@@ -298,10 +297,10 @@ namespace com.github.lhervier.ksp.steaminput
                 return;
             }
 
-            this.screenMessage.message = "Controller: " + actionGroup.ToString() + ".";
-            ScreenMessages.PostScreenMessage(this.screenMessage);
+            this._screenMessage.message = "Controller: " + actionGroup.ToString() + ".";
+            ScreenMessages.PostScreenMessage(this._screenMessage);
 
-            this.gamepadDaemon.ChangeActionGroup(actionGroup);
+            this._gamepadDaemon.ChangeActionGroup(actionGroup);
         }
 
         private void OnLogLevelChanged(int flags)
@@ -322,7 +321,7 @@ namespace com.github.lhervier.ksp.steaminput
         private void OnControllerConnected() 
         {
             LOGGER.LogInfo("New Controller connected");
-            gamepadDaemon.ChangeActionGroup(actionGroupDaemon.GetCurrentActionGroup());
+            _gamepadDaemon.ChangeActionGroup(_actionGroupDaemon.GetCurrentActionGroup());
             
             // When the steam version of KSP starts, it will not see any connected Joystick
             // It's only when steam will be initialized that KSP will see the steam emulated controllers
