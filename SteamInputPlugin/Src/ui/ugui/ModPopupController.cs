@@ -5,7 +5,7 @@ using com.github.lhervier.ksp.shared.ugui.overlay;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui
 {
-    public class ModPopupDialogController : BaseSteamInputController
+    public class ModPopupController : BaseSteamInputController
     {
         public EventVoid OnClosed => _popupController.OnClosed;
         public EventData<Vector2> OnPositionCaptured => _popupController.OnPositionCaptured;
@@ -17,21 +17,21 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
         // Dependencies injected by the builder right after AddComponent, before Start() runs.
 
         private PopupController _popupController = null;
-        public ModPopupDialogController PopupController(PopupController controller)
+        public ModPopupController PopupController(PopupController controller)
         {
             this._popupController = controller;
             return this;
         }
 
         private OverlayController _overlayController = null;
-        public ModPopupDialogController OverlayController(OverlayController overlayController)
+        public ModPopupController OverlayController(OverlayController overlayController)
         {
             this._overlayController = overlayController;
             return this;
         }
 
         private MenuBuilder.MenuController _menuController = null;
-        public ModPopupDialogController MenuController(MenuBuilder.MenuController menuController)
+        public ModPopupController MenuController(MenuBuilder.MenuController menuController)
         {
             this._menuController = menuController;
             return this;

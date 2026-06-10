@@ -10,7 +10,7 @@ namespace com.github.lhervier.ksp.steaminput.ui
 
         private ApplicationLauncherButton button;
 
-        private ModPopupDialogController popupDialogController = null;
+        private ModPopupController popupDialogController = null;
 
         // ===============================================================
         // Life cycle

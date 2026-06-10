@@ -10,7 +10,7 @@ using com.github.lhervier.ksp.steaminput.ui.styles;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui
 {
-    public class ModPopupBuilder : IUGUIBuilder<ModPopupDialogController>
+    public class ModPopupBuilder : IUGUIBuilder<ModPopupController>
     {
         private const string DIALOG_ID = "SteamInputCheatSheetUGUI";
         
@@ -47,7 +47,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
         /// Spawn the cheat-sheet popup window and return its controller, or null if KSP failed to spawn
         /// it. The caller drives the window through the returned controller.
         /// </summary>
-        public ModPopupDialogController Build()
+        public ModPopupController Build()
         {
             var popupBuilder = new PopupBuilder<TitleBarController, BodyController>()
                 .PopupID(DIALOG_ID)
@@ -80,7 +80,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
             
             return popupController
                 .GetGameObject()
-                .AddComponent<ModPopupDialogController>()
+                .AddComponent<ModPopupController>()
                 .ViewModel(_viewModel)
                 .PopupController(popupController)
                 .OverlayController(overlayController)
