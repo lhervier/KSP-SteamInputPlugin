@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
-using com.github.lhervier.ksp.steaminput;
 using com.github.lhervier.ksp.steaminput.ui.styles;
 using com.github.lhervier.ksp.shared.ugui;
+using com.github.lhervier.ksp.shared;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
 {

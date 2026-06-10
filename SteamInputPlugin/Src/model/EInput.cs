@@ -1,8 +1,6 @@
 using System;
-using System.CodeDom;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
+using com.github.lhervier.ksp.shared;
 
 namespace com.github.lhervier.ksp.steaminput.ui.model
 {

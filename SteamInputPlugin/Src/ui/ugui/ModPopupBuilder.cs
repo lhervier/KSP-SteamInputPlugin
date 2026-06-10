@@ -7,6 +7,7 @@ using com.github.lhervier.ksp.shared.ugui.popup;
 using com.github.lhervier.ksp.shared.ugui.overlay;
 using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
 using com.github.lhervier.ksp.steaminput.ui.styles;
+using com.github.lhervier.ksp.shared;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui
 {
