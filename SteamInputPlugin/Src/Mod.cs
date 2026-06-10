@@ -12,15 +12,15 @@ using com.github.lhervier.ksp.steaminput.model;
 namespace com.github.lhervier.ksp.steaminput 
 {
     [KSPAddon(KSPAddon.Startup.PSystemSpawn, true)]
-    public class SteamInputPlugin : MonoBehaviour 
+    public class Mod : MonoBehaviour 
     {
         
         // <summary>
         //  Logger
         // </summary>
         private static readonly SteamInputLogger LOGGER = new SteamInputLogger();
-        private static SteamInputPlugin _instance;
-        public static SteamInputPlugin Instance {
+        private static Mod _instance;
+        public static Mod Instance {
             get {
                 return _instance;
             }
