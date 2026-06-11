@@ -1,3 +1,4 @@
+using com.github.lhervier.ksp.shared;
 using UnityEngine;
 
 namespace com.github.lhervier.ksp.steaminput.ui.styles
@@ -72,16 +73,9 @@ namespace com.github.lhervier.ksp.steaminput.ui.styles
         public static readonly Color ActivatorNoteColor = new Color(72f / 255f, 72f / 255f, 72f / 255f);
 
         // ===============================================================
-        // Shared icons
-        // ===============================================================
-
-        // Circular refresh arrow, used wherever the "↻" glyph would be (missing from the game fonts).
-        public const string RefreshIconPath = "SteamInput/Textures/refresh_icon";
-
-        // ===============================================================
         // Title bar
         // ===============================================================
-        public const string TitleBarGamepadIconPath = "SteamInput/Textures/gamepad_icon";
+        public static string TitleBarGamepadIconPath = Constants.ModName + "/Textures/gamepad_icon";
         public const int TitleBarControllerNameFontSize = 10;
         public const int TitleBarActionGroupFontSize = 10;
         public const int TitleBarActionGroupPaddingH = 5;
@@ -104,7 +98,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.styles
         public const float MenuArrowsSpacing = 2f;
         public const float MenuThickness = 1f;
         public const float MenuIconSize = 22f;
-        public const string MenuSettingsIconPath = "SteamInput/Textures/settings_icon";
+        public static string MenuSettingsIconPath = Constants.ModName + "/Textures/settings_icon";
         public const int MenuTitleFontSize = 10;
         public const int MenuItemFontSize = 12;
 

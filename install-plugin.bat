@@ -8,9 +8,9 @@ if not defined KSPDIR (
     set "KSPDIR=C:\Program Files (x86)\Steam\steamapps\common\Kerbal Space Program"
 )
 
-set "PLUGIN_DIR=!KSPDIR!\GameData\SteamInput"
+set "PLUGIN_DIR=!KSPDIR!\GameData\SteamInputMod"
 set "PLUGIN_DATA=!PLUGIN_DIR!\PluginData"
-set "BACKUP=!TEMP!\KSP-SteamInput-PluginData-backup"
+set "BACKUP=!TEMP!\KSP-SteamInputMod-PluginData-backup"
 
 echo Script parameters :
 echo - KSPDIR: !KSPDIR!
@@ -50,7 +50,7 @@ if not exist "!KSPDIR!\GameData" mkdir "!KSPDIR!\GameData"
 if not exist "!PLUGIN_DIR!" mkdir "!PLUGIN_DIR!"
 
 echo Unzipping zip archive
-powershell -NoProfile -ExecutionPolicy Bypass -Command "Expand-Archive -LiteralPath '%~dp0Release\SteamInput.zip' -DestinationPath '!PLUGIN_DIR!' -Force"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "Expand-Archive -LiteralPath '%~dp0Release\SteamInputMod.zip' -DestinationPath '!PLUGIN_DIR!' -Force"
 if errorlevel 1 (
     echo ERROR: Failed to unzip the plugin
     exit /b 1

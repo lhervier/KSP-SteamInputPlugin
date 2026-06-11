@@ -1,13 +1,13 @@
 #!/bin/bash
 set -e
 
-echo "Test de compilation du mod KSP SteamInput sur Ubuntu"
+echo "Test de compilation du mod KSP SteamInputMod sur Ubuntu"
 echo ""
 
 # Test de la partie configuration VDF (qui ne nécessite pas KSPDIR)
-echo "==========================================="
+echo "==============================================="
 echo "Test de la construction de la configuration VDF"
-echo "==========================================="
+echo "==============================================="
 
 if [ ! -d "Release" ]; then
     mkdir "Release"

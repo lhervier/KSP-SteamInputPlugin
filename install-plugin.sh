@@ -2,9 +2,9 @@
 set -e
 
 echo ""
-echo "==========================================="
-echo "Installation du plugin SteamInput pour KSP"
-echo "==========================================="
+echo "=============================================="
+echo "Installation du plugin SteamInputMod pour KSP"
+echo "=============================================="
 
 # Vérifier si KSPDIR est défini
 if [ -z "$KSPDIR" ]; then
@@ -21,15 +21,15 @@ if [ ! -d "Release" ]; then
 fi
 
 # Vérifier que le plugin a été compilé
-if [ ! -f "Release/SteamInput.zip" ]; then
-    echo "ERREUR: SteamInput.zip non trouvé dans Release/"
+if [ ! -f "Release/SteamInputMod.zip" ]; then
+    echo "ERREUR: SteamInputMod.zip non trouvé dans Release/"
     echo "Exécutez d'abord: ./build.sh"
     exit 1
 fi
 
-GAMEDATA_DIR="$KSPDIR/GameData/SteamInput"
+GAMEDATA_DIR="$KSPDIR/GameData/SteamInputMod"
 PLUGIN_DATA="$GAMEDATA_DIR/PluginData"
-BACKUP="${TMPDIR:-/tmp}/KSP-SteamInput-PluginData-backup"
+BACKUP="${TMPDIR:-/tmp}/KSP-SteamInputMod-PluginData-backup"
 
 echo "Installation du plugin dans: $KSPDIR"
 echo ""
@@ -58,17 +58,7 @@ mkdir -p "$GAMEDATA_DIR"
 # Extraire le plugin
 echo "Extraction du plugin..."
 cd "$GAMEDATA_DIR"
-unzip -o "$OLDPWD/Release/SteamInput.zip"
-# Le zip contient un dossier SteamInput, on doit déplacer son contenu
-if [ -d "SteamInput" ]; then
-    echo "Déplacement du contenu du dossier SteamInput..."
-    # Supprimer seulement les fichiers et dossiers du plugin (pas PluginData)
-    rm -f *.dll *.pdb
-    rm -rf Textures Localization
-    # Déplacer le nouveau contenu
-    mv SteamInput/* .
-    rmdir SteamInput
-fi
+unzip -o "$OLDPWD/Release/SteamInputMod.zip"
 cd "$OLDPWD"
 
 echo ""

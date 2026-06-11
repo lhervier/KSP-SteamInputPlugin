@@ -73,7 +73,7 @@ namespace com.github.lhervier.ksp.steaminput.ui
                 GameDatabase
                     .Instance
                     .GetTexture(
-                        "SteamInput/Textures/logging_icon",
+                        Constants.ModName + "/Textures/logging_icon",
                         false
                     )
             );

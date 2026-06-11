@@ -1,12 +1,8 @@
 using UnityEngine;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Linq;
-using UnityEngine.SceneManagement;
 using com.github.lhervier.ksp.steaminput.ui;
-using System.IO;
 using com.github.lhervier.ksp.steaminput.model;
 using com.github.lhervier.ksp.shared;
 

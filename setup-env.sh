@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Configuration de l'environnement pour la compilation du mod KSP SteamInput"
+echo "Configuration de l'environnement pour la compilation du mod KSP SteamInputMod"
 echo ""
 
 # Chercher l'installation KSP dans les emplacements courants

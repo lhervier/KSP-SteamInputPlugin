@@ -1,6 +1,6 @@
 using System.Reflection;
 
-[assembly: AssemblyTitle("SteamInputPlugin")]
+[assembly: AssemblyTitle("SteamInputMod")]
 [assembly: AssemblyDescription("SteamInput Plugin for KSP")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]

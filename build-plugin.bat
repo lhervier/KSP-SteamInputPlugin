@@ -58,64 +58,69 @@ echo Building Plugin Zip file
 echo -------------------------------------------
 
 echo Removing SteamInput folder if it already exists
-if exist "Release\SteamInput" rmdir /s /q "Release\SteamInput"
+if exist "Release\SteamInputMod" rmdir /s /q "Release\SteamInputMod"
 
 echo Creating zip structure
-mkdir "Release\SteamInput"
+mkdir "Release\SteamInputMod"
 if errorlevel 1 (
-    echo ERROR: Failed to create SteamInput folder
+    echo ERROR: Failed to create SteamInputMod folder
     exit /b 1
 )
-mkdir "Release\SteamInput\Textures"
+mkdir "Release\SteamInputMod\Textures"
 if errorlevel 1 (
     echo ERROR: Failed to create Textures folder
     exit /b 1
 )
-mkdir "Release\SteamInput\Localization"
+mkdir "Release\SteamInputMod\Localization"
 if errorlevel 1 (
     echo ERROR: Failed to create Localization folder
     exit /b 1
 )
 
 echo Copying Plugin Files...
-echo - Copying SteamInput.dll
-copy /y "Output\obj\SteamInputPlugin.dll" "Release\SteamInput"
+echo - Copying SteamInputMod.dll
+copy /y "Output\obj\SteamInputMod.dll" "Release\SteamInputMod"
 if errorlevel 1 (
-    echo ERROR: Failed to copy SteamInputPlugin.dll
+    echo ERROR: Failed to copy SteamInputMod.dll
     exit /b 1
 )
 
 echo - Copying texture files
-if not exist "SteamInputPlugin\GameData\SteamInput\Textures" (
+if not exist "SteamInputPlugin\GameData\SteamInputMod\Textures" (
     echo ERROR: SteamInputPlugin\GameData\SteamInput\Textures folder not found
     exit /b 1
 )
-copy /y "SteamInputPlugin\GameData\SteamInput\Textures\*" "Release\SteamInput\Textures\"
+copy /y "SteamInputPlugin\GameData\SteamInputMod\Textures\*" "Release\SteamInputMod\Textures\"
 if errorlevel 1 (
     echo ERROR: Failed to copy Textures
     exit /b 1
 )
-
-echo - Copying localization files
-if not exist "SteamInputPlugin\GameData\SteamInput\Localization" (
-    echo ERROR: SteamInputPlugin\GameData\SteamInput\Localization folder not found
+copy /y "SteamInputPlugin\KSP-Shared\GameData\Textures\*" "Release\SteamInputMod\Textures\"
+if errorlevel 1 (
+    echo ERROR: Failed to copy shared Textures
     exit /b 1
 )
-copy /y "SteamInputPlugin\GameData\SteamInput\Localization\*" "Release\SteamInput\Localization\"
+
+echo - Copying localization files
+if not exist "SteamInputPlugin\GameData\SteamInputMod\Localization" (
+    echo ERROR: SteamInputPlugin\GameData\SteamInputMod\Localization folder not found
+    exit /b 1
+)
+copy /y "SteamInputPlugin\GameData\SteamInputMod\Localization\*" "Release\SteamInputMod\Localization\"
 if errorlevel 1 (
     echo ERROR: Failed to copy Localization
     exit /b 1
 )
 
 echo Creating zip archive
-powershell -Command "Compress-Archive -Path 'Release\SteamInput\*' -DestinationPath 'Release\SteamInput.zip' -Force"
+powershell -Command "Compress-Archive -Path 'Release\SteamInputMod\*' -DestinationPath 'Release\SteamInputMod.zip' -Force"
 if errorlevel 1 (
     echo ERROR: Failed to create zip archive
     exit /b 1
 )
 
 echo Removing zip folder
-rmdir /s /q "Release\SteamInput"
+rmdir /s /q "Release\SteamInputMod"
 if errorlevel 1 (
     echo ERROR: Failed to remove temporary SteamInput folder
     exit /b 1

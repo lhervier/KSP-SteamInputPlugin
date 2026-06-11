@@ -80,7 +80,7 @@ namespace com.github.lhervier.ksp.steaminput
         //  Handles to the connected steam controllers.
         //  Don't use. This array is here to prevent from instanciating a new one every cycle.
         // </summary>
-        private ControllerHandle_t[] _controllerHandles = new ControllerHandle_t[Constants.STEAM_CONTROLLER_MAX_COUNT];
+        private ControllerHandle_t[] _controllerHandles = new ControllerHandle_t[Steamworks.Constants.STEAM_CONTROLLER_MAX_COUNT];
 
         // =======================================================================
 

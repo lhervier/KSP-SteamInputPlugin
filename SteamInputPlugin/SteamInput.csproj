@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
     <RuntimeIdentifiers>win;linux</RuntimeIdentifiers>
-    <AssemblyName>SteamInputPlugin</AssemblyName>
+    <AssemblyName>SteamInputMod</AssemblyName>
     <RootNamespace>com.github.lhervier.ksp.steaminput</RootNamespace>
     <OutputType>Library</OutputType>
     <OutputPath>..\Output\bin</OutputPath>
