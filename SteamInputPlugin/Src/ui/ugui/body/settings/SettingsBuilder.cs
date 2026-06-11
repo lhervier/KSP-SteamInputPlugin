@@ -7,6 +7,7 @@ using com.github.lhervier.ksp.shared.ugui.sprites;
 using com.github.lhervier.ksp.shared.ugui.button;
 using com.github.lhervier.ksp.shared.ugui;
 using com.github.lhervier.ksp.shared;
+using com.github.lhervier.ksp.shared.ugui.combo;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
 {
@@ -53,7 +54,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
             
             BuildSeparator(go.transform);
             
-            BuildLoggingSection(go.transform);
+            BuildLoggingSection(go.transform, out ComboController logLevelComboController);
             BuildSeparator(go.transform);
 
             DiagnosticController diagnosticController = new DiagnosticBuilder()
@@ -64,6 +65,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
             return go
                 .AddComponent<SettingsController>()
                 .ViewModel(_viewModel)
+                .LogLevelComboController(logLevelComboController)
                 .BackButtonController(backButtonController);
         }
 
@@ -112,16 +114,25 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
         }
 
         // Logging section: section label + the log level rotating button + a hint box.
-        private void BuildLoggingSection(Transform parent)
+        private void BuildLoggingSection(Transform parent, out ComboController logLevelComboController)
         {
             Transform section = BuildSection(parent, "LoggingSection");
 
             BuildSectionLabel(section, ModLocalization.GetString("SteamInput_settings_logging"));
 
-            LogLevelButtonController logLevel = new LogLevelButtonBuilder().ViewModel(_viewModel).Build();
-            logLevel.transform.SetParent(section, false);
+            logLevelComboController = new ComboBuilder()
+                .Parent(section)
+                .Label(ModLocalization.GetString("SteamInput_settings_logLevel"))
+                .LabelFor(GetLogLevelLabel)
+                .Build();
 
             BuildHint(section, ModLocalization.GetString("SteamInput_settings_loggingHint"));
+        }
+
+        private static string GetLogLevelLabel(string level)
+        {
+            string localized = ModLocalization.GetString("SteamInput_logLevel_" + level);
+            return string.IsNullOrEmpty(localized) ? level.ToString() : localized;
         }
 
         // ".kset-section": padded vertical container for a section's content.
