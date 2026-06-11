@@ -2,5 +2,6 @@
     "dotnetAcquisitionExtension.installTimeoutValue": 12000,
     "dotnet.preferCSharpExtension": true,
     "explorer.autoReveal": false,
+    "scm.autoReveal": false,
     "vscode-vdf.teamFortress2Folder": ""
 }
