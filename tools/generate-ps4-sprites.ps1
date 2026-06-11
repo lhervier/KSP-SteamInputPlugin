@@ -3,13 +3,14 @@
 # downscaled to the target size for a clean result.
 param(
     [string]$OutDir = "$PSScriptRoot\..\SteamInputPlugin\GameData\SteamInputMod\Textures",
-    [int]$Size = 72
+    # Power of two: the plugin loads these with mipmaps, POT sizes give clean mip chains.
+    [int]$Size = 32
 )
 
 Add-Type -AssemblyName System.Drawing
 
 $big = 512
-$penWidth = 44.0
+$penWidth = 88.0
 
 function New-ShapePng {
     param([string]$Path, [scriptblock]$Draw)
