@@ -7,8 +7,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body
 {
     /// <summary>
     /// Drives the body's two views: shows the settings screen or the scrollable cheat sheet depending on
-    /// the view model's settings toggle. Both views are built up-front and fill the body; only one is
-    /// active at a time.
+    /// the view model's settings toggle. Both views are built up-front; only one is active at a time.
     /// </summary>
     public class BodyController : MonoBehaviour
     {
