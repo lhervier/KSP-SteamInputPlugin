@@ -87,7 +87,8 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
                 SpritesActivators.ActivatorInputSprite,
                 activator.IconText,
                 SteamInputPalette.ActivatorInputTextColor,
-                SteamInputPalette.ActivatorInputFontSize);
+                SteamInputPalette.ActivatorInputFontSize,
+                SteamInputPalette.ActivatorInputChipMinSize);
 
             if (!string.IsNullOrEmpty(activator.PressText))
             {
@@ -97,14 +98,24 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
                     SpritesActivators.ActivatorPressSprite,
                     activator.PressText,
                     SteamInputPalette.ActivatorPressTextColor,
-                    SteamInputPalette.ActivatorPressFontSize);
+                    SteamInputPalette.ActivatorPressFontSize,
+                    0f);
             }
         }
 
-        private void BuildChip(Transform parent, string name, Sprite sprite, string text, Color textColor, int fontSize)
+        private void BuildChip(Transform parent, string name, Sprite sprite, string text, Color textColor, int fontSize, float minSize)
         {
             var go = new GameObject(name, typeof(RectTransform));
             go.transform.SetParent(parent, false);
+
+            // Square floor (0 = hug the content): the label stays centered through the
+            // chip's layout, wider texts keep growing horizontally.
+            if (minSize > 0f)
+            {
+                var element = go.AddComponent<LayoutElement>();
+                element.minWidth = minSize;
+                element.minHeight = minSize;
+            }
 
             var image = go.AddComponent<Image>();
             image.sprite = sprite;

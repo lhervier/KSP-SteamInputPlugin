@@ -46,6 +46,9 @@ namespace com.github.lhervier.ksp.steaminput.ui.styles
         public const int ActivatorInputFontSize = 11;
         public const float ActivatorInputPaddingH = 5f;
         public const int ActivatorInputBorderThickness = 1;
+        // Floor size of the input chip: short labels (a single glyph) get a square badge;
+        // wider labels (Share, Options, ...) still grow horizontally beyond it.
+        public const float ActivatorInputChipMinSize = 20f;
             
                 
         public static readonly Color ActivatorInputTextColor = new Color(232f / 255f, 232f / 255f, 232f / 255f);
