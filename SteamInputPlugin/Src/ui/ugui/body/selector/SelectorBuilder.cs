@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using com.github.lhervier.ksp.steaminput.ui.styles;
 using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
 using com.github.lhervier.ksp.shared.ugui.styles;
@@ -17,8 +18,11 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
     /// </summary>
     public class SelectorBuilder : IUGUIBuilder<SelectorController>
     {
-        private const string CaretGlyph = "▼";    // ▼ (U+25BC, renders like the menu order arrows)
-        private const string RefreshGlyph = "↻";  // ↻ (U+21BB)
+        // Preferred glyphs with degraded alternatives: the game's TMP font atlases (base +
+        // fallbacks) do not necessarily contain them; the actual glyph is picked at build time
+        // through DefaultPalette.PickGlyph. "↓"/"↑" are known to be available.
+        private static string CaretGlyph => DefaultPalette.PickGlyph("▼", "▾", "↓");
+        private static string RefreshGlyph => DefaultPalette.PickGlyph("↻", "⟳", "↺", "↓↑");
 
         // ==================================
         // Builder parameters
@@ -57,11 +61,20 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
             BuildCombo(go.transform, controller);
 
             // Refresh button: triggers a rescan of the Steam config folder. Sized to match the
-            // combo height so the ↻ glyph reads at a glance instead of getting lost in a tiny chip.
-            ButtonController refresh = new ButtonBuilder()
-                .ObjectName("Refresh")
-                .Label(RefreshGlyph)
-                .Build();
+            // combo height so the icon reads at a glance instead of getting lost in a tiny chip.
+            // Icon sprite (no circular-arrow glyph in the game fonts), text glyph as a fallback
+            // if the texture is missing.
+            var refreshBuilder = new ButtonBuilder().ObjectName("Refresh");
+            Sprite refreshIcon = SpritesIcons.RefreshIconSprite;
+            if (refreshIcon != null)
+            {
+                refreshBuilder.Icon(refreshIcon);
+            }
+            else
+            {
+                refreshBuilder.Label(RefreshGlyph);
+            }
+            ButtonController refresh = refreshBuilder.Build();
             refresh.transform.SetParent(go.transform, false);
             controller.RefreshButton(refresh);
 
@@ -123,27 +136,27 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
             labelRect.offsetMin = Vector2.zero;
             labelRect.offsetMax = Vector2.zero;
 
-            var label = labelGo.AddComponent<Text>();
-            label.font = HighLogic.UISkin.font;
+            var label = labelGo.AddComponent<TextMeshProUGUI>();
+            label.font = DefaultPalette.Font;
             label.fontSize = SteamInputPalette.ComboFontSize;
             label.color = SteamInputPalette.ComboTextColor;
-            label.alignment = TextAnchor.MiddleLeft;
-            label.horizontalOverflow = HorizontalWrapMode.Overflow; // clipped by the RectMask2D above
-            label.verticalOverflow = VerticalWrapMode.Overflow;
+            label.alignment = TextAlignmentOptions.Left;
+            label.enableWordWrapping = false; // clipped by the RectMask2D above
+            label.overflowMode = TextOverflowModes.Overflow;
             label.raycastTarget = false;
             controller.Label(label);
 
             // Caret
             var caretGo = new GameObject("Caret", typeof(RectTransform));
             caretGo.transform.SetParent(comboGo.transform, false);
-            var caret = caretGo.AddComponent<Text>();
+            var caret = caretGo.AddComponent<TextMeshProUGUI>();
             caret.text = CaretGlyph;
-            caret.font = HighLogic.UISkin.font;
+            caret.font = DefaultPalette.Font;
             caret.fontSize = SteamInputPalette.ComboCaretFontSize;
             caret.color = SteamInputPalette.ComboCaretColor;
-            caret.alignment = TextAnchor.MiddleCenter;
-            caret.horizontalOverflow = HorizontalWrapMode.Overflow;
-            caret.verticalOverflow = VerticalWrapMode.Overflow;
+            caret.alignment = TextAlignmentOptions.Center;
+            caret.enableWordWrapping = false;
+            caret.overflowMode = TextOverflowModes.Overflow;
             caret.raycastTarget = false;
 
             // The overlay and dropdown are built detached; they are moved next to the popup root and

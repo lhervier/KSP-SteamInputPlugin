@@ -1,7 +1,8 @@
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 using com.github.lhervier.ksp.steaminput.ui.styles;
 using com.github.lhervier.ksp.shared.ugui;
+using com.github.lhervier.ksp.shared.ugui.styles;
 using com.github.lhervier.ksp.shared;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
@@ -16,15 +17,15 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
         {
             var go = new GameObject("Title", typeof(RectTransform));
             
-            var text = go.AddComponent<Text>();
+            var text = go.AddComponent<TextMeshProUGUI>();
             text.text = ModLocalization.GetString("SteamInput_zonesMenuTitle").ToUpperInvariant();
-            text.font = HighLogic.UISkin.font;
-            text.fontSize = 10;
-            text.fontStyle = FontStyle.Bold;
+            text.font = DefaultPalette.Font;
+            text.fontSize = SteamInputPalette.MenuTitleFontSize;
+            text.fontStyle = FontStyles.Bold;
             text.color = SteamInputPalette.MenuTitleColor;
-            text.alignment = TextAnchor.MiddleLeft;
-            text.horizontalOverflow = HorizontalWrapMode.Overflow;
-            text.verticalOverflow = VerticalWrapMode.Overflow;
+            text.alignment = TextAlignmentOptions.Left;
+            text.enableWordWrapping = false;
+            text.overflowMode = TextOverflowModes.Overflow;
             text.raycastTarget = false;
 
             return go.AddComponent<TitleController>();

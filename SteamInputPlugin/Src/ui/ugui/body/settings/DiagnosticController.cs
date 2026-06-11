@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using com.github.lhervier.ksp.steaminput.ui.styles;
+using com.github.lhervier.ksp.shared.ugui.styles;
 using com.github.lhervier.ksp.shared;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
@@ -11,7 +13,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
         private const string CtxDaemonSuffix = "CtxDaemon";
 
         private Image _badgeImage;
-        private Text _badgeText;
+        private TextMeshProUGUI _badgeText;
         private Sprite _badgeOkSprite;
         private Sprite _badgeNoSprite;
 
@@ -35,7 +37,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
             return this;
         }
 
-        public DiagnosticController Badge(Image image, Text text, Sprite okSprite, Sprite noSprite)
+        public DiagnosticController Badge(Image image, TextMeshProUGUI text, Sprite okSprite, Sprite noSprite)
         {
             this._badgeImage = image;
             this._badgeText = text;
@@ -115,14 +117,14 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
         {
             var go = new GameObject("ContextRow", typeof(RectTransform));
             go.transform.SetParent(_contextsBox, false);
-            var label = go.AddComponent<Text>();
+            var label = go.AddComponent<TextMeshProUGUI>();
             label.text = "› " + text;
-            label.font = HighLogic.UISkin.font;
+            label.font = DefaultPalette.Font;
             label.fontSize = SteamInputPalette.SettingsContextFontSize;
             label.color = SteamInputPalette.SettingsContextRowColor;
-            label.alignment = TextAnchor.MiddleLeft;
-            label.horizontalOverflow = HorizontalWrapMode.Overflow;
-            label.verticalOverflow = VerticalWrapMode.Overflow;
+            label.alignment = TextAlignmentOptions.Left;
+            label.enableWordWrapping = false;
+            label.overflowMode = TextOverflowModes.Overflow;
             label.raycastTarget = false;
             ApplyRowPadding(label);
             return go;
@@ -132,15 +134,15 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
         {
             var go = new GameObject("ContextEmpty", typeof(RectTransform));
             go.transform.SetParent(_contextsBox, false);
-            var label = go.AddComponent<Text>();
+            var label = go.AddComponent<TextMeshProUGUI>();
             label.text = ModLocalization.GetString("SteamInput_settings_noContext");
-            label.font = HighLogic.UISkin.font;
+            label.font = DefaultPalette.Font;
             label.fontSize = SteamInputPalette.SettingsContextFontSize;
-            label.fontStyle = FontStyle.Italic;
+            label.fontStyle = FontStyles.Italic;
             label.color = SteamInputPalette.SettingsContextEmptyColor;
-            label.alignment = TextAnchor.MiddleLeft;
-            label.horizontalOverflow = HorizontalWrapMode.Overflow;
-            label.verticalOverflow = VerticalWrapMode.Overflow;
+            label.alignment = TextAlignmentOptions.Left;
+            label.enableWordWrapping = false;
+            label.overflowMode = TextOverflowModes.Overflow;
             label.raycastTarget = false;
             ApplyRowPadding(label);
             return go;
@@ -148,7 +150,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
 
         // Horizontal inset is carried by the box's VLG padding; each row only fixes its height
         // so successive rows keep a small, even gap (mockup .kset-ctx-row vertical padding).
-        private static void ApplyRowPadding(Text label)
+        private static void ApplyRowPadding(TextMeshProUGUI label)
         {
             var element = label.gameObject.AddComponent<LayoutElement>();
             element.minHeight = SteamInputPalette.SettingsContextFontSize + 6f;

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using com.github.lhervier.ksp.steaminput.ui.styles;
 using com.github.lhervier.ksp.steaminput.ui.model;
 using com.github.lhervier.ksp.shared.ugui.styles;
@@ -81,15 +82,15 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             var labelGo = new GameObject("SectionLabel", typeof(RectTransform));
             labelGo.transform.SetParent(go.transform, false);
 
-            var sectionText = labelGo.AddComponent<Text>();
+            var sectionText = labelGo.AddComponent<TextMeshProUGUI>();
             sectionText.text = label;
-            sectionText.font = HighLogic.UISkin.font;
+            sectionText.font = DefaultPalette.Font;
             sectionText.fontSize = SteamInputPalette.ModeLabelFontSize;
-            sectionText.fontStyle = FontStyle.Bold;
+            sectionText.fontStyle = FontStyles.Bold;
             sectionText.color = textColor;
-            sectionText.alignment = TextAnchor.MiddleLeft;
-            sectionText.horizontalOverflow = HorizontalWrapMode.Overflow;
-            sectionText.verticalOverflow = VerticalWrapMode.Overflow;
+            sectionText.alignment = TextAlignmentOptions.Left;
+            sectionText.enableWordWrapping = false;
+            sectionText.overflowMode = TextOverflowModes.Overflow;
             sectionText.raycastTarget = false;
 
             return go

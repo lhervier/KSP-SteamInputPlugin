@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using com.github.lhervier.ksp.steaminput.ui.styles;
 using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
 using com.github.lhervier.ksp.steaminput.ui.model;
 using com.github.lhervier.ksp.shared.ugui;
+using com.github.lhervier.ksp.shared.ugui.styles;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
 {
@@ -123,14 +125,14 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             var labelGo = new GameObject("Text", typeof(RectTransform));
             labelGo.transform.SetParent(go.transform, false);
 
-            var label = labelGo.AddComponent<Text>();
+            var label = labelGo.AddComponent<TextMeshProUGUI>();
             label.text = text;
-            label.font = HighLogic.UISkin.font;
+            label.font = DefaultPalette.Font;
             label.fontSize = fontSize;
             label.color = textColor;
-            label.alignment = TextAnchor.MiddleCenter;
-            label.horizontalOverflow = HorizontalWrapMode.Overflow;
-            label.verticalOverflow = VerticalWrapMode.Overflow;
+            label.alignment = TextAlignmentOptions.Center;
+            label.enableWordWrapping = false;
+            label.overflowMode = TextOverflowModes.Overflow;
             label.raycastTarget = false;
         }
 
@@ -140,14 +142,14 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             var go = new GameObject("Separator", typeof(RectTransform));
             go.transform.SetParent(parent, false);
 
-            var sep = go.AddComponent<Text>();
+            var sep = go.AddComponent<TextMeshProUGUI>();
             sep.text = "—";
-            sep.font = HighLogic.UISkin.font;
+            sep.font = DefaultPalette.Font;
             sep.fontSize = SteamInputPalette.ActivatorSeparatorFontSize;
             sep.color = SteamInputPalette.ActivatorSeparatorColor;
-            sep.alignment = TextAnchor.MiddleCenter;
-            sep.horizontalOverflow = HorizontalWrapMode.Overflow;
-            sep.verticalOverflow = VerticalWrapMode.Overflow;
+            sep.alignment = TextAlignmentOptions.Center;
+            sep.enableWordWrapping = false;
+            sep.overflowMode = TextOverflowModes.Overflow;
             sep.raycastTarget = false;
         }
 
@@ -159,17 +161,17 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             var layoutElement = go.AddComponent<LayoutElement>();
             layoutElement.flexibleWidth = 1f;
 
-            var action = go.AddComponent<Text>();
+            var action = go.AddComponent<TextMeshProUGUI>();
             action.text = BuildActionText(activator);
-            action.supportRichText = true;
-            action.font = HighLogic.UISkin.font;
+            action.richText = true;
+            action.font = DefaultPalette.Font;
             action.fontSize = SteamInputPalette.ActivatorActionFontSize;
             action.color = activator.Highlighted
                 ? SteamInputPalette.ActivatorActionHighlightColor
                 : SteamInputPalette.ActivatorActionColor;
-            action.alignment = TextAnchor.MiddleLeft;
-            action.horizontalOverflow = HorizontalWrapMode.Wrap;
-            action.verticalOverflow = VerticalWrapMode.Overflow;
+            action.alignment = TextAlignmentOptions.Left;
+            action.enableWordWrapping = true;
+            action.overflowMode = TextOverflowModes.Overflow;
             action.raycastTarget = false;
         }
 

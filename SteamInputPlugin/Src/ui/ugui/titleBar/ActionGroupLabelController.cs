@@ -1,12 +1,12 @@
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
 using com.github.lhervier.ksp.shared.ugui.styles;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
 {
     /// <summary>
-    /// Pushes the action group label from the ViewModel into a Text component.
+    /// Pushes the action group label from the ViewModel into a text component.
     /// Subscribes on Bind, unsubscribes on OnDestroy.
     /// </summary>
     public class ActionGroupLabelController : BaseSteamInputController
@@ -15,8 +15,8 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
         // Life cycle
         // ============================
 
-        private Text _label;
-        public ActionGroupLabelController Label(Text label)
+        private TextMeshProUGUI _label;
+        public ActionGroupLabelController Label(TextMeshProUGUI label)
         {
             this._label = label;
             return this;

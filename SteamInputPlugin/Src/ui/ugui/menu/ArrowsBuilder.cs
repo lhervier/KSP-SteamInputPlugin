@@ -7,6 +7,7 @@ using System;
 using com.github.lhervier.ksp.steaminput.ui.model;
 using System.Security.Policy;
 using com.github.lhervier.ksp.shared.ugui.button;
+using com.github.lhervier.ksp.shared.ugui.styles;
 using com.github.lhervier.ksp.shared.ugui;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
@@ -49,16 +50,17 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
             layout.childForceExpandWidth = false;
             layout.childForceExpandHeight = false;
 
+            // Triangles when the font (or a fallback) provides them, plain arrows otherwise.
             ButtonController upButtonController = new ButtonBuilder()
                 .ObjectName("Up")
-                .Label("▲")
+                .Label(DefaultPalette.PickGlyph("▲", "↑"))
                 .Interactable(!_zone.First)
                 .Build();
             upButtonController.transform.SetParent(go.transform, false);
-            
+
             ButtonController downButtonController = new ButtonBuilder()
                 .ObjectName("Down")
-                .Label("▼")
+                .Label(DefaultPalette.PickGlyph("▼", "↓"))
                 .Interactable(!_zone.Last)
                 .Build();
             downButtonController.transform.SetParent(go.transform, false);

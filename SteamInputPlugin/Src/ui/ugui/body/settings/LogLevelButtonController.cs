@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 using com.github.lhervier.ksp.shared;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
@@ -21,8 +21,8 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
             return this;
         }
 
-        private Text _label;
-        public LogLevelButtonController Label(Text label)
+        private TextMeshProUGUI _label;
+        public LogLevelButtonController Label(TextMeshProUGUI label)
         {
             this._label = label;
             return this;

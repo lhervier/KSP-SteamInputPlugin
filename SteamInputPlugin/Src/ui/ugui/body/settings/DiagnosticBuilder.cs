@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using com.github.lhervier.ksp.steaminput.ui.styles;
 using com.github.lhervier.ksp.shared.ugui.styles;
 using com.github.lhervier.ksp.shared.ugui.sprites;
@@ -69,15 +70,15 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
         {
             var go = new GameObject("SectionLabel", typeof(RectTransform));
             go.transform.SetParent(parent, false);
-            var label = go.AddComponent<Text>();
+            var label = go.AddComponent<TextMeshProUGUI>();
             label.text = (text ?? "").ToUpperInvariant();
-            label.font = HighLogic.UISkin.font;
+            label.font = DefaultPalette.Font;
             label.fontSize = SteamInputPalette.SettingsLabelFontSize;
-            label.fontStyle = FontStyle.Bold;
+            label.fontStyle = FontStyles.Bold;
             label.color = SteamInputPalette.SettingsLabelColor;
-            label.alignment = TextAnchor.MiddleLeft;
-            label.horizontalOverflow = HorizontalWrapMode.Overflow;
-            label.verticalOverflow = VerticalWrapMode.Overflow;
+            label.alignment = TextAlignmentOptions.Left;
+            label.enableWordWrapping = false;
+            label.overflowMode = TextOverflowModes.Overflow;
             label.raycastTarget = false;
         }
 
@@ -115,14 +116,14 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
 
             var textGo = new GameObject("Text", typeof(RectTransform));
             textGo.transform.SetParent(go.transform, false);
-            var label = textGo.AddComponent<Text>();
+            var label = textGo.AddComponent<TextMeshProUGUI>();
             label.text = text;
-            label.font = HighLogic.UISkin.font;
+            label.font = DefaultPalette.Font;
             label.fontSize = SteamInputPalette.SettingsHintFontSize;
             label.color = SteamInputPalette.SettingsNoteTextColor;
-            label.alignment = TextAnchor.UpperLeft;
-            label.horizontalOverflow = HorizontalWrapMode.Wrap;
-            label.verticalOverflow = VerticalWrapMode.Overflow;
+            label.alignment = TextAlignmentOptions.TopLeft;
+            label.enableWordWrapping = true;
+            label.overflowMode = TextOverflowModes.Overflow;
             label.raycastTarget = false;
 
             // Wrapped text needs the fitter to claim its multi-line height.
@@ -154,14 +155,14 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
             keyGo.transform.SetParent(go.transform, false);
             var keyElement = keyGo.AddComponent<LayoutElement>();
             keyElement.flexibleWidth = 1f;
-            var key = keyGo.AddComponent<Text>();
+            var key = keyGo.AddComponent<TextMeshProUGUI>();
             key.text = ModLocalization.GetString("SteamInput_settings_connected");
-            key.font = HighLogic.UISkin.font;
+            key.font = DefaultPalette.Font;
             key.fontSize = SteamInputPalette.SettingsKvFontSize;
             key.color = SteamInputPalette.SettingsKvKeyColor;
-            key.alignment = TextAnchor.MiddleLeft;
-            key.horizontalOverflow = HorizontalWrapMode.Overflow;
-            key.verticalOverflow = VerticalWrapMode.Overflow;
+            key.alignment = TextAlignmentOptions.Left;
+            key.enableWordWrapping = false;
+            key.overflowMode = TextOverflowModes.Overflow;
             key.raycastTarget = false;
 
             // Badge: a chip whose sprite + colors are swapped by the controller on connect/disconnect.
@@ -202,13 +203,13 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
             // the badge to the preferred width reported by this inner HLG.
             var badgeTextGo = new GameObject("Text", typeof(RectTransform));
             badgeTextGo.transform.SetParent(badgeGo.transform, false);
-            var badgeText = badgeTextGo.AddComponent<Text>();
-            badgeText.font = HighLogic.UISkin.font;
+            var badgeText = badgeTextGo.AddComponent<TextMeshProUGUI>();
+            badgeText.font = DefaultPalette.Font;
             badgeText.fontSize = SteamInputPalette.SettingsBadgeFontSize;
-            badgeText.fontStyle = FontStyle.Bold;
-            badgeText.alignment = TextAnchor.MiddleCenter;
-            badgeText.horizontalOverflow = HorizontalWrapMode.Overflow;
-            badgeText.verticalOverflow = VerticalWrapMode.Overflow;
+            badgeText.fontStyle = FontStyles.Bold;
+            badgeText.alignment = TextAlignmentOptions.Center;
+            badgeText.enableWordWrapping = false;
+            badgeText.overflowMode = TextOverflowModes.Overflow;
             badgeText.raycastTarget = false;
 
             controller.Badge(badgeImage, badgeText, _badgeOkSprite, _badgeNoSprite);
@@ -219,15 +220,15 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
         {
             var go = new GameObject("SubLabel", typeof(RectTransform));
             go.transform.SetParent(parent, false);
-            var label = go.AddComponent<Text>();
+            var label = go.AddComponent<TextMeshProUGUI>();
             label.text = (text ?? "").ToUpperInvariant();
-            label.font = HighLogic.UISkin.font;
+            label.font = DefaultPalette.Font;
             label.fontSize = SteamInputPalette.SettingsSubFontSize;
-            label.fontStyle = FontStyle.Bold;
+            label.fontStyle = FontStyles.Bold;
             label.color = SteamInputPalette.SettingsSubColor;
-            label.alignment = TextAnchor.MiddleLeft;
-            label.horizontalOverflow = HorizontalWrapMode.Overflow;
-            label.verticalOverflow = VerticalWrapMode.Overflow;
+            label.alignment = TextAlignmentOptions.Left;
+            label.enableWordWrapping = false;
+            label.overflowMode = TextOverflowModes.Overflow;
             label.raycastTarget = false;
         }
 

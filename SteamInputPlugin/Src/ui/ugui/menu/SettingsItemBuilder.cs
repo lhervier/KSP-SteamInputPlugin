@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 using com.github.lhervier.ksp.steaminput.ui.styles;
 using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
 using com.github.lhervier.ksp.shared.ugui.styles;
@@ -107,14 +108,14 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
             var labelLayout = labelGo.AddComponent<LayoutElement>();
             labelLayout.flexibleWidth = 1f;
 
-            var label = labelGo.AddComponent<Text>();
+            var label = labelGo.AddComponent<TextMeshProUGUI>();
             label.text = ModLocalization.GetString("SteamInput_settings");
-            label.font = HighLogic.UISkin.font;
-            label.fontSize = 12;
+            label.font = DefaultPalette.Font;
+            label.fontSize = SteamInputPalette.MenuItemFontSize;
             label.color = DefaultPalette.LabelColor;
-            label.alignment = TextAnchor.MiddleLeft;
-            label.horizontalOverflow = HorizontalWrapMode.Overflow;
-            label.verticalOverflow = VerticalWrapMode.Overflow;
+            label.alignment = TextAlignmentOptions.Left;
+            label.enableWordWrapping = false;
+            label.overflowMode = TextOverflowModes.Overflow;
             label.raycastTarget = false;
 
             // Chevron: hints that the entry opens another view (it does not toggle a value in place).
@@ -127,14 +128,14 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
             chevronLayout.preferredWidth = ButtonPalette.ButtonSize;
             chevronLayout.minWidth = ButtonPalette.ButtonSize;
 
-            var chevron = chevronGo.AddComponent<Text>();
+            var chevron = chevronGo.AddComponent<TextMeshProUGUI>();
             chevron.text = "›";
-            chevron.font = HighLogic.UISkin.font;
-            chevron.fontSize = 12;
+            chevron.font = DefaultPalette.Font;
+            chevron.fontSize = SteamInputPalette.MenuItemFontSize;
             chevron.color = SteamInputPalette.MenuTitleColor;
-            chevron.alignment = TextAnchor.MiddleCenter;
-            chevron.horizontalOverflow = HorizontalWrapMode.Overflow;
-            chevron.verticalOverflow = VerticalWrapMode.Overflow;
+            chevron.alignment = TextAlignmentOptions.Center;
+            chevron.enableWordWrapping = false;
+            chevron.overflowMode = TextOverflowModes.Overflow;
             chevron.raycastTarget = false;
 
             return controller;

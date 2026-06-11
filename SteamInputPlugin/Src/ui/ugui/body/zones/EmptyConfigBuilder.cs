@@ -1,7 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using com.github.lhervier.ksp.steaminput.ui.styles;
 using com.github.lhervier.ksp.shared.ugui;
+using com.github.lhervier.ksp.shared.ugui.styles;
 using com.github.lhervier.ksp.shared;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
@@ -43,15 +45,15 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             var go = new GameObject("Title", typeof(RectTransform));
             go.transform.SetParent(parent, false);
 
-            var label = go.AddComponent<Text>();
+            var label = go.AddComponent<TextMeshProUGUI>();
             label.text = ModLocalization.GetString("SteamInput_configHelpTitle").ToUpperInvariant();
-            label.font = HighLogic.UISkin.font;
+            label.font = DefaultPalette.Font;
             label.fontSize = SteamInputPalette.EmptyTitleFontSize;
-            label.fontStyle = FontStyle.Bold;
+            label.fontStyle = FontStyles.Bold;
             label.color = SteamInputPalette.EmptyTitleColor;
-            label.alignment = TextAnchor.MiddleLeft;
-            label.horizontalOverflow = HorizontalWrapMode.Overflow;
-            label.verticalOverflow = VerticalWrapMode.Overflow;
+            label.alignment = TextAlignmentOptions.Left;
+            label.enableWordWrapping = false;
+            label.overflowMode = TextOverflowModes.Overflow;
             label.raycastTarget = false;
         }
 
@@ -67,15 +69,15 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             string intro = ModLocalization.GetString("SteamInput_configHelpIntro");
             string refresh = ModLocalization.GetString("SteamInput_configHelpRefresh", highlighted);
 
-            var label = go.AddComponent<Text>();
+            var label = go.AddComponent<TextMeshProUGUI>();
             label.text = intro + "\n\n" + refresh;
-            label.supportRichText = true;
-            label.font = HighLogic.UISkin.font;
+            label.richText = true;
+            label.font = DefaultPalette.Font;
             label.fontSize = SteamInputPalette.EmptyBodyFontSize;
             label.color = SteamInputPalette.EmptyBodyColor;
-            label.alignment = TextAnchor.UpperLeft;
-            label.horizontalOverflow = HorizontalWrapMode.Wrap;
-            label.verticalOverflow = VerticalWrapMode.Overflow;
+            label.alignment = TextAlignmentOptions.TopLeft;
+            label.enableWordWrapping = true;
+            label.overflowMode = TextOverflowModes.Overflow;
             label.raycastTarget = false;
 
             // Wrapped text needs the fitter to claim its multi-line height.

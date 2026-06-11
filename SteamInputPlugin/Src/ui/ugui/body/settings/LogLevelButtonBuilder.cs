@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using com.github.lhervier.ksp.steaminput.ui.styles;
 using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
 using com.github.lhervier.ksp.shared.ugui.styles;
@@ -16,7 +17,9 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
     /// </summary>
     public class LogLevelButtonBuilder : IUGUIBuilder<LogLevelButtonController>
     {
-        private const string CycleGlyph = "↻"; // ↻ (U+21BB), hints that the button rotates
+        // Rotation glyph hinting that the button cycles, with degraded alternatives picked at
+        // build time depending on what the font (base + fallbacks) can actually render.
+        private static string CycleGlyph => DefaultPalette.PickGlyph("↻", "⟳", "↺", "↓↑");
 
         private CheatSheetViewModel _viewModel;
         public LogLevelButtonBuilder ViewModel(CheatSheetViewModel viewModel)
@@ -75,27 +78,47 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
             var labelElement = labelGo.AddComponent<LayoutElement>();
             labelElement.flexibleWidth = 1f;
 
-            var label = labelGo.AddComponent<Text>();
-            label.font = HighLogic.UISkin.font;
+            var label = labelGo.AddComponent<TextMeshProUGUI>();
+            label.font = DefaultPalette.Font;
             label.fontSize = SteamInputPalette.SettingsLogLevelFontSize;
             label.color = SteamInputPalette.SettingsLogLevelTextColor;
-            label.alignment = TextAnchor.MiddleLeft;
-            label.horizontalOverflow = HorizontalWrapMode.Overflow;
-            label.verticalOverflow = VerticalWrapMode.Overflow;
+            label.alignment = TextAlignmentOptions.Left;
+            label.enableWordWrapping = false;
+            label.overflowMode = TextOverflowModes.Overflow;
             label.raycastTarget = false;
 
-            // Rotate glyph hinting the button cycles through the levels.
+            // Rotate hint showing the button cycles through the levels. Icon sprite (no
+            // circular-arrow glyph in the game fonts), text glyph as a fallback if the
+            // texture is missing.
             var cycleGo = new GameObject("Cycle", typeof(RectTransform));
             cycleGo.transform.SetParent(go.transform, false);
-            var cycle = cycleGo.AddComponent<Text>();
-            cycle.text = CycleGlyph;
-            cycle.font = HighLogic.UISkin.font;
-            cycle.fontSize = SteamInputPalette.SettingsLogLevelCycleFontSize;
-            cycle.color = SteamInputPalette.SettingsLogLevelCycleColor;
-            cycle.alignment = TextAnchor.MiddleCenter;
-            cycle.horizontalOverflow = HorizontalWrapMode.Overflow;
-            cycle.verticalOverflow = VerticalWrapMode.Overflow;
-            cycle.raycastTarget = false;
+            Sprite cycleIcon = SpritesIcons.RefreshIconSprite;
+            if (cycleIcon != null)
+            {
+                // Pin the icon width: without a LayoutElement, the row layout would size it to
+                // the Image's preferred size, which is the texture's native resolution.
+                var cycleElement = cycleGo.AddComponent<LayoutElement>();
+                cycleElement.minWidth = ButtonPalette.ButtonIconSize;
+                cycleElement.preferredWidth = ButtonPalette.ButtonIconSize;
+
+                var cycle = cycleGo.AddComponent<Image>();
+                cycle.sprite = cycleIcon;
+                cycle.preserveAspect = true;
+                cycle.color = SteamInputPalette.SettingsLogLevelCycleColor;
+                cycle.raycastTarget = false;
+            }
+            else
+            {
+                var cycle = cycleGo.AddComponent<TextMeshProUGUI>();
+                cycle.text = CycleGlyph;
+                cycle.font = DefaultPalette.Font;
+                cycle.fontSize = SteamInputPalette.SettingsLogLevelCycleFontSize;
+                cycle.color = SteamInputPalette.SettingsLogLevelCycleColor;
+                cycle.alignment = TextAlignmentOptions.Center;
+                cycle.enableWordWrapping = false;
+                cycle.overflowMode = TextOverflowModes.Overflow;
+                cycle.raycastTarget = false;
+            }
 
             controller.Label(label);
 

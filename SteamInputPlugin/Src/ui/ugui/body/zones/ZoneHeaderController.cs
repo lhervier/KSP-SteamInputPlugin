@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 using com.github.lhervier.ksp.steaminput.ui.styles;
 using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
 using com.github.lhervier.ksp.steaminput.ui.model;
@@ -14,8 +14,8 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
         // Controller parameters
         // =====================================
 
-        private Text _label;
-        public ZoneHeaderController Label(Text label)
+        private TextMeshProUGUI _label;
+        public ZoneHeaderController Label(TextMeshProUGUI label)
         {
             _label = label;
             return this;

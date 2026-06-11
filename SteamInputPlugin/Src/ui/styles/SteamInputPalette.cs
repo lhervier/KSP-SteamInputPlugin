@@ -14,6 +14,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.styles
         // Zone header
         public const float ZoneHeaderHeight = 22f;
         public const int ZoneHeaderBorderThickness = 1;
+        public const int ZoneHeaderFontSize = 12;
         
         public static readonly Color ZoneHeaderColor = new Color(26f / 255f, 26f / 255f, 26f / 255f);
         public static readonly Color ZoneSeparatorColor = new Color(34f / 255f, 34f / 255f, 34f / 255f);
@@ -71,10 +72,21 @@ namespace com.github.lhervier.ksp.steaminput.ui.styles
         public static readonly Color ActivatorNoteColor = new Color(72f / 255f, 72f / 255f, 72f / 255f);
 
         // ===============================================================
+        // Shared icons
+        // ===============================================================
+
+        // Circular refresh arrow, used wherever the "↻" glyph would be (missing from the game fonts).
+        public const string RefreshIconPath = "SteamInput/Textures/refresh_icon";
+
+        // ===============================================================
         // Title bar
         // ===============================================================
         public const string TitleBarGamepadIconPath = "SteamInput/Textures/gamepad_icon";
-        
+        public const int TitleBarControllerNameFontSize = 10;
+        public const int TitleBarActionGroupFontSize = 10;
+        public const int TitleBarActionGroupPaddingH = 5;
+        public const int TitleBarActionGroupPaddingV = 2;
+
         // Colors
         public static readonly Color TitleBarActionGroupBorderColor = new Color(74f / 255f, 110f / 255f, 32f / 255f);
         public static readonly Color TitleBarControllerNameColor = new Color(85f / 255f, 85f / 255f, 85f / 255f);
@@ -93,6 +105,8 @@ namespace com.github.lhervier.ksp.steaminput.ui.styles
         public const float MenuThickness = 1f;
         public const float MenuIconSize = 22f;
         public const string MenuSettingsIconPath = "SteamInput/Textures/settings_icon";
+        public const int MenuTitleFontSize = 10;
+        public const int MenuItemFontSize = 12;
 
         public static readonly Color MenuTitleColor = new Color(85f / 255f, 85f / 255f, 85f / 255f);
         public static readonly Color MenuBackgroundColor = new Color(30f / 255f, 30f / 255f, 30f / 255f);

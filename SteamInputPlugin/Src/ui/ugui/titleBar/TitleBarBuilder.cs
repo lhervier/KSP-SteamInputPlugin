@@ -42,9 +42,12 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
             var controllerGo = new GamepadLabelBuilder().ViewModel(_viewModel).Build();
             controllerGo.transform.SetParent(rightRowGo.transform, false);
 
+            // "…" (U+2026) instead of "⋯" (U+22EF): the game's TMP font atlas does not contain the
+            // math midline ellipsis, while U+2026 is basic punctuation (also used by TMP's own
+            // Ellipsis overflow mode).
             var menuButtonController = new ButtonBuilder()
                 .ObjectName("SteamInput.TitleBar.MenuButton")
-                .Label("⋯")
+                .Label("…")
                 .Interactable(true)
                 .BackgroundColor(PopupPalette.TitleBarButtonColor)
                 .HoverColor(PopupPalette.TitleBarButtonHoverColor)

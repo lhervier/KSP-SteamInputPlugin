@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using com.github.lhervier.ksp.steaminput.ui.model;
 using com.github.lhervier.ksp.steaminput.ui.styles;
+using com.github.lhervier.ksp.shared.ugui.styles;
 using com.github.lhervier.ksp.shared.ugui.sprites;
 using com.github.lhervier.ksp.shared.ugui.button;
 using com.github.lhervier.ksp.shared.ugui.popup;
@@ -21,8 +23,8 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
         // Life Cycle
         // ===================================
         
-        private Text _label;
-        public SelectorController Label(Text label)
+        private TextMeshProUGUI _label;
+        public SelectorController Label(TextMeshProUGUI label)
         {
             this._label = label;
             return this;
@@ -263,31 +265,31 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
 
             var titleGo = new GameObject("Title", typeof(RectTransform));
             titleGo.transform.SetParent(itemGo.transform, false);
-            var titleText = titleGo.AddComponent<Text>();
+            var titleText = titleGo.AddComponent<TextMeshProUGUI>();
             titleText.text = title;
-            titleText.font = HighLogic.UISkin.font;
+            titleText.font = DefaultPalette.Font;
             titleText.fontSize = SteamInputPalette.ComboItemTitleFontSize;
-            titleText.fontStyle = isNone ? FontStyle.Italic : FontStyle.Normal;
+            titleText.fontStyle = isNone ? FontStyles.Italic : FontStyles.Normal;
             titleText.color = selected
                 ? SteamInputPalette.ComboItemTitleSelectedColor
                 : (isNone ? SteamInputPalette.ComboItemNoneColor : SteamInputPalette.ComboItemTitleColor);
-            titleText.alignment = TextAnchor.MiddleLeft;
-            titleText.horizontalOverflow = HorizontalWrapMode.Overflow;
-            titleText.verticalOverflow = VerticalWrapMode.Overflow;
+            titleText.alignment = TextAlignmentOptions.Left;
+            titleText.enableWordWrapping = false;
+            titleText.overflowMode = TextOverflowModes.Overflow;
             titleText.raycastTarget = false;
 
             if (!string.IsNullOrEmpty(typeLabel))
             {
                 var typeGo = new GameObject("Type", typeof(RectTransform));
                 typeGo.transform.SetParent(itemGo.transform, false);
-                var typeText = typeGo.AddComponent<Text>();
+                var typeText = typeGo.AddComponent<TextMeshProUGUI>();
                 typeText.text = typeLabel.ToUpperInvariant();
-                typeText.font = HighLogic.UISkin.font;
+                typeText.font = DefaultPalette.Font;
                 typeText.fontSize = SteamInputPalette.ComboItemTypeFontSize;
                 typeText.color = SteamInputPalette.ComboItemTypeColor;
-                typeText.alignment = TextAnchor.MiddleLeft;
-                typeText.horizontalOverflow = HorizontalWrapMode.Overflow;
-                typeText.verticalOverflow = VerticalWrapMode.Overflow;
+                typeText.alignment = TextAlignmentOptions.Left;
+                typeText.enableWordWrapping = false;
+                typeText.overflowMode = TextOverflowModes.Overflow;
                 typeText.raycastTarget = false;
             }
 

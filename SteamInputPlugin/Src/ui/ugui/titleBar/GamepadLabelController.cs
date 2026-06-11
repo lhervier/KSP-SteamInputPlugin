@@ -1,6 +1,6 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 using com.github.lhervier.ksp.steaminput.ui.styles;
 using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
 using UnityEngine.Events;
@@ -13,8 +13,8 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
         // Life cycle
         // =========================
 
-        private Text _label;
-        public GamepadLabelController Label(Text label)
+        private TextMeshProUGUI _label;
+        public GamepadLabelController Label(TextMeshProUGUI label)
         {
             this._label = label;
             return this;

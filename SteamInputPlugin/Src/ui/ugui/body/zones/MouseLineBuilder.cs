@@ -1,7 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using com.github.lhervier.ksp.steaminput.ui.styles;
 using com.github.lhervier.ksp.shared.ugui;
+using com.github.lhervier.ksp.shared.ugui.styles;
 using com.github.lhervier.ksp.shared;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
@@ -36,15 +38,15 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             var labelGo = new GameObject("Text", typeof(RectTransform));
             labelGo.transform.SetParent(go.transform, false);
 
-            var label = labelGo.AddComponent<Text>();
+            var label = labelGo.AddComponent<TextMeshProUGUI>();
             label.text = ModLocalization.GetString("SteamInput_mouseMovement");
-            label.font = HighLogic.UISkin.font;
+            label.font = DefaultPalette.Font;
             label.fontSize = SteamInputPalette.MouseLineFontSize;
-            label.fontStyle = FontStyle.Italic;
+            label.fontStyle = FontStyles.Italic;
             label.color = SteamInputPalette.MouseLineColor;
-            label.alignment = TextAnchor.MiddleLeft;
-            label.horizontalOverflow = HorizontalWrapMode.Overflow;
-            label.verticalOverflow = VerticalWrapMode.Overflow;
+            label.alignment = TextAlignmentOptions.Left;
+            label.enableWordWrapping = false;
+            label.overflowMode = TextOverflowModes.Overflow;
             label.raycastTarget = false;
 
             return go.AddComponent<MouseLineController>();
