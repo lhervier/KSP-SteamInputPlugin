@@ -5,6 +5,7 @@ using System.Reflection;
 using com.github.lhervier.ksp.steaminput.ui;
 using com.github.lhervier.ksp.steaminput.model;
 using com.github.lhervier.ksp.shared;
+using com.github.lhervier.ksp.shared.ugui.sprites;
 
 namespace com.github.lhervier.ksp.steaminput 
 {
@@ -56,10 +57,20 @@ namespace com.github.lhervier.ksp.steaminput
         // <summary>
         //  Make our plugin survive between scene loading
         // </summary>
-        protected void Awake() 
+        protected void Awake()
         {
             LOGGER.LogInfo("Awake");
             DontDestroyOnLoad(this);
+
+            // PS4 button glyphs: the game fonts cannot render them, so the localization
+            // files reference them through <sprite name=...> tags instead, resolved
+            // against these textures. The unicode codepoint is the glyph each sprite
+            // replaces, used as a fallback when a raw character slips through.
+            SpritesIcons.RegisterSprite("ps4_cross", Constants.ModName + "/Textures/ps4_cross", 0x00D7);       // ×
+            SpritesIcons.RegisterSprite("ps4_circle", Constants.ModName + "/Textures/ps4_circle", 0x25CB);     // ○
+            SpritesIcons.RegisterSprite("ps4_triangle", Constants.ModName + "/Textures/ps4_triangle", 0x25B3); // △
+            SpritesIcons.RegisterSprite("ps4_square", Constants.ModName + "/Textures/ps4_square", 0x25A1);     // □
+
             LOGGER.LogDebug("Awaked");
         }
 

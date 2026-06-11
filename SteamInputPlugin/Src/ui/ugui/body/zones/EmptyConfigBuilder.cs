@@ -4,6 +4,7 @@ using TMPro;
 using com.github.lhervier.ksp.steaminput.ui.styles;
 using com.github.lhervier.ksp.shared.ugui;
 using com.github.lhervier.ksp.shared.ugui.styles;
+using com.github.lhervier.ksp.shared.ugui.sprites;
 using com.github.lhervier.ksp.shared;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
@@ -73,6 +74,8 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             label.text = intro + "\n\n" + refresh;
             label.richText = true;
             label.font = DefaultPalette.Font;
+            // The refresh paragraph ends with a <sprite name="refresh"> tag.
+            label.spriteAsset = SpritesIcons.SpriteAsset;
             label.fontSize = SteamInputPalette.EmptyBodyFontSize;
             label.color = SteamInputPalette.EmptyBodyColor;
             label.alignment = TextAlignmentOptions.TopLeft;

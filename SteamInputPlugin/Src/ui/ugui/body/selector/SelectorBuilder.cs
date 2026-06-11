@@ -62,19 +62,12 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
 
             // Refresh button: triggers a rescan of the Steam config folder. Sized to match the
             // combo height so the icon reads at a glance instead of getting lost in a tiny chip.
-            // Icon sprite (no circular-arrow glyph in the game fonts), text glyph as a fallback
+            // Sprite tag (no circular-arrow glyph in the game fonts), text glyph as a fallback
             // if the texture is missing.
-            var refreshBuilder = new ButtonBuilder().ObjectName("Refresh");
-            Sprite refreshIcon = SpritesIcons.RefreshIconSprite;
-            if (refreshIcon != null)
-            {
-                refreshBuilder.Icon(refreshIcon);
-            }
-            else
-            {
-                refreshBuilder.Label(RefreshGlyph);
-            }
-            ButtonController refresh = refreshBuilder.Build();
+            ButtonController refresh = new ButtonBuilder()
+                .ObjectName("Refresh")
+                .Label(SpritesIcons.HasSprite("refresh") ? "<sprite name=\"refresh\" tint=1>" : RefreshGlyph)
+                .Build();
             refresh.transform.SetParent(go.transform, false);
             controller.RefreshButton(refresh);
 

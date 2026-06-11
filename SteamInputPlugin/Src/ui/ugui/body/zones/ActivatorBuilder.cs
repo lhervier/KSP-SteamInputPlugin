@@ -6,6 +6,7 @@ using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
 using com.github.lhervier.ksp.steaminput.ui.model;
 using com.github.lhervier.ksp.shared.ugui;
 using com.github.lhervier.ksp.shared.ugui.styles;
+using com.github.lhervier.ksp.shared.ugui.sprites;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
 {
@@ -128,6 +129,9 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             var label = labelGo.AddComponent<TextMeshProUGUI>();
             label.text = text;
             label.font = DefaultPalette.Font;
+            // Input labels can carry <sprite name=...> tags (PS4 button glyphs, see the
+            // localization files).
+            label.spriteAsset = SpritesIcons.SpriteAsset;
             label.fontSize = fontSize;
             label.color = textColor;
             label.alignment = TextAlignmentOptions.Center;
@@ -165,6 +169,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             action.text = BuildActionText(activator);
             action.richText = true;
             action.font = DefaultPalette.Font;
+            action.spriteAsset = SpritesIcons.SpriteAsset;
             action.fontSize = SteamInputPalette.ActivatorActionFontSize;
             action.color = activator.Highlighted
                 ? SteamInputPalette.ActivatorActionHighlightColor

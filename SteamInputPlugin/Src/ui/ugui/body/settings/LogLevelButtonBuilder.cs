@@ -87,38 +87,21 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
             label.overflowMode = TextOverflowModes.Overflow;
             label.raycastTarget = false;
 
-            // Rotate hint showing the button cycles through the levels. Icon sprite (no
+            // Rotate hint showing the button cycles through the levels. Sprite tag (no
             // circular-arrow glyph in the game fonts), text glyph as a fallback if the
             // texture is missing.
             var cycleGo = new GameObject("Cycle", typeof(RectTransform));
             cycleGo.transform.SetParent(go.transform, false);
-            Sprite cycleIcon = SpritesIcons.RefreshIconSprite;
-            if (cycleIcon != null)
-            {
-                // Pin the icon width: without a LayoutElement, the row layout would size it to
-                // the Image's preferred size, which is the texture's native resolution.
-                var cycleElement = cycleGo.AddComponent<LayoutElement>();
-                cycleElement.minWidth = ButtonPalette.ButtonIconSize;
-                cycleElement.preferredWidth = ButtonPalette.ButtonIconSize;
-
-                var cycle = cycleGo.AddComponent<Image>();
-                cycle.sprite = cycleIcon;
-                cycle.preserveAspect = true;
-                cycle.color = SteamInputPalette.SettingsLogLevelCycleColor;
-                cycle.raycastTarget = false;
-            }
-            else
-            {
-                var cycle = cycleGo.AddComponent<TextMeshProUGUI>();
-                cycle.text = CycleGlyph;
-                cycle.font = DefaultPalette.Font;
-                cycle.fontSize = SteamInputPalette.SettingsLogLevelCycleFontSize;
-                cycle.color = SteamInputPalette.SettingsLogLevelCycleColor;
-                cycle.alignment = TextAlignmentOptions.Center;
-                cycle.enableWordWrapping = false;
-                cycle.overflowMode = TextOverflowModes.Overflow;
-                cycle.raycastTarget = false;
-            }
+            var cycle = cycleGo.AddComponent<TextMeshProUGUI>();
+            cycle.text = SpritesIcons.HasSprite("refresh") ? "<sprite name=\"refresh\" tint=1>" : CycleGlyph;
+            cycle.font = DefaultPalette.Font;
+            cycle.spriteAsset = SpritesIcons.SpriteAsset;
+            cycle.fontSize = SteamInputPalette.SettingsLogLevelCycleFontSize;
+            cycle.color = SteamInputPalette.SettingsLogLevelCycleColor;
+            cycle.alignment = TextAlignmentOptions.Center;
+            cycle.enableWordWrapping = false;
+            cycle.overflowMode = TextOverflowModes.Overflow;
+            cycle.raycastTarget = false;
 
             controller.Label(label);
 
