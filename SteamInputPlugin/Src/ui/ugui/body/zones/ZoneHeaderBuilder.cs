@@ -74,16 +74,12 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             var titleGo = new GameObject("Title", typeof(RectTransform));
             titleGo.transform.SetParent(go.transform, false);
 
-            var label = titleGo.AddComponent<TextMeshProUGUI>();
+            var label = UGUILabels.AddLabel(titleGo);
             label.text = _zone.Label;
-            label.font = DefaultPalette.Font;
             label.fontSize = SteamInputPalette.ZoneHeaderFontSize;
             label.fontStyle = FontStyles.Bold;
             label.color = SteamInputPalette.ZoneNameColor;
             label.alignment = TextAlignmentOptions.Left;
-            label.enableWordWrapping = false;
-            label.overflowMode = TextOverflowModes.Overflow;
-            label.raycastTarget = false;
             
             return go
                 .AddComponent<ZoneHeaderController>()

@@ -46,16 +46,12 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             var go = new GameObject("Title", typeof(RectTransform));
             go.transform.SetParent(parent, false);
 
-            var label = go.AddComponent<TextMeshProUGUI>();
+            var label = UGUILabels.AddLabel(go);
             label.text = ModLocalization.GetString("SteamInput_configHelpTitle").ToUpperInvariant();
-            label.font = DefaultPalette.Font;
             label.fontSize = SteamInputPalette.EmptyTitleFontSize;
             label.fontStyle = FontStyles.Bold;
             label.color = SteamInputPalette.EmptyTitleColor;
             label.alignment = TextAlignmentOptions.Left;
-            label.enableWordWrapping = false;
-            label.overflowMode = TextOverflowModes.Overflow;
-            label.raycastTarget = false;
         }
 
         // .kempty body: two wrapped help paragraphs, separated by a blank line. The "export"
@@ -70,18 +66,13 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             string intro = ModLocalization.GetString("SteamInput_configHelpIntro");
             string refresh = ModLocalization.GetString("SteamInput_configHelpRefresh", highlighted);
 
-            var label = go.AddComponent<TextMeshProUGUI>();
+            var label = UGUILabels.AddLabel(go);
             label.text = intro + "\n\n" + refresh;
             label.richText = true;
-            label.font = DefaultPalette.Font;
-            // The refresh paragraph ends with a <sprite name="refresh"> tag.
-            label.spriteAsset = SpritesIcons.SpriteAsset;
             label.fontSize = SteamInputPalette.EmptyBodyFontSize;
             label.color = SteamInputPalette.EmptyBodyColor;
             label.alignment = TextAlignmentOptions.TopLeft;
             label.enableWordWrapping = true;
-            label.overflowMode = TextOverflowModes.Overflow;
-            label.raycastTarget = false;
 
             // Wrapped text needs the fitter to claim its multi-line height.
             var fitter = go.AddComponent<ContentSizeFitter>();

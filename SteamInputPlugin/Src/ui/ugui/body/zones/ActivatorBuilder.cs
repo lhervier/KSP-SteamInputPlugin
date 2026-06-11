@@ -126,18 +126,11 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             var labelGo = new GameObject("Text", typeof(RectTransform));
             labelGo.transform.SetParent(go.transform, false);
 
-            var label = labelGo.AddComponent<TextMeshProUGUI>();
+            var label = UGUILabels.AddLabel(labelGo);
             label.text = text;
-            label.font = DefaultPalette.Font;
-            // Input labels can carry <sprite name=...> tags (PS4 button glyphs, see the
-            // localization files).
-            label.spriteAsset = SpritesIcons.SpriteAsset;
             label.fontSize = fontSize;
             label.color = textColor;
             label.alignment = TextAlignmentOptions.Center;
-            label.enableWordWrapping = false;
-            label.overflowMode = TextOverflowModes.Overflow;
-            label.raycastTarget = false;
         }
 
         // .ksep : the "—" between the key and the action.
@@ -146,15 +139,11 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             var go = new GameObject("Separator", typeof(RectTransform));
             go.transform.SetParent(parent, false);
 
-            var sep = go.AddComponent<TextMeshProUGUI>();
+            var sep = UGUILabels.AddLabel(go);
             sep.text = "—";
-            sep.font = DefaultPalette.Font;
             sep.fontSize = SteamInputPalette.ActivatorSeparatorFontSize;
             sep.color = SteamInputPalette.ActivatorSeparatorColor;
             sep.alignment = TextAlignmentOptions.Center;
-            sep.enableWordWrapping = false;
-            sep.overflowMode = TextOverflowModes.Overflow;
-            sep.raycastTarget = false;
         }
 
         private void BuildAction(Transform parent, UIActivator activator)
@@ -165,19 +154,15 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             var layoutElement = go.AddComponent<LayoutElement>();
             layoutElement.flexibleWidth = 1f;
 
-            var action = go.AddComponent<TextMeshProUGUI>();
+            var action = UGUILabels.AddLabel(go);
             action.text = BuildActionText(activator);
             action.richText = true;
-            action.font = DefaultPalette.Font;
-            action.spriteAsset = SpritesIcons.SpriteAsset;
             action.fontSize = SteamInputPalette.ActivatorActionFontSize;
             action.color = activator.Highlighted
                 ? SteamInputPalette.ActivatorActionHighlightColor
                 : SteamInputPalette.ActivatorActionColor;
             action.alignment = TextAlignmentOptions.Left;
             action.enableWordWrapping = true;
-            action.overflowMode = TextOverflowModes.Overflow;
-            action.raycastTarget = false;
         }
 
         private static string BuildActionText(UIActivator activator)

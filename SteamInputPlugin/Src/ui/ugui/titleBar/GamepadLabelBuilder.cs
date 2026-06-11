@@ -31,17 +31,14 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
         {
             var go = new GameObject("SteamInput.TitleBar.RightColumn.GamepadName", typeof(RectTransform));
             
-            var label = go.AddComponent<TextMeshProUGUI>();
+            var label = UGUILabels.AddLabel(go);
             label.text = "<gamepad>";
-            label.font = DefaultPalette.Font;
             label.fontSize = SteamInputPalette.TitleBarControllerNameFontSize;
             label.color = SteamInputPalette.TitleBarControllerNameColor;
             label.alignment = TextAlignmentOptions.Left;
-            label.enableWordWrapping = false;
             // The name is the only squeezable element of the title bar (its min width is 0): when
             // the row runs out of space, truncate it with "…" instead of drawing under the buttons.
             label.overflowMode = TextOverflowModes.Ellipsis;
-            label.raycastTarget = false;
             return go.
                 AddComponent<GamepadLabelController>()
                 .ViewModel(this._viewModel)

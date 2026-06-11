@@ -82,16 +82,12 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             var labelGo = new GameObject("SectionLabel", typeof(RectTransform));
             labelGo.transform.SetParent(go.transform, false);
 
-            var sectionText = labelGo.AddComponent<TextMeshProUGUI>();
+            var sectionText = UGUILabels.AddLabel(labelGo);
             sectionText.text = label;
-            sectionText.font = DefaultPalette.Font;
             sectionText.fontSize = SteamInputPalette.ModeLabelFontSize;
             sectionText.fontStyle = FontStyles.Bold;
             sectionText.color = textColor;
             sectionText.alignment = TextAlignmentOptions.Left;
-            sectionText.enableWordWrapping = false;
-            sectionText.overflowMode = TextOverflowModes.Overflow;
-            sectionText.raycastTarget = false;
 
             return go
                 .AddComponent<SectionController>()

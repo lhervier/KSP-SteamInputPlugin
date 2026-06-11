@@ -62,14 +62,10 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
             var labelGo = new GameObject("Label", typeof(RectTransform));
             labelGo.transform.SetParent(badgeGo.transform, false);
 
-            var label = labelGo.AddComponent<TextMeshProUGUI>();
-            label.font = DefaultPalette.Font;
+            var label = UGUILabels.AddLabel(labelGo);
             label.fontSize = SteamInputPalette.TitleBarActionGroupFontSize;
             label.color = DefaultPalette.AccentColor;
             label.alignment = TextAlignmentOptions.Center;
-            label.enableWordWrapping = false;
-            label.overflowMode = TextOverflowModes.Overflow;
-            label.raycastTarget = false;
             
             return badgeGo
                 .AddComponent<ActionGroupLabelController>()

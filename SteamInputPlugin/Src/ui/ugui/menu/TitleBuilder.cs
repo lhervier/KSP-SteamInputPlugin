@@ -17,16 +17,12 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
         {
             var go = new GameObject("Title", typeof(RectTransform));
             
-            var text = go.AddComponent<TextMeshProUGUI>();
+            var text = UGUILabels.AddLabel(go);
             text.text = ModLocalization.GetString("SteamInput_zonesMenuTitle").ToUpperInvariant();
-            text.font = DefaultPalette.Font;
             text.fontSize = SteamInputPalette.MenuTitleFontSize;
             text.fontStyle = FontStyles.Bold;
             text.color = SteamInputPalette.MenuTitleColor;
             text.alignment = TextAlignmentOptions.Left;
-            text.enableWordWrapping = false;
-            text.overflowMode = TextOverflowModes.Overflow;
-            text.raycastTarget = false;
 
             return go.AddComponent<TitleController>();
         }

@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using TMPro;
 using com.github.lhervier.ksp.steaminput.ui.model;
 using com.github.lhervier.ksp.steaminput.ui.styles;
+using com.github.lhervier.ksp.shared.ugui;
 using com.github.lhervier.ksp.shared.ugui.styles;
 using com.github.lhervier.ksp.shared.ugui.sprites;
 using com.github.lhervier.ksp.shared.ugui.button;
@@ -265,32 +266,24 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
 
             var titleGo = new GameObject("Title", typeof(RectTransform));
             titleGo.transform.SetParent(itemGo.transform, false);
-            var titleText = titleGo.AddComponent<TextMeshProUGUI>();
+            var titleText = UGUILabels.AddLabel(titleGo);
             titleText.text = title;
-            titleText.font = DefaultPalette.Font;
             titleText.fontSize = SteamInputPalette.ComboItemTitleFontSize;
             titleText.fontStyle = isNone ? FontStyles.Italic : FontStyles.Normal;
             titleText.color = selected
                 ? SteamInputPalette.ComboItemTitleSelectedColor
                 : (isNone ? SteamInputPalette.ComboItemNoneColor : SteamInputPalette.ComboItemTitleColor);
             titleText.alignment = TextAlignmentOptions.Left;
-            titleText.enableWordWrapping = false;
-            titleText.overflowMode = TextOverflowModes.Overflow;
-            titleText.raycastTarget = false;
 
             if (!string.IsNullOrEmpty(typeLabel))
             {
                 var typeGo = new GameObject("Type", typeof(RectTransform));
                 typeGo.transform.SetParent(itemGo.transform, false);
-                var typeText = typeGo.AddComponent<TextMeshProUGUI>();
+                var typeText = UGUILabels.AddLabel(typeGo);
                 typeText.text = typeLabel.ToUpperInvariant();
-                typeText.font = DefaultPalette.Font;
                 typeText.fontSize = SteamInputPalette.ComboItemTypeFontSize;
                 typeText.color = SteamInputPalette.ComboItemTypeColor;
                 typeText.alignment = TextAlignmentOptions.Left;
-                typeText.enableWordWrapping = false;
-                typeText.overflowMode = TextOverflowModes.Overflow;
-                typeText.raycastTarget = false;
             }
 
             return itemGo;

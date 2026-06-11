@@ -103,16 +103,12 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
             var titleElement = titleGo.AddComponent<LayoutElement>();
             titleElement.flexibleWidth = 1f;
 
-            var title = titleGo.AddComponent<TextMeshProUGUI>();
+            var title = UGUILabels.AddLabel(titleGo);
             title.text = ModLocalization.GetString("SteamInput_settings").ToUpperInvariant();
-            title.font = DefaultPalette.Font;
             title.fontSize = SteamInputPalette.SettingsHeadTitleFontSize;
             title.fontStyle = FontStyles.Bold;
             title.color = SteamInputPalette.SettingsHeadTitleColor;
             title.alignment = TextAlignmentOptions.Left;
-            title.enableWordWrapping = false;
-            title.overflowMode = TextOverflowModes.Overflow;
-            title.raycastTarget = false;
         }
 
         // Logging section: section label + the log level rotating button + a hint box.
@@ -155,16 +151,12 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
         {
             var go = new GameObject("SectionLabel", typeof(RectTransform));
             go.transform.SetParent(parent, false);
-            var label = go.AddComponent<TextMeshProUGUI>();
+            var label = UGUILabels.AddLabel(go);
             label.text = (text ?? "").ToUpperInvariant();
-            label.font = DefaultPalette.Font;
             label.fontSize = SteamInputPalette.SettingsLabelFontSize;
             label.fontStyle = FontStyles.Bold;
             label.color = SteamInputPalette.SettingsLabelColor;
             label.alignment = TextAlignmentOptions.Left;
-            label.enableWordWrapping = false;
-            label.overflowMode = TextOverflowModes.Overflow;
-            label.raycastTarget = false;
         }
 
         // ".kset-hint": boxed grey help text under a control.
@@ -201,15 +193,12 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
 
             var textGo = new GameObject("Text", typeof(RectTransform));
             textGo.transform.SetParent(go.transform, false);
-            var label = textGo.AddComponent<TextMeshProUGUI>();
+            var label = UGUILabels.AddLabel(textGo);
             label.text = text;
-            label.font = DefaultPalette.Font;
             label.fontSize = SteamInputPalette.SettingsHintFontSize;
             label.color = SteamInputPalette.SettingsHintTextColor;
             label.alignment = TextAlignmentOptions.TopLeft;
             label.enableWordWrapping = true;
-            label.overflowMode = TextOverflowModes.Overflow;
-            label.raycastTarget = false;
 
             // Wrapped text needs the fitter to claim its multi-line height.
             var fitter = textGo.AddComponent<ContentSizeFitter>();

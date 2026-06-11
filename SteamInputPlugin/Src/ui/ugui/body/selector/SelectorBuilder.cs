@@ -129,28 +129,20 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
             labelRect.offsetMin = Vector2.zero;
             labelRect.offsetMax = Vector2.zero;
 
-            var label = labelGo.AddComponent<TextMeshProUGUI>();
-            label.font = DefaultPalette.Font;
+            var label = UGUILabels.AddLabel(labelGo); // single line, clipped by the RectMask2D above
             label.fontSize = SteamInputPalette.ComboFontSize;
             label.color = SteamInputPalette.ComboTextColor;
             label.alignment = TextAlignmentOptions.Left;
-            label.enableWordWrapping = false; // clipped by the RectMask2D above
-            label.overflowMode = TextOverflowModes.Overflow;
-            label.raycastTarget = false;
             controller.Label(label);
 
             // Caret
             var caretGo = new GameObject("Caret", typeof(RectTransform));
             caretGo.transform.SetParent(comboGo.transform, false);
-            var caret = caretGo.AddComponent<TextMeshProUGUI>();
+            var caret = UGUILabels.AddLabel(caretGo);
             caret.text = CaretGlyph;
-            caret.font = DefaultPalette.Font;
             caret.fontSize = SteamInputPalette.ComboCaretFontSize;
             caret.color = SteamInputPalette.ComboCaretColor;
             caret.alignment = TextAlignmentOptions.Center;
-            caret.enableWordWrapping = false;
-            caret.overflowMode = TextOverflowModes.Overflow;
-            caret.raycastTarget = false;
 
             // The overlay and dropdown are built detached; they are moved next to the popup root and
             // positioned under the combo when opened (see SelectorController.OpenDropdown).

@@ -78,30 +78,21 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
             var labelElement = labelGo.AddComponent<LayoutElement>();
             labelElement.flexibleWidth = 1f;
 
-            var label = labelGo.AddComponent<TextMeshProUGUI>();
-            label.font = DefaultPalette.Font;
+            var label = UGUILabels.AddLabel(labelGo);
             label.fontSize = SteamInputPalette.SettingsLogLevelFontSize;
             label.color = SteamInputPalette.SettingsLogLevelTextColor;
             label.alignment = TextAlignmentOptions.Left;
-            label.enableWordWrapping = false;
-            label.overflowMode = TextOverflowModes.Overflow;
-            label.raycastTarget = false;
 
             // Rotate hint showing the button cycles through the levels. Sprite tag (no
             // circular-arrow glyph in the game fonts), text glyph as a fallback if the
             // texture is missing.
             var cycleGo = new GameObject("Cycle", typeof(RectTransform));
             cycleGo.transform.SetParent(go.transform, false);
-            var cycle = cycleGo.AddComponent<TextMeshProUGUI>();
+            var cycle = UGUILabels.AddLabel(cycleGo);
             cycle.text = SpritesIcons.HasSprite("refresh") ? "<sprite name=\"refresh\" tint=1>" : CycleGlyph;
-            cycle.font = DefaultPalette.Font;
-            cycle.spriteAsset = SpritesIcons.SpriteAsset;
             cycle.fontSize = SteamInputPalette.SettingsLogLevelCycleFontSize;
             cycle.color = SteamInputPalette.SettingsLogLevelCycleColor;
             cycle.alignment = TextAlignmentOptions.Center;
-            cycle.enableWordWrapping = false;
-            cycle.overflowMode = TextOverflowModes.Overflow;
-            cycle.raycastTarget = false;
 
             controller.Label(label);
 

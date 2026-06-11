@@ -38,16 +38,12 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             var labelGo = new GameObject("Text", typeof(RectTransform));
             labelGo.transform.SetParent(go.transform, false);
 
-            var label = labelGo.AddComponent<TextMeshProUGUI>();
+            var label = UGUILabels.AddLabel(labelGo);
             label.text = ModLocalization.GetString("SteamInput_mouseMovement");
-            label.font = DefaultPalette.Font;
             label.fontSize = SteamInputPalette.MouseLineFontSize;
             label.fontStyle = FontStyles.Italic;
             label.color = SteamInputPalette.MouseLineColor;
             label.alignment = TextAlignmentOptions.Left;
-            label.enableWordWrapping = false;
-            label.overflowMode = TextOverflowModes.Overflow;
-            label.raycastTarget = false;
 
             return go.AddComponent<MouseLineController>();
         }

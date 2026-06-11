@@ -108,15 +108,11 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
             var labelLayout = labelGo.AddComponent<LayoutElement>();
             labelLayout.flexibleWidth = 1f;
 
-            var label = labelGo.AddComponent<TextMeshProUGUI>();
+            var label = UGUILabels.AddLabel(labelGo);
             label.text = ModLocalization.GetString("SteamInput_settings");
-            label.font = DefaultPalette.Font;
             label.fontSize = SteamInputPalette.MenuItemFontSize;
             label.color = DefaultPalette.LabelColor;
             label.alignment = TextAlignmentOptions.Left;
-            label.enableWordWrapping = false;
-            label.overflowMode = TextOverflowModes.Overflow;
-            label.raycastTarget = false;
 
             // Chevron: hints that the entry opens another view (it does not toggle a value in place).
             // Centered in a button-sized box so it lines up with the zone rows' arrows column and
@@ -128,15 +124,11 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
             chevronLayout.preferredWidth = ButtonPalette.ButtonSize;
             chevronLayout.minWidth = ButtonPalette.ButtonSize;
 
-            var chevron = chevronGo.AddComponent<TextMeshProUGUI>();
+            var chevron = UGUILabels.AddLabel(chevronGo);
             chevron.text = "›";
-            chevron.font = DefaultPalette.Font;
             chevron.fontSize = SteamInputPalette.MenuItemFontSize;
             chevron.color = SteamInputPalette.MenuTitleColor;
             chevron.alignment = TextAlignmentOptions.Center;
-            chevron.enableWordWrapping = false;
-            chevron.overflowMode = TextOverflowModes.Overflow;
-            chevron.raycastTarget = false;
 
             return controller;
         }

@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using com.github.lhervier.ksp.steaminput.ui.styles;
+using com.github.lhervier.ksp.shared.ugui;
 using com.github.lhervier.ksp.shared.ugui.styles;
 using com.github.lhervier.ksp.shared;
 
@@ -117,15 +118,11 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
         {
             var go = new GameObject("ContextRow", typeof(RectTransform));
             go.transform.SetParent(_contextsBox, false);
-            var label = go.AddComponent<TextMeshProUGUI>();
+            var label = UGUILabels.AddLabel(go);
             label.text = "› " + text;
-            label.font = DefaultPalette.Font;
             label.fontSize = SteamInputPalette.SettingsContextFontSize;
             label.color = SteamInputPalette.SettingsContextRowColor;
             label.alignment = TextAlignmentOptions.Left;
-            label.enableWordWrapping = false;
-            label.overflowMode = TextOverflowModes.Overflow;
-            label.raycastTarget = false;
             ApplyRowPadding(label);
             return go;
         }
@@ -134,16 +131,12 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
         {
             var go = new GameObject("ContextEmpty", typeof(RectTransform));
             go.transform.SetParent(_contextsBox, false);
-            var label = go.AddComponent<TextMeshProUGUI>();
+            var label = UGUILabels.AddLabel(go);
             label.text = ModLocalization.GetString("SteamInput_settings_noContext");
-            label.font = DefaultPalette.Font;
             label.fontSize = SteamInputPalette.SettingsContextFontSize;
             label.fontStyle = FontStyles.Italic;
             label.color = SteamInputPalette.SettingsContextEmptyColor;
             label.alignment = TextAlignmentOptions.Left;
-            label.enableWordWrapping = false;
-            label.overflowMode = TextOverflowModes.Overflow;
-            label.raycastTarget = false;
             ApplyRowPadding(label);
             return go;
         }
