@@ -41,9 +41,6 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
         public ZoneBodyController Build()
         {
             var go = new GameObject("Body", typeof(RectTransform));
-            ZoneBodyController controller = go
-                .AddComponent<ZoneBodyController>()
-                .ViewModel(_viewModel);
 
             // Horizontal padding (Option A: padding on the container, not per-section)
             // Vertical padding-bottom matches the .kzone body breathing room.
