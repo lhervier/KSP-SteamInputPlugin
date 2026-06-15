@@ -7,14 +7,16 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
         private ZoneHeaderController _zoneHeaderController;
         private ZoneBodyController _zoneBodyController;
 
-        public void BindZoneHeaderController(ZoneHeaderController zoneHeaderController)
+        public ZoneController WithZoneHeaderController(ZoneHeaderController zoneHeaderController)
         {
             this._zoneHeaderController = zoneHeaderController;
+            return this;
         }
 
-        public void BindZoneBodyController(ZoneBodyController zoneBodyController)
+        public ZoneController WithZoneBodyController(ZoneBodyController zoneBodyController)
         {
             _zoneBodyController = zoneBodyController;
+            return this;
         }
 
         public void UpdateZone(UIPhysicalZone zone)

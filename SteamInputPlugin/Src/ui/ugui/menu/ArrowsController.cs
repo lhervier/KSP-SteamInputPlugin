@@ -18,21 +18,21 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
         // ==========================================
 
         private UIConfigZone _zone;
-        public ArrowsController Zone(UIConfigZone zone)
+        public ArrowsController WithZone(UIConfigZone zone)
         {
             _zone = zone;
             return this;
         }
 
         private ButtonController _upButton;
-        public ArrowsController UpButton(ButtonController upButton)
+        public ArrowsController WithUpButtonController(ButtonController upButton)
         {
             _upButton = upButton;
             return this;
         }
 
         private ButtonController _downButton;
-        public ArrowsController DownButton(ButtonController downButton)
+        public ArrowsController WithDownButtonController(ButtonController downButton)
         {
             _downButton = downButton;
             return this;

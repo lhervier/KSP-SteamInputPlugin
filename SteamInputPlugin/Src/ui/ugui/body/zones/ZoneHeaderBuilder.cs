@@ -23,14 +23,14 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
         // =====================================
 
         private CheatSheetViewModel _viewModel;
-        public ZoneHeaderBuilder ViewModel(CheatSheetViewModel viewModel)
+        public ZoneHeaderBuilder WithViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             return this;
         }
 
         private UIPhysicalZone _zone;
-        public ZoneHeaderBuilder Zone(UIPhysicalZone zone)
+        public ZoneHeaderBuilder WithZone(UIPhysicalZone zone)
         {
             this._zone = zone;
             return this;
@@ -83,7 +83,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             
             return go
                 .AddComponent<ZoneHeaderController>()
-                .Label(label);
+                .WithLabelComponent(label);
         }
     }
 }

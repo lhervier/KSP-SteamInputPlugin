@@ -20,7 +20,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
     {
         // Live lookup name -> config (null for "none" / unknown). Injected dependency, read at Build.
         private Func<string, UIGamepadConfig> _resolver;
-        public ConfigComboItemContentBuilder Configs(Func<string, UIGamepadConfig> resolver)
+        public ConfigComboItemContentBuilder WithConfigs(Func<string, UIGamepadConfig> resolver)
         {
             this._resolver = resolver;
             return this;
@@ -76,8 +76,8 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
             // The title color is applied by SetSelected, which the row calls at startup and on changes.
             return root
                 .AddComponent<ConfigComboItemContentController>()
-                .Title(titleText)
-                .None(isNone);
+                .WithTitleComponent(titleText)
+                .WithNoneValue(isNone);
         }
     }
 }

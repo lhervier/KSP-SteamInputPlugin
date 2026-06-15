@@ -19,14 +19,14 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
         // ===============================================
 
         private CheatSheetViewModel _viewModel;
-        public ArrowsBuilder ViewModel(CheatSheetViewModel viewModel)
+        public ArrowsBuilder WithViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             return this;
         }
 
         private UIConfigZone _zone;
-        public ArrowsBuilder Zone(UIConfigZone zone)
+        public ArrowsBuilder WithZone(UIConfigZone zone)
         {
             this._zone = zone;
             return this;
@@ -52,25 +52,25 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
 
             // Triangles when the font (or a fallback) provides them, plain arrows otherwise.
             ButtonController upButtonController = new ButtonBuilder()
-                .ObjectName("Up")
-                .Label(DefaultPalette.PickGlyph("▲", "↑"))
-                .Interactable(!_zone.First)
+                .WithObjectName("Up")
+                .WithLabel(DefaultPalette.PickGlyph("▲", "↑"))
+                .WithInteractableState(!_zone.First)
                 .Build();
             upButtonController.transform.SetParent(go.transform, false);
 
             ButtonController downButtonController = new ButtonBuilder()
-                .ObjectName("Down")
-                .Label(DefaultPalette.PickGlyph("▼", "↓"))
-                .Interactable(!_zone.Last)
+                .WithObjectName("Down")
+                .WithLabel(DefaultPalette.PickGlyph("▼", "↓"))
+                .WithInteractableState(!_zone.Last)
                 .Build();
             downButtonController.transform.SetParent(go.transform, false);
 
             return go
                 .AddComponent<ArrowsController>()
-                .ViewModel(_viewModel)
-                .Zone(_zone)
-                .UpButton(upButtonController)
-                .DownButton(downButtonController);
+                .WithViewModel(_viewModel)
+                .WithZone(_zone)
+                .WithUpButtonController(upButtonController)
+                .WithDownButtonController(downButtonController);
         }
     }
 }

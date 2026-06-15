@@ -21,14 +21,14 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
         // =====================================
 
         private CheatSheetViewModel _viewModel;
-        public SectionBuilder ViewModel(CheatSheetViewModel viewModel)
+        public SectionBuilder WithViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             return this;
         }
 
         private UISection _section;
-        public SectionBuilder Section(UISection section)
+        public SectionBuilder WithSection(UISection section)
         {
             this._section = section;
             return this;
@@ -91,9 +91,9 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
 
             return go
                 .AddComponent<SectionController>()
-                .ViewModel(_viewModel)
-                .HeaderLabel(labelGo)
-                .GroupId(_section.GroupId);
+                .WithViewModel(_viewModel)
+                .WithHeaderLabelComponent(labelGo)
+                .WithGroupId(_section.GroupId);
         }
     }
 }

@@ -70,8 +70,8 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
                 if (!this._rows.TryGetValue(zone.Zone, out ZoneRowController row))
                 {
                     row = new ZoneRowBuilder()
-                        .ViewModel(ViewModel)
-                        .Zone(zone)
+                        .WithViewModel(ViewModel)
+                        .WithZone(zone)
                         .Build();
                     row.transform.SetParent(this.transform, false);
                     this._rows[zone.Zone] = row;

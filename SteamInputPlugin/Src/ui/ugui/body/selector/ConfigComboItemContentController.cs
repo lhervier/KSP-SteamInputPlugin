@@ -12,7 +12,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
     public class ConfigComboItemContentController : ComboItemContentController
     {
         private TextMeshProUGUI _title;
-        public ConfigComboItemContentController Title(TextMeshProUGUI title)
+        public ConfigComboItemContentController WithTitleComponent(TextMeshProUGUI title)
         {
             this._title = title;
             return this;
@@ -20,7 +20,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
 
         // The "none" placeholder uses a dimmed color in its unselected state.
         private bool _none;
-        public ConfigComboItemContentController None(bool none)
+        public ConfigComboItemContentController WithNoneValue(bool none)
         {
             this._none = none;
             return this;

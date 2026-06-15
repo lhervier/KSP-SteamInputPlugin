@@ -10,14 +10,14 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
         // ================================================
 
         private CheatSheetViewModel _viewModel;
-        public TitleBarController ViewModel(CheatSheetViewModel viewModel)
+        public TitleBarController WithViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             return this;
         }
 
         private ButtonController _menuButtonController;
-        public TitleBarController MenuButtonController(ButtonController menuButtonController)
+        public TitleBarController WithMenuButtonController(ButtonController menuButtonController)
         {
             this._menuButtonController = menuButtonController;
             return this;

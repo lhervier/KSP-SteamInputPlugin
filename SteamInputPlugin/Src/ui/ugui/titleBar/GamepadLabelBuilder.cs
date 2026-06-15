@@ -17,7 +17,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
 
         private CheatSheetViewModel _viewModel;
         
-        public GamepadLabelBuilder ViewModel(CheatSheetViewModel viewModel)
+        public GamepadLabelBuilder WithViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             return this;
@@ -41,8 +41,8 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
             label.overflowMode = TextOverflowModes.Ellipsis;
             return go.
                 AddComponent<GamepadLabelController>()
-                .ViewModel(this._viewModel)
-                .Label(label);
+                .WithViewModel(this._viewModel)
+                .WithLabel(label);
         }
     }
 }

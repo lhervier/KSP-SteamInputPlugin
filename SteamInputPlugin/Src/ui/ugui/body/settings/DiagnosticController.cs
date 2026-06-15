@@ -25,20 +25,20 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
         // ===================================
 
         private CheatSheetViewModel _viewModel;
-        public DiagnosticController ViewModel(CheatSheetViewModel viewModel)
+        public DiagnosticController WithViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             return this;
         }
 
         private Transform _contextsBox;
-        public DiagnosticController ContextsBox(Transform contextsBox)
+        public DiagnosticController WithContextsBox(Transform contextsBox)
         {
             this._contextsBox = contextsBox;
             return this;
         }
 
-        public DiagnosticController Badge(Image image, TextMeshProUGUI text, Sprite okSprite, Sprite noSprite)
+        public DiagnosticController WithBadge(Image image, TextMeshProUGUI text, Sprite okSprite, Sprite noSprite)
         {
             this._badgeImage = image;
             this._badgeText = text;

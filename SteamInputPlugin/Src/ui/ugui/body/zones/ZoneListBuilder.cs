@@ -19,7 +19,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
         // ============================================
 
         private CheatSheetViewModel _viewModel;
-        public ZoneListBuilder ViewModel(CheatSheetViewModel viewModel)
+        public ZoneListBuilder WithViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             return this;
@@ -45,7 +45,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
 
             return go
                 .AddComponent<ZoneListController>()
-                .ViewModel(_viewModel);;
+                .WithViewModel(_viewModel);;
         }
     }
 }

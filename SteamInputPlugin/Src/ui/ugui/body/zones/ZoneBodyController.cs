@@ -18,14 +18,14 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
         // ==========================================
         
         private CheatSheetViewModel _viewModel;
-        public ZoneBodyController ViewModel(CheatSheetViewModel viewModel)
+        public ZoneBodyController WithViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             return this;
         }
 
         private UIPhysicalZone _zone;
-        public ZoneBodyController Zone(UIPhysicalZone zone)
+        public ZoneBodyController WithZone(UIPhysicalZone zone)
         {
             _zone = zone;
             return this;
@@ -75,8 +75,8 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
                 if( !_sections.TryGetValue(section.GroupId, out SectionController controller) )
                 {
                     controller = new SectionBuilder()
-                        .ViewModel(_viewModel)
-                        .Section(section)
+                        .WithViewModel(_viewModel)
+                        .WithSection(section)
                         .Build();
                     controller.transform.SetParent(gameObject.transform, false);
                     _sections[section.GroupId] = controller;

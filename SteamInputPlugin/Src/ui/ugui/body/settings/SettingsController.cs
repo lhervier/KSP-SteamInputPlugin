@@ -16,21 +16,21 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
         // ===================================
 
         private CheatSheetViewModel _viewModel;
-        public SettingsController ViewModel(CheatSheetViewModel viewModel)
+        public SettingsController WithViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             return this;
         }
 
         private ButtonController _backButtonController;
-        public SettingsController BackButtonController(ButtonController backButtonController)
+        public SettingsController WithBackButtonController(ButtonController backButtonController)
         {
             this._backButtonController = backButtonController;
             return this;
         }
 
         private ComboController _logLevelComboController;
-        public SettingsController LogLevelComboController(ComboController logLevelComboController)
+        public SettingsController WithLogLevelComboController(ComboController logLevelComboController)
         {
             this._logLevelComboController = logLevelComboController;
             return this;

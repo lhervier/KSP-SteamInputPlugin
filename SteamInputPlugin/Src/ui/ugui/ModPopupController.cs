@@ -17,21 +17,21 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
         // Dependencies injected by the builder right after AddComponent, before Start() runs.
 
         private PopupController _popupController = null;
-        public ModPopupController PopupController(PopupController controller)
+        public ModPopupController WithPopupController(PopupController controller)
         {
             this._popupController = controller;
             return this;
         }
 
         private OverlayController _overlayController = null;
-        public ModPopupController OverlayController(OverlayController overlayController)
+        public ModPopupController WithOverlayController(OverlayController overlayController)
         {
             this._overlayController = overlayController;
             return this;
         }
 
         private MenuBuilder.MenuController _menuController = null;
-        public ModPopupController MenuController(MenuBuilder.MenuController menuController)
+        public ModPopupController WithMenuController(MenuBuilder.MenuController menuController)
         {
             this._menuController = menuController;
             return this;

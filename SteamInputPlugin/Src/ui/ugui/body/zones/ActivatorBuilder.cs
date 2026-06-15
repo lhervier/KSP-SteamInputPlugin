@@ -22,14 +22,14 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
         // ================================================
 
         private CheatSheetViewModel _viewModel;
-        public ActivatorBuilder ViewModel(CheatSheetViewModel viewModel)
+        public ActivatorBuilder WithViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             return this;
         }
 
         private UIActivator _activator;
-        public ActivatorBuilder Activator(UIActivator activator)
+        public ActivatorBuilder WithActivator(UIActivator activator)
         {
             this._activator = activator;
             return this;

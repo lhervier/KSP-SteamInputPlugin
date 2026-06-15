@@ -15,7 +15,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
     public class ZonesBuilder : IUGUIBuilder<ZonesController>
     {
         private CheatSheetViewModel _viewModel;
-        public ZonesBuilder ViewModel(CheatSheetViewModel viewModel)
+        public ZonesBuilder WithViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             return this;
@@ -38,7 +38,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
 
             return go
                 .AddComponent<ZonesController>()
-                .ViewModel(_viewModel);
+                .WithViewModel(_viewModel);
         }
     }
 }

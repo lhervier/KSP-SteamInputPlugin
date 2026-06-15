@@ -11,7 +11,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
     {
         private CheatSheetViewModel _viewModel;
 
-        public MenuBuilder ViewModel(CheatSheetViewModel viewModel)
+        public MenuBuilder WithViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             return this;
@@ -81,7 +81,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
                 .transform
                 .SetParent(menuGo.transform, false);
             new ZonesBuilder()
-                .ViewModel(_viewModel)
+                .WithViewModel(_viewModel)
                 .Build()
                 .transform
                 .SetParent(menuGo.transform, false);
@@ -90,7 +90,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
                 .transform
                 .SetParent(menuGo.transform, false);
             new SettingsItemBuilder()
-                .ViewModel(_viewModel)
+                .WithViewModel(_viewModel)
                 .Build()
                 .transform
                 .SetParent(menuGo.transform, false);

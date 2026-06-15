@@ -26,7 +26,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
         // ======================================
 
         private CheatSheetViewModel _viewModel;
-        public SettingsBuilder ViewModel(CheatSheetViewModel viewModel)
+        public SettingsBuilder WithViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             return this;
@@ -58,15 +58,15 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
             BuildSeparator(go.transform);
 
             DiagnosticController diagnosticController = new DiagnosticBuilder()
-                .ViewModel(_viewModel)
+                .WithViewModel(_viewModel)
                 .Build();
             diagnosticController.transform.SetParent(go.transform, false);
 
             return go
                 .AddComponent<SettingsController>()
-                .ViewModel(_viewModel)
-                .LogLevelComboController(logLevelComboController)
-                .BackButtonController(backButtonController);
+                .WithViewModel(_viewModel)
+                .WithLogLevelComboController(logLevelComboController)
+                .WithBackButtonController(backButtonController);
         }
 
         // Head: back button (returns to the cheat sheet) + the "Settings" title. Mockup .kset-head.
@@ -95,8 +95,8 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
             layout.childForceExpandHeight = false;
 
             buttonController = new ButtonBuilder()
-                .ObjectName("Back")
-                .Label(BackGlyph)
+                .WithObjectName("Back")
+                .WithLabel(BackGlyph)
                 .Build();
             buttonController.transform.SetParent(go.transform, false);
 
@@ -121,9 +121,9 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
             BuildSectionLabel(section, ModLocalization.GetString("SteamInput_settings_logging"));
 
             logLevelComboController = new ComboBuilder()
-                .Parent(section)
-                .Label(ModLocalization.GetString("SteamInput_settings_logLevel"))
-                .LabelFor(GetLogLevelLabel)
+                .WithParent(section)
+                .WithLabel(ModLocalization.GetString("SteamInput_settings_logLevel"))
+                .WithLabelFor(GetLogLevelLabel)
                 .Build();
 
             BuildHint(section, ModLocalization.GetString("SteamInput_settings_loggingHint"));

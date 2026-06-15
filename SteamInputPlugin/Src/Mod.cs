@@ -140,7 +140,7 @@ namespace com.github.lhervier.ksp.steaminput
             LOGGER.LogInfo("Starting Logging UI");
             this._cheatSheetUI = gameObject
                 .AddComponent<CheatSheetUI>()
-                .ViewModel(this._viewModel);
+                .WithViewModel(this._viewModel);
             LOGGER.LogInfo("Logging UI started");
 
             // Log the detected steam environment

@@ -16,16 +16,16 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
         private List<UIGamepadConfig> _configs = new List<UIGamepadConfig>();
 
         private ComboController _combo;
-        public SelectorController Combo(ComboController combo)
+        public SelectorController WithComboController(ComboController combo)
         {
             this._combo = combo;
             return this;
         }
 
-        private ButtonController _refreshButton;
-        public SelectorController RefreshButton(ButtonController refreshButton)
+        private ButtonController _refreshButtonController;
+        public SelectorController WithRefreshButtonController(ButtonController refreshButton)
         {
-            this._refreshButton = refreshButton;
+            this._refreshButtonController = refreshButton;
             return this;
         }
 
@@ -35,9 +35,9 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
             {
                 _combo.OnSelect.Add(OnComboSelect);
             }
-            if (_refreshButton != null)
+            if (_refreshButtonController != null)
             {
-                _refreshButton.OnClick.Add(ViewModel.RefreshConfigs);
+                _refreshButtonController.OnClick.Add(ViewModel.RefreshConfigs);
             }
 
             this.ViewModel.OnConfigsChanged.Add(OnConfigsChanged);
@@ -51,9 +51,9 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
             {
                 _combo.OnSelect.Remove(OnComboSelect);
             }
-            if (_refreshButton != null)
+            if (_refreshButtonController != null)
             {
-                _refreshButton.OnClick.Remove(ViewModel.RefreshConfigs);
+                _refreshButtonController.OnClick.Remove(ViewModel.RefreshConfigs);
             }
             this.ViewModel?.OnConfigsChanged.Remove(OnConfigsChanged);
             this.ViewModel?.OnGamepadConfigNameChanged.Remove(OnConfigNameChanged);

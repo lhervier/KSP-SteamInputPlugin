@@ -21,19 +21,19 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body
 
         // Dependencies injected by the builder right after AddComponent, before Start() runs.
 
-        public BodyController ViewModel(CheatSheetViewModel viewModel)
+        public BodyController WithViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             return this;
         }
 
-        public BodyController CheatSheetController(ScrollableViewController cheatSheet)
+        public BodyController WithCheatSheetController(ScrollableViewController cheatSheet)
         {
             this._cheatSheet = cheatSheet;
             return this;
         }
 
-        public BodyController SettingsController(SettingsController settings)
+        public BodyController WithSettingsController(SettingsController settings)
         {
             this._settings = settings;
             return this;

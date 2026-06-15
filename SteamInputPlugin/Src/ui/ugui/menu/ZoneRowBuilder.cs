@@ -15,14 +15,14 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
         // Builder parameters
         // ==============================================
         private CheatSheetViewModel _viewModel;
-        public ZoneRowBuilder ViewModel(CheatSheetViewModel viewModel)
+        public ZoneRowBuilder WithViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             return this;
         }
 
         private UIConfigZone _zone;
-        public ZoneRowBuilder Zone(UIConfigZone zone)
+        public ZoneRowBuilder WithZone(UIConfigZone zone)
         {
             this._zone = zone;
             return this;
@@ -69,24 +69,24 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
 
             // Greedy checkbox: owns the label and the click-to-toggle over the whole row width.
             var checkboxController = new CheckboxBuilder()
-                .Checked(_zone.Visible)
-                .Label(_zone.Label)
-                .Greedy(true)
+                .WithCheckedState(_zone.Visible)
+                .WithLabel(_zone.Label)
+                .WithGreedyState(true)
                 .Build();
             checkboxController.transform.SetParent(rowGo.transform, false);
             
             ArrowsController arrowsController = new ArrowsBuilder()
-                .ViewModel(_viewModel)
-                .Zone(_zone)
+                .WithViewModel(_viewModel)
+                .WithZone(_zone)
                 .Build();
             arrowsController.transform.SetParent(rowGo.transform, false);
             
             return rowGo
                 .AddComponent<ZoneRowController>()
-                .ViewModel(_viewModel)
-                .Zone(_zone)
-                .CheckboxController(checkboxController)
-                .ArrowsController(arrowsController);
+                .WithViewModel(_viewModel)
+                .WithZone(_zone)
+                .WithCheckboxController(checkboxController)
+                .WithArrowsController(arrowsController);
         }
     }
 }

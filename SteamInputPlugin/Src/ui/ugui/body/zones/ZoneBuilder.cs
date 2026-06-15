@@ -23,14 +23,14 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
         // =====================================
 
         private CheatSheetViewModel _viewModel;
-        public ZoneBuilder ViewModel(CheatSheetViewModel viewModel)
+        public ZoneBuilder WithViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             return this;
         }
 
         private UIPhysicalZone _zone;
-        public ZoneBuilder Zone(UIPhysicalZone zone)
+        public ZoneBuilder WithZone(UIPhysicalZone zone)
         {
             this._zone = zone;
             return this;
@@ -44,7 +44,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
         {
             var zoneGo = new GameObject("PhysicalZone." + _zone.Zone.Name, typeof(RectTransform));
             var controller = zoneGo.AddComponent<ZoneController>();
-            controller.ViewModel(_viewModel);
+            controller.WithViewModel(_viewModel);
 
             // Stack: header, body, bottom separator
             var layout = zoneGo.AddComponent<VerticalLayoutGroup>();
@@ -57,18 +57,18 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             layout.childForceExpandHeight = false;
 
             var headerController = new ZoneHeaderBuilder()
-                .ViewModel(_viewModel)
-                .Zone(_zone)
+                .WithViewModel(_viewModel)
+                .WithZone(_zone)
                 .Build();
             headerController.transform.SetParent(zoneGo.transform, false);
-            controller.BindZoneHeaderController(headerController);
+            controller.WithZoneHeaderController(headerController);
 
             var bodyController = new ZoneBodyBuilder()
-                .ViewModel(_viewModel)
-                .Zone(_zone)
+                .WithViewModel(_viewModel)
+                .WithZone(_zone)
                 .Build();
             bodyController.transform.SetParent(zoneGo.transform, false);
-            controller.BindZoneBodyController(bodyController);
+            controller.WithZoneBodyController(bodyController);
 
             return controller;
         }

@@ -16,7 +16,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
 
         private CheatSheetViewModel _viewModel;
         
-        public ActionGroupLabelBuilder ViewModel(CheatSheetViewModel viewModel)
+        public ActionGroupLabelBuilder WithViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             return this;
@@ -69,8 +69,8 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
             
             return badgeGo
                 .AddComponent<ActionGroupLabelController>()
-                .ViewModel(this._viewModel)
-                .Label(label);
+                .WithViewModel(this._viewModel)
+                .WithLabelComponent(label);
         }
     }
 }

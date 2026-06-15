@@ -16,7 +16,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body
     {
         private CheatSheetViewModel _viewModel;
 
-        public BodyBuilder ViewModel(CheatSheetViewModel viewModel)
+        public BodyBuilder WithViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             return this;
@@ -29,9 +29,9 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body
 
             // Scrollable cheat-sheet view; ScrollableView's default styling matches the popup palette.
             var cheatSheetController = new ScrollableViewBuilder<CheatSheetController>()
-                .ObjectName("SteamInput.Body.CheatSheet")
-                .ContentBuilder(
-                    new CheatSheetBuilder().ViewModel(_viewModel)
+                .WithObjectName("SteamInput.Body.CheatSheet")
+                .WithContentBuilder(
+                    new CheatSheetBuilder().WithViewModel(_viewModel)
                 )
                 .Build();
             FillParent(cheatSheetController.gameObject, bodyGo.transform);
@@ -40,14 +40,14 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body
             // outgrows the body): stretching it to the full body height would hand the leftover
             // space to whichever row reports a flexible height.
             var settingsController = new SettingsBuilder()
-                .ViewModel(_viewModel)
+                .WithViewModel(_viewModel)
                 .Build();
             TopFitParent(settingsController.gameObject, bodyGo.transform);
 
             return controller
-                .ViewModel(_viewModel)
-                .CheatSheetController(cheatSheetController)
-                .SettingsController(settingsController);
+                .WithViewModel(_viewModel)
+                .WithCheatSheetController(cheatSheetController)
+                .WithSettingsController(settingsController);
         }
 
         // Parent the view and stretch it to fill the body.

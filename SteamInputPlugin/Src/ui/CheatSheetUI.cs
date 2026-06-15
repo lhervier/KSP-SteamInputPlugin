@@ -18,7 +18,7 @@ namespace com.github.lhervier.ksp.steaminput.ui
         // ===============================================================
         
         private CheatSheetViewModel viewModel;
-        public CheatSheetUI ViewModel(CheatSheetViewModel viewModel)
+        public CheatSheetUI WithViewModel(CheatSheetViewModel viewModel)
         {
             this.viewModel = viewModel;
             return this;
@@ -117,10 +117,10 @@ namespace com.github.lhervier.ksp.steaminput.ui
             if (_popupController == null)
             {
                 ModPopupBuilder popupBuilder = new ModPopupBuilder()
-                    .ViewModel(viewModel);
+                    .WithViewModel(viewModel);
                 if( SteamInputSettings.TryGetWindowPosition(out Vector2 saved) )
                 {
-                    popupBuilder = popupBuilder.Position(saved);
+                    popupBuilder = popupBuilder.WithPosition(saved);
                 }
                 _popupController = popupBuilder.Build();
                 if (_popupController == null) return;    // Spawn failed

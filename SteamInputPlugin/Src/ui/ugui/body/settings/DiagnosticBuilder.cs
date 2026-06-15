@@ -26,7 +26,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
         // ====================================
 
         private CheatSheetViewModel _viewModel;
-        public DiagnosticBuilder ViewModel(CheatSheetViewModel viewModel)
+        public DiagnosticBuilder WithViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             return this;
@@ -41,7 +41,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
             var go = new GameObject("Diagnostic", typeof(RectTransform));
             DiagnosticController controller = go
                 .AddComponent<DiagnosticController>()
-                .ViewModel(_viewModel);
+                .WithViewModel(_viewModel);
 
             var layout = go.AddComponent<VerticalLayoutGroup>();
             layout.padding = new RectOffset(
@@ -197,7 +197,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
             badgeText.fontStyle = FontStyles.Bold;
             badgeText.alignment = TextAlignmentOptions.Center;
 
-            controller.Badge(badgeImage, badgeText, _badgeOkSprite, _badgeNoSprite);
+            controller.WithBadge(badgeImage, badgeText, _badgeOkSprite, _badgeNoSprite);
         }
 
         // ".kset-sub": small uppercase grey sub-header above the contexts box.
@@ -250,7 +250,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
             fitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
             fitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
 
-            controller.ContextsBox(go.transform);
+            controller.WithContextsBox(go.transform);
         }
     }
 }

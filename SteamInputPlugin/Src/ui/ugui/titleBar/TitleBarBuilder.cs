@@ -13,7 +13,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
         // Builder parameters
         // ==============================================
         private CheatSheetViewModel _viewModel;
-        public TitleBarBuilder ViewModel(CheatSheetViewModel viewModel)
+        public TitleBarBuilder WithViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             return this;
@@ -36,28 +36,28 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
             rightRowLayout.childForceExpandWidth = false;
             rightRowLayout.childForceExpandHeight = false;
 
-            var actionGroupLabelController = new ActionGroupLabelBuilder().ViewModel(_viewModel).Build();
+            var actionGroupLabelController = new ActionGroupLabelBuilder().WithViewModel(_viewModel).Build();
             actionGroupLabelController.transform.SetParent(rightRowGo.transform, false);
 
-            var controllerGo = new GamepadLabelBuilder().ViewModel(_viewModel).Build();
+            var controllerGo = new GamepadLabelBuilder().WithViewModel(_viewModel).Build();
             controllerGo.transform.SetParent(rightRowGo.transform, false);
 
             // "…" (U+2026) instead of "⋯" (U+22EF): the game's TMP font atlas does not contain the
             // math midline ellipsis, while U+2026 is basic punctuation (also used by TMP's own
             // Ellipsis overflow mode).
             var menuButtonController = new ButtonBuilder()
-                .ObjectName("SteamInput.TitleBar.MenuButton")
-                .Label("…")
-                .Interactable(true)
-                .BackgroundColor(PopupPalette.TitleBarButtonColor)
-                .HoverColor(PopupPalette.TitleBarButtonHoverColor)
+                .WithObjectName("SteamInput.TitleBar.MenuButton")
+                .WithLabel("…")
+                .WithInteractableState(true)
+                .WithBackgroundColor(PopupPalette.TitleBarButtonColor)
+                .WithHoverColor(PopupPalette.TitleBarButtonHoverColor)
                 .Build();
             menuButtonController.transform.SetParent(rightRowGo.transform, false);
             
             return rightRowGo
                 .AddComponent<TitleBarController>()
-                .ViewModel(_viewModel)
-                .MenuButtonController(menuButtonController);
+                .WithViewModel(_viewModel)
+                .WithMenuButtonController(menuButtonController);
         }
     }
 }

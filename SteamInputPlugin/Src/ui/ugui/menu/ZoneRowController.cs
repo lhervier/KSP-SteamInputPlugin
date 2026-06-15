@@ -10,21 +10,21 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
         // =========================================
 
         private UIConfigZone _zone;
-        public ZoneRowController Zone(UIConfigZone zone)
+        public ZoneRowController WithZone(UIConfigZone zone)
         {
             _zone = zone;
             return this;
         }
 
         private CheckboxController _checkboxController;
-        public ZoneRowController CheckboxController(CheckboxController checkboxController)
+        public ZoneRowController WithCheckboxController(CheckboxController checkboxController)
         {
             _checkboxController = checkboxController;
             return this;
         }
 
         private ArrowsController _arrowsController;
-        public ZoneRowController ArrowsController(ArrowsController arrowsController)
+        public ZoneRowController WithArrowsController(ArrowsController arrowsController)
         {
             _arrowsController = arrowsController;
             return this;

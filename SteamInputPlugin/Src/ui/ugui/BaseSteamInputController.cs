@@ -22,7 +22,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
         /// <param name="controller"></param>
         /// <param name="vm"></param>
         /// <returns></returns>
-        public static T ViewModel<T>(this T controller, CheatSheetViewModel vm)
+        public static T WithViewModel<T>(this T controller, CheatSheetViewModel vm)
             where T : BaseSteamInputController
         {
             controller.SetViewModel(vm);

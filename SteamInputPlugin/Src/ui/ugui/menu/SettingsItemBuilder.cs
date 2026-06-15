@@ -21,7 +21,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
         // Builder parameters
         // ====================================================
         private CheatSheetViewModel _viewModel;
-        public SettingsItemBuilder ViewModel(CheatSheetViewModel viewModel)
+        public SettingsItemBuilder WithViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             return this;
@@ -35,7 +35,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
         {
             var go = new GameObject("SettingsItem", typeof(RectTransform));
             SettingsItemController controller = go.AddComponent<SettingsItemController>();
-            controller.ViewModel(_viewModel);
+            controller.WithViewModel(_viewModel);
 
             // Match the zone rows' height so the entry lines up with them.
             var layoutElement = go.AddComponent<LayoutElement>();

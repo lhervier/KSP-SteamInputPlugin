@@ -15,7 +15,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
         // =====================================
 
         private TextMeshProUGUI _label;
-        public ZoneHeaderController Label(TextMeshProUGUI label)
+        public ZoneHeaderController WithLabelComponent(TextMeshProUGUI label)
         {
             _label = label;
             return this;

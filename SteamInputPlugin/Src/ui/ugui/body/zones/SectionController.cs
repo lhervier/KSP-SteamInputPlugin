@@ -20,21 +20,21 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
         // =========================================
 
         private CheatSheetViewModel _viewModel;
-        public SectionController ViewModel(CheatSheetViewModel viewModel)
+        public SectionController WithViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             return this;
         }
 
         private GameObject _headerLabel;
-        public SectionController HeaderLabel(GameObject headerLabel)
+        public SectionController WithHeaderLabelComponent(GameObject headerLabel)
         {
             this._headerLabel = headerLabel;
             return this;
         }
 
         private string _groupId;
-        public SectionController GroupId(string groupId)
+        public SectionController WithGroupId(string groupId)
         {
             this._groupId = groupId;
             return this;
@@ -86,8 +86,8 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             foreach( UIActivator activator in _viewModel.GetActivators(groupId) )
             {
                 ActivatorBuilder.ActivatorController row = new ActivatorBuilder()
-                    .ViewModel(_viewModel)
-                    .Activator(activator)
+                    .WithViewModel(_viewModel)
+                    .WithActivator(activator)
                     .Build();
                 row.transform.SetParent(gameObject.transform, false);
                 row.transform.SetAsLastSibling();

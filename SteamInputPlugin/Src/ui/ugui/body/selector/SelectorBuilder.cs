@@ -26,7 +26,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
         // ==================================
 
         private CheatSheetViewModel _viewModel;
-        public SelectorBuilder ViewModel(CheatSheetViewModel viewModel)
+        public SelectorBuilder WithViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             return this;
@@ -40,7 +40,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
         {
             var go = new GameObject("SteamInput.Body.Selector", typeof(RectTransform));
             SelectorController controller = go.AddComponent<SelectorController>();
-            controller.ViewModel(_viewModel);
+            controller.WithViewModel(_viewModel);
 
             var layout = go.AddComponent<HorizontalLayoutGroup>();
             layout.padding = new RectOffset(
@@ -58,11 +58,11 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
             // The combobox: shared component. It renders config options (title + type) and reports the
             // selection back to the controller, which forwards it to the ViewModel.
             ComboController combo = new ComboBuilder()
-                .Parent(go.transform)
-                .LabelFor(controller.LabelFor)
-                .ItemContent(new ConfigComboItemContentBuilder().Configs(controller.ResolveConfig))
+                .WithParent(go.transform)
+                .WithLabelFor(controller.LabelFor)
+                .WithItemContentBuilder(new ConfigComboItemContentBuilder().WithConfigs(controller.ResolveConfig))
                 .Build();
-            controller.Combo(combo);
+            controller.WithComboController(combo);
 
             // Stretch the combo to fill the row; the refresh button keeps its fixed square size.
             var comboLe = combo.gameObject.AddComponent<LayoutElement>();
@@ -71,11 +71,11 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
             // Refresh button: triggers a rescan of the Steam config folder. Sized to match the combo
             // height so the icon reads at a glance. Sprite tag, with a text glyph fallback.
             ButtonController refresh = new ButtonBuilder()
-                .ObjectName("Refresh")
-                .Label(SpritesIcons.HasSprite("refresh") ? "<sprite name=\"refresh\" tint=1>" : RefreshGlyph)
+                .WithObjectName("Refresh")
+                .WithLabel(SpritesIcons.HasSprite("refresh") ? "<sprite name=\"refresh\" tint=1>" : RefreshGlyph)
                 .Build();
             refresh.transform.SetParent(go.transform, false);
-            controller.RefreshButton(refresh);
+            controller.WithRefreshButtonController(refresh);
 
             var refreshLayout = refresh.GetComponent<LayoutElement>();
             refreshLayout.minWidth = SteamInputPalette.ComboHeight;

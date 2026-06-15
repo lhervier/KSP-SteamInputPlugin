@@ -14,7 +14,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
         private EmptyConfigBuilder.EmptyConfigController _emptyConfigController;
 
         private CheatSheetViewModel _viewModel;
-        public ZoneListController ViewModel(CheatSheetViewModel viewModel)
+        public ZoneListController WithViewModel(CheatSheetViewModel viewModel)
         {
             this._viewModel = viewModel;
             return this;
@@ -97,8 +97,8 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
                 if (!this._zoneControllers.TryGetValue(zone.Zone, out ZoneController zoneController))
                 {
                     zoneController = new ZoneBuilder()
-                        .ViewModel(_viewModel)
-                        .Zone(zone)
+                        .WithViewModel(_viewModel)
+                        .WithZone(zone)
                         .Build();
                     zoneController.transform.SetParent(this.transform, false);
                     zoneController.gameObject.SetActive(!string.IsNullOrEmpty(SteamInputSettings.GetControllerConfigName()));

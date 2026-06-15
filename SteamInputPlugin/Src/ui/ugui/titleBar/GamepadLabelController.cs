@@ -14,7 +14,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
         // =========================
 
         private TextMeshProUGUI _label;
-        public GamepadLabelController Label(TextMeshProUGUI label)
+        public GamepadLabelController WithLabel(TextMeshProUGUI label)
         {
             this._label = label;
             return this;
