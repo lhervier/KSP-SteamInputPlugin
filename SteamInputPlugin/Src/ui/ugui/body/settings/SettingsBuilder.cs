@@ -106,7 +106,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
             titleElement.flexibleWidth = 1f;
 
             var title = UGUILabels.AddLabel(titleGo);
-            title.text = ModLocalization.GetString("SteamInput_settings").ToUpperInvariant();
+            title.text = ModLocalization.GetString("settings").ToUpperInvariant();
             title.fontSize = SteamInputPalette.SettingsHeadTitleFontSize;
             title.fontStyle = FontStyles.Bold;
             title.color = SteamInputPalette.SettingsHeadTitleColor;
@@ -118,20 +118,20 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
         {
             Transform section = BuildSection(parent, "LoggingSection");
 
-            BuildSectionLabel(section, ModLocalization.GetString("SteamInput_settings_logging"));
+            BuildSectionLabel(section, ModLocalization.GetString("settings_logging"));
 
             logLevelComboController = new ComboBuilder()
                 .WithParent(section)
-                .WithLabel(ModLocalization.GetString("SteamInput_settings_logLevel"))
+                .WithLabel(ModLocalization.GetString("settings_logLevel"))
                 .WithLabelFor(GetLogLevelLabel)
                 .Build();
 
-            BuildHint(section, ModLocalization.GetString("SteamInput_settings_loggingHint"));
+            BuildHint(section, ModLocalization.GetString("settings_loggingHint"));
         }
 
         private static string GetLogLevelLabel(string level)
         {
-            string localized = ModLocalization.GetString("SteamInput_logLevel_" + level);
+            string localized = ModLocalization.GetString("logLevel_" + level);
             return string.IsNullOrEmpty(localized) ? level.ToString() : localized;
         }
 

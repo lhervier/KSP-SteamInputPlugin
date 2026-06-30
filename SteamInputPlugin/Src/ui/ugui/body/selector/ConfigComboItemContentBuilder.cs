@@ -33,7 +33,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
             UIGamepadConfig config = (!isNone && _resolver != null) ? _resolver(name) : null;
 
             string title = isNone
-                ? ModLocalization.GetString("SteamInput_configNone")
+                ? ModLocalization.GetString("configNone")
                 : (config != null ? config.Title : name);
             string typeLabel = config != null ? config.ControllerLabel : null;
 

@@ -80,7 +80,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
                 return;
             }
             _badgeImage.sprite = connected ? _badgeOkSprite : _badgeNoSprite;
-            _badgeText.text = ModLocalization.GetString(connected ? "SteamInput_yes" : "SteamInput_no").ToUpperInvariant();
+            _badgeText.text = ModLocalization.GetString(connected ? "yes" : "no").ToUpperInvariant();
             _badgeText.color = connected
                 ? SteamInputPalette.SettingsBadgeOkTextColor
                 : SteamInputPalette.SettingsBadgeNoTextColor;
@@ -132,7 +132,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
             var go = new GameObject("ContextEmpty", typeof(RectTransform));
             go.transform.SetParent(_contextsBox, false);
             var label = UGUILabels.AddLabel(go);
-            label.text = ModLocalization.GetString("SteamInput_settings_noContext");
+            label.text = ModLocalization.GetString("settings_noContext");
             label.fontSize = SteamInputPalette.SettingsContextFontSize;
             label.fontStyle = FontStyles.Italic;
             label.color = SteamInputPalette.SettingsContextEmptyColor;

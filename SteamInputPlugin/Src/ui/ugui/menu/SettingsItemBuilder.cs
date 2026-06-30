@@ -109,7 +109,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
             labelLayout.flexibleWidth = 1f;
 
             var label = UGUILabels.AddLabel(labelGo);
-            label.text = ModLocalization.GetString("SteamInput_settings");
+            label.text = ModLocalization.GetString("settings");
             label.fontSize = SteamInputPalette.MenuItemFontSize;
             label.color = DefaultPalette.LabelColor;
             label.alignment = TextAlignmentOptions.Left;

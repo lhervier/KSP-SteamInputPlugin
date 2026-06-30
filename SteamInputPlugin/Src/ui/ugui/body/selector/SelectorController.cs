@@ -85,7 +85,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.selector
         {
             if (string.IsNullOrEmpty(name))
             {
-                return ModLocalization.GetString("SteamInput_configNone");
+                return ModLocalization.GetString("configNone");
             }
             UIGamepadConfig config = ResolveConfig(name);
             return config != null ? config.Title : name;

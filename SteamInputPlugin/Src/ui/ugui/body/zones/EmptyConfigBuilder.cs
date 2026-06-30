@@ -47,7 +47,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             go.transform.SetParent(parent, false);
 
             var label = UGUILabels.AddLabel(go);
-            label.text = ModLocalization.GetString("SteamInput_configHelpTitle").ToUpperInvariant();
+            label.text = ModLocalization.GetString("configHelpTitle").ToUpperInvariant();
             label.fontSize = SteamInputPalette.EmptyTitleFontSize;
             label.fontStyle = FontStyles.Bold;
             label.color = SteamInputPalette.EmptyTitleColor;
@@ -62,9 +62,9 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             go.transform.SetParent(parent, false);
 
             string accentHex = ColorUtility.ToHtmlStringRGB(SteamInputPalette.EmptyHighlightColor);
-            string highlighted = "<color=#" + accentHex + ">" + ModLocalization.GetString("SteamInput_configHelpExport") + "</color>";
-            string intro = ModLocalization.GetString("SteamInput_configHelpIntro");
-            string refresh = ModLocalization.GetString("SteamInput_configHelpRefresh", highlighted);
+            string highlighted = "<color=#" + accentHex + ">" + ModLocalization.GetString("configHelpExport") + "</color>";
+            string intro = ModLocalization.GetString("configHelpIntro");
+            string refresh = ModLocalization.GetString("configHelpRefresh", highlighted);
 
             var label = UGUILabels.AddLabel(go);
             label.text = intro + "\n\n" + refresh;

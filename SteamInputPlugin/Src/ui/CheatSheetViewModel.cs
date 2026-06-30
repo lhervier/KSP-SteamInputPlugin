@@ -350,7 +350,7 @@ namespace com.github.lhervier.ksp.steaminput.ui
 
         private string GetLabel(EGamepadZone zone)
         {
-            return ModLocalization.GetString("SteamInput_physicalZone_" + zone.Name).ToUpperInvariant();
+            return ModLocalization.GetString("physicalZone_" + zone.Name).ToUpperInvariant();
         }
 
         private List<EGamepadZone> GetAllZones()
@@ -695,7 +695,7 @@ namespace com.github.lhervier.ksp.steaminput.ui
                                 ActionText = GetActionText(modeShift, bindingText),
                                 Highlighted = modeShift && string.IsNullOrEmpty(bindingText),
                                 Note = (modeShift && string.IsNullOrEmpty(bindingText))
-                                    ? ModLocalization.GetString("SteamInput_activator_modeshiftHold")
+                                    ? ModLocalization.GetString("activator_modeshiftHold")
                                     : "",
                             }
                         );
@@ -713,9 +713,9 @@ namespace com.github.lhervier.ksp.steaminput.ui
                                 BindingText = null,
                                 IconText = iconText,
                                 PressText = GetPressText(showPress, longPress),
-                                ActionText = ModLocalization.GetString("SteamInput_activator_layer"),
+                                ActionText = ModLocalization.GetString("activator_layer"),
                                 Highlighted = true,
-                                Note = ModLocalization.GetString("SteamInput_sectionLayerSuffix", layerTitle),
+                                Note = ModLocalization.GetString("sectionLayerSuffix", layerTitle),
                             }
                         );
                     }
@@ -741,8 +741,8 @@ namespace com.github.lhervier.ksp.steaminput.ui
                 return "";
             }
             return ModLocalization.GetString(longPress
-                ? "SteamInput_activator_Long_Press"
-                : "SteamInput_activator_Full_Press");
+                ? "activator_Long_Press"
+                : "activator_Full_Press");
         }
 
         private static bool IsLayerBinding(VdfBinding binding)
@@ -773,7 +773,7 @@ namespace com.github.lhervier.ksp.steaminput.ui
             // otherwise (incl. a mode shift mixed with a real binding) we show the binding.
             if( modeShift && string.IsNullOrEmpty(bindingText) )
             {
-                return ModLocalization.GetString("SteamInput_sectionModeshift");
+                return ModLocalization.GetString("sectionModeshift");
             }
             return bindingText;
         }

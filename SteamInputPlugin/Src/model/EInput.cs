@@ -129,7 +129,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.model
 
         public string GetLabel(string controllerType)
         {
-            string baseKey = "SteamInput_inputs_" + Name;
+            string baseKey = "inputs_" + Name;
             string key = baseKey + "_" + controllerType;
             string translated = ModLocalization.GetString(key);
             if( !string.IsNullOrEmpty(translated) ) return translated;

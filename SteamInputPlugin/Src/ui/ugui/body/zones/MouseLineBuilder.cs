@@ -39,7 +39,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             labelGo.transform.SetParent(go.transform, false);
 
             var label = UGUILabels.AddLabel(labelGo);
-            label.text = ModLocalization.GetString("SteamInput_mouseMovement");
+            label.text = ModLocalization.GetString("mouseMovement");
             label.fontSize = SteamInputPalette.MouseLineFontSize;
             label.fontStyle = FontStyles.Italic;
             label.color = SteamInputPalette.MouseLineColor;

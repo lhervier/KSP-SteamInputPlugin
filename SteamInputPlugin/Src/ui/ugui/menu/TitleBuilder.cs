@@ -18,7 +18,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.menu
             var go = new GameObject("Title", typeof(RectTransform));
             
             var text = UGUILabels.AddLabel(go);
-            text.text = ModLocalization.GetString("SteamInput_zonesMenuTitle").ToUpperInvariant();
+            text.text = ModLocalization.GetString("zonesMenuTitle").ToUpperInvariant();
             text.fontSize = SteamInputPalette.MenuTitleFontSize;
             text.fontStyle = FontStyles.Bold;
             text.color = SteamInputPalette.MenuTitleColor;

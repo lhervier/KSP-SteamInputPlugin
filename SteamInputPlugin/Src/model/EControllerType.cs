@@ -62,7 +62,7 @@ namespace com.github.lhervier.ksp.steaminput.model
 
         public string GetLabel()
         {
-            return ModLocalization.GetString("SteamInput_" + Name);
+            return ModLocalization.GetString("" + Name);
         }
 
         public override string ToString()

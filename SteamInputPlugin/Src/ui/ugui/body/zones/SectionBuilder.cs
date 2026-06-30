@@ -62,12 +62,12 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             Color textColor;
             if( _section.Modeshift )
             {
-                label = "↓ " + ModLocalization.GetString("SteamInput_sectionModeshift").ToUpperInvariant();
+                label = "↓ " + ModLocalization.GetString("sectionModeshift").ToUpperInvariant();
                 textColor = SteamInputPalette.ModeShiftColor;
             }
             else
             {
-                label = ModLocalization.GetString("SteamInput_sectionNormal").ToUpperInvariant();
+                label = ModLocalization.GetString("sectionNormal").ToUpperInvariant();
                 textColor = SteamInputPalette.ModeNormalColor;
             }
 
@@ -75,7 +75,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             // e.g. "NORMAL (RIGHTCLICK)" / "↓ MODESHIFT (RIGHTCLICK)".
             if( !string.IsNullOrEmpty(_section.LayerTitle) )
             {
-                label += " " + ModLocalization.GetString("SteamInput_sectionLayerSuffix", _section.LayerTitle).ToUpperInvariant();
+                label += " " + ModLocalization.GetString("sectionLayerSuffix", _section.LayerTitle).ToUpperInvariant();
             }
 
             // .kstate subheader as a child so activator rows can be stacked below it.

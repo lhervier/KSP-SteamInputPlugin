@@ -52,7 +52,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
         {
             var popupBuilder = new PopupBuilder<TitleBarController, BodyController>()
                 .WithPopupID(DIALOG_ID)
-                .WithTitle(ModLocalization.GetString("SteamInput_titleHelp"))
+                .WithTitle(ModLocalization.GetString("titleHelp"))
                 .WithIcon(SpritesTitleBar.GamepadIconSprite)
                 .WithTitleBarBuilder(
                     new TitleBarBuilder().WithViewModel(_viewModel)

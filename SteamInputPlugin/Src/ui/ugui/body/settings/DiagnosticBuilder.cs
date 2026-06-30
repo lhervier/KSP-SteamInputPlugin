@@ -56,10 +56,10 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
             layout.childForceExpandWidth = true;
             layout.childForceExpandHeight = false;
 
-            BuildSectionLabel(go.transform, ModLocalization.GetString("SteamInput_settings_diagnostic"));
-            BuildNote(go.transform, ModLocalization.GetString("SteamInput_settings_diagnosticNote"));
+            BuildSectionLabel(go.transform, ModLocalization.GetString("settings_diagnostic"));
+            BuildNote(go.transform, ModLocalization.GetString("settings_diagnosticNote"));
             BuildConnectedRow(go.transform, controller);
-            BuildSubLabel(go.transform, ModLocalization.GetString("SteamInput_settings_contexts"));
+            BuildSubLabel(go.transform, ModLocalization.GetString("settings_contexts"));
             BuildContextsBox(go.transform, controller);
 
             return controller;
@@ -149,7 +149,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
             var keyElement = keyGo.AddComponent<LayoutElement>();
             keyElement.flexibleWidth = 1f;
             var key = UGUILabels.AddLabel(keyGo);
-            key.text = ModLocalization.GetString("SteamInput_settings_connected");
+            key.text = ModLocalization.GetString("settings_connected");
             key.fontSize = SteamInputPalette.SettingsKvFontSize;
             key.color = SteamInputPalette.SettingsKvKeyColor;
             key.alignment = TextAlignmentOptions.Left;
