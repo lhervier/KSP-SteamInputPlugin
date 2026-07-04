@@ -1,6 +1,11 @@
 using UnityEngine;
 using KSP.UI.Screens;
-using com.github.lhervier.ksp.steaminput.ui.ugui;
+using com.github.lhervier.ksp.steaminput.ui.ugui.titleBar;
+using com.github.lhervier.ksp.steaminput.ui.ugui.body;
+using com.github.lhervier.ksp.steaminput.ui.ugui.overlays;
+using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
+using com.github.lhervier.ksp.steaminput.ui.styles;
+using com.github.lhervier.ksp.shared.ugui.popup;
 using com.github.lhervier.ksp.shared;
 
 namespace com.github.lhervier.ksp.steaminput.ui
@@ -9,9 +14,11 @@ namespace com.github.lhervier.ksp.steaminput.ui
     {
         private static readonly ModLogger LOGGER = new ModLogger("SteamInputSettingsUI");
 
+        private const string DIALOG_ID = "SteamInputCheatSheetUGUI";
+
         private ApplicationLauncherButton _toolbarButton;
 
-        private ModPopupController _popupController = null;
+        private PopupController _popupController = null;
 
         // ===============================================================
         // Life cycle
@@ -111,9 +118,21 @@ namespace com.github.lhervier.ksp.steaminput.ui
         {
             if (_popupController == null)
             {
-                ModPopupBuilder popupBuilder = new ModPopupBuilder()
-                    .WithViewModel(viewModel);
-                _popupController = popupBuilder.Build();
+                _popupController = new PopupBuilder<TitleBarController, BodyController, SteamInputOverlaysController>()
+                    .WithPopupID(DIALOG_ID)
+                    .WithTitle(ModLocalization.GetString("titleHelp"))
+                    .WithIcon(SpritesTitleBar.GamepadIconSprite)
+                    .WithTitleBarBuilder(
+                        new TitleBarBuilder().WithViewModel(viewModel)
+                    )
+                    .WithContentBuilder(
+                        new BodyBuilder().WithViewModel(viewModel)
+                    )
+                    .WithOverlayBuilder(
+                        new SteamInputOverlaysBuilder().WithViewModel(viewModel)
+                    )
+                    .WithSize(new Vector2(SteamInputPalette.WindowWidth, SteamInputPalette.WindowHeight))
+                    .Build();
                 if (_popupController == null) return;    // Spawn failed
                 _popupController.OnClosed.Add(WindowClosed);
             }
