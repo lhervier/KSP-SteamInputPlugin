@@ -34,8 +34,6 @@ namespace com.github.lhervier.ksp.steaminput
         private static string _controllerConfigName = string.Empty;
         private static List<EGamepadZone> _orderedGamepadZones = new List<EGamepadZone>();
         private static List<EGamepadZone> _visibleGamepadZones = new List<EGamepadZone>();
-        private static bool _hasWindowPosition = false;
-        private static Vector2 _windowPosition = Vector2.zero;
 
         public static EventData<int> OnGlobalSettingsChanged = new EventData<int>("SteamInputGlobalSettings.ConfigurationChanged");
 
@@ -294,55 +292,6 @@ namespace com.github.lhervier.ksp.steaminput
         // =======================================================================
 
         /// <summary>
-        /// Load the cheat sheet window position from the configuration (empty = never moved).
-        /// </summary>
-        private static void LoadWindowPosition()
-        {
-            _hasWindowPosition = TryParseWindowPosition(
-                config.GetValue(CONFIG_KEY_WINDOW_POSITION, string.Empty),
-                out _windowPosition
-            );
-        }
-
-        /// <summary>
-        /// Save the cheat sheet window position to the configuration.
-        /// </summary>
-        private static void SaveWindowPosition()
-        {
-            config.SetValue(
-                CONFIG_KEY_WINDOW_POSITION,
-                _hasWindowPosition
-                    ? _windowPosition.x.ToString(CultureInfo.InvariantCulture)
-                        + SEPARATOR
-                        + _windowPosition.y.ToString(CultureInfo.InvariantCulture)
-                    : string.Empty
-            );
-        }
-
-        /// <summary>
-        /// Get the saved cheat sheet window position.
-        /// </summary>
-        /// <param name="position">The saved position, if any.</param>
-        /// <returns>True if a position has been saved, false otherwise.</returns>
-        public static bool TryGetWindowPosition(out Vector2 position)
-        {
-            position = _windowPosition;
-            return _hasWindowPosition;
-        }
-
-        /// <summary>
-        /// Set the cheat sheet window position. Persisted on the next <see cref="Save"/>.
-        /// </summary>
-        /// <param name="position">The window position.</param>
-        public static void SetWindowPosition(Vector2 position)
-        {
-            _windowPosition = position;
-            _hasWindowPosition = true;
-        }
-
-        // =======================================================================
-
-        /// <summary>
         /// Load the global settings from the configuration.
         /// </summary>
         public static void Load()
@@ -357,7 +306,6 @@ namespace com.github.lhervier.ksp.steaminput
             updateFlags |= LoadControllerConfigName();
             updateFlags |= LoadOrderedGamepadZones();
             updateFlags |= LoadVisibleGamepadZones();
-            LoadWindowPosition();
 
             OnGlobalSettingsChanged.Fire(updateFlags);
             LOGGER.LogDebug($"Loaded configuration");
@@ -378,7 +326,6 @@ namespace com.github.lhervier.ksp.steaminput
             SaveControllerConfigName();
             SaveOrderedGamepadZones();
             SaveVisibleGamepadZones();
-            SaveWindowPosition();
 
             config.save();
             LOGGER.LogDebug($"Saved configuration");

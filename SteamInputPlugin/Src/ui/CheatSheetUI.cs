@@ -103,11 +103,6 @@ namespace com.github.lhervier.ksp.steaminput.ui
             }
         }
 
-        public void OnWindowPositionCaptured(Vector2 position)
-        {
-            SteamInputSettings.SetWindowPosition(position);
-        }
-
         // ===============================================================
         // Internal helpers
         // ===============================================================
@@ -118,16 +113,9 @@ namespace com.github.lhervier.ksp.steaminput.ui
             {
                 ModPopupBuilder popupBuilder = new ModPopupBuilder()
                     .WithViewModel(viewModel);
-                if( SteamInputSettings.TryGetWindowPosition(out Vector2 saved) )
-                {
-                    popupBuilder = popupBuilder.WithPosition(saved);
-                }
                 _popupController = popupBuilder.Build();
                 if (_popupController == null) return;    // Spawn failed
                 _popupController.OnClosed.Add(WindowClosed);
-                // When KSP dismisses the popup itself (Escape opens the pause menu and closes it),
-                // resync as if the user had closed it: hide the rest and reset the toolbar toggle.
-                _popupController.OnPositionCaptured.Add(OnWindowPositionCaptured);
             }
             _popupController.Show();
         }
@@ -136,7 +124,6 @@ namespace com.github.lhervier.ksp.steaminput.ui
         {
             if (_popupController == null) return;
             _popupController.OnClosed.Remove(WindowClosed);
-            _popupController.OnPositionCaptured.Remove(OnWindowPositionCaptured);
             _popupController.Dismiss();
             _popupController = null;
         }

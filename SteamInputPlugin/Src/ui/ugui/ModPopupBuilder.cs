@@ -61,10 +61,6 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
                     new BodyBuilder().WithViewModel(_viewModel)
                 )
                 .WithSize(new Vector2(SteamInputPalette.WindowWidth, SteamInputPalette.WindowHeight));
-            if( this._hasPosition )
-            {
-                popupBuilder = popupBuilder.WithPosition(this._position);
-            }
             PopupController popupController = popupBuilder.Build();
             if( popupController == null ) return null;
 
