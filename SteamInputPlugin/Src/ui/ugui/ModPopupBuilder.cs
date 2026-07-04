@@ -1,10 +1,9 @@
 using UnityEngine;
 using com.github.lhervier.ksp.steaminput.ui.ugui.titleBar;
-using com.github.lhervier.ksp.steaminput.ui.ugui.menu;
 using com.github.lhervier.ksp.steaminput.ui.ugui.body;
+using com.github.lhervier.ksp.steaminput.ui.ugui.overlays;
 using com.github.lhervier.ksp.shared.ugui;
 using com.github.lhervier.ksp.shared.ugui.popup;
-using com.github.lhervier.ksp.shared.ugui.overlay;
 using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
 using com.github.lhervier.ksp.steaminput.ui.styles;
 using com.github.lhervier.ksp.shared;
@@ -50,7 +49,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
         /// </summary>
         public ModPopupController Build()
         {
-            var popupBuilder = new PopupBuilder<TitleBarController, BodyController>()
+            var popupBuilder = new PopupBuilder<TitleBarController, BodyController, SteamInputOverlaysController>()
                 .WithPopupID(DIALOG_ID)
                 .WithTitle(ModLocalization.GetString("titleHelp"))
                 .WithIcon(SpritesTitleBar.GamepadIconSprite)
@@ -60,28 +59,18 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui
                 .WithContentBuilder(
                     new BodyBuilder().WithViewModel(_viewModel)
                 )
+                .WithOverlayBuilder(
+                    new SteamInputOverlaysBuilder().WithViewModel(_viewModel)
+                )
                 .WithSize(new Vector2(SteamInputPalette.WindowWidth, SteamInputPalette.WindowHeight));
             PopupController popupController = popupBuilder.Build();
             if( popupController == null ) return null;
 
-            OverlayController overlayController = new OverlayBuilder()
-                .Build();
-            overlayController.transform.SetParent(popupController.GetGameObject().transform, false);
-            overlayController.gameObject.SetActive(false);
-
-            MenuBuilder.MenuController menuController = new MenuBuilder()
-                .WithViewModel(_viewModel)
-                .Build();
-            menuController.transform.SetParent(popupController.GetGameObject().transform, false);
-            menuController.gameObject.SetActive(false);
-            
             return popupController
                 .GetGameObject()
                 .AddComponent<ModPopupController>()
                 .WithViewModel(_viewModel)
                 .WithPopupController(popupController)
-                .WithOverlayController(overlayController)
-                .WithMenuController(menuController)
                 .Build();
         }
     }
