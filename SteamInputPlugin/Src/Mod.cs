@@ -2,10 +2,17 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Reflection;
+using KSP.UI.Screens;
 using com.github.lhervier.ksp.steaminput.ui;
+using com.github.lhervier.ksp.steaminput.ui.ugui.titleBar;
+using com.github.lhervier.ksp.steaminput.ui.ugui.body;
+using com.github.lhervier.ksp.steaminput.ui.ugui.overlays;
+using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
+using com.github.lhervier.ksp.steaminput.ui.styles;
 using com.github.lhervier.ksp.steaminput.model;
 using com.github.lhervier.ksp.shared;
 using com.github.lhervier.ksp.shared.ugui.sprites;
+using com.github.lhervier.ksp.shared.ugui.popup;
 
 namespace com.github.lhervier.ksp.steaminput 
 {
@@ -16,7 +23,12 @@ namespace com.github.lhervier.ksp.steaminput
         //  Logger
         // </summary>
         private static readonly ModLogger LOGGER = new ModLogger();
-        
+
+        // <summary>
+        //  Persistent id of the cheat sheet popup (position + open state persistence)
+        // </summary>
+        private const string DIALOG_ID = "SteamInputCheatSheetUGUI";
+
         // ==================================================================================
 
         // <summary>
@@ -43,7 +55,14 @@ namespace com.github.lhervier.ksp.steaminput
         //  The GUI
         // </summary>
         private CheatSheetViewModel _viewModel;
-        private CheatSheetWindow _cheatSheetUI;
+
+        // <summary>
+        //  Toolbar button + persistent popup controller. The controller lives on this GameObject so it
+        //  survives KSP destroying the window (Escape) and persists its own position and open state; we
+        //  only open/close it and sync the button through OnOpenChanged.
+        // </summary>
+        private ApplicationLauncherButton _toolbarButton;
+        private PopupController _popupController;
 
         // <summary>
         //  Coroutine to initialize the plugin
@@ -137,11 +156,25 @@ namespace com.github.lhervier.ksp.steaminput
                 .GamepadDaemon(_gamepadDaemon);
             
             // Start the GUI
-            LOGGER.LogInfo("Starting Logging UI");
-            this._cheatSheetUI = gameObject
-                .AddComponent<CheatSheetWindow>()
-                .WithViewModel(this._viewModel);
-            LOGGER.LogInfo("Logging UI started");
+            LOGGER.LogInfo("Starting UI");
+            GameEvents.onGUIApplicationLauncherReady.Add(OnGUIAppLauncherReady);
+            this._popupController = new PopupBuilder<TitleBarController, BodyController, SteamInputOverlaysController>()
+                .WithHost(this.gameObject)
+                .WithPopupID(DIALOG_ID)
+                .WithTitle(ModLocalization.GetString("titleHelp"))
+                .WithIcon(SpritesTitleBar.GamepadIconSprite)
+                .WithTitleBarBuilder(new TitleBarBuilder().WithViewModel(this._viewModel))
+                .WithContentBuilder(new BodyBuilder().WithViewModel(this._viewModel))
+                .WithOverlayBuilder(new SteamInputOverlaysBuilder().WithViewModel(this._viewModel))
+                .WithSize(new Vector2(SteamInputPalette.WindowWidth, SteamInputPalette.WindowHeight))
+                .Build();
+            // The controller restores its own open state in its Start (after this coroutine step returns),
+            // so we only subscribe: a restored-open window then syncs the toolbar through this handler.
+            if (this._popupController != null)
+            {
+                this._popupController.OnOpenChanged.Add(OnPopupOpenChanged);
+            }
+            LOGGER.LogInfo("UI started");
 
             // Log the detected steam environment
             bool hasPath = SteamEnvironmentDetector.TryGetSteamInstallPath(out string installPath);
@@ -196,9 +229,13 @@ namespace com.github.lhervier.ksp.steaminput
                 this._initializePluginCoroutine = null;
             }
             
-            if( this._cheatSheetUI != null ) {
-                Destroy(this._cheatSheetUI);
-                this._cheatSheetUI = null;
+            GameEvents.onGUIApplicationLauncherReady.Remove(OnGUIAppLauncherReady);
+            RemoveToolbarButton();
+            // _popupController is a component on this GameObject: Unity destroys it with us, and it
+            // dismisses a still-open window in its own OnDestroy. We only unsubscribe and drop the ref.
+            if( this._popupController != null ) {
+                this._popupController.OnOpenChanged.Remove(OnPopupOpenChanged);
+                this._popupController = null;
             }
 
             if( this._viewModel != null ) {
@@ -287,6 +324,83 @@ namespace com.github.lhervier.ksp.steaminput
 
             // Wait for the next frame to ensure the controller is deactivated
             yield return new WaitForEndOfFrame();
+        }
+
+        // ====================================================================================
+        //                      UI toolbar + window
+        // ====================================================================================
+
+        /// <summary>
+        /// Add the toolbar button once the ApplicationLauncher is ready.
+        /// </summary>
+        private void OnGUIAppLauncherReady()
+        {
+            if (!ApplicationLauncher.Ready) return;
+            if (_toolbarButton != null) return;
+
+            _toolbarButton = ApplicationLauncher.Instance.AddModApplication(
+                OnToggleOn,
+                OnToggleOff,
+                null,
+                null,
+                null,
+                null,
+                ApplicationLauncher.AppScenes.ALWAYS,
+                GameDatabase.Instance.GetTexture(Constants.ModName + "/Textures/logging_icon", false)
+            );
+
+            // The launcher may become ready after the window state was restored at scene load:
+            // reflect an already-open window now (false: no callback).
+            if (_toolbarButton != null && _popupController != null && _popupController.IsOpen)
+            {
+                _toolbarButton.SetTrue(false);
+            }
+        }
+
+        /// <summary>
+        /// Remove the toolbar button (no-op if it was never added).
+        /// </summary>
+        private void RemoveToolbarButton()
+        {
+            if (_toolbarButton == null) return;
+            try
+            {
+                ApplicationLauncher.Instance.RemoveModApplication(_toolbarButton);
+            }
+            catch (Exception e)
+            {
+                LOGGER.LogError("Error removing toolbar button: " + e.Message);
+            }
+            _toolbarButton = null;
+        }
+
+        private void OnToggleOn()
+        {
+            if (_popupController != null) _popupController.Show();
+        }
+
+        private void OnToggleOff()
+        {
+            if (_popupController != null) _popupController.Hide();
+        }
+
+        /// <summary>
+        /// The window's open state changed (button, ×, Escape, or restore-at-load): keep the toolbar
+        /// button pressed state in sync, notably when the change is driven by KSP or by restore rather
+        /// than by a click. SetTrue/SetFalse(false): do not re-fire the toggle callbacks.
+        /// </summary>
+        private void OnPopupOpenChanged()
+        {
+            if (_toolbarButton == null) return;
+            bool open = _popupController != null && _popupController.IsOpen;
+            if (open)
+            {
+                _toolbarButton.SetTrue(false);
+            }
+            else
+            {
+                _toolbarButton.SetFalse(false);
+            }
         }
 
         // ====================================================================================
