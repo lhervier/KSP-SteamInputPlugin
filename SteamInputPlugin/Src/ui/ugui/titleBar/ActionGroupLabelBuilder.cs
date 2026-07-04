@@ -1,10 +1,8 @@
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using com.github.lhervier.ksp.steaminput.ui.styles;
-using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
-using com.github.lhervier.ksp.shared.ugui.styles;
 using com.github.lhervier.ksp.shared.ugui;
+using com.github.lhervier.ksp.shared.ugui.badge;
+using com.github.lhervier.ksp.shared.ugui.styles;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
 {
@@ -28,49 +26,21 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
         
         public ActionGroupLabelController Build()
         {
-            var badgeGo = new GameObject("SteamInput.TitleBar.RightColumn.ActionGroup", typeof(RectTransform));
-            
-            // Sliced sprite: transparent fill with a green border
-            var image = badgeGo.AddComponent<Image>();
-            image.sprite = SpritesTitleBar.ActionGroupBorderSprite;
-            image.type = Image.Type.Sliced;
-            image.color = Color.white;
-            image.raycastTarget = false;
+            // Transparent-fill, green-border accent badge. The content-size fitter makes it keep hugging
+            // its label width even when the title bar row is squeezed below its preferred size.
+            BadgeController badge = new BadgeBuilder()
+                .WithObjectName("SteamInput.TitleBar.RightColumn.ActionGroup")
+                .WithColors(DefaultPalette.AccentColor, Color.clear, SteamInputPalette.TitleBarActionGroupBorderColor)
+                .WithBorderThickness((int) PopupPalette.TitleBarActionGroupBorderThickness)
+                .WithFontSize(SteamInputPalette.TitleBarActionGroupFontSize)
+                .WithPadding(SteamInputPalette.TitleBarActionGroupPaddingH, SteamInputPalette.TitleBarActionGroupPaddingV)
+                .WithContentSizeFitter()
+                .Build();
 
-            // Padding around the text; the HLG reports the label's preferred size as its own.
-            var layout = badgeGo.AddComponent<HorizontalLayoutGroup>();
-            layout.padding = new RectOffset(
-                SteamInputPalette.TitleBarActionGroupPaddingH,
-                SteamInputPalette.TitleBarActionGroupPaddingH,
-                SteamInputPalette.TitleBarActionGroupPaddingV,
-                SteamInputPalette.TitleBarActionGroupPaddingV);
-            layout.spacing = 0f;
-            layout.childAlignment = TextAnchor.MiddleCenter;
-            layout.childControlWidth = true;
-            layout.childControlHeight = true;
-            layout.childForceExpandWidth = false;
-            layout.childForceExpandHeight = false;
-
-            // Hug the label width (same pattern as ButtonBuilder's auto-width mode): the fitter
-            // runs after the parent layout and re-applies the preferred width, so the badge keeps
-            // hugging its text even when the title bar row gets squeezed below its preferred size.
-            var fitter = badgeGo.AddComponent<ContentSizeFitter>();
-            fitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
-            fitter.verticalFit = ContentSizeFitter.FitMode.Unconstrained;
-
-            // Green label
-            var labelGo = new GameObject("Label", typeof(RectTransform));
-            labelGo.transform.SetParent(badgeGo.transform, false);
-
-            var label = UGUILabels.AddLabel(labelGo);
-            label.fontSize = SteamInputPalette.TitleBarActionGroupFontSize;
-            label.color = DefaultPalette.AccentColor;
-            label.alignment = TextAlignmentOptions.Center;
-            
-            return badgeGo
+            return badge.gameObject
                 .AddComponent<ActionGroupLabelController>()
                 .WithViewModel(this._viewModel)
-                .WithLabelComponent(label);
+                .WithBadge(badge);
         }
     }
 }

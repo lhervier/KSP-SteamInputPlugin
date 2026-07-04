@@ -2,11 +2,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using com.github.lhervier.ksp.steaminput.ui.styles;
-using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
 using com.github.lhervier.ksp.steaminput.ui.model;
 using com.github.lhervier.ksp.shared.ugui;
+using com.github.lhervier.ksp.shared.ugui.badge;
 using com.github.lhervier.ksp.shared.ugui.styles;
-using com.github.lhervier.ksp.shared.ugui.sprites;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
 {
@@ -81,67 +80,37 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.zones
             layoutElement.minWidth = SteamInputPalette.ActivatorInputMinWidth;
             layoutElement.flexibleWidth = 0f;
 
-            BuildChip(
-                go.transform,
-                "Kbd",
-                SpritesActivators.ActivatorInputSprite,
-                activator.IconText,
-                SteamInputPalette.ActivatorInputTextColor,
-                SteamInputPalette.ActivatorInputFontSize,
-                SteamInputPalette.ActivatorInputChipMinSize);
+            // .kkbd : keyboard/button key chip. Square floor so short keys stay square.
+            new BadgeBuilder()
+                .WithParent(go.transform)
+                .WithObjectName("Kbd")
+                .WithText(activator.IconText)
+                .WithColors(
+                    SteamInputPalette.ActivatorInputTextColor,
+                    SteamInputPalette.ActivatorInputBgColor,
+                    SteamInputPalette.ActivatorInputBorderColor)
+                .WithBorderThickness(SteamInputPalette.ActivatorInputBorderThickness)
+                .WithFontSize(SteamInputPalette.ActivatorInputFontSize)
+                .WithPadding(SteamInputPalette.ActivatorInputPaddingH, 0)
+                .WithMinSize(SteamInputPalette.ActivatorInputChipMinSize)
+                .Build();
 
+            // .kpress : optional long-press chip, hugging its content (no square floor).
             if (!string.IsNullOrEmpty(activator.PressText))
             {
-                BuildChip(
-                    go.transform,
-                    "Press",
-                    SpritesActivators.ActivatorPressSprite,
-                    activator.PressText,
-                    SteamInputPalette.ActivatorPressTextColor,
-                    SteamInputPalette.ActivatorPressFontSize,
-                    0f);
+                new BadgeBuilder()
+                    .WithParent(go.transform)
+                    .WithObjectName("Press")
+                    .WithText(activator.PressText)
+                    .WithColors(
+                        SteamInputPalette.ActivatorPressTextColor,
+                        SteamInputPalette.ActivatorPressBgColor,
+                        SteamInputPalette.ActivatorPressBorderColor)
+                    .WithBorderThickness(SteamInputPalette.ActivatorPressBorderThickness)
+                    .WithFontSize(SteamInputPalette.ActivatorPressFontSize)
+                    .WithPadding(SteamInputPalette.ActivatorInputPaddingH, 0)
+                    .Build();
             }
-        }
-
-        private void BuildChip(Transform parent, string name, Sprite sprite, string text, Color textColor, int fontSize, float minSize)
-        {
-            var go = new GameObject(name, typeof(RectTransform));
-            go.transform.SetParent(parent, false);
-
-            // Square floor (0 = hug the content): the label stays centered through the
-            // chip's layout, wider texts keep growing horizontally.
-            if (minSize > 0f)
-            {
-                var element = go.AddComponent<LayoutElement>();
-                element.minWidth = minSize;
-                element.minHeight = minSize;
-            }
-
-            var image = go.AddComponent<Image>();
-            image.sprite = sprite;
-            image.type = Image.Type.Sliced;
-            image.color = Color.white;
-            image.raycastTarget = false;
-
-            var layout = go.AddComponent<HorizontalLayoutGroup>();
-            layout.padding = new RectOffset(
-                Mathf.RoundToInt(SteamInputPalette.ActivatorInputPaddingH),
-                Mathf.RoundToInt(SteamInputPalette.ActivatorInputPaddingH),
-                0, 0);
-            layout.childAlignment = TextAnchor.MiddleCenter;
-            layout.childControlWidth = true;
-            layout.childControlHeight = true;
-            layout.childForceExpandWidth = false;
-            layout.childForceExpandHeight = false;
-
-            var labelGo = new GameObject("Text", typeof(RectTransform));
-            labelGo.transform.SetParent(go.transform, false);
-
-            var label = UGUILabels.AddLabel(labelGo);
-            label.text = text;
-            label.fontSize = fontSize;
-            label.color = textColor;
-            label.alignment = TextAlignmentOptions.Center;
         }
 
         // .ksep : the "—" between the key and the action.

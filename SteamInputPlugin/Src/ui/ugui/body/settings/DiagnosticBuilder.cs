@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using com.github.lhervier.ksp.steaminput.ui.styles;
+using com.github.lhervier.ksp.shared.ugui.badge;
 using com.github.lhervier.ksp.shared.ugui.styles;
 using com.github.lhervier.ksp.shared.ugui.sprites;
 using com.github.lhervier.ksp.shared.ugui;
@@ -18,8 +19,6 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
     {
         private static Sprite _noteSprite;
         private static Sprite _contextSprite;
-        private static Sprite _badgeOkSprite;
-        private static Sprite _badgeNoSprite;
 
         // ====================================
         // Builder parameters
@@ -154,50 +153,16 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
             key.color = SteamInputPalette.SettingsKvKeyColor;
             key.alignment = TextAlignmentOptions.Left;
 
-            // Badge: a chip whose sprite + colors are swapped by the controller on connect/disconnect.
-            if (_badgeOkSprite == null)
-            {
-                _badgeOkSprite = SpritesGlobal.MakeChipSprite(
-                    SteamInputPalette.SettingsBadgeOkBgColor,
-                    SteamInputPalette.SettingsBadgeOkBorderColor,
-                    1);
-            }
-            if (_badgeNoSprite == null)
-            {
-                _badgeNoSprite = SpritesGlobal.MakeChipSprite(
-                    SteamInputPalette.SettingsBadgeNoBgColor,
-                    SteamInputPalette.SettingsBadgeNoBorderColor,
-                    1);
-            }
+            // Badge: an OK/NO chip whose text and colors are set by the controller on connect/disconnect.
+            BadgeController badge = new BadgeBuilder()
+                .WithParent(go.transform)
+                .WithObjectName("Badge")
+                .WithFontSize(SteamInputPalette.SettingsBadgeFontSize)
+                .WithFontStyle(FontStyles.Bold)
+                .WithPadding(SteamInputPalette.SettingsBadgePaddingH, 2)
+                .Build();
 
-            var badgeGo = new GameObject("Badge", typeof(RectTransform));
-            badgeGo.transform.SetParent(go.transform, false);
-            var badgeImage = badgeGo.AddComponent<Image>();
-            badgeImage.type = Image.Type.Sliced;
-            badgeImage.color = Color.white;
-            badgeImage.raycastTarget = false;
-
-            var badgeLayout = badgeGo.AddComponent<HorizontalLayoutGroup>();
-            badgeLayout.padding = new RectOffset(
-                SteamInputPalette.SettingsBadgePaddingH,
-                SteamInputPalette.SettingsBadgePaddingH,
-                2, 2);
-            badgeLayout.childAlignment = TextAnchor.MiddleCenter;
-            badgeLayout.childControlWidth = true;
-            badgeLayout.childControlHeight = true;
-            badgeLayout.childForceExpandWidth = false;
-            badgeLayout.childForceExpandHeight = false;
-
-            // The chip hugs its label: the parent row HLG (childControlWidth, no force-expand) sizes
-            // the badge to the preferred width reported by this inner HLG.
-            var badgeTextGo = new GameObject("Text", typeof(RectTransform));
-            badgeTextGo.transform.SetParent(badgeGo.transform, false);
-            var badgeText = UGUILabels.AddLabel(badgeTextGo);
-            badgeText.fontSize = SteamInputPalette.SettingsBadgeFontSize;
-            badgeText.fontStyle = FontStyles.Bold;
-            badgeText.alignment = TextAlignmentOptions.Center;
-
-            controller.WithBadge(badgeImage, badgeText, _badgeOkSprite, _badgeNoSprite);
+            controller.WithBadge(badge);
         }
 
         // ".kset-sub": small uppercase grey sub-header above the contexts box.

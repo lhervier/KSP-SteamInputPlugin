@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using TMPro;
 using com.github.lhervier.ksp.steaminput.ui.styles;
 using com.github.lhervier.ksp.shared.ugui;
+using com.github.lhervier.ksp.shared.ugui.badge;
 using com.github.lhervier.ksp.shared.ugui.styles;
 using com.github.lhervier.ksp.shared;
 
@@ -13,10 +14,7 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
     {
         private const string CtxDaemonSuffix = "CtxDaemon";
 
-        private Image _badgeImage;
-        private TextMeshProUGUI _badgeText;
-        private Sprite _badgeOkSprite;
-        private Sprite _badgeNoSprite;
+        private BadgeController _badge;
 
         private readonly List<GameObject> _contextRows = new List<GameObject>();
 
@@ -38,12 +36,9 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
             return this;
         }
 
-        public DiagnosticController WithBadge(Image image, TextMeshProUGUI text, Sprite okSprite, Sprite noSprite)
+        public DiagnosticController WithBadge(BadgeController badge)
         {
-            this._badgeImage = image;
-            this._badgeText = text;
-            this._badgeOkSprite = okSprite;
-            this._badgeNoSprite = noSprite;
+            this._badge = badge;
             return this;
         }
 
@@ -75,15 +70,25 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.body.settings
 
         private void OnGamepadConnected(bool connected)
         {
-            if (_badgeImage == null || _badgeText == null)
+            if (_badge == null)
             {
                 return;
             }
-            _badgeImage.sprite = connected ? _badgeOkSprite : _badgeNoSprite;
-            _badgeText.text = ModLocalization.GetString(connected ? "yes" : "no").ToUpperInvariant();
-            _badgeText.color = connected
-                ? SteamInputPalette.SettingsBadgeOkTextColor
-                : SteamInputPalette.SettingsBadgeNoTextColor;
+            string text = ModLocalization.GetString(connected ? "yes" : "no").ToUpperInvariant();
+            if (connected)
+            {
+                _badge.SetState(text,
+                    SteamInputPalette.SettingsBadgeOkTextColor,
+                    SteamInputPalette.SettingsBadgeOkBgColor,
+                    SteamInputPalette.SettingsBadgeOkBorderColor);
+            }
+            else
+            {
+                _badge.SetState(text,
+                    SteamInputPalette.SettingsBadgeNoTextColor,
+                    SteamInputPalette.SettingsBadgeNoBgColor,
+                    SteamInputPalette.SettingsBadgeNoBorderColor);
+            }
         }
 
         private void OnActivatedContextsChanged(List<string> contexts)

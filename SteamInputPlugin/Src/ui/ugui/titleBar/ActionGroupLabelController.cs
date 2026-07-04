@@ -1,6 +1,6 @@
 using UnityEngine;
-using TMPro;
 using com.github.lhervier.ksp.steaminput.ui.ugui.sprites;
+using com.github.lhervier.ksp.shared.ugui.badge;
 using com.github.lhervier.ksp.shared.ugui.styles;
 
 namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
@@ -15,10 +15,10 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
         // Life cycle
         // ============================
 
-        private TextMeshProUGUI _label;
-        public ActionGroupLabelController WithLabelComponent(TextMeshProUGUI label)
+        private BadgeController _badge;
+        public ActionGroupLabelController WithBadge(BadgeController badge)
         {
-            this._label = label;
+            this._badge = badge;
             return this;
         }
 
@@ -39,9 +39,9 @@ namespace com.github.lhervier.ksp.steaminput.ui.ugui.titleBar
 
         private void OnLabelChanged(string value)
         {
-            if (this._label != null)
+            if (this._badge != null)
             {
-                this._label.text = value;
+                this._badge.SetText(value);
             }
         }
     }
