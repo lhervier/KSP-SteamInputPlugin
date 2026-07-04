@@ -10,7 +10,7 @@ using com.github.lhervier.ksp.shared;
 
 namespace com.github.lhervier.ksp.steaminput.ui
 {
-    public class CheatSheetUI : MonoBehaviour
+    public class CheatSheetWindow : MonoBehaviour
     {
         private static readonly ModLogger LOGGER = new ModLogger("SteamInputSettingsUI");
 
@@ -25,7 +25,7 @@ namespace com.github.lhervier.ksp.steaminput.ui
         // ===============================================================
         
         private CheatSheetViewModel viewModel;
-        public CheatSheetUI WithViewModel(CheatSheetViewModel viewModel)
+        public CheatSheetWindow WithViewModel(CheatSheetViewModel viewModel)
         {
             this.viewModel = viewModel;
             return this;

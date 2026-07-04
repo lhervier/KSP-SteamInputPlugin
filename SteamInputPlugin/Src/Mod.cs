@@ -43,7 +43,7 @@ namespace com.github.lhervier.ksp.steaminput
         //  The GUI
         // </summary>
         private CheatSheetViewModel _viewModel;
-        private CheatSheetUI _cheatSheetUI;
+        private CheatSheetWindow _cheatSheetUI;
 
         // <summary>
         //  Coroutine to initialize the plugin
@@ -139,7 +139,7 @@ namespace com.github.lhervier.ksp.steaminput
             // Start the GUI
             LOGGER.LogInfo("Starting Logging UI");
             this._cheatSheetUI = gameObject
-                .AddComponent<CheatSheetUI>()
+                .AddComponent<CheatSheetWindow>()
                 .WithViewModel(this._viewModel);
             LOGGER.LogInfo("Logging UI started");
 
