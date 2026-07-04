@@ -31,9 +31,9 @@ echo - USERID: %USERID%
 
 echo.
 echo ===========================================
-echo Installing plugin
+echo Installing plugin (mod)
 echo ===========================================
-cmd /c "install-plugin.bat"
+cmd /c "SteamInputPlugin\install.bat"
 if errorlevel 1 (
     echo ERROR: Failed to install plugin
     exit /b 1

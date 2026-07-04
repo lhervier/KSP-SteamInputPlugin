@@ -113,10 +113,10 @@ npm --version
 |--------|---------|
 | `setup-env.sh` | Detect KSP and set `KSPDIR` |
 | `build.sh` | Full build (plugin + configuration) |
-| `build-plugin.sh` | C# plugin only |
+| `SteamInputPlugin/build.sh` | C# plugin (mod) only — wraps the shared `KSP-Shared/tools/build.sh` |
 | `build-config.sh` | VDF configuration files only |
 | `install.sh` | Install plugin and Steam configs |
-| `install-plugin.sh` | Plugin only |
+| `SteamInputPlugin/install.sh` | Plugin (mod) only — wraps the shared `KSP-Shared/tools/install.sh` |
 | `install-config.sh` | Controller configuration only |
 | `test-build.sh` | Quick check of tooling and VDF merge (no full plugin build) |
 
@@ -173,7 +173,7 @@ dotnet build SteamInputPlugin/SteamInput.csproj -p:KSP_DATA_DIR="$KSPDIR/KSP_x64
 Or use:
 
 ```bash
-./build-plugin.sh
+./SteamInputPlugin/build.sh
 ```
 
 ### VDF generation fails
@@ -195,6 +195,6 @@ cd MergeScripts && npm ci
 | Build command | `dotnet build` | `dotnet build` |
 | KSP data folder | Usually `KSP_x64_Data` (same as Windows Steam) | `KSP_x64_Data` |
 | Steam paths | `~/.steam/steam/` or `~/.local/share/Steam/` | `C:\Program Files (x86)\Steam\` |
-| Plugin archive | `zip` in `build-plugin.sh` | PowerShell `Compress-Archive` |
+| Plugin archive | `zip` in `KSP-Shared/tools/build.sh` | PowerShell `Compress-Archive` |
 
 For installation steps shared across platforms, see [README.md](README.md).

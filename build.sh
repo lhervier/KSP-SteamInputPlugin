@@ -31,11 +31,18 @@ fi
 
 echo ""
 echo "==========================================="
-echo "Construction du plugin"
+echo "Construction du plugin (mod)"
 echo "==========================================="
-./build-plugin.sh
+# The mod is a self-contained sub-project: it builds into SteamInputPlugin/Release.
+# Gather its zip into the repo-root Release so the distribution bundle stays complete.
+./SteamInputPlugin/build.sh
 if [ $? -ne 0 ]; then
     echo "ERREUR: Échec de la construction du plugin"
+    exit 1
+fi
+cp "SteamInputPlugin/Release/SteamInputMod.zip" "Release/"
+if [ $? -ne 0 ]; then
+    echo "ERREUR: Impossible de copier le zip du plugin dans Release/"
     exit 1
 fi
 

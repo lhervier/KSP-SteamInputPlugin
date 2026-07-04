@@ -29,11 +29,18 @@ if errorlevel 1 (
 
 echo .
 echo ===========================================
-echo Building plugin
+echo Building plugin (mod)
 echo ===========================================
-cmd /c "build-plugin.bat"
+REM The mod is a self-contained sub-project: it builds into SteamInputPlugin\Release.
+REM Gather its zip into the repo-root Release so the distribution bundle stays complete.
+cmd /c "SteamInputPlugin\build.bat"
 if errorlevel 1 (
     echo ERROR: Failed to build plugin
+    exit /b 1
+)
+copy /y "SteamInputPlugin\Release\SteamInputMod.zip" "Release\"
+if errorlevel 1 (
+    echo ERROR: Failed to copy plugin zip into Release
     exit /b 1
 )
 

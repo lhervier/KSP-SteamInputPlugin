@@ -8,9 +8,9 @@ echo "==========================================="
 
 echo ""
 echo "==========================================="
-echo "Installation du plugin"
+echo "Installation du plugin (mod)"
 echo "==========================================="
-./install-plugin.sh
+./SteamInputPlugin/install.sh
 if [ $? -ne 0 ]; then
     echo "ERREUR: Échec de l'installation du plugin"
     exit 1

@@ -6,8 +6,8 @@
     <AssemblyName>SteamInputMod</AssemblyName>
     <RootNamespace>com.github.lhervier.ksp.steaminput</RootNamespace>
     <OutputType>Library</OutputType>
-    <OutputPath>..\Output\bin</OutputPath>
-    <IntermediateOutputPath>..\Output\obj</IntermediateOutputPath>
+    <OutputPath>Output\bin</OutputPath>
+    <IntermediateOutputPath>Output\obj</IntermediateOutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <DebugType>full</DebugType>
