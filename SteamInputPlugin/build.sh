@@ -4,6 +4,5 @@
 # (build-config.* at the repo root).
 set -euo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")"
-export MOD_NAME="SteamInputMod"
-export MOD_SLN="SteamInput.csproj"
+export MOD_CSPROJ="SteamInput.csproj"
 exec bash KSP-Shared/tools/build.sh
