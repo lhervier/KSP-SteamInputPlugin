@@ -4,3 +4,6 @@ Release
 temp
 .claude
 bin
+
+# Localization .cfg are generated from the .properties sources at build time.
+SteamInputPlugin/GameData/*/Localization/*.cfg
