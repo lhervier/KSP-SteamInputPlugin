@@ -6,7 +6,7 @@
         {
             "Full_Press"
             {
-                "#ref"				"/bindings/Game/Editor/offset-mode.vdf"
+                "#ref"				"/bindings/Game/Editor/rotate-mode.vdf"
             }
         }
     }
