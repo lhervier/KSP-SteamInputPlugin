@@ -21,6 +21,11 @@
 			{{! Left Joystick }}
 			"/groups/joystick/freeiva-move.vdf"							"joystick active"
 			
+			{{! Left Trackpad }}
+			{{#if (equals altMouseZone "left_trackpad")}}
+				"/groups/left_trackpad/mouse.vdf"						"left_trackpad active"
+			{{/if}}
+
 			{{! dpadZone }}
 			"/groups/dpadZone/click-zoom.vdf?preset=FreeIva"			"{{dpadZone}} active"
 			"/groups/dpadZone/select-kerbal.vdf"						"{{dpadZone}} active modeshift"

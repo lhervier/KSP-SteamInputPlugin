@@ -1,0 +1,13 @@
+"ref"
+{
+    "click"
+    {
+        "activators"
+        {
+            "Soft_Press"
+            {
+                "#ref"				"/bindings/Common/Mouse/LeftClick.vdf"
+            }
+        }
+    }
+}

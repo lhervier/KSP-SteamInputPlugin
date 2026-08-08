@@ -6,7 +6,7 @@
         {{#if (true trackpadsClick)}}
             "inputs"
             {
-                "#ref"              "/inputs/absolute_mouse/click/click-left.vdf"
+                "#ref"              "/inputs/absolute_mouse/click/click-right.vdf"
             }
         {{/if}}
         "settings"

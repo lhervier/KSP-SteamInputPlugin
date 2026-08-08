@@ -19,6 +19,11 @@
 			{{! Left Joystick }}
 			"/groups/joystick/mission-builder/d-w-s-a.vdf"					"joystick active"
 			
+			{{! Left Trackpad }}
+			{{#if (equals altMouseZone "left_trackpad")}}
+				"/groups/left_trackpad/mouse.vdf"							"left_trackpad active"
+			{{/if}}
+
 			{{! dpadZone }}
 			"/groups/dpadZone/click-scroll.vdf?preset=MissionBuilder"		"{{dpadZone}} active"
 			

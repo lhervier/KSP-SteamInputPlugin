@@ -22,6 +22,11 @@
 			"/groups/joystick/yaw-pitch.vdf"							"joystick active"
 			"/groups/joystick/actiongroups.vdf"							"joystick active modeshift"
 
+			{{! Left Trackpad }}
+			{{#if (equals altMouseZone "left_trackpad")}}
+				"/groups/left_trackpad/mouse.vdf"						"left_trackpad active"
+			{{/if}}
+
 			{{! dpadZone }}
 			"/groups/dpadZone/click-zoom.vdf?preset=MapFlight"			"{{dpadZone}} active"
 			

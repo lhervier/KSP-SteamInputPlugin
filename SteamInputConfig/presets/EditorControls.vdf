@@ -22,8 +22,13 @@
 			"/groups/joystick/editor/rotate-part.vdf"								"joystick active"
 			"/groups/joystick/editor/place-offset-rotate-root.vdf"					"joystick active modeshift"
 			
+			{{! Left Trackpad }}
+			{{#if (equals altMouseZone "left_trackpad")}}
+				"/groups/left_trackpad/mouse.vdf"									"left_trackpad active"
+			{{/if}}
+
 			{{! dpadZone }}
-			"/groups/dpadZone/click-scroll.vdf?preset=Editor"										"{{dpadZone}} active"
+			"/groups/dpadZone/click-scroll.vdf?preset=Editor"						"{{dpadZone}} active"
 
 			{{! Button diamond }}
 			"/groups/button_diamond/editor/reset_rot-delete-sym_cycle-snap.vdf"		"button_diamond active"

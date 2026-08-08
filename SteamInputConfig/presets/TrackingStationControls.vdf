@@ -18,6 +18,11 @@
 
 			{{! Left Joystick }}
 			
+			{{! Left Trackpad }}
+			{{#if (equals altMouseZone "left_trackpad")}}
+				"/groups/left_trackpad/mouse.vdf"					"left_trackpad active"
+			{{/if}}
+
 			{{! dpadZone }}
 			"/groups/dpadZone/click-zoom.vdf?preset=TrackingStation"	"{{dpadZone}} active"
 			

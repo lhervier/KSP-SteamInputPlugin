@@ -12,7 +12,9 @@
         "button_back_right": "button_back_right",
         "button_back_left": "button_back_left",
         "triggersClick": true,
+        "trackpadsClick": false,
         "mouseZone": "right_trackpad",
+        "altMouseZone": "none",
         "dpadZone": "left_trackpad"
       }
     },
@@ -24,7 +26,9 @@
         "button_back_right": "button_back_right",
         "button_back_left": "button_back_left",
         "triggersClick": false,
+        "trackpadsClick": true,
         "mouseZone": "right_trackpad",
+        "altMouseZone": "left_trackpad",
         "dpadZone": "dpad"
       }
     },
@@ -36,7 +40,9 @@
         "button_back_right": "button_back_right",
         "button_back_left": "button_back_left",
         "triggersClick": false,
+        "trackpadsClick": false,
         "mouseZone": "right_joystick",
+        "altMouseZone": "none",
         "dpadZone": "dpad"
       }
     },
@@ -48,7 +54,9 @@
         "button_back_right": "button_back_right",
         "button_back_left": "button_back_left",
         "triggersClick": false,
+        "trackpadsClick": false,
         "mouseZone": "right_joystick",
+        "altMouseZone": "none",
         "dpadZone": "dpad"
       }
     },
@@ -60,7 +68,9 @@
         "button_back_right": "right_stick_click",
         "button_back_left": "left_stick_click",
         "triggersClick": false,
+        "trackpadsClick": false,
         "mouseZone": "right_joystick",
+        "altMouseZone": "none",
         "dpadZone": "dpad"
       }
     }

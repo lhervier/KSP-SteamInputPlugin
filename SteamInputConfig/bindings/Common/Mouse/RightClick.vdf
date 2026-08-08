@@ -4,10 +4,4 @@
     {
         "binding"		"mouse_button RIGHT, #Common_Mouse_rightClick, "
     }
-    {{#if (true haptic)}}
-        "settings"
-        {
-            "haptic_intensity"		"0"
-        }
-    {{/if}}
 }
