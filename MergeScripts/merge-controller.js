@@ -75,7 +75,7 @@ for (const controller of controllersToBuild) {
         const translatedVdf = translateVdf(merged, langDict);
         saveVdfFile(
             translatedVdf,
-            path.join(buildDir, rootVdfPath.replace('.vdf', '') + "_" + lang + "_0.vdf")
+            path.join(buildDir, rootVdfPath.replace('.vdf', '') + "_" + lang + ".vdf")
         );
     }
 }

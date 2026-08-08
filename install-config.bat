@@ -1,5 +1,5 @@
 @echo off
-setlocal
+setlocal enabledelayedexpansion
 
 set APPID=220200
 
@@ -43,34 +43,52 @@ if errorlevel 1 (
 )
 
 echo Copying Controllers VDF
-echo - Steam Controller
-copy /y "Release\ksp_steaminput_steamcontroller_%KSPLANG%.vdf" "%CONTROLLER_CONFIG_DIR%\controller_steamcontroller_gordon.vdf"
-if errorlevel 1 (
-    echo ERROR: Failed to copy Steam Controller config
-    exit /b 1
-)
-echo - Steam Controller V2
-copy /y "Release\ksp_steaminput_steamcontroller_v2_%KSPLANG%.vdf" "%CONTROLLER_CONFIG_DIR%\controller_triton.vdf"
-if errorlevel 1 (
-    echo ERROR: Failed to copy Steam Controller V2 config
-    exit /b 1
-)
-echo - Hori Steam
-copy /y "Release\ksp_steaminput_hori_steam_%KSPLANG%.vdf" "%CONTROLLER_CONFIG_DIR%\controller_hori_steam.vdf"
-if errorlevel 1 (
-    echo ERROR: Failed to copy Hori Steam config
-    exit /b 1
-)
-echo - Xbox Elite
-copy /y "Release\ksp_steaminput_xboxelite_%KSPLANG%.vdf" "%CONTROLLER_CONFIG_DIR%\controller_xboxelite.vdf"
-if errorlevel 1 (
-    echo ERROR: Failed to copy Xbox Elite config
-    exit /b 1
-)
-echo - PS4/PS5
-copy /y "Release\ksp_steaminput_ps4_%KSPLANG%.vdf" "%CONTROLLER_CONFIG_DIR%\controller_ps4.vdf"
-if errorlevel 1 (
-    echo ERROR: Failed to copy PS4/PS5 config
-    exit /b 1
-)
+call :install_controller "Steam Controller" "ksp_steaminput_steamcontroller_%KSPLANG%"
+if errorlevel 1 exit /b 1
+call :install_controller "Steam Controller V2" "ksp_steaminput_steamcontroller_v2_%KSPLANG%"
+if errorlevel 1 exit /b 1
+call :install_controller "Hori Steam" "ksp_steaminput_hori_steam_%KSPLANG%"
+if errorlevel 1 exit /b 1
+call :install_controller "Xbox Elite" "ksp_steaminput_xboxelite_%KSPLANG%"
+if errorlevel 1 exit /b 1
+call :install_controller "PS4/PS5" "ksp_steaminput_ps4_%KSPLANG%"
+if errorlevel 1 exit /b 1
+
 echo Config Installation completed successfully
+exit /b 0
+
+rem Installs Release\<base>.vdf as a new version of the <base> config, or fails (errorlevel 1).
+rem %1 = label to display, %2 = config base name (no extension, no version suffix)
+:install_controller
+setlocal enabledelayedexpansion
+set "LABEL=%~1"
+set "BASE=%~2"
+echo - !LABEL!
+
+set "SRC=Release\!BASE!.vdf"
+if not exist "!SRC!" (
+    echo   ERROR: Missing source file "!SRC!". Run build-config.bat first.
+    exit /b 1
+)
+
+rem Steam names every exported config "<base>_<N>.vdf" and increments N on each export,
+rem and the mod loads the highest N. So scan for the highest existing N (numbering may
+rem have gaps) and write N+1. An unsuffixed file counts as 0, like the mod does.
+set "MAX=-1"
+if exist "%CONTROLLER_CONFIG_DIR%\!BASE!.vdf" set "MAX=0"
+for %%F in ("%CONTROLLER_CONFIG_DIR%\!BASE!_*.vdf") do (
+    set "SUFFIX=%%~nF"
+    set "SUFFIX=!SUFFIX:*%~2_=!"
+    echo !SUFFIX!|findstr /r /c:"^[0-9][0-9]*$" >nul && (
+        if !SUFFIX! gtr !MAX! set "MAX=!SUFFIX!"
+    )
+)
+set /a NEXT=MAX+1
+
+copy /y "!SRC!" "%CONTROLLER_CONFIG_DIR%\!BASE!_!NEXT!.vdf" >nul
+if errorlevel 1 (
+    echo   ERROR: Failed to copy "!SRC!" to "%CONTROLLER_CONFIG_DIR%\!BASE!_!NEXT!.vdf"
+    exit /b 1
+)
+echo   installed as !BASE!_!NEXT!.vdf
+exit /b 0
