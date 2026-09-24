@@ -87,6 +87,8 @@ Pour déclarer qu'un modeshift est possible, il y a deux conditions :
     - Et on va lui en associer un autre, pour son fonctionnement alternatif, en le déclarant grâce au mot clé "modeshift".
 - Il faut ensuite un binding sur l'input qui déclenche le changement de mode. Ce binding va utiliser le mot clé "mode_shift" (avec un "_" cette fois) et va cibler la zone (diamond_button) et le groupe déclaré comme alternatif dans le preset.
 
+**Un seul modeshift par zone physique.** Le format VDF permet d'en déclarer plusieurs pour une même zone, et Valve ne l'interdit pas syntaxiquement, mais Steam **refuse les bindings** au chargement dès qu'une zone en a plus d'un (constaté le 2026-05-29 : une implémentation complète générait des VDF d'apparence valide pour les 5 manettes, tous refusés). Pour obtenir l'effet de deux modeshifts sur une zone (p. ex. un via un back button, un autre via le clic de `right_joystick`), il faut passer par les **layers** (voir plus bas), avec leurs défauts : ils doublent les groupes d'actions visibles dans l'interface Steam, et la Cheatsheet du mod ne les gère pas. Ne pas reproposer le multi-modeshift : le code expérimental est conservé sur la branche `feature/multi-modeshift`, jamais fusionnée dans `master`.
+
 ## Les layers
 
 Un "layer" (couche d'action) est un preset particulier qui se **superpose** au preset actuellement actif, au lieu de le remplacer. Là où le passage d'un preset à un autre change tout le comportement de la manette, l'activation d'un layer ne redéfinit que les zones qu'il déclare ; toutes les autres zones continuent de se comporter comme dans le preset de base.
@@ -109,7 +111,7 @@ Un layer est déclaré à deux endroits :
 
 On active un layer grâce à un binding `controller_action hold_layer N 0 0, , `, où `N` est la **position** du preset-layer dans la liste des presets. Tant que l'input qui porte ce binding est maintenu, le layer est actif ; dès qu'on relâche, il est désactivé.
 
-Attention : `N` est la position **1-based** du layer dans la liste des presets (la couche 0 étant le set de base), et **non** la valeur du champ `id` du preset (qui, lui, est numéroté à partir de 0). Les deux diffèrent donc de 1, et il ne faut surtout pas les confondre.
+Attention : `N` est la position **1-based** du layer dans la liste des presets (la couche 0 étant le set de base), et **non** la valeur du champ `id` du preset (qui, lui, est numéroté à partir de 0). Les deux diffèrent donc de 1, et il ne faut surtout pas les confondre. Garder le `+1` dans le calcul de la position (helper `layerPos`, `buildLayerPosMap` dans `layer-bindings-utils.js`), **pas** renuméroter les `id` à partir de 1 : le set par défaut MenuControls doit garder `id 0`, et ce champ a un contrat externe incertain.
 
 ### La résolution de la position du layer
 
